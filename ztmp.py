@@ -1,8 +1,5 @@
 
 
-
-
-
 import sys
 
 from loguru import logger
@@ -34,16 +31,34 @@ logger.configure(**config)
 
 
 def myfun():
-  logger.info('myinfo', 'ok')
-  logger.error(' some error')
+  logger.info(  f'myinfo', 'ok')a
+  logger.error( f' some error')
 
+  ...: logger.debug("debug message"    ) 
+   ...: logger.info("info level message") 
+   ...: logger.warning("warning level message") 
+   ...: logger.critical("critical level message")
 
 myfun()
 
 
 log  = logger.info
-log2 = logger.warning
-log3 = logger.error
+log2 = logger.debug
+logw = logger.warning
+loge = logger.error
+logc = logger.critical
+
+
+
+x = 7
+
+def myfun2():
+   log(  f'  {x}' )
+   log2(  f'  {x}' )
+   logw(  f'  {x}' )
+   loge(  f'  {x}' )
+   logc(  f'  {x}' )
+
 
 
 
@@ -67,4 +82,37 @@ person = {'name': 'Alice', 'age': 12}
 logger.info(f"info: {person}")
 
 
+
+  ...: logger.debug("debug message"    ) 
+   ...: logger.info("info level message") 
+   ...: logger.warning("warning level message") 
+   ...: logger.critical("critical level message")
+
+
+
+
+import os
+import sys
+ 
+from loguru import logger
+ 
+logger.add(os.path.expanduser("~/Desktop/exception_log.log"), backtrace=True, diagnose=True)
+ 
+def func(a, b):
+    return a / b
+ 
+def nested(c):
+    try:
+        func(5, c)
+    except ZeroDivisionError:
+        logger.exception("What?!")
+ 
+if __name__ == "__main__":
+    nested(0)
+
+
+
+
+
+https://qxf2.com/blog/replace-python-standard-logging-with-loguru/
 
