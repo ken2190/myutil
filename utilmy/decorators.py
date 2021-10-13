@@ -1,11 +1,34 @@
 from threading import Thread
-import cProfile, pstats, io
-import os
-import errno
-import signal
+import cProfile, pstats, io, os, errno, signal, time
 from functools import wraps
-import time
 from contextlib import contextmanager
+from utilmy.debug import log
+
+
+
+
+
+
+
+########################################################################################################################
+########################################################################################################################
+def thread_decorator(func):
+    """ A decorator to run function in background on thread
+	Return:
+		background_thread: ``Thread``
+    """
+    @wraps(func)
+    def wrapper(*args, **kwags):
+        background_thread = Thread(target=func, args=(*args,))
+        background_thread.daemon = True
+        background_thread.start()
+        return background_thread
+
+    return wrapper
+
+
+
+
 
 ########################################################################################################################
 class _TimeoutError(Exception):
@@ -13,13 +36,8 @@ class _TimeoutError(Exception):
     pass
 
 
-
-
-
-
-
 ########################################################################################################################
-def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+def timeout_decorator(seconds=10, error_message=os.strerror(errno.ETIME)):
     """Decorator to throw timeout error, if function doesnt complete in certain time
     Args:
         seconds:``int``
@@ -46,7 +64,7 @@ def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
     return decorator
 
 
-def timer(func):
+def timer_decorator(func):
     """
     Decorator to show the execution time of a function or a method in a class.
     """
@@ -84,7 +102,7 @@ def profiler_context():
         print(profiler.output_text(unicode=True, color=True))
 
 
-def profiler_deco(func):
+def profiler_decorator(func):
     """
     A decorator that will profile a function
     And print the result of profiler.
@@ -123,65 +141,32 @@ def profiler_decorator_base(fnc):
 
 
 
-########################################################################################################################
-def os_multithread(**kwargs):
-    """
-    Creating n number of threads:  1 thread per function,
-    starting them and waiting for their subsequent completion
-   Example:
-        os_multithread(function1=(function_name1, (arg1, arg2, ...)),
-                       ...)
+def test0():
+    with profiler_context():
+        x = sum(range(1000000))
+        print(x)
+    from utilmy import profiler_start, profiler_stop
+    profiler_start()
+    print(sum(range(1000000)))
+    profiler_stop()
 
-    def test_print(*args):
-        print(*args)
+@thread_decorator
+def thread_decorator_test():
+    log("thread decorator")
 
-    os_multithread(function1=(test_print, ("some text",)),
-                          function2=(test_print, ("bbbbb",)),
-                          function3=(test_print, ("ccccc",)))
+@profiler_decorator_base
+def profiler_decorator_base_test():
+    log("profiler decorator")
 
-
-    """
-    class ThreadWithResult(Thread):
-        def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None):
-            def function():
-                self.result = target(*args, **kwargs)
-            super().__init__(group=group, target=function, name=name, daemon=daemon)
-
-    list_of_threads = []
-    for thread in kwargs.values():
-        t = ThreadWithResult(target=thread[0], args=thread[1])
-        list_of_threads.append(t)
-
-    for thread in list_of_threads:
-        thread.start()
-
-    results = []
-    for thread, keys in zip(list_of_threads, kwargs.keys()):
-        thread.join()
-        results.append((keys, thread.result))
-
-    return results
+@timeout_decorator(10)
+def timeout_decorator_test():
+    log("timeout decorator")
 
 
-def threading_deco(func):
-    """ A decorator to run function in background on thread
-	Args:
-		func:``function``
-			Function with args
+@profiler_decorator
+def profiled_sum():
+    return sum(range(100000))
 
-	Return:
-		background_thread: ``Thread``
-
-    """
-
-    @wraps(func)
-    def wrapper(*args, **kwags):
-        background_thread = Thread(target=func, args=(*args,))
-        background_thread.daemon = True
-        background_thread.start()
-        return background_thread
-
-    return wrapper
-
-
-
+@timer_decorator
+def dummy_func():
+    time.sleep(2)

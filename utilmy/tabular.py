@@ -1,4 +1,4 @@
-"""
+HELP="""
 
 https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 
@@ -9,13 +9,101 @@ https://pypi.org/project/pysie/#description
 """
 import os, sys, pandas as pd, numpy as np
 
+from utilmy.utilmy import pd_generate_data
+from utilmy.prepro.util_feature import  pd_colnum_tocat, pd_colnum_tocat_stat
+
+
+
+
+def test0():
+    df = pd_generate_data(7, 100)
+    test_anova(df, 'cat1', 'cat2')
+    test_normality2(df, '0', "Shapiro")
+    test_plot_qqplot(df, '1')
+    '''TODO: import needed
+    NameError: name 'pd_colnum_tocat' is not defined
+    test_mutualinfo(df["0"],df[["1","2","3"]],colname="test")
+    '''
+
+def test1():
+    from sklearn.tree import DecisionTreeRegressor
+    from sklearn.model_selection import train_test_split
+
+    df = pd.read_csv("../testdata/tmp/test/crop.data.csv")
+    model = DecisionTreeRegressor(random_state=1)
+    y = df.fertilizer
+    X = df[["yield","density","block"]]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.50, random_state=42)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    test_normality(df["yield"])
+    log(test_heteroscedacity(y_test,y_pred))
+    log(test_hypothesis(X_train, X_test,"chisquare"))
+    log(estimator_std_normal(y_pred))
+    log(estimator_boostrap_bayes(y_pred))
+    '''TODO: need to check this one
+    estimator_bootstrap(y_pred, custom_stat=custom_stat(y_pred))
+    '''
+    pd_train_test_split_time(df, coltime="block")
+    pd_to_scipy_sparse_matrix(df)
+    '''TODO: git test failling here'''
+    #log(pd_stat_correl_pair(df,coltarget=["fertilizer"],colname=["yield"]))
+
+    # pd_stat_pandas_profile(df,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
+
+    pd_stat_distribution_colnum(df, nrows=len(df))
+    '''TODO: KeyError: 'freqall
+    pd_stat_histogram(df, bins=50, coltarget="yield")
+    '''
+    ''' TODO: error KeyError: 'colname_mean' , why we appending '_mean' on colname 
+    pd_stat_shift_trend_changes(df,"density","block")
+    '''
+    X_train["yield"] =  X_train["yield"].astype('category')
+    X_test["yield"] =  X_test["yield"].astype('category')
+    '''TODO: KeyError: "['block_mean'] not in index
+    pd_stat_shift_trend_correlation(X_train, X_test,"yield","block")
+    '''
+    '''TODO: TypeError: pd_colnum_tocat_stat() got an unexpected keyword argument 'colname'
+    pd_stat_shift_changes(df,"yield", features_list=["density","block"])
+    '''
+
+
+def test3():
+    arr = np.array([[1, 2, 3], [4, 5, 6]])
+    np_col_extractname(["aa_","bb-","cc"])
+    np_list_remove(arr,[1,2,3], mode="exact")
+    np_conv_to_one_col(arr)
+
+
 def log(*s):
     print(s)
 
 
 #############################################################################
 #############################################################################
+def y_adjuster_log(y_true, y_pred_log, error_func, **kwargs):
+    """
+       Adjustment of log, exp transfrmation for yt= y + error
+       https://www.inovex.de/de/blog/honey-i-shrunk-the-target-variable/
+       
+       log(y) = u =sigma**2
+    
+    """
+    import scipy as sp
 
+    def cost_func(delta):
+        return error_func(np.exp(delta + y_pred_log), y_true)
+
+    res = sp.optimize.minimize(cost_func, 0., **kwargs)
+    if res.success:
+        return res.x
+    else:
+        raise RuntimeError(f"Finding correction term failed!\n{res}")
+
+
+            
+
+    
 def test_anova(df, col1, col2):
     """
     ANOVA test two categorical features
@@ -279,10 +367,11 @@ def pd_stat_pandas_profile(df, savefile="report.html", title="Pandas Profile"):
         #Pandas-Profiling 2.0.0
         df.profile_report()
     """
+    from pandas_profiling import ProfileReport
     print("start profiling")
     profile = df.profile_report(title=title)
     profile.to_file(output_file=savefile)
-    colexclude = profile.get_rejected_variables(threshold=0.98)
+    colexclude = profile.get_rejected_variables()
     return colexclude
 
 
@@ -337,7 +426,8 @@ def pd_stat_histogram(df, bins=50, coltarget="diff"):
         df[coltarget].values, bins=bins, range=None, normed=None, weights=None, density=None
     )
     hh2 = pd.DataFrame({"bins": hh[1][:-1], "freq": hh[0]})
-    hh2["density"] = hh2["freqall"] / hh2["freqall"].sum()
+    # hh2["density"] = hh2["freqall"] / hh2["freqall"].sum()
+    hh2["density"] = hh2["freq"] / hh2["freq"].sum()
     return hh2
 
 
@@ -389,6 +479,99 @@ def np_list_remove(cols, colsremove, mode="exact"):
 
 
 ####################################################################################################
+def get_grouped_data(input_data, feature, target_col, bins, cuts=0):
+    """
+    Bins continuous features into equal sample size buckets and 
+    returns the target mean in each bucket. Separates out nulls into 
+    another bucket.
+    
+    :param input_data: dataframe containg features and target column.
+    :param feature: feature column name.
+    :param target_col: target column.
+    :param bins: Number bins required.
+    :param cuts: if buckets of certain specific cuts are required. Used 
+    on test data to use cuts from train.
+    :return: If cuts are passed only grouped data is returned, else cuts 
+    and grouped data is returned.
+    """
+
+    input_data[feature] = input_data[feature].round(5)
+    has_null = pd.isnull(input_data[feature]).sum() > 0
+    if has_null == 1:
+        data_null = input_data[pd.isnull(input_data[feature])]
+        input_data = input_data[~pd.isnull(input_data[feature])]
+        input_data.reset_index(inplace=True, drop=True)
+
+    is_train = 0
+    if cuts == 0:
+        is_train = 1
+        prev_cut = min(input_data[feature]) - 1
+        cuts = [prev_cut]
+        reduced_cuts = 0
+        for i in range(1, bins + 1):
+            next_cut = np.percentile(input_data[feature], i * 100 / bins)
+            if (
+                next_cut > prev_cut + 0.000001
+            ):  # float numbers shold be compared with some threshold!
+                cuts.append(next_cut)
+            else:
+                reduced_cuts = reduced_cuts + 1
+            prev_cut = next_cut
+
+        # if reduced_cuts>0:
+            # print(
+            # 'Reduced the number of bins due to less variation in feature'
+            # )
+        
+        cut_series = pd.cut(input_data[feature], cuts)
+    else:
+        cut_series = pd.cut(input_data[feature], cuts)
+
+    grouped = input_data.groupby([cut_series], as_index=True).agg(
+        {target_col: [np.size, np.mean], feature: [np.mean]}
+    )
+    grouped.columns = [
+        "_".join(cols).strip() for cols in grouped.columns.values
+    ]
+    grouped[grouped.index.name] = grouped.index
+    grouped.reset_index(inplace=True, drop=True)
+    grouped = grouped[[feature] + list(grouped.columns[0:3])]
+    grouped = grouped.rename(
+        index=str, columns={target_col + "_size": "Samples_in_bin"}
+    )
+    grouped = grouped.reset_index(drop=True)
+    corrected_bin_name = (
+        "["
+        + str(round(min(input_data[feature]), 5))
+        + ", "
+        + str(grouped.loc[0, feature]).split(",")[1]
+    )
+    grouped[feature] = grouped[feature].astype("category")
+    grouped[feature] = grouped[feature].cat.add_categories(corrected_bin_name)
+    grouped.loc[0, feature] = corrected_bin_name
+
+    if has_null == 1:
+        grouped_null = grouped.loc[0:0, :].copy()
+        grouped_null[feature] = grouped_null[feature].astype("category")
+        grouped_null[feature] = grouped_null[feature].cat.add_categories(
+            "Nulls"
+        )
+        grouped_null.loc[0, feature] = "Nulls"
+        grouped_null.loc[0, "Samples_in_bin"] = len(data_null)
+        grouped_null.loc[0, target_col + "_mean"] = data_null[
+            target_col
+        ].mean()
+        grouped_null.loc[0, feature + "_mean"] = np.nan
+        grouped[feature] = grouped[feature].astype("str")
+        grouped = pd.concat([grouped_null, grouped], axis=0)
+        grouped.reset_index(inplace=True, drop=True)
+
+    grouped[feature] = grouped[feature].astype("str").astype("category")
+    if is_train == 1:
+        return (cuts, grouped)
+    else:
+        return grouped
+
 def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
     """
     Calculates number of times the trend of feature wrt target changed direction.
@@ -433,6 +616,7 @@ def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
                              suffixes=('', '_test'))
     nan_rows = pd.isnull(df_test_train[target_col + '_mean']) | pd.isnull(
         df_test_train[target_col + '_mean_test'])
+
     df_test_train = df_test_train.loc[~nan_rows, :]
     if len(df_test_train) > 1:
         trend_correlation = np.corrcoef(df_test_train[target_col + '_mean'],
@@ -466,8 +650,8 @@ def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
         if df[colname].dtype == 'O' or colname == target_col:
             ignored.append(colname)
         else:
-            cuts, df_grouped = pd_colnum_tocat_stat(df=df, colname=colname, target_col=target_col, bins=bins)
-            trend_changes    = pd_stat_shift_trend_correlation(df=df_grouped, colname=colname, target_col=target_col)
+            cuts, df_grouped = pd_colnum_tocat_stat(df=df,feature=colname, target_col=target_col, bins=bins)
+            trend_changes    = pd_stat_shift_trend_correlation(df=df_grouped,df_test=df_test, colname=colname, target_col=target_col)
             if has_test:
                 df_test            = pd_colnum_tocat_stat(df=df_test.reset_index(drop=True), colname=colname,
                                                           target_col  = target_col, bins=bins, cuts=cuts)

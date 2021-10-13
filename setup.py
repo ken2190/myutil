@@ -22,7 +22,7 @@ print("version", version)
 ##### Requirements ###################################################################
 #with open('install/reqs_image.txt') as fp:
 #    install_requires = fp.read()
-install_requires = ['pyyaml']
+install_requires = ['pyyaml', 'stdlib_list', 'python-box' ]
 
 
 
@@ -40,21 +40,25 @@ def get_current_githash():
 githash = get_current_githash()
 
 
-long_description =  f"""
-
-```
+#####################################################################################
+ss1 = f"""
 Utils
 
+https://packagegalaxy.com/python/utilmy
+
+
+
 git hash : https://github.com/arita37/myutil/tree/{githash}
-
-
-```
 """
+
+long_description = f""" ``` """ + ss1 +  """```"""
 
 
 
 ### Packages  ########################################################
 packages = ["utilmy"] + ["utilmy." + p for p in find_packages("utilmy")]
+#packages = ["utilmy"] + ["utilmy.viz" + p for p in find_packages("utilmy.viz")]
+packages = ["utilmy"] + [ p for p in  find_packages(include=['utilmy.*']) ]
 print(packages)
 
 
@@ -65,10 +69,12 @@ scripts = [     ]
 ### CLI Scripts  ###################################################   
 entry_points={ 'console_scripts': [
 
-              ] }
+    'docs=utilmy.docs.cli:run_cli',
+
+    'templates=utilmy.templates.cli:run_cli'
 
 
-
+ ] }
 
 
 

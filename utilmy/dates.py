@@ -1,6 +1,36 @@
 # pylint: disable=C0321,C0103,C0301,E1305,E1121,C0302,C0330,C0111,W0613,W0611,R1705
 # -*- coding: utf-8 -*-
 import os, sys, time, datetime,inspect, json, yaml, gc
+import numpy as np
+import pandas as pd
+
+
+
+def test():
+    log("Testing dates.py ...")
+    date_ = date_generate(start='2021-01-01', ndays=100)
+    date_weekyear_excel('20210317')
+    date_weekday_excel('20210317')
+    #TODO:
+    #date_is_holiday([ pd.to_datetime("2015/1/1") ] * 10)
+    #date_now(fmt="%Y-%m-%d %H:%M:%S %Z%z", add_days=0, timezone='Asia/Tokyo')
+    df = pd.DataFrame(columns=[ 'Gender', 'Birthdate'])
+    df['Gender'] = random_genders(10)
+    df['Birthdate'] = random_dates(start=pd.to_datetime('1940-01-01'), end=pd.to_datetime('2008-01-01'), size=10)
+    # TODO:
+    #pd_date_split(df,coldate="Birthdate")
+
+def random_dates(start, end, size):
+    divide_by = 24 * 60 * 60 * 10**9
+    start_u = start.value // divide_by
+    end_u = end.value // divide_by
+    return pd.to_datetime(np.random.randint(start_u, end_u, size), unit="D")
+    
+def random_genders(size, p=None):
+    if not p:
+        p = (0.49, 0.49, 0.01, 0.01)
+    gender = ("M", "F", "O", "")
+    return np.random.choice(gender, size=size, p=p)
 
 
 def log(*s):
@@ -25,11 +55,12 @@ def pd_date_split(df, coldate =  'time_key', prefix_col ="", verbose=False ):
     df['weekyear2']     = df['date'].apply( lambda x : date_weekyear2( x )  )
     df['quarter']       = df.apply( lambda x :  int( x['month'] / 4.0) + 1 , axis=1  )
 
-    df['yearweek']      = df.apply(  lambda x :  merge1(  x['year']  , x['weekyeariso'] )  , axis=1  )
-    df['yearmonth']     = df.apply( lambda x : merge1( x['year'] ,  x['month'] )         , axis=1  )
-    df['yearquarter']   = df.apply( lambda x : merge1( x['year'] ,  x['quarter'] )         , axis=1  )
+    """TODO: define merge1 here"""
+    # df['yearweek']      = df.apply(  lambda x :  merge1(  x['year']  , x['weekyeariso'] )  , axis=1  )
+    # df['yearmonth']     = df.apply( lambda x : merge1( x['year'] ,  x['month'] )         , axis=1  )
+    # df['yearquarter']   = df.apply( lambda x : merge1( x['year'] ,  x['quarter'] )         , axis=1  )
 
-    df['isholiday']     = date_is_holiday( df['date'].values )
+    df['isholiday']     = date_is_holiday(df['date'])
 
     exclude = [ 'date', coldate]
     df.columns = [  prefix_col + x if not x in exclude else x for x in df.columns]
@@ -39,25 +70,24 @@ def pd_date_split(df, coldate =  'time_key', prefix_col ="", verbose=False ):
 
 
 def date_now(fmt="%Y-%m-%d %H:%M:%S %Z%z", add_days=0, timezone='Asia/Tokyo'):
-    from pytz import timezone
-    from datetime import datetime
+    from pytz import timezone as timz
+    import datetime
     # Current time in UTC
-    now_utc = datetime.now(timezone('UTC'))
+    now_utc = datetime.datetime.now(timz('UTC'))
     now_new = now_utc+ datetime.timedelta(days=add_days)
 
     # Convert to US/Pacific time zone
-    now_pacific = now_new.astimezone(timezone(timezone))
+    now_pacific = now_new.astimezone(timz(timezone))
     return now_pacific.strftime(fmt)
 
 
 def date_is_holiday(array):
     """
       is_holiday([ pd.to_datetime("2015/1/1") ] * 10)
-
     """
     import holidays , numpy as np
     jp_holidays = holidays.CountryHoliday('JP')
-    return np.array( [ 1 if x.astype('M8[D]').astype('O') in jp_holidays else 0 for x in array]  )
+    return np.array( [ 1 if x in jp_holidays else 0 for x in array]  )
 
 
 def date_weekmonth2(d):
@@ -82,29 +112,17 @@ def date_weekyear2(dt) :
 
 
 def date_weekday_excel(x) :
- import arrow
- wday= arrow.get( str(x) , "YYYYMMDD").isocalendar()[2]
+ import datetime
+ date = datetime.datetime.strptime(x,"%Y%m%d")
+ wday = date.weekday()
  if wday != 7 : return wday+1
  else :    return 1
 
 
 def date_weekyear_excel(x) :
- import arrow
- dd= arrow.get( str(x) , "YYYYMMDD")
- wk1= dd.isocalendar()[1]
-
- # Excel Convention
- # dd0= arrow.get(  str(dd.year) + "0101", "YYYYMMDD")
- dd0_weekday= date_weekday_excel( dd.year *10000 + 101  )
- dd_limit= dd.year*10000 + 100 + (7-dd0_weekday+1) +1
-
- ddr= arrow.get( str(dd.year) + "0101" , "YYYYMMDD")
- # print dd_limit
- if    int(x) < dd_limit :
-    return 1
- else :
-     wk2= 2 + int(((dd-ddr ).days  - (7-dd0_weekday +1 ) )   /7.0 )
-     return wk2
+ import datetime
+ date = datetime.datetime.strptime(x,"%Y%m%d")
+ return date.isocalendar()[1]
 
 
 def date_generate(start='2018-01-01', ndays=100) :
@@ -118,7 +136,3 @@ def date_generate(start='2018-01-01', ndays=100) :
 if __name__ == "__main__":
     import fire
     fire.Fire()
-
-
-
-
