@@ -11,15 +11,15 @@ def logger_setdefault():
     Returns:
     """
     # Linux / OSX
-    cmd = "export LOGURU_FORMAT="{time} | <lvl>{message}</lvl>""
+    cmd = "export LOGURU_FORMAT='{time} | <lvl>{message}</lvl>' "
 
     # Windows
     cmd = 'setx LOGURU_DEBUG_COLOR "<green>"'
 
 
 
-def log(*s):
-    logger.info(",".join([ str(t) for t in s  ]) )
+#def log(*s):
+#    logger.info(",".join([ str(t) for t in s  ]) )
 
 def log2(*s):
     logger.warning(",".join([ str(t) for t in s  ]) )
