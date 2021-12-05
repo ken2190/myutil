@@ -1,0 +1,116 @@
+fire
+python-box
+numpy
+pandas
+scipy
+loguru
+
+########################################################
+flake8
+
+
+########################################################
+#### utilmy.date
+arrow
+
+
+
+########################################################
+#### utilmy.debug
+pyinstrument  ### code profile
+icecream  ### debugger
+rebound-cli  ## stackoverflow
+pysnooper   ### Debugger show lines of code step by ste
+snoop
+
+
+########################################################
+#### utilmy.utils
+wget
+psutil
+
+########################################################
+#### utilmy.text
+datasketch  ### lSH
+rapidfuzz
+editdistance
+
+gensim==4.1.2
+nltk==3.6.3
+essential-generators==1.0
+
+
+########################################################
+#### utilmy.viz.html
+seaborn
+tqdm
+matplotlib
+python-highcharts  
+mpld3
+geopandas 
+fiona
+pyproj
+rtree
+shapely
+pretty-html-table
+networkx
+pyvis
+
+
+#########################################################
+#### utilmy.down
+wget
+
+
+########################################################
+#### utilmy.docs
+stdlib_list
+
+
+########################################################
+#### utilmy.keyvalue
+diskcache
+
+
+########################################################
+#### utilmy.adatasets
+scikit-learn
+pmlb
+pandas_profiling
+
+
+
+########################################################
+#### utilmy.dates
+holidays
+
+
+
+###############################
+## tabular
+statsmodels
+hypothetical
+bootstrapped
+
+
+
+
+########################################################
+#### utilmy.deeplearning
+faiss-cpu
+tensorflow-cpu==2.2.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
