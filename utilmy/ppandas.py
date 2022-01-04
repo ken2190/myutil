@@ -487,6 +487,9 @@ class dict_to_namespace(object):
 
 def to_dict(**kw):
   ## return dict version of the params
+  import pandas as pd
+  kw = pd.DataFrame(kw)
+  kw = kw.to_dict()
   return kw
 
 
