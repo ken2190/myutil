@@ -6,16 +6,14 @@ Similarity between tensors
 import os, sys, pandas as pd, numpy as np
 import tensorflow as tf
 
-
 #################################################################################################
 from utilmy.utilmy import log, log2
+from typing import Iterable
 
 def help():
     from utilmy import help_create
     ss = help_create("utilmy.deeplearning.keras.util_similarity") + HELP
     print(ss)
-
-
 
 
 ######################################################################################
@@ -24,6 +22,9 @@ def test_all():
 
 
 def test_tf_cdist():
+    """
+    Tests all similarity functions.
+    """
     from scipy.spatial.distance import cdist
     from tqdm import tqdm
     from utilmy.deeplearning.keras.util_similarity import tf_cdist
@@ -62,7 +63,12 @@ def test_tf_cdist():
 
 
 ######################################################################################
-def tf_cdist(left, right, metric='euclidean'):
+def tf_cdist(left: Iterable[float], right: Iterable[float], metric: str ='euclidean'):
+    """ 
+    Computes `metric` distance between tensors.\n
+    Parameters: 
+    left, right: tensor or array-like, metric: 'euclidean' or 'cosine'
+    """
     #### distance between tensor
     if metric == 'euclidean':
         return tf_cdist_euclidean(left, right)
@@ -73,7 +79,12 @@ def tf_cdist(left, right, metric='euclidean'):
         raise ValueError(err_msg)
 
 
-def tf_cdist_euclidean(left, right):
+def tf_cdist_euclidean(left: Iterable[float], right: Iterable[float]) -> tf.Tensor:
+    """ 
+    Computes euclidean distance between tensors.\n
+    Parameters:
+    left, right: tensor or array-like
+    """
     left, right                       = __cast_left_and_right_to_tensors(left, right)
     rows_count_left, rows_count_right = __get_rows_counts(left, right)
     left_sqr                          = __get_tensor_sqr(left, (-1, 1), (1, rows_count_right))
@@ -84,7 +95,12 @@ def tf_cdist_euclidean(left, right):
     distance                          = tf.cast(distance, tf.float32)
     return distance
 
-def tf_cdist_cos(left, right):
+def tf_cdist_cos(left: Iterable[float], right: Iterable[float]) -> tf.Tensor:
+    """ 
+    Computes cosine distance between tensors.\n
+    Parameters:
+    left, right: tensor or array-like
+    """
     left, right = __cast_left_and_right_to_tensors(left, right)
     norm_left   = __get_tensor_reshaped_norm(left, (-1, 1))
     norm_right  = __get_tensor_reshaped_norm(right, (1, -1))
@@ -96,18 +112,27 @@ def tf_cdist_cos(left, right):
 
 
 def __cast_left_and_right_to_tensors(left, right):
+    """Cast left, right into tensors.\n
+    Parameters:
+    left, right: tensor or array-like"""
     left  = tf.cast(tf.convert_to_tensor(left), dtype=tf.float32)
     right = tf.cast(tf.convert_to_tensor(right), dtype=tf.float32)
     return left, right
 
 
 def __get_rows_counts(left, right):
+    """ Count rows for left, right.\n
+    Parameters:
+    left, right: tensor"""
     count_left  = tf.shape(left)[0]
     count_right = tf.shape(right)[0]
     return count_left, count_right
 
 
 def __get_tensor_sqr(tensor, reshape_shape, tile_shape):
+    """ Calculate the element-wise square of a tensor.\n
+    Parameters:
+    left, right: tensor"""
     sqr = tf.pow(tensor, 2.0)
     sqr = tf.reduce_sum(sqr, axis=1)
     sqr = tf.reshape(sqr, reshape_shape)
@@ -115,11 +140,10 @@ def __get_tensor_sqr(tensor, reshape_shape, tile_shape):
     return sqr
 
 
-
-
 def __get_tensor_reshaped_norm(tensor, reshape_shape):
+    """ Normalize and reshape the tensor.\n
+    Parameters:
+    tensor, reshape_shape: int"""
     norm = tf.norm(tensor, axis=1)
     norm = tf.reshape(norm, reshape_shape)
     return norm
-
-
