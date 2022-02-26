@@ -10,8 +10,8 @@ HELP  = """ Utils for type generation
 
 
 """
-from email.policy import default
 import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
+from email.policy import default
 import subprocess, shutil, re, sysconfig
 from box import Box
 from ast import literal_eval
@@ -46,6 +46,22 @@ def test1():
   os.system( f"ls {dirout}/")
 
 
+def test2():
+  log(utilmy.__file__)
+
+  dir0 = utilmy.__file__.replace("\\","/") 
+  dir0 = "/".join( dir0.split("/")[:-2])  +"/"
+  log(dir0)
+  os.chdir(dir0)
+
+  dirin  = "utilmy/tabular/" 
+  dirout = "docs/stub/"
+
+  run_monkeytype(dirin, dirout, mode='stub', diroot=None, nfile=10, exclude="sparse" )
+  os.system( f"ls {dirout}/")
+
+
+##############################################################################################
 def run_utilmy(nfile=100):
   log(utilmy.__file__)
   exclude = "";
@@ -74,38 +90,7 @@ def run_utilmy2(nfile=100):
 
 
 
-def test2():
-  log(utilmy.__file__)
-
-  dir0 = utilmy.__file__.replace("\\","/") 
-  dir0 = "/".join( dir0.split("/")[:-2])  +"/"
-  log(dir0)
-  os.chdir(dir0)
-
-  dirin  = "utilmy/tabular/" 
-  dirout = "docs/stub/"
-
-  run_monkeytype(dirin, dirout, mode='stub', diroot=None, nfile=10, exclude="sparse" )
-  os.system( f"ls {dirout}/")
-
-
-
-def os_path_norm(diroot):
-    diroot = diroot.replace("\\", "/")
-    return diroot + "/" if diroot[-1] != "/" else  diroot
-
-
-
-def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
-    flist = glob.glob(dirin + suffix) 
-    flist = flist + glob.glob(dirin + "/**/" + suffix ) 
-    if exclude != "":
-      flist = [ fi for fi in flist if exclude not in fi ]
-    flist = flist[:nfile]
-    log(flist)
-    return flist
-
-
+##############################################################################################
 def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10, exclude="" ):
     """Generate type hints for files
           Args:
@@ -122,11 +107,6 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
             diroot = dir0        
             dirin = dirin.replace("\\", "/") + '/'
     """   
-
-
-
-
-
     import os, sys
     os.makedirs(dirout, exist_ok=True)
     if "utilmy." in dirin :
@@ -190,6 +170,22 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
 
 
+
+if 'utilities':
+    def os_path_norm(diroot):
+        diroot = diroot.replace("\\", "/")
+        return diroot + "/" if diroot[-1] != "/" else  diroot
+
+
+
+    def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
+        flist = glob.glob(dirin + suffix) 
+        flist = flist + glob.glob(dirin + "/**/" + suffix ) 
+        if exclude != "":
+          flist = [ fi for fi in flist if exclude not in fi ]
+        flist = flist[:nfile]
+        log(flist)
+        return flist
 
 
 ################################################################################
