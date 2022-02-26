@@ -1,1 +1,1 @@
-No traces found for module utilmy.tabular.__init__
+/bin/sh: 1: monkeytype: not found

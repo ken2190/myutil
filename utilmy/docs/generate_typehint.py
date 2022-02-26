@@ -9,6 +9,15 @@ HELP  = """ Utils for type generation
   documentation here: https://pypi.org/project/MonkeyType/
 
 
+### pip install fire
+if __name__ == '__main__':
+  #import fire
+  #fire.Fire()  ### Allow to run all function as CLI
+  ## --> python utilmy/docs/generate_typehint.py  test1
+
+
+
+
 """
 import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
 from email.policy import default
@@ -191,5 +200,7 @@ if 'utilities':
 ################################################################################
 ################################################################################
 if __name__ == '__main__':
-  test1()
- 
+  test2()
+  #import fire
+  #fire.Fire()  ### python utilmy/ZZZZZ/util_xxxx.py  test1
+
