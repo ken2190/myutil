@@ -36,6 +36,60 @@ def test_all():
 
 
 
+
+##############################################################################################
+Refactor process :
+
+
+
+class datasetCreate_cardio():
+     def preprocess():
+     def create_dataloader()
+
+
+class RuleEncoder_Create(
+       def create_model()
+       def prepro_dataset()
+              data = datasetCreate_cardio()
+              df  = data.preprocess()
+              #### Customize prepro for Rules
+
+              ....
+              self.df = df 
+  
+ 
+        def loss_calc()
+        def create_XXXX()
+
+
+class DateEncoder_Create(
+       def create_model()
+       def prepro_dataset()
+        def loss_calc()
+        def create_XXXX()
+
+
+class MergeEncoder_Create(
+       def create_model()
+       def prepro_dataset() 
+        def loss_calc()
+        def create_XXXX()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#################################################################################
+
 class DatasetModelRule(object):
 
   def __init__(self, arg:dict):
