@@ -73,7 +73,7 @@ jobs:
       run:  |
         pip install --upgrade monkeytype
         python  utilmy/docs/format.py  test1
-        python  utilmy/docs/format.py  test2  -i "./"
+        python  utilmy/docs/format.py  test2  --dir_in "./"
         python  utilmy/docs/format.py  format_add_header  --dirin "./"
 
 
