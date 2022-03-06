@@ -62,8 +62,8 @@ def test1():
 def test2() -> None:
     import argparse
     p = argparse.ArgumentParser(description="")
-    p.add_argument("--dir_in", "-i", 
-                   default="./",  help="Source file path or path to a directory")
+    p.add_argument("--dir_in", default="./",  
+                   help="Source file path or path to a directory")
     p.add_argument("--dir_out", default="./utilmy/docs/test/",
                    help="Name of output directory to store results")
     args = p.parse_args()
