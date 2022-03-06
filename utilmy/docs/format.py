@@ -60,9 +60,14 @@ def test1():
 
 
 def test2() -> None:
-    import utilmy
-    dirin = os.path.dirname(utilmy.__file__)  ### Repo Root folder
-    format_add_logger(dirin)
+    import argparse
+    p = argparse.ArgumentParser(description="")
+    p.add_argument("--dir_in", "-i", 
+                   default="./",  help="Source file path or path to a directory")
+    p.add_argument("--dir_out", default="./utilmy/docs/test/",
+                   help="Name of output directory to store results")
+    args = p.parse_args()
+    format_add_logger(args.dir_in,args.dir_out)
     #reformatter(dirin,dirout)
 
 
