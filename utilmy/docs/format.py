@@ -62,8 +62,8 @@ def test1():
 def test2() -> None:
     import utilmy
     dirin = os.path.dirname(utilmy.__file__)  ### Repo Root folder
-    dirout = os_makedirs('utilmy\\docs\\test\\')[0] ### test dir
-    reformatter(dirin,dirout)
+    format_add_logger(dirin)
+    #reformatter(dirin,dirout)
 
 
 #############################################################################################
@@ -243,6 +243,8 @@ def format_assignments(text):
     return '\n'.join(formated_text)
 
 
+    
+
 ######################################################################################
 def os_glob(in_dir):
     """
@@ -304,31 +306,37 @@ def os_file_haschanged(in_file):
 
 
 #############################################################################################
-def format_add_logger(dirin:str,dirout:str, nfile=1000):
+def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
+    f_list = glob_glob_python(dirin, suffix ="*.py", nfile=10, exclude="*zz*")
     """  adding log function import and replace all print( with log(
     """
-    def reformat_pyfile(file_path:str):
+    def add_import(text:str):
         """
         """
-        with open(file_path,'r',encoding='utf-8') as f:
-            txt = f.read()
-        import_line = "from utilmy import log, log2"
-        if txt.find(import_line)==-1:
+        regex_import = r"from\sutilmy\simport\slog,\slog2"
+        if not re.match(regex_import,text):
+            text +="from utilmy import log, log2\n"
+        return text
+        
+    def replace_print(text:str):
+        """
+        """
+        regex_print = r"\n(?!def).*(print\().*"
+        return re.sub(regex_print,"log(",text)
+        
+    for in_file in f_list:
+        with open(os.path.abspath(in_file),'r',encoding="utf-8") as f:
+            f_text = f.read()
+        text_f = add_import(f_text)
+        text_f = replace_print(text_f)
+        file_path, file_name = os.path.split(in_file)
+        if not os.path.exists(os.path.join(dirout, file_path)):
+            os.makedirs(os.path.join(dirout, file_path))
 
-            #### It's stupid, did you check.....
-            txt = import_line+"\n"+txt
-        txt = txt.replace("print(",'log(')
-        return txt
+        with open(os.path.join(dirout, file_path, file_name), "w",encoding='utf-8') as f:
+            f.write(text_f)
 
-    flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
-
-    for fi in flist :
-        fi       = os_path_norm(fi)
-        fname    = fi.split(os.sep)[-1] 
-        file_new = reformat_pyfile(fi) 
-        to_file(file_new, dirout + "/" + fname)
-
-
+    
 
 
 #############################################################################################
