@@ -61,7 +61,7 @@ def test1():
 
 def test2() -> None:
     format_add_logger()
-    log("Test 2 ran successfully.")
+    log("Test2 ran successfully.")
     #reformatter(dirin,dirout)
 
 
@@ -336,7 +336,7 @@ def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
         with open(os.path.join(dirout, file_path, file_name), "w",encoding='utf-8') as f:
             f.write(text_f)
 
-        log("Formatted {file_name} and added it in {new_path}")
+        log(f"Formatted {file_name} and added it in {new_path}")
 
 
 #############################################################################################
