@@ -61,6 +61,7 @@ def test1():
 
 def test2() -> None:
     format_add_logger()
+    log("Test 2 ran successfully.")
     #reformatter(dirin,dirout)
 
 
@@ -305,7 +306,7 @@ def os_file_haschanged(in_file):
 
 #############################################################################################
 def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
-    f_list = glob_glob_python(dirin, suffix ="*.py", nfile=10, exclude="*zz*")
+    f_list = glob_glob_python(dirin, suffix ="*.py", nfile=3, exclude="*zz*")
     """  adding log function import and replace all print( with log(
     """
     def add_import(text:str):
@@ -329,12 +330,13 @@ def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
         text_f = replace_print(text_f)
         file_path, file_name = os.path.split(in_file)
         if not os.path.exists(os.path.join(dirout, file_path)):
-            os.makedirs(os.path.join(dirout, file_path))
+            new_path = os.path.join(dirout, file_path)
+            os.makedirs(new_path)
 
         with open(os.path.join(dirout, file_path, file_name), "w",encoding='utf-8') as f:
             f.write(text_f)
 
-    
+        log("Formatted {file_name} and added it in {new_path}")
 
 
 #############################################################################################
