@@ -10,10 +10,28 @@ from box import Box
 import random
 import numpy as np
 class BaseModel(object):
+    """
+    This is BaseClass for model create
+
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        evaluate: 
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+        create_loss :   Initialize Loss Function 
+        training:   starting training
+        build: create model, loss, optimizer (call before training)
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        device_setup: 
+        load_DataFrame: read pandas
+        load_weight: 
+        save_weight: 
+        predict : 
+    """
+    
     def __init__(self,arg):
         self.arg = Box(arg)
         self._device = self.device_setup(arg)
-        # self.net = self.create_model().to(self.device)
         self.losser = None
         self.is_train = False
         
@@ -51,7 +69,7 @@ class BaseModel(object):
 
     def build(self,):
         self.net = self.create_model().to(self.device)
-        self.criterior = self.create_loss.to(self.device)
+        self.criterior = self.create_loss().to(self.device)
         self.is_train = False
     
     def train(self): #equavilant model.train() in pytorch
@@ -82,24 +100,24 @@ class BaseModel(object):
 
     def load_DataFrame(self,path=None)-> pd.DataFrame:
         if path:
-            self.df = pd.read_csv(path)
+            self.df = pd.read_csv(path,delimiter=';')
             return self.df
-        if os.path.isfile(self.arg.datapath):
-            return pd.read_csv(self.arg.datapath)
+        if os.path.isfile(self.arg.DATASET.PATH):
+            self.df = pd.read_csv(self.arg.DATASET.PATH,delimiter=';')
+            return self.df
         else:
             import requests
             import io
-            r = requests.get(self.arg.dataurl)
-            if r.status_code =='200':
-                df = pd.read_csv(io.BytesIO(r.content))
+            r = requests.get(self.arg.DATASET.URL)
+            if r.status_code ==200:
+                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
             else:
                 raise Exception("Can't read data")
-            self.df = df
-            return df
+            
+            return self.df
 
 
     def load_weight(self, path):
-        # super().save_weight(path)()
         assert os.path.isfile(path),f"{path} does not exist"
         try:
           ckp = torch.load(path,map_location=self.device)
@@ -123,7 +141,7 @@ class BaseModel(object):
             ckp.update({'meta_data':meta_data,})
             
         
-      torch.save(path,ckp)
+      torch.save(ckp,path)
 
     def predict(self,x,**kwargs):
         # raise NotImplementedError
