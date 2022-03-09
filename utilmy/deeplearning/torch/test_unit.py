@@ -27,7 +27,7 @@ class Test_Function(unittest.TestCase):
         model.build()        
         model.training()
     
-def test2():
+def test():
     """
     load and process data from default dataset
     if you want to training with custom datase.
@@ -48,8 +48,15 @@ def test2():
     model.build()        
     model.training(load_DataFrame,prepro_dataset)   
 
-
+def test2():
+    
+    load_DataFrame = models.RuleEncoder_Create.load_DataFrame   
+    prepro_dataset = models.RuleEncoder_Create.prepro_dataset
+    model = models.MergeEncoder_Create(ARG)
+    model.build()        
+    model.training(load_DataFrame,prepro_dataset) 
 
 if __name__ =='__main__':
     unittest.main()    
+    test()
     test2()
