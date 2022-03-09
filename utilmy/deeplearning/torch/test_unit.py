@@ -2,6 +2,7 @@ from turtle import forward
 import models
 from config import ARG
 import unittest
+import numpy as np
 import torch
 from models.utils import *
 class Test_Model(unittest.TestCase):
@@ -27,36 +28,6 @@ class Test_Function(unittest.TestCase):
         model.build()        
         model.training()
     
-def test():
-    """
-    load and process data from default dataset
-    if you want to training with custom datase.
-    Do following step:
-    def load_DataFrame(path) -> pandas.DataFrame:
-        ...
-        ...
-        return df
-    def prepro_dataset(df) -> tuple:
-        ...
-        ...
-        return TrainX,trainY,...
-    
-    """
-    load_DataFrame = None
-    prepro_dataset = None
-    model = models.MergeEncoder_Create(ARG)
-    model.build()        
-    model.training(load_DataFrame,prepro_dataset)   
-
-def test2():
-    
-    load_DataFrame = models.RuleEncoder_Create.load_DataFrame   
-    prepro_dataset = models.RuleEncoder_Create.prepro_dataset
-    model = models.MergeEncoder_Create(ARG)
-    model.build()        
-    model.training(load_DataFrame,prepro_dataset) 
 
 if __name__ =='__main__':
     unittest.main()    
-    test()
-    test2()

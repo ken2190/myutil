@@ -122,7 +122,7 @@ class BaseModel(object):
             return self.df
 
 
-    def load_weight(self, path):
+    def load_weights(self, path):
         assert os.path.isfile(path),f"{path} does not exist"
         try:
           ckp = torch.load(path,map_location=self.device)
