@@ -60,7 +60,10 @@ def test1():
 
 
 def test2() -> None:
-    format_add_logger()
+    flist = format_add_logger()
+    log("Test2 formatted files successfully.")
+    [os_file_compile_check(fi) for fi in flist]
+    log("Formatted files ran successfully on os_file_check.")
     log("Test2 ran successfully.")
     #reformatter(dirin,dirout)
 
@@ -305,22 +308,23 @@ def os_file_haschanged(in_file):
 
 
 #############################################################################################
-def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
-    f_list = glob_glob_python(dirin, suffix ="*.py", nfile=3, exclude="*zz*")
+def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/",nfile=3):
+    f_list = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
     """  adding log function import and replace all print( with log(
     """
+    new_paths = []
     def add_import(text:str):
         """
         """
         regex_import = r"from\sutilmy\simport\slog,\slog2"
         if not re.match(regex_import,text):
-            text +="from utilmy import log, log2\n"
+            text = "from utilmy import log, log2\n"+text
         return text
         
     def replace_print(text:str):
         """
         """
-        regex_print = r"\n(?!def).*(print\().*"
+        regex_print = r"(?:.*\n)(?!def)(print\()"
         return re.sub(regex_print,"log(",text)
         
     for in_file in f_list:
@@ -329,15 +333,21 @@ def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/"):
         text_f = add_import(f_text)
         text_f = replace_print(text_f)
         file_path, file_name = os.path.split(in_file)
+
         if not os.path.exists(os.path.join(dirout, file_path)):
             new_path = os.path.join(dirout, file_path)
             os.makedirs(new_path)
+        else:
+            new_path = os.path.join(dirout, file_path)
 
-        with open(os.path.join(dirout, file_path, file_name), "w",encoding='utf-8') as f:
+        new_file = os.path.join(dirout, file_path, file_name)
+
+        with open(new_file, "w",encoding='utf-8') as f:
             f.write(text_f)
 
         log(f"Formatted {file_name} and added it in {new_path}")
-
+        new_paths.append(new_file)
+    return new_paths
 
 #############################################################################################
 def format_add_header(dirin:str="./"):
