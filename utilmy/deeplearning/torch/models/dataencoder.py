@@ -20,6 +20,7 @@ class DataEncoder_Create(BaseModel):
         super(DataEncoder_Create,self).__init__(arg)
 
     def create_model(self):
+        super(DataEncoder_Create,self).create_model()
         dims = self.arg.MODEL_INFO.MODEL_TASK.ARCHITECT
         class DataEncoder(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
@@ -42,4 +43,5 @@ class DataEncoder_Create(BaseModel):
         return DataEncoder(dims)
 
     def create_loss(self) -> torch.nn.Module:
+        super(DataEncoder_Create,self).create_loss()
         return torch.nn.BCELoss()

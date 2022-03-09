@@ -37,7 +37,8 @@ class BaseModel(object):
         
     @abstractmethod
     def create_model(self,) -> torch.nn.Module:
-      raise NotImplementedError
+    #   raise NotImplementedError
+        log("       model is building")
     @abstractmethod
     def evaluate(self):
         raise NotImplementedError
@@ -48,7 +49,8 @@ class BaseModel(object):
     
     @abstractmethod
     def create_loss(self,) -> torch.nn.Module:
-        raise NotImplementedError
+        log("       loss is building")
+        # raise NotImplementedError
 
     @abstractmethod
     def training(self,):
@@ -72,11 +74,11 @@ class BaseModel(object):
         self.criterior = self.create_loss().to(self.device)
         self.is_train = False
     
-    def train(self): #equavilant model.train() in pytorch
+    def train(self): # equivalent model.train() in pytorch
         self.is_train = True
         self.net.train()
 
-    def eval(self):
+    def eval(self):     # equivalent model.eval() in pytorch
         self.is_train = False
         self.net.eval()
 
@@ -100,19 +102,22 @@ class BaseModel(object):
 
     def load_DataFrame(self,path=None)-> pd.DataFrame:
         if path:
+            log(f"reading csv from {path}")
             self.df = pd.read_csv(path,delimiter=';')
             return self.df
         if os.path.isfile(self.arg.DATASET.PATH):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.DATASET.PATH}")
             self.df = pd.read_csv(self.arg.DATASET.PATH,delimiter=';')
             return self.df
         else:
             import requests
             import io
             r = requests.get(self.arg.DATASET.URL)
+            log(f"Reading csv from arg.DATASET.URL")
             if r.status_code ==200:
                 self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
             else:
-                raise Exception("Can't read data")
+                raise Exception("Can't read data, status_code: {r.status_code}")
             
             return self.df
 
