@@ -64,104 +64,107 @@ def test1():
     
     """    
     from box import Box ; from copy import deepcopy
-    BATCH_SIZE = None
-
-    ARG = Box({
-        'DATASET': {},
-        'MODEL_INFO' : {},
-        'TRAINING_CONFIG' : {},
-    })
 
 
-    MODEL_ZOO = {
-        'dataonly': {'rule': 0.0},
-        'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
-        'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
-        'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
-        'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
-        'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
-        'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
-        'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
-        'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
-        'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
-                    
-    }
+    if 'ARG':
+        BATCH_SIZE = None
+
+        ARG = Box({
+            'DATASET': {},
+            'MODEL_INFO' : {},
+            'TRAINING_CONFIG' : {},
+        })
 
 
-    ### ARG.DATASET
-    ARG.seed = 42
-    ARG.DATASET.PATH =  './cardio_train.csv'
-    ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
+        MODEL_ZOO = {
+            'dataonly': {'rule': 0.0},
+            'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
+            'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
+            'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
+            'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
+            'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
+            'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
+            'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
+            'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
+            'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
+                        
+        }
 
 
-
-    #ARG.TRAINING_CONFIG
-    ARG.TRAINING_CONFIG = Box()
-    ARG.TRAINING_CONFIG.SEED = 42
-    ARG.TRAINING_CONFIG.DEVICE = 'cpu'
-    ARG.TRAINING_CONFIG.BATCH_SIZE = 32
-    ARG.TRAINING_CONFIG.EPOCHS = 1
-    ARG.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
-    ARG.TRAINING_CONFIG.VALID_FREQ = 1
-    ARG.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
-    ARG.TRAINING_CONFIG.TRAIN_RATIO = 0.7
-    ARG.TRAINING_CONFIG.VAL_RATIO = 0.2
-    ARG.TRAINING_CONFIG.TEST_RATIO = 0.1
-
-    ### ARG.MODEL_INFO
-
-    ARG.MODEL_INFO.TYPE = 'dataonly' 
-    PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
-    ARG.MODEL_INFO.LR = PARAMS.get('lr',None)
+        ### ARG.DATASET
+        ARG.seed = 42
+        ARG.DATASET.PATH =  './cardio_train.csv'
+        ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
 
 
 
+        #ARG.TRAINING_CONFIG
+        ARG.TRAINING_CONFIG = Box()
+        ARG.TRAINING_CONFIG.SEED = 42
+        ARG.TRAINING_CONFIG.DEVICE = 'cpu'
+        ARG.TRAINING_CONFIG.BATCH_SIZE = 32
+        ARG.TRAINING_CONFIG.EPOCHS = 1
+        ARG.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
+        ARG.TRAINING_CONFIG.VALID_FREQ = 1
+        ARG.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
+        ARG.TRAINING_CONFIG.TRAIN_RATIO = 0.7
+        ARG.TRAINING_CONFIG.VAL_RATIO = 0.2
+        ARG.TRAINING_CONFIG.TEST_RATIO = 0.1
 
-    ### ARG.MODEL_RULE
-    ARG.MODEL_INFO.MODEL_RULE = Box()   #MODEL_RULE
-    ARG.MODEL_INFO.MODEL_RULE.RULE = PARAMS.get('rule',None)
-    ARG.MODEL_INFO.MODEL_RULE.SCALE = PARAMS.get('scale',1.0)
-    ARG.MODEL_INFO.MODEL_RULE.PERT = PARAMS.get('pert',0.1)
-    ARG.MODEL_INFO.MODEL_RULE.BETA = PARAMS.get('beta',[1.0])
-    beta_param = ARG.MODEL_INFO.MODEL_RULE.BETA
+        ### ARG.MODEL_INFO
 
-    from torch.distributions.beta import Beta
-    if   len(beta_param) == 1:  ARG.MODEL_INFO.MODEL_RULE.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[0]))
-    elif len(beta_param) == 2:  ARG.MODEL_INFO.MODEL_RULE.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[1]))
-
-    ARG.MODEL_INFO.MODEL_RULE.NAME = ''
-    ARG.MODEL_INFO.MODEL_RULE.RULE_IND = 2
-    ARG.MODEL_INFO.MODEL_RULE.RULE_THRESHOLD = 129.5
-    ARG.MODEL_INFO.MODEL_RULE.SRC_OK_RATIO = 0.3
-    ARG.MODEL_INFO.MODEL_RULE.SRC_UNOK_RATIO = 0.7
-    ARG.MODEL_INFO.MODEL_RULE.TARGET_RULE_RATIO = 0.7
-    ARG.MODEL_INFO.MODEL_RULE.ARCHITECT = [
-        20,
-        100,
-        16
-    ]
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
+        ARG.MODEL_INFO.LR = PARAMS.get('lr',None)
 
 
-    ### ARG.MODEL_TASK
-    ARG.MODEL_INFO.MODEL_TASK = Box()   #MODEL_TASK
-    ARG.MODEL_INFO.MODEL_TASK.NAME = ''
-    ARG.MODEL_INFO.MODEL_TASK.ARCHITECT = [
-        20,
-        100,
-        16
-    ]
 
-    ARG.MODEL_INFO.MODEL_MERGE = Box()
-    ARG.MODEL_INFO.MODEL_MERGE.NAME = ''
-    ARG.MODEL_INFO.MODEL_MERGE.SKIP = False
-    ARG.MODEL_INFO.MODEL_MERGE.MERGE = 'cat'
-    ARG.MODEL_INFO.MODEL_MERGE.ARCHITECT = {
-        'decoder': [
-        32,  
-        100,
-        1
-    ]
-    }
+
+        ### ARG.MODEL_RULE
+        ARG.rule_encoder = Box()   #MODEL_RULE
+        ARG.rule_encoder.RULE = PARAMS.get('rule',None)
+        ARG.rule_encoder.SCALE = PARAMS.get('scale',1.0)
+        ARG.rule_encoder.PERT = PARAMS.get('pert',0.1)
+        ARG.rule_encoder.BETA = PARAMS.get('beta',[1.0])
+        beta_param = ARG.rule_encoder.BETA
+
+        from torch.distributions.beta import Beta
+        if   len(beta_param) == 1:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[0]))
+        elif len(beta_param) == 2:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[1]))
+
+        ARG.rule_encoder.NAME = ''
+        ARG.rule_encoder.RULE_IND = 2
+        ARG.rule_encoder.RULE_THRESHOLD = 129.5
+        ARG.rule_encoder.SRC_OK_RATIO = 0.3
+        ARG.rule_encoder.SRC_UNOK_RATIO = 0.7
+        ARG.rule_encoder.TARGET_RULE_RATIO = 0.7
+        ARG.rule_encoder.ARCHITECT = [
+            20,
+            100,
+            16
+        ]
+
+
+        ### ARG.MODEL_TASK
+        ARG.data_encoder = Box()   #MODEL_TASK
+        ARG.data_encoder.NAME = ''
+        ARG.data_encoder.ARCHITECT = [
+            20,
+            100,
+            16
+        ]
+
+        ARG.merge_encoder = Box()
+        ARG.merge_encoder.NAME = ''
+        ARG.merge_encoder.SKIP = False
+        ARG.merge_encoder.MERGE = 'cat'
+        ARG.merge_encoder.ARCHITECT = {
+            'decoder': [
+            32,  
+            100,
+            1
+        ]
+        }
 
     """
     load and process data from default dataset
@@ -179,8 +182,8 @@ def test1():
     
     """
     ARG_copy = deepcopy(ARG)
-    ARG_copy.MODEL_INFO.MODEL_RULE.ARCHITECT = [9,100,16]
-    ARG_copy.MODEL_INFO.MODEL_TASK.ARCHITECT = [9,100,16]
+    ARG_copy.rule_encoder.ARCHITECT = [9,100,16]
+    ARG_copy.data_encoder.ARCHITECT = [9,100,16]
     ARG_copy.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
     load_DataFrame = RuleEncoder_Create.load_DataFrame   
     prepro_dataset = RuleEncoder_Create.prepro_dataset
@@ -197,27 +200,144 @@ def test1():
 
 
 
-##############################################################################################
-def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,device=None,batch_size=None):
-    # batch_size = batch_size
-    train_loader, valid_loader, test_loader = None, None, None
+def test1():    
+    """
+    load and process data from default dataset
+    if you want to training with custom datase.
+    Do following step:
+    def load_DataFrame(path) -> pandas.DataFrame:
+        ...
+        ...
+        return df
+    def prepro_dataset(df) -> tuple:
+        ...
+        ...
+        return TrainX,trainY,...
+    
+    """    
+    from box import Box ; from copy import deepcopy
 
-    if train_X is not None :
-        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
-        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
-        # log("data size", len(train_X) )
 
-    if valid_X is not None :
-        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=device), torch.tensor(valid_y, dtype=torch.float32, device=device)
-        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
-        # log("data size", len(valid_X)  )
+    if 'ARG':
+        BATCH_SIZE = None
 
-    if test_X  is not None :
-        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
-        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
-        # log("data size:", len(test_X) )
+        ARG = Box({
+            'DATASET': {},
+            'MODEL_INFO' : {},
+            'TRAINING_CONFIG' : {},
+        })
 
-    return train_loader, valid_loader, test_loader
+
+        MODEL_ZOO = {
+            'dataonly': {'rule': 0.0},
+            'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
+            'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
+            'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
+            'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
+            'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
+            'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
+            'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
+            'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
+            'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
+                        
+        }
+
+
+        ### ARG.DATASET
+        ARG.seed = 42
+        ARG.DATASET.PATH =  './cardio_train.csv'
+        ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
+
+
+        ### ARG.MODEL_INFO
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
+
+
+
+        #ARG.TRAINING_CONFIG
+        ARG.TRAINING_CONFIG = Box()
+        ARG.TRAINING_CONFIG.LR = PARAMS.get('lr',None)
+        ARG.TRAINING_CONFIG.SEED = 42
+        ARG.TRAINING_CONFIG.DEVICE = 'cpu'
+        ARG.TRAINING_CONFIG.BATCH_SIZE = 32
+        ARG.TRAINING_CONFIG.EPOCHS = 1
+        ARG.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
+        ARG.TRAINING_CONFIG.VALID_FREQ = 1
+        ARG.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
+        ARG.TRAINING_CONFIG.TRAIN_RATIO = 0.7
+        ARG.TRAINING_CONFIG.VAL_RATIO = 0.2
+        ARG.TRAINING_CONFIG.TEST_RATIO = 0.1
+
+
+
+    load_DataFrame = RuleEncoder_Create.load_DataFrame   
+    prepro_dataset = RuleEncoder_Create.prepro_dataset
+
+    #### SEPARATE the models completetly
+
+    ### ARG.data_encoder  #################################
+    ARG.data_encoder = Box()   #MODEL_TASK
+    ARG.data_encoder.NAME = ''
+    ARG.data_encoder.ARCHITECT = [ 20, 100, 16 ]
+    data_encoder = RuleEncoder_Create(ARG.data_encoder )
+
+
+
+
+
+    ### ARG.rule_encoder  #################################
+    ARG.rule_encoder = Box()   #MODEL_RULE
+    ARG.rule_encoder.RULE = PARAMS.get('rule',None)
+    ARG.rule_encoder.SCALE = PARAMS.get('scale',1.0)
+    ARG.rule_encoder.PERT = PARAMS.get('pert',0.1)
+    ARG.rule_encoder.BETA = PARAMS.get('beta',[1.0])
+    beta_param = ARG.rule_encoder.BETA
+
+    from torch.distributions.beta import Beta
+    if   len(beta_param) == 1:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[0]))
+    elif len(beta_param) == 2:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[1]))
+
+    ARG.rule_encoder.NAME = ''
+    ARG.rule_encoder.RULE_IND = 2
+    ARG.rule_encoder.RULE_THRESHOLD = 129.5
+    ARG.rule_encoder.SRC_OK_RATIO = 0.3
+    ARG.rule_encoder.SRC_UNOK_RATIO = 0.7
+    ARG.rule_encoder.TARGET_RULE_RATIO = 0.7
+    ARG.rule_encoder.ARCHITECT = [ 20, 100, 16 ]
+
+    ARG.rule_encoder.ARCHITECT = [9,100,16]
+    rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
+
+
+
+
+
+    ### ARG.merge_encoder  #################################
+    ARG.merge_encoder = Box()
+    ARG.merge_encoder.NAME = ''
+    ARG.merge_encoder.SKIP = False
+    ARG.merge_encoder.MERGE = 'cat'
+    ARG.merge_encoder.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
+    model = MergeEncoder_Create(arg= ARG, rule_encoder, data_encoder)
+
+
+
+
+
+    #### Run Model   ###################################################
+    model.build_model()        
+    model.training(load_DataFrame,prepro_dataset) 
+
+    model.save_weight('ztmp/model_x9.pt') 
+    model.load_weights('ztmp/model_x9.pt')
+    inputs = torch.randn((1,9)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+
 
 
 #############################################################################################
@@ -364,6 +484,8 @@ class BaseModel(object):
         # raise NotImplementedError
         output = self.net(x,**kwargs)
         return output 
+
+
 ##############################################################################################
 class MergeEncoder_Create(BaseModel):
     """
@@ -375,10 +497,10 @@ class MergeEncoder_Create(BaseModel):
     def create_model(self,):
         super(MergeEncoder_Create,self).create_model()
         # merge = self.arg.merge
-        merge = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'MERGE','add')
-        skip = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'SKIP',False)
+        merge = getattr(self.arg.merge_encoder,'MERGE','add')
+        skip = getattr(self.arg.merge_encoder,'SKIP',False)
         
-        dims = self.arg.MODEL_INFO.MODEL_MERGE.ARCHITECT.decoder
+        dims = self.arg.merge_encoder.ARCHITECT.decoder
         class Modelmerge(torch.nn.Module):
             def __init__(self,rule_encoder,data_encoder,dims,merge,skip):
                 super(Modelmerge, self).__init__()
@@ -495,11 +617,11 @@ class MergeEncoder_Create(BaseModel):
 
         """
         if 'rule1':
-            rule_threshold = self.arg.MODEL_INFO.MODEL_RULE.RULE_THRESHOLD
-            rule_ind       = self.arg.MODEL_INFO.MODEL_RULE.RULE_IND
+            rule_threshold = self.arg.rule_encoder.RULE_THRESHOLD
+            rule_ind       = self.arg.rule_encoder.RULE_IND
             rule_feature   = 'ap_hi'
-            src_unok_ratio = self.arg.MODEL_INFO.MODEL_RULE.SRC_OK_RATIO
-            src_ok_ratio   = self.arg.MODEL_INFO.MODEL_RULE.SRC_UNOK_RATIO
+            src_unok_ratio = self.arg.rule_encoder.SRC_OK_RATIO
+            src_ok_ratio   = self.arg.rule_encoder.SRC_UNOK_RATIO
 
             #### Ok cases: nornal
             low_ap_negative  = (df[rule_feature] <= rule_threshold) & (df[coly] == 0)    # ok
@@ -588,7 +710,7 @@ class MergeEncoder_Create(BaseModel):
             for inputs,targets in tqdm(train_loader,total=n_train, desc='training'):
                 if   self.arg.MODEL_INFO.TYPE.startswith('dataonly'):  alpha = 0.0
                 elif self.arg.MODEL_INFO.TYPE.startswith('ruleonly'):  alpha = 1.0
-                elif self.arg.MODEL_INFO.TYPE.startswith('ours'):      alpha = self.arg.MODEL_INFO.MODEL_RULE.ALPHA_DIST.sample().item()
+                elif self.arg.MODEL_INFO.TYPE.startswith('ours'):      alpha = self.arg.rule_encoder.ALPHA_DIST.sample().item()
                 predict = self.predict(inputs,alpha=alpha)
                 self.optimizer.zero_grad()
                 scale =1
@@ -633,11 +755,11 @@ class RuleEncoder_Create(BaseModel):
     """
     def __init__(self, arg:dict):
         super(RuleEncoder_Create,self).__init__(arg)
-        self.rule_ind = arg.MODEL_INFO.MODEL_RULE.RULE_IND
-        self.pert_coeff = arg.MODEL_INFO.MODEL_RULE.PERT
+        self.rule_ind = arg.rule_encoder.RULE_IND
+        self.pert_coeff = arg.rule_encoder.PERT
     def create_model(self):
         super(RuleEncoder_Create,self).create_model()
-        dims = self.arg.MODEL_INFO.MODEL_RULE.ARCHITECT
+        dims = self.arg.rule_encoder.ARCHITECT
         rule_ind = self.rule_ind
         pert_coeff = self.pert_coeff
         def get_perturbed_input(input_tensor, pert_coeff):
@@ -741,7 +863,7 @@ class DataEncoder_Create(BaseModel):
 
     def create_model(self):
         super(DataEncoder_Create,self).create_model()
-        dims = self.arg.MODEL_INFO.MODEL_TASK.ARCHITECT
+        dims = self.arg.data_encoder.ARCHITECT
         class DataEncoder(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
                 super(DataEncoder, self).__init__()
@@ -767,6 +889,31 @@ class DataEncoder_Create(BaseModel):
         return torch.nn.BCELoss()
 
 
+
+
+
+
+##############################################################################################
+def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,device=None,batch_size=None):
+    # batch_size = batch_size
+    train_loader, valid_loader, test_loader = None, None, None
+
+    if train_X is not None :
+        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
+        # log("data size", len(train_X) )
+
+    if valid_X is not None :
+        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=device), torch.tensor(valid_y, dtype=torch.float32, device=device)
+        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
+        # log("data size", len(valid_X)  )
+
+    if test_X  is not None :
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
+        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
+        # log("data size:", len(test_X) )
+
+    return train_loader, valid_loader, test_loader
 
 
 
