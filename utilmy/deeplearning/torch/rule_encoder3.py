@@ -403,7 +403,7 @@ class BaseModel(object):
 
     def build(self,):
         self.net = self.create_model().to(self.device)
-        self.criterior = self.create_loss().to(self.device)
+        self.loss_calc= self.create_loss().to(self.device)
         self.is_train = False
     
     def train(self): # equivalent model.train() in pytorch
@@ -557,19 +557,19 @@ class MergeEncoder_Create(BaseModel):
         self.data_encoder.build()
         log("MergeModel:")
         self.net = self.create_model().to(self.device)
-        self.criterior = self.create_loss().to(self.device)
+        self.loss_calc= self.create_loss().to(self.device)
         self.optimizer = torch.optim.Adam(self.net.parameters())
         
     def create_loss(self,):
         super(MergeEncoder_Create,self).create_loss()
-        rule_criterior = self.rule_encoder.criterior 
-        data_criterior = self.data_encoder.criterior
+        rule_loss_calc= self.rule_encoder.loss_calc
+        data_loss_calc= self.data_encoder.criterior
         class MergeLoss(torch.nn.Module):
 
             def __init__(self,rule_criterior,data_criterior):
                 super(MergeLoss,self).__init__()
-                self.rule_criterior = rule_criterior
-                self.data_criterior = data_criterior
+                self.rule_loss_calc= rule_criterior
+                self.data_loss_calc= data_criterior
 
             def forward(self,output,target,alpha=0,scale=1):
                 
