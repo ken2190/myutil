@@ -19,6 +19,7 @@ class RuleEncoder_Create(BaseModel):
         self.rule_ind = arg.MODEL_INFO.MODEL_RULE.RULE_IND
         self.pert_coeff = arg.MODEL_INFO.MODEL_RULE.PERT
     def create_model(self):
+        super(RuleEncoder_Create,self).create_model()
         dims = self.arg.MODEL_INFO.MODEL_RULE.ARCHITECT
         rule_ind = self.rule_ind
         pert_coeff = self.pert_coeff
@@ -57,13 +58,16 @@ class RuleEncoder_Create(BaseModel):
         return RuleEncoder(self.arg,dims)   
 
     def create_loss(self,) -> torch.nn.Module:
+        super(RuleEncoder_Create,self).create_loss()
         class LossRule(torch.nn.Module):
-
+            
             def __init__(self):
                 super(LossRule,self).__init__()
                 self.relu = torch.nn.ReLU()
+
             def forward(self,output,target):
                 return torch.mean(self.relu(output-target))
+
         return LossRule()
 
     def load_DataFrame(self,) -> pd.DataFrame:

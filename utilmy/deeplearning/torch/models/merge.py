@@ -21,6 +21,7 @@ class MergeEncoder_Create(BaseModel):
         self.rule_encoder = RuleEncoder_Create(self.arg)
         self.data_encoder = DataEncoder_Create(self.arg)
     def create_model(self,):
+        super(MergeEncoder_Create,self).create_model()
         # merge = self.arg.merge
         merge = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'MERGE','add')
         skip = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'SKIP',False)
@@ -76,13 +77,17 @@ class MergeEncoder_Create(BaseModel):
 
     def build(self):
         # super(MergeEncoder_Create,self).build()
+        log("rule_encoder:")
         self.rule_encoder.build()
+        log("data_encoder:")
         self.data_encoder.build()
-        self.criterior = self.create_loss().to(self.device)
+        log("MergeModel:")
         self.net = self.create_model().to(self.device)
+        self.criterior = self.create_loss().to(self.device)
         self.optimizer = torch.optim.Adam(self.net.parameters())
         
     def create_loss(self,):
+        super(MergeEncoder_Create,self).create_loss()
         rule_criterior = self.rule_encoder.criterior 
         data_criterior = self.data_encoder.criterior
         class MergeLoss(torch.nn.Module):
@@ -102,7 +107,7 @@ class MergeEncoder_Create(BaseModel):
         return MergeLoss(rule_criterior,data_criterior)
 
     def prepro_dataset(self,df=None):
-        if not df:              
+        if df is not None:              
             df = self.df     # if there is no dataframe feeded , get df from model itself
 
         coly = 'cardio'
@@ -202,11 +207,18 @@ class MergeEncoder_Create(BaseModel):
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
         
 
-    def training(self,):
-        self.train()
-        self.load_DataFrame() #load from config
+    def training(self,load_DataFrame=None,prepro_dataset=None):
+
+        # training with load_DataFrame and prepro_data function or default funtion in self.method
+
+        if load_DataFrame:
+            self.load_DataFrame = load_DataFrame
+        if prepro_dataset:
+            self.prepro_dataset = prepro_dataset
+
+        df = self.load_DataFrame()
         
-        train_X, train_y, valid_X,  valid_y, test_X,  test_y, = self.prepro_dataset()
+        train_X, train_y, valid_X,  valid_y, test_X,  test_y, = self.prepro_dataset(df)
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
                                                                     valid_X,  valid_y,
                                                                     test_X,  test_y,
@@ -219,7 +231,7 @@ class MergeEncoder_Create(BaseModel):
         n_val = len(valid_loader)
         
         for epoch in tqdm(range(1,EPOCHS+1)):
-
+            self.train()
             loss_train = 0
             for inputs,targets in tqdm(train_loader,total=n_train, desc='training'):
                 if   self.arg.MODEL_INFO.TYPE.startswith('dataonly'):  alpha = 0.0
@@ -235,6 +247,7 @@ class MergeEncoder_Create(BaseModel):
             loss_train /= len(train_loader.dataset) # mean on dataset
 
             loss_val = 0
+            self.eval()
             with torch.no_grad():
                 for inputs,targets in tqdm(valid_loader, total=n_val, desc='validating'):
                     predict = self.predict(inputs)
@@ -253,3 +266,4 @@ class MergeEncoder_Create(BaseModel):
                     'loss_val': loss_val,
                 }
             )
+
