@@ -271,8 +271,11 @@ def test2_new():
 
 
 
-    load_DataFrame = RuleEncoder_Create.load_DataFrame   
+    # load_DataFrame = RuleEncoder_Create.load_DataFrame   
     prepro_dataset = RuleEncoder_Create.prepro_dataset
+
+
+
 
     #### SEPARATE the models completetly
 
@@ -327,7 +330,7 @@ def test2_new():
 
     #### Run Model   ###################################################
     model.build_model()        
-    model.training(load_DataFrame,prepro_dataset) 
+    model.training(prepro_dataset) 
 
     model.save_weight('ztmp/model_x9.pt') 
     model.load_weights('ztmp/model_x9.pt')
