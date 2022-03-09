@@ -10,6 +10,7 @@ python rule_encoder3.py test1
 """
 import os,sys, collections, random, numpy as np,  glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
+import copy
 from abc import abstractmethod
 
 from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
@@ -17,8 +18,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
-
-
+import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 from turtle import forward
@@ -42,12 +43,12 @@ def help():
 #############################################################################################
 def test_all():
     log(MNAME)
-    test()
+    test1()
     # test2()
 
 
 
-def tes1():    
+def test1():    
     """
     load and process data from default dataset
     if you want to training with custom datase.
@@ -64,6 +65,7 @@ def tes1():
     """    
     from box import Box ; from copy import deepcopy
     BATCH_SIZE = None
+
     ARG = Box({
         'DATASET': {},
         'MODEL_INFO' : {},
@@ -180,15 +182,15 @@ def tes1():
     ARG_copy.MODEL_INFO.MODEL_RULE.ARCHITECT = [9,100,16]
     ARG_copy.MODEL_INFO.MODEL_TASK.ARCHITECT = [9,100,16]
     ARG_copy.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
-    load_DataFrame = models.RuleEncoder_Create.load_DataFrame   
-    prepro_dataset = models.RuleEncoder_Create.prepro_dataset
-    model = models.MergeEncoder_Create(ARG_copy)
+    load_DataFrame = RuleEncoder_Create.load_DataFrame   
+    prepro_dataset = RuleEncoder_Create.prepro_dataset
+    model = MergeEncoder_Create(ARG_copy)
     model.build()        
     model.training(load_DataFrame,prepro_dataset) 
 
-    model.save_weight('ztmp/model_x9/') 
+    model.save_weight('ztmp/model_x9.pt') 
     model.load_weights('ztmp/model_x9.pt')
-    inputs = torch.randn((1,20)).to(model.device)
+    inputs = torch.randn((1,9)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
 
@@ -218,7 +220,150 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     return train_loader, valid_loader, test_loader
 
 
+#############################################################################################
+class BaseModel(object):
+    """
+    This is BaseClass for model create
 
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        evaluate: 
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+        create_loss :   Initialize Loss Function 
+        training:   starting training
+        build: create model, loss, optimizer (call before training)
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        device_setup: 
+        load_DataFrame: read pandas
+        load_weight: 
+        save_weight: 
+        predict : 
+    """
+    
+    def __init__(self,arg):
+        self.arg = Box(arg)
+        self._device = self.device_setup(arg)
+        self.losser = None
+        self.is_train = False
+        
+    @abstractmethod
+    def create_model(self,) -> torch.nn.Module:
+    #   raise NotImplementedError
+        log("       model is building")
+    @abstractmethod
+    def evaluate(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def prepro_dataset(self,csv) -> pd.DataFrame:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def create_loss(self,) -> torch.nn.Module:
+        log("       loss is building")
+        # raise NotImplementedError
+
+    @abstractmethod
+    def training(self,):
+        raise NotImplementedError
+
+    @property
+    def device(self,):
+        return self._device
+    
+    @device.setter
+    def device(self,value):
+        if isinstance(value,torch.device):
+          self._device = value
+        elif isinstance(value,str):
+          self._device = torch.device(value)
+        else:
+          raise TypeError("device must be str or torch.device")
+
+    def build(self,):
+        self.net = self.create_model().to(self.device)
+        self.criterior = self.create_loss().to(self.device)
+        self.is_train = False
+    
+    def train(self): # equivalent model.train() in pytorch
+        self.is_train = True
+        self.net.train()
+
+    def eval(self):     # equivalent model.eval() in pytorch
+        self.is_train = False
+        self.net.eval()
+
+    def device_setup(self,arg):
+        device = getattr(arg,'device','cpu')
+        seed   = arg.seed
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
+        if 'gpu' in device :
+            try :
+                torch.cuda.manual_seed(seed)
+                torch.cuda.manual_seed_all(seed)
+                torch.backends.cudnn.deterministic = True
+                torch.backends.cudnn.benchmark = False
+            except Exception as e:
+                log(e)
+                device = 'cpu'
+        return device
+
+    def load_DataFrame(self,path=None)-> pd.DataFrame:
+        if path:
+            log(f"reading csv from {path}")
+            self.df = pd.read_csv(path,delimiter=';')
+            return self.df
+        if os.path.isfile(self.arg.DATASET.PATH):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.DATASET.PATH}")
+            self.df = pd.read_csv(self.arg.DATASET.PATH,delimiter=';')
+            return self.df
+        else:
+            import requests
+            import io
+            r = requests.get(self.arg.DATASET.URL)
+            log(f"Reading csv from arg.DATASET.URL")
+            if r.status_code ==200:
+                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
+            else:
+                raise Exception("Can't read data, status_code: {r.status_code}")
+            
+            return self.df
+
+
+    def load_weights(self, path):
+        assert os.path.isfile(path),f"{path} does not exist"
+        try:
+          ckp = torch.load(path,map_location=self.device)
+        except Exception as e:
+          log(e)
+          log(f"can't load the checkpoint from {path}")  
+        if isinstance(ckp,collections.OrderedDict):
+          self.net.load_state_dict(ckp)
+        else:
+          self.net.load_state_dict(ckp['state_dict'])
+    
+    def save_weight(self,path,meta_data=None):
+      os.makedirs(os.path.dirname(path),exist_ok=True)
+      ckp = {
+          'state_dict':self.net.state_dict(),
+      }
+      if meta_data:
+        if isinstance(meta_data,dict):
+            ckp.update(meta_data)
+        else:
+            ckp.update({'meta_data':meta_data,})
+            
+        
+      torch.save(ckp,path)
+
+    def predict(self,x,**kwargs):
+        # raise NotImplementedError
+        output = self.net(x,**kwargs)
+        return output 
 ##############################################################################################
 class MergeEncoder_Create(BaseModel):
     """
@@ -227,8 +372,8 @@ class MergeEncoder_Create(BaseModel):
         super(MergeEncoder_Create,self).__init__(arg)
         self.rule_encoder = RuleEncoder_Create(self.arg)
         self.data_encoder = DataEncoder_Create(self.arg)
-
     def create_model(self,):
+        super(MergeEncoder_Create,self).create_model()
         # merge = self.arg.merge
         merge = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'MERGE','add')
         skip = getattr(self.arg.MODEL_INFO.MODEL_MERGE,'SKIP',False)
@@ -284,13 +429,17 @@ class MergeEncoder_Create(BaseModel):
 
     def build(self):
         # super(MergeEncoder_Create,self).build()
+        log("rule_encoder:")
         self.rule_encoder.build()
+        log("data_encoder:")
         self.data_encoder.build()
-        self.criterior = self.create_loss().to(self.device)
+        log("MergeModel:")
         self.net = self.create_model().to(self.device)
+        self.criterior = self.create_loss().to(self.device)
         self.optimizer = torch.optim.Adam(self.net.parameters())
         
     def create_loss(self,):
+        super(MergeEncoder_Create,self).create_loss()
         rule_criterior = self.rule_encoder.criterior 
         data_criterior = self.data_encoder.criterior
         class MergeLoss(torch.nn.Module):
@@ -310,7 +459,7 @@ class MergeEncoder_Create(BaseModel):
         return MergeLoss(rule_criterior,data_criterior)
 
     def prepro_dataset(self,df=None):
-        if not df:              
+        if df is None:              
             df = self.df     # if there is no dataframe feeded , get df from model itself
 
         coly = 'cardio'
@@ -410,11 +559,18 @@ class MergeEncoder_Create(BaseModel):
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
         
 
-    def training(self,):
-        self.train()
-        self.load_DataFrame() #load from config
-        
-        train_X, train_y, valid_X,  valid_y, test_X,  test_y, = self.prepro_dataset()
+    def training(self,load_DataFrame=None,prepro_dataset=None):
+
+        # training with load_DataFrame and prepro_data function or default funtion in self.method
+
+        if load_DataFrame:
+            df = load_DataFrame(self)
+        else:
+            df = self.load_DataFrame()
+        if prepro_dataset:
+           train_X, train_y, valid_X,  valid_y, test_X,  test_y = prepro_dataset(self,df)
+        else:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
                                                                     valid_X,  valid_y,
                                                                     test_X,  test_y,
@@ -427,7 +583,7 @@ class MergeEncoder_Create(BaseModel):
         n_val = len(valid_loader)
         
         for epoch in tqdm(range(1,EPOCHS+1)):
-
+            self.train()
             loss_train = 0
             for inputs,targets in tqdm(train_loader,total=n_train, desc='training'):
                 if   self.arg.MODEL_INFO.TYPE.startswith('dataonly'):  alpha = 0.0
@@ -443,6 +599,7 @@ class MergeEncoder_Create(BaseModel):
             loss_train /= len(train_loader.dataset) # mean on dataset
 
             loss_val = 0
+            self.eval()
             with torch.no_grad():
                 for inputs,targets in tqdm(valid_loader, total=n_val, desc='validating'):
                     predict = self.predict(inputs)
@@ -466,6 +623,7 @@ class MergeEncoder_Create(BaseModel):
 
 
 
+
 ##############################################################################################
 class RuleEncoder_Create(BaseModel):
     """
@@ -478,6 +636,7 @@ class RuleEncoder_Create(BaseModel):
         self.rule_ind = arg.MODEL_INFO.MODEL_RULE.RULE_IND
         self.pert_coeff = arg.MODEL_INFO.MODEL_RULE.PERT
     def create_model(self):
+        super(RuleEncoder_Create,self).create_model()
         dims = self.arg.MODEL_INFO.MODEL_RULE.ARCHITECT
         rule_ind = self.rule_ind
         pert_coeff = self.pert_coeff
@@ -516,13 +675,16 @@ class RuleEncoder_Create(BaseModel):
         return RuleEncoder(self.arg,dims)   
 
     def create_loss(self,) -> torch.nn.Module:
+        super(RuleEncoder_Create,self).create_loss()
         class LossRule(torch.nn.Module):
-
+            
             def __init__(self):
                 super(LossRule,self).__init__()
                 self.relu = torch.nn.ReLU()
+
             def forward(self,output,target):
                 return torch.mean(self.relu(output-target))
+
         return LossRule()
 
     def load_DataFrame(self,) -> pd.DataFrame:
@@ -536,7 +698,7 @@ class RuleEncoder_Create(BaseModel):
         return df
 
     def prepro_dataset(self,df):
-        if not df:
+        if df is None:
             df = self.df
         coly  = 'Slope'  # df.columns[-1]
         y_raw = df[coly]
@@ -549,14 +711,17 @@ class RuleEncoder_Create(BaseModel):
         y_trans = StandardScaler()
 
         X = X_column_trans.fit_transform(X_raw)
-        y = y_trans.fit_transform(y_raw.array.reshape(-1, 1))
+        # y = y_trans.fit_transform(y_raw.array.reshape(1, -1))
+        y = y_trans.fit_transform(y_raw.values.reshape(-1, 1))
 
         ### Binarize
         y = np.array([  1 if yi >0.5 else 0 for yi in y])
 
         seed= 42
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.train_ratio, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.test_ratio / (self.arg.test_ratio + self.arg.validation_ratio), random_state=seed)
+        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+        # print(np.float32(train_X).shape)
+        # exit()
         return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
 
 
@@ -575,6 +740,7 @@ class DataEncoder_Create(BaseModel):
         super(DataEncoder_Create,self).__init__(arg)
 
     def create_model(self):
+        super(DataEncoder_Create,self).create_model()
         dims = self.arg.MODEL_INFO.MODEL_TASK.ARCHITECT
         class DataEncoder(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
@@ -597,6 +763,7 @@ class DataEncoder_Create(BaseModel):
         return DataEncoder(dims)
 
     def create_loss(self) -> torch.nn.Module:
+        super(DataEncoder_Create,self).create_loss()
         return torch.nn.BCELoss()
 
 
@@ -604,156 +771,8 @@ class DataEncoder_Create(BaseModel):
 
 
 ##############################################################################################
-class BaseModel(object):
-    """This is BaseClass for model create
-    Method:
-        create_model : Initialize Model (torch.nn.Module)
-        evaluate: 
-        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
-        create_loss :   Initialize Loss Function 
-        training:   starting training
-        build: create model, loss, optimizer (call before training)
-        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
-        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
-        device_setup: 
-        load_DataFrame: read pandas
-        load_weight: 
-        save_weight: 
-        predict : 
-    """
-    
-    def __init__(self,arg):
-        self.arg = Box(arg)
-        self._device = self.device_setup(arg)
-        self.losser = None
-        self.is_train = False
 
 
-    @abstractmethod
-    def prepro_dataset(self,csv) -> pd.DataFrame:
-        raise NotImplementedError
-
-
-    @abstractmethod
-    def create_model(self,) -> torch.nn.Module:
-      raise NotImplementedError
-
-    @abstractmethod
-    def create_loss(self,) -> torch.nn.Module:
-        raise NotImplementedError
-
-    @abstractmethod
-    def training(self,):
-        raise NotImplementedError
-
-
-    @abstractmethod
-    def evaluate(self):
-        raise NotImplementedError
-
-
-
-    #### Helper  ########################################### 
-    def load_DataFrame(self,path=None)-> pd.DataFrame:
-        if path:
-            self.df = pd.read_csv(path,delimiter=';')
-            return self.df
-        if os.path.isfile(self.arg.DATASET.PATH):
-            self.df = pd.read_csv(self.arg.DATASET.PATH,delimiter=';')
-            return self.df
-        else:
-            import requests
-            import io
-            r = requests.get(self.arg.DATASET.URL)
-            if r.status_code ==200:
-                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
-            else:
-                raise Exception("Can't read data")
-            
-            return self.df
-
-
-    #### Device Setup #########################################
-    @property
-    def device(self,):
-        return self._device
-    
-    @device.setter
-    def device(self,value):
-        if isinstance(value,torch.device):
-          self._device = value
-        elif isinstance(value,str):
-          self._device = torch.device(value)
-        else:
-          raise TypeError("device must be str or torch.device")
-
-    def device_setup(self,arg):
-        device = getattr(arg,'device','cpu')
-        seed   = arg.seed
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-
-        if 'gpu' in device :
-            try :
-                torch.cuda.manual_seed(seed)
-                torch.cuda.manual_seed_all(seed)
-                torch.backends.cudnn.deterministic = True
-                torch.backends.cudnn.benchmark = False
-            except Exception as e:
-                log(e)
-                device = 'cpu'
-        return device
-
-    ### Model Creation
-
-
-    #### Train, Eval, Predict
-    def build(self,):
-        self.net = self.create_model().to(self.device)
-        self.criterior = self.create_loss().to(self.device)
-        self.is_train = False
-    
-    def train(self): #equavilant model.train() in pytorch
-        self.is_train = True
-        self.net.train()
-
-    def predict(self,x,**kwargs):
-        # raise NotImplementedError
-        output = self.net(x,**kwargs)
-        return output 
-
-    def eval(self):
-        self.is_train = False
-        self.net.eval()
-
-
-    #### Save, Load
-    def load_weight(self, path):
-        assert os.path.isfile(path),f"{path} does not exist"
-        try:
-          ckp = torch.load(path,map_location=self.device)
-        except Exception as e:
-          log(e)
-          log(f"can't load the checkpoint from {path}")  
-        if isinstance(ckp,collections.OrderedDict):
-          self.net.load_state_dict(ckp)
-        else:
-          self.net.load_state_dict(ckp['state_dict'])
-    
-    def save_weight(self,path,meta_data=None):
-      os.makedirs(os.path.dirname(path),exist_ok=True)
-      ckp = {
-          'state_dict':self.net.state_dict(),
-      }
-      if meta_data:
-        if isinstance(meta_data,dict):
-            ckp.update(meta_data)
-        else:
-            ckp.update({'meta_data':meta_data,})
-            
-        
-      torch.save(ckp,path)
 
  
 
@@ -764,4 +783,4 @@ class BaseModel(object):
 if __name__ == "__main__":
     import fire 
     fire.Fire()
-
+    test_all()
