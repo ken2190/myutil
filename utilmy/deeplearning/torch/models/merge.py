@@ -107,7 +107,7 @@ class MergeEncoder_Create(BaseModel):
         return MergeLoss(rule_criterior,data_criterior)
 
     def prepro_dataset(self,df=None):
-        if df is not None:              
+        if df is None:              
             df = self.df     # if there is no dataframe feeded , get df from model itself
 
         coly = 'cardio'
@@ -212,13 +212,13 @@ class MergeEncoder_Create(BaseModel):
         # training with load_DataFrame and prepro_data function or default funtion in self.method
 
         if load_DataFrame:
-            self.load_DataFrame = load_DataFrame
+            df = load_DataFrame(self)
+        else:
+            df = self.load_DataFrame()
         if prepro_dataset:
-            self.prepro_dataset = prepro_dataset
-
-        df = self.load_DataFrame()
-        
-        train_X, train_y, valid_X,  valid_y, test_X,  test_y, = self.prepro_dataset(df)
+           train_X, train_y, valid_X,  valid_y, test_X,  test_y = prepro_dataset(self,df)
+        else:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
                                                                     valid_X,  valid_y,
                                                                     test_X,  test_y,

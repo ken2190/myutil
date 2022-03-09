@@ -84,7 +84,7 @@ class RuleEncoder_Create(BaseModel):
         return df
 
     def prepro_dataset(self,df):
-        if not df:
+        if df is None:
             df = self.df
         coly  = 'Slope'  # df.columns[-1]
         y_raw = df[coly]
@@ -97,12 +97,15 @@ class RuleEncoder_Create(BaseModel):
         y_trans = StandardScaler()
 
         X = X_column_trans.fit_transform(X_raw)
-        y = y_trans.fit_transform(y_raw.array.reshape(-1, 1))
+        # y = y_trans.fit_transform(y_raw.array.reshape(1, -1))
+        y = y_trans.fit_transform(y_raw.values.reshape(-1, 1))
 
         ### Binarize
         y = np.array([  1 if yi >0.5 else 0 for yi in y])
 
         seed= 42
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.train_ratio, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.test_ratio / (self.arg.test_ratio + self.arg.validation_ratio), random_state=seed)
+        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+        # print(np.float32(train_X).shape)
+        # exit()
         return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
