@@ -200,7 +200,7 @@ def test1():
 
 
 
-def test1():    
+def test2_new():    
     """
     load and process data from default dataset
     if you want to training with custom datase.
