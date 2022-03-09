@@ -605,9 +605,7 @@ class DataEncoder_Create(BaseModel):
 
 ##############################################################################################
 class BaseModel(object):
-    """
-    This is BaseClass for model create
-
+    """This is BaseClass for model create
     Method:
         create_model : Initialize Model (torch.nn.Module)
         evaluate: 
@@ -629,18 +627,17 @@ class BaseModel(object):
         self._device = self.device_setup(arg)
         self.losser = None
         self.is_train = False
-        
-    @abstractmethod
-    def create_model(self,) -> torch.nn.Module:
-      raise NotImplementedError
-    @abstractmethod
-    def evaluate(self):
-        raise NotImplementedError
+
 
     @abstractmethod
     def prepro_dataset(self,csv) -> pd.DataFrame:
         raise NotImplementedError
-    
+
+
+    @abstractmethod
+    def create_model(self,) -> torch.nn.Module:
+      raise NotImplementedError
+
     @abstractmethod
     def create_loss(self,) -> torch.nn.Module:
         raise NotImplementedError
@@ -649,50 +646,14 @@ class BaseModel(object):
     def training(self,):
         raise NotImplementedError
 
-    @property
-    def device(self,):
-        return self._device
-    
-    @device.setter
-    def device(self,value):
-        if isinstance(value,torch.device):
-          self._device = value
-        elif isinstance(value,str):
-          self._device = torch.device(value)
-        else:
-          raise TypeError("device must be str or torch.device")
 
-    def build(self,):
-        self.net = self.create_model().to(self.device)
-        self.criterior = self.create_loss().to(self.device)
-        self.is_train = False
-    
-    def train(self): #equavilant model.train() in pytorch
-        self.is_train = True
-        self.net.train()
+    @abstractmethod
+    def evaluate(self):
+        raise NotImplementedError
 
-    def eval(self):
-        self.is_train = False
-        self.net.eval()
 
-    def device_setup(self,arg):
-        device = getattr(arg,'device','cpu')
-        seed   = arg.seed
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
 
-        if 'gpu' in device :
-            try :
-                torch.cuda.manual_seed(seed)
-                torch.cuda.manual_seed_all(seed)
-                torch.backends.cudnn.deterministic = True
-                torch.backends.cudnn.benchmark = False
-            except Exception as e:
-                log(e)
-                device = 'cpu'
-        return device
-
+    #### Helper  ########################################### 
     def load_DataFrame(self,path=None)-> pd.DataFrame:
         if path:
             self.df = pd.read_csv(path,delimiter=';')
@@ -712,6 +673,62 @@ class BaseModel(object):
             return self.df
 
 
+    #### Device Setup #########################################
+    @property
+    def device(self,):
+        return self._device
+    
+    @device.setter
+    def device(self,value):
+        if isinstance(value,torch.device):
+          self._device = value
+        elif isinstance(value,str):
+          self._device = torch.device(value)
+        else:
+          raise TypeError("device must be str or torch.device")
+
+    def device_setup(self,arg):
+        device = getattr(arg,'device','cpu')
+        seed   = arg.seed
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
+        if 'gpu' in device :
+            try :
+                torch.cuda.manual_seed(seed)
+                torch.cuda.manual_seed_all(seed)
+                torch.backends.cudnn.deterministic = True
+                torch.backends.cudnn.benchmark = False
+            except Exception as e:
+                log(e)
+                device = 'cpu'
+        return device
+
+    ### Model Creation
+
+
+    #### Train, Eval, Predict
+    def build(self,):
+        self.net = self.create_model().to(self.device)
+        self.criterior = self.create_loss().to(self.device)
+        self.is_train = False
+    
+    def train(self): #equavilant model.train() in pytorch
+        self.is_train = True
+        self.net.train()
+
+    def predict(self,x,**kwargs):
+        # raise NotImplementedError
+        output = self.net(x,**kwargs)
+        return output 
+
+    def eval(self):
+        self.is_train = False
+        self.net.eval()
+
+
+    #### Save, Load
     def load_weight(self, path):
         assert os.path.isfile(path),f"{path} does not exist"
         try:
@@ -738,12 +755,7 @@ class BaseModel(object):
         
       torch.save(ckp,path)
 
-    def predict(self,x,**kwargs):
-        # raise NotImplementedError
-        output = self.net(x,**kwargs)
-        return output 
-
-
+ 
 
 
 
