@@ -60,7 +60,7 @@ def test1():
 
 
 def test2() -> None:
-    flist = format_add_logger()
+    flist = format_add_logger(nfile=2)
     log("Test2 formatted files successfully.")
     [os_file_compile_check(fi) for fi in flist]
     log("Formatted files ran successfully on os_file_check.")
@@ -324,8 +324,10 @@ def format_add_logger(dirin:str="./",dirout:str="./utilmy/docs/test/",nfile=3):
     def replace_print(text:str):
         """
         """
-        regex_print = r"(?:.*\n)(?!def)(print\()"
-        return re.sub(regex_print,"log(",text)
+        regex_print = r"(.*)(print\()(.*)"
+        text =  re.sub(regex_print,r"\1log(\3",text)
+        regex_functions_fix = r"(.*)(log\()(.*:)"
+        return re.sub(regex_functions_fix,r"\1print(\3",text)
         
     for in_file in f_list:
         with open(os.path.abspath(in_file),'r',encoding="utf-8") as f:
