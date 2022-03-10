@@ -277,7 +277,7 @@ def test2_new():
 
 
 
-    #### SEPARATE the models completetly
+    #### SEPARATE the models completetly, and create duplicate
 
     ### ARG.data_encoder  #################################
     ARG.data_encoder = Box()   #MODEL_TASK
@@ -286,6 +286,9 @@ def test2_new():
     data_encoder = RuleEncoder_Create(ARG.data_encoder )
 
 
+    ARG.data_encoder.dataset = Box()
+    ARG.data_encoder.dataset.dirin = "/"
+    ARG.data_encoder.dataset.colsy =  'solvey'
 
 
 
@@ -313,6 +316,11 @@ def test2_new():
     rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
 
 
+    ARG.rule_encoder.dataset = Box()
+    ARG.rule_encoder.dataset.dirin = "/"
+    ARG.rule_encoder.dataset.colsy =  'solvey'
+
+
 
 
 
@@ -322,6 +330,12 @@ def test2_new():
     ARG.merge_encoder.SKIP = False
     ARG.merge_encoder.MERGE = 'cat'
     ARG.merge_encoder.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
+
+    ARG.merge_encoder.dataset = Box()
+    ARG.merge_encoder.dataset.dirin = "/"
+    ARG.merge_encoder.dataset.colsy =  'solvey'
+
+
     model = MergeEncoder_Create(arg= ARG, rule_encoder, data_encoder)
 
 
@@ -337,6 +351,55 @@ def test2_new():
     inputs = torch.randn((1,9)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
+
+
+#############################################################################################
+####  Common Prepro #########################################################################
+
+def dataset_load() -> pd.DataFrame:
+    from sklearn.datasets import fetch_covtype
+    df = fetch_covtype(return_X_y=False, as_frame=True)
+    df =df.data
+    #   log(df)
+    #   log(df.columns)
+    df = df.iloc[:500, :10]
+    #   log(df)
+    return df
+
+
+def dataset_load_prepro(arg):
+    train_ratio = arg.TRAINING_CONFIG.TRAIN_RATIO
+    test_ratio = self.arg.TRAINING_CONFIG.TEST_RATIO
+    val_ratio =   self.arg.TRAINING_CONFIG.TEST_RATIO
+
+
+    ##########################################################
+    df = dataset_load()
+    coly  = 'Slope'  # df.columns[-1]
+    y_raw = df[coly]
+    X_raw = df.drop([coly], axis=1)
+
+    X_column_trans = ColumnTransformer(
+            [(col, StandardScaler() if not col.startswith('Soil_Type') else Binarizer(), [col]) for col in X_raw.columns],
+            remainder='passthrough')
+
+    y_trans = StandardScaler()
+
+    X = X_column_trans.fit_transform(X_raw)
+    # y = y_trans.fit_transform(y_raw.array.reshape(1, -1))
+    y = y_trans.fit_transform(y_raw.values.reshape(-1, 1))
+
+    ### Binarize
+    y = np.array([  1 if yi >0.5 else 0 for yi in y])
+
+    seed= 42
+    train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
+    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+    # print(np.float32(train_X).shape)
+    # exit()
+    return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
+
 
 
 
