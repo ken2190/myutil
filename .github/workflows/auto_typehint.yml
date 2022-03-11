@@ -4,7 +4,6 @@ name: Auto-typing Hints - ztypehint branch
 
 on:
   # Trigger the workflow on push or pull request,
-  # but only for the main branch
   push:
     branches:
     - ztypehint_run
@@ -12,12 +11,6 @@ on:
   schedule:
     - cron:  '* 3 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'
-
-
-#  pull_request:
-#    branches:
-#    - main
-
 
 
 jobs:
