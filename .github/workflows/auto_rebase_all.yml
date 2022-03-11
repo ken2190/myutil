@@ -1,4 +1,6 @@
 name: Auto Rebase Branches - main schedule
+
+
 on:
   schedule:
     - cron:  '* 13 ** *'      #### 60mins
@@ -21,14 +23,13 @@ jobs:
       - name: Checking out repository code into workspace...
         uses: actions/checkout@v3
 
-#### No desctructive add main and local and push ALL
+      #### No desctructive add main and local and push ALL
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           echo "Fetching latest..."
           git fetch origin
           git checkout ${{ env.ROOT_BRANCH_NAME }}
-# git pull --allow-unrelated-histories 
           echo "Beginning merge...."
           IFS=","
           for branch in $BRANCHES_TO_REBASE; do
