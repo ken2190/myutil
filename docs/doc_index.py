@@ -5,32 +5,19 @@ utilmy/__init__.py
 
 utilmy/adatasets.py
 -------------------------functions----------------------
-download_dtopbox(data_pars)
-download_googledrive(file_list, **kw)
-fetch_dataset(url_dataset, path_target = None, file_target = None)
-pd_train_test_split(df, coly = None)
-pd_train_test_split2(df, coly)
-test0()
+help()
+template_dataset_classifier_XXXXX(nrows = 500, **kw)
+test()
 test1()
 test_all()
-test_data_XXXXXfier_YYYY(nrows = 500, nmode = 'split/pandas', **kw)
-test_data_classifier_covtype(nrows = 500)
-test_data_classifier_digits(nrows = 1000)
-test_data_classifier_fake(nrows = 500)
-test_data_classifier_petfinder(nrows = 1000)
-test_data_classifier_pmlb(name = '', return_X_y = False, train_split = True)
-test_data_regression_boston(nrows = 1000)
-test_data_regression_fake(nrows = 500, n_features = 17)
+test_dataset_classifier_covtype(nrows = 500)
+test_dataset_classifier_diabetes_traintest()
+test_dataset_classifier_fake(nrows = 500)
+test_dataset_classifier_petfinder(nrows = 1000)
+test_dataset_classifier_pmlb(name = '', return_X_y = False)
+test_dataset_regression_boston_traintest()
+test_dataset_regression_fake(nrows = 500, n_features = 17)
 
--------------------------methods----------------------
-Downloader.__init__(self, url)
-Downloader._transform_dropbox_url(self)
-Downloader._transform_gdrive_url(self)
-Downloader._transform_github_url(self)
-Downloader.adjust_url(self)
-Downloader.clean_netloc(self)
-Downloader.download(self, filepath = '')
-Downloader.get_filename(self, headers)
 
 
 utilmy/cli.py
@@ -38,63 +25,6 @@ utilmy/cli.py
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
 log(*s)
 run_cli()
-
-
-
-utilmy/codeparser/__init__.py
-
-
-utilmy/codeparser/project_graph/project_graph/__init__.py
-
-
-utilmy/codeparser/project_graph/setup.py
-
-
-utilmy/codeparser/project_graph/test_script.py
--------------------------functions----------------------
-sleep_one_seconds()
-sleep_two_seconds()
-
-
-
-utilmy/codeparser/project_graph/test_script_argparse.py
--------------------------functions----------------------
-foo()
-sleep_one_seconds()
-sleep_two_seconds()
-
-
-
-utilmy/codeparser/project_graph/tests/__init__.py
-
-
-utilmy/codeparser/project_graph/tests/goodnight.py
--------------------------functions----------------------
-sleep_five_seconds()
-
-
-
-utilmy/codeparser/project_graph/tests/script_test_case_1.py
--------------------------functions----------------------
-bar()
-foo()
-
-
-
-utilmy/codeparser/project_graph/tests/sub_dir/__init__.py
-
-
-utilmy/codeparser/project_graph/tests/sub_dir/script_test_case_2.py
--------------------------functions----------------------
-bar()
-foo()
-
-
-
-utilmy/codeparser/project_graph/tests/test_performance_graph.py
--------------------------functions----------------------
-test_lowlvl()
-test_toplvl()
 
 
 
@@ -147,7 +77,7 @@ date_weekmonth(d)
 date_weekmonth2(d)
 date_weekyear2(dt)
 date_weekyear_excel(x)
-log(*s)
+help()
 pd_date_split(df, coldate  =   'time_key', prefix_col  = "", sep = "/", verbose = False)
 random_dates(start, end, size)
 random_genders(size, p = None)
@@ -626,28 +556,108 @@ test()
 
 
 
+utilmy/deeplearning/torch/images/base.py
+-------------------------methods----------------------
+BaseHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss', loss_weight = 1.0), multi_class = False, label_smooth_eps = 0.0)
+BaseHead.forward(self, x)
+BaseHead.init_weights(self)
+BaseHead.loss(self, cls_score, labels, **kwargs)
+
+
+utilmy/deeplearning/torch/images/i3d.py
+-------------------------methods----------------------
+I3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, **kwargs)
+I3DHead.forward(self, x)
+I3DHead.init_weights(self)
+
+
+utilmy/deeplearning/torch/images/x3d.py
+-------------------------methods----------------------
+X3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, fc1_bias = False)
+X3DHead.forward(self, x)
+X3DHead.init_weights(self)
+
+
 utilmy/deeplearning/torch/rule_encoder.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-dataset_load(arg)
-dataset_preprocess(df, arg)
+dataset_load_cardio(arg)
+dataset_load_covtype(arg)
+dataset_preprocess_cardio(df, arg)
+dataset_preprocess_covtype(df, arg)
 device_setup(arg)
 get_correct_results(out, label_Y)
 get_metrics(y_true, y_pred, y_score)
 get_perturbed_input(input_tensor, pert_coeff)
 help()
-loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg, argm)
-model_build(arg, mode = 'train')
-model_evaluation(model_eval, loss_task_func, arg)
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg, )
+loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
+loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
+model_build(arg:dict, mode = 'train')
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
 model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg, argm:dict = None)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
 test()
+test2()
 test_all()
+test_dataset_classification_fake(nrows = 500)
 verification(out, pert_out, threshold = 0.0)
 
 -------------------------methods----------------------
 DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 DataEncoder.forward(self, x)
+NaiveModel.__init__(self)
+NaiveModel.forward(self, x, alpha = 0.0)
+Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
+Net.forward(self, x, alpha = 0.0)
+Net.get_z(self, x, alpha = 0.0)
+RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+RuleEncoder.forward(self, x)
+
+
+utilmy/deeplearning/torch/rule_encoder2.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+dataset_load(arg, mode = 'eval')
+dataset_load_cardio(arg)
+dataset_load_covtype(arg)
+dataset_preprocess(df, arg)
+dataset_preprocess_cardio(df, arg)
+dataset_preprocess_covtype(df, arg)
+device_setup(arg)
+get_correct_results(out, label_Y)
+get_metrics(y_true, y_pred, y_score)
+help()
+loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
+loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
+merge_loss_calc(losses, weight)
+model_build(arg:dict, mode = 'train')
+model_evaluate(model_eval, losses, test_loader, arg0:dict, )
+model_load(arg)
+model_predict(model, test_loader, arg:dict)
+model_save(model, optimizer, res:dict, arg:dict)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+rule_get_perturbed_input(input_tensor, pert_coeff)
+rule_loss_calc(model, batch_train_x, rule_loss_func, output, arg:dict)
+rule_output_check(out, pert_out, threshold = 0.0)
+task_loss_calc()
+test()
+test2()
+test3()
+test_all()
+test_dataset_classification_fake(nrows = 500)
+
+-------------------------methods----------------------
+DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+DataEncoder.forward(self, x)
+DatasetModelRule.__init__(self, arg:dict)
+DatasetModelRule.dataset_addon_create()
+DatasetModelRule.evaluate(self)
+DatasetModelRule.predict()
+DatasetModelRule.rule_encoder_create(self)
+DatasetModelRule.rule_loss_calc_create(self)
+DatasetModelRule.rule_loss_create(self)
+DatasetModelRule.test(self, ))-> pd.DataFrame)
 NaiveModel.__init__(self)
 NaiveModel.forward(self, x, alpha = 0.0)
 Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
@@ -907,6 +917,21 @@ main()
 
 
 
+utilmy/docs/format.py
+-------------------------functions----------------------
+find_str(lines, word)
+format_add_header(dirin:str = "./")
+format_add_logger(dirin:str, dirout:str, nfile = 1000)
+help()
+os_file_compile_check(dirin:str, nfile = 10)
+os_file_compile_check_batch(dirin:str, nfile = 10)
+test1()
+test2()
+test_all()
+to_file(lines, fpath)
+
+
+
 utilmy/docs/generate_doc.py
 -------------------------functions----------------------
 markdown_create_file(list_info, prefix = '')
@@ -918,6 +943,29 @@ table_all_row(list_rows)
 table_create(uri, name, type, start_line, list_funtions, prefix)
 table_create_row(uri, name, type, start_line, list_funtions, prefix)
 test()
+
+
+
+utilmy/docs/generate_typehint.py
+-------------------------functions----------------------
+glob_glob_python(dirin, suffix  = "*.py", nfile = 7, exclude = "")
+help()
+os_path_norm(diroot)
+run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
+run_utilmy(nfile = 100)
+run_utilmy2(nfile = 100)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/templates/util_xxx.py
+-------------------------functions----------------------
+help()
+test1()
+test2()
+test_all()
 
 
 
@@ -972,8 +1020,6 @@ image_resize_ratio(image, width = None, height = None, inter = cv2.INTER_AREA)
 image_save()
 image_show_in_row(image_list:dict = None)
 image_text_blank(in_dir, out_dir, level = "/*")
-log(*s)
-log2(*s)
 os_path_check(path, n = 5)
 prep_image(image_paths, nmax = 10000000)
 prep_images(image_paths, nmax = 10000000)
@@ -981,6 +1027,8 @@ prep_images2(image_paths, nmax = 10000000)
 prep_images_multi(image_path_list:list, prepro_image_fun = None, npool = 1)
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test()
+test_all()
+test_image_create_fake(dirout = None, nimages = 1, )
 
 
 
@@ -1297,7 +1345,7 @@ log_trace(msg = "", dump_path = "", globs = None)
 np_add_remove(set_, to_remove, to_add)
 np_list_intersection(l1, l2)
 os_clean_memory(varlist, globx)
-os_copy_safe(dirin = None, dirout = None, nlevel = 5, nfile = 5000, logdir = "./", pattern = "*", exclude = "", force = False, sleep = 0.5, cmd_fallback = "", verbose = Trueimport shutil, time, os, globflist = [] ; dirinj = dirinnlevel) =  [] ; dirinj = dirinnlevel):)
+os_copy_safe(dirin:str = None, dirout:str = None, nlevel = 5, nfile = 5000, logdir = "./", pattern = "*", exclude = "", force = False, sleep = 0.5, cmd_fallback = "", verbose = Trueimport shutil, time, os, globflist = [] ; dirinj = dirinnlevel) =  [] ; dirinj = dirinnlevel):)
 os_cpu()
 os_file_check(fp)
 os_file_date_modified(dirin, fmt="%Y%m%d-%H = "%Y%m%d-%H:%M", timezone = 'Asia/Tokyo')
@@ -1308,6 +1356,7 @@ os_import(mod_name = "myfile.config.model", globs = None, verbose = True)
 os_makedirs(dir_or_file)
 os_memory()
 os_merge_safe(dirin_list = None, dirout = None, nlevel = 5, nfile = 5000, nrows = 10**8, cmd_fallback  =  "umount /mydrive/  && mount /mydrive/  ", sleep = 0.3)
+os_monkeypatch_help()
 os_path_size(path  =  '.')
 os_path_split(fpath:str = "")
 os_platform_ip()
@@ -1362,6 +1411,36 @@ sigint_handler(signal, frame)
 
 
 
+utilmy/optim/gp_dcgp.py
+-------------------------functions----------------------
+get_correlm(eqn)
+get_cost(ex)
+get_random_solution()
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
+rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+search()
+
+
+
+utilmy/optim/gp_formulae.py
+-------------------------functions----------------------
+NodesToProcess(G)
+decode(G)
+get_correlm(eqn)
+get_cost(G)
+is_valid(G)
+log(*s)
+random_solution()
+random_walker(G, h)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
+rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+search()
+sigint_handler(signal, frame)
+
+
+
 utilmy/optim/util_hyper.py
 -------------------------functions----------------------
 create_model_name(save_folder, model_name)
@@ -1385,8 +1464,6 @@ test_use_operon()
 utilmy/parallel.py
 -------------------------functions----------------------
 help()
-log(*s, **kw)
-log2(*s, **kw)
 multiproc_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
 multiproc_tochunk(flist, npool = 2)
 multithread_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
@@ -1395,8 +1472,8 @@ pd_apply_parallel(df, fun_apply = None, npool = 5, verbose = True)
 pd_groupby_parallel(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
 pd_groupby_parallel2(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
 pd_random(nrows = 1000, ncols =  5)
-pd_read_file(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter = None, col_filter_val = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
-pd_read_file2(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter = None, col_filter_val = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
+pd_read_file(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
+pd_read_file2(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
 test0()
 test_fun_run(list_vars, const = 1, const2 = 1)
 test_fun_sum(group, name = None)
@@ -1613,7 +1690,7 @@ ab_getstat(df, treatment_col = 'treatment', measure_col = 'metric', attribute_co
 abplot_CI_bars(N, X, sig_level = 0.05, dmin = None)
 funnel_CI_plot(A, B, sig_level = 0.05)
 get_ab_test_data(vars_also = False)
-log(*s)
+help()
 np_calculate_ab_dist(stderr, d_hat = 0, group_type = 'control')
 np_calculate_confidence_interval(sample_mean = 0, sample_std = 1, sample_size = 1, sig_level = 0.05)
 np_calculate_min_sample_size(bcr, mde, power = 0.8, sig_level = 0.05)
@@ -1637,6 +1714,56 @@ test_plot_ab()
 test_plot_binom_dist()
 test_zplot()
 zplot(ax, area = 0.95, two_tailed = True, align_right = False)
+
+
+
+utilmy/recsys/metric.py
+-------------------------functions----------------------
+_mean_ranking_metric(y, labels, metric)
+_require_positive_k(k)
+_single_list_similarity(y_preds: list, feature_df: pd.DataFrame, u: int)
+_warn_for_empty_labels()
+catalog_coverage(y_preds: List[list], catalog: list)
+coverage_at_k(y_preds, product_data, k = 3)
+help()
+hit_rate_at_k(y_preds, y_true, k = 3)
+hit_rate_at_k_nep(y_preds, y_true, k = 3)
+intra_list_similarity(y_preds: List[list], feature_df: pd.DataFrame)
+mean_average_precision(y, labels, assume_unique = True)
+metrics_calc(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
+metrics_calc_batch(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
+mrr_at_k(y_preds, y_true, k = 3)
+mrr_at_k_nep(y_preds, y_true, k = 3)
+ndcg_at_k(y, labels, k = 10, assume_unique = True)
+novelty(y_preds: List[list], pop: dict, u: int, n: int)
+personalization(y_preds: List[list])
+popularity_bias_at_k(y_preds, x_train, k = 3)
+precision_at(y_preds, y_true, k = 3)
+precision_at_k(y_preds, y_true, k = 3)
+recall_at_k(y_preds, y_true, k = 3)
+recall_average_at_k_mean(actual: List[list], y_preds: List[list], k = 10)
+recall_avg_at_k(actual: list, y_preds: list, k = 10)
+recommender_precision(y_preds: List[list], actual: List[list])
+recommender_recall(y_preds: List[list], actual: List[list])
+sample_hits_at_k(y_preds, y_true, x_test = None, k = 3, size = 3)
+sample_misses_at_k(y_preds, y_true, x_test = None, k = 3, size = 3)
+statistics(x_train, y_train, x_test, y_true, y_pred)
+test_all()
+test_get_testdata()
+test_metrics()
+
+
+
+utilmy/recsys/metrics/__Init__.py
+
+
+utilmy/recsys/metrics/distance_metrics.py
+-------------------------functions----------------------
+distance_to_query(model, x_test, y_test, y_preds, k = 3, bins = 25, debug = False)
+error_by_cosine_distance(model, y_test, y_preds, k = 3, bins = 25, debug = False)
+generic_cosine_distance(embeddings: dict, type_fn, y_test, y_preds, k = 10, bins = 25, debug = False)
+graph_distance_test(y_test, y_preds, product_data, k = 3)
+shortest_path_length()
 
 
 
@@ -1715,6 +1842,22 @@ EASE.fit(self, df, lambda_: float  =  0.5, implicit = True)
 EASE.predict(self, train, users, items, k)
 
 
+utilmy/recsys/models/prod2vec.py
+-------------------------methods----------------------
+CoveoP2VRecModel.__init__(self, **kwargs)
+CoveoP2VRecModel.get_vector(self, product_sku)
+CoveoP2VRecModel.predict(self, prediction_input: list, *args, **kwargs)
+CoveoP2VRecModel.train(self, products, iterations = 15)
+MovieLensP2VRecModel.__init__(self, **kwargs)
+MovieLensP2VRecModel.get_vector(self, x)
+MovieLensP2VRecModel.predict(self, prediction_input, *args, **kwargs)
+MovieLensP2VRecModel.train(self, movies, iterations = 15)
+SpotifyP2VRecModel.__init__(self, **kwargs)
+SpotifyP2VRecModel.get_vector(self, track_uri)
+SpotifyP2VRecModel.predict(self, prediction_input: list, *args, **kwargs)
+SpotifyP2VRecModel.train(self, playlists, iterations = 15)
+
+
 utilmy/recsys/models/topk_bandit/environment.py
 -------------------------methods----------------------
 ContextualEnvironment.__init__(self, user_features, playlist_features, user_segment, n_recos, gamma  =  1.0)
@@ -1768,6 +1911,27 @@ TSPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
 TSSegmentPolicy.__init__(self, user_segment, n_playlists, alpha_zero = 1, beta_zero = 99, cascade_model = True)
 TSSegmentPolicy.recommend_to_users_batch(self, batch_users, n_recos = 12, l_init = 3)
 TSSegmentPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
+
+
+utilmy/recsys/util_rec.py
+-------------------------functions----------------------
+_get_stratified_tr_mask(u, i, train_size, random_state)
+_make_sparse_csr(data, rows, cols, dtype = DTYPE)
+_make_sparse_tr_te(users, items, ratings, train_mask)
+_validate_train_size(train_size)
+check_consistent_length(u, i, r)
+check_cv(cv = 3)
+test1()
+test_all()
+to_sparse_csr(u, i, r, axis = 0, dtype = DTYPE)
+train_test_split(u, i, r, train_size = 0.75, random_state = None)
+
+-------------------------methods----------------------
+BaseCrossValidator.__init__(self, n_splits = 3, random_state = None)
+BaseCrossValidator._iter_train_mask()
+BaseCrossValidator.get_n_splits(self)
+BaseCrossValidator.split(self, X)
+BootstrapCV._iter_train_mask(self, u, i, r)
 
 
 utilmy/recsys/vectors.py
@@ -2747,20 +2911,21 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
-get_classifier_diabetes_data()
-get_reg_boston_data()
 help()
 load_function_uri(uri_name = "path_norm")
-model_evaluate(model, data_pars:dict)
-model_extract_rules(model)
-model_fit(name:str = 'imodels.SLIMRegressor', model_pars:dict = None, data_pars:dict = None, do_eval = True, **kw)
+model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
+model_extract_rules(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor])
+model_fit(name:str = 'imodels.SLIMRegressor', model_pars:dict = None, data_pars:dict = None, do_eval: bool = True, **kw)
 model_info(path = "")
-model_load(path = "")
-model_save(model, path = None, info = None)
-model_viz_classification_preds(probs:list, y_test:list)
+model_load(path: str = "")
+model_predict(model, predict_pars:dict)
+model_save(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], path: Optional[str] = None, info: None = None)
+model_viz_classification_preds(probs:np.ndarray, y_test:list)
 test1()
 test2()
 test_all()
+test_data_classifier_diabetes()
+test_data_regression_boston()
 test_imodels()
 
 
@@ -2780,7 +2945,7 @@ is_float(x)
 is_int(x)
 log(*s, **kw)
 log2(*s, **kw)
-pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int = 5000, dtype = np.float32)
+pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/")
 test1()
 test_all()
 test_create_fake_df()
@@ -3005,6 +3170,379 @@ test_image_padding_get()
 
 
 
+utilmy/tools/__init__.py
+
+
+utilmy/tools/cli_code/cli_code/__init__.py
+
+
+utilmy/tools/cli_code/cli_code/cli_conda_merge.py
+-------------------------functions----------------------
+dump(output_yaml)
+getPipRequirementsContent(dependencies, versions = True, priorityVersions = True)
+getPriorityList()
+main()
+merge(args)
+merge_channels(channels_list)
+merge_envs(args)
+merge_pips(pips)
+parse_args()
+prioritySort(dependencies)
+removePinnedDependencies(dependencies, versions = True, priorityVersions = True)
+resolve_dependencies(dependencies_list)
+sortYamlDeps(dependencies)
+stripPinnedDep(dep)
+stripPinnedVerDep(dep)
+
+-------------------------methods----------------------
+DAG.__init__(self)
+DAG.__len__(self)
+DAG.add_edge(self, from_node, to_node)
+DAG.add_node(self, node_name)
+DAG.independent_nodes(self)
+DAG.topological_sort(self)
+DAG.validate(self)
+
+
+utilmy/tools/cli_code/cli_code/cli_convert_ipynb.py
+-------------------------functions----------------------
+check(file_list, dump = False)
+convert2python(source_files, data_file, out_dir)
+load_arguments()
+main()
+scan(data_file)
+
+
+
+utilmy/tools/cli_code/cli_code/cli_doc_auto/__init__.py
+
+
+utilmy/tools/cli_code/cli_code/cli_doc_auto/main.py
+-------------------------functions----------------------
+get_arguments()
+main()
+
+
+
+utilmy/tools/cli_code/cli_code/cli_docs.py
+-------------------------functions----------------------
+code_parse_line(li, pattern_type = "import/import_externa")
+conda_path_get(subfolder="package/F = "package/F:/")
+log(*args, reset = 0)
+main()
+module_doc_write(module_name = "", input_signature_csv_file = "", outputfile = "", filter_list = None, debug = 0)
+module_doc_write_batch(module_list = None, list_exclude = None, folder_export = "/")
+module_getname(name)
+module_getpath(name)
+module_load(name_or_path = "")
+module_signature_compare(df_csv_new, df_csv_old, export_csv = "", return_df = 0)
+module_signature_get(module_name)
+module_signature_write(module_name, outputfile = "", return_df = 0, isdebug = 0)
+module_tofolder(name_or_path, outputfolder = "./zmp", isdebug = 1)
+module_unitest_write(input_signature_csv_file = "", module_name = "", outputfile = "unittest.txt", filter_list = None, isdebug = 0, )
+np_list_dropduplicate(seq)
+np_merge(*dicts)
+obj_arg_filter_apply_1(df, filter_list = None)
+obj_arg_filter_nonetype(x)
+obj_class_ispecial(obj)
+obj_get_arginfo(obj, args)
+obj_get_args(obj)
+obj_get_doc_string(obj)
+obj_get_full_signature(obj)
+obj_get_name(obj)
+obj_get_nametype(obj)
+obj_get_prefix(name)
+obj_get_signature(obj)
+obj_get_type(x)
+obj_guess_arg_type(arg_default_values)
+obj_guess_arg_type2(full_name, arg_name, type_guess_engine = "pytype")
+os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
+pd_df_expand(x)
+pd_df_format(df, index, filter = True)
+str_join(*members)
+str_strip_text(string)
+zdoc()
+ztest()
+ztest_mod(mod)
+
+-------------------------methods----------------------
+Module.__init__(self, module_name)
+Module.get_builtin_functions(self)
+Module.get_class_methods(self)
+Module.get_classes(self)
+Module.get_functions(self)
+Module.get_mlattr(self, full_name)
+Module.get_module_isbuiltin(self)
+Module.get_module_version(self)
+Module.get_submodule(self)
+Module.get_submodules(self)
+Module.is_imported(self, submodule_name)
+
+
+utilmy/tools/cli_code/cli_code/cli_download.py
+-------------------------functions----------------------
+get_arguments()
+main()
+
+-------------------------methods----------------------
+Downloader.__init__(self, url)
+Downloader._transform_dropbox_url(self)
+Downloader._transform_gdrive_url(self)
+Downloader._transform_github_url(self)
+Downloader.adjust_url(self)
+Downloader.clean_netloc(self)
+Downloader.download(self, filepath = '')
+Downloader.get_filename(self, headers)
+
+
+utilmy/tools/cli_code/cli_code/cli_env_autoinstall.py
+-------------------------functions----------------------
+conda_env_exits(conda_env)
+create_env(folder_input, conda_env, python_version = '3.6', packages = 'numpy')
+get_missing(all_packages, env_name = "test")
+get_os()
+get_packages(file)
+get_required_packages(source_files, conda_env = "test")
+load_arguments()
+main()
+os_exec(x)
+scan(data_file)
+
+
+
+utilmy/tools/cli_code/cli_code/cli_format.py
+-------------------------functions----------------------
+format_assignments(text)
+format_comments(text = "default", line_size = 90)
+format_dir(in_dir, out_dir)
+format_file(in_file, out_dir)
+format_imports(text)
+format_logs(text = "default", line_size = 90)
+load_arguments()
+main()
+mod_period(in_file)
+os_glob(in_dir)
+
+
+
+utilmy/tools/cli_code/cli_code/cli_github_search.py
+-------------------------functions----------------------
+get_arguments()
+main()
+search_github(args, start_time)
+
+
+
+utilmy/tools/cli_code/cli_code/cli_json.py
+-------------------------functions----------------------
+dict_update(fields_list, d, value)
+json_codesource_to_json(fpath)
+json_csv_to_json(file_csv = "", out_path = "dataset/")
+json_norm(x)
+json_norm_val(x)
+json_parse(ddict)
+json_to_object(ddict)
+jsons_to_df(json_paths)
+load_callable_from_dict(function_dict, return_other_keys = False)
+load_callable_from_uri(uri)
+load_function(package = "mlmodels.util", name = "path_norm")
+load_function_uri(uri_name = "path_norm")
+log(*s, n = 0, m = 0)
+main()
+os_folder_getfiles(folder, ext, dirlevel = -1, mode = "fullpath")
+os_package_root_path(filepath = "", sublevel = 0, path_add = "")
+params_json_load(path, config_mode = "test", tlist = ["model_pars", "data_pars", "compute_pars", "out_pars"])
+path_norm(path)
+test_functions_json(arg = None)
+test_json_conversion()
+
+-------------------------methods----------------------
+to_namespace.__init__(self, adict)
+to_namespace.get(self, key)
+
+
+utilmy/tools/cli_code/cli_code/cli_module_parser.py
+-------------------------functions----------------------
+_onerror_reraise(e)
+_walk(*args, include_hidden = None, **kwargs)
+analyzeSource(source)
+findVariablesInDir(directory)
+get_arguments()
+main()
+usage(message)
+writeCSV(variables, file_path = None)
+
+-------------------------methods----------------------
+ASTAnalyzer.__init__(self)
+ASTAnalyzer._handleArguments(self, arguments)
+ASTAnalyzer._handleForceGlobalVariable(self, variable_name)
+ASTAnalyzer._handleGlobalVariable(self, variable_name)
+ASTAnalyzer._handleLocalVariable(self, variable_name)
+ASTAnalyzer._handleVariable(self, node)
+ASTAnalyzer._impl_visit_Function(self, node)
+ASTAnalyzer.getVariables(self)
+ASTAnalyzer.visit_AsyncFunctionDef(self, node)
+ASTAnalyzer.visit_ClassDef(self, node)
+ASTAnalyzer.visit_FunctionDef(self, node)
+ASTAnalyzer.visit_Global(self, node)
+ASTAnalyzer.visit_Lambda(self, node)
+ASTAnalyzer.visit_Name(self, node)
+
+
+utilmy/tools/cli_code/cli_code/cli_repo_check.py
+-------------------------functions----------------------
+get_logger()
+get_os()
+git_clone(url, out_dir = None)
+load_arguments()
+main()
+os_system(cmds, stdout_only = True)
+repo_build_conda(in_folder, conda_env = None)
+repo_check_root_files(folder, conda_env)
+repo_generate_signature(folder)
+scan_dir(folder)
+
+
+
+utilmy/tools/cli_code/cli_code/util_cli.py
+-------------------------functions----------------------
+_os_file_search_fast(fname, texts = None, mode = "regex/str")
+os_file_getname(path)
+os_file_getpath(path)
+os_file_gettext(file1)
+os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
+os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
+os_file_replace(source_file_path, pattern, substring)
+os_file_replacestring1(find_str, rep_str, file_path)
+os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
+
+
+
+utilmy/tools/cli_code/setup.py
+
+
+utilmy/tools/cli_code/test/cli_convert_ipynb.py
+-------------------------functions----------------------
+check(file_list, dump = False)
+convert2python(source_files, data_file, out_dir)
+load_arguments()
+main()
+scan(data_file)
+
+
+
+utilmy/tools/cli_code/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode = "run_preprocess", model_dict = None, return_mode = 'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/cli_code/test/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode  =  "run_preprocess", model_dict =  None, return_mode =  'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/cli_code/test/ztest/ast_analyzer_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_file_finder(self)
+
+
+utilmy/tools/cli_code/test/ztest/file_finder_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_findVariablesInDir(self)
+TestFileFinder.test_findVariablesInFile(self)
+
+
+utilmy/tools/cli_code/test/ztest/output_test.py
+-------------------------methods----------------------
+TestOutput.test_corner_cases(self)
+TestOutput.test_output(self)
+
+
+utilmy/tools/cli_code/test/ztest/run_batch.py
+
+
+utilmy/tools/cli_code/test/ztest/ztest_batch.py
+
+
+utilmy/tools/cli_code/test/ztest/ztest_import.py
+
+
+utilmy/tools/cli_code/test/ztest/ztest_runall.py
+
+
+utilmy/tools/cli_code/test/ztest/ztest_util.py
+
+
+utilmy/tools/codeparser_project_graph/project_graph/__init__.py
+
+
+utilmy/tools/codeparser_project_graph/setup.py
+
+
+utilmy/tools/codeparser_project_graph/test_script.py
+-------------------------functions----------------------
+sleep_one_seconds()
+sleep_two_seconds()
+
+
+
+utilmy/tools/codeparser_project_graph/test_script_argparse.py
+-------------------------functions----------------------
+foo()
+sleep_one_seconds()
+sleep_two_seconds()
+
+
+
+utilmy/tools/codeparser_project_graph/tests/__init__.py
+
+
+utilmy/tools/codeparser_project_graph/tests/goodnight.py
+-------------------------functions----------------------
+sleep_five_seconds()
+
+
+
+utilmy/tools/codeparser_project_graph/tests/script_test_case_1.py
+-------------------------functions----------------------
+bar()
+foo()
+
+
+
+utilmy/tools/codeparser_project_graph/tests/sub_dir/__init__.py
+
+
+utilmy/tools/codeparser_project_graph/tests/sub_dir/script_test_case_2.py
+-------------------------functions----------------------
+bar()
+foo()
+
+
+
+utilmy/tools/codeparser_project_graph/tests/test_performance_graph.py
+-------------------------functions----------------------
+test_lowlvl()
+test_toplvl()
+
+
+
 utilmy/tseries/util_tseries.py
 
 
@@ -3043,6 +3581,15 @@ IndexLock.save_filter(self, val:list = None)
 IndexLock.save_isok(self, flist:list)
 toFile.__init__(self, fpath)
 toFile.write(self, msg)
+
+
+utilmy/util_conda.py
+-------------------------functions----------------------
+help()
+pip_auto_install()
+
+-------------------------methods----------------------
+PipFinder.find_spec(cls, name, path, target = None)
 
 
 utilmy/util_cpu.py
@@ -3091,7 +3638,24 @@ NodeStatsCollector.init(self)
 NodeStatsCollector.run(self)
 
 
+utilmy/util_dirs.py
+-------------------------functions----------------------
+_get_win_folder_from_environ(csidl_name)
+_get_win_folder_from_registry(csidl_name)
+_get_win_folder_with_ctypes(csidl_name)
+_get_win_folder_with_jna(csidl_name)
+user_cache_dir(appname = None, appauthor = None, version = None, opinion = True)
+user_config_dir(appname = None, appauthor = None, version = None, roaming = False)
+user_data_dir(appname = None, appauthor = None, version = None, roaming = False)
+user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
+
+
+
 utilmy/util_download.py
+-------------------------functions----------------------
+download_with_progress(url, destination)
+get_cache_directory()
+
 
 
 utilmy/util_hadoop.py
@@ -3122,7 +3686,7 @@ get_loggers(mode = 'print', n_loggers = 2, verbose_level = None)
 get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
-glob_glob(dirin, nfile = 1000)
+glob_glob(dirin = "**/*.py", nfile = 1000, recursive = False, **kw)
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
 help_get_docstring(func)
@@ -3220,16 +3784,10 @@ html_show(html_code, verbose = True)
 html_show_chart_highchart(html_code, verbose = True)
 images_to_html(dir_input = "*.png", title = "", verbose = False)
 mlpd3_add_tooltip(fig, points, labels)
-mpld3_server_start()
-pd_plot_highcharts(df)
-pd_plot_histogram_highcharts(df:pd.DataFrame, colname:str = None, binsNumber = None, binWidth = None, color:str = '#7CB5EC', title:str = "", xaxis_label:str =  "x-axis", yaxis_label:str = "y-axis", cfg:dict = {}, mode = 'd3', save_img = "", show = False, verbose = True, **kw)
-pd_plot_histogram_matplot(df:pd.DataFrame, col: str = '', colormap:str = 'RdYlBu', title: str = '', nbin = 20.0, q5 = 0.005, q95 = 0.995, nsample = -1, save_img: str = "", xlabel: str = None, ylabel: str = None, verbose = True, **kw)
+pd_plot_density_d3(df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plot Density', 460, 460), xlabel: str  =  'x-axis', ylabel: str  =  'y-axis', color: str  =  '#69b3a2', cfg: dict  =  {})
 pd_plot_network(df:pd.DataFrame, cola: str = 'col_node1', colb: str = 'col_node2', coledge: str = 'col_edge', colweight: str = "weight", html_code:bool  =  True)
 pd_plot_scatter_get_data(df0:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, nmax: int = 20000, **kw)
-pd_plot_scatter_highcharts(df0:pd.DataFrame, colx:str = None, coly:str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, colclass3: str = None, nsample = 10000, cfg:dict = {}, mode = 'd3', save_img = '', verbose = True, **kw)
 pd_plot_scatter_matplot(df:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, cfg: dict  =  {}, mode = 'd3', save_path: str = '', verbose = True, **kw)
-pd_plot_tseries_highcharts(df0, coldate:str = None, date_format  =  None, coly1:list  = [], coly2:list  = [], figsize:tuple  =   None, title:str = None, xlabel:str = None, y1label:str = None, y2label:str = None, cfg:dict = {}, mode = 'd3', save_img = "", verbose = True, **kw)
-pd_plot_tseries_matplot(df:pd.DataFrame, plot_type: str = None, coly1: list  =  [], coly2: list  =  [], 8, 4), spacing = 0.1, verbose = True, **kw))
 to_float(x)
 zz_css_get_template(css_name:str =  "A4_size")
 zz_pd_plot_histogram_highcharts_old(df, col, figsize = None, title = None, cfg:dict = {}, mode = 'd3', save_img = '')

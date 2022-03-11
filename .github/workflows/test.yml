@@ -6,16 +6,16 @@ on:
   # Trigger the workflow on push or pull request,
   # but only for the main branch
   push:
-    branches:
-      - main
-
     branches-ignore:
       - main
+      - 'z*'
+      - zauto_rebase_all
+      - zdocstring
+      - zttypehint
+      - zformat
+      
 
   pull_request:
-    branches:
-# - main
-
     branches-ignore:
       - main
 
@@ -30,10 +30,10 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
         
-    - name: Set up Python 3.6.*
+    - name: Set up Python 3.7.*
       uses: actions/setup-python@v1
       with:
-        python-version: 3.6.*
+        python-version: 3.7.*
       
     - name: Install pipenv
       uses: dschep/install-pipenv-action@v1
@@ -102,7 +102,6 @@ jobs:
 
     - name: test_distributed
       run: python test.py test_distributed
-
 
     - name: test_oos 
       run: python test.py test_oos

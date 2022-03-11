@@ -1,107 +1,96 @@
-"""Automates Python scripts formatting, linting and Mkdocs documentation."""
+MNAME='utilmy.docs.docstring'
+HELP=""" Automates Python scripts formatting, linting and Mkdocs documentation.
 
-import ast
-import importlib
-import re
+
+cd myutil
+pip install -e . ## dev install
+
+python utilmy/docs/docstring.py  test1
+
+python docs/docstring.py  --dirin  uitl   --dirout    --overwrite False --test True
+
+
+
+
+
+"""
+import os, sys, ast,re, importlib
 from collections import defaultdict
 from pathlib import Path
 from typing import Union, get_type_hints
+from pprint import pprint
 
 
-def automate_mkdocs_from_docstring(
-    mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str
-) -> str:
-    """Automates the -pages for mkgendocs package by adding all Python functions in a directory to the mkgendocs config.
-    Args:
-        mkdocs_dir (typing.Union[str, pathlib.Path]): textual directory for the hierarchical directory & navigation in Mkdocs
-        mkgendocs_f (str): The configurations file for the mkgendocs package
-        repo_dir (pathlib.Path): textual directory to search for Python functions in
-        match_string (str): the text to be matches, after which the functions will be added in mkgendocs format
-    Example:
-        >>>
-        >>> automate_mkdocs_from_docstring('scripts', repo_dir=Path.cwd(), match_string='pages:')
-    Returns:
-        str: feedback message
-    """
-    p = repo_dir.glob("**/*.py")
-    scripts = [x for x in p if x.is_file()]
+##########################################################################################################
+from code_parser import get_list_function_info, get_list_method_info
+from utilmy.utilmy import log, log2
 
-    if Path.cwd() != repo_dir:  # look for mkgendocs.yml in the parent file if a subdirectory is used
-        repo_dir = repo_dir.parent
-
-    functions = defaultdict(list)
-    for script in scripts:
-
-        with open(script, "r") as source:
-            tree = ast.parse(source.read())
-
-        for child in ast.iter_child_nodes(tree):
-            if isinstance(child, (ast.FunctionDef, ast.ClassDef, ast.AsyncFunctionDef)):
-                if child.name not in ["main"]:
-
-                    module = importlib.import_module(script.stem)
-                    f_ = getattr(module, child.name)
-                    function = f_.__name__
-                    functions[script].append(function)
-
-    with open(f"{repo_dir}/{mkgendocs_f}", "r+") as mkgen_config:
-        insert_string = ""
-        for path, function_names in functions.items():
-            insert_string += (
-                f'  - page: "{mkdocs_dir}/{path.parent.name}/{path.stem}.md"\n    '
-                f'source: "{path.parent.name}/{path.stem}.py"\n    functions:\n'
-            )
-
-            f_string = ""
-            for f in function_names:
-                insert_f_string = f"      - {f}\n"
-                f_string += insert_f_string
-
-            insert_string += f_string
-
-        contents = mkgen_config.readlines()
-        if match_string in contents[-1]:
-            contents.append(insert_string)
-        else:
-
-            for index, line in enumerate(contents):
-                if match_string in line and insert_string not in contents[index + 1]:
-
-                    contents = contents[: index + 1]
-                    contents.append(insert_string)
-                    break
-
-    with open(f"{repo_dir}/{mkgendocs_f}", "w") as mkgen_config:
-        mkgen_config.writelines(contents)
-
-    return f"Added to {mkgendocs_f}: {tuple(functions.values())}."
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME))
 
 
-def indent(string: str) -> int:
-    """Count the indentation in whitespace characters.
-    Args:
-        string (str): text with indents
-    Returns:
-        int: Number of whitespace indentations
-    """
-    return sum(4 if char == "\t" else 1 for char in string[: -len(string.lstrip())])
+##########################################################################################################
+def test_all():
+    test1()
 
 
-def docstring_from_type_hints(repo_dir: Path, dirout:str,  overwrite_script: bool = False, test: bool = True) -> str:
+def test1(mode='test'):
+    log(""" generate_docstring """)
+    # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
+
+    # not use
+    # docstring_from_type_hints(python_tips_dir, python_tips_dir, overwrite_script=True, test=True)
+    
+    python_dir = Path.cwd().joinpath("docs/test_script")
+    #python_dir = os.getcwd() + "/docs/test_script/*.py"# Path.cwd().joinpath("docs/test_script")
+    
+    if 'test' in mode :
+       # test custom
+       generate_docstring(dirin=python_dir, dirout=python_dir)
+
+    elif 'overwrite' in mode :
+       # overwrite scripts
+       generate_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+
+
+def run_all(mode='overwrite'):
+    log(""" generate_docstring """)
+    # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
+
+    # not use
+    # docstring_from_type_hints(python_tips_dir, python_tips_dir, overwrite_script=True, test=True)
+    
+    python_dir = Path.cwd().joinpath("utilmy/")
+    if 'overwrite' in mode :
+       # overwrite scripts
+       generate_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+
+
+
+
+##########################################################################################################
+def docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str,Path], 
+                              overwrite: bool = False, test: bool = True) -> str:
     """Automate docstring argument variable-type from type-hints.
+
     Args:
-        repo_dir (< nothing >): textual directory to search for Python functions in
-        overwrite_script (< wrong variable type>): enables automatic overwriting of Python scripts in repo_dir
+        dirin (< nothing >): textual directory to search for Python functions in
+        overwrite_script (< wrong variable type>): enables automatic overwriting of Python scripts in dirin
         test (Something completely different): whether to write script content to a test_it.py file
+
     Returns:
         str: feedback message
+
     """
-    repo_dir = Path(repo_dir) if isintance(repo_dir, str) else repo_dir 
-    p = repo_dir.glob("**/*.py")
+    p = dirin.glob("**/*.py")
     scripts = [x for x in p if x.is_file()]
+
+    print(scripts)
 
     functions = defaultdict(list)
     for script in scripts:
+        # print(script)
 
         with open(script, "r") as source:
             tree = ast.parse(source.read())
@@ -112,14 +101,22 @@ def docstring_from_type_hints(repo_dir: Path, dirout:str,  overwrite_script: boo
                 if child.name not in ["main"]:
 
                     docstring_node = child.body[0]
-                    module = importlib.import_module(script.stem)
 
+                    try:
+                        sys.path.append(script.parent)
+                        module = importlib.import_module(script.stem)
+                    except Exception as e:
+                        return str(e)
                     f_ = getattr(module, child.name)
+
+
                     type_hints = get_type_hints(f_)  # the same as f_.__annotations__
                     return_hint = type_hints.pop("return", None)
                     function = f_.__name__
                     functions[script].append(function)
-
+                    
+                    print('----------------------')
+                    print(type_hints)
                     if type_hints:
 
                         docstring = f'"""{ast.get_docstring(child, clean=True)}\n"""'
@@ -271,13 +268,13 @@ def docstring_from_type_hints(repo_dir: Path, dirout:str,  overwrite_script: boo
                 + script_lines[docstring_attr["end_lineno"] :]
             )
 
-        if overwrite_script:
+        if overwrite:
             if test:
-                script2 = f"{repo_dir}/test_it.py"
+                script = f"{dirout}/test_{script.stem}.py"
             else:
-               script2 = script.replace( str(repo_dir), dirout)
+               script = script.replace( str(dirin), dirout)
 
-            with open(script2, "w") as script_file:
+            with open(script, "w") as script_file:
                 script_file.writelines(script_lines)
 
             print(f"Automated docstring generation from type hints: {script}")
@@ -286,30 +283,272 @@ def docstring_from_type_hints(repo_dir: Path, dirout:str,  overwrite_script: boo
 
 
 
+def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
+    """  Generate docstring
+        dirin (< nothing >): textual directory to search for Python functions in
+        overwrite_script (< wrong variable type>): enables automatic overwriting of Python scripts in dirin
+        test (Something completely different): whether to write script content to a test_it.py file
+    """    
+    dirin = Path(dirin) if isinstance(dirin, str) else dirin
+    p = dirin.glob("**/*.py")
+
+    # exclude = "*zml*"
+    # p = glob_glob_python(dirin, suffix ="*.py", nfile=15000, exclude=exclude)
+    scripts = [x for x in p if Path(x).is_file()]
+
+    # print(scripts)
+    for script in scripts:
+        try :
+            log("\n", script)
+            log2('########## Process functions  #############################') 
+            list_functions = get_list_function_info(f'{script.parent}/{script.name}')
+            for function in list_functions:
+                # print('--------')
+                # print(function['name'])
+                # print(function['line'])
+                # print(function['start_idx'])
+                # print(function['arg_name'])
+                # print(function['arg_type'])
+                # print(function['arg_value'])
+                # print(function['docs'])
+                # print(function['indent'])
+                # print('--------')
+
+                new_docstring = []
+                # auto generate docstring
+                if function['docs']:
+                    # function already have docstring, will not update it
+                    pass
+                else:
+                    # list of new docstring
+                    new_docstring.append(f'{function["indent"]}"""function {function["name"]}\n')
+                    # new_docstring.append("")
+
+                    # add args
+                    new_docstring.append(f'{function["indent"]}Args:\n')
+                    for i in range(len(function['arg_name'])):
+                        arg_type_str = f' ( {(function["arg_type"][i])} ) ' if function["arg_type"][i] else ""
+
+                        ### TODO argname:   type, default-value,   text explanation
+                        new_docstring.append(f'{function["indent"]}    {function["arg_name"][i]}{arg_type_str}:   \n')
+                        # new_docstring.append(f'{function["indent"]}    {function["arg_name"][i]}{arg_type_str}: {function["arg_name"][i]}\n')
+
+                    # new_docstring.append(f'{function["indent"]}Example:')
+                    new_docstring.append(f'{function["indent"]}Returns:\n')
+                    new_docstring.append(f'{function["indent"]}    \n')
+                    new_docstring.append(f'{function["indent"]}"""\n')
+
+                # print(new_docstring)
+                function["new_docs"] = new_docstring
+
+            # 1. Update the file with new update docstring for functions first
+            # print(len(list_functions))
+            list_functions.sort(key=lambda x: x['line'], reverse=True)
+            for function in list_functions:
+                if function['name'] == 'export_stats_perrepo':
+                    pprint(function)
+
+            with open(f'{script.parent}/{script.name}', "r") as file:
+                script_lines = file.readlines()
+
+            for function in list_functions:
+                if function["new_docs"]:
+                    script_lines = (
+                        script_lines[: function["line"]]
+                        # + [f'{function["new_docs"]}\n']
+                        + function["new_docs"]
+                        + script_lines[function["line"] + function['start_idx'] -1:]
+                    )
+
+            file_temp = f"{Path.cwd()}/temp_{script.name}"
+            with open(file_temp, "w") as script_file:
+                script_file.writelines(script_lines)
+
+
+            log2('########## Process methods  ###############################') 
+            list_methods = get_list_method_info(file_temp)
+            for method in list_methods:
+                new_docstring = []
+                # auto generate docstring
+                if method['docs']:
+                    # function already have docstring, will not update it
+                    pass
+                else:
+                    # list of new docstring
+                    new_docstring.append(f'{method["indent"]}"""This is the docstring for function {method["name"]}\n')
+                    # new_docstring.append("")
+
+                    # add args
+                    new_docstring.append(f'{method["indent"]}Args:\n')
+                    for i in range(len(method['arg_name'])):
+                        arg_type_str = f' (function["arg_type"][i]) ' if method["arg_type"][i] else ""
+
+                        ####3 TODO   argname : type, value
+                        new_docstring.append(f'{method["indent"]}    {method["arg_name"][i]}{arg_type_str}:     \n')
+                        #new_docstring.append(f'{method["indent"]}    {method["arg_name"][i]}{arg_type_str}: {method["arg_name"][i]}\n')
+
+
+                    # new_docstring.append(f'{function["indent"]}Example:')
+                    new_docstring.append(f'{method["indent"]}Returns:\n')
+                    new_docstring.append(f'{method["indent"]}   \n')
+                    new_docstring.append(f'{method["indent"]}"""\n')
+
+                # print(new_docstring)
+                method["new_docs"] = new_docstring
+
+
+            # 2. Update the file with new update docstring for methods
+            # print(len(list_methods))
+            list_methods.sort(key=lambda x: x['line'], reverse=True)
+            # for method in list_methods:
+            #     print(method)
+            with open(file_temp, "r") as file:
+                script_lines = file.readlines()
+            os.remove(file_temp)
+
+            for method in list_methods:
+                if method["new_docs"]:
+                    script_lines = (
+                        script_lines[: method["line"]]
+                        # + [f'{function["new_docs"]}\n']
+                        + method["new_docs"]
+                        + script_lines[method["line"] + method['start_idx'] -1:]
+                    )
+
+            log2('########## Write on Disk ################################') 
+            if overwrite:
+                script_tmp  = f'{script.parent}/ztmp.py'
+                script_test = f'{script.parent}/{script.name}'
+                with open(script_tmp, "w") as script_file:
+                    script_file.writelines(script_lines)
+                isok = os_file_compile_check(script_tmp, verbose=0)   
+                log('compile', isok)
+                if isok :
+                    if os.path.exists(script_test): os.remove(script_test)
+                    os.rename(script_tmp, script_test)
+                else :
+                    os.remove(script_tmp)
+
+
+            elif test:
+                script_tmp  = f'{dirout}/ztmp.py'                
+                script_test = f"{dirout}/test_{script.name}"
+                with open(script_test, "w") as script_file:
+                    script_file.writelines(script_lines)
+
+                isok = os_file_compile_check(script_tmp, verbose=0)   
+                log('compile', isok)
+                if isok :
+                    if os.path.exists(script_test): os.remove(script_test)
+                    os.rename(script_tmp, script_test)
+                else :
+                    os.remove(script_tmp)
+
+
+        except Exception as e :
+            log("\n",e, "\n")
+
+
+
+
+
+
+
+if 'utilties':
+    def os_path_norm(diroot:str):
+        """os_path_norm 
+        Args:
+            diroot:
+        Returns:
+            _description_
+        """
+        diroot = diroot.replace("\\", "/")
+        return diroot + "/" if diroot[-1] != "/" else  diroot
+
+
+    def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
+        """glob_glob_python 
+        Args:
+            dirin: _description_
+            suffix: _description_. Defaults to "*.py".
+            nfile: _description_. Defaults to 7.
+            exclude: _description_. Defaults to "".
+
+        Returns:
+            _description_
+        """
+        import glob
+        dirin = str(dirin)
+        flist = glob.glob(dirin + suffix) 
+        flist = flist + glob.glob(dirin + "/**/" + suffix ) 
+        elist = []
+        
+        if exclude != "":    
+           for ei in exclude.split(";"):
+               elist = glob.glob(ei + "/" + suffix ) 
+        flist = [ fi for fi in flist if fi not in elist ]
+
+        #### Unix format 
+        flist = [  fi.replace("\\", "/") for fi in flist]
+
+        flist = flist[:nfile]
+        log(dirin, flist)
+        return flist
+
+    def os_makedirs(filename):
+        if isinstance(filename, str):
+            filename = [os.path.dirname(filename)]
+
+        if isinstance(filename, list):
+            folder_list = filename
+            for f in folder_list:
+                try:
+                    if not os.path.exists(f):
+                        os.makedirs(f)
+                except Exception as e:
+                    print(e)
+            return folder_list
+
+
+
+    #############################################################################################
+    def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
+        """ check if .py can be compiled
+        """
+        flist   = glob_glob_python( dirin, "*.py",nfile= nfile)
+        results = []
+        for fi in flist :
+            res = os_file_compile_check(fi)
+            results.append(res)
+
+        #results = [os.system(f"python -m py_compile {i}") for i in flist]
+        results = { flist[i]:  results[i] for i in range(len(flist)) }
+        return results
+
+
+    def os_file_compile_check(filename:str, verbose=1):
+        """ check if .py can be compiled
+
+        """
+        import ast, traceback
+        try : 
+            with open(filename, mode='r') as f:
+                source = f.read()
+            ast.parse(source)
+            return True
+        except Exception as e:
+            if verbose >0 : 
+                print(e)
+                traceback.print_exc() # Remove to silence any errros
+        return False
+
+
+
+
 ##########################################################################################################
-def main():
-    """Execute when running this script."""
-    python_tips_dir = Path.cwd().joinpath("Medium/Python tips")
-    # python_tips_dir = Path.cwd().joinpath("Python tips")
-
-    docstring_from_type_hints(python_tips_dir, overwrite_script=True, test=False)
-
-    automate_mkdocs_from_docstring(
-        mkdocs_dir="scripts",
-        mkgendocs_f="mkgendocs.yml",
-        repo_dir=python_tips_dir,
-        match_string="pages:\n",
-    )
-
-
-def docstring(dirin, dirout):
-    """ generate docstring in code"""
-    docstring_from_type_hints(dirin, dirout, overwrite_script=True, test=False)
-
-
-
-
 if __name__ == "__main__":
     import fire
     fire.Fire()
+    #main()
+
 

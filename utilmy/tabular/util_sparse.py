@@ -8,6 +8,9 @@ from box import Box
 from utilmy.parallel import pd_read_file, pd_read_file2
 
 
+#### Sparse utilities
+from scipy.sparse import coo_matrix, csr_matrix, lil_matrix
+
 ###################################################################################
 from utilmy import log, log2
 
@@ -37,10 +40,6 @@ def test_all():
 def test1():
     xdf, nExpectedOnes, genreColNames = test_create_fake_df()
     X = pd_historylist_to_csr(xdf, colslist=genreColNames)
-    print('Sparse matrix shape:', X.shape)
-    print('Expected no. of Ones: ', nExpectedOnes )
-    print('No. of Ones in the Matrix: ', np.count_nonzero(X == 1) )
-    assert np.count_nonzero(X == 1) == nExpectedOnes, "Invalid CSR matrix"
     print('Sparse matrix verified')    
 
 
@@ -75,50 +74,53 @@ def test_create_fake_df():
 
 
 ###################################################################################################
-def pd_historylist_to_csr(df:pd.DataFrame, colslist:list=None, hashSize:int=5000, dtype=np.float32):
+def pd_historylist_to_csr(df:pd.DataFrame, colslist:list=None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,
+                            min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/"):
     """ Creates Sparse matrix of dimensions:
-         ncol: hashsize * (nlist1 + nlist2 + ....)    X    nrows: nUserID
 
-         xdf:  pd.DataFrame
-               genreCol: string: "4343/4343/4545, 4343/4343/4545, 4343/4343/4545, 4343/4343/4545, 4343/4343/4545"
+            Single value  max=i+1, min=i
 
-         colist:   list of column names containing history list
-         hashSize: size of hash space
-         return X: scipy.sparse.coo_matrix
+            ncol: hashsize * (nlist1 + nlist2 + ....)    X    nrows: nUserID
+            xdf:  pd.DataFrame
+                genreCol: string: "4343/4343/4545, 4343/4343/4545, 4343/4343/4545, 4343/4343/4545, 4343/4343/4545"
+
+            colist:   list of column names containing history list
+            hashSize: size of hash space
+            return X: scipy.sparse.coo_matrix
     """
     import mmh3
-    from scipy.sparse import coo_matrix 
+    from scipy.sparse import coo_matrix, csr_matrix, lil_matrix
 
-    # Extract genreCols as df
-    #df = xdf.loc[:, xdf.columns != 'userid']
-    df = df[colslist]
-    dfColsIdx = list(range(len(df.columns)))
+    ### Ncols = nb of col
+    Xcols = hashSize * len(colslist) * (max_rec_perlist-min_rec_perlist)  # top 5 genre for each reclist
 
-    # No. cols for sparse matrix X
-    nlist = []
-    for genreCol in  colslist:
-        nlist.append( len(df[genreCol][0].split(',')) )
-    ncols = hashSize * ( sum(nlist) )
-
-    # No. rows for sparse matrix X
-    nrows = len(df)
+    # No. rows for sparse matrix X, N_userid
+    Xrows = len(df)
 
     # Create zeros sparse matrix
-    X = coo_matrix((nrows, ncols), dtype=dtype).toarray()
+    X = lil_matrix((Xrows, Xcols), dtype=dtype)
 
-    for idx in range(len(df)):
-        bucket = 0
-        for colIdx in dfColsIdx:
-            genreList = [x.strip() for x in df[colslist].to_numpy()[idx, colIdx].split(',')]
-            for genre in genreList:
-                for subgenre in genre.split('/'):
-                    subgenre = subgenre.strip()
-                    colid = mmh3.hash(subgenre, 42, signed=False) % hashSize
-                    X[idx][colid+bucket] = 1
+    bucket = 0 ; ntot=0
+    for coli in colslist:
+        bucket0 = bucket  ### Store
+        recList = df[coli].values
+        for idx, genre_list in enumerate(recList):
+            if isinstance(genre_list, str): genre_list = genre_list.split(sep_genre)  ### 353/34534,  5435/4345, 
+
+            ### Iterate for each genre in the reclist and reset to base bucket0
+            bucket =  bucket0
+            for genre in genre_list[min_rec_perlist:max_rec_perlist] :
+                for subgenre in genre.split(sep_subgenre):  #### 35345/5435/345345
+                    ntot  = ntot + 1
+                    colid = mmh3.hash(subgenre.strip(), 42, signed=False) % hashSize
+                    X[ (idx, bucket+ colid)] = 1
                 bucket += hashSize
-            
-    return X
 
+    X = csr_matrix( X )
+    print('Sparse matrix shape:', X.shape)
+    print('Expected no. of Ones: ', ntot )
+    print('No. of Ones in the Matrix: ', X.count_nonzero() )
+    return X
 
 
 #####################################################################################################
