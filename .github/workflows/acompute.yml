@@ -1,4 +1,4 @@
-name: Compute
+name: gp01_compute
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
@@ -7,7 +7,8 @@ on:
   # but only for the main branch
   push:
     branches:
-    - gp01
+      - run_compute
+    # - gp01
 
 #  pull_request:
 #    branches:
