@@ -41,6 +41,7 @@ jobs:
               git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push
               echo "Merge SUCCEEDED for branch $branch"
+              
             } || {
               echo "Merge FAILED for branch $branch"
 
