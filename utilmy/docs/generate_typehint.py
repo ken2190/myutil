@@ -96,6 +96,8 @@ def run_utilmy_overwrite(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
+  log("dirin", dirin)
+
   run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
   os.system( f"ls {dirout}/")
 
