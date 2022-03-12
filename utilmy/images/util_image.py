@@ -484,6 +484,8 @@ def image_center_crop(img, dim):
     Args:
     img: image to be center cropped
     dim: dimensions (width, height) to be cropped
+    Returns:
+    crop_img: center cropped image
     """
     width, height = img.shape[1], img.shape[0]
 
@@ -497,9 +499,8 @@ def image_center_crop(img, dim):
 
 
 def image_resize_pad(img,size=(256,256), padColor=0 ):
-     """
-       resize and keep into the target Box
-
+     """resize image while preserving aspect ratio.
+     longer side resized to shape, excess space padded
      """
      h, w = img.shape[:2]
      sh, sw = size
@@ -540,7 +541,7 @@ def image_resize_pad(img,size=(256,256), padColor=0 ):
 
      return scaled_img
 
-
+#TODO redundant to image_resize_pad? ( uses parallel processing...)
 def image_resize(out_dir=""):
     """     python prepro.py  image_resize
 
