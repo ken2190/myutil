@@ -96,7 +96,7 @@ def run_utilmy_overwrite(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
-  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="z" )
+  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
   os.system( f"ls {dirout}/")
 
 
@@ -179,7 +179,7 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
-    log(dirin)
+    log("dirin", dirin)
 
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)

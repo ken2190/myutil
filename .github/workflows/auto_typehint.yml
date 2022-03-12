@@ -74,7 +74,7 @@ jobs:
         ls .
         pip install -r  py36.txt
         #pip install -r install/requirements_fake.txt
-
+        pip install --upgrade monkeytype
 
     - name: test_import
       run: |
@@ -102,8 +102,6 @@ jobs:
     - name: AutoTypes generation in docs/types/
       #vcontinue-on-error: true
       run:  |
-        pip install --upgrade monkeytype
-
         ### in docs/types folder
         # python  utilmy/docs/generate_typehint.py  run_utilmy --nfile 10000
 
