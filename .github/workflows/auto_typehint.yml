@@ -10,7 +10,7 @@ on:
     - ztypehint_run
 
   schedule:
-    - cron:  '* 3 * * *'      #### 60mins
+    - cron:  '0 3 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'
 
 

@@ -9,7 +9,7 @@ on:
     - zrefactor
 
   schedule:
-    - cron:  '* 7  * * *'      #### 60mins
+    - cron:  '0 7  * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'
 
 
