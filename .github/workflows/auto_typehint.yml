@@ -74,12 +74,12 @@ jobs:
         ls .
         pip install -r  py36.txt
         #pip install -r install/requirements_fake.txt
-        pip install --upgrade monkeytype
 
     - name: test_import
       run: |
            python -c "import os, pandas as pd; print(os)"
            python -c "import utilmy"        
+           pip install --upgrade monkeytype
         
 
 

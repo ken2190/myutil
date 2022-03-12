@@ -179,11 +179,10 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
-    log("dirin", dirin)
+    log("dirin:", dirin)
 
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
-    log(flist)
 
     for fi0 in flist :
       try :
