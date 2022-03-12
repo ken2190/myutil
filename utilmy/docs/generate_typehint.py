@@ -88,7 +88,7 @@ def run_utilmy_overwrite(nfile=100000):
   Returns:
       
   """
-  log(utilmy.__file__)
+  log('OVERWRITE FILES')
   exclude = ""; 
   dir0   = os.getcwd()
   dirin  = dir0 + "/utilmy/" 
@@ -172,9 +172,9 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
     import os, sys
     os.makedirs(dirout, exist_ok=True)
-    if "utilmy." in dirin :
-        dir0 =  os.path.dirname( utilmy.__file__) + "/"        
-        dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+    #if "utilmy." in dirin :
+    #    dir0 =  os.path.dirname( utilmy.__file__) + "/"        
+    #    dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
 
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
