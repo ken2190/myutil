@@ -248,8 +248,7 @@ def image_cache_create():
     cache = dc.Cache(db_path, size_limit=int(100e9), timeout=9999999 )
 
     log("#### Load  #################################################################")
-    images, labels = prepro_images_multi(image_list, prepro_image= prepro_image2b, npool=32 )
-
+    images, labels = image_preps_mp(image_list, prepro_image_fun= prepro_image2b, npool=32 )
 
     import asyncio
     #TODO: if awaiting, is async helpful?
@@ -585,7 +584,7 @@ def image_resize(out_dir=""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = prepro_images_multi(image_list, prepro_image=prepro_image3b)
+    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
     os_path_check(out_dir, n=5)
 
 
