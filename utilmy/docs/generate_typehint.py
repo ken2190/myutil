@@ -96,7 +96,7 @@ def run_utilmy_overwrite(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
-  run_monkeytype(dirin, dirout, mode='full', diroot=diroot, nfile=nfile, exclude="z" )
+  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="z" )
   os.system( f"ls {dirout}/")
 
 
@@ -179,6 +179,8 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
+    log(dirin)
+
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
     log(flist)
@@ -215,7 +217,7 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
         dircur = os.getcwd()
         os.chdir(fi_dir)
         if "full" in mode :  #### Overwrite
-            dirouti = dirout +"/full/"+ fi_pref
+             dirouti = dirout +"/full/"+ fi_pref if 'overwrite' in mode  else dirout +"/"+ fi_pref 
             os_makedirs(dirouti)
             cmd = f'monkeytype apply {mod_name} > {dirouti} 2>&1' 
             subprocess.call(cmd, shell=True)
