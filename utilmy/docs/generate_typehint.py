@@ -218,7 +218,7 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
         dircur = os.getcwd()
         os.chdir(fi_dir)
         if "full" in mode :  #### Overwrite
-             dirouti = dirout +"/full/"+ fi_pref if 'overwrite' in mode  else dirout +"/"+ fi_pref 
+            dirouti = dirout +"/full/"+ fi_pref if 'overwrite' not in mode  else dirout +"/"+ fi_pref 
             os_makedirs(dirouti)
             cmd = f'monkeytype apply {mod_name} > {dirouti} 2>&1' 
             subprocess.call(cmd, shell=True)
