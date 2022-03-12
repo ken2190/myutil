@@ -88,7 +88,7 @@ def run_utilmy_overwrite(nfile=100000):
   Returns:
       
   """
-  log(utilmy.__file__)
+  log('OVERWRITE FILES')
   exclude = ""; 
   dir0   = os.getcwd()
   dirin  = dir0 + "/utilmy/" 
@@ -96,7 +96,9 @@ def run_utilmy_overwrite(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
-  run_monkeytype(dirin, dirout, mode='full', diroot=diroot, nfile=nfile, exclude="z" )
+  log("dirin0: ", dirin)
+
+  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
   os.system( f"ls {dirout}/")
 
 
@@ -172,16 +174,17 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
     import os, sys
     os.makedirs(dirout, exist_ok=True)
-    if "utilmy." in dirin :
-        dir0 =  os.path.dirname( utilmy.__file__) + "/"        
-        dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+    #if "utilmy." in dirin :
+    #    dir0 =  os.path.dirname( utilmy.__file__) + "/"        
+    #    dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
 
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
+    log("dirin:", dirin)
+
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
-    log(flist)
 
     for fi0 in flist :
       try :
@@ -215,7 +218,7 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
         dircur = os.getcwd()
         os.chdir(fi_dir)
         if "full" in mode :  #### Overwrite
-            dirouti = dirout +"/full/"+ fi_pref
+            dirouti = dirout +"/full/"+ fi_pref if 'overwrite' not in mode  else dirout +"/"+ fi_pref 
             os_makedirs(dirouti)
             cmd = f'monkeytype apply {mod_name} > {dirouti} 2>&1' 
             subprocess.call(cmd, shell=True)
@@ -244,5 +247,6 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 ################################################################################
 ################################################################################
 if __name__ == '__main__':
-  test1()
+  import fire 
+  fire.Fire()
  
