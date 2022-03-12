@@ -103,7 +103,13 @@ jobs:
       #vcontinue-on-error: true
       run:  |
         pip install --upgrade monkeytype
-        python  utilmy/docs/generate_typehint.py  run_utilmy --nfile 10000
+
+        ### in docs/types folder
+        # python  utilmy/docs/generate_typehint.py  run_utilmy --nfile 10000
+
+
+        ### in current main code folder
+        python  utilmy/docs/generate_typehint.py  run_utilmy_overwrite --nfile 10000
 
 
         git add -A || echo 'nothing'
