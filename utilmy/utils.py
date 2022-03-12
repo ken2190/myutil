@@ -114,11 +114,11 @@ def test_all():
     
     def dataset_download_test():
         from utilmy.utils import dataset_donwload
-        dataset_donwload("https://github.com/arita37/mnist_png/raw/master/mnist_png.tar.gz", './testdata/tmp/test/dataset/')
+        #dataset_donwload("https://github.com/arita37/mnist_png/raw/master/mnist_png.tar.gz", './testdata/tmp/test/dataset/')
     
-    def os_extract_archive_test():
-        from utilmy.utils import os_extract_archive
-        os_extract_archive("./testdata/tmp/test/dataset/mnist_png.tar.gz","./testdata/tmp/test/dataset/archive/", archive_format = "auto")
+    #def os_extract_archive_test():
+    #    from utilmy.utils import os_extract_archive
+    #    os_extract_archive("./testdata/tmp/test/dataset/mnist_png.tar.gz","./testdata/tmp/test/dataset/archive/", archive_format = "auto")
     
     def to_file_test():
         from utilmy.utils import to_file
