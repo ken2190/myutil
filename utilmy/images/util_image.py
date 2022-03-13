@@ -176,7 +176,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 
 ################################################################################################
-def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000 ):
+def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -210,8 +210,9 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
 
 
     log("#### Image list  ################################################################")
-    image_list = sorted(list(glob.glob(  f'/{in_dir}/*/*.*')))
-    image_list = [  t  for t in image_list if "/-1/" not in t  and "/60/" not in t   ] #TODO: some folders to exclude?
+    image_list = sorted(list(glob.glob(  f'{in_dir}/**/*')))
+    fexclude   = sorted(list(glob.glob(  f'{file_exclude}')))
+    image_list = [  fi  for fi in image_list if fi not in fexclude   ] #TODO: some folders to exclude?
     image_list = image_list[:nmax]    
     log('N images', len(image_list))
 
