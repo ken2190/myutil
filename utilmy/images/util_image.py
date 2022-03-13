@@ -176,43 +176,47 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 
 ################################################################################################
-#TODO: what is `diskcache`
-def image_cache_create():
-    """function image_cache_create
+def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000 ):
+    """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
-        
+
+     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_r2p2_1000k_clean_nobg" 
+
+    ### Not used, Only python?3.7  #####################################
+    import asyncio
+    #TODO: if awaiting, is async helpful?
+    async def set_async(key, val):
+        loop = asyncio.get_running_loop()
+        future = loop.run_in_executor(None, cache.set, key, val)
+        result = await future
+        return result
+    # asyncio.run(set_async('test-key', 'test-value'))
+    ############################################################
+
+
     """
-    #### source activate py38 &&  sleep 13600  && python prepro.py   image_remove_bg     && python prepro.py  image_create_cache
-    #### List of images (each in the form of a 28x28x3 numpy array of rgb pixels)  ############
-    ####   sleep 56000  && python prepro.py  image_create_cache
-    import cv2, gc
-    import diskcache as dc
-    nmax =  1000000 #  0000
-    #TODO: why are we using globals?
-    #is this a multprocessed function?
+    import cv2, gc, diskcache 
+
+    # globals  for  multprocessed function
     global xdim, ydim
-    xdim= 256
-    ydim= 256
+    xdim, ydim = xdim0, ydim0
 
-    log("### Sub-Category  ################################################################")
-    #TODO: should be input
-    # in_dir   = data_dir + '/fashion_data/images/'
-    # in_dir   = data_dir + "/train_nobg_256/"
-    in_dir   = data_dir + "/../gsp/v1000k_clean_nobg/"
+    log("#### paths  ####################################################################")
+    in_dir   = "gsp/v1000k_clean_nobg/" if dirin is None else dirin
+    tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
+    db_path  = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache"  if dirout is None else dirout + f"/img_{tag}.cache"
+    log(in_dir, db_path)
 
+
+    log("#### Image list  ################################################################")
     image_list = sorted(list(glob.glob(  f'/{in_dir}/*/*.*')))
     image_list = [  t  for t in image_list if "/-1/" not in t  and "/60/" not in t   ] #TODO: some folders to exclude?
+    image_list = image_list[:nmax]    
     log('N images', len(image_list))
-    # tag   = "-women_topwear"
-    tag      = "train_r2p2_1000k_clean_nobg" #TODO: take as input
-    tag      = f"{tag}_{xdim}_{ydim}-{nmax}"
-    # db_path  = data_train + f"/img_{tag}.cache"
-    db_path = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache" #TODO: take as input
 
-    log(in_dir)
-    log(db_path)
-    #TODO: is this a closure, or can this be shifted to outside?
+
+    ### Multi processoer function Helpfer
     def prepro_image2b(image_path): 
         try :
             fname      = str(image_path).split("/")[-1]
@@ -224,60 +228,60 @@ def image_cache_create():
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
             image = util_image.image_center_crop(image, (245, 245))
-
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
-            #TODO: nested try?
-            #TODO: code smell, expect should catch particular exceptions?
+
         except : 
+            ### Nested because of multpriocessing bugs.....
             try :
                # image = image.astype('float32')
                # cache[ fname ] =  image        ### not uulti thread write
+               time.sleep(2)  ### Concurrency thread
                return image, image_path
                # return [1], "1"
             except :
                return [],""
 
-    log("#### Converting  ############################################################")
-    image_list = image_list[:nmax]
-    log('Size Before', len(image_list))
-
+    log("#### Converrt to diskcache storage  #############################################")
     #  from diskcache import FanoutCache  ### too much space
     # che = FanoutCache( db_path, shards=4, size_limit=int(60e9), timeout=9999999 )
-    cache = dc.Cache(db_path, size_limit=int(100e9), timeout=9999999 )
+    cache = diskcache.Cache(db_path, size_limit=int(100e9), timeout=9999999 )
 
-    log("#### Load  #################################################################")
+
+    log("#### Load and Covnert  ##########################################################")
+    log('Size Before', len(image_list))
     images, labels = image_preps_mp(image_list, prepro_image_fun= prepro_image2b, npool=32 )
-
-    import asyncio
-    #TODO: if awaiting, is async helpful?
-    async def set_async(key, val):
-        loop = asyncio.get_running_loop()
-        future = loop.run_in_executor(None, cache.set, key, val)
-        result = await future
-        return result
-
-    # asyncio.run(set_async('test-key', 'test-value'))
 
 
     log(str(images)[:500],  str(labels)[:500],  )
-    log("#### Saving disk  #################################################################")
+    log("#### Saving disk  ##############################################################")
     for path, img in zip(labels, images) :
        key = os.path.abspath(path)
        key = key.split("/")[-1]
        cache[ key ] =  img
-       # asyncio.run(set_async( key , img ))   ##only python 3.7
+       # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
 
-
-    print('size cache', len(cache),)
-    print( db_path )
-
+    log("#### Validate the cache ########################################################")   
+    log('size cache', len(cache), db_path)
     for i,key in enumerate(cache):
        if i > 3 : break
        x0 = cache[key]
        cv2.imwrite( data_train + f"/check_{i}.png", x0 )
-       print(key, x0.shape, str(x0)[:50]  )
+       log(key, x0.shape, str(x0)[:50]  )
+
+
+def image_cache_load(db_path:str="db_images.cache"):
+    """function image_cache_check
+    Args:
+        db_path ( str ) :   
+    Returns: dictionnary like         
+    """
+    import diskcache as dc
+    cache   = dc.Cache(db_path, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+    return cache
+
 
 #TODO: diskcache
 def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
