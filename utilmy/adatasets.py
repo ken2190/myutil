@@ -256,14 +256,105 @@ def test_dataset_regression_boston_traintest():
 
 ###################################################################################################
 if 'utils':
-"""
-https://github.com/Gyumeijie/github-files-fetcher
-Donwload only some folders
+    """
+    https://github.com/Gyumeijie/github-files-fetcher
+    Donwload only some folders
 
 
-"""
+    """
 
     def fetch_dataset(url_dataset, path_target=None, file_target=None):
+        """Fetch dataset from a given URL and save it.
+
+        Currently `github`, `gdrive` and `dropbox` are the only supported sources of
+        data. Also only zip files are supported.
+
+        :param url_dataset:   URL to send
+        :param path_target:   Path to save dataset
+        :param file_target:   File to save dataset
+
+        """
+        log("###### Download ##################################################")
+        from tempfile import mktemp, mkdtemp
+        from urllib.parse import urlparse, parse_qs
+        import pathlib
+        fallback_name        = "features"
+        download_path        = path_target
+        supported_extensions = [ ".zip" ]
+
+        if path_target is None:
+            path_target   = mkdtemp(dir=os.path.curdir)
+            download_path = path_target
+        else:
+            pathlib.Path(path_target).mkdir(parents=True, exist_ok=True)
+
+        if file_target is None:
+            file_target = fallback_name # mktemp(dir="")
+
+
+        if "github.com" in url_dataset:
+            """
+                    # https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
+    
+                https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip            
+                https://raw.githubusercontent.com/arita37/dsa2_data/main/input/titanic/train/features.csv            
+                https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip             
+                https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
+                    
+            """
+            # urlx = url_dataset.replace(  "github.com", "raw.githubusercontent.com" )
+            urlx = url_dataset.replace("/blob/", "/raw/")
+            urlx = urlx.replace("/tree/", "/raw/")
+            log(urlx)
+
+            urlpath = urlx.replace("https://github.com/", "github_")
+            urlpath = urlpath.split("/")
+            fname = urlpath[-1]  ## filaneme
+            fpath = "-".join(urlpath[:-1])[:-1]   ### prefix path normalized
+            assert "." in fname, f"No filename in the url {urlx}"
+
+            os.makedirs(download_path + "/" + fpath, exist_ok= True)
+            full_filename = os.path.abspath( download_path + "/" + fpath + "/" + fname )
+            log('#### Download saving in ', full_filename)
+
+            import requests
+            with requests.Session() as s:
+                res = s.get(urlx)
+                if res.ok:
+                    print(res.ok)
+                    with open(full_filename, "wb") as f:
+                        f.write(res.content)
+                else:
+                    raise res.raise_for_status()
+            return full_filename
+
+
+
+        if "drive.google.com" in url_dataset:
+            full_filename = os.path.join(path_target, file_target)
+            from util import download_googledrive
+            urlx    = urlparse(url_dataset)
+            file_id = parse_qs(urlx.query)['id'][0]
+            download_googledrive([{'fileid': file_id, "path_target":
+                                full_filename}])
+
+
+        path_data_x = full_filename
+
+        #### Very Hacky : need to be removed.  ######################################
+        for file_extension in supported_extensions:
+            path_link_x = os.path.join(download_path, fallback_name + file_extension)
+            if os.path.exists(path_link_x):
+                os.unlink(path_link_x)
+            os.link(path_data_x, path_link_x)
+
+        #path_data_x = download_path + "/*"
+
+        return path_data_x
+        #return full_filename
+
+
+    def fetch_dataset2(url_dataset, path_target=None, file_target=None):
         """Fetch dataset from a given URL and save it.
 
         Currently `github`, `gdrive` and `dropbox` are the only supported sources of
@@ -345,6 +436,116 @@ Donwload only some folders
         X_train, X_valid, y_train, y_valid         = train_test_split(X_train_full, y_train_full, random_state=2021)
         num_classes                                = len(set(y_train_full.values.ravel()))
         return X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes
+
+
+    def os_extract_archive(file_path, path=".", archive_format="auto"):
+        """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
+        Args:
+            file_path: path to the archive file
+            path: path to extract the archive file
+            archive_format: Archive format to try for extracting the file.
+                Options are 'auto', 'tar', 'zip', and None.
+                'tar' includes tar, tar.gz, and tar.bz files.
+                The default 'auto' is ['tar', 'zip'].
+                None or an empty list will return no matches found.
+        Returns:
+            True if a match was found and an archive extraction was completed,
+            False otherwise.
+        """
+        if archive_format is None:
+            return False
+        if archive_format == "auto":
+            archive_format = ["tar", "zip"]
+        if isinstance(archive_format, str):
+            archive_format = [archive_format]
+
+        file_path = os.path.abspath(file_path)
+        path = os.path.abspath(path)
+
+        for archive_type in archive_format:
+            if archive_type == "tar":
+                open_fn = tarfile.open
+                is_match_fn = tarfile.is_tarfile
+            if archive_type == "zip":
+                open_fn = zipfile.ZipFile
+                is_match_fn = zipfile.is_zipfile
+
+            if is_match_fn(file_path):
+                with open_fn(file_path) as archive:
+                    try:
+                        archive.extractall(path)
+                    except (tarfile.TarError, RuntimeError, KeyboardInterrupt):
+                        if os.path.exists(path):
+                            if os.path.isfile(path):
+                                os.remove(path)
+                            else:
+                                shutil.rmtree(path)
+                        raise
+                return True
+        return False
+
+
+    def to_file(s, filep):
+        """function to_file
+        Args:
+            s:   
+            filep:   
+        Returns:
+            
+        """
+        with open(filep, mode="a") as fp:
+            fp.write(str(s) + "\n")
+
+
+    def donwload_url(url, path_target):
+        """Donwload on disk the tar.gz file
+        Args:
+            url:
+            path_target:
+        Returns:
+
+        """
+        import wget
+        log(f"Donwloading mnist dataset in {path_target}")
+        os.makedirs(path_target, exist_ok=True)
+        wget.download(url, path_target)
+        tar_name = url.split("/")[-1]
+        os_extract_archive(path_target + "/" + tar_name, path_target)
+        log2(path_target)
+        return path_target + tar_name
+
+
+    def download_googledrive(file_list, **kw):
+        """ Use in dataloader with
+            "uri": mlmodels.data:donwload_googledrive
+            file_list = [ {  "fileid": "1-K72L8aQPsl2qt_uBF-kzbai3TYG6Qg4",  "path_target":  "ztest/covid19/test.json"},
+                            {  "fileid" :  "GOOGLE URL ID"   , "path_target":  "dataset/test.json"},
+                    ]
+
+        """
+        import random
+        # file_list   = kw.get("file_list")
+        target_list = []
+        
+        for d in file_list :
+        fileid = d["fileid"]
+        target = path_norm( d.get("path_target", "ztest/googlefile_" + str(random.randrange(1000) )  )
+        
+        """   
+        if not target:
+            tmp = os.path.join(gettempdir(), '.{}'.format(hash(os.times())))
+            os.makedirs(tmp)
+            target = tmp
+        """                                
+        if not os.path.exists(os.path.dirname(target)):
+            os.makedirs(os.path.dirname(target), exist_ok=True)
+
+        url = f'https://drive.google.com/uc?id={fileid}'
+        gdown.download(url, target, quiet=False)
+        target_list.append( target  )
+                            
+        return target_list
+
 
 
 
