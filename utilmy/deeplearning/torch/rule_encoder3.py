@@ -216,17 +216,17 @@ def test2_new():
     
     """    
     from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'DATASET': {},
+        'MODEL_INFO' : {},
+        'TRAINING_CONFIG' : {},
+    })
 
+
+    PARAMS = Box()
 
     if 'ARG':
         BATCH_SIZE = None
-
-        ARG = Box({
-            'DATASET': {},
-            'MODEL_INFO' : {},
-            'TRAINING_CONFIG' : {},
-        })
-
 
         MODEL_ZOO = {
             'dataonly': {'rule': 0.0},
@@ -252,7 +252,6 @@ def test2_new():
         ### ARG.MODEL_INFO
         ARG.MODEL_INFO.TYPE = 'dataonly' 
         PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
-
 
 
         #ARG.TRAINING_CONFIG
@@ -321,9 +320,6 @@ def test2_new():
     ARG.rule_encoder.dataset.colsy =  'solvey'
 
 
-
-
-
     ### ARG.merge_encoder  #################################
     ARG.merge_encoder = Box()
     ARG.merge_encoder.NAME = ''
@@ -336,14 +332,11 @@ def test2_new():
     ARG.merge_encoder.dataset.colsy =  'solvey'
 
 
-    model = MergeEncoder_Create(arg= ARG, rule_encoder, data_encoder)
-
-
-
+    model = MergeEncoder_Create(ARG, rule_encoder, data_encoder)
 
 
     #### Run Model   ###################################################
-    model.build_model()        
+    model.build()        
     model.training(prepro_dataset) 
 
     model.save_weight('ztmp/model_x9.pt') 
@@ -556,10 +549,15 @@ class BaseModel(object):
 class MergeEncoder_Create(BaseModel):
     """
     """
-    def __init__(self,arg):
+    def __init__(self,arg, data_encoder=None, rule_encoder=None):
         super(MergeEncoder_Create,self).__init__(arg)
-        self.rule_encoder = RuleEncoder_Create(self.arg)
-        self.data_encoder = DataEncoder_Create(self.arg)
+        # self.rule_encoder = RuleEncoder_Create(self.arg)
+        # self.data_encoder = DataEncoder_Create(self.arg)
+
+        self.rule_encoder = rule_encoder(self.arg)
+        self.data_encoder = data_encoder(self.arg)
+
+
     def create_model(self,):
         super(MergeEncoder_Create,self).create_model()
         # merge = self.arg.merge
