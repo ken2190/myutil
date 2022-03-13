@@ -2,6 +2,35 @@
 hello,
 are you here ?
 
+yes.
+
+ok good.
+
+Can you see my commment below
+yes.
+
+reason is this: 
+
+we have a base model ModelA (ie data_encoder)
+and we want to plug a new model : model B (ie rule_encoder)
+
+
+Your friend provide BlackBox model A (date encoder)
+We create model B (rule encoder) and create the mergeEncCoder
+
+---> Completelt separating --> allows to test separately models, debug them separattely.
+
+ok ?
+ok.
+You want to build, train, evaluate model separattely?
+
+if model A is black box, so i should separate model A as abstract class.
+
+function create_model -> create torch.nn.Model is for define model architect.
+
+you mean this architect is unknow?
+
+and this architect should define in config file. 
 
 
 
@@ -9,9 +38,9 @@ are you here ?
 """
 
 
-
-
 We need to split INTO 3 completely SEPARATE Part 
+
+COMPLETELY SEPARATE
 
 
     MergeEncoder(ARG,   data_encoer,  rule_encoder)
