@@ -32,7 +32,11 @@ you mean this architect is unknow?
 
 and this architect should define in config file. 
 
+can you here ?
+https://docs.google.com/document/d/1l8x7pjynK5gyxawI7M_loQNZJm-7gfQ6FlSKsbvv6VI/edit?usp=sharing
 
+easier for discusison
+sorry
 
 
 """
