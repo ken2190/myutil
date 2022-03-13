@@ -1,8 +1,5 @@
 """
 hello,
-
-Are you here ?
-
 are you here ?
 
 
