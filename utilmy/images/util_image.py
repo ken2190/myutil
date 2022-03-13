@@ -498,13 +498,47 @@ def image_center_crop(img, dim):
     return crop_img
 
 
-def image_resize_pad(img,size=(256,256), padColor=0 ):
+def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+    """Resizes a image and maintains aspect ratio.
+    Args:
+        image:
+        width:
+        height:
+        inter:
+    Returns:
+    """
+    # Grab the image size and initialize dimensions
+    dim = None
+    (h, w) = image.shape[:2]
+
+    # Return original image if no need to resize
+    if width is None and height is None:
+        return image
+
+    # We are resizing height if width is none
+    if width is None:
+        # Calculate the ratio of the height and construct the dimensions
+        r = height / float(h)
+        dim = (int(w * r), height)
+    # We are resizing width if height is none
+    else:
+        # Calculate the ratio of the width and construct the dimensions
+        r = width / float(w)
+        dim = (width, int(h * r))
+
+    # Return the resized image
+    return cv2.resize(image, dim, interpolation=inter)
+
+
+def image_resize_pad(img,size=(None,None), padColor=0, pad =True ):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
      """
      h, w = img.shape[:2]
      sh, sw = size
-
+     if not pad:
+         return image_resize(image, width=sw, height=sh, inter=cv2.INTER_AREA)
+        
      # interpolation method
      if h > sh or w > sw: # shrinking image
          interp = cv2.INTER_AREA
@@ -541,8 +575,9 @@ def image_resize_pad(img,size=(256,256), padColor=0 ):
 
      return scaled_img
 
+
 #TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize(out_dir=""):
+def image_resize_mp(out_dir=""):
     """     python prepro.py  image_resize
 
           image white color padded
@@ -589,36 +624,6 @@ def image_resize(out_dir=""):
     os_path_check(out_dir, n=5)
 
 
-def image_resize2(image, width=None, height=None, inter=cv2.INTER_AREA):
-    """Resizes a image and maintains aspect ratio.
-    Args:
-        image:
-        width:
-        height:
-        inter:
-    Returns:
-    """
-    # Grab the image size and initialize dimensions
-    dim = None
-    (h, w) = image.shape[:2]
-
-    # Return original image if no need to resize
-    if width is None and height is None:
-        return image
-
-    # We are resizing height if width is none
-    if width is None:
-        # Calculate the ratio of the height and construct the dimensions
-        r = height / float(h)
-        dim = (int(w * r), height)
-    # We are resizing width if height is none
-    else:
-        # Calculate the ratio of the width and construct the dimensions
-        r = width / float(w)
-        dim = (width, int(h * r))
-
-    # Return the resized image
-    return cv2.resize(image, dim, interpolation=inter)
 
 
 def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
