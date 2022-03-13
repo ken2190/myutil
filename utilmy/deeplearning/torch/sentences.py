@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
-"""sentence_tansformer.ipynb
+MNAME='utilmy.deeplearning.torch.sentences'
+HELP="""sentence_tansformer
+
+
 cd deeplearning/torch/
 python sentences.py  test
+
 
 Original file is located at
     https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
@@ -15,10 +19,8 @@ train Sentence Transformer with different Losses such as:**
 # !pip install sentence-transformers
 #!pip3 install tensorflow
 
-
-
-
-We create a new end-to-end example on how to use a custom inference.py script with a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+We create a new end-to-end example on how to use a custom inference.py script w
+ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
 
 🖼  blog: https://lnkd.in/dXNu4R-G
 📈  notebook: https://lnkd.in/dkjDMNaC
@@ -50,13 +52,23 @@ from utilmy import pd_read_file
 
 
 #####################################################################################
-def log(*s):
-    print(*s, flush=True)
+from utilmy import log, log2
+
+def help():
+    """function help
+    """
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
 
     
 
 #####################################################################################
-def test():
+def test_all():
+    test1()
+
+    
+def test1():
     #  Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
