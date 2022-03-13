@@ -256,6 +256,13 @@ def test_dataset_regression_boston_traintest():
 
 ###################################################################################################
 if 'utils':
+"""
+https://github.com/Gyumeijie/github-files-fetcher
+Donwload only some folders
+
+
+"""
+
     def fetch_dataset(url_dataset, path_target=None, file_target=None):
         """Fetch dataset from a given URL and save it.
 
