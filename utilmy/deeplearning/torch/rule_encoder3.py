@@ -278,21 +278,29 @@ def test2_new():
 
     #### SEPARATE the models completetly, and create duplicate
 
-    ### ARG.data_encoder  #################################
+    ### data_encoder  #################################
     ARG.data_encoder = Box()   #MODEL_TASK
     ARG.data_encoder.NAME = ''
     ARG.data_encoder.ARCHITECT = [ 20, 100, 16 ]
-    data_encoder = RuleEncoder_Create(ARG.data_encoder )
-
-
     ARG.data_encoder.dataset = Box()
     ARG.data_encoder.dataset.dirin = "/"
     ARG.data_encoder.dataset.colsy =  'solvey'
 
 
+    data_encoder = RuleEncoder_Create(ARG.data_encoder )
 
-    ### ARG.rule_encoder  #################################
+
+
+
+
+    ### rule_encoder  #################################
     ARG.rule_encoder = Box()   #MODEL_RULE
+
+    ARG.rule_encoder.dataset = Box()
+    ARG.rule_encoder.dataset.dirin = "/"
+    ARG.rule_encoder.dataset.colsy =  'solvey'
+
+
     ARG.rule_encoder.RULE = PARAMS.get('rule',None)
     ARG.rule_encoder.SCALE = PARAMS.get('scale',1.0)
     ARG.rule_encoder.PERT = PARAMS.get('pert',0.1)
@@ -303,24 +311,21 @@ def test2_new():
     if   len(beta_param) == 1:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[0]))
     elif len(beta_param) == 2:  ARG.rule_encoder.ALPHA_DIST = Beta(float(beta_param[0]), float(beta_param[1]))
 
+
+
     ARG.rule_encoder.NAME = ''
     ARG.rule_encoder.RULE_IND = 2
     ARG.rule_encoder.RULE_THRESHOLD = 129.5
     ARG.rule_encoder.SRC_OK_RATIO = 0.3
     ARG.rule_encoder.SRC_UNOK_RATIO = 0.7
     ARG.rule_encoder.TARGET_RULE_RATIO = 0.7
-    ARG.rule_encoder.ARCHITECT = [ 20, 100, 16 ]
-
     ARG.rule_encoder.ARCHITECT = [9,100,16]
     rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
 
 
-    ARG.rule_encoder.dataset = Box()
-    ARG.rule_encoder.dataset.dirin = "/"
-    ARG.rule_encoder.dataset.colsy =  'solvey'
 
 
-    ### ARG.merge_encoder  #################################
+    ### merge_encoder  #################################
     ARG.merge_encoder = Box()
     ARG.merge_encoder.NAME = ''
     ARG.merge_encoder.SKIP = False
