@@ -176,7 +176,6 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 
 ################################################################################################
-#TODO: what is `diskcache`
 def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000 ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
@@ -270,6 +269,18 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
        x0 = cache[key]
        cv2.imwrite( data_train + f"/check_{i}.png", x0 )
        log(key, x0.shape, str(x0)[:50]  )
+
+
+def image_cache_load(db_path:str="db_images.cache"):
+    """function image_cache_check
+    Args:
+        db_path ( str ) :   
+    Returns: dictionnary like         
+    """
+    import diskcache as dc
+    cache   = dc.Cache(db_path, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+    return cache
 
 
 #TODO: diskcache
