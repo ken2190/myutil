@@ -516,33 +516,24 @@ if 'utils':
 
 
     def download_googledrive(file_list, **kw):
-        """ Use in dataloader with
-            "uri": mlmodels.data:donwload_googledrive
+        """ Download from google drive
             file_list = [ {  "fileid": "1-K72L8aQPsl2qt_uBF-kzbai3TYG6Qg4",  "path_target":  "ztest/covid19/test.json"},
                             {  "fileid" :  "GOOGLE URL ID"   , "path_target":  "dataset/test.json"},
                     ]
+           pip install gdown
 
         """
-        import random
+        import random, gdown
         # file_list   = kw.get("file_list")
-        target_list = []
-        
+        target_list = []        
         for d in file_list :
-        fileid = d["fileid"]
-        target = path_norm( d.get("path_target", "ztest/googlefile_" + str(random.randrange(1000) )  )
-        
-        """   
-        if not target:
-            tmp = os.path.join(gettempdir(), '.{}'.format(hash(os.times())))
-            os.makedirs(tmp)
-            target = tmp
-        """                                
-        if not os.path.exists(os.path.dirname(target)):
+            fileid = d["fileid"]
+            target = d.get("path_target", "ztest/googlefile_" + str(random.randrange(1000) )  )                              
             os.makedirs(os.path.dirname(target), exist_ok=True)
 
-        url = f'https://drive.google.com/uc?id={fileid}'
-        gdown.download(url, target, quiet=False)
-        target_list.append( target  )
+            url = f'https://drive.google.com/uc?id={fileid}'
+            gdown.download(url, target, quiet=False)
+            target_list.append( target  )
                             
         return target_list
 
