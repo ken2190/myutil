@@ -199,10 +199,9 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
     """
     import cv2, gc, diskcache 
 
-    # globals  for  multprocessed function?
+    # globals  for  multprocessed function
     global xdim, ydim
-    xdim= xdim0
-    ydim= ydim0
+    xdim, ydim = xdim0, ydim0
 
     log("#### paths  ####################################################################")
     in_dir   = "gsp/v1000k_clean_nobg/" if dirin is None else dirin
@@ -230,7 +229,6 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
             image = util_image.image_center_crop(image, (245, 245))
-
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
@@ -240,6 +238,7 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
             try :
                # image = image.astype('float32')
                # cache[ fname ] =  image        ### not uulti thread write
+               time.sleep(2)  ### Concurrency thread
                return image, image_path
                # return [1], "1"
             except :
@@ -262,7 +261,7 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
        key = os.path.abspath(path)
        key = key.split("/")[-1]
        cache[ key ] =  img
-       # asyncio.run(set_async( key , img ))   ##only python 3.7
+       # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
 
     log("#### Validate the cache ########################################################")   
     log('size cache', len(cache), db_path)
