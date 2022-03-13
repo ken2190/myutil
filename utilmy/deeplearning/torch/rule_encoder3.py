@@ -745,6 +745,7 @@ class MergeEncoder_Create(BaseModel):
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
         
 
+
     def training(self,load_DataFrame=None,prepro_dataset=None):
 
         # training with load_DataFrame and prepro_data function or default funtion in self.method
