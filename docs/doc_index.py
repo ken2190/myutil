@@ -747,7 +747,7 @@ vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  
 utilmy/deeplearning/util_onnx.py
 -------------------------functions----------------------
 help()
-onnx_convert()
+onnx_convert(dir_model:str = "mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str)
 onnx_load_model()
 onnx_load_onnx()
 onnx_validate_onnx()
