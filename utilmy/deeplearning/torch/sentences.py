@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+MNAME="utilmy.deeplearning.torch.sentences"
 """sentence_tansformer
 
 python  utilmy/deeplearning/torch/sentences.py  test
