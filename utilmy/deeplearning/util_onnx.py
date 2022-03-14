@@ -14,13 +14,11 @@ https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
 
 
 """
-import os, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
+import os, numpy as np, glob, pandas as pd
+from typing import List, Optional, Tuple, Union
+from numpy import ndarray  #### typing
 from box import Box
 
-
-#### Types
-from numpy import ndarray
-from typing import List, Optional, Tuple, Union
 
 
 #############################################################################################
