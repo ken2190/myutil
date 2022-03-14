@@ -17,15 +17,11 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 
-
 #############################################################################################
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help        
     """
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
@@ -143,6 +139,9 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     return train_loader, valid_loader, test_loader
 
 
+
+
+###############################################################################################
 def model_load(arg):
     """function model_load
     Args:
@@ -164,7 +163,6 @@ def model_load(arg):
     # model_evaluation(model_eval, loss_task_func, arg=arg)
 
 
-
 def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     """function model_train
     Args:
@@ -179,15 +177,6 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     arg      = Box(arg)  ### Params
     arghisto = Box({})  ### results
 
-
-    #### Rules Loss, params  ##################################################
-    rule_feature   = arg.rules.get( 'rule_feature',   'ap_hi' )
-    loss_rule_func = arg.rules.loss_rule_func
-    if 'loss_rule_calc' in arg.rules: loss_rule_calc = arg.rules.loss_rule_calc
-    src_ok_ratio   = arg.rules.src_ok_ratio
-    src_unok_ratio = arg.rules.src_unok_ratio
-    rule_ind       = arg.rules.rule_ind
-    pert_coeff     = arg.rules.pert_coeff
 
 
     #### Core model params
@@ -214,14 +203,10 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
         batch_train_y = batch_train_y.unsqueeze(-1)
         optimizer.zero_grad()
 
-        if   model_type.startswith('dataonly'):  alpha = 0.0
-        elif model_type.startswith('ruleonly'):  alpha = 1.0
-        elif model_type.startswith('ours'):      alpha = arg.rules.alpha_dist.sample().item()
-        arg.alpha = alpha
+
 
         ###### Base output #########################################
         output    = model(batch_train_x, alpha=alpha).view(batch_train_y.size())
-        loss_task = loss_task_func(output, batch_train_y)
 
 
         ###### Loss Rule perturbed input and its output  #####################
@@ -303,8 +288,6 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
     df = dataset_load1(arg)
     train_X, test_X, train_y, test_y, valid_X, valid_y = dataset_preprocess1(df, arg)
 
-
-
     ######
     train_loader, valid_loader, test_loader = dataloader_create( train_X, test_X, train_y, test_y, valid_X, valid_y, arg)
     model_eval.eval()
@@ -363,6 +346,7 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log('[Test] Accuracy: {:.4f} (alpha:{})'.format(test_acc, alpha))
       log("[Test] Ratio of verified predictions: {:.6f} (alpha:{})".format(test_ratio, alpha))
       log()
+
 
 
 #####################################################################################################################
