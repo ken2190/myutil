@@ -10,6 +10,7 @@ https://mpld3.github.io/examples/index.html
 """
 import os, glob, sys, math, string, time, json, logging, functools, random, yaml, operator, gc
 from pathlib import Path; from collections import defaultdict, OrderedDict ;
+from typing import List, Optional, Tuple, Union  ; from numpy import ndarray
 from box import Box
 
 import warnings ;warnings.filterwarnings("ignore")
@@ -32,11 +33,6 @@ try :
    import diskcache as dc
    import faiss
 except: pass
-
-
-#### Types
-from numpy import ndarray
-from typing import List, Optional, Tuple, Union
 
 
 #############################################################################################
