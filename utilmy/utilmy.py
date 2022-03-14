@@ -5,10 +5,10 @@ HELP= """
 
 """
 import os, sys, time, datetime,inspect, json, yaml, gc, random
+from typing import List, Optional, Tuple, Union
 from box import Box
 
 ####################################################################
-from typing import List, Optional, Tuple, Union
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
