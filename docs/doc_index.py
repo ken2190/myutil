@@ -344,6 +344,8 @@ image_compare_modelpred(file_path, model_path, target_size)
 keras_check_layer(mlayer, )
 test_all()
 test_classactivation()
+test_dataset_classifier_mnist_tfdataset(batch = 32)
+tf_gpu_check()
 
 -------------------------methods----------------------
 GradCAM.__init__(self, model, classIdx, layerName = None)
@@ -685,16 +687,10 @@ RuleEncoder.forward(self, x)
 
 utilmy/deeplearning/util_dl.py
 -------------------------functions----------------------
-create_train_npz()
-create_train_parquet()
-down_page(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 gpu_available()
 gpu_usage()
-model_deletes(dry = 0)
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
-test_dataset_classifier_mnist_tfdataset(batch = 32)
-tf_check()
 
 
 
@@ -3715,6 +3711,7 @@ user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
 
 utilmy/util_download.py
 -------------------------functions----------------------
+download_page_image(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 download_with_progress(url, destination)
 get_cache_directory()
 
