@@ -53,9 +53,7 @@ def test2():
     ========================================================================
     In this tutorial, we describe how to convert a model defined
     in PyTorch into the ONNX format and then run it with ONNX Runtime.
-    ONNX Runtime is a performance-focused engine for ONNX models,
-    which inferences efficiently across multiple platforms and hardware
-    (Windows, Linux, and Mac and on both CPUs and GPUs).
+
     ONNX Runtime has proved to considerably increase performance over
     multiple models as explained `here
     <https://cloudblogs.microsoft.com/opensource/2019/05/22/onnx-runtime-machine-learning-inferencing-0-4-release>`__
@@ -64,8 +62,6 @@ def test2():
     You can get binary builds of ONNX and ONNX Runtime with
     ``pip install onnx onnxruntime``.
     Note that ONNX Runtime is compatible with Python versions 3.5 to 3.7.
-    ``NOTE``: This tutorial needs PyTorch master branch which can be installed by following
-    the instructions `here <https://github.com/pytorch/pytorch#from-source>`__
     """
 
     # Some standard imports
@@ -255,17 +251,6 @@ def test2():
     # ONNX exporter, so please contact us in that case.
     #
 
-
-    ######################################################################
-    # Running the model on an image using ONNX Runtime
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #
-
-
-    ######################################################################
-    # So far we have exported a model from PyTorch and shown how to load it
-    # and run it in ONNX Runtime with a dummy tensor as an input.
-
     ######################################################################
     # For this tutorial, we will use a famous cat image used widely which
     # looks like below
@@ -344,10 +329,26 @@ def test2():
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert():
-  pass
+def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
+  """
+                    export_params=True,        # store the trained parameter weights inside the model file
+                    opset_version=10,          # the ONNX version to export the model to
+                    do_constant_folding=True,  # whether to execute constant folding for optimization
+                    input_names = ['input'],   # the model's input names
+                    output_names = ['output'], # the model's output names
+                    dynamic_axes={'input' : {0 : 'batch_size'},    # variable length axes
+                                'output' : {0 : 'batch_size'}})
+                                
+  """  
+  onnx_pars = Box(onnx_pars)
+ 
+  torch_module = load_function_uri(dir_model) 
 
+  torch.onnx.export(torch_model,               # model being run
+                    x,                         # model input (or a tuple for multiple inputs)
+                    dirout +"/model.onnx",   # where to save the model (can be a file or file-like object)
 
+                    **onnx_pars)
 
 
 
