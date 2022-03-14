@@ -190,15 +190,15 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
                     else:
                         df.to_csv(f'{out_path}', mode='a', header=False, index=False)
                 elif type == 'txt':
-                with open(f'{out_path}', 'a+') as f:
-                    f.write(f"-------------------------methods----------------------\n")
-                    for index, row in df.iterrows():
-                        str1 = ''
-                        for arg_name, arg_type, arg_value in zip(row['arg_name'], row['arg_type'], row['arg_value']):
-                            str1 += f'{arg_name}{f":{arg_type}" if arg_type else ""}{f" = {arg_value}" if arg_value else ""}, '
-                        str1 = str1[:-2] if str1 != '' else str1
-                        # f.write(f"{row['uri']}({str1})\n")
-                        f.write(f"{row['name'].replace(':', '.')}({str1})\n")
+                    with open(f'{out_path}', 'a+') as f:
+                        f.write(f"-------------------------methods----------------------\n")
+                        for index, row in df.iterrows():
+                            str1 = ''
+                            for arg_name, arg_type, arg_value in zip(row['arg_name'], row['arg_type'], row['arg_value']):
+                                str1 += f'{arg_name}{f":{arg_type}" if arg_type else ""}{f" = {arg_value}" if arg_value else ""}, '
+                            str1 = str1[:-2] if str1 != '' else str1
+                            # f.write(f"{row['uri']}({str1})\n")
+                            f.write(f"{row['name'].replace(':', '.')}({str1})\n")
         except Exception as e :
             log(flist[i], e) 
 
