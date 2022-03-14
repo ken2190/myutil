@@ -8,6 +8,7 @@ import os, sys, time, datetime,inspect, json, yaml, gc, random
 from box import Box
 
 ####################################################################
+from typing import List, Optional, Tuple, Union
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
@@ -245,14 +246,33 @@ def import_function(fun_name=None, module_name=None, fuzzy_match=False):
         raise Exception( msg )  
 
 
-def glob_glob(dirin="**/*.py", nfile=1000, recursive=False, **kw):
-    """  **/*.py   any sub-directories
+def glob_glob(dirin="**/*.py":Union[str, list], nfile=1000, direxclude="":Union[str, list], recursive=True, silent=False, show=0, **kw):
+    """  
+       dirin:      **/*.py   any sub-directories or list of sub-directories
+       direxclude: **/*.py   any sub-directories or list of sub-directories
 
     """
     import glob
-    flist  = sorted( glob.glob(dirin , recursive= recursive, **kw ))
+    ## Inside
+    dirin = [dirin] if isinstance(dirin, str) else dirin
+    flist = []
+    for fi in dirin :
+       flist  =  flist + glob.glob(fi , recursive= recursive, **kw )
+    flist = list(set(flist))
+
+    ## Outside
+    direxclude = [direxclude] if isinstance(dirin, str) else direxclude
+    exclud = []
+    for fi in direxclude :
+       exclud =  exclud + glob.glob(fi , recursive= recursive, **kw )
+    exclud = list(set(exclud))
+
+    flist  = [fi for fi in flist if  fi not in exclud ]
+    flist  = sorted(flist)
     flist  = flist[:nfile]
-    log('Nfile: ', len(flist), str(flist)[:100])
+
+    if not slient : log('Nfile: ', len(flist), str(flist)[:100])
+    if show>0 : log(flist)
     return flist
 
 
