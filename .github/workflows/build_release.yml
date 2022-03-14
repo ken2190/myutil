@@ -89,8 +89,8 @@ jobs:
 
     ################################################################
     - name: test_deeplearning
+      continue-on-error: true    
       run: |
-          pip install sentence-transformers transformers>=4.6.0,<5.0.0 tokenizers>=0.10.3 sentencepiece huggingface-hub   pyarrow  --no-deps
           python test.py test_deeplearning_torch
 
     - name: test_recsys  

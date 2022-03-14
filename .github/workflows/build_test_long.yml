@@ -1,0 +1,88 @@
+name: Build and Test , Package PyPI
+
+###  https://github.com/arita37/awesome-actions#static-analysis
+
+on:
+  push:
+    branches:
+    - main
+
+
+  schedule:
+    - cron:  '0 2 * * *'      #### 60mins
+    #    - cron:  '*/10 * * * *'
+
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    #- uses: actions/checkout@v1
+    #  ref: ${{ github.head_ref }
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+        
+    - name: Set up Python 3.7.*
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7.*
+      
+    - name: Install pipenv
+      uses: dschep/install-pipenv-action@v1
+      
+  
+    - name: Cache pipenv virtualenv
+      id: cache-pipenv
+      uses: actions/cache@v1
+      with:
+        path: /opt/hostedtoolcache/Python/
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/conda/py36_big.txt') }}
+          
+
+    #- name: Install numpy
+    #  if: steps.cache-pipenv.outputs.cache-hit != 'true'
+    #  run: pip install numpy==1.18.2   pillow==6.2.1  scipy
+      
+
+    - name: Install repo requirements  1
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: |
+           pip install -r  config/conda/py36_min.txt
+
+
+    - name: Install utilmy
+      run:  |
+        pip install -e .
+        python -c "import utilmy"
+
+           
+    - name: Install repo requirements   2
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run:  |
+        ls .
+        pip install -r  config/conda/py36_big.txt
+
+
+    - name: test_import
+      run: |
+           python -c "import os, pandas as pd; print(os)"
+           python -c "import utilmy"        
+        
+
+
+    ########  Runs All test  ######################################
+    - name: test_setup
+      run: |
+          mkdir -p    /home/runner/work/log_tmp/
+          chmod -R 777 . 
+
+
+    ################################################################
+    - name: test_deeplearning
+      run: |
+          python test.py test_deeplearning_torch
+
+
