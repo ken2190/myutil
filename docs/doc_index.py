@@ -687,13 +687,13 @@ utilmy/deeplearning/util_dl.py
 -------------------------functions----------------------
 create_train_npz()
 create_train_parquet()
-data_mnist_get_train_test(batch = 32)
 down_page(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 gpu_available()
 gpu_usage()
 model_deletes(dry = 0)
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
+test_dataset_classifier_mnist_tfdataset(batch = 32)
 tf_check()
 
 
@@ -750,6 +750,7 @@ test_all()
 utilmy/deeplearning/util_yolo.py
 -------------------------functions----------------------
 convert_to_yolov5(info_dict:Dict, names:Dict, output:str)
+help()
 test_all()
 test_convert_to_yolov5()
 test_yolov5_from_xml()
