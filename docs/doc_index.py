@@ -539,6 +539,25 @@ X3DHead.init_weights(self)
 utilmy/deeplearning/torch/models/__init__.py
 
 
+utilmy/deeplearning/torch/models/sentences_model.py
+-------------------------functions----------------------
+evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
+fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+fit2(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+get_dataset(data_pars = None, **kw)
+get_dataset2(data_pars = None, model = None, **kw)
+get_params(param_pars, **kw)
+load(load_pars = None)
+predict(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+predict2(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+reset_model()
+save(model, session = None, save_pars = None)
+test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
+
+-------------------------methods----------------------
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
+
+
 utilmy/deeplearning/torch/rule_encoder.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
@@ -576,42 +595,24 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
-utilmy/deeplearning/torch/sentence2.py
--------------------------functions----------------------
-evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
-fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
-fit2(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
-get_dataset(data_pars = None, **kw)
-get_dataset2(data_pars = None, model = None, **kw)
-get_params(param_pars, **kw)
-load(load_pars = None)
-predict(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
-predict2(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
-reset_model()
-save(model, session = None, save_pars = None)
-test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
-
--------------------------methods----------------------
-Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
-
-
 utilmy/deeplearning/torch/sentences.py
 -------------------------functions----------------------
 dataset_download(dirout = '/content/sample_data/sent_tans/')
 dataset_fake(dirdata)
 dataset_fake2(dirdata = '')
+help()
 load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
 load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
 load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
-log(*s)
 metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_load(path_or_name_or_object)
 model_save(model, path, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
-pd_read(path_or_df = './myfile.csv', npool = 1, **kw)
+pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
 sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
 test()
+test_all()
 
 
 
