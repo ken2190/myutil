@@ -338,7 +338,7 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
                     output_names = ['output'], # the model's output names
                     dynamic_axes={'input' : {0 : 'batch_size'},    # variable length axes
                                 'output' : {0 : 'batch_size'}})
-                                
+
   """  
   onnx_pars = Box(onnx_pars)
  
@@ -404,7 +404,7 @@ if 'utils':
     def load_function_uri(uri_name="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+        #"dataset"        : "preprocess.generic:pandasDataset"
         ###### External File processor :
         #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
         """

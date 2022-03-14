@@ -708,8 +708,8 @@ def image_remove_bg(in_dir="", out_dir="", level=1):
         mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/  
         
     """    
-    in_dir  = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean/"
-    out_dir = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean_nobg/"
+    in_dir  = "/gsp/v1000k_clean/"
+    out_dir = "//gsp/v1000k_clean_nobg/"
 
     
     fpaths = glob.glob(in_dir + "/*")
@@ -742,11 +742,9 @@ def image_face_blank(in_dir="", level = "/*",
     import cv2, glob
     import face_detection
 
-    #in_dir  = "/data/workspaces/noelkevin01/" + in_dir
-    #out_dir = "/data/workspaces/noelkevin01/" + out_dir
     npool    = 30
-    in_dir   = "/data/workspaces/noelkevin01/img/data/gsp/v70k_clean_nobg/"
-    out_dir  = "/data/workspaces/noelkevin01/img/data/gsp/v70k_clean_nobg_noface/"
+    in_dir   = "//img/data/gsp/v70k_clean_nobg/"
+    out_dir  = "//img/data/gsp/v70k_clean_nobg_noface/"
     fpaths   = glob.glob(in_dir + "/*/*" )
     
     # fpaths   = [  t for t in fpath if "/-1" not in fpaths ]
