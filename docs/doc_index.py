@@ -612,7 +612,22 @@ test()
 
 
 
-utilmy/deeplearning/torch/util_train.py
+utilmy/deeplearning/torch/util_torch.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+get_metrics(y_true, y_pred, y_score)
+help()
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+test2()
+test_all()
+test_dataset_classification_fake(nrows = 500)
+
+-------------------------methods----------------------
+model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
+model_dummy.forward(self, x)
 
 
 utilmy/deeplearning/torch/zkeras_torch_sentence.py
