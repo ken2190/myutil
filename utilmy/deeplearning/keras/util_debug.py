@@ -41,6 +41,46 @@ def test_classactivation():
 
   
 ######################################################################################  
+def test_dataset_classifier_mnist_tfdataset(batch=32):
+    """MNIST under TF format
+    Args:
+        batch:   32
+    Returns:
+        
+    """
+    # get dataset from mnist on ready to use format
+    import tensorflow as tf
+    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+    x_train, x_test = x_train / 255.0, x_test / 255.0
+
+
+    ### Train
+    train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train,))
+    train_ds = train_ds.shuffle(buffer_size=x_train.shape[0])
+    train_ds = train_ds.batch(batch)
+    train_ds = train_ds.prefetch(1)
+
+    ### Test
+    test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test,))
+    test_ds = test_ds.shuffle(buffer_size=x_test.shape[0])
+    test_ds = test_ds.batch(batch)
+    test_ds = test_ds.prefetch(1)
+    return train_ds, test_ds
+    
+            
+def tf_gpu_check():
+    """function tf_check
+    Args:
+    Returns:
+        
+    """
+    #### python prepro.py check_tf 
+    import tensorflow as tf
+    print( tf.config.list_physical_devices())
+
+
+
+
 def keras_check_layer(mlayer,):
   """ Providing a layer,
       build and run the layer
