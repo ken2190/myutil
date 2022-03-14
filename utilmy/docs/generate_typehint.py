@@ -10,11 +10,13 @@ HELP  = """ Utils for type generation
 
 
 """
-from email.policy import default
 import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
-import subprocess, shutil, re, sysconfig
 from box import Box
+
+import subprocess, shutil, re, sysconfig
 from ast import literal_eval
+from email.policy import default
+
 
 ## required if we want to annotate files in site-packages
 os.environ["MONKEYTYPE_TRACE_MODULES"] = 'utilmy,site-packages'

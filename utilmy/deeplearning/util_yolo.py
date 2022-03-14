@@ -11,12 +11,12 @@ python utilmy/deeplearning/util_yolo.py    test1
 
 """
 import os, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
-from box import Box
-
-
-#### Types
-from numpy import ndarray
 from typing import List, Optional, Tuple, Union, Dict, Mapping
+from numpy import ndarray
+from box import Box
+#### Types
+
+
 #############################################################################################
 from utilmy import log, log2
 
@@ -205,5 +205,5 @@ def yolov5_from_xml(xml_file_path:str = "None", xml_folder:str= "None",output:st
 
 
 if __name__ == "__main__":
-    # yolov5_from_xml(xml_folder="xml_folder")
-    test_all()
+    import fire 
+    fire.Fire()
