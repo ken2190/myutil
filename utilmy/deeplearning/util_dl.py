@@ -27,10 +27,10 @@ def test_all():
 
 ################################################################################################
 ################################################################################################
-def data_mnist_get_train_test(batch=32):
-    """function data_mnist_get_train_test
+def test_dataset_classifier_mnist_tfdataset(batch=32):
+    """MNIST under TF format
     Args:
-        batch:   
+        batch:   32
     Returns:
         
     """
@@ -69,6 +69,7 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
     tensorboard_log(cc, writer= tb_writer)
 
     %reload_ext tensorboard
+    
     %tensorboard --logdir logs/params/
     """
     import collections
