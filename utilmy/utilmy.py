@@ -246,7 +246,7 @@ def import_function(fun_name=None, module_name=None, fuzzy_match=False):
         raise Exception( msg )  
 
 
-def glob_glob(dirin="**/*.py":Union[str, list], nfile=1000, direxclude="":Union[str, list], recursive=True, silent=False, show=0, **kw):
+def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str, list]="", recursive=True, silent=False, show=0, **kw):
     """  
        dirin:      **/*.py   any sub-directories or list of sub-directories
        direxclude: **/*.py   any sub-directories or list of sub-directories
