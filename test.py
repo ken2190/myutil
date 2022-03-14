@@ -188,8 +188,8 @@ def test_deeplearning_keras():
 
 #########################################################################################
 def test_deeplearning_torch():
-    from utilmy.deeplearning.torch import  rule_encoder as m
-    m.test_all()
+    from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
+    from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
 
 #######################################################################################

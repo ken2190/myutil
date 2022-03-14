@@ -89,7 +89,9 @@ jobs:
 
     ################################################################
     - name: test_deeplearning
-      run: python test.py test_deeplearning_torch
+      run: |
+          pip install sentence-transformers
+          python test.py test_deeplearning_torch
 
 
     - name: test_recsys  
