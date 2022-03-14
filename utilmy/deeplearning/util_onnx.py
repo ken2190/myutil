@@ -28,8 +28,7 @@ from utilmy import log, log2
 
 
 def help():
-    """function help        
-    """
+    """function help        """
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
 
@@ -37,8 +36,7 @@ def help():
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all   to be used in test.py        
-    """
+    """function test_all   to be used in test.py         """
     log(MNAME)
     test1()
 
