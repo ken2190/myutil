@@ -734,6 +734,19 @@ vizEmbedding.draw_hiearchy(self)
 vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
 
 
+utilmy/deeplearning/util_onnx.py
+-------------------------functions----------------------
+help()
+onnx_convert()
+onnx_load_model()
+onnx_load_onnx()
+onnx_validate_onnx()
+test1()
+test2()
+test_all()
+
+
+
 utilmy/deeplearning/util_yolo.py
 -------------------------functions----------------------
 convert_to_yolov5(info_dict:Dict, names:Dict, output:str)
