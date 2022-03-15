@@ -6,8 +6,6 @@ name: Auto docs_github_pages arita37.github.io/myutil/en/zdocs_y23487teg65f6/
 on:
   workflow_dispatch:
     inputs:  
-      tags:
-        description: 'manual trigger'
 
   schedule:
     - cron:  '0 14 * * *'      #### 60mins
