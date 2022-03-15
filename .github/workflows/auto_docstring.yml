@@ -4,8 +4,9 @@ name: Auto docstring - zdocstring branch
 
 on:
   workflow_dispatch:
-    tags:
-      description: 'manual trigger'
+    inputs:  
+      tags:
+        description: 'manual trigger'
 
       
   push:
