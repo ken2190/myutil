@@ -1,4 +1,4 @@
-name: Build__Publish , Package PyPI
+name: Build and Test , Package PyPI
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
@@ -104,8 +104,8 @@ jobs:
     - name: test_docs_cli 
       run: python test.py test_docs_cli
     
-    - name: test_text
-      run: python test.py test_text
+    - name: test_nlp
+      run: python test.py test_nlp
 
     - name: test_distributed
       run: python test.py test_distributed
