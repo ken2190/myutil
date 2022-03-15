@@ -2,6 +2,10 @@ name: Auto Rebase Branches - main schedule
 
 
 on:
+  workflow_dispatch:
+    tags:
+      description: 'manual trigger'
+      
   schedule:
     - cron:  '0 13 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'   
