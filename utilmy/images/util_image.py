@@ -176,7 +176,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 
 ################################################################################################
-def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000 ):
+def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -210,8 +210,9 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
 
 
     log("#### Image list  ################################################################")
-    image_list = sorted(list(glob.glob(  f'/{in_dir}/*/*.*')))
-    image_list = [  t  for t in image_list if "/-1/" not in t  and "/60/" not in t   ] #TODO: some folders to exclude?
+    image_list = sorted(list(glob.glob(  f'{in_dir}/**/*')))
+    fexclude   = sorted(list(glob.glob(  f'{file_exclude}')))
+    image_list = [  fi  for fi in image_list if fi not in fexclude   ] #TODO: some folders to exclude?
     image_list = image_list[:nmax]    
     log('N images', len(image_list))
 
@@ -271,7 +272,7 @@ def image_cache_create(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, ta
        log(key, x0.shape, str(x0)[:50]  )
 
 
-def image_cache_load(db_path:str="db_images.cache"):
+def diskcache_image_loadcache(db_path:str="db_images.cache"):
     """function image_cache_check
     Args:
         db_path ( str ) :   
@@ -284,7 +285,7 @@ def image_cache_load(db_path:str="db_images.cache"):
 
 
 
-def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
+def diskcache_image_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
         db_path ( str ) :   
@@ -309,8 +310,8 @@ def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cac
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
 
-
-def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", tag="cache1"):
+   
+def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", tag="cache1"):
     """function image_cache_save
     Args:
         image_path_list ( str ) :   
@@ -330,8 +331,8 @@ def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", t
         img = image_read(img_path)
         cache[img_path] = img
 
-
-def image_check_npz(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
+         
+def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
         path_npz:   
@@ -390,20 +391,18 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     return image
 
 
-def image_save():
+def diskcache_image_getsample(db_path="_70k_clean_nobg_256_256-100000.cache", dirout):
     """function image_save
     Args:
     Returns:
         
     """
-    ##### Write some sample images  ########################
     import diskcache as dc
-    db_path = "/data/workspaces/noelkevin01/img/data/fashion/train_npz/small/img_train_r2p2_70k_clean_nobg_256_256-100000.cache"
     cache   = dc.Cache(db_path)
     print('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
-    dir_check = out_dir + f"/{xname}/"
+    dir_check = dirout 
     os.makedirs(dir_check, exist_ok=True)
     for i, key in enumerate(img_list) :
         if i > 10: break
