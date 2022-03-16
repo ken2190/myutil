@@ -283,7 +283,7 @@ def image_cache_load(db_path:str="db_images.cache"):
     return cache
 
 
-#TODO: diskcache
+
 def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
@@ -309,7 +309,7 @@ def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cac
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
 
-#TODO: diskcache
+
 def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", tag="cache1"):
     """function image_cache_save
     Args:
@@ -330,7 +330,7 @@ def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", t
         img = image_read(img_path)
         cache[img_path] = img
 
-#TODO: diskcache
+
 def image_check_npz(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
@@ -502,14 +502,9 @@ def image_center_crop(img, dim):
     return crop_img
 
 
-def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+def image_resize(image : np.typing.ArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
     """Resizes a image and maintains aspect ratio.
-    Args:
-        image:
-        width:
-        height:
-        inter:
-    Returns:
+    inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
     """
     # Grab the image size and initialize dimensions
     dim = None
@@ -534,15 +529,16 @@ def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     return cv2.resize(image, dim, interpolation=inter)
 
 
-def image_resize_pad(img,size=(None,None), padColor=0, pad =True ):
+def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
+     
      """
      h, w = img.shape[:2]
      sh, sw = size
      if not pad:
          return image_resize(image, width=sw, height=sh, inter=cv2.INTER_AREA)
-        
+     assert (sh is not None)  and (sw is not None) , 'if using padding, the target size must be provided'
      # interpolation method
      if h > sh or w > sw: # shrinking image
          interp = cv2.INTER_AREA
