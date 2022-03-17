@@ -2,7 +2,7 @@
 MNAME="utilmy.deeplearning.torch.sentences"
 HELP="""sentence_tansformer
 
-python  utilmy/deeplearning/torch/sentences.py  test
+python  utilmy/deeplearning/torch/  test
 
 Original file is located at
     https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
@@ -41,7 +41,7 @@ try :
     from sentence_transformers.readers import InputExample
     from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
 except Exception as e:
-    log(e)
+    print(e)
 
 
 #### read data on disk
@@ -50,7 +50,6 @@ from utilmy import pd_read_file
 
 #############################################################################################
 from utilmy import log, log2
-
 def help():
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
