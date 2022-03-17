@@ -27,13 +27,6 @@ from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
 
-
-import sentence_transformers as st
-from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
-from sentence_transformers import models, losses, datasets
-from sentence_transformers.readers import InputExample
-from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
-
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -41,6 +34,14 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+try :
+    import sentence_transformers as st
+    from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
+    from sentence_transformers import models, losses, datasets
+    from sentence_transformers.readers import InputExample
+    from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
+except Exception as e:
+    log(e)
 
 
 #### read data on disk
