@@ -732,7 +732,7 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str,
             except : pass         
             
 
-def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*", #TODO @aniket:see if level is needed
+def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
                      out_dir:Union[str, bytes, os.PathLike]=f"", npool=30):
     """  Remove face
 
@@ -748,23 +748,14 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*", #TO
     """
     import cv2, glob
     import face_detection
-    #TODO @aniket:remove some hard coded
-    #in_dir  = "/data/workspaces/noelkevin01/" + in_dir
-    #out_dir = "/data/workspaces/noelkevin01/" + out_dir
-    npool    = 30
-    in_dir   = "/data/workspaces/noelkevin01/img/data/gsp/v70k_clean_nobg/"
-    out_dir  = "/data/workspaces/noelkevin01/img/data/gsp/v70k_clean_nobg_noface/"
-    fpaths   = glob.glob(in_dir + "/*/*" )
-    
-    # fpaths   = [  t for t in fpath if "/-1" not in fpaths ]
-    # fpaths   = fpaths[:60]
-    
+
+    fpaths   = glob.glob(os.path.join(in_dir,level))    
     detector = face_detection.build_detector( "RetinaNetMobileNetV1", 
                             confidence_threshold=.5, nms_iou_threshold=.3)
 
     log(str(fpaths)[:60])
 
-    def myfun(fp):
+    def worker(fp):
       try :
           log(fp)  
           img   = cv2.imread(fp)
@@ -782,14 +773,12 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*", #TO
       except : pass        
 
 
-    #for fp in fpaths :
-    #  myfun(fp)
-
     from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
     pool = Pool(npool) 
-    res  = pool.map(myfun, fpaths)      
+    res  = pool.map(worker, fpaths)      
     pool.close()
     pool.join()     
+
         
     
 def image_text_blank(in_dir, out_dir, level="/*"):
