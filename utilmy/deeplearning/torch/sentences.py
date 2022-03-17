@@ -60,7 +60,7 @@ def test_all() -> None:
     """function test_all
     """
     log(MNAME)
-    test()
+    # test() ### pip install
 
 
 def test():
