@@ -857,7 +857,7 @@ def image_check():
         cv2.imwrite(dir_check + f"/{key2}", img)
 
 
-
+#TODO: should be moved to another package?
 def os_path_check(path, n=5):
     """function os_path_check
     Args:
