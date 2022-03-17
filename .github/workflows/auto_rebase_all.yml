@@ -72,9 +72,6 @@ jobs:
             { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
 
 
-  
-
-
 
   ####3 rebase All branches except some branch
   # Rebase-All:
