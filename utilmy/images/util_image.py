@@ -331,7 +331,7 @@ def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/
         img = image_read(img_path)
         cache[img_path] = img
 
-         
+
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
@@ -418,10 +418,11 @@ image_load = image_read  ## alias
 
 
 ##############################################################################
-def image_show_in_row(image_list:dict=None):
+def image_show_in_row(image_list:Union[dict,list]=None):
     """ helper function for data visualization
     Plot images in one row.
     """
+    assert image_list is not None, 'image_list must be a list or dict'
     import matplotlib.pyplot as plt
    
     if isinstance(image_list, list): 
@@ -441,7 +442,7 @@ def image_show_in_row(image_list:dict=None):
 
 
 
-def image_resize_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
+def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
         image:   
@@ -482,7 +483,7 @@ def image_resize_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
 
 
 ############################################################################
-def image_center_crop(img, dim):
+def image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int,int]):
     """Returns center cropped image
     Args:
     img: image to be center cropped
@@ -576,7 +577,7 @@ def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union
 
 
 #TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(out_dir=""):
+def image_resize_mp(out_dir :str =""):
     """     python prepro.py  image_resize
 
           image white color padded
@@ -636,7 +637,7 @@ def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_
     return np.random.randint(low=min_padding, high=max_padding + 1, size=paddings_number)
 
 
-def image_merge(image_list, n_dim, padding_size, max_height, total_width):
+def image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width):
     """
     Args:
         image_list:  list of image
@@ -666,11 +667,13 @@ def image_merge(image_list, n_dim, padding_size, max_height, total_width):
         if idx == idx_len:
             current_x += width
         else:
+            #TODO: is padding_size "per image". also is it an int or tuple
             current_x += width + padding_size[idx]
+
     return final_image, padding_size
 
 
-def image_remove_extra_padding(img, inverse=False, removedot=True):
+def image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool=False, removedot :bool =True):
     """TODO: Issue with small dot noise points : noise or not ?
               Padding calc has also issues with small blobs.
     Args:
@@ -699,7 +702,7 @@ def image_remove_extra_padding(img, inverse=False, removedot=True):
     return crop
 
 
-def image_remove_bg(in_dir="", out_dir="", level=1):
+def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str, bytes, os.PathLike]="", level:int=1):
     """ #### remove background
     
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg  
@@ -729,8 +732,8 @@ def image_remove_bg(in_dir="", out_dir="", level=1):
             except : pass         
             
 
-def image_face_blank(in_dir="", level = "/*", 
-                     out_dir=f"", npool=30):
+def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*", #TODO @aniket:see if level is needed
+                     out_dir:Union[str, bytes, os.PathLike]=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
@@ -745,7 +748,7 @@ def image_face_blank(in_dir="", level = "/*",
     """
     import cv2, glob
     import face_detection
-
+    #TODO @aniket:remove some hard coded
     #in_dir  = "/data/workspaces/noelkevin01/" + in_dir
     #out_dir = "/data/workspaces/noelkevin01/" + out_dir
     npool    = 30
