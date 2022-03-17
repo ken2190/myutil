@@ -781,7 +781,7 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
 
         
     
-def image_text_blank(in_dir, out_dir, level="/*"):
+def image_text_blank(in_dir :Union[str,bytes,os.PathLike], out_dir :Union[str,bytes,os.PathLike], level="*"):
     """
         Not working well
         python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --out_dir img/data/fashion/ztest_noface
@@ -791,10 +791,8 @@ def image_text_blank(in_dir, out_dir, level="/*"):
     import cv2, glob
     from ztext_detector import detect_text_regions
     
-    in_dir  = "/data/workspaces/noelkevin01/" + in_dir
-    out_dir = "/data/workspaces/noelkevin01/" + out_dir
 
-    fpaths  = glob.glob(in_dir + level )
+    fpaths  = glob.glob(os.path.join(in_dir,level ))
     log(str(fpaths)[:60])
     for fp in fpaths :
       try :
@@ -812,7 +810,7 @@ def image_text_blank(in_dir, out_dir, level="/*"):
           fout = fp.replace(in_dir, out_dir)    
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
-      except : pass
+      except : pass #TODO: code smell:better to handle specific exceptions
 
 
 def image_check():
