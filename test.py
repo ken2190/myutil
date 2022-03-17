@@ -94,43 +94,34 @@ def test_docs_cli():
    
 #########################################################################################
 def test_adatasets():
-    """ #### python test.py   test_adatasets
-    """
-    from utilmy import adatasets as m
-    m.test_all()      
+    """ #### python test.py   test_adatasets """
+    from utilmy import adatasets as m ;   m.test_all()      
 
 
 #########################################################################################
 def test_nnumpy():
-    """#### python test.py   test_nnumpy
-    """
-    from utilmy import nnumpy as m
-    m.test_all()
+    """#### python test.py   test_nnumpy  """
+    from utilmy import nnumpy as m ; m.test_all()
 
 
 
 #########################################################################################
 def test_dates():
     #### python test.py   test_dates
-    from utilmy import dates as m
-    m.test_all()
+    from utilmy import dates as m  ; m.test_all()
 
 
 #########################################################################################
 def test_decorators():
     #### python test.py   test_decorators
-    from utilmy import  decorators as m
-    m.test_all()
+    from utilmy import  decorators as m  ;m.test_all()
 
 
    
 #########################################################################################
-def test_text():
-    from utilmy.nlp import util_cluster as m
-    m.test_all()  
-
-    from utilmy.nlp import util_gensim as m
-    m.test_all()  
+def test_nlp():
+    from utilmy.nlp import util_cluster as m ; m.test_all()  
+    from utilmy.nlp import util_gensim as m ;  m.test_all()  
 
    
 #########################################################################################
@@ -144,32 +135,23 @@ def test_viz_vizhtml():
 
 #########################################################################################
 def test_parallel():
-   from utilmy import parallel as m
-   m.test_all()
+   from utilmy import parallel as m  ;  m.test_all()
    
 
 #########################################################################################
 def test_distributed():
-   from utilmy import distributed as m
-   log("from utilmy import distributed as m ")
-   m.test_all()
+   from utilmy import distributed as m ;m.test_all()
 
    
   
 #######################################################################################
 def test_utils():
-    """ #### python test.py   test_utils
-    """
-    from utilmy import utils as m
-    m.test_all() 
+    from utilmy import utils as m ;  m.test_all() 
          
 
 #######################################################################################
 def test_oos():
-   """#### python test.py   test_oos
-   """
-   from utilmy import oos as m
-   m.test_all() 
+   from utilmy import oos as m ;  m.test_all() 
 
 
 #######################################################################################
@@ -181,37 +163,31 @@ def test_tabular():
    
 #########################################################################################
 def test_deeplearning_keras():
-    from utilmy.deeplearning.keras import  util_similarity as m
-    m.test_tf_cdist()
+    from utilmy.deeplearning.keras import  util_similarity as m;  m.test_all()
 
 
 
 #########################################################################################
 def test_deeplearning_torch():
-    from utilmy.deeplearning.torch import  rule_encoder as m
-    m.test_all()
+    from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
+    from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
 
 #######################################################################################
-def test_deeplearning_yolov5():
-   from utilmy.deeplearning import util_yolo as m
-   m.test_all()
+def test_deeplearning():
+   from utilmy.deeplearning import util_yolo as m ;  m.test_all()
 
 
 #######################################################################################
 def test_recsys():
-   from utilmy.recsys import ab as m
-   m.test_all()
-
-   from utilmy.recsys import metric as m
-   m.test_all()
+   from utilmy.recsys import ab as m ; m.test_all()
+   from utilmy.recsys import metric as m ; m.test_all()
 
   
 
 #######################################################################################
 def test_compile():
    from utilmy.docs import format as m
-   log("from utilmy.doc import format")
 
 
 
@@ -223,7 +199,7 @@ def test_all():
     test_utilmy()
     test_decorators()
     test_ppandas()  
-    test_text()
+    test_nlp()
     test_docs_cli()
 
 
@@ -237,7 +213,7 @@ def test_all():
 
     ################
     test_deeplearning_keras()
-    test_deeplearning_yolov5()
+    test_deeplearning()
 
 
     ###############

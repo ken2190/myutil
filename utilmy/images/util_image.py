@@ -715,8 +715,8 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str,
         mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/  
         
     """    
-    in_dir  = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean/"
-    out_dir = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean_nobg/"
+    in_dir  = "/gsp/v1000k_clean/"
+    out_dir = "//gsp/v1000k_clean_nobg/"
 
     
     fpaths = glob.glob(in_dir + "/*")
@@ -750,6 +750,7 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
     import face_detection
 
     fpaths   = glob.glob(os.path.join(in_dir,level))    
+    
     detector = face_detection.build_detector( "RetinaNetMobileNetV1", 
                             confidence_threshold=.5, nms_iou_threshold=.3)
 

@@ -2,8 +2,12 @@ name: Auto Rebase Branches - main schedule
 
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+
   schedule:
-    - cron:  '* 13 * * *'      #### 60mins
+    - cron:  '0 13 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'   
 
   push:
@@ -13,7 +17,8 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani
+    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
 
@@ -54,6 +59,17 @@ jobs:
           done
 
 
+
+      - name: Create Auto PR      
+        env:
+            GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+        run: |
+            curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+            # git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+            git config --global hub.protocol ssh            
+            { /bin/hub pull-request --base arita37:main    --head arita37:aniket  -m "PR into main" } || { echo 'failed ' ; } 
+            { /bin/hub pull-request  --base arita37:main    --head arita37:alex    -m "PR into main" } || { echo 'failed ' ; } 
+            { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
 
 
 

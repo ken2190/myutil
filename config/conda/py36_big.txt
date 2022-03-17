@@ -1,0 +1,137 @@
+fire
+python-box
+numpy
+pandas<=1.2.1
+scipy
+loguru
+cloudpickle
+
+########################################################
+flake8
+
+
+
+########################################################
+#### utilmy.date
+arrow
+tqdm
+
+
+########################################################
+#### utilmy.debug
+pyinstrument  ### code profile
+icecream  ### debugger
+rebound-cli  ## stackoverflow
+pysnooper   ### Debugger show lines of code step by ste
+snoop
+
+
+########################################################
+#### utilmy.utils
+wget
+psutil
+
+########################################################
+#### utilmy.text
+datasketch  ### lSH
+rapidfuzz
+editdistance
+
+gensim==4.1.2
+nltk==3.6.3
+essential-generators==1.0
+
+
+########################################################
+#### utilmy.viz.html
+seaborn
+tqdm
+matplotlib
+python-highcharts  
+mpld3
+geopandas 
+fiona
+pyproj
+rtree
+shapely
+pretty-html-table
+networkx
+pyvis
+dateparser
+
+#########################################################
+#### utilmy.down
+wget
+
+
+########################################################
+#### utilmy.docs
+stdlib_list
+
+
+########################################################
+#### utilmy.keyvalue
+diskcache
+
+
+########################################################
+#### utilmy.adatasets
+scikit-learn
+pmlb
+pandas_profiling
+
+
+
+########################################################
+#### utilmy.dates
+holidays
+
+
+
+###############################
+## utilmy.tabular
+#statsmodels==0.11.1
+statsmodels
+# hypothetical
+bootstrapped
+mmh3  
+imodels   ### rule generator
+mapie  ### Uncertainty est.
+
+
+
+###############################
+## utilmy.recsys
+## abracadabra
+
+
+########################################################
+#### utilmy.deeplearning
+faiss-cpu
+tensorflow-cpu==2.2.3
+
+
+
+
+########################################################
+### torch
+-f https://download.pytorch.org/whl/torch_stable.html 
+torch==1.7.0+cpu 
+# torch==1.7.1
+#-f https://download.pytorch.org/whl/torch_stable.html
+#torchvision==0.8.2+cpu torchaudio==0.7.2 
+sentence-transformers
+transformers>=4.6.0,<5.0.0
+tokenizers>=0.10.3
+sentencepiece
+huggingface-hub  
+
+
+
+
+
+
+
+
+
+

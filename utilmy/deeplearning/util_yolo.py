@@ -1,7 +1,38 @@
-import os,  numpy as np
-from typing import Dict, Mapping
+# -*- coding: utf-8 -*-
+MNAME = "utilmy.deeplearning.util_yolo"
+HELP = """ utils for Yolo
 
 
+cd myutil
+python utilmy/deeplearning/util_yolo.py    test1
+
+
+
+
+"""
+import os, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
+from typing import List, Optional, Tuple, Union, Dict, Mapping
+from numpy import ndarray
+from box import Box
+#### Types
+
+
+#############################################################################################
+from utilmy import log, log2
+
+def help():
+    """function help        """
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+##############################################################################################################
+def test_all():
+    """function test_all
+    """
+    # test_extract_info_from_xml()
+    test_convert_to_yolov5()
+    test_yolov5_from_xml()
 
 
 def test_convert_to_yolov5():
@@ -26,15 +57,6 @@ def test_yolov5_from_xml():
     yolov5_from_xml(xml_folder="testdata/util_yolo",output= "testdata/util_yolo")
 
 
-def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
-    """
-    # test_extract_info_from_xml()
-    test_convert_to_yolov5()
-    test_yolov5_from_xml()
 
     
 ##############################################################################################################
@@ -183,5 +205,5 @@ def yolov5_from_xml(xml_file_path:str = "None", xml_folder:str= "None",output:st
 
 
 if __name__ == "__main__":
-    # yolov5_from_xml(xml_folder="xml_folder")
-    test_all()
+    import fire 
+    fire.Fire()

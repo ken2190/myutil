@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+MNAME='utilmy.deeplearning.util_embedding'
 HELP=""" Embedding
 
 https://try2explore.com/questions/10109123
@@ -7,12 +8,15 @@ https://mpld3.github.io/examples/index.html
 
 
 """
+import os, glob, sys, math, string, time, json, logging, functools, random, yaml, operator, gc
+from pathlib import Path; from collections import defaultdict, OrderedDict ;
+from typing import List, Optional, Tuple, Union  ; from numpy import ndarray
+from box import Box
+
 import warnings ;warnings.filterwarnings("ignore")
 from warnings import simplefilter  ; simplefilter(action='ignore', category=FutureWarning)
 with warnings.catch_warnings():
-    import random, os, sys, numpy as np, pandas as pd, time, gc, copy, glob
-    from datetime import datetime ; from typing import List
-
+    from datetime import datetime 
     import matplotlib.pyplot as plt
 
     from scipy.cluster.hierarchy import ward, dendrogram
@@ -21,13 +25,8 @@ with warnings.catch_warnings():
     from sklearn.metrics.pairwise import cosine_similarity
     from tqdm import tqdm
 
-    from utilmy import pd_read_file, os_makedirs, pd_to_file
 
-    from box import Box 
-
-
-import os, glob, sys, math, string, time, json, logging, functools, random, yaml, operator, gc
-from pathlib import Path; from collections import defaultdict, OrderedDict ;
+from utilmy import pd_read_file, os_makedirs, pd_to_file
 
 
 try :
@@ -35,10 +34,30 @@ try :
    import faiss
 except: pass
 
-from utilmy.utilmy import   pd_read_file, pd_to_file
 
-#####################################################################################
+#############################################################################################
 from utilmy import log, log2
+
+def help():
+    """function help        """
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+
+#############################################################################################
+def test_all() -> None:
+    """function test_all   to be used in test.py         """
+    log(MNAME)
+    test1()
+
+
+def test1() -> None:
+    """function test1     
+    """
+    d = Box({})
+
+
 
 
 
@@ -173,27 +192,6 @@ def embedding_load_parquet(dirin="df.parquet", nmax = 500):
     del df['emb']                  
     return embs, id_map, df 
 
-
-def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
-    ### Extract list of string into numpy
-    #mdim = len(vv[0].split(","))
-    # mdim = 200
-    from sklearn import preprocessing
-    import faiss
-    X = np.zeros(( len(vv) , mdim  ), dtype='float32')
-    for i, r in enumerate(vv) :
-        try :
-          vi      = [ float(v) for v in r.split(',')]        
-          X[i, :] = vi
-        except Exception as e:
-          log(i, e)
-
-    if l2_norm:
-       # preprocessing.normalize(X, norm='l2', copy=False)
-       faiss.normalize_L2(X)  ### Inplace L2 normalization
-    log("Normalized X")        
-    return X
-    
     
 def viz_run(dirin="in/model.vec", dirout="ztmp/", nmax=100):
    ###   python emb.py run    &  
@@ -206,105 +204,15 @@ def viz_run(dirin="in/model.vec", dirout="ztmp/", nmax=100):
    myviz = vizEmbedding(path = dirin )
    myviz.run_all(nmax=nmax, dir_out= dirout, mode=mode, ntest=50000)
 
-         
-        
 
-    
-def topk(topk=100, dname=None, pattern="df_*1000*.parquet", filter1=None):
-    """  python emb.py  topk    |& tee -a  /zzlog.py
-    
+
+
+
+
+########################################################################################################
+def sim_scores_sklearn(embs, words):
     """
-    from utilmy import pd_read_file
-    if dname is None :
-       dname = "seq_100000000"
-    
-    ksample = 500
-         
-    ###################################################################
-    dname    = dname.replace("/", "_").replace(".", "-")    
-    in_dir   = r0 + dname
-    out_dir  = in_dir + "/topk/"
-    os.makedirs(out_dir, exist_ok=True)
-    log(in_dir)
-    
-    #### Load emb data  ###############################################
-    df        = pd_read_file(  in_dir + f"/{pattern}", n_pool=10 )
-    df.index = np.arange(0, len(df))
-    log(df)
-    # df['emb'] = df['emb'].apply(lambda x :  list( np.array(x) /np.sqrt(np.dot(x,x)) ) )   ###Norm Vector
-
-        
-    #### Element X0 ####################################################
-    llids   = list(df.sample(frac=1.0)['id'].values)
-    vectors =  np_str_to_array(df['emb'].values,  mdim=200)   
-    
-    # faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200)
-    
-    for ii,idr in enumerate(llids) :        
-        if ii >= ksample : break
-        dfi     = df[ df['id'] == idr ] 
-        if len(dfi) < 1: continue
-        x0      = np.array(dfi['emb'].values[0]).astype(np.float32)
-        xname   = dfi['id'].values[0]
-        log(xname)
-
-        ##### Setup Faiss queey ########################################
-        x0      = x0.reshape(1, -1).astype('float32')  
-        # log(x0.shape, vectors.shape)
-        dist, rank = topk_nearest_vector(x0, vectors, topk= topk) 
-        df1              = df.iloc[rank[0], :]
-        df1['topk_dist'] = dist[0]
-        df1['topk_rank'] = np.arange(0, len(df1))
-        log( df1 )
-        del df1['emb']
-        df1.to_csv( out_dir + f"/topk_{xname}_{filter1}.csv"  , sep=",")
-
-
-        
-        
-def topk_nearest_vector(x0, vector_list, topk=3) :
-   """ Retrieve top k nearest vectors using FAISS
-   """
-   import faiss  
-   index = faiss.index_factory(x0.shape[1], 'Flat')
-   index.add(vector_list)
-   dist, indice = index.search(x0, topk)
-   return dist, indice
-   
-        
-
- 
-def sim_score2(path=""):
-    """
-       Sim Score using FAISS
-    
-    """
-    import faiss
-    x0 = [ 0.1, .2, 0.3]
-    x  = np.array([x0]).astype(np.float32)
-
-    index = faiss.index_factory(3, "Flat", faiss.METRIC_INNER_PRODUCT)
-    log(index.ntotal)
-    faiss.normalize_L2(x)
-    index.add(x)
-    distance, index = index.search(x, 5)
-    log(f'Distance by FAISS:{distance}')
-    return distance, index
-    
-    #To Tally the results check the cosine similarity of the following example
-    #from scipy import spatial
-    #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
-    #print('Distance by FAISS:{}'.format(result))
-
-    
-
-
-#####################################################################################
-def simscore_cosinus_calc(embs, words):
-    """
-    
       Calculation
-    
     """
     from sklearn.metrics.pairwise import cosine_similarity    
     dfsim = []
@@ -328,8 +236,29 @@ def simscore_cosinus_calc(embs, words):
     return dfsim
 
 
+def sim_scores_faiss(path=""):
+    """
+       Sim Score using FAISS
+    
+    """
+    import faiss
+    x0 = [ 0.1, .2, 0.3]
+    x  = np.array([x0]).astype(np.float32)
 
-#####################################################################################
+    index = faiss.index_factory(3, "Flat", faiss.METRIC_INNER_PRODUCT)
+    log(index.ntotal)
+    faiss.normalize_L2(x)
+    index.add(x)
+    distance, index = index.search(x, 5)
+    log(f'Distance by FAISS:{distance}')
+    return distance, index
+    
+    #To Tally the results check the cosine similarity of the following example
+    #from scipy import spatial
+    #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
+    #print('Distance by FAISS:{}'.format(result))
+
+
 def faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
     """
       1 billion size vector creation
@@ -521,59 +450,69 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
    return os.path.dirname( dirout2 )
 
 
-def np_matrix_to_str2(m, map_dict):
-    res = []
-    for v in m:
-        ss = ""
-        for xi in v:
-            ss += str(map_dict.get(xi, "")) + ","
-        res.append(ss[:-1])
-    return res    
+
+#####################################################################################
+def topk_nearest_vector(x0, vector_list, topk=3) :
+   """ Retrieve top k nearest vectors using FAISS
+   """
+   import faiss  
+   index = faiss.index_factory(x0.shape[1], 'Flat')
+   index.add(vector_list)
+   dist, indice = index.search(x0, topk)
+   return dist, indice
 
 
-def np_matrix_to_str(m):
-    res = []
-    for v in m:
-        ss = ""
-        for xi in v:
-            ss += str(xi) + ","
-        res.append(ss[:-1])
-    return res            
-            
-  
-def np_matrix_to_str_sim(m):   ### Simcore = 1 - 0.5 * dist**2
-    res = []
-    for v in m:
-        ss = ""
-        for di in v:
-            ss += str(1-0.5*di) + ","
-        res.append(ss[:-1])
-    return res   
+def topk(topk=100, dname=None, pattern="df_*1000*.parquet", filter1=None):
+    """  python emb.py  topk    |& tee -a  /zzlog.py
+    
+    """
+    from utilmy import pd_read_file
+    if dname is None :
+       dname = "seq_100000000"
+    
+    ksample = 500
+         
+    ###################################################################
+    dname    = dname.replace("/", "_").replace(".", "-")    
+    in_dir   = r0 + dname
+    out_dir  = in_dir + "/topk/"
+    os.makedirs(out_dir, exist_ok=True)
+    log(in_dir)
+    
+    #### Load emb data  ###############################################
+    df        = pd_read_file(  in_dir + f"/{pattern}", n_pool=10 )
+    df.index = np.arange(0, len(df))
+    log(df)
+    # df['emb'] = df['emb'].apply(lambda x :  list( np.array(x) /np.sqrt(np.dot(x,x)) ) )   ###Norm Vector
 
-
-def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
-    ### Extract list into numpy
-    # log(vv)
-    #mdim = len(vv[0].split(","))
-    # mdim = 200
-    from sklearn import preprocessing
-    import faiss
-    X = np.zeros(( len(vv) , mdim  ), dtype='float32')
-    for i, r in enumerate(vv) :
-        try :
-          vi      = [ float(v) for v in r.split(',')]        
-          X[i, :] = vi
-        except Exception as e:
-          log(i, e)
         
-    if l2_norm:
-       # preprocessing.normalize(X, norm='l2', copy=False)
-       faiss.normalize_L2(X)  ### Inplace L2 normalization
-    log("Normalized X")        
-    return X
+    #### Element X0 ####################################################
+    llids   = list(df.sample(frac=1.0)['id'].values)
+    vectors =  np_str_to_array(df['emb'].values,  mdim=200)   
+    
+    # faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200)
+    
+    for ii,idr in enumerate(llids) :        
+        if ii >= ksample : break
+        dfi     = df[ df['id'] == idr ] 
+        if len(dfi) < 1: continue
+        x0      = np.array(dfi['emb'].values[0]).astype(np.float32)
+        xname   = dfi['id'].values[0]
+        log(xname)
+
+        ##### Setup Faiss queey ########################################
+        x0      = x0.reshape(1, -1).astype('float32')  
+        # log(x0.shape, vectors.shape)
+        dist, rank = topk_nearest_vector(x0, vectors, topk= topk) 
+        df1              = df.iloc[rank[0], :]
+        df1['topk_dist'] = dist[0]
+        df1['topk_rank'] = np.arange(0, len(df1))
+        log( df1 )
+        del df1['emb']
+        df1.to_csv( out_dir + f"/topk_{xname}_{filter1}.csv"  , sep=",")
 
 
-
+    
 def topk_predict():
     #### wrapper :      python prepro.py topk_predict 
     
@@ -797,25 +736,89 @@ def data_add_onehot(dfref, img_dir, labels_col):
     return df
 
 
-def test():
-    """
-       python prepro.py test
-
-    """
-    dfref = pd.read_csv(data_label + "/prepro_df.csv")
-    img_dir = data_dir + '/train/*'
-    labels_col = ['gender', 'masterCategory', 'subCategory', 'articleType']
-
-    df = data_add_onehot(dfref, img_dir, labels_col)
-    log(df.head(2).T)
 
 
-def unzip(in_dir, out_dir):
-    # !/usr/bin/env python3
-    import sys
-    import zipfile
-    with zipfile.ZipFile(in_dir, 'r') as zip_ref:
-        zip_ref.extractall(out_dir)
+if 'utils':
+    def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
+        ### Extract list of string into numpy
+        #mdim = len(vv[0].split(","))
+        # mdim = 200
+        from sklearn import preprocessing
+        import faiss
+        X = np.zeros(( len(vv) , mdim  ), dtype='float32')
+        for i, r in enumerate(vv) :
+            try :
+            vi      = [ float(v) for v in r.split(',')]        
+            X[i, :] = vi
+            except Exception as e:
+            log(i, e)
+
+        if l2_norm:
+        # preprocessing.normalize(X, norm='l2', copy=False)
+        faiss.normalize_L2(X)  ### Inplace L2 normalization
+        log("Normalized X")        
+        return X
+
+
+    def np_matrix_to_str2(m, map_dict):
+        res = []
+        for v in m:
+            ss = ""
+            for xi in v:
+                ss += str(map_dict.get(xi, "")) + ","
+            res.append(ss[:-1])
+        return res    
+
+
+    def np_matrix_to_str(m):
+        res = []
+        for v in m:
+            ss = ""
+            for xi in v:
+                ss += str(xi) + ","
+            res.append(ss[:-1])
+        return res            
+                
+    
+    def np_matrix_to_str_sim(m):   ### Simcore = 1 - 0.5 * dist**2
+        res = []
+        for v in m:
+            ss = ""
+            for di in v:
+                ss += str(1-0.5*di) + ","
+            res.append(ss[:-1])
+        return res   
+
+
+    def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
+        ### Extract list into numpy
+        # log(vv)
+        #mdim = len(vv[0].split(","))
+        # mdim = 200
+        from sklearn import preprocessing
+        import faiss
+        X = np.zeros(( len(vv) , mdim  ), dtype='float32')
+        for i, r in enumerate(vv) :
+            try :
+            vi      = [ float(v) for v in r.split(',')]        
+            X[i, :] = vi
+            except Exception as e:
+            log(i, e)
+            
+        if l2_norm:
+        # preprocessing.normalize(X, norm='l2', copy=False)
+        faiss.normalize_L2(X)  ### Inplace L2 normalization
+        log("Normalized X")        
+        return X
+
+
+
+    def unzip(in_dir, out_dir):
+        # !/usr/bin/env python3
+        import sys
+        import zipfile
+        with zipfile.ZipFile(in_dir, 'r') as zip_ref:
+            zip_ref.extractall(out_dir)
 
 
 
@@ -1076,7 +1079,7 @@ class vizEmbedding:
     
  
     
-###################################################################################################
+###############################################################################################################
 if __name__ == "__main__":
     import fire
     fire.Fire()

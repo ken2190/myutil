@@ -1,6 +1,10 @@
 name: docker_1
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+    
   push:
     branches:
       - zdocker1
