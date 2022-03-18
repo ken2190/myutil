@@ -1,17 +1,25 @@
+# -*- coding: utf-8 -*-
+MNAME = "utilmy.nlp.util_nlp"
+HELP = """ utils for NLP processing
 
-## for data
-import pandas as pd, numpy as np
+### pip install fire
+
+python  utilmy/nlp/util_nlp.py test1
+
+
+"""
+import os,sys, collections, random, numpy as np,  glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
+from copy import deepcopy
+from abc import abstractmethod
+from tqdm import tqdm
+
 
 ## for plotting
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 ## for analysis
-import re
-import langdetect 
-import nltk
-import wordcloud
-import contractions
+import re, langdetect, nltk, wordcloud, contractions
 
 ## for sentiment
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -43,11 +51,34 @@ import transformers
 import rouge
 
 
+#### Types
+
+
+#############################################################################################
+from utilmy import log, log2
+
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+#############################################################################################
+def test_all():
+    log(MNAME)
+    test1()
+    # test2()
+
+
+
+def test1():
+    pass
+
+
+
 
 ###############################################################################
 #                  TEXT ANALYSIS                                              #
 ###############################################################################
-
 def plot_distributions(dtf, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
     '''
     Plot univariate and bivariate distributions.
@@ -1958,3 +1989,12 @@ def bart(corpus, ratio=0.2):
                         )[0]["summary_text"].replace(" .", ".")
                      for txt in corpus]
     return lst_summaries
+
+
+
+
+
+###################################################################################################
+if __name__ == "__main__":
+    import fire 
+    fire.Fire()
