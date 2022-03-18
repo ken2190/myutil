@@ -455,7 +455,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L226'>pd_read_csv</a> | isinstance<br>pd_read_file<br>pd.read_csv<br>Exception<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L304'>sentrans_train</a> | Box<br>model_load<br>pd_read_file<br>log<br>metrics_cosine_sim<br>load_dataloader<br>load_evaluator<br>load_loss<br>math.ceil<br>model_setup_compute<br>cc.get<br>model.fit<br>model_save<br>model_evaluate<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L66'>test</a> | Box<br>dataset_download<br>dataset_fake<br>log<br>sentrans_train<br> |
-| <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L59'>test_all</a> | log<br> |
+| <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L59'>test_all</a> | log<br>test<br> |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | function | <a href='.//utilmy/deeplearning/torch/util_torch.py#L108'>dataloader_create</a> | torch.tensor<br>DataLoader<br>log<br>len<br> |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | function | <a href='.//utilmy/deeplearning/torch/util_torch.py#L83'>device_setup</a> | random.seed<br>torch.manual_seed<br>log<br> |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | function | <a href='.//utilmy/deeplearning/torch/util_torch.py#L353'>get_metrics</a> | accuracy_score<br>precision_score<br>recall_score<br>roc_curve<br>auc<br> |
@@ -2533,43 +2533,43 @@ Repo: ./
 | <a name='utilmy/util_zip.py' href='.//utilmy/util_zip.py'>utilmy/util_zip.py</a> | function | <a href='.//utilmy/util_zip.py#L104'>os_extract_archive</a> | isinstance<br>is_match_fn<br>open_fn<br>archive.extractall<br>os.remove<br>shutil.rmtree<br> |
 | <a name='utilmy/util_zip.py' href='.//utilmy/util_zip.py'>utilmy/util_zip.py</a> | function | <a href='.//utilmy/util_zip.py#L151'>to_file</a> | open<br>fp.write<br> |
 | <a name='utilmy/util_zip.py' href='.//utilmy/util_zip.py'>utilmy/util_zip.py</a> | function | <a href='.//utilmy/util_zip.py#L11'>unzip</a> | zipfile.ZipFile<br>zip_ref.extractall<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L205'>find_fuzzy</a> | SM<br>str<br>max<br>Exception<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L185'>get_loggers</a> | get_verbosity<br>ttuple.append<br>tuple<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L201'>find_fuzzy</a> | SM<br>str<br>max<br>Exception<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L181'>get_loggers</a> | get_verbosity<br>ttuple.append<br>tuple<br> |
 | <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L13'>get_verbosity</a> |  |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L656'>git_current_hash</a> | subprocess.check_output<br>label.decode<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L641'>git_repo_root</a> | os_system<br>mout.split<br>len<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L249'>glob_glob</a> | isinstance<br>glob.glob<br>list<br>len<br>sorted<br>os_file_modified_time<br>log<br>str<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L35'>help</a> | help_create<br>print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L161'>help_create</a> | importlib.import_module<br>dir<br>import_function<br>help_get_codesource<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L94'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L105'>help_get_docstring</a> |  |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L115'>help_get_funargs</a> | str<br>inspect.signature<br>t.strip<br>ll.split<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L45'>help_info</a> | fun_name.strip<br>fun_name.replace<br>fun_name.split<br>import_function<br>Box<br>help_get_funargs<br>help_get_docstring<br>help_get_codesource<br>l.split<br>len<br>print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L128'>help_signature</a> | inspect.signature<br>namedtuple<br>argspec<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L225'>import_function</a> | isinstance<br>importlib.import_module<br>find_fuzzy<br>dir<br>getattr<br>globals<br>str<br>Exception<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L793'>load</a> | pickle.load<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L26'>log</a> | print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L29'>log2</a> | print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L32'>log3</a> | print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L354'>pd_generate_data</a> | random.random<br>range<br>pd.DataFrame<br>np.where<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L367'>pd_getdata</a> | url.split<br>print<br>pd.read_csv<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L340'>pd_random</a> | random.random<br>range<br>pd.DataFrame<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L322'>pip_install</a> | pkg_str.split<br>log<br>subprocess.check_call<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L778'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L291'>sys_exit</a> | print<br>open<br>sys.exit<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L307'>sys_install</a> | print<br>time.sleep<br>os.system<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L446'>test_all</a> | log<br>m.git_repo_root<br>m.help_create<br>m.help_info<br>print<br>m.global_verbosity<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | class | <a href='.//utilmy/utilmy.py#L394'>Index0</a> |  |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | class | <a href='.//utilmy/utilmy.py#L674'>Session</a> |  |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L398'>Index0:__init__</a> | os.makedirs<br>open<br>fp.write<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L411'>Index0:read</a> | open<br>fp.readlines<br>len<br>flist2.append<br>t.strip<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L428'>Index0:save</a> | len<br>open<br>fp.write<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L680'>Session:__init__</a> | os.makedirs<br>print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L717'>Session:load</a> | print<br>self.load_session<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L763'>Session:load_session</a> | print<br>os.walk<br>x.replace<br>load<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L703'>Session:save</a> | os.makedirs<br>self.save_session<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L732'>Session:save_session</a> | os.makedirs<br>globs.items<br>x.startswith<br>str<br>pd.to_pickle<br>save<br>print<br> |
-| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L693'>Session:show</a> | glob.glob<br>print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L652'>git_current_hash</a> | subprocess.check_output<br>label.decode<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L637'>git_repo_root</a> | os_system<br>mout.split<br>len<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L245'>glob_glob</a> | isinstance<br>glob.glob<br>list<br>len<br>sorted<br>os_file_modified_time<br>log<br>str<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L31'>help</a> | help_create<br>print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L157'>help_create</a> | importlib.import_module<br>dir<br>import_function<br>help_get_codesource<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L90'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L101'>help_get_docstring</a> |  |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L111'>help_get_funargs</a> | str<br>inspect.signature<br>t.strip<br>ll.split<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L41'>help_info</a> | fun_name.strip<br>fun_name.replace<br>fun_name.split<br>import_function<br>Box<br>help_get_funargs<br>help_get_docstring<br>help_get_codesource<br>l.split<br>len<br>print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L124'>help_signature</a> | inspect.signature<br>namedtuple<br>argspec<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L221'>import_function</a> | isinstance<br>importlib.import_module<br>find_fuzzy<br>dir<br>getattr<br>globals<br>str<br>Exception<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L789'>load</a> | pickle.load<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L22'>log</a> | print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L25'>log2</a> | print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L28'>log3</a> | print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L350'>pd_generate_data</a> | random.random<br>range<br>pd.DataFrame<br>np.where<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L363'>pd_getdata</a> | url.split<br>print<br>pd.read_csv<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L336'>pd_random</a> | random.random<br>range<br>pd.DataFrame<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L318'>pip_install</a> | pkg_str.split<br>log<br>subprocess.check_call<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L774'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L287'>sys_exit</a> | print<br>open<br>sys.exit<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L303'>sys_install</a> | print<br>time.sleep<br>os.system<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | function | <a href='.//utilmy/utilmy.py#L442'>test_all</a> | log<br>m.git_repo_root<br>m.help_create<br>m.help_info<br>print<br>m.global_verbosity<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | class | <a href='.//utilmy/utilmy.py#L390'>Index0</a> |  |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | class | <a href='.//utilmy/utilmy.py#L670'>Session</a> |  |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L394'>Index0:__init__</a> | os.makedirs<br>open<br>fp.write<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L407'>Index0:read</a> | open<br>fp.readlines<br>len<br>flist2.append<br>t.strip<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L424'>Index0:save</a> | len<br>open<br>fp.write<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L676'>Session:__init__</a> | os.makedirs<br>print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L713'>Session:load</a> | print<br>self.load_session<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L759'>Session:load_session</a> | print<br>os.walk<br>x.replace<br>load<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L699'>Session:save</a> | os.makedirs<br>self.save_session<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L728'>Session:save_session</a> | os.makedirs<br>globs.items<br>x.startswith<br>str<br>pd.to_pickle<br>save<br>print<br> |
+| <a name='utilmy/utilmy.py' href='.//utilmy/utilmy.py'>utilmy/utilmy.py</a> | method | <a href='.//utilmy/utilmy.py#L689'>Session:show</a> | glob.glob<br>print<br> |
 | <a name='utilmy/utils.py' href='.//utilmy/utils.py'>utilmy/utils.py</a> | function | <a href='.//utilmy/utils.py#L241'>config_load</a> | str<br>logw<br>log2<br>yaml.load<br>log<br>os.makedirs<br>open<br>json.dump<br> |
 | <a name='utilmy/utils.py' href='.//utilmy/utils.py'>utilmy/utils.py</a> | function | <a href='.//utilmy/utils.py#L289'>dataset_donwload</a> | log<br>os.makedirs<br>wget.download<br>url.split<br>os_extract_archive<br>log2<br> |
 | <a name='utilmy/utils.py' href='.//utilmy/utils.py'>utilmy/utils.py</a> | function | <a href='.//utilmy/utils.py#L93'>load_callable_from_dict</a> | function_dict.copy<br>function_dict.pop<br>load_callable_from_uri<br>assert<br>TypeError<br> |
