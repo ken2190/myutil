@@ -2,7 +2,7 @@
 MNAME="utilmy.deeplearning.torch.sentences"
 HELP="""sentence_tansformer
 
-python  utilmy/deeplearning/torch/sentences.py  test
+python  utilmy/deeplearning/torch/  test
 
 Original file is located at
     https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
@@ -27,13 +27,6 @@ from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
 
-
-import sentence_transformers as st
-from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
-from sentence_transformers import models, losses, datasets
-from sentence_transformers.readers import InputExample
-from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
-
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -41,6 +34,14 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+try :
+    import sentence_transformers as st
+    from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
+    from sentence_transformers import models, losses, datasets
+    from sentence_transformers.readers import InputExample
+    from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
+except Exception as e:
+    print(e)
 
 
 #### read data on disk
@@ -49,7 +50,6 @@ from utilmy import pd_read_file
 
 #############################################################################################
 from utilmy import log, log2
-
 def help():
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
@@ -60,7 +60,7 @@ def test_all() -> None:
     """function test_all
     """
     log(MNAME)
-    # test() ### pip install
+    test() ### pip install
 
 
 def test():

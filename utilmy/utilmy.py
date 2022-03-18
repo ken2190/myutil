@@ -12,10 +12,6 @@ from box import Box
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
-    Args:
-        verbose ( int ) :   
-    Returns:
-        
     """
     if verbose is None :
         verbose = os.environ.get('utilmy-verbose', 3)

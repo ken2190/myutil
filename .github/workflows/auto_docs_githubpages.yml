@@ -75,7 +75,7 @@ jobs:
            python -c "import os, pandas as pd; print(os)"
            python -c "import utilmy"        
            pip install -U sphinx  sphinx-rtd-theme  GitPython  rinohtype pygments
-           pip install -r  py36_sphynxdoc.txt
+           pip install -r  config/conda/py36_sphynxdoc.txt
         
 
     ################################################################################
