@@ -1,10 +1,11 @@
-name: Build__Publish , Package PyPI
+name: AA_Build and Publish Package PyPI
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
+  workflow_dispatch:
+    inputs:  
+    
   push:
     branches:
     - main
@@ -104,8 +105,8 @@ jobs:
     - name: test_docs_cli 
       run: python test.py test_docs_cli
     
-    - name: test_text
-      run: python test.py test_text
+    - name: test_nlp
+      run: python test.py test_nlp
 
     - name: test_distributed
       run: python test.py test_distributed

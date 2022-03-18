@@ -1,8 +1,12 @@
-name: Build_test_long
+name: AA_Build_test_long
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+    
   push:
     branches:
     - main
@@ -81,8 +85,8 @@ jobs:
 
 
     ################################################################
-    - name: test_deeplearning
-      continue-on-error: true 
+    - name: test_deeplearning_torch
+      # continue-on-error: true 
       run: |
           python test.py test_deeplearning_torch
 

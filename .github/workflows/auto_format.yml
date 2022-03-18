@@ -2,8 +2,9 @@ name: Auto-format - zformat
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
+  workflow_dispatch:
+    inputs:  
+
   push:
     branches:
     - zrefactor
