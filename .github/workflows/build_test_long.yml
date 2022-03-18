@@ -86,7 +86,7 @@ jobs:
 
     ################################################################
     - name: test_deeplearning_torch
-      continue-on-error: true 
+      # continue-on-error: true 
       run: |
           python test.py test_deeplearning_torch
 
