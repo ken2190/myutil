@@ -47,7 +47,8 @@ jobs:
               echo "##################"
               git checkout $branch
               #git pull --allow-unrelated-histories 
-              git pull origin main --allow-unrelated-histories
+              # git pull origin main --allow-unrelated-histories
+              git fetch
               git merge origin origin/main  || { git add -u . && git commit --no-edit ;}
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push
