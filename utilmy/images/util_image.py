@@ -168,7 +168,6 @@ def diskcache_image_loadcache(db_path:str="db_images.cache"):
     return cache
 
 
-
 def diskcache_image_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
@@ -380,7 +379,8 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         return image, image_path
     except :
         return [], ""
-        
+
+
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
     xdim :int=1, ydim :int=1,
     mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
@@ -419,6 +419,7 @@ def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
     print(str(labels)[:60])
     return images, labels
 
+
 #TODO: does this already exist in the multiprocessing module, 
 #and if so should we use that?
 def run_multiprocess(myfun, list_args, npool=10, **kwargs):
@@ -433,6 +434,53 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
     pool.join()
     return res
 
+
+#TODO redundant to image_resize_pad? ( uses parallel processing...)
+def image_resize_mp(dirout :str =""):
+    """     python prepro.py  image_resize
+
+          image white color padded
+
+    """
+    import cv2, gc, diskcache
+
+    in_dir = data_dir + "/train_nobg"
+    dirout = data_dir + "/train_nobg_256/"
+
+    nmax = 500000000
+    global xdim, ydim
+    xdim = 256
+    ydim = 256
+    padcolor = 0  ## 0 : black
+
+    os.makedirs(dirout, exist_ok=True)
+    log('target folder', dirout);
+    time.sleep(5)
+
+    def prepro_image3b(img_path):
+        try:
+            fname = str(img_path).split("/")[-1]
+            id1 = fname.split(".")[0]
+            img_path_new = dirout + "/" + fname
+
+            img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
+            img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
+            img = img[:, :, ::-1]
+            cv2.imwrite(img_path_new, img)
+            # print(img_path_new)
+            return [1], "1"
+        except Exception as e:
+            # print(image_path, e)
+            return [], ""
+
+    log("#### Process  ######################################################################")
+    image_list = sorted(list(glob.glob(f'/{in_dir}/*.*')))
+    image_list = image_list[:nmax]
+    log('Size Before', len(image_list))
+
+    log("#### Saving disk  #################################################################")
+    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
+    os_path_check(dirout, n=5)
 
 
 
@@ -564,55 +612,6 @@ def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union
                                      borderType=cv2.BORDER_CONSTANT, value=padColor)
 
      return scaled_img
-
-
-#TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(dirout :str =""):
-    """     python prepro.py  image_resize
-
-          image white color padded
-
-    """
-    import cv2, gc, diskcache
-
-    in_dir = data_dir + "/train_nobg"
-    dirout = data_dir + "/train_nobg_256/"
-
-    nmax = 500000000
-    global xdim, ydim
-    xdim = 256
-    ydim = 256
-    padcolor = 0  ## 0 : black
-
-    os.makedirs(dirout, exist_ok=True)
-    log('target folder', dirout);
-    time.sleep(5)
-
-    def prepro_image3b(img_path):
-        try:
-            fname = str(img_path).split("/")[-1]
-            id1 = fname.split(".")[0]
-            img_path_new = dirout + "/" + fname
-
-            img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
-            img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
-            img = img[:, :, ::-1]
-            cv2.imwrite(img_path_new, img)
-            # print(img_path_new)
-            return [1], "1"
-        except Exception as e:
-            # print(image_path, e)
-            return [], ""
-
-    log("#### Process  ######################################################################")
-    image_list = sorted(list(glob.glob(f'/{in_dir}/*.*')))
-    image_list = image_list[:nmax]
-    log('Size Before', len(image_list))
-
-    log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
-    os_path_check(dirout, n=5)
-
 
 
 def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
