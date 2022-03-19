@@ -709,6 +709,7 @@ utilmy/deeplearning/util_dl.py
 -------------------------functions----------------------
 gpu_available()
 gpu_usage()
+help()
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
 
