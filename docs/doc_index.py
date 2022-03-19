@@ -937,7 +937,7 @@ test_all()
 
 
 
-utilmy/docs/templates/util_xxx.py
+utilmy/docs/util_template.py
 -------------------------functions----------------------
 help()
 test1()
@@ -1221,6 +1221,15 @@ test_all()
 -------------------------methods----------------------
 SentenceEncoder.__init__(self, num_labels = None)
 SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/nlp/util_transformers.py
+-------------------------functions----------------------
+help()
+test1()
+test2()
+test_all()
+
 
 
 utilmy/nnumpy.py
