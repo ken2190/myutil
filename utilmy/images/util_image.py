@@ -4,10 +4,12 @@ HELP=""" utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
+from typing import Union,Tuple,Sequence,List
 from box import Box
+
 import io, cv2,  tifffile.tifffile, matplotlib
 from PIL import Image
-from typing import Union,Tuple,Sequence,List
+
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
@@ -21,24 +23,16 @@ from utilmy import pd_read_file
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
-    """
+    """function help        """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
-    print(ss)
+    print(HELP + help_create(MNAME))
 
 
 
-################################################################################################
-# TESTS
+#################################################################################################
+##### TESTS  ####################################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all        
     """
     log(MNAME)
     test()
@@ -46,9 +40,6 @@ def test_all():
 
 def test():
     """function test
-    Args:
-    Returns:
-        
     """
     pass
 
@@ -65,117 +56,10 @@ def test_image_create_fake():
 
 
 ################################################################################################
-def image_create_fake(
-    dirout=os.getcwd() + "/ztmp/images/", 
-    nimages=1, 
-    imsize=(300,300),
-    rgb_color = (255, 0, 0)):
-    """TODO: whats the use of this function
-    """
-    import cv2
-    import numpy as np
-
-    width, height = imsize
-    os.makedirs(dirout, exist_ok=True)
-    ii = 0 ; img_list =[]
-    for ii in range(nimages):
-
-        image = np.zeros((height, width, 3), np.uint8)
-        color = tuple(reversed(rgb_color))
-        image[:] = color
-
-        if dirout is not None :
-            cv2.imwrite( dirout + f'img_{ii}.jpg', image)
-        else:
-            img_list.append(image)
-    # will return empty list if a dirout was provided
-    return img_list
-
-################################################################################################
-def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
-    """ resizes, crops and centers an image according to provided mean and std
-    Args:
-        image_path ( str ) :   
-        xdim:   
-        ydim:   
-    Returns:
-    
-    """
-    try :
-        # fname      = str(image_path).split("/")[-1]
-        # id1        = fname.split(".")[0]
-        # print(image_path)
-        image = image_read(image_path)
-        image = image_resize_pad(image, (xdim,ydim), padColor=0)
-        image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
-        image = (image / 255)           
-        image = (image-mean) /std  # Normalize the image to mean and std
-        image = image.astype('float32')
-        return image, image_path
-    except :
-        return [], ""
-        
-def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
-    xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
-    """ run image_prep on multiple images
-    """
-    #TODO: add tqdm for running metrics
-
-    images = []
-    for i in range(len(image_paths)):
-        if i > nmax : break
-        image =  image_prep(image_paths[i], 
-        xdim =xdim, ydim =ydim,
-        mean  = mean,std  = std )
-        images.append(image)
-    return images
 
 
-
-
-
-    
-#TODO is this redundant to `run_multiprocess`
-def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
-    """ Parallel processing
-    """
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-
-    pool = Pool(npool)
-    res  = pool.map(prepro_image_fun, image_path_list)
-    pool.close() ;     pool.join()  ; pool = None
-
-    print('len res', len(res))
-    images, labels = [], []
-    for (x,y) in res :
-        if len(y)> 0 and len(x)> 0 :
-            images.append(x)
-            labels.append(y)
-
-    print('len images', len(images))
-    print(str(labels)[:60])
-    return images, labels
-
-#TODO: does this already exist in the multiprocessing module, 
-#and if so should we use that?
-def run_multiprocess(myfun, list_args, npool=10, **kwargs):
-    """
-       res = run_multiprocess(prepro, image_paths, npool=10, )
-    """
-    from functools import partial
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-    pool = Pool(npool)
-    res  = pool.map( partial(myfun, **kwargs), list_args)
-    pool.close()
-    pool.join()
-    return res
-
-
-
-################################################################################################
+#################################################################################################
+#### images storage ###############################################################################
 def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
@@ -332,6 +216,28 @@ def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/
         cache[img_path] = img
 
 
+def diskcache_image_getsample(db_path="_70k_clean_nobg_256_256-100000.cache", dirout):
+    """function image_save
+    Args:
+    Returns:
+        
+    """
+    import diskcache as dc
+    cache   = dc.Cache(db_path)
+    print('Nimages', len(cache) )
+
+    log('### writing on disk  ######################################')
+    dir_check = dirout 
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(img_list) :
+        if i > 10: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        key2 = key.split("/")[-1]
+        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
+    log( dir_check )
+
+
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
@@ -362,7 +268,8 @@ def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, reno
 
 
 
-##############################################################################
+###################################################################################################
+#### Images readers ###############################################################################
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     """
     Read a file into an image object
@@ -390,34 +297,12 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 
     return image
 
-
-def diskcache_image_getsample(db_path="_70k_clean_nobg_256_256-100000.cache", dirout):
-    """function image_save
-    Args:
-    Returns:
-        
-    """
-    import diskcache as dc
-    cache   = dc.Cache(db_path)
-    print('Nimages', len(cache) )
-
-    log('### writing on disk  ######################################')
-    dir_check = dirout 
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(img_list) :
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        key2 = key.split("/")[-1]
-        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
-    log( dir_check )
-
-
 image_load = image_read  ## alias
 
 
 
-##############################################################################
+#################################################################################################
+#### Images utils ###############################################################################
 def image_show_in_row(image_list:Union[dict,list]=None):
     """ helper function for data visualization
     Plot images in one row.
@@ -441,7 +326,118 @@ def image_show_in_row(image_list:Union[dict,list]=None):
     plt.show()
 
 
+def image_create_fake(
+    dirout=os.getcwd() + "/ztmp/images/", 
+    nimages=1, 
+    imsize=(300,300),
+    rgb_color = (255, 0, 0)):
+    """TODO: whats the use of this function
+    """
+    import cv2
+    import numpy as np
 
+    width, height = imsize
+    os.makedirs(dirout, exist_ok=True)
+    ii = 0 ; img_list =[]
+    for ii in range(nimages):
+
+        image = np.zeros((height, width, 3), np.uint8)
+        color = tuple(reversed(rgb_color))
+        image[:] = color
+
+        if dirout is not None :
+            cv2.imwrite( dirout + f'img_{ii}.jpg', image)
+        else:
+            img_list.append(image)
+    # will return empty list if a dirout was provided
+    return img_list
+
+
+
+#################################################################################################
+#### Transform in batches #######################################################################
+def image_prep(image_path:str, xdim :int=1, ydim :int=1,
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    """ resizes, crops and centers an image according to provided mean and std
+    Args:
+        image_path ( str ) :   
+        xdim:   
+        ydim:   
+    Returns:
+    
+    """
+    try :
+        # fname      = str(image_path).split("/")[-1]
+        # id1        = fname.split(".")[0]
+        # print(image_path)
+        image = image_read(image_path)
+        image = image_resize_pad(image, (xdim,ydim), padColor=0)
+        image = image_center_crop(image, (xdim,ydim))
+        assert max(image) > 1, "image should be uint8, 0-255"
+        image = (image / 255)           
+        image = (image-mean) /std  # Normalize the image to mean and std
+        image = image.astype('float32')
+        return image, image_path
+    except :
+        return [], ""
+        
+def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
+    xdim :int=1, ydim :int=1,
+    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
+    """ run image_prep on multiple images
+    """
+    #TODO: add tqdm for running metrics
+
+    images = []
+    for i in range(len(image_paths)):
+        if i > nmax : break
+        image =  image_prep(image_paths[i], 
+        xdim =xdim, ydim =ydim,
+        mean  = mean,std  = std )
+        images.append(image)
+    return images
+
+    
+#TODO is this redundant to `run_multiprocess`
+def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
+    """ Parallel processing
+    """
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+
+    pool = Pool(npool)
+    res  = pool.map(prepro_image_fun, image_path_list)
+    pool.close() ;     pool.join()  ; pool = None
+
+    print('len res', len(res))
+    images, labels = [], []
+    for (x,y) in res :
+        if len(y)> 0 and len(x)> 0 :
+            images.append(x)
+            labels.append(y)
+
+    print('len images', len(images))
+    print(str(labels)[:60])
+    return images, labels
+
+#TODO: does this already exist in the multiprocessing module, 
+#and if so should we use that?
+def run_multiprocess(myfun, list_args, npool=10, **kwargs):
+    """
+       res = run_multiprocess(prepro, image_paths, npool=10, )
+    """
+    from functools import partial
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+    pool = Pool(npool)
+    res  = pool.map( partial(myfun, **kwargs), list_args)
+    pool.close()
+    pool.join()
+    return res
+
+
+
+
+#################################################################################################
+#### Transform individual #######################################################################
 def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
@@ -477,12 +473,6 @@ def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None
     return cv2.resize(image, dim, interpolation=inter)    
     
     
-    
-
-
-
-
-############################################################################
 def image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int,int]):
     """Returns center cropped image
     Args:
@@ -622,7 +612,6 @@ def image_resize_mp(out_dir :str =""):
     log("#### Saving disk  #################################################################")
     images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
     os_path_check(out_dir, n=5)
-
 
 
 
@@ -781,7 +770,6 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
     pool.join()     
 
         
-    
 def image_text_blank(in_dir :Union[str,bytes,os.PathLike], out_dir :Union[str,bytes,os.PathLike], level="*"):
     """
         Not working well
@@ -858,18 +846,22 @@ def image_check():
         cv2.imwrite(dir_check + f"/{key2}", img)
 
 
-#TODO: should be moved to another package?
-def os_path_check(path, n=5):
-    """function os_path_check
-    Args:
-        path:   
-        n:   
-    Returns:
-        
-    """
-    from utilmy import os_system
-    print('top files', os_system( f"ls -U   '{path}' | head -{n}") )
-    print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
+
+
+##############################################################################################
+if 'utils':
+    #TODO: should be moved to another package?
+    def os_path_check(path, n=5):
+        """function os_path_check
+        Args:
+            path:   
+            n:   
+        Returns:
+            
+        """
+        from utilmy import os_system
+        print('top files', os_system( f"ls -U   '{path}' | head -{n}") )
+        print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
    
     
 
