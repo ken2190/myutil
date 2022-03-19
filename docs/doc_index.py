@@ -1082,64 +1082,6 @@ writelog(m = "", f = None)
 utilmy/nlp/__init__.py
 
 
-utilmy/nlp/optim_rank.py
--------------------------functions----------------------
-cost_fitness(rank_score)
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
-rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
-test()
-test1()
-
-
-
-utilmy/nlp/rank_fusion.py
--------------------------functions----------------------
-comb(rank_list, fusion_function, params)
-file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-get_fusion_alg(text)
-norm_minmax(ranks, lowest, highest)
-norm_zscore(ranks, lowest, highest)
-parse_svmlight_rank(filepath)
-parse_svmlight_score(filepath)
-parse_trec(filepath, idIsFilename = False)
-print_comb(ranks, max_k, outstream, rank_name)
-sort_by_score_and_id(elem1, elem2)
-
--------------------------methods----------------------
-prettyfloat.__repr__(self)
-prettyfloat.__str__(self)
-prettyint.__repr__(self)
-prettyint.__str__(self)
-
-
-utilmy/nlp/rank_fusion_functions.py
--------------------------functions----------------------
-compareCondor(item1, item2)
-condor(doc_id_scores)
-expn_isr(result_list, params)
-expn_rrf(result_list, params)
-isr(result_list, params)
-log_isr(result_list, params)
-logn_isr(result_list, params)
-logn_rrf(result_list, params)
-max(result_list, params)
-min(result_list, params)
-mnz(result_list, params)
-rr(result_list, params)
-rrf(result_list, params)
-sum(result_list, params)
-votes(result_list, params)
-
-
-
 utilmy/nlp/util_cluster.py
 -------------------------functions----------------------
 help()
@@ -1195,6 +1137,9 @@ text_generate_random_sentences(dirout = None, n_sentences = 5, )
 text_preprocess(sentence, lemmatizer, stop_words)
 write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
+
+
+utilmy/nlp/util_ner.py
 
 
 utilmy/nlp/util_nlp.py
@@ -1257,44 +1202,6 @@ vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 vocabulary_embeddings(dic_vocabulary, nlp = None)
 word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
 word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
-
-
-
-utilmy/nlp/util_rank.py
--------------------------functions----------------------
-rank_adjust(ll1, ll2, kk =  1)
-rank_biased_overlap(list1, list2, p = 0.9)
-rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
-rbo_find_p()
-
--------------------------methods----------------------
-RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
-RankingSimilarity._bound_range(self, value: float)
-RankingSimilarity.assert_p(self, p: float)
-RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
-RankingSimilarity.rbo_ext(self, p = 0.98)
-RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
-
-
-utilmy/nlp/util_rankmerge.py
--------------------------functions----------------------
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge(df, method = 'borda')
-rank_merge_v2(list1, list2, nrank)
-rank_merge_v3(list1, list2, maxrank = 100)
-rank_merge_v4(ll1, ll2)
-rank_merge_v5(ll1, ll2, kk =  1)
-rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
-test()
-test()
-test()
-test1()
-test_rankadjust2(df1, df2)
 
 
 
@@ -1898,6 +1805,105 @@ TSPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
 TSSegmentPolicy.__init__(self, user_segment, n_playlists, alpha_zero = 1, beta_zero = 99, cascade_model = True)
 TSSegmentPolicy.recommend_to_users_batch(self, batch_users, n_recos = 12, l_init = 3)
 TSSegmentPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
+
+
+utilmy/recsys/ranking/__init__.py
+
+
+utilmy/recsys/ranking/optim_rank.py
+-------------------------functions----------------------
+cost_fitness(rank_score)
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
+rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+test()
+test1()
+
+
+
+utilmy/recsys/ranking/rank_fusion.py
+-------------------------functions----------------------
+comb(rank_list, fusion_function, params)
+file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+get_fusion_alg(text)
+norm_minmax(ranks, lowest, highest)
+norm_zscore(ranks, lowest, highest)
+parse_svmlight_rank(filepath)
+parse_svmlight_score(filepath)
+parse_trec(filepath, idIsFilename = False)
+print_comb(ranks, max_k, outstream, rank_name)
+sort_by_score_and_id(elem1, elem2)
+
+-------------------------methods----------------------
+prettyfloat.__repr__(self)
+prettyfloat.__str__(self)
+prettyint.__repr__(self)
+prettyint.__str__(self)
+
+
+utilmy/recsys/ranking/rank_fusion_functions.py
+-------------------------functions----------------------
+compareCondor(item1, item2)
+condor(doc_id_scores)
+expn_isr(result_list, params)
+expn_rrf(result_list, params)
+isr(result_list, params)
+log_isr(result_list, params)
+logn_isr(result_list, params)
+logn_rrf(result_list, params)
+max(result_list, params)
+min(result_list, params)
+mnz(result_list, params)
+rr(result_list, params)
+rrf(result_list, params)
+sum(result_list, params)
+votes(result_list, params)
+
+
+
+utilmy/recsys/ranking/util_rank.py
+-------------------------functions----------------------
+rank_adjust(ll1, ll2, kk =  1)
+rank_biased_overlap(list1, list2, p = 0.9)
+rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
+rbo_find_p()
+
+-------------------------methods----------------------
+RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
+RankingSimilarity._bound_range(self, value: float)
+RankingSimilarity.assert_p(self, p: float)
+RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
+RankingSimilarity.rbo_ext(self, p = 0.98)
+RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
+
+
+utilmy/recsys/ranking/util_rankmerge.py
+-------------------------functions----------------------
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge(df, method = 'borda')
+rank_merge_v2(list1, list2, nrank)
+rank_merge_v3(list1, list2, maxrank = 100)
+rank_merge_v4(ll1, ll2)
+rank_merge_v5(ll1, ll2, kk =  1)
+rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
+test()
+test()
+test()
+test1()
+test_rankadjust2(df1, df2)
+
 
 
 utilmy/recsys/util_ltr.py
