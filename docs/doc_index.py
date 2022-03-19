@@ -346,6 +346,7 @@ test_all()
 test_classactivation()
 test_dataset_classifier_mnist_tfdataset(batch = 32)
 tf_gpu_check()
+utils_plot_keras_training(training)
 
 -------------------------methods----------------------
 GradCAM.__init__(self, model, classIdx, layerName = None)
@@ -1114,6 +1115,19 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_explain.py
+-------------------------functions----------------------
+explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
+explainer_lime(model, y_train, txt_instance, top = 10)
+explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
+explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
+help()
+test1()
+test2()
+test_all()
+
+
+
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
 bigram_get_list(ranid, mode = 'name, proba')
@@ -1160,10 +1174,6 @@ embedding_bert(x, tokenizer = None, nlp = None, log = False)
 embedding_w2v(x, nlp = None, value_na = 0)
 evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
 evaluate_summary(y_test, predicted)
-explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
-explainer_lime(model, y_train, txt_instance, top = 10)
-explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
-explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
 features_selection(X, y, X_names, top = None, print_top = 10)
 fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
 fit_bow(corpus, vectorizer = None, vocabulary = None)
@@ -1194,7 +1204,6 @@ utils_cosine_sim(a, b, nlp = None)
 utils_lst_count(lst, top = None)
 utils_ner_features(lst_dics_tuples, tag)
 utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
-utils_plot_keras_training(training)
 utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
 utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
 utils_string_matching(a, lst_b, threshold = None, top = None)
