@@ -1,13 +1,10 @@
 #!/usr/bin/python
 # '*' coding: utf8 '*'
-import math
 import numpy
 import sys
 import csv
 import os
 from collections import defaultdict
-from pprint import pprint
-import random
 import argparse
 from functools import cmp_to_key
 
