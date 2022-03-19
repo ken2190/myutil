@@ -194,10 +194,10 @@ def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="
     log( dir_check )
 
    
-def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", tag="cache1"):
+def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
     """function image_cache_save
     Args:
-        image_path_list ( str ) :   
+        dirin_image ( str ) :   
         db_dir ( str ) :   
         tag:   
     Returns:
@@ -210,7 +210,7 @@ def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/
 
 
     log('### Check writing on disk  ###########################')
-    for img_path in image_path_list:
+    for img_path in dirin_image:
         img = image_read(img_path)
         cache[img_path] = img
 
@@ -387,13 +387,13 @@ def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
 
     
 #TODO is this redundant to `run_multiprocess`
-def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
+def image_preps_mp(dirin_image:list, prepro_image_fun=None, npool=1):
     """ Parallel processing
     """
     from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
 
     pool = Pool(npool)
-    res  = pool.map(prepro_image_fun, image_path_list)
+    res  = pool.map(prepro_image_fun, dirin_image)
     pool.close() ;     pool.join()  ; pool = None
 
     print('len res', len(res))
