@@ -17,7 +17,8 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: tranchung    
     GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
@@ -49,7 +50,7 @@ jobs:
               #git pull --allow-unrelated-histories 
               # git pull origin main --allow-unrelated-histories
               git fetch
-              git merge origin/main  --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
+              git merge origin/main  --no-ff --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
               # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}              
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push
@@ -62,6 +63,10 @@ jobs:
 
           done
 
+
+### Merge Strategies
+### https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github
+### https://www.geeksforgeeks.org/merge-strategies-in-git/
 
 
       #- name: Create Auto PR      
