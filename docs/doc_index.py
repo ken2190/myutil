@@ -1027,7 +1027,6 @@ image_resize_ratio(image : np.typing.ArrayLike, width :Union[int, None]  = None,
 image_show_in_row(image_list:Union[dict, list] = None)
 image_text_blank(in_dir :Union[str, bytes, os.PathLike], out_dir :Union[str, bytes, os.PathLike], level = "*")
 npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
-os_path_check(path, n = 5)
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test()
 test_all()
