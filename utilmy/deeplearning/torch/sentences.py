@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
+<<<<<<< HEAD
+"""sentence_tansformer.ipynb
+cd deeplearning/torch/
+python sentences.py  test
+
+=======
+=======
+>>>>>>> origin/main
 MNAME="utilmy.deeplearning.torch.sentences"
 HELP="""sentence_tansformer
 
@@ -6,6 +15,10 @@ cd deeplearning/torch/
 python sentences.py  test
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 Original file is located at
     https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
 
@@ -14,11 +27,28 @@ train Sentence Transformer with different Losses such as:**
 > Cusine Loss
 > TripletHard Loss
 > MultpleNegativesRanking Loss
+<<<<<<< HEAD
+<<<<<<< HEAD
+#!pip3 install python-box
+# !pip install sentence-transformers
+#!pip3 install tensorflow
+
+
+
+
+We create a new end-to-end example on how to use a custom inference.py script with a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+=======
+=======
+>>>>>>> origin/main
 
 # !pip install sentence-transformers
 
 We create a new end-to-end example on how to use a custom inference.py script w
 ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 🖼  blog: https://lnkd.in/dXNu4R-G
 📈  notebook: https://lnkd.in/dkjDMNaC
@@ -26,10 +56,29 @@ ith a Sentence Transformer and a mean pooling layer to create sentence embedding
 
 """
 import sys, os, gzip, csv, random, math, logging, pandas as pd
+<<<<<<< HEAD
+<<<<<<< HEAD
+from datetime import datetime
+from box import Box
+
+import sentence_transformers as st
+
+from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
+from sentence_transformers import models, losses, datasets
+from sentence_transformers.readers import InputExample
+from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
+
+=======
+=======
+>>>>>>> origin/main
 from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -37,6 +86,11 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
 try :
     import sentence_transformers as st
     from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
@@ -45,12 +99,29 @@ try :
     from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
 except Exception as e:
     print(e)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 
 #### read data on disk
 from utilmy import pd_read_file
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+#####################################################################################
+def log(*s):
+    print(*s, flush=True)
+
+    
+
+#####################################################################################
+def test():
+=======
+=======
+>>>>>>> origin/main
 
 #############################################################################################
 from utilmy import log, log2
@@ -71,6 +142,10 @@ def test_all() -> None:
 
 #####################################################################################
 def test1():
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
     #  Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
@@ -119,7 +194,15 @@ def dataset_fake(dirdata):
     sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
 
     # Read the AllNLI.tsv.gz file and create the training dataset
+<<<<<<< HEAD
+<<<<<<< HEAD
+    df = pd_read(nli_dataset_path, npool=1) 
+=======
     df = pd_read_csv(nli_dataset_path, npool=1) 
+>>>>>>> origin/main
+=======
+    df = pd_read_csv(nli_dataset_path, npool=1) 
+>>>>>>> origin/main
     df.iloc[:50, :].to_parquet(dirdata +"/fake_data.parquet")
 
 
@@ -230,7 +313,15 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
 
 
 ###################################################################################################################
+<<<<<<< HEAD
+<<<<<<< HEAD
+def pd_read(path_or_df='./myfile.csv', npool=1,  **kw):
+=======
 def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
+>>>>>>> origin/main
+=======
+def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
+>>>>>>> origin/main
     if isinstance(path_or_df, str):
         if '.tsv' in path_or_df or '.csv' in  path_or_df  :
             dftrain = pd_read_file(path_or_df, npool=npool)
@@ -247,7 +338,15 @@ def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
 def load_evaluator(name='sts', path_or_df="", dname='sts', cc:dict=None):
     if dname == 'sts':        
         log("Read STSbenchmark dev dataset")
+<<<<<<< HEAD
+<<<<<<< HEAD
+        df = pd_read(path_or_df) 
+=======
         df = pd_read_csv(path_or_df) 
+>>>>>>> origin/main
+=======
+        df = pd_read_csv(path_or_df) 
+>>>>>>> origin/main
         if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
      
         dev_samples = []        
@@ -261,7 +360,15 @@ def load_evaluator(name='sts', path_or_df="", dname='sts', cc:dict=None):
 
 
 def load_dataloader(name='sts', path_or_df = "", cc:dict= None, npool=4):    
+<<<<<<< HEAD
+<<<<<<< HEAD
+    df = pd_read(path_or_df, npool=npool) 
+=======
     df = pd_read_csv(path_or_df, npool=npool) 
+>>>>>>> origin/main
+=======
+    df = pd_read_csv(path_or_df, npool=npool) 
+>>>>>>> origin/main
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
     
@@ -382,7 +489,14 @@ def sentrans_train(modelname_or_path='distilbert-base-nli-mean-tokens',
         log("\n******************< finish  > ********************")
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main
+=======
+
+>>>>>>> origin/main
 ##########################################################################################
 if __name__ == '__main__':
     import fire

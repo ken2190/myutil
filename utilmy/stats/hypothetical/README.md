@@ -2,6 +2,28 @@
 
 library for conducting hypothesis and other group comparison tests.
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+## Installation
+
+The best way to install `hypothetical` is through `pip`.
+
+```bash
+pip install hypothetical
+```
+
+For those interested, the most recent development version of the library can also be installed by cloning or 
+downloading the repo.
+
+~~~ bash
+git clone git@github.com:aschleg/hypothetical.git
+cd hypothetical
+python setup.py install
+~~~
+=======
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 ## Available Methods
 
@@ -84,7 +106,25 @@ library for conducting hypothesis and other group comparison tests.
 * Contingency table expected frequencies
 * Runs and count of runs
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+## Goal
 
+The goal of the `hypothetical` library is to help bridge the gap in statistics and hypothesis testing 
+capabilities of Python closer to that of R. Python has absolutely come a long way with several popular and 
+amazing libraries that contain a myriad of statistics functions and methods, such as [`numpy`](http://www.numpy.org/), 
+[`pandas`](https://pandas.pydata.org/), and [`scipy`](https://www.scipy.org/); however, it is my humble opinion that 
+there is still more that can be done to make Python an even better language for data and statistics computation. Thus, 
+it is my hope with the `hypothetical` library to build on top of the wonderful Python packages listed earlier and 
+create an easy-to-use, feature complete, statistics library. At the end of the day, if the library helps a user 
+learn more about statistics or get the information they need in an easy way, then I consider that all the success 
+I need!
+=======
+
+>>>>>>> origin/main
+=======
+
+>>>>>>> origin/main
 
 ## Requirements
 

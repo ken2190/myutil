@@ -241,6 +241,11 @@ def pd_to_tf_features(Xtrain:pd.DataFrame, cols_type_received, cols_ref, **kw):
 
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
 import os
 import sys
 import numpy as np, pandas as pd
@@ -443,6 +448,10 @@ if __name__ == "__main__":
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 
 

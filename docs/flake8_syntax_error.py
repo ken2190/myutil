@@ -4299,6 +4299,7 @@ docker pull generall/qdrant
 	  ^
 23    E999 TabError: inconsistent use of tabs and spaces in indentation
 23
+
 ./utilmy/recsys/vectors.py:52:7: E999 IndentationError: expected an indented block
     def table_create(self, table='test', vector_size=128, distance='Euclid'):
       ^
@@ -9238,6 +9239,7 @@ docker pull generall/qdrant
 	  ^
 32    E999 TabError: inconsistent use of tabs and spaces in indentation
 32
+
 ./utilmy/recsys/vectors.py:52:7: E999 IndentationError: expected an indented block
     def table_create(self, table='test', vector_size=128, distance='Euclid'):
       ^
@@ -9474,6 +9476,7 @@ docker pull generall/qdrant
 	  ^
 32    E999 TabError: inconsistent use of tabs and spaces in indentation
 32
+
 ./utilmy/recsys/vectors.py:52:7: E999 IndentationError: expected an indented block
     def table_create(self, table='test', vector_size=128, distance='Euclid'):
       ^
@@ -9710,3 +9713,4 @@ docker pull generall/qdrant
 	  ^
 32    E999 TabError: inconsistent use of tabs and spaces in indentation
 32
+

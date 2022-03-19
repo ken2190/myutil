@@ -256,6 +256,11 @@ def test_dataset_regression_boston_traintest():
 
 ###################################################################################################
 if 'utils':
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
     """
     https://github.com/Gyumeijie/github-files-fetcher
     Donwload only some folders
@@ -263,6 +268,10 @@ if 'utils':
 
     """
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
     def fetch_dataset(url_dataset, path_target=None, file_target=None):
         """Fetch dataset from a given URL and save it.
 
@@ -294,6 +303,11 @@ if 'utils':
 
         if "github.com" in url_dataset:
             """
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
                     # https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
     
                 https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip            
@@ -385,6 +399,10 @@ if 'utils':
 
         if "github.com" in url_dataset:
             """
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
                 # https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
                 https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip            
                 https://raw.githubusercontent.com/arita37/dsa2_data/main/input/titanic/train/features.csv            
@@ -438,6 +456,11 @@ if 'utils':
         return X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
     def os_extract_archive(file_path, path=".", archive_format="auto"):
         """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
         Args:
@@ -539,6 +562,10 @@ if 'utils':
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 ################################################################################################
 if __name__ == "__main__":

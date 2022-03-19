@@ -1,25 +1,23 @@
-name: Pull Request Check 
+name: Test only
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
-<<<<<<< HEAD
-<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
-=======
-  workflow_dispatch:
-    inputs:  
+  push:
+    branches-ignore:
+      - main
+      - 'z*'
+      - zauto_rebase_all
+      - zdocstring
+      - zttypehint
+      - zformat
+      
 
->>>>>>> origin/main
-=======
-  workflow_dispatch:
-    inputs:  
-
->>>>>>> origin/main
   pull_request:
-    branches:
-    - main2
+    branches-ignore:
+      - main
 
 jobs:
   build:
@@ -32,10 +30,10 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
         
-    - name: Set up Python 3.6.*
+    - name: Set up Python 3.7.*
       uses: actions/setup-python@v1
       with:
-        python-version: 3.6.*
+        python-version: 3.7.*
       
     - name: Install pipenv
       uses: dschep/install-pipenv-action@v1
@@ -47,33 +45,29 @@ jobs:
       with:
         path: /opt/hostedtoolcache/Python/
         key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36.txt') }}
-          
 
     #- name: Install numpy
     #  if: steps.cache-pipenv.outputs.cache-hit != 'true'
     #  run: pip install numpy==1.18.2   pillow==6.2.1  scipy
-      
 
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-           pip install -r  py36_min.txt
-
-
-    - name: Install utilmy
-      run:  |
-        pip install -e .
-        python -c "import utilmy"
-
+           pip install -r  py36.txt
            
     - name: Install repo requirements   2
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
         ls .
-        pip install -r  py36.txt
         #pip install -r install/requirements_fake.txt
+    #- name: Install repo
+    #  run: pip install -e . -r install/py36.txt  --no-deps
 
 
+
+    - name: Install utilmy
+      run:  |
+        pip install -e .
 
 
     - name: test_import
@@ -81,20 +75,24 @@ jobs:
            python -c "import os, pandas as pd; print(os)"
            python -c "import utilmy"        
         
+    - name: flake8 Python Syntax Error
+      continue-on-error: true
+      run:  |
+        pip install flake8
+        flake8  --statistics   --count    --max-line-length 140
+    
+
         
-    ########  Runs All test
-    - name: setup test
+    ########  Runs All test  #########################################
+    - name: test setup
       run: |
           mkdir -p    /home/runner/work/log_tmp/
-          chmod -R 777 . 
+          chmod -R 777 .
 
-    - name: test_all
-      run: python test.py   test_all
 
     ################################################################
     - name: test_ppandas
       run: python test.py test_ppandas
-    
     
     - name: test_docs_cli 
       run: python test.py test_docs_cli
@@ -104,8 +102,6 @@ jobs:
 
     - name: test_distributed
       run: python test.py test_distributed
-
-    
 
     - name: test_oos 
       run: python test.py test_oos
@@ -134,10 +130,9 @@ jobs:
     - name: test_viz_vizhtml
       run:  python test.py   test_viz_vizhtml
 
+
     - name: test_parallel  
       run:  python test.py   test_parallel
-
-
 
 
           
@@ -146,39 +141,4 @@ jobs:
       run: |
            ls .
            
-    ######### Git pull main branch ####################################################           
-    #- uses: actions/checkout@v2
-    #  with:
-    #    ref: ${{ github.head_ref }}
 
-
-
-
-
-
-# This Job will upload a Python Package using Twine when a release is created
-  deploy:
-    needs : [build] # List of dependent Jobs 
-    if: success()   # check if all previous (needs) dependent jobs were successfull  then only execute
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-
-    - name: Build and publish
-      #env:
-      #  TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      #  TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        # echo "$TWINE_USERNAME"
-        python run_pipy.py
-        python setup.py sdist bdist_wheel

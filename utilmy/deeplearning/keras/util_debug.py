@@ -40,6 +40,12 @@ def test_classactivation():
 
 
   
+<<<<<<< HEAD
+<<<<<<< HEAD
+######################################################################################  
+=======
+=======
+>>>>>>> origin/main
 ######################################################################################
 def utils_plot_keras_training(training):
     '''
@@ -112,6 +118,10 @@ def tf_gpu_check():
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 def keras_check_layer(mlayer,):
   """ Providing a layer,
       build and run the layer

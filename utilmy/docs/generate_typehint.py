@@ -10,6 +10,16 @@ HELP  = """ Utils for type generation
 
 
 """
+<<<<<<< HEAD
+<<<<<<< HEAD
+from email.policy import default
+import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
+import subprocess, shutil, re, sysconfig
+from box import Box
+from ast import literal_eval
+=======
+=======
+>>>>>>> origin/main
 import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
 from box import Box
 
@@ -17,6 +27,10 @@ import subprocess, shutil, re, sysconfig
 from ast import literal_eval
 from email.policy import default
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 ## required if we want to annotate files in site-packages
 os.environ["MONKEYTYPE_TRACE_MODULES"] = 'utilmy,site-packages'
@@ -83,14 +97,30 @@ def run_utilmy(nfile=10000):
 
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+def run_utilmy2(nfile=100000):
+=======
 def run_utilmy_overwrite(nfile=100000):
+>>>>>>> origin/main
+=======
+def run_utilmy_overwrite(nfile=100000):
+>>>>>>> origin/main
   """function run_utilmy2
   Args:
       nfile:   
   Returns:
       
   """
+<<<<<<< HEAD
+<<<<<<< HEAD
+  log(utilmy.__file__)
+=======
   log('OVERWRITE FILES')
+>>>>>>> origin/main
+=======
+  log('OVERWRITE FILES')
+>>>>>>> origin/main
   exclude = ""; 
   dir0   = os.getcwd()
   dirin  = dir0 + "/utilmy/" 
@@ -98,9 +128,19 @@ def run_utilmy_overwrite(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+  run_monkeytype(dirin, dirout, mode='full', diroot=diroot, nfile=nfile, exclude="z" )
+=======
   log("dirin0: ", dirin)
 
   run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
+>>>>>>> origin/main
+=======
+  log("dirin0: ", dirin)
+
+  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
+>>>>>>> origin/main
   os.system( f"ls {dirout}/")
 
 
@@ -176,17 +216,41 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
     import os, sys
     os.makedirs(dirout, exist_ok=True)
+<<<<<<< HEAD
+<<<<<<< HEAD
+    if "utilmy." in dirin :
+        dir0 =  os.path.dirname( utilmy.__file__) + "/"        
+        dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+=======
     #if "utilmy." in dirin :
     #    dir0 =  os.path.dirname( utilmy.__file__) + "/"        
     #    dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+>>>>>>> origin/main
+=======
+    #if "utilmy." in dirin :
+    #    dir0 =  os.path.dirname( utilmy.__file__) + "/"        
+    #    dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+>>>>>>> origin/main
 
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+    flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
+    log(flist)
+=======
+=======
+>>>>>>> origin/main
     log("dirin:", dirin)
 
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
     for fi0 in flist :
       try :
@@ -219,6 +283,17 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
         dircur = os.getcwd()
         os.chdir(fi_dir)
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if "full" in mode :  #### Overwrite
+            dirouti = dirout +"/full/"+ fi_pref
+            os_makedirs(dirouti)
+            cmd = f'monkeytype apply {mod_name} > {dirouti} 2>&1' 
+            subprocess.call(cmd, shell=True)
+
+=======
+=======
+>>>>>>> origin/main
 
         if "full" in mode :  #### Overwrite
             
@@ -237,6 +312,10 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
             else :
               os.remove(dirouti_tmp)
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
         if "stub" in mode:
             dirouti = dirout +"/stub/"+ fi_pref.replace(".py", ".pyi")
@@ -258,6 +337,15 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+################################################################################
+################################################################################
+if __name__ == '__main__':
+  test1()
+=======
+=======
+>>>>>>> origin/main
 if 'utilties':
     def os_path_norm(diroot:str):
         """os_path_norm 
@@ -369,4 +457,8 @@ if 'utilties':
 if __name__ == '__main__':
   import fire 
   fire.Fire()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
  

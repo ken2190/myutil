@@ -1,10 +1,19 @@
 name: load_use_docker
 
 on:
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/main
   workflow_dispatch:
     inputs:  
 
     
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
   push:
     branches:
       - master

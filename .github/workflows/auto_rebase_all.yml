@@ -2,6 +2,9 @@ name: Auto Rebase Branches - main schedule
 
 
 on:
+  schedule:
+    - cron:  '* 13 * * *'      #### 60mins
+
   workflow_dispatch:
     inputs:  
 
@@ -47,6 +50,15 @@ jobs:
               echo ""
               echo "##################"
               git checkout $branch
+
+              git pull --allow-unrelated-histories 
+              git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
+              
+              #git pull --allow-unrelated-histories 
+              # git pull origin main --allow-unrelated-histories
+              git fetch
+              git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
+              # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               #git pull --allow-unrelated-histories 
               # git pull origin main --allow-unrelated-histories
               git fetch
@@ -105,6 +117,7 @@ jobs:
 
 # and you are done. Now you got a new branch based on another branch, but without the specific files or folder you didn't want to include
 
+
       #- name: Create Auto PR      
       #  env:
       #      GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
@@ -115,6 +128,7 @@ jobs:
       #      { /bin/hub pull-request --base arita37:main    --head arita37:aniket  -m "PR into main" } || { echo 'failed ' ; } 
       #      { /bin/hub pull-request  --base arita37:main    --head arita37:alex    -m "PR into main" } || { echo 'failed ' ; } 
       #      { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
+
 
 
 
