@@ -11,9 +11,15 @@ from typing import List, Optional, Union
 import numpy as np
 from tqdm import tqdm
 <<<<<<< HEAD
+<<<<<<< HEAD
 import math, glob, os, sys, time
 
 from utilmy.utilmy import log, log2
+=======
+import math, glob
+
+from utilmy.utilmy import log
+>>>>>>> origin/main
 =======
 import math, glob
 
@@ -47,7 +53,11 @@ def rank_topk_check(dirin=None, dirout=None, nmax=3000, tag='fasttext'):
     """
     from scipy.stats import kendalltau
 <<<<<<< HEAD
+<<<<<<< HEAD
     from utilmy.nlp import util_rank as rank1
+=======
+    from recsys.ranking import util_rank as rank1
+>>>>>>> origin/main
 =======
     from recsys.ranking import util_rank as rank1
 >>>>>>> origin/main

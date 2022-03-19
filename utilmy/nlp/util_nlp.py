@@ -1,8 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ## for data
 import pandas as pd, numpy as np
 =======
+=======
+>>>>>>> origin/main
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp.util_nlp"
 HELP = """ utils for NLP processing
@@ -18,6 +21,9 @@ from copy import deepcopy
 from abc import abstractmethod
 from tqdm import tqdm
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 ## for plotting
@@ -26,11 +32,15 @@ import seaborn as sns
 
 ## for analysis
 <<<<<<< HEAD
+<<<<<<< HEAD
 import re
 import langdetect 
 import nltk
 import wordcloud
 import contractions
+=======
+import re, langdetect, nltk, wordcloud, contractions
+>>>>>>> origin/main
 =======
 import re, langdetect, nltk, wordcloud, contractions
 >>>>>>> origin/main
@@ -66,7 +76,10 @@ import rouge
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/main
 #### Types
 
 
@@ -91,13 +104,19 @@ def test1():
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 ###############################################################################
 #                  TEXT ANALYSIS                                              #
 ###############################################################################
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 def plot_distributions(dtf, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
@@ -380,6 +399,7 @@ def add_word_freq(data, column, lst_words, freq="count"):
 
 
         
+<<<<<<< HEAD
 <<<<<<< HEAD
 ###############################################################################
 #                            NER                                              #
@@ -683,6 +703,8 @@ def evaluate_multi_classif(y_test, predicted, predicted_prob, figsize=(15,5)):
 
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 
 ###############################################################################
@@ -814,6 +836,7 @@ def fit_ml_classif(X_train, y_train, X_test, vectorizer=None, classifier=None):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def explainer_lime(model, y_train, txt_instance, top=10):
     '''
     Use lime to build an a explainer.
@@ -832,6 +855,8 @@ def explainer_lime(model, y_train, txt_instance, top=10):
     return dtf_explainer
 
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 
@@ -1105,6 +1130,7 @@ def text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], fitted_t
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def utils_plot_keras_training(training):
     '''
     Plot loss and metrics of keras training.
@@ -1134,6 +1160,8 @@ def utils_plot_keras_training(training):
     ax22.set_ylabel("Score", color="steelblue")
     plt.show()
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 
@@ -1188,6 +1216,7 @@ def fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None,
 
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[], top=5, figsize=(5,3)):
     '''
@@ -1258,6 +1287,8 @@ def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=
     shap.summary_plot(shap_values, feature_names=X_names, class_names=class_names, plot_type="bar") 
 
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 
@@ -1417,6 +1448,7 @@ def plot_w2v_cluster(dic_words=None, nlp=None, plot_type="2d", annotate=True, fi
 
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 ###############################################################################
 #                      BERT (TRANSFORMERS LANGUAGE MODEL)                     #
@@ -1603,6 +1635,8 @@ def fit_bert_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=Non
 
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 
 ###############################################################################
@@ -1666,6 +1700,7 @@ def predict_similarity_classif(X, dic_y):
 
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level=False, top=5, figsize=(20,10)):
     '''
@@ -1735,6 +1770,8 @@ def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, tok
 
 
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 ###############################################################################
@@ -2028,8 +2065,11 @@ def bart(corpus, ratio=0.2):
                         )[0]["summary_text"].replace(" .", ".")
                      for txt in corpus]
 <<<<<<< HEAD
+<<<<<<< HEAD
     return lst_summaries
 =======
+=======
+>>>>>>> origin/main
     return lst_summaries
 
 
@@ -2040,4 +2080,7 @@ def bart(corpus, ratio=0.2):
 if __name__ == "__main__":
     import fire 
     fire.Fire()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main

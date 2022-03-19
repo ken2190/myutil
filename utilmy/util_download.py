@@ -40,8 +40,11 @@ def get_cache_directory():
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+>>>>>>> origin/main
 
 
 def download_page_image(query, out_dir="query1", genre_en='', id0="", cat="", npage=1) :
@@ -129,4 +132,7 @@ def download_page_image(query, out_dir="query1", genre_en='', id0="", cat="", np
         page += 1
 
     print("Success", page-1, count)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main

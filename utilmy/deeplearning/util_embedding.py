@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+MNAME='utilmy.deeplearning.util_embedding'
+>>>>>>> origin/main
 =======
 MNAME='utilmy.deeplearning.util_embedding'
 >>>>>>> origin/main
@@ -12,6 +16,7 @@ https://mpld3.github.io/examples/index.html
 
 """
 <<<<<<< HEAD
+<<<<<<< HEAD
 import warnings ;warnings.filterwarnings("ignore")
 from warnings import simplefilter  ; simplefilter(action='ignore', category=FutureWarning)
 with warnings.catch_warnings():
@@ -19,6 +24,8 @@ with warnings.catch_warnings():
     from datetime import datetime ; from typing import List
 
 =======
+=======
+>>>>>>> origin/main
 import os, glob, sys, math, string, time, json, logging, functools, random, yaml, operator, gc
 from pathlib import Path; from collections import defaultdict, OrderedDict ;
 from typing import List, Optional, Tuple, Union  ; from numpy import ndarray
@@ -28,6 +35,9 @@ import warnings ;warnings.filterwarnings("ignore")
 from warnings import simplefilter  ; simplefilter(action='ignore', category=FutureWarning)
 with warnings.catch_warnings():
     from datetime import datetime 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
     import matplotlib.pyplot as plt
 
@@ -37,6 +47,7 @@ with warnings.catch_warnings():
     from sklearn.metrics.pairwise import cosine_similarity
     from tqdm import tqdm
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     from utilmy import pd_read_file, os_makedirs, pd_to_file
 
@@ -49,6 +60,10 @@ from pathlib import Path; from collections import defaultdict, OrderedDict ;
 
 from utilmy import pd_read_file, os_makedirs, pd_to_file
 >>>>>>> origin/main
+=======
+
+from utilmy import pd_read_file, os_makedirs, pd_to_file
+>>>>>>> origin/main
 
 
 try :
@@ -57,12 +72,15 @@ try :
 except: pass
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 from utilmy.utilmy import   pd_read_file, pd_to_file
 
 #####################################################################################
 from utilmy import log, log2
 
 =======
+=======
+>>>>>>> origin/main
 
 #############################################################################################
 from utilmy import log, log2
@@ -88,6 +106,9 @@ def test1() -> None:
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 
@@ -223,6 +244,7 @@ def embedding_load_parquet(dirin="df.parquet", nmax = 500):
     return embs, id_map, df 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
     ### Extract list of string into numpy
@@ -246,6 +268,8 @@ def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
     
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
     
 def viz_run(dirin="in/model.vec", dirout="ztmp/", nmax=100):
    ###   python emb.py run    &  
@@ -258,6 +282,7 @@ def viz_run(dirin="in/model.vec", dirout="ztmp/", nmax=100):
    myviz = vizEmbedding(path = dirin )
    myviz.run_all(nmax=nmax, dir_out= dirout, mode=mode, ntest=50000)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
          
         
@@ -359,6 +384,8 @@ def simscore_cosinus_calc(embs, words):
       Calculation
     
 =======
+=======
+>>>>>>> origin/main
 
 
 
@@ -368,6 +395,9 @@ def simscore_cosinus_calc(embs, words):
 def sim_scores_sklearn(embs, words):
     """
       Calculation
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
     """
     from sklearn.metrics.pairwise import cosine_similarity    
@@ -393,9 +423,12 @@ def sim_scores_sklearn(embs, words):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 #####################################################################################
 =======
+=======
+>>>>>>> origin/main
 def sim_scores_faiss(path=""):
     """
        Sim Score using FAISS
@@ -419,6 +452,9 @@ def sim_scores_faiss(path=""):
     #print('Distance by FAISS:{}'.format(result))
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 def faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
     """
@@ -612,6 +648,7 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def np_matrix_to_str2(m, map_dict):
     res = []
     for v in m:
@@ -666,6 +703,8 @@ def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
 
 
 =======
+=======
+>>>>>>> origin/main
 
 #####################################################################################
 def topk_nearest_vector(x0, vector_list, topk=3) :
@@ -729,6 +768,9 @@ def topk(topk=100, dname=None, pattern="df_*1000*.parquet", filter1=None):
 
 
     
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 def topk_predict():
     #### wrapper :      python prepro.py topk_predict 
@@ -954,6 +996,7 @@ def data_add_onehot(dfref, img_dir, labels_col):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def test():
     """
        python prepro.py test
@@ -974,6 +1017,8 @@ def unzip(in_dir, out_dir):
     with zipfile.ZipFile(in_dir, 'r') as zip_ref:
         zip_ref.extractall(out_dir)
 =======
+=======
+>>>>>>> origin/main
 
 
 if 'utils':
@@ -1057,6 +1102,9 @@ if 'utils':
         import zipfile
         with zipfile.ZipFile(in_dir, 'r') as zip_ref:
             zip_ref.extractall(out_dir)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 
@@ -1319,7 +1367,11 @@ class vizEmbedding:
  
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 ###################################################################################################
+=======
+###############################################################################################################
+>>>>>>> origin/main
 =======
 ###############################################################################################################
 >>>>>>> origin/main

@@ -95,10 +95,15 @@ def test_docs_cli():
 #########################################################################################
 def test_adatasets():
 <<<<<<< HEAD
+<<<<<<< HEAD
     """ #### python test.py   test_adatasets
     """
     from utilmy import adatasets as m
     m.test_all()      
+=======
+    """ #### python test.py   test_adatasets """
+    from utilmy import adatasets as m ;   m.test_all()      
+>>>>>>> origin/main
 =======
     """ #### python test.py   test_adatasets """
     from utilmy import adatasets as m ;   m.test_all()      
@@ -108,10 +113,15 @@ def test_adatasets():
 #########################################################################################
 def test_nnumpy():
 <<<<<<< HEAD
+<<<<<<< HEAD
     """#### python test.py   test_nnumpy
     """
     from utilmy import nnumpy as m
     m.test_all()
+=======
+    """#### python test.py   test_nnumpy  """
+    from utilmy import nnumpy as m ; m.test_all()
+>>>>>>> origin/main
 =======
     """#### python test.py   test_nnumpy  """
     from utilmy import nnumpy as m ; m.test_all()
@@ -123,8 +133,12 @@ def test_nnumpy():
 def test_dates():
     #### python test.py   test_dates
 <<<<<<< HEAD
+<<<<<<< HEAD
     from utilmy import dates as m
     m.test_all()
+=======
+    from utilmy import dates as m  ; m.test_all()
+>>>>>>> origin/main
 =======
     from utilmy import dates as m  ; m.test_all()
 >>>>>>> origin/main
@@ -134,8 +148,12 @@ def test_dates():
 def test_decorators():
     #### python test.py   test_decorators
 <<<<<<< HEAD
+<<<<<<< HEAD
     from utilmy import  decorators as m
     m.test_all()
+=======
+    from utilmy import  decorators as m  ;m.test_all()
+>>>>>>> origin/main
 =======
     from utilmy import  decorators as m  ;m.test_all()
 >>>>>>> origin/main
@@ -144,12 +162,18 @@ def test_decorators():
    
 #########################################################################################
 <<<<<<< HEAD
+<<<<<<< HEAD
 def test_text():
     from utilmy.nlp import util_cluster as m
     m.test_all()  
 
     from utilmy.nlp import util_gensim as m
     m.test_all()  
+=======
+def test_nlp():
+    from utilmy.nlp import util_cluster as m ; m.test_all()  
+    from utilmy.nlp import util_gensim as m ;  m.test_all()  
+>>>>>>> origin/main
 =======
 def test_nlp():
     from utilmy.nlp import util_cluster as m ; m.test_all()  
@@ -169,8 +193,12 @@ def test_viz_vizhtml():
 #########################################################################################
 def test_parallel():
 <<<<<<< HEAD
+<<<<<<< HEAD
    from utilmy import parallel as m
    m.test_all()
+=======
+   from utilmy import parallel as m  ;  m.test_all()
+>>>>>>> origin/main
 =======
    from utilmy import parallel as m  ;  m.test_all()
 >>>>>>> origin/main
@@ -179,9 +207,13 @@ def test_parallel():
 #########################################################################################
 def test_distributed():
 <<<<<<< HEAD
+<<<<<<< HEAD
    from utilmy import distributed as m
    log("from utilmy import distributed as m ")
    m.test_all()
+=======
+   from utilmy import distributed as m ;m.test_all()
+>>>>>>> origin/main
 =======
    from utilmy import distributed as m ;m.test_all()
 >>>>>>> origin/main
@@ -191,10 +223,14 @@ def test_distributed():
 #######################################################################################
 def test_utils():
 <<<<<<< HEAD
+<<<<<<< HEAD
     """ #### python test.py   test_utils
     """
     from utilmy import utils as m
     m.test_all() 
+=======
+    from utilmy import utils as m ;  m.test_all() 
+>>>>>>> origin/main
 =======
     from utilmy import utils as m ;  m.test_all() 
 >>>>>>> origin/main
@@ -203,10 +239,14 @@ def test_utils():
 #######################################################################################
 def test_oos():
 <<<<<<< HEAD
+<<<<<<< HEAD
    """#### python test.py   test_oos
    """
    from utilmy import oos as m
    m.test_all() 
+=======
+   from utilmy import oos as m ;  m.test_all() 
+>>>>>>> origin/main
 =======
    from utilmy import oos as m ;  m.test_all() 
 >>>>>>> origin/main
@@ -222,8 +262,12 @@ def test_tabular():
 #########################################################################################
 def test_deeplearning_keras():
 <<<<<<< HEAD
+<<<<<<< HEAD
     from utilmy.deeplearning.keras import  util_similarity as m
     m.test_tf_cdist()
+=======
+    from utilmy.deeplearning.keras import  util_similarity as m;  m.test_all()
+>>>>>>> origin/main
 =======
     from utilmy.deeplearning.keras import  util_similarity as m;  m.test_all()
 >>>>>>> origin/main
@@ -232,6 +276,7 @@ def test_deeplearning_keras():
 
 #########################################################################################
 def test_deeplearning_torch():
+<<<<<<< HEAD
 <<<<<<< HEAD
     from utilmy.deeplearning.torch import  rule_encoder as m
     m.test_all()
@@ -242,6 +287,8 @@ def test_deeplearning_yolov5():
    from utilmy.deeplearning import util_yolo as m
    m.test_all()
 =======
+=======
+>>>>>>> origin/main
     from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
     from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
@@ -249,17 +296,25 @@ def test_deeplearning_yolov5():
 #######################################################################################
 def test_deeplearning():
    from utilmy.deeplearning import util_yolo as m ;  m.test_all()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 
 #######################################################################################
 def test_recsys():
 <<<<<<< HEAD
+<<<<<<< HEAD
    from utilmy.recsys import ab as m
    m.test_all()
 
    from utilmy.recsys import metric as m
    m.test_all()
+=======
+   from utilmy.recsys import ab as m ; m.test_all()
+   from utilmy.recsys import metric as m ; m.test_all()
+>>>>>>> origin/main
 =======
    from utilmy.recsys import ab as m ; m.test_all()
    from utilmy.recsys import metric as m ; m.test_all()
@@ -271,7 +326,10 @@ def test_recsys():
 def test_compile():
    from utilmy.docs import format as m
 <<<<<<< HEAD
+<<<<<<< HEAD
    log("from utilmy.doc import format")
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 
@@ -286,7 +344,11 @@ def test_all():
     test_decorators()
     test_ppandas()  
 <<<<<<< HEAD
+<<<<<<< HEAD
     test_text()
+=======
+    test_nlp()
+>>>>>>> origin/main
 =======
     test_nlp()
 >>>>>>> origin/main
@@ -304,7 +366,11 @@ def test_all():
     ################
     test_deeplearning_keras()
 <<<<<<< HEAD
+<<<<<<< HEAD
     test_deeplearning_yolov5()
+=======
+    test_deeplearning()
+>>>>>>> origin/main
 =======
     test_deeplearning()
 >>>>>>> origin/main

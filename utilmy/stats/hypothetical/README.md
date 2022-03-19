@@ -3,6 +3,7 @@
 library for conducting hypothesis and other group comparison tests.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Installation
 
 The best way to install `hypothetical` is through `pip`.
@@ -19,6 +20,8 @@ git clone git@github.com:aschleg/hypothetical.git
 cd hypothetical
 python setup.py install
 ~~~
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 
@@ -104,6 +107,7 @@ python setup.py install
 * Runs and count of runs
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Goal
 
 The goal of the `hypothetical` library is to help bridge the gap in statistics and hypothesis testing 
@@ -115,6 +119,9 @@ it is my hope with the `hypothetical` library to build on top of the wonderful P
 create an easy-to-use, feature complete, statistics library. At the end of the day, if the library helps a user 
 learn more about statistics or get the information they need in an easy way, then I consider that all the success 
 I need!
+=======
+
+>>>>>>> origin/main
 =======
 
 >>>>>>> origin/main

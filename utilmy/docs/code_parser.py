@@ -51,6 +51,12 @@ list_built_in = [
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+def log(*s): print(*s, flush=True)
+
+
+>>>>>>> origin/main
 =======
 def log(*s): print(*s, flush=True)
 
@@ -128,7 +134,11 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
     root = in_path
     flist = glob.glob(root +"/*.py")
 <<<<<<< HEAD
+<<<<<<< HEAD
     flist = flist + glob.glob(root +"/*/*.py")
+=======
+    flist = flist + glob.glob(root +"/**/*.py")
+>>>>>>> origin/main
 =======
     flist = flist + glob.glob(root +"/**/*.py")
 >>>>>>> origin/main
@@ -137,6 +147,10 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
     flist = flist + glob.glob(root +"/*/*/*/*/*.py")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    flist = list(set(flist))
+>>>>>>> origin/main
 =======
     flist = list(set(flist))
 >>>>>>> origin/main
@@ -146,6 +160,7 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
     for i in range(len(flist)):
         # output_file = re.search(r'(\w+).py', file).group(1)
         # export_stats_perfile(file, f"{out_path}/file_{output_file}.csv")
+<<<<<<< HEAD
 <<<<<<< HEAD
         df = get_list_function_stats(flist[i])
         print(df)
@@ -214,6 +229,8 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
                         f.write(f"{row['name'].replace(':', '.')}({str1})\n")
 
 =======
+=======
+>>>>>>> origin/main
         try :
             df = get_list_function_stats(flist[i])
             print(df)
@@ -282,6 +299,9 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
                             f.write(f"{row['name'].replace(':', '.')}({str1})\n")
         except Exception as e :
             log(flist[i], e) 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 

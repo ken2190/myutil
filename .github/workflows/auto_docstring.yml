@@ -4,8 +4,14 @@ name: Auto docstring - zdocstring branch
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
+=======
+  workflow_dispatch:
+    inputs:  
+      
+>>>>>>> origin/main
 =======
   workflow_dispatch:
     inputs:  
@@ -18,7 +24,11 @@ on:
 
   schedule:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - cron:  '* 2 * * *'      #### 60mins
+=======
+    - cron:  '0 2 * * *'      #### 60mins
+>>>>>>> origin/main
 =======
     - cron:  '0 2 * * *'      #### 60mins
 >>>>>>> origin/main

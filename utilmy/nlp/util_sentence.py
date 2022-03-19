@@ -298,7 +298,11 @@ def embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d):
 
   
 <<<<<<< HEAD
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> origin/main
 =======
 
 >>>>>>> origin/main

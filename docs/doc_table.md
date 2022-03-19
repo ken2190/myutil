@@ -5,6 +5,7 @@ Repo: ./
 | ------- | --- | --- | -------------- |
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L19'>help</a> | print<br>help_create<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L48'>template_dataset_classifier_XXXXX</a> |  |
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L31'>test</a> | log<br>test<br>test1<br>test_dataset_regression_fake<br>test_dataset_classifier_fake<br>test_dataset_classifier_petfinder<br>test_dataset_classifier_covtype<br>test_dataset_classifier_pmlb<br>fetch_dataset<br>pd.read_csv<br>pd_train_test_split<br>pd_train_test_split2<br> |
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L39'>test1</a> | fetch_dataset<br>pd.read_csv<br>pd_train_test_split<br>pd_train_test_split2<br> |
@@ -24,6 +25,8 @@ Repo: ./
 | <a name='utilmy/configs/test.py' href='.//utilmy/configs/test.py'>utilmy/configs/test.py</a> | function | <a href='.//utilmy/configs/test.py#L62'>test_validate_yaml_types</a> | config_validate<br>isinstance<br>datetime.date<br>test_validate_yaml_types_failed<br>pytest.raises<br>sorted<br> |
 | <a name='utilmy/configs/test.py' href='.//utilmy/configs/test.py'>utilmy/configs/test.py</a> | function | <a href='.//utilmy/configs/test.py#L83'>test_validate_yaml_types_failed</a> | pytest.raises<br>config_validate<br>sorted<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L68'>template_dataset_classifier_XXXXX</a> |  |
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L41'>test</a> | test_dataset_regression_fake<br>test_dataset_classifier_fake<br>test_dataset_classifier_petfinder<br>test_dataset_classifier_covtype<br>test_dataset_classifier_pmlb<br> |
 | <a name='utilmy/adatasets.py' href='.//utilmy/adatasets.py'>utilmy/adatasets.py</a> | function | <a href='.//utilmy/adatasets.py#L54'>test1</a> | fetch_dataset<br>pd.read_csv<br>pd_train_test_split<br>pd_train_test_split2<br> |
@@ -42,6 +45,9 @@ Repo: ./
 | <a name='utilmy/configs/test.py' href='.//utilmy/configs/test.py'>utilmy/configs/test.py</a> | function | <a href='.//utilmy/configs/test.py#L123'>test_validate_yaml_failed_silent</a> | config_validate<br> |
 | <a name='utilmy/configs/test.py' href='.//utilmy/configs/test.py'>utilmy/configs/test.py</a> | function | <a href='.//utilmy/configs/test.py#L68'>test_validate_yaml_types</a> | config_validate<br>isinstance<br>datetime.date<br> |
 | <a name='utilmy/configs/test.py' href='.//utilmy/configs/test.py'>utilmy/configs/test.py</a> | function | <a href='.//utilmy/configs/test.py#L95'>test_validate_yaml_types_failed</a> | pytest.raises<br>config_validate<br>sorted<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L177'>config_isvalid_pydantic</a> |  |
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L152'>config_isvalid_yamlschema</a> | yamale.make_schema<br>schema.validate<br>result.isValid<br>yamale.YamaleError<br>loge<br> |
@@ -50,7 +56,11 @@ Repo: ./
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L196'>convert_yaml_to_box</a> | open<br>yaml.load<br>Box<br> |
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L251'>global_verbosity</a> | utilmy.git_repo_root<br>json.load<br>yaml.load<br>Exception<br>int<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L18'>log</a> | print<br>loge<br> |
+=======
+| <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L18'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L18'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -61,6 +71,7 @@ Repo: ./
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L35'>test_pydanticgenrator</a> | pydantic_model_generator<br>Path<br> |
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L29'>test_yamlschema</a> | config_load<br>config_isvalid_yamlschema<br>log<br> |
 | <a name='utilmy/configs/util_config.py' href='.//utilmy/configs/util_config.py'>utilmy/configs/util_config.py</a> | function | <a href='.//utilmy/configs/util_config.py#L300'>zzz_config_load_validate</a> | yamale.make_schema<br>yamale.make_data<br>yamale.validate<br>convert_yaml_to_box<br>print<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/data.py' href='.//utilmy/data.py'>utilmy/data.py</a> | function | <a href='.//utilmy/data.py#L25'>help</a> | print<br> |
 | <a name='utilmy/data.py' href='.//utilmy/data.py'>utilmy/data.py</a> | function | <a href='.//utilmy/data.py#L21'>log</a> | print<br> |
@@ -79,6 +90,8 @@ Repo: ./
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L37'>random_genders</a> |  |
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L17'>test_all</a> | log<br>date_generate<br>date_weekyear_excel<br>date_weekday_excel<br>pd.DataFrame<br>random_genders<br>random_dates<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/data.py' href='.//utilmy/data.py'>utilmy/data.py</a> | function | <a href='.//utilmy/data.py#L31'>help</a> | print<br> |
 | <a name='utilmy/data.py' href='.//utilmy/data.py'>utilmy/data.py</a> | function | <a href='.//utilmy/data.py#L21'>log</a> | print<br> |
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L214'>date_generate</a> | relativedelta<br>range<br> |
@@ -95,6 +108,9 @@ Repo: ./
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L41'>random_dates</a> | pd.to_datetime<br> |
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L55'>random_genders</a> |  |
 | <a name='utilmy/dates.py' href='.//utilmy/dates.py'>utilmy/dates.py</a> | function | <a href='.//utilmy/dates.py#L22'>test_all</a> | log<br>date_generate<br>date_weekyear_excel<br>date_weekday_excel<br>pd.DataFrame<br>random_genders<br>random_dates<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L386'>db_create_dict_pandas</a> | fi2.append<br>len<br>log<br>pd_read_file<br>df.drop_duplicates<br>df.apply<br>pd_to_file<br> |
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L338'>db_flush</a> | glob.glob<br>log<br>diskcache_config<br> |
@@ -104,7 +120,11 @@ Repo: ./
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L350'>db_size</a> | glob.glob<br>print<br>len<br>diskcache_load<br> |
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L566'>diskcache_config</a> | diskcache_load<br>diskcache_getkeys<br>log<br>cache.close<br>wal_checkpoint<br>open<br>fp.write<br>os.system<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L557'>diskcache_get</a> | diskcache_load<br>cache._sql<br> |
+=======
+| <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L557'>diskcache_get</a> | cache._sql<br>len<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L557'>diskcache_get</a> | cache._sql<br>len<br> |
 >>>>>>> origin/main
@@ -113,7 +133,11 @@ Repo: ./
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L543'>diskcache_keycount</a> | diskcache_load<br>cache._sql<br>countt<br> |
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L434'>diskcache_load</a> | isinstance<br>dc.Cache<br>print<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L448'>diskcache_save</a> | dc.Cache<br>FanoutCache<br>print<br>range<br>time.sleep<br>len<br>diskcache_save2<br>diskcache_config<br>max<br>insert_key<br>enumerate<br>log<br>int<br>multithread_run<br>str<br> |
+=======
+| <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L448'>diskcache_save</a> | dc.Cache<br>FanoutCache<br>print<br>range<br>time.sleep<br>len<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/db/keyvalue.py' href='.//utilmy/db/keyvalue.py'>utilmy/db/keyvalue.py</a> | function | <a href='.//utilmy/db/keyvalue.py#L448'>diskcache_save</a> | dc.Cache<br>FanoutCache<br>print<br>range<br>time.sleep<br>len<br> |
 >>>>>>> origin/main
@@ -143,6 +167,7 @@ Repo: ./
 | <a name='utilmy/db/qdrant/qdrant_example.py' href='.//utilmy/db/qdrant/qdrant_example.py'>utilmy/db/qdrant/qdrant_example.py</a> | method | <a href='.//utilmy/db/qdrant/qdrant_example.py#L132'>NeuralSearcher:search</a> |  |
 | <a name='utilmy/db/qdrant/test.py' href='.//utilmy/db/qdrant/test.py'>utilmy/db/qdrant/test.py</a> | function | <a href='.//utilmy/db/qdrant/test.py#L41'>get_data</a> | open<br>json.loads<br>data.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/db/qdrant/test.py' href='.//utilmy/db/qdrant/test.py'>utilmy/db/qdrant/test.py</a> | function | <a href='.//utilmy/db/qdrant/test.py#L53'>main</a> | print<br>Client<br>client.connect<br>client.create_collection<br>get_data<br>client.put_multi<br>client.table_view<br>client.get_multi<br> |
 | <a name='utilmy/db/qdrant/triplet.py' href='.//utilmy/db/qdrant/triplet.py'>utilmy/db/qdrant/triplet.py</a> | function | <a href='.//utilmy/db/qdrant/triplet.py#L5'>new_algo</a> | geners.sort<br>len<br>list<br>ddict3.keys<br>new_ddict3.items<br>keys.append<br>l.append<br>pd.DataFrame<br> |
 | <a name='utilmy/debug.py' href='.//utilmy/debug.py'>utilmy/debug.py</a> | function | <a href='.//utilmy/debug.py#L22'>help</a> | print<br> |
@@ -170,6 +195,8 @@ Repo: ./
 | <a name='utilmy/decorators.py' href='.//utilmy/decorators.py'>utilmy/decorators.py</a> | function | <a href='.//utilmy/decorators.py#L130'>timer_decorator</a> | wrapper<br>time.perf_counter<br>func<br>print<br> |
 | <a name='utilmy/decorators.py' href='.//utilmy/decorators.py'>utilmy/decorators.py</a> | class | <a href='.//utilmy/decorators.py#L97'>_TimeoutError</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/db/qdrant/test.py' href='.//utilmy/db/qdrant/test.py'>utilmy/db/qdrant/test.py</a> | function | <a href='.//utilmy/db/qdrant/test.py#L59'>main</a> | print<br>Client<br>client.connect<br>client.create_collection<br>get_data<br>client.put_multi<br>client.table_view<br>client.get_multi<br> |
 | <a name='utilmy/db/qdrant/triplet.py' href='.//utilmy/db/qdrant/triplet.py'>utilmy/db/qdrant/triplet.py</a> | function | <a href='.//utilmy/db/qdrant/triplet.py#L5'>new_algo</a> | geners.sort<br>len<br>list<br>ddict3.keys<br>new_ddict3.items<br>keys.append<br>l.append<br>pd.DataFrame<br> |
 | <a name='utilmy/debug.py' href='.//utilmy/debug.py'>utilmy/debug.py</a> | function | <a href='.//utilmy/debug.py#L28'>help</a> | print<br> |
@@ -196,6 +223,9 @@ Repo: ./
 | <a name='utilmy/decorators.py' href='.//utilmy/decorators.py'>utilmy/decorators.py</a> | function | <a href='.//utilmy/decorators.py#L250'>timeout_decorator_test</a> | log<br> |
 | <a name='utilmy/decorators.py' href='.//utilmy/decorators.py'>utilmy/decorators.py</a> | function | <a href='.//utilmy/decorators.py#L140'>timer_decorator</a> | wrapper<br>time.perf_counter<br>func<br>print<br> |
 | <a name='utilmy/decorators.py' href='.//utilmy/decorators.py'>utilmy/decorators.py</a> | class | <a href='.//utilmy/decorators.py#L107'>_TimeoutError</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/keras/loss_graph.py' href='.//utilmy/deeplearning/keras/loss_graph.py'>utilmy/deeplearning/keras/loss_graph.py</a> | function | <a href='.//utilmy/deeplearning/keras/loss_graph.py#L175'>create_fake_neighbor</a> | range<br>neighbors.append<br>neighbor_weights.append<br>np.array<br> |
 | <a name='utilmy/deeplearning/keras/loss_graph.py' href='.//utilmy/deeplearning/keras/loss_graph.py'>utilmy/deeplearning/keras/loss_graph.py</a> | function | <a href='.//utilmy/deeplearning/keras/loss_graph.py#L227'>create_graph_loss</a> | nsl_layers.NeighborFeatures<br>nsl_layers.PairwiseDistance<br> |
@@ -230,9 +260,15 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L428'>make_decoder</a> |  |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L389'>make_encoder</a> | functools.partial<br>Input<br>Conv2D<br>BatchNormalization<br>Flatten<br>Dense<br>layers.Dropout<br>Reshape<br>Conv2DTranspose<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L195'>metric_accuracy</a> | enumerate<br>np.argmax<br>print<br>metric_accuracy_2<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L211'>metric_accuracy_2</a> | enumerate<br>np.argmax<br>accuracy_score<br>log<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L868'>plot_grid</a> | len<br>int<br>plt.subplots<br>range<br>plt.suptitle<br>plt.show<br>plt.close<br> |
+=======
+| <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L195'>metric_accuracy</a> | enumerate<br>np.argmax<br>print<br> |
+| <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L211'>metric_accuracy_2</a> | enumerate<br>np.argmax<br>accuracy_score<br>log<br> |
+| <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L894'>plot_grid</a> | len<br>int<br>plt.subplots<br>range<br>plt.suptitle<br>plt.show<br>plt.close<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L195'>metric_accuracy</a> | enumerate<br>np.argmax<br>print<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L211'>metric_accuracy_2</a> | enumerate<br>np.argmax<br>accuracy_score<br>log<br> |
@@ -242,6 +278,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L265'>plot_reconstructed_images</a> | model.call<br>plt.figure<br>range<br>plt.subplot<br>plt.imshow<br>plt.axis<br>print<br>plt.show<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L302'>save_best</a> | save_model_state<br>print<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L318'>save_model_state</a> | os.makedirs<br>model.save_weights<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L2331'>test_step</a> | tf.GradientTape<br>model<br>zip<br>loss_fn<br>all_losses.append<br>tf.reduce_mean<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L993'>train_step</a> | tf.GradientTape<br>tape_x.watch<br>nbr_features_layer.call<br>model<br>loss_fn<br>regularizer<br>tf.constant<br>tape_w.gradient<br>optimizer.apply_gradients<br>perceptual_loss_function<br>tape.gradient<br> |
@@ -269,6 +306,8 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | method | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L948'>StepDecay:__call__</a> | np.floor<br>float<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | method | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L941'>StepDecay:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L2444'>test_step</a> | tf.GradientTape<br>model<br>zip<br>loss_fn<br>all_losses.append<br>tf.reduce_mean<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L1061'>train_step</a> | tf.GradientTape<br>tape_x.watch<br>nbr_features_layer.call<br>model<br>loss_fn<br>regularizer<br>tf.constant<br>tape_w.gradient<br>optimizer.apply_gradients<br>perceptual_loss_function<br>tape.gradient<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L1061'>train_step</a> | tf.GradientTape<br>tape_x.watch<br>nbr_features_layer.call<br>model<br>loss_fn<br>regularizer<br>tf.constant<br>tape_w.gradient<br>optimizer.apply_gradients<br>perceptual_loss_function<br>tape.gradient<br> |
@@ -294,6 +333,9 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | method | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L1018'>PolynomialDecay:__init__</a> |  |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | method | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L996'>StepDecay:__call__</a> | np.floor<br>float<br> |
 | <a name='utilmy/deeplearning/keras/train_graph_loss.py' href='.//utilmy/deeplearning/keras/train_graph_loss.py'>utilmy/deeplearning/keras/train_graph_loss.py</a> | method | <a href='.//utilmy/deeplearning/keras/train_graph_loss.py#L981'>StepDecay:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/keras/train_template.py' href='.//utilmy/deeplearning/keras/train_template.py'>utilmy/deeplearning/keras/train_template.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_template.py#L354'>label_get_data</a> | pd_read_file<br>df.fillna<br>log<br>df.drop_duplicates<br>set<br>len<br>list<br>print<br>sys.exit<br>time.sleep<br> |
 | <a name='utilmy/deeplearning/keras/train_template.py' href='.//utilmy/deeplearning/keras/train_template.py'>utilmy/deeplearning/keras/train_template.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_template.py#L25'>param_set</a> | int<br>clean1<br>len<br>sum<br> |
@@ -301,6 +343,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/train_template.py' href='.//utilmy/deeplearning/keras/train_template.py'>utilmy/deeplearning/keras/train_template.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_template.py#L315'>pd_get_dummies</a> | cat_dict.keys<br>pd.get_dummies<br>df1.astype<br>pd.concat<br>print<br> |
 | <a name='utilmy/deeplearning/keras/train_template.py' href='.//utilmy/deeplearning/keras/train_template.py'>utilmy/deeplearning/keras/train_template.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_template.py#L428'>train_step</a> | tf.GradientTape<br>model<br>perceptual_loss_function<br>tape.gradient<br>optimizer.apply_gradients<br> |
 | <a name='utilmy/deeplearning/keras/train_template.py' href='.//utilmy/deeplearning/keras/train_template.py'>utilmy/deeplearning/keras/train_template.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_template.py#L456'>validation_step</a> | model<br>perceptual_loss_function<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/deeplearning/keras/train_vqvae_loss.py' href='.//utilmy/deeplearning/keras/train_vqvae_loss.py'>utilmy/deeplearning/keras/train_vqvae_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_vqvae_loss.py#L731'>apply_func</a> | s.lower<br> |
 | <a name='utilmy/deeplearning/keras/train_vqvae_loss.py' href='.//utilmy/deeplearning/keras/train_vqvae_loss.py'>utilmy/deeplearning/keras/train_vqvae_loss.py</a> | function | <a href='.//utilmy/deeplearning/keras/train_vqvae_loss.py#L2449'>build_model</a> | EfficientNetB0<br>layers.Flatten<br>keras.Model<br> |
@@ -488,6 +531,8 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/util_similarity.py' href='.//utilmy/deeplearning/keras/util_similarity.py'>utilmy/deeplearning/keras/util_similarity.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_similarity.py#L97'>tf_cdist_cos</a> | __cast_left_and_right_to_tensors<br>__get_tensor_reshaped_norm<br>tf.matmul<br>tf.transpose<br>tf.cast<br> |
 | <a name='utilmy/deeplearning/keras/util_similarity.py' href='.//utilmy/deeplearning/keras/util_similarity.py'>utilmy/deeplearning/keras/util_similarity.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_similarity.py#L81'>tf_cdist_euclidean</a> | __cast_left_and_right_to_tensors<br>__get_rows_counts<br>__get_tensor_sqr<br>tf.matmul<br>tf.transpose<br>tf.where<br>tf.sqrt<br>tf.cast<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/keras/util_dataloader_img.py' href='.//utilmy/deeplearning/keras/util_dataloader_img.py'>utilmy/deeplearning/keras/util_dataloader_img.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_dataloader_img.py#L37'>help</a> | help_create<br>print<br> |
 | <a name='utilmy/deeplearning/keras/util_dataloader_img.py' href='.//utilmy/deeplearning/keras/util_dataloader_img.py'>utilmy/deeplearning/keras/util_dataloader_img.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_dataloader_img.py#L62'>test</a> | Compose<br>Resize<br>HorizontalFlip<br>RandomContrast<br>RandomGamma<br>RandomBrightness<br>Transform_sprinkle<br>ToFloat<br> |
 | <a name='utilmy/deeplearning/keras/util_dataloader_img.py' href='.//utilmy/deeplearning/keras/util_dataloader_img.py'>utilmy/deeplearning/keras/util_dataloader_img.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_dataloader_img.py#L80'>test1</a> | mnist.load_data<br>DataLoader_img<br>enumerate<br>print<br> |
@@ -619,6 +664,9 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/util_similarity.py' href='.//utilmy/deeplearning/keras/util_similarity.py'>utilmy/deeplearning/keras/util_similarity.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_similarity.py#L75'>tf_cdist</a> | tf_cdist_euclidean<br>tf_cdist_cos<br>ValueError<br> |
 | <a name='utilmy/deeplearning/keras/util_similarity.py' href='.//utilmy/deeplearning/keras/util_similarity.py'>utilmy/deeplearning/keras/util_similarity.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_similarity.py#L107'>tf_cdist_cos</a> | __cast_left_and_right_to_tensors<br>__get_tensor_reshaped_norm<br>tf.matmul<br>tf.transpose<br>tf.cast<br> |
 | <a name='utilmy/deeplearning/keras/util_similarity.py' href='.//utilmy/deeplearning/keras/util_similarity.py'>utilmy/deeplearning/keras/util_similarity.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_similarity.py#L91'>tf_cdist_euclidean</a> | __cast_left_and_right_to_tensors<br>__get_rows_counts<br>__get_tensor_sqr<br>tf.matmul<br>tf.transpose<br>tf.where<br>tf.sqrt<br>tf.cast<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/keras/util_train.py' href='.//utilmy/deeplearning/keras/util_train.py'>utilmy/deeplearning/keras/util_train.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_train.py#L131'>check_valid_image</a> | os.makedirs<br>isinstance<br>range<br>img.numpy<br>cv2.imwrite<br> |
 | <a name='utilmy/deeplearning/keras/util_train.py' href='.//utilmy/deeplearning/keras/util_train.py'>utilmy/deeplearning/keras/util_train.py</a> | function | <a href='.//utilmy/deeplearning/keras/util_train.py#L32'>clean_duplicates</a> | print<br>open<br>fp.write<br> |
@@ -648,7 +696,11 @@ Repo: ./
 | <a name='utilmy/deeplearning/keras/zz_util_dataloader_img_old.py' href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py'>utilmy/deeplearning/keras/zz_util_dataloader_img_old.py</a> | function | <a href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py#L205'>pd_merge_imgdir_onehotfeat</a> | pd.get_dummies<br>dfi_1hot.apply<br>str<br> |
 | <a name='utilmy/deeplearning/keras/zz_util_dataloader_img_old.py' href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py'>utilmy/deeplearning/keras/zz_util_dataloader_img_old.py</a> | function | <a href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py#L236'>pd_to_onehot</a> | pd.get_dummies<br>dfi_1hot.apply<br>str<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/keras/zz_util_dataloader_img_old.py' href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py'>utilmy/deeplearning/keras/zz_util_dataloader_img_old.py</a> | function | <a href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py#L34'>test</a> | Compose<br>HorizontalFlip<br>ShiftScaleRotate<br>SprinklesTransform<br>Resize<br>RandomContrast<br>RandomGamma<br>RandomBrightness<br>HueSaturationValue<br>ToFloat<br>test1<br>mnist.load_data<br>CustomDataGenerator<br>enumerate<br>print<br>test2<br>Path<br>create_random_images_ds<br>os.mkdir<br>range<br>Image.fromarray<br>image.save<br>p.glob<br>label_dict.append<br>list<br>pd.DataFrame<br>df.to_csv<br>DataGenerator_img_disk<br> |
+=======
+| <a name='utilmy/deeplearning/keras/zz_util_dataloader_img_old.py' href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py'>utilmy/deeplearning/keras/zz_util_dataloader_img_old.py</a> | function | <a href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py#L34'>test</a> | Compose<br>HorizontalFlip<br>ShiftScaleRotate<br>SprinklesTransform<br>Resize<br>RandomContrast<br>RandomGamma<br>RandomBrightness<br>HueSaturationValue<br>ToFloat<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/deeplearning/keras/zz_util_dataloader_img_old.py' href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py'>utilmy/deeplearning/keras/zz_util_dataloader_img_old.py</a> | function | <a href='.//utilmy/deeplearning/keras/zz_util_dataloader_img_old.py#L34'>test</a> | Compose<br>HorizontalFlip<br>ShiftScaleRotate<br>SprinklesTransform<br>Resize<br>RandomContrast<br>RandomGamma<br>RandomBrightness<br>HueSaturationValue<br>ToFloat<br> |
 >>>>>>> origin/main
@@ -699,6 +751,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/images/x3d.py' href='.//utilmy/deeplearning/torch/images/x3d.py'>utilmy/deeplearning/torch/images/x3d.py</a> | method | <a href='.//utilmy/deeplearning/torch/images/x3d.py#L8'>X3DHead:__init__</a> | super<br>nn.Dropout<br>nn.Linear<br>nn.ReLU<br>nn.AdaptiveAvgPool3d<br>nn.AdaptiveMaxPool3d<br> |
 | <a name='utilmy/deeplearning/torch/images/x3d.py' href='.//utilmy/deeplearning/torch/images/x3d.py'>utilmy/deeplearning/torch/images/x3d.py</a> | method | <a href='.//utilmy/deeplearning/torch/images/x3d.py#L49'>X3DHead:forward</a> | self.pool<br>x.view<br>self.fc1<br>self.relu<br>self.dropout<br>self.fc2<br> |
 | <a name='utilmy/deeplearning/torch/images/x3d.py' href='.//utilmy/deeplearning/torch/images/x3d.py'>utilmy/deeplearning/torch/images/x3d.py</a> | method | <a href='.//utilmy/deeplearning/torch/images/x3d.py#L44'>X3DHead:init_weights</a> | normal_init<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/deeplearning/torch/rule_encoder.py' href='.//utilmy/deeplearning/torch/rule_encoder.py'>utilmy/deeplearning/torch/rule_encoder.py</a> | function | <a href='.//utilmy/deeplearning/torch/rule_encoder.py#L429'>dataloader_create</a> | torch.tensor<br>DataLoader<br>log<br>len<br> |
 | <a name='utilmy/deeplearning/torch/rule_encoder.py' href='.//utilmy/deeplearning/torch/rule_encoder.py'>utilmy/deeplearning/torch/rule_encoder.py</a> | function | <a href='.//utilmy/deeplearning/torch/rule_encoder.py#L137'>dataset_load_cardio</a> | len<br>Exception<br>wget.download<br>pd.read_csv<br>log<br> |
@@ -817,6 +870,8 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L287'>sentrans_train</a> | Box<br>model_load<br>pd_read_file<br>log<br>metrics_cosine_sim<br>load_dataloader<br>load_evaluator<br>load_loss<br>math.ceil<br>model_setup_compute<br>cc.get<br>model.fit<br>model_save<br>model_evaluate<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L49'>test</a> | Box<br>dataset_download<br>dataset_fake<br>log<br>sentrans_train<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/torch/models/sentences_model.py' href='.//utilmy/deeplearning/torch/models/sentences_model.py'>utilmy/deeplearning/torch/models/sentences_model.py</a> | function | <a href='.//utilmy/deeplearning/torch/models/sentences_model.py#L165'>evaluate</a> |  |
 | <a name='utilmy/deeplearning/torch/models/sentences_model.py' href='.//utilmy/deeplearning/torch/models/sentences_model.py'>utilmy/deeplearning/torch/models/sentences_model.py</a> | function | <a href='.//utilmy/deeplearning/torch/models/sentences_model.py#L124'>fit</a> | log<br>get_dataset<br>SentencesDataset<br>DataLoader<br>train_reader.get_num_labels<br>getattr<br>train_loss.float<br>EmbeddingSimilarityEvaluator<br> |
 | <a name='utilmy/deeplearning/torch/models/sentences_model.py' href='.//utilmy/deeplearning/torch/models/sentences_model.py'>utilmy/deeplearning/torch/models/sentences_model.py</a> | function | <a href='.//utilmy/deeplearning/torch/models/sentences_model.py#L251'>fit2</a> | log<br>get_dataset2<br>getattr<br>train_loss.float<br>EmbeddingSimilarityEvaluator<br> |
@@ -895,6 +950,9 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | class | <a href='.//utilmy/deeplearning/torch/util_torch.py#L373'>model_dummy</a> |  |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | method | <a href='.//utilmy/deeplearning/torch/util_torch.py#L374'>model_dummy:__init__</a> | super<br>nn.Sequential<br>nn.ReLU<br>nn.Linear<br> |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | method | <a href='.//utilmy/deeplearning/torch/util_torch.py#L382'>model_dummy:forward</a> | self.net<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/torch/zkeras_torch_sentence.py' href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py'>utilmy/deeplearning/torch/zkeras_torch_sentence.py</a> | function | <a href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py#L584'>build_model</a> | hub.load<br>hub.KerasLayer<br>hub_emb<br>model.compile<br> |
 | <a name='utilmy/deeplearning/torch/zkeras_torch_sentence.py' href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py'>utilmy/deeplearning/torch/zkeras_torch_sentence.py</a> | function | <a href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py#L137'>create_evaluator</a> | download_dataset<br>log<br>pd_read_csv<br>df.iterrows<br>float<br>dev_samples.append<br>EmbeddingSimilarityEvaluator.from_input_examples<br> |
@@ -910,6 +968,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/zkeras_torch_sentence.py' href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py'>utilmy/deeplearning/torch/zkeras_torch_sentence.py</a> | method | <a href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py#L536'>ReRanker:call</a> | self.model<br> |
 | <a name='utilmy/deeplearning/torch/zkeras_torch_sentence.py' href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py'>utilmy/deeplearning/torch/zkeras_torch_sentence.py</a> | method | <a href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py#L527'>SentenceEncoder:__init__</a> | super<br>hub.load<br>hub.KerasLayer<br> |
 | <a name='utilmy/deeplearning/torch/zkeras_torch_sentence.py' href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py'>utilmy/deeplearning/torch/zkeras_torch_sentence.py</a> | method | <a href='.//utilmy/deeplearning/torch/zkeras_torch_sentence.py#L536'>SentenceEncoder:call</a> | self.model<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L219'>create_train_npz</a> | log<br>pd.read_csv<br>set<br>len<br>sorted<br>int<br>prep_images_multi<br>log5<br>np.array<br>prepro_images_multi<br>np.savez_compressed<br>util_image.image_check_npz<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L289'>create_train_parquet</a> | log<br>pd.read_csv<br>set<br>len<br>sorted<br>int<br>prepro_images_multi<br>pd.DataFrame<br>df2.merge<br>df2.to_parquet<br> |
@@ -960,6 +1019,8 @@ Repo: ./
 | <a name='utilmy/deeplearning/util_yolo.py' href='.//utilmy/deeplearning/util_yolo.py'>utilmy/deeplearning/util_yolo.py</a> | function | <a href='.//utilmy/deeplearning/util_yolo.py#L27'>yolo_extract_info_from_xml</a> | ET.parse<br>image_size.append<br>tuple<br>names.keys<br>int<br> |
 | <a name='utilmy/deeplearning/util_yolo.py' href='.//utilmy/deeplearning/util_yolo.py'>utilmy/deeplearning/util_yolo.py</a> | function | <a href='.//utilmy/deeplearning/util_yolo.py#L131'>yolov5_from_xml</a> | os.getcwd<br>os.mkdir<br>yolo_extract_info_from_xml<br>convert_to_yolov5<br>if<br>os.walk<br>extract_info_from_xml<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/torch/zrule_encoder2.py' href='.//utilmy/deeplearning/torch/zrule_encoder2.py'>utilmy/deeplearning/torch/zrule_encoder2.py</a> | function | <a href='.//utilmy/deeplearning/torch/zrule_encoder2.py#L496'>dataloader_create</a> | torch.tensor<br>DataLoader<br>log<br>len<br> |
 | <a name='utilmy/deeplearning/torch/zrule_encoder2.py' href='.//utilmy/deeplearning/torch/zrule_encoder2.py'>utilmy/deeplearning/torch/zrule_encoder2.py</a> | function | <a href='.//utilmy/deeplearning/torch/zrule_encoder2.py#L218'>dataset_load</a> | len<br>Exception<br>wget.download<br>pd.read_csv<br>log<br> |
 | <a name='utilmy/deeplearning/torch/zrule_encoder2.py' href='.//utilmy/deeplearning/torch/zrule_encoder2.py'>utilmy/deeplearning/torch/zrule_encoder2.py</a> | function | <a href='.//utilmy/deeplearning/torch/zrule_encoder2.py#L941'>dataset_load_cardio</a> | len<br>Exception<br>wget.download<br>pd.read_csv<br>log<br> |
@@ -1060,13 +1121,20 @@ Repo: ./
 | <a name='utilmy/deeplearning/util_yolo.py' href='.//utilmy/deeplearning/util_yolo.py'>utilmy/deeplearning/util_yolo.py</a> | function | <a href='.//utilmy/deeplearning/util_yolo.py#L49'>test_yolov5_from_xml</a> | yolo_extract_info_from_xml<br>yolov5_from_xml<br> |
 | <a name='utilmy/deeplearning/util_yolo.py' href='.//utilmy/deeplearning/util_yolo.py'>utilmy/deeplearning/util_yolo.py</a> | function | <a href='.//utilmy/deeplearning/util_yolo.py#L64'>yolo_extract_info_from_xml</a> | ET.parse<br>image_size.append<br>tuple<br>names.keys<br>int<br> |
 | <a name='utilmy/deeplearning/util_yolo.py' href='.//utilmy/deeplearning/util_yolo.py'>utilmy/deeplearning/util_yolo.py</a> | function | <a href='.//utilmy/deeplearning/util_yolo.py#L168'>yolov5_from_xml</a> | os.getcwd<br>os.mkdir<br>yolo_extract_info_from_xml<br>convert_to_yolov5<br>if<br>os.walk<br>extract_info_from_xml<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L479'>convert_txt_to_vector_parquet</a> |  |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L522'>data_add_onehot</a> | glob.glob<br>fi.split<br>log<br>pd.DataFrame<br>x.split<br>int<br>df.merge<br>pd.get_dummies<br>dfi_1hot.apply<br> |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L592'>folder_size</a> | os.system<br> |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L570'>gzip</a> | print<br>os.system<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L257'>np_matrix_to_str</a> | str<br>res.append<br>np_matrix_to_str<br>np_matrix_to_str_sim<br> |
+=======
+| <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L257'>np_matrix_to_str</a> | str<br>res.append<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L257'>np_matrix_to_str</a> | str<br>res.append<br> |
 >>>>>>> origin/main
@@ -1076,7 +1144,11 @@ Repo: ./
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L585'>predict</a> | os.system<br> |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L549'>test</a> | pd.read_csv<br>data_add_onehot<br>log<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L310'>topk</a> | os.system<br>topk<br>dname.replace<br>os.makedirs<br>log<br>pd_read_file<br>x.split<br>df.drop_duplicates<br>list<br>len<br>np.array<br>copy.deepcopy<br>x0.reshape<br>topk_nearest_vector<br>np.arange<br>df1.to_csv<br>dc.Cache<br>print<br>enumerate<br>key.split<br>cv2.imwrite<br> |
+=======
+| <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L310'>topk</a> | dname.replace<br>os.makedirs<br>log<br>pd_read_file<br>x.split<br>df.drop_duplicates<br>list<br>len<br>np.array<br>copy.deepcopy<br>x0.reshape<br>topk_nearest_vector<br>np.arange<br>df1.to_csv<br>dc.Cache<br>print<br>enumerate<br>key.split<br>cv2.imwrite<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L310'>topk</a> | dname.replace<br>os.makedirs<br>log<br>pd_read_file<br>x.split<br>df.drop_duplicates<br>list<br>len<br>np.array<br>copy.deepcopy<br>x0.reshape<br>topk_nearest_vector<br>np.arange<br>df1.to_csv<br>dc.Cache<br>print<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 >>>>>>> origin/main
@@ -1084,6 +1156,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L438'>topk_nearest_vector</a> | faiss.index_factory<br>index.add<br>index.search<br> |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L300'>topk_predict</a> | os.system<br> |
 | <a name='utilmy/deeplearning/zz_util_topk.py' href='.//utilmy/deeplearning/zz_util_topk.py'>utilmy/deeplearning/zz_util_topk.py</a> | function | <a href='.//utilmy/deeplearning/zz_util_topk.py#L562'>unzip</a> | zipfile.ZipFile<br>zip_ref.extractall<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/distributed.py' href='.//utilmy/distributed.py'>utilmy/distributed.py</a> | function | <a href='.//utilmy/distributed.py#L386'>date_now</a> | datetime.now<br>now_utc.astimezone<br>now_pacific.strftime<br> |
 | <a name='utilmy/distributed.py' href='.//utilmy/distributed.py'>utilmy/distributed.py</a> | function | <a href='.//utilmy/distributed.py#L12'>help</a> | help_create<br>print<br> |
@@ -1209,6 +1282,8 @@ Repo: ./
 | <a name='utilmy/docs/test.py' href='.//utilmy/docs/test.py'>utilmy/docs/test.py</a> | function | <a href='.//utilmy/docs/test.py#L144'>trading_up</a> | exchange.fetch_orders<br>print<br>exchange.create_order<br>log<br>str<br>threading.Timer<br>t.start<br> |
 | <a name='utilmy/docs/test.py' href='.//utilmy/docs/test.py'>utilmy/docs/test.py</a> | function | <a href='.//utilmy/docs/test.py#L289'>update_price</a> | threading.Timer<br>t.start<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/distributed.py' href='.//utilmy/distributed.py'>utilmy/distributed.py</a> | function | <a href='.//utilmy/distributed.py#L467'>date_now</a> | datetime.now<br>now_utc.astimezone<br>now_pacific.strftime<br> |
 | <a name='utilmy/distributed.py' href='.//utilmy/distributed.py'>utilmy/distributed.py</a> | function | <a href='.//utilmy/distributed.py#L12'>help</a> | help_create<br>print<br> |
 | <a name='utilmy/distributed.py' href='.//utilmy/distributed.py'>utilmy/distributed.py</a> | function | <a href='.//utilmy/distributed.py#L509'>load</a> | pickle.load<br> |
@@ -1341,11 +1416,15 @@ Repo: ./
 | <a name='utilmy/docs/zold_docstring3.py' href='.//utilmy/docs/zold_docstring3.py'>utilmy/docs/zold_docstring3.py</a> | function | <a href='.//utilmy/docs/zold_docstring3.py#L15'>custom_generate_docstring</a> | repo_dir.glob<br>x.is_file<br>get_list_function_info<br>print<br>new_docstring.append<br>range<br>open<br>file.readlines<br> |
 | <a name='utilmy/docs/zold_docstring3.py' href='.//utilmy/docs/zold_docstring3.py'>utilmy/docs/zold_docstring3.py</a> | function | <a href='.//utilmy/docs/zold_docstring3.py#L80'>help_get_docstring</a> |  |
 | <a name='utilmy/docs/zold_docstring3.py' href='.//utilmy/docs/zold_docstring3.py'>utilmy/docs/zold_docstring3.py</a> | function | <a href='.//utilmy/docs/zold_docstring3.py#L72'>main</a> | Path.cwd<br>custom_generate_docstring<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L19'>invokenumpy</a> | xw.Range<br>np.linspace<br> |
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L32'>invokesklearn</a> | datasets.load_iris<br>pd.DataFrame<br>xw.Range<br> |
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L4'>load_csv</a> | pd.read_csv<br>xw.Range<br> |
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L52'>loaddf</a> | ws.range<br>xw.Range<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L24'>help</a> | help_create<br>print<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L246'>image_cache_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -1394,6 +1473,8 @@ Repo: ./
 | <a name='utilmy/logs/util_log.py' href='.//utilmy/logs/util_log.py'>utilmy/logs/util_log.py</a> | function | <a href='.//utilmy/logs/util_log.py#L187'>z_logger_custom_1</a> | InterceptHandler<br>emit<br>logger.level<br>str<br>logging.currentframe<br>logger.opt<br>record.getMessage<br>format_record<br>pformat<br>setup_logging<br>logging.getLogger<br>logger.configure<br> |
 | <a name='utilmy/logs/util_log.py' href='.//utilmy/logs/util_log.py'>utilmy/logs/util_log.py</a> | function | <a href='.//utilmy/logs/util_log.py#L162'>z_logger_stdout_override</a> | __init__<br>write<br>buffer.rstrip<br>logger.opt<br>line.rstrip<br>flush<br>logger.remove<br>logger.add<br>StreamToLogger<br>contextlib.redirect_stdout<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L175'>diskcache_image_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L67'>diskcache_image_createcache</a> | log<br>sorted<br>len<br>prepro_image2b<br>str<br>fname.split<br>cv2.imread<br>cv2.cvtColor<br>util_image.image_center_crop<br>time.sleep<br>diskcache.Cache<br>size_limit=int<br>image_preps_mp<br>zip<br>key.split<br>enumerate<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L222'>diskcache_image_getsample</a> | dc.Cache<br>print<br>len<br>log<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -1442,6 +1523,9 @@ Repo: ./
 | <a name='utilmy/logs/util_log.py' href='.//utilmy/logs/util_log.py'>utilmy/logs/util_log.py</a> | function | <a href='.//utilmy/logs/util_log.py#L185'>test</a> | log3<br>log2<br>log<br>logw<br>loge<br>logc<br>logr<br> |
 | <a name='utilmy/logs/util_log.py' href='.//utilmy/logs/util_log.py'>utilmy/logs/util_log.py</a> | function | <a href='.//utilmy/logs/util_log.py#L232'>z_logger_custom_1</a> | InterceptHandler<br>emit<br>logger.level<br>str<br>logging.currentframe<br>logger.opt<br>record.getMessage<br>format_record<br>pformat<br>setup_logging<br>logging.getLogger<br>logger.configure<br> |
 | <a name='utilmy/logs/util_log.py' href='.//utilmy/logs/util_log.py'>utilmy/logs/util_log.py</a> | function | <a href='.//utilmy/logs/util_log.py#L207'>z_logger_stdout_override</a> | __init__<br>write<br>buffer.rstrip<br>logger.opt<br>line.rstrip<br>flush<br>logger.remove<br>logger.add<br>StreamToLogger<br>contextlib.redirect_stdout<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/logs/util_log_std.py' href='.//utilmy/logs/util_log_std.py'>utilmy/logs/util_log_std.py</a> | function | <a href='.//utilmy/logs/util_log_std.py#L102'>create_appid</a> | str<br> |
 | <a name='utilmy/logs/util_log_std.py' href='.//utilmy/logs/util_log_std.py'>utilmy/logs/util_log_std.py</a> | function | <a href='.//utilmy/logs/util_log_std.py#L108'>create_logfilename</a> | filename.split<br> |
@@ -1453,6 +1537,7 @@ Repo: ./
 | <a name='utilmy/logs/util_log_std.py' href='.//utilmy/logs/util_log_std.py'>utilmy/logs/util_log_std.py</a> | function | <a href='.//utilmy/logs/util_log_std.py#L176'>logger_setup2</a> | logging.getLogger<br>logger.setLevel<br>logging.StreamHandler<br>ch.setLevel<br>logging.Formatter<br>ch.setFormatter<br>logger.addHandler<br> |
 | <a name='utilmy/logs/util_log_std.py' href='.//utilmy/logs/util_log_std.py'>utilmy/logs/util_log_std.py</a> | function | <a href='.//utilmy/logs/util_log_std.py#L192'>printlog</a> | str<br>print<br>writelog<br> |
 | <a name='utilmy/logs/util_log_std.py' href='.//utilmy/logs/util_log_std.py'>utilmy/logs/util_log_std.py</a> | function | <a href='.//utilmy/logs/util_log_std.py#L239'>writelog</a> | open<br>_log.write<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/nlp/optim_rank.py' href='.//utilmy/nlp/optim_rank.py'>utilmy/nlp/optim_rank.py</a> | function | <a href='.//utilmy/nlp/optim_rank.py#L30'>cost_fitness</a> | str<br>range<br>enumerate<br>rank_generate_fake<br>rank_merge_v5<br> |
 | <a name='utilmy/nlp/optim_rank.py' href='.//utilmy/nlp/optim_rank.py'>utilmy/nlp/optim_rank.py</a> | function | <a href='.//utilmy/nlp/optim_rank.py#L11'>log</a> | print<br> |
@@ -1521,6 +1606,8 @@ Repo: ./
 | <a name='utilmy/nlp/util_cocount.py' href='.//utilmy/nlp/util_cocount.py'>utilmy/nlp/util_cocount.py</a> | function | <a href='.//utilmy/nlp/util_cocount.py#L407'>run_all</a> | corpus_generate<br>train_model<br>load_model<br>cocount_calc_matrix<br>cocount_matrix_to_dict<br>calc_comparison_stats<br>corpus_generate_from_cocount<br>corpus_add_prefix<br> |
 | <a name='utilmy/nlp/util_cocount.py' href='.//utilmy/nlp/util_cocount.py'>utilmy/nlp/util_cocount.py</a> | function | <a href='.//utilmy/nlp/util_cocount.py#L79'>train_model</a> | gensim_model_train_save<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/nlp/util_cluster.py' href='.//utilmy/nlp/util_cluster.py'>utilmy/nlp/util_cluster.py</a> | function | <a href='.//utilmy/nlp/util_cluster.py#L22'>help</a> | help_create<br>print<br> |
 | <a name='utilmy/nlp/util_cluster.py' href='.//utilmy/nlp/util_cluster.py'>utilmy/nlp/util_cluster.py</a> | function | <a href='.//utilmy/nlp/util_cluster.py#L12'>log</a> | print<br> |
 | <a name='utilmy/nlp/util_cluster.py' href='.//utilmy/nlp/util_cluster.py'>utilmy/nlp/util_cluster.py</a> | function | <a href='.//utilmy/nlp/util_cluster.py#L194'>pd_text_getcluster</a> | len<br>range<br>pd_text_hash_create_lsh<br>enumerate<br>lsh.query<br>list<br> |
@@ -1551,6 +1638,9 @@ Repo: ./
 | <a name='utilmy/nlp/util_explain.py' href='.//utilmy/nlp/util_explain.py'>utilmy/nlp/util_explain.py</a> | function | <a href='.//utilmy/nlp/util_explain.py#L41'>test1</a> |  |
 | <a name='utilmy/nlp/util_explain.py' href='.//utilmy/nlp/util_explain.py'>utilmy/nlp/util_explain.py</a> | function | <a href='.//utilmy/nlp/util_explain.py#L52'>test2</a> |  |
 | <a name='utilmy/nlp/util_explain.py' href='.//utilmy/nlp/util_explain.py'>utilmy/nlp/util_explain.py</a> | function | <a href='.//utilmy/nlp/util_explain.py#L32'>test_all</a> | log<br>test1<br>test2<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/nlp/util_gensim.py' href='.//utilmy/nlp/util_gensim.py'>utilmy/nlp/util_gensim.py</a> | function | <a href='.//utilmy/nlp/util_gensim.py#L134'>bigram_get_list</a> | db_cocount_name.get<br>len<br>lname.split<br>db_cocount_proba.get<br>float<br> |
 | <a name='utilmy/nlp/util_gensim.py' href='.//utilmy/nlp/util_gensim.py'>utilmy/nlp/util_gensim.py</a> | function | <a href='.//utilmy/nlp/util_gensim.py#L121'>bigram_get_seq3</a> | ccount_get_sample<br>str<br> |
@@ -1572,6 +1662,7 @@ Repo: ./
 | <a name='utilmy/nlp/util_gensim.py' href='.//utilmy/nlp/util_gensim.py'>utilmy/nlp/util_gensim.py</a> | function | <a href='.//utilmy/nlp/util_gensim.py#L320'>text_generate_random_sentences</a> | DocumentGenerator<br>WordNetLemmatizer<br>range<br>os_makedirs<br>open<br>fp.write<br> |
 | <a name='utilmy/nlp/util_gensim.py' href='.//utilmy/nlp/util_gensim.py'>utilmy/nlp/util_gensim.py</a> | function | <a href='.//utilmy/nlp/util_gensim.py#L305'>text_preprocess</a> | sentence.lower<br>re.sub<br> |
 | <a name='utilmy/nlp/util_gensim.py' href='.//utilmy/nlp/util_gensim.py'>utilmy/nlp/util_gensim.py</a> | function | <a href='.//utilmy/nlp/util_gensim.py#L185'>write_random_sentences_from_bigrams_to_file</a> | os_makedirs<br>generate_random_bigrams<br>open<br>range<br>random.choice<br>fp.write<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/nlp/util_nlp.py' href='.//utilmy/nlp/util_nlp.py'>utilmy/nlp/util_nlp.py</a> | function | <a href='.//utilmy/nlp/util_nlp.py#L88'>add_detect_lang</a> | data.copy<br>langdetect.detect<br>x.strip<br> |
 | <a name='utilmy/nlp/util_nlp.py' href='.//utilmy/nlp/util_nlp.py'>utilmy/nlp/util_nlp.py</a> | function | <a href='.//utilmy/nlp/util_nlp.py#L574'>add_encode_variable</a> | dict<br> |
@@ -1781,6 +1872,8 @@ Repo: ./
 | <a name='utilmy/optim/gp_formulae.py' href='.//utilmy/optim/gp_formulae.py'>utilmy/optim/gp_formulae.py</a> | function | <a href='.//utilmy/optim/gp_formulae.py#L388'>search</a> | levyFlight<br>randF<br>range<br>var_levy.append<br>offsprings<br>while<br>choices<br>min<br>key=itemgetter<br>randint<br>is_valid<br>random_walker<br>len<br>return<br>random_solution<br>nest.append<br>nest.sort<br>itemgetter<br>deepcopy<br>get_cost<br>ls_trace.append<br>open<br>f.write<br>round<br>print<br> |
 | <a name='utilmy/optim/gp_formulae.py' href='.//utilmy/optim/gp_formulae.py'>utilmy/optim/gp_formulae.py</a> | function | <a href='.//utilmy/optim/gp_formulae.py#L41'>sigint_handler</a> | round<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/nlp/util_ner.py' href='.//utilmy/nlp/util_ner.py'>utilmy/nlp/util_ner.py</a> | function | <a href='.//utilmy/nlp/util_ner.py#L308'>add_encode_variable</a> | dict<br> |
 | <a name='utilmy/nlp/util_ner.py' href='.//utilmy/nlp/util_ner.py'>utilmy/nlp/util_ner.py</a> | function | <a href='.//utilmy/nlp/util_ner.py#L160'>add_ner_spacy</a> | spacy.load<br>data.copy<br>print<br>utils_ner_text<br>utils_lst_count<br>dic.keys<br>tags_set.append<br>list<br>utils_ner_features<br> |
 | <a name='utilmy/nlp/util_ner.py' href='.//utilmy/nlp/util_ner.py'>utilmy/nlp/util_ner.py</a> | function | <a href='.//utilmy/nlp/util_ner.py#L293'>dtf_partitioning</a> | model_selection.train_test_split<br>print<br>dtf_train.drop<br>dtf_test.drop<br>round<br> |
@@ -1941,6 +2034,9 @@ Repo: ./
 | <a name='utilmy/optim/gp.py' href='.//utilmy/optim/gp.py'>utilmy/optim/gp.py</a> | function | <a href='.//utilmy/optim/gp.py#L2'>run</a> | warnings.filterwarnings<br>sigint_handler<br>round<br>print<br>sys.exit<br>signal.signal<br>log<br>get_correlm<br>str<br>range<br>enumerate<br>rank_generate_fake<br>rank_merge_v5<br>correls.append<br>np.mean<br>rank_score<br>eval<br>len<br>isinstance<br>np.array<br>np.arange<br>np.argsort<br>sample<br>random_vals.append<br>shuffle<br>list<br>is_valid<br>allUnique<br>any<br>seen.append<br>NP.append<br>node.append<br>dic_nodes.values<br>ls.append<br>set<br>random_solution<br>randint<br>G.append<br>nodes_to_process<br>decode<br>nodes.keys<br>eqn.values<br>nodes.items<br>eqn.pop<br>random_walker<br>deepcopy<br>randrange<br>not<br>get_cost<br>normalize<br>denormalize<br>return<br>search<br>levyFlight<br>randF<br>var_levy.append<br>offsprings<br>while<br>choices<br>min<br>key=itemgetter<br>nest.append<br>nest.sort<br>itemgetter<br>ls_trace.append<br>open<br>f.write<br> |
 | <a name='utilmy/optim/gp_dcgp.py' href='.//utilmy/optim/gp_dcgp.py'>utilmy/optim/gp_dcgp.py</a> | function | <a href='.//utilmy/optim/gp_dcgp.py#L2'>run4</a> | warnings.filterwarnings<br>kernel_set<br>round<br>range<br>symbols.append<br>print<br>get_random_solution<br>expression<br>ks<br>int<br>get_correlm<br>str<br>enumerate<br>rank_generate_fake<br>rank_merge_v5<br>correls.append<br>np.mean<br>rank_score<br>eval<br>len<br>isinstance<br>np.array<br>np.arange<br>np.argsort<br>random.sample<br>random_vals.append<br>random.shuffle<br>list<br>get_cost<br>normalize<br>denormalize<br>return<br>search<br>levyFlight<br>randF<br>var_levy.append<br>nest.append<br>nest.sort<br>itemgetter<br>random.randint<br>deepcopy<br>ls_trace.append<br>open<br>f.write<br> |
 | <a name='utilmy/optim/gp_formulae.py' href='.//utilmy/optim/gp_formulae.py'>utilmy/optim/gp_formulae.py</a> | function | <a href='.//utilmy/optim/gp_formulae.py#L2'>run1</a> | warnings.filterwarnings<br>sigint_handler<br>round<br>print<br>sys.exit<br>signal.signal<br>log<br>get_correlm<br>str<br>range<br>enumerate<br>rank_generate_fake<br>rank_merge_v5<br>correls.append<br>np.mean<br>rank_score<br>eval<br>len<br>isinstance<br>np.array<br>np.arange<br>np.argsort<br>sample<br>random_vals.append<br>shuffle<br>list<br>is_valid<br>allUnique<br>any<br>seen.append<br>NP.append<br>node.append<br>dic_nodes.values<br>ls.append<br>set<br>random_solution<br>randint<br>G.append<br>NodesToProcess<br>decode<br>nodes.keys<br>eqn.values<br>nodes.items<br>eqn.pop<br>random_walker<br>deepcopy<br>randrange<br>not<br>get_cost<br>normalize<br>denormalize<br>return<br>search<br>levyFlight<br>randF<br>var_levy.append<br>offsprings<br>while<br>choices<br>min<br>key=itemgetter<br>nest.append<br>nest.sort<br>itemgetter<br>ls_trace.append<br>open<br>f.write<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/optim/util_hyper.py' href='.//utilmy/optim/util_hyper.py'>utilmy/optim/util_hyper.py</a> | function | <a href='.//utilmy/optim/util_hyper.py#L160'>create_model_name</a> |  |
 | <a name='utilmy/optim/util_hyper.py' href='.//utilmy/optim/util_hyper.py'>utilmy/optim/util_hyper.py</a> | function | <a href='.//utilmy/optim/util_hyper.py#L313'>data_loader</a> | pd.read_csv<br>pd.to_datetime<br>MinMaxScaler<br>minmax.transform<br>pd.DataFrame<br> |
@@ -1952,6 +2048,7 @@ Repo: ./
 | <a name='utilmy/optim/util_hyper.py' href='.//utilmy/optim/util_hyper.py'>utilmy/optim/util_hyper.py</a> | function | <a href='.//utilmy/optim/util_hyper.py#L326'>test_all</a> | data_loader<br>optim<br>print<br> |
 | <a name='utilmy/optim/util_hyper.py' href='.//utilmy/optim/util_hyper.py'>utilmy/optim/util_hyper.py</a> | function | <a href='.//utilmy/optim/util_hyper.py#L339'>test_fast</a> | data_loader<br>optim<br>print<br> |
 | <a name='utilmy/optim/util_optim.py' href='.//utilmy/optim/util_optim.py'>utilmy/optim/util_optim.py</a> | function | <a href='.//utilmy/optim/util_optim.py#L5'>test_use_operon</a> | fetch_data<br>train_test_split<br>SymbolicRegressor<br>reg.fit<br>print<br>reg.predict<br>r2_score<br>RSquared<br>pearsonr<br>make_scorer<br>cross_val_score<br>scores.std<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/parallel.py' href='.//utilmy/parallel.py'>utilmy/parallel.py</a> | function | <a href='.//utilmy/parallel.py#L17'>help</a> | print<br>help_create<br> |
 | <a name='utilmy/parallel.py' href='.//utilmy/parallel.py'>utilmy/parallel.py</a> | function | <a href='.//utilmy/parallel.py#L491'>multiproc_run</a> | isinstance<br>len<br>functools.partial<br>range<br>enumerate<br>log<br>mp.Pool<br>time.sleep<br>job_list.append<br>res_list.append<br>pool.close<br>pool.join<br> |
@@ -2068,6 +2165,8 @@ Repo: ./
 | <a name='utilmy/prepro/run_feature_profile.py' href='.//utilmy/prepro/run_feature_profile.py'>utilmy/prepro/run_feature_profile.py</a> | function | <a href='.//utilmy/prepro/run_feature_profile.py#L23'>log</a> | print<br> |
 | <a name='utilmy/prepro/run_feature_profile.py' href='.//utilmy/prepro/run_feature_profile.py'>utilmy/prepro/run_feature_profile.py</a> | function | <a href='.//utilmy/prepro/run_feature_profile.py#L32'>run_profile</a> | os.makedirs<br>log<br>json.load<br>cols_group.get<br>pd_read_file<br>list<br>open<br>json.dump<br>fp.write<br>pd.read_csv<br>pd.merge<br>df.profile_report<br>profile.to_file<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/parallel.py' href='.//utilmy/parallel.py'>utilmy/parallel.py</a> | function | <a href='.//utilmy/parallel.py#L18'>help</a> | print<br>help_create<br> |
 | <a name='utilmy/parallel.py' href='.//utilmy/parallel.py'>utilmy/parallel.py</a> | function | <a href='.//utilmy/parallel.py#L501'>multiproc_run</a> | isinstance<br>len<br>functools.partial<br>range<br>enumerate<br>log<br>mp.Pool<br>time.sleep<br>job_list.append<br>res_list.append<br>pool.close<br>pool.join<br> |
 | <a name='utilmy/parallel.py' href='.//utilmy/parallel.py'>utilmy/parallel.py</a> | function | <a href='.//utilmy/parallel.py#L615'>multiproc_tochunk</a> | len<br>range<br>ll.append<br>log<br>str<br> |
@@ -2183,6 +2282,9 @@ Repo: ./
 | <a name='utilmy/prepro/prepro_tseries.py' href='.//utilmy/prepro/prepro_tseries.py'>utilmy/prepro/prepro_tseries.py</a> | function | <a href='.//utilmy/prepro/prepro_tseries.py#L603'>test_prepro_v1</a> | test_get_sampledata<br>pd_ts_date<br>pd_ts_onehot<br>pd_ts_difference<br> |
 | <a name='utilmy/prepro/run_feature_profile.py' href='.//utilmy/prepro/run_feature_profile.py'>utilmy/prepro/run_feature_profile.py</a> | function | <a href='.//utilmy/prepro/run_feature_profile.py#L23'>log</a> | print<br> |
 | <a name='utilmy/prepro/run_feature_profile.py' href='.//utilmy/prepro/run_feature_profile.py'>utilmy/prepro/run_feature_profile.py</a> | function | <a href='.//utilmy/prepro/run_feature_profile.py#L40'>run_profile</a> | os.makedirs<br>log<br>json.load<br>cols_group.get<br>pd_read_file<br>list<br>open<br>json.dump<br>fp.write<br>pd.read_csv<br>pd.merge<br>df.profile_report<br>profile.to_file<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L1388'>col_extractname</a> | len<br>colnew.append<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L1411'>col_remove</a> | cols.remove<br>cols3.append<br> |
@@ -2195,17 +2297,23 @@ Repo: ./
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L386'>fetch_dataset</a> | log<br>mkdtemp<br>pathlib.Path<br>mktemp<br>url_dataset.replace<br>urlx.replace<br>urlpath.split<br>os.makedirs<br>requests.Session<br>s.get<br>print<br>open<br>f.write<br>res.raise_for_status<br>urlparse<br>parse_qs<br>download_googledrive<br>download_dtopbox<br>os.listdir<br>os.unlink<br>os.link<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L378'>fetch_spark_koalas</a> | path_data_x.replace<br>ks.read_parquet<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L228'>load</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L491'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L12'>log</a> | print<br>log2<br>log3<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L228'>load</a> | pickle.load<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L491'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L12'>log</a> | print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L18'>log2</a> | print<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L21'>log3</a> | print<br> |
@@ -2241,7 +2349,11 @@ Repo: ./
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L1505'>pd_stat_shift_trend_changes</a> | target_diffs.fillna<br>target_diffs.divide<br>target_diffs_norm.diff<br>target_diffs_lvl2.fillna<br>int<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L1529'>pd_stat_shift_trend_correlation</a> | df.merge<br>pd.isnull<br>len<br>np.corrcoef<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L221'>save</a> | os.makedirs<br>isinstance<br>log<br>list<br>df0.to_parquet<br> |
+=======
+| <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
 >>>>>>> origin/main
@@ -2253,6 +2365,7 @@ Repo: ./
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | function | <a href='.//utilmy/prepro/util_feature.py#L713'>test_normality</a> | shapiro<br>dict<br>anderson<br>kstest<br> |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | class | <a href='.//utilmy/prepro/util_feature.py#L28'>dict2</a> |  |
 | <a name='utilmy/prepro/util_feature.py' href='.//utilmy/prepro/util_feature.py'>utilmy/prepro/util_feature.py</a> | method | <a href='.//utilmy/prepro/util_feature.py#L29'>dict2:__init__</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L935'>_p_val</a> | scs.binom<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L928'>_pooled_SE</a> | _pooled_prob<br>np.sqrt<br> |
@@ -2286,6 +2399,8 @@ Repo: ./
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L254'>test_zplot</a> | plt.subplots<br>zplot<br>plt.close<br>np.frombuffer<br>data.reshape<br>data.mean<br>assert_almost_equal<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L744'>zplot</a> | scs.norm<br>np.linspace<br>norm.pdf<br>ax.plot<br>norm.ppf<br>ax.vlines<br>ax.fill_between<br>plt.xlabel<br>plt.ylabel<br>plt.text<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L996'>_p_val</a> | scs.binom<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L989'>_pooled_SE</a> | _pooled_prob<br>np.sqrt<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L984'>_pooled_prob</a> |  |
@@ -2317,6 +2432,9 @@ Repo: ./
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L227'>test_plot_binom_dist</a> | get_ab_test_data<br>plt.subplots<br>plot_binom_dist<br>plt.close<br>np.frombuffer<br>data.reshape<br>data.mean<br>assert_almost_equal<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L305'>test_zplot</a> | plt.subplots<br>zplot<br>plt.close<br>np.frombuffer<br>data.reshape<br>data.mean<br>assert_almost_equal<br> |
 | <a name='utilmy/recsys/ab.py' href='.//utilmy/recsys/ab.py'>utilmy/recsys/ab.py</a> | function | <a href='.//utilmy/recsys/ab.py#L805'>zplot</a> | scs.norm<br>np.linspace<br>norm.pdf<br>ax.plot<br>norm.ppf<br>ax.vlines<br>ax.fill_between<br>plt.xlabel<br>plt.ylabel<br>plt.text<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L572'>_mean_ranking_metric</a> | len<br>ValueError<br>np.mean<br>metric<br>np.asarray<br>range<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L566'>_require_positive_k</a> | ValueError<br> |
@@ -2326,6 +2444,7 @@ Repo: ./
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L530'>coverage_at_k</a> | set<br>len<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L48'>help</a> | help_create<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L492'>hit_rate_at_k</a> | hit_rate_at_k<br>zip<br>len<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L487'>hit_rate_at_k_nep</a> | hit_rate_at_k<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L247'>intra_list_similarity</a> | feature_df.fillna<br>range<br>np.mean<br> |
@@ -2334,6 +2453,8 @@ Repo: ./
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L105'>metrics_calc_batch</a> | glob.glob<br>metrics_calc<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L511'>mrr_at_k</a> | mrr_at_k<br>zip<br>enumerate<br>rr.append<br>len<br>np.mean<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L492'>hit_rate_at_k</a> | zip<br>len<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L487'>hit_rate_at_k_nep</a> | hit_rate_at_k<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L247'>intra_list_similarity</a> | feature_df.fillna<br>range<br>np.mean<br> |
@@ -2341,6 +2462,9 @@ Repo: ./
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L122'>metrics_calc</a> | isinstance<br>pd_read_file<br>df.sample<br>x.split<br>Box<br>personalization<br>catalog_coverage<br>catalog=list<br>intra_list_similarity<br>recall_average_at_k_mean<br>novelty<br>n=max<br>len<br>recommender_precision<br>recommender_recall<br>pd.DataFrame<br>pd_to_file<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L105'>metrics_calc_batch</a> | glob.glob<br>metrics_calc<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L511'>mrr_at_k</a> | zip<br>enumerate<br>rr.append<br>len<br>np.mean<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L500'>mrr_at_k_nep</a> | mrr_at_k<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L710'>ndcg_at_k</a> | _require_positive_k<br>_inner_ndcg<br>np.unique<br>np.arange<br>np.log2<br>np.in1d<br>_warn_for_empty_labels<br>_mean_ranking_metric<br> |
@@ -2348,7 +2472,11 @@ Repo: ./
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L183'>personalization</a> | make_rec_matrix<br>pd.DataFrame<br>pd.notna<br>sp.csr_matrix<br>np.array<br>cosine_similarity<br> |
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L538'>popularity_bias_at_k</a> | collections.defaultdict<br>pop_map.items<br>sum<br>len<br>all_popularity.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L594'>precision_at</a> | len<br>zip<br>np.average<br> |
+=======
+| <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L594'>precision_at</a> | _require_positive_k<br>_inner_pk<br>min<br>np.in1d<br>float<br>_warn_for_empty_labels<br>_mean_ranking_metric<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/recsys/metric.py' href='.//utilmy/recsys/metric.py'>utilmy/recsys/metric.py</a> | function | <a href='.//utilmy/recsys/metric.py#L594'>precision_at</a> | _require_positive_k<br>_inner_pk<br>min<br>np.in1d<br>float<br>_warn_for_empty_labels<br>_mean_ranking_metric<br> |
 >>>>>>> origin/main
@@ -2370,15 +2498,21 @@ Repo: ./
 | <a name='utilmy/recsys/metrics/distance_metrics.py' href='.//utilmy/recsys/metrics/distance_metrics.py'>utilmy/recsys/metrics/distance_metrics.py</a> | function | <a href='.//utilmy/recsys/metrics/distance_metrics.py#L105'>graph_distance_test</a> | sample_misses_at_k<br>zip<br>json.loads<br>list<br>nx.Graph<br>G.add_nodes_from<br>G.add_edges_from<br>min<br>len<br>path_lengths.append<br>np.histogram<br>max<br>mean<br> |
 | <a name='utilmy/recsys/metrics/distance_metrics.py' href='.//utilmy/recsys/metrics/distance_metrics.py'>utilmy/recsys/metrics/distance_metrics.py</a> | function | <a href='.//utilmy/recsys/metrics/distance_metrics.py#L97'>shortest_path_length</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L445'>run_SLIM</a> | itertools.product<br>print<br>vstack<br>SLIMatrix<br>SLIM<br>model.train<br>model.save_model<br>read_csr<br>open<br>enumerate<br>line.split<br>all_cols.extend<br>all_vals.extend<br>all_rows.extend<br>np.array<br>coo_matrix<br>S_SLIM.todense<br>list<br>util.evaluate<br>NDCG_values.append<br>np.max<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L157'>run_VLM</a> | csr_matrix<br>list<br>lil_matrix<br>X_train_full.tocsr<br>tf.reset_default_graph<br>tf.Graph<br>VLM<br>model.construct_graph<br>tf.placeholder<br>tf.global_variables_initializer<br>tf.ConfigProto<br>tf.Session<br>sess.run<br>trange<br>enumerate<br>len<br>min<br>max<br>progress_bar.set_postfix<br>util.evaluate<br>run_VLM_PyTorch<br>np.ones<br>np.asarray<br>val_dict.values<br>VLM_PyTorch<br>int<br>compute_kl_div<br>torch.exp<br>np.log<br>sdev_Zu_batch.pow<br>torch.sum<br>loss_function<br>scores.masked_fill<br>torch.mean<br>torch.norm<br>torch.from_numpy<br>model.train<br>optimizer.zero_grad<br>model<br>loss.backward<br>loss.item<br>optimizer.step<br>t.set_postfix<br>print<br>torch.no_grad<br>pred_test.append<br>np.vstack<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L275'>run_VLM_PyTorch</a> | np.ones<br>np.asarray<br>val_dict.values<br>csr_matrix<br>VLM_PyTorch<br>int<br>compute_kl_div<br>torch.exp<br>np.log<br>sdev_Zu_batch.pow<br>torch.sum<br>loss_function<br>scores.masked_fill<br>torch.mean<br>torch.norm<br>torch.from_numpy<br>trange<br>model.train<br>enumerate<br>optimizer.zero_grad<br>model<br>loss.backward<br>loss.item<br>optimizer.step<br>len<br>t.set_postfix<br>print<br>torch.no_grad<br>pred_test.append<br>np.vstack<br>util.evaluate<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L32'>run_cVAE</a> | VAE<br>int<br>loss_function<br>torch.sum<br>torch.sigmoid<br>mu.pow<br>logvar.exp<br>torch.from_numpy<br>trange<br>model.train<br>enumerate<br>optimizer.zero_grad<br>model<br>loss.backward<br>loss.item<br>optimizer.step<br>len<br>t.set_postfix<br>print<br>torch.log<br>list<br>torch.no_grad<br>pred_test.append<br>np.vstack<br>util.evaluate<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L491'>run_SLIM</a> | itertools.product<br>print<br>vstack<br>SLIMatrix<br>SLIM<br>model.train<br>model.save_model<br>read_csr<br>open<br>enumerate<br>line.split<br>all_cols.extend<br>all_vals.extend<br>all_rows.extend<br>np.array<br>coo_matrix<br>S_SLIM.todense<br>list<br>util.evaluate<br>NDCG_values.append<br>np.max<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L176'>run_VLM</a> | csr_matrix<br>list<br>lil_matrix<br>X_train_full.tocsr<br>tf.reset_default_graph<br>tf.Graph<br>VLM<br>model.construct_graph<br>tf.placeholder<br>tf.global_variables_initializer<br>tf.ConfigProto<br>tf.Session<br>sess.run<br>trange<br>enumerate<br>len<br>min<br>max<br>progress_bar.set_postfix<br>util.evaluate<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L307'>run_VLM_PyTorch</a> | np.ones<br>np.asarray<br>val_dict.values<br>csr_matrix<br>VLM_PyTorch<br>int<br>compute_kl_div<br>torch.exp<br>np.log<br>sdev_Zu_batch.pow<br>torch.sum<br>loss_function<br>scores.masked_fill<br>torch.mean<br>torch.norm<br>torch.from_numpy<br>trange<br>model.train<br>enumerate<br>optimizer.zero_grad<br>model<br>loss.backward<br>loss.item<br>optimizer.step<br>len<br>t.set_postfix<br>print<br>torch.no_grad<br>pred_test.append<br>np.vstack<br>util.evaluate<br> |
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L40'>run_cVAE</a> | VAE<br>int<br>loss_function<br>torch.sum<br>torch.sigmoid<br>mu.pow<br>logvar.exp<br>torch.from_numpy<br>trange<br>model.train<br>enumerate<br>optimizer.zero_grad<br>model<br>loss.backward<br>loss.item<br>optimizer.step<br>len<br>t.set_postfix<br>print<br>torch.log<br>list<br>torch.no_grad<br>pred_test.append<br>np.vstack<br>util.evaluate<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/models/CEASE/models.py' href='.//utilmy/recsys/models/CEASE/models.py'>utilmy/recsys/models/CEASE/models.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/models.py#L20'>run_itemknn</a> | util.compute_cosine<br>list<br>util.evaluate<br> |
 | <a name='utilmy/recsys/models/CEASE/util.py' href='.//utilmy/recsys/models/CEASE/util.py'>utilmy/recsys/models/CEASE/util.py</a> | function | <a href='.//utilmy/recsys/models/CEASE/util.py#L53'>compute_EASE</a> | np.identity<br> |
@@ -2406,6 +2540,7 @@ Repo: ./
 | <a name='utilmy/recsys/models/dynaEASE/util.py' href='.//utilmy/recsys/models/dynaEASE/util.py'>utilmy/recsys/models/dynaEASE/util.py</a> | function | <a href='.//utilmy/recsys/models/dynaEASE/util.py#L40'>print_summary</a> | print<br> |
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | class | <a href='.//utilmy/recsys/models/ease.py#L16'>EASE</a> |  |
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L17'>EASE:__init__</a> | LabelEncoder<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L21'>EASE:_get_users_and_items</a> |  |
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L26'>EASE:fit</a> | self._get_users_and_items<br>np.ones<br>csr_matrix<br>np.diag_indices<br>X.dot<br> |
@@ -2489,6 +2624,8 @@ Repo: ./
 | <a name='utilmy/recsys/util_rec.py' href='.//utilmy/recsys/util_rec.py'>utilmy/recsys/util_rec.py</a> | method | <a href='.//utilmy/recsys/util_rec.py#L385'>BaseCrossValidator:split</a> | X.nonzero<br>self._iter_train_mask<br>_make_sparse_tr_te<br> |
 | <a name='utilmy/recsys/util_rec.py' href='.//utilmy/recsys/util_rec.py'>utilmy/recsys/util_rec.py</a> | method | <a href='.//utilmy/recsys/util_rec.py#L409'>BootstrapCV:_iter_train_mask</a> | check_random_state<br>range<br>_get_stratified_tr_mask<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L26'>EASE:_get_users_and_items</a> |  |
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L37'>EASE:fit</a> | self._get_users_and_items<br>np.ones<br>csr_matrix<br>np.diag_indices<br>X.dot<br> |
 | <a name='utilmy/recsys/models/ease.py' href='.//utilmy/recsys/models/ease.py'>utilmy/recsys/models/ease.py</a> | method | <a href='.//utilmy/recsys/models/ease.py#L59'>EASE:predict</a> | pd.DataFrame<br>dd.groupby<br>tqdm<br>set<br>np.take<br>np.argpartition<br>len<br>df.append<br> |
@@ -2646,6 +2783,9 @@ Repo: ./
 | <a name='utilmy/recsys/util_rec.py' href='.//utilmy/recsys/util_rec.py'>utilmy/recsys/util_rec.py</a> | method | <a href='.//utilmy/recsys/util_rec.py#L426'>BaseCrossValidator:get_n_splits</a> |  |
 | <a name='utilmy/recsys/util_rec.py' href='.//utilmy/recsys/util_rec.py'>utilmy/recsys/util_rec.py</a> | method | <a href='.//utilmy/recsys/util_rec.py#L434'>BaseCrossValidator:split</a> | X.nonzero<br>self._iter_train_mask<br>_make_sparse_tr_te<br> |
 | <a name='utilmy/recsys/util_rec.py' href='.//utilmy/recsys/util_rec.py'>utilmy/recsys/util_rec.py</a> | method | <a href='.//utilmy/recsys/util_rec.py#L458'>BootstrapCV:_iter_train_mask</a> | check_random_state<br>range<br>_get_stratified_tr_mask<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/vectors.py' href='.//utilmy/recsys/vectors.py'>utilmy/recsys/vectors.py</a> | function | <a href='.//utilmy/recsys/vectors.py#L6'>log</a> | print<br> |
 | <a name='utilmy/recsys/vectors.py' href='.//utilmy/recsys/vectors.py'>utilmy/recsys/vectors.py</a> | function | <a href='.//utilmy/recsys/vectors.py#L11'>test</a> | VectorStorage<br>pd.DataFrame<br>vectorq.set<br>vectorq.get_table_all<br>VectorQuery<br>vectorq.insert<br>vectorq.save<br>vectorq.query<br> |
@@ -2670,6 +2810,7 @@ Repo: ./
 | <a name='utilmy/recsys/vectors.py' href='.//utilmy/recsys/vectors.py'>utilmy/recsys/vectors.py</a> | method | <a href='.//utilmy/recsys/vectors.py#L55'>VectorStore:table_update</a> | table_info<br>table_shape<br>get_multi<br>set_multi<br> |
 | <a name='utilmy/recsys/vectors.py' href='.//utilmy/recsys/vectors.py'>utilmy/recsys/vectors.py</a> | method | <a href='.//utilmy/recsys/vectors.py#L195'>VectorStoreCache:__init__</a> | fixedDict<br>cass_getconn<br>len<br> |
 | <a name='utilmy/recsys/vectors.py' href='.//utilmy/recsys/vectors.py'>utilmy/recsys/vectors.py</a> | method | <a href='.//utilmy/recsys/vectors.py#L205'>VectorStoreCache:get_multi</a> | log<br>len<br>miss.append<br>cass_get_itemvect_dict<br>res2.items<br>db_ivector.set<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py' href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py'>utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py#L83'>predict_als</a> | Timer<br>model.transform<br> |
 | <a name='utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py' href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py'>utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py#L183'>predict_fastai</a> | Timer<br>score<br> |
@@ -2707,6 +2848,8 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L60'>_create_vocab</a> | open<br>logger.info<br>line.strip<br>len<br>mid_list.split<br>cat_list.split<br>sorted<br>cPickle.dump<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L181'>_data_generating</a> | open<br>logger.info<br>line.strip<br>int<br>len<br>fo.write<br>movie_id_list.append<br>cate_list.append<br>dt_list.append<br>_data_generating_no_history_expanding<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py' href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py'>utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py#L104'>predict_als</a> | Timer<br>model.transform<br> |
 | <a name='utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py' href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py'>utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py#L273'>predict_fastai</a> | Timer<br>score<br> |
 | <a name='utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py' href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py'>utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/examples/06_benchmarks/benchmark_utils.py#L180'>predict_svd</a> | Timer<br>predict<br> |
@@ -2742,6 +2885,9 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L340'>_create_item2cate</a> | logger.info<br>pd.read_csv<br>instance_df.set_index<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L60'>_create_vocab</a> | open<br>logger.info<br>line.strip<br>len<br>mid_list.split<br>cat_list.split<br>sorted<br>cPickle.dump<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L181'>_data_generating</a> | open<br>logger.info<br>line.strip<br>int<br>len<br>fo.write<br>movie_id_list.append<br>cate_list.append<br>dt_list.append<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L255'>_data_generating_no_history_expanding</a> | open<br>logger.info<br>line.strip<br>int<br>len<br>fo.write<br>movie_id_list.append<br>cate_list.append<br>dt_list.append<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py'>utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/amazon_reviews.py#L444'>_data_processing</a> | logger.info<br>open<br>line.strip<br>line.split<br>f_input.seek<br>f_output.write<br> |
@@ -2772,6 +2918,7 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/download_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/download_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/download_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/download_utils.py#L20'>maybe_download</a> | url.split<br>os.makedirs<br>requests.get<br>log.info<br>int<br>math.ceil<br>open<br>tqdm<br>r.iter_content<br>file.write<br>log.error<br>r.raise_for_status<br>os.stat<br>os.remove<br>IOError<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/download_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/download_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/download_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/download_utils.py#L92'>unzip_file</a> | zipfile.ZipFile<br>fz.namelist<br>fz.extract<br>os.remove<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L129'>_newsample</a> | len<br>random.sample<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L210'>_read_news</a> | open<br>f.readlines<br>line.strip<br>tokenizer.tokenize<br>json.loads<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L246'>download_and_extract_glove</a> | maybe_download<br>unzip_file<br> |
@@ -2818,6 +2965,8 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py#L441'>PandasHash:__hash__</a> | tuple<br>isinstance<br>hash<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py#L418'>PandasHash:__init__</a> | isinstance<br>TypeError<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L217'>_read_news</a> | open<br>f.readlines<br>line.strip<br>tokenizer.tokenize<br>json.loads<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L262'>download_and_extract_glove</a> | maybe_download<br>unzip_file<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/mind.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py'>utilmy/recsys/zrecs/recommenders/datasets/mind.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/mind.py#L51'>download_mind</a> | ValueError<br>download_path<br>maybe_download<br> |
@@ -2862,6 +3011,9 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py#L435'>PandasHash:__eq__</a> | hash<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py#L447'>PandasHash:__hash__</a> | tuple<br>isinstance<br>hash<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/pandas_df_utils.py#L424'>PandasHash:__init__</a> | isinstance<br>TypeError<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py'>utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py#L47'>_do_stratification</a> | ValueError<br>process_split_ratio<br>min_rating_filter_pandas<br>data.sort_values<br>data.groupby<br>split_pandas_data_with_ratios<br>pd.concat<br>splits.append<br>range<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py'>utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/python_splitters.py#L210'>numpy_stratified_split</a> | int<br>X.copy<br>np.sum<br>np.around<br>range<br>np.asarray<br>list<br> |
@@ -2883,7 +3035,11 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/split_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/split_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py#L84'>min_rating_filter_spark</a> | _get_column_name<br>ValueError<br>Window.partitionBy<br>data.withColumn<br>F.count<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/split_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/split_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py#L16'>process_split_ratio</a> | isinstance<br>ValueError<br>any<br>math.fsum<br>TypeError<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/split_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/split_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py#L136'>split_pandas_data_with_ratios</a> | math.fsum<br>ValueError<br>np.cumsum<br>data.sample<br>np.split<br>len<br>range<br> |
+=======
+| <a name='utilmy/recsys/zrecs/recommenders/datasets/split_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/split_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py#L144'>split_pandas_data_with_ratios</a> | math.fsum<br>ValueError<br>np.cumsum<br>data.sample<br>np.split<br>len<br>range<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/recsys/zrecs/recommenders/datasets/split_utils.py' href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py'>utilmy/recsys/zrecs/recommenders/datasets/split_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/datasets/split_utils.py#L144'>split_pandas_data_with_ratios</a> | math.fsum<br>ValueError<br>np.cumsum<br>data.sample<br>np.split<br>len<br>range<br> |
 >>>>>>> origin/main
@@ -2931,6 +3087,7 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | class | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L33'>SparkRatingEvaluation</a> |  |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L36'>SparkDiversityEvaluation:__init__</a> | train_df.select<br>reco_df.select<br>F.lit<br>F.col<br>StructType<br>StructField<br>IntegerType<br>VectorUDT<br>str<br>Exception<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L634'>SparkDiversityEvaluation:_get_cooccurrence_similarity</a> | self._get_pairwise_items<br>pairs.groupBy<br>item_count.select<br>F.col<br>F.pow<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L620'>SparkDiversityEvaluation:_get_cosine_similarity</a> | self._get_cooccurrence_similarity<br>self._get_item_feature_similarity<br>Exception<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L708'>SparkDiversityEvaluation:_get_intralist_similarity</a> | self._get_pairwise_items<br>self._get_cosine_similarity<br>pairs.join<br>F.col<br> |
@@ -2947,6 +3104,8 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L824'>SparkDiversityEvaluation:user_item_serendipity</a> | self._get_cosine_similarity<br>F.col<br>F.least<br>F.greatest<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L882'>SparkDiversityEvaluation:user_serendipity</a> | self.user_item_serendipity<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L640'>SparkDiversityEvaluation:_get_cooccurrence_similarity</a> | self._get_pairwise_items<br>pairs.groupBy<br>item_count.select<br>F.col<br>F.pow<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L620'>SparkDiversityEvaluation:_get_cosine_similarity</a> | self._get_cooccurrence_similarity<br>self._get_item_feature_similarity<br>Exception<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L721'>SparkDiversityEvaluation:_get_intralist_similarity</a> | self._get_pairwise_items<br>self._get_cosine_similarity<br>pairs.join<br>F.col<br> |
@@ -2962,6 +3121,9 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L744'>SparkDiversityEvaluation:user_diversity</a> | self._get_intralist_similarity<br>F.col<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L837'>SparkDiversityEvaluation:user_item_serendipity</a> | self._get_cosine_similarity<br>F.col<br>F.least<br>F.greatest<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L895'>SparkDiversityEvaluation:user_serendipity</a> | self.user_item_serendipity<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L36'>SparkRankingEvaluation:__init__</a> | isinstance<br>TypeError<br>ValueError<br>str<br>list<br>self._calculate_metrics<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py' href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py'>utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/evaluation/spark_evaluation.py#L286'>SparkRankingEvaluation:_calculate_metrics</a> | RankingMetrics<br> |
@@ -3002,6 +3164,7 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/utils/spark_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/spark_utils.py'>utilmy/recsys/zrecs/recommenders/utils/spark_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/spark_utils.py#L14'>start_or_get_spark</a> | config.items<br>isinstance<br>spark_opts.append<br>eval<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L102'>_dataset</a> | dataset.shuffle<br>warnings.warn<br>dataset.repeat<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L120'>build_optimizer</a> | name.lower<br>KeyError<br>kwargs.get<br>optimizer_class<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L194'>evaluation_log_hook</a> | _TrainLogHook<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L155'>export_model</a> | exported_path.decode<br> |
@@ -3027,6 +3190,8 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/utils/timer.py' href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py'>utilmy/recsys/zrecs/recommenders/utils/timer.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py#L44'>Timer:start</a> | self._timer<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/timer.py' href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py'>utilmy/recsys/zrecs/recommenders/utils/timer.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py#L49'>Timer:stop</a> | self._timer<br>ValueError<br>start<br>Timer<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L131'>build_optimizer</a> | name.lower<br>KeyError<br>kwargs.get<br>optimizer_class<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L205'>evaluation_log_hook</a> | _TrainLogHook<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/tf_utils.py' href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py'>utilmy/recsys/zrecs/recommenders/utils/tf_utils.py</a> | function | <a href='.//utilmy/recsys/zrecs/recommenders/utils/tf_utils.py#L166'>export_model</a> | exported_path.decode<br> |
@@ -3051,6 +3216,9 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/recommenders/utils/timer.py' href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py'>utilmy/recsys/zrecs/recommenders/utils/timer.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py#L82'>Timer:interval</a> | ValueError<br>stop<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/timer.py' href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py'>utilmy/recsys/zrecs/recommenders/utils/timer.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py#L65'>Timer:start</a> | self._timer<br> |
 | <a name='utilmy/recsys/zrecs/recommenders/utils/timer.py' href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py'>utilmy/recsys/zrecs/recommenders/utils/timer.py</a> | method | <a href='.//utilmy/recsys/zrecs/recommenders/utils/timer.py#L70'>Timer:stop</a> | self._timer<br>ValueError<br>start<br>Timer<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/tests/ci/run_pytest.py' href='.//utilmy/recsys/zrecs/tests/ci/run_pytest.py'>utilmy/recsys/zrecs/tests/ci/run_pytest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/ci/run_pytest.py#L18'>create_arg_parser</a> | argparse.ArgumentParser<br>parser.add_argument<br>parser.parse_args<br> |
 | <a name='utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py' href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py'>utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py#L251'>create_arg_parser</a> | argparse.ArgumentParser<br>parser.add_argument<br>parser.parse_args<br> |
@@ -3059,6 +3227,7 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py' href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py'>utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py#L102'>setup_persistent_compute_target</a> | logger.debug<br>ComputeTarget<br>AmlCompute.provisioning_configuration<br>ComputeTarget.create<br>cpu_cluster.wait_for_completion<br> |
 | <a name='utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py' href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py'>utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py#L51'>setup_workspace</a> | logger.debug<br>Workspace.get<br>Workspace.create<br> |
 | <a name='utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py' href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py'>utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/ci/submit_azureml_pytest.py#L197'>submit_experiment_to_azureml</a> | logger.debug<br>ScriptRunConfig<br>experiment.submit<br>run.wait_for_completion<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L408'>affinity_matrix</a> | s.append<br>numpy_stratified_split<br> |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L171'>criteo_first_row</a> |  |
@@ -3082,6 +3251,8 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L53'>tmp</a> | TemporaryDirectory<br> |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L134'>train_test_dummy_timestamp</a> | train_test_split<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L483'>affinity_matrix</a> | s.append<br>numpy_stratified_split<br> |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L226'>criteo_first_row</a> |  |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L543'>deeprec_config_path</a> | Path<br> |
@@ -3103,11 +3274,15 @@ Repo: ./
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L405'>test_specs_ncf</a> |  |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L58'>tmp</a> | TemporaryDirectory<br> |
 | <a name='utilmy/recsys/zrecs/tests/conftest.py' href='.//utilmy/recsys/zrecs/tests/conftest.py'>utilmy/recsys/zrecs/tests/conftest.py</a> | function | <a href='.//utilmy/recsys/zrecs/tests/conftest.py#L168'>train_test_dummy_timestamp</a> | train_test_split<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/recsys/zrecs/tools/databricks_install.py' href='.//utilmy/recsys/zrecs/tools/databricks_install.py'>utilmy/recsys/zrecs/tools/databricks_install.py</a> | function | <a href='.//utilmy/recsys/zrecs/tools/databricks_install.py#L74'>create_egg</a> | shutil.make_archive<br>os.unlink<br>os.rename<br> |
 | <a name='utilmy/recsys/zrecs/tools/databricks_install.py' href='.//utilmy/recsys/zrecs/tools/databricks_install.py'>utilmy/recsys/zrecs/tools/databricks_install.py</a> | function | <a href='.//utilmy/recsys/zrecs/tools/databricks_install.py#L105'>dbfs_file_exists</a> | DbfsApi<br> |
 | <a name='utilmy/recsys/zrecs/tools/databricks_install.py' href='.//utilmy/recsys/zrecs/tools/databricks_install.py'>utilmy/recsys/zrecs/tools/databricks_install.py</a> | function | <a href='.//utilmy/recsys/zrecs/tools/databricks_install.py#L124'>prepare_for_operationalization</a> | print<br>urlretrieve<br>Path<br>dbfs_file_exists<br>DbfsApi<br>libs2install.extend<br>LibrariesApi<br> |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L24'>config_default</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L65'>config_getdefault</a> |  |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L114'>main</a> | argparse.ArgumentParser<br>pars.add_argument<br>pars.parse_args<br>log<br>config_load<br>spark_init<br>importlib.import_module<br>job.run<br> |
@@ -3115,11 +3290,16 @@ Repo: ./
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L80'>spark_init</a> | SparkConf<br>conf.set<br>SparkContext.getOrCreate<br>SparkSession<br> |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L68'>test</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L70'>config_getdefault</a> |  |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L129'>main</a> | argparse.ArgumentParser<br>pars.add_argument<br>pars.parse_args<br>log<br>config_load<br>spark_init<br>importlib.import_module<br>job.run<br> |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L60'>pd_to_spark_hive_format</a> | fp.write<br> |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L95'>spark_init</a> | SparkConf<br>conf.set<br>SparkContext.getOrCreate<br>SparkSession<br> |
 | <a name='utilmy/spark/main.py' href='.//utilmy/spark/main.py'>utilmy/spark/main.py</a> | function | <a href='.//utilmy/spark/main.py#L78'>test</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/spark/script/pysparkTest.py' href='.//utilmy/spark/script/pysparkTest.py'>utilmy/spark/script/pysparkTest.py</a> | function | <a href='.//utilmy/spark/script/pysparkTest.py#L8'>inside</a> | random.random<br> |
 | <a name='utilmy/spark/src/functions/GetFamiliesFromUserAgent.py' href='.//utilmy/spark/src/functions/GetFamiliesFromUserAgent.py'>utilmy/spark/src/functions/GetFamiliesFromUserAgent.py</a> | function | <a href='.//utilmy/spark/src/functions/GetFamiliesFromUserAgent.py#L7'>getall_families_from_useragent</a> | uaParseCommon<br>all_families.get<br> |
@@ -3128,9 +3308,15 @@ Repo: ./
 | <a name='utilmy/spark/src/tables/table_predict_url_unique.py' href='.//utilmy/spark/src/tables/table_predict_url_unique.py'>utilmy/spark/src/tables/table_predict_url_unique.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_url_unique.py#L62'>preprocess</a> | log<br>Window.partitionBy<br>df.withColumn<br>F.lead<br>F.lag<br>Pipeline<br>ppl.fit<br>df.show<br>VectorAssembler<br>vector_assembler.setHandleInvalid<br>df_m.dropna<br>df_m.fillna<br> |
 | <a name='utilmy/spark/src/tables/table_predict_url_unique.py' href='.//utilmy/spark/src/tables/table_predict_url_unique.py'>utilmy/spark/src/tables/table_predict_url_unique.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_url_unique.py#L21'>run</a> | config_load<br>log<br>preprocess<br>spark_check<br>Train<br>Predict<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L173'>model_predict</a> | pd.read_parquet<br>dfmodel.set_index<br>predict_volume<br>str<br> |
 | <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L116'>model_train</a> | isinstance<br>df.toPandas<br>log<br>conf_model.get<br>str<br>df.groupby<br>pd.DataFrame<br>pd.date_range<br>df2.join<br>os.makedirs<br>df2.to_parquet<br> |
 | <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L82'>preprocess</a> | user_sessionDF.createOrReplaceTempView<br>date_format<br>from_unixtime<br>spark.sql<br>dfhisto.count<br>spark_check<br> |
+=======
+| <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L180'>model_predict</a> | pd.read_parquet<br>dfmodel.set_index<br>predict_volume<br>str<br> |
+| <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L123'>model_train</a> | isinstance<br>df.toPandas<br>log<br>conf_model.get<br>str<br>df.groupby<br>pd.DataFrame<br>pd.date_range<br>df2.join<br>os.makedirs<br>df2.to_parquet<br> |
+| <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L89'>preprocess</a> | user_sessionDF.createOrReplaceTempView<br>date_format<br>from_unixtime<br>spark.sql<br>dfhisto.count<br>spark_check<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L180'>model_predict</a> | pd.read_parquet<br>dfmodel.set_index<br>predict_volume<br>str<br> |
 | <a name='utilmy/spark/src/tables/table_predict_volume.py' href='.//utilmy/spark/src/tables/table_predict_volume.py'>utilmy/spark/src/tables/table_predict_volume.py</a> | function | <a href='.//utilmy/spark/src/tables/table_predict_volume.py#L123'>model_train</a> | isinstance<br>df.toPandas<br>log<br>conf_model.get<br>str<br>df.groupby<br>pd.DataFrame<br>pd.date_range<br>df2.join<br>os.makedirs<br>df2.to_parquet<br> |
@@ -3147,6 +3333,7 @@ Repo: ./
 | <a name='utilmy/spark/src/util_models.py' href='.//utilmy/spark/src/util_models.py'>utilmy/spark/src/util_models.py</a> | function | <a href='.//utilmy/spark/src/util_models.py#L49'>Train</a> | TimeSeriesSplit<br>if<br>LinearRegression<br>elif<br>RandomForestRegressor<br>Pipeline<br>pipeline.fit<br>pipeline.transform<br>RegressionEvaluator<br>evaluator.evaluate<br>log<br>pipeline.write<br> |
 | <a name='utilmy/spark/src/util_models.py' href='.//utilmy/spark/src/util_models.py'>utilmy/spark/src/util_models.py</a> | function | <a href='.//utilmy/spark/src/util_models.py#L155'>os_makedirs</a> | os.makedirs<br>os.system<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L39'>config_load</a> | open<br>yaml.load<br>x.items<br> |
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L21'>log</a> | log<br>logger.info<br>str<br>log2<br>logger.warning<br>log3<br>logger.debug<br>print<br>log_sample<br> |
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L21'>log</a> | log<br>logger.info<br>str<br>log2<br>logger.warning<br>log3<br>logger.debug<br>print<br>log_sample<br> |
@@ -3161,6 +3348,8 @@ Repo: ./
 | <a name='utilmy/spark/tests/conftest.py' href='.//utilmy/spark/tests/conftest.py'>utilmy/spark/tests/conftest.py</a> | function | <a href='.//utilmy/spark/tests/conftest.py#L23'>spark_session</a> | log<br>spark_init<br> |
 | <a name='utilmy/spark/tests/test_common.py' href='.//utilmy/spark/tests/test_common.py'>utilmy/spark/tests/test_common.py</a> | function | <a href='.//utilmy/spark/tests/test_common.py#L31'>assert_equal_spark_df</a> | expected_sorted_df.subtract<br>actual_sorted_df.subtract<br>missing_rows_df.count<br>additional_rows_df.count<br>log<br>expected_sorted_df.count<br>actual_sorted_df.count<br>assert_equal_spark_df<br>expected_df.sort<br>actual_df.sort<br>assert_equal_spark_df_sorted<br>assert_equal_spark_df_schema<br>expected_schema.sort<br>actual_schema.sort<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L69'>config_load</a> | open<br>yaml.load<br>x.items<br> |
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L21'>log</a> | logger.info<br>str<br> |
 | <a name='utilmy/spark/src/utils.py' href='.//utilmy/spark/src/utils.py'>utilmy/spark/src/utils.py</a> | function | <a href='.//utilmy/spark/src/utils.py#L21'>log</a> | logger.info<br>str<br> |
@@ -3174,21 +3363,30 @@ Repo: ./
 | <a name='utilmy/spark/tests/conftest.py' href='.//utilmy/spark/tests/conftest.py'>utilmy/spark/tests/conftest.py</a> | function | <a href='.//utilmy/spark/tests/conftest.py#L11'>config</a> | config_load<br> |
 | <a name='utilmy/spark/tests/conftest.py' href='.//utilmy/spark/tests/conftest.py'>utilmy/spark/tests/conftest.py</a> | function | <a href='.//utilmy/spark/tests/conftest.py#L23'>spark_session</a> | log<br>spark_init<br> |
 | <a name='utilmy/spark/tests/test_common.py' href='.//utilmy/spark/tests/test_common.py'>utilmy/spark/tests/test_common.py</a> | function | <a href='.//utilmy/spark/tests/test_common.py#L31'>assert_equal_spark_df</a> | expected_df.sort<br>actual_df.sort<br>assert_equal_spark_df_sorted<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/spark/tests/test_common.py' href='.//utilmy/spark/tests/test_common.py'>utilmy/spark/tests/test_common.py</a> | function | <a href='.//utilmy/spark/tests/test_common.py#L43'>assert_equal_spark_df_schema</a> | expected_schema.sort<br>actual_schema.sort<br> |
 | <a name='utilmy/spark/tests/test_common.py' href='.//utilmy/spark/tests/test_common.py'>utilmy/spark/tests/test_common.py</a> | function | <a href='.//utilmy/spark/tests/test_common.py#L9'>assert_equal_spark_df_sorted</a> | expected_sorted_df.subtract<br>actual_sorted_df.subtract<br>missing_rows_df.count<br>additional_rows_df.count<br>log<br>expected_sorted_df.count<br>actual_sorted_df.count<br> |
 | <a name='utilmy/spark/tests/test_functions.py' href='.//utilmy/spark/tests/test_functions.py'>utilmy/spark/tests/test_functions.py</a> | function | <a href='.//utilmy/spark/tests/test_functions.py#L8'>test_getall_families_from_useragent</a> | spark_session.createDataFrame<br>F.udf<br>T.StringType<br>test_df.withColumn<br>udfAll3Family<br>output_df.withColumn<br>F.when<br>F.col<br>F.lit<br>output_df.filter<br>ua_mismatch_df.count<br>print<br>ua_mismatch_df.show<br> |
 | <a name='utilmy/spark/tests/test_table_user_log.py' href='.//utilmy/spark/tests/test_table_user_log.py'>utilmy/spark/tests/test_table_user_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_log.py#L12'>test_table_user_log_run</a> | table_user_run<br>assert_equal_spark_df_schema<br>actual_df.withColumn<br>F.concat<br>F.lit<br>df.withColumn<br>F.regexp_replace<br>F.unix_timestamp<br>F.when<br>df.filter<br>assert_equal_spark_df<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L25'>test_table_user_session_log</a> | log<br>table_user_session_log_run<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L15'>test_table_user_session_log_run</a> | log<br>table_user_session_log_run<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L83'>test_table_usersession_log_stats</a> | assert_equal_spark_df_schema<br>assert_equal_spark_df<br>actual_df.select<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_stats.py' href='.//utilmy/spark/tests/test_table_user_session_stats.py'>utilmy/spark/tests/test_table_user_session_stats.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_stats.py#L27'>test_table_user_session_stats</a> | print<br>table_user_session_stats_run<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L25'>test_table_user_session_log</a> | assert_equal_spark_df_schema<br>assert_equal_spark_df<br>actual_df.select<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L15'>test_table_user_session_log_run</a> | log<br>table_user_session_log_run<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_log.py' href='.//utilmy/spark/tests/test_table_user_session_log.py'>utilmy/spark/tests/test_table_user_session_log.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_log.py#L83'>test_table_usersession_log_stats</a> | assert_equal_spark_df_schema<br>assert_equal_spark_df<br>actual_df.select<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_stats.py' href='.//utilmy/spark/tests/test_table_user_session_stats.py'>utilmy/spark/tests/test_table_user_session_stats.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_stats.py#L27'>test_table_user_session_stats</a> | assert_equal_spark_df_schema<br>assert_equal_spark_df<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/spark/tests/test_table_user_session_stats.py' href='.//utilmy/spark/tests/test_table_user_session_stats.py'>utilmy/spark/tests/test_table_user_session_stats.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_stats.py#L55'>test_table_user_session_stats_ip</a> | assert_equal_spark_df_schema<br>assert_equal_spark_df<br> |
 | <a name='utilmy/spark/tests/test_table_user_session_stats.py' href='.//utilmy/spark/tests/test_table_user_session_stats.py'>utilmy/spark/tests/test_table_user_session_stats.py</a> | function | <a href='.//utilmy/spark/tests/test_table_user_session_stats.py#L14'>test_table_user_session_stats_run</a> | print<br>table_user_session_stats_run<br> |
@@ -3196,9 +3394,15 @@ Repo: ./
 | <a name='utilmy/spark/tests/test_utils.py' href='.//utilmy/spark/tests/test_utils.py'>utilmy/spark/tests/test_utils.py</a> | function | <a href='.//utilmy/spark/tests/test_utils.py#L15'>test_spark_check</a> | spark_session.createDataFrame<br>test_df.sort<br>spark_check<br>pd.read_csv<br>stored_full_df.sort<br>assert_equal_spark_df_sorted<br>stored_partial_df.sort<br>path.exists<br> |
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L7'>_build_des_mat</a> | isinstance<br>arg_list.append<br>group.squeeze<br>pd.DataFrame<br>pd.concat<br>c.insert<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L31'>_build_summary_matrix</a> | isinstance<br>np.array<br>np.column_stack<br> |
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L57'>_group_rank_sums</a> | npi.group_by<br> |
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L48'>_rank</a> | rankdata<br>np.column_stack<br> |
+=======
+| <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L38'>_build_summary_matrix</a> | isinstance<br>np.array<br>np.column_stack<br> |
+| <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L77'>_group_rank_sums</a> | npi.group_by<br> |
+| <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L62'>_rank</a> | rankdata<br>np.column_stack<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L38'>_build_summary_matrix</a> | isinstance<br>np.array<br>np.column_stack<br> |
 | <a name='utilmy/stats/hypothetical/_lib.py' href='.//utilmy/stats/hypothetical/_lib.py'>utilmy/stats/hypothetical/_lib.py</a> | function | <a href='.//utilmy/stats/hypothetical/_lib.py#L77'>_group_rank_sums</a> | npi.group_by<br> |
@@ -3209,7 +3413,11 @@ Repo: ./
 | <a name='utilmy/stats/hypothetical/critical.py' href='.//utilmy/stats/hypothetical/critical.py'>utilmy/stats/hypothetical/critical.py</a> | function | <a href='.//utilmy/stats/hypothetical/critical.py#L25'>chi_square_critical_value</a> | chi_square_critical_value<br>u_critical_value<br>w_critical_value<br> |
 | <a name='utilmy/stats/hypothetical/descriptive.py' href='.//utilmy/stats/hypothetical/descriptive.py'>utilmy/stats/hypothetical/descriptive.py</a> | function | <a href='.//utilmy/stats/hypothetical/descriptive.py#L82'>add_noise</a> | isinstance<br>np.array<br>np.fill_diagonal<br>SimulateCorrelationMatrix._generate_noise<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/stats/hypothetical/descriptive.py' href='.//utilmy/stats/hypothetical/descriptive.py'>utilmy/stats/hypothetical/descriptive.py</a> | function | <a href='.//utilmy/stats/hypothetical/descriptive.py#L102'>covar</a> | covar<br>array<br>cov<br>Cov<br>kurtosis<br>Kurt<br>np.array<br>pearson<br>skewness<br>spearman<br>std_dev<br>pd.DataFrame<br>var<br>37<br> |
+=======
+| <a name='utilmy/stats/hypothetical/descriptive.py' href='.//utilmy/stats/hypothetical/descriptive.py'>utilmy/stats/hypothetical/descriptive.py</a> | function | <a href='.//utilmy/stats/hypothetical/descriptive.py#L110'>covar</a> | covar<br>array<br>cov<br>Cov<br>kurtosis<br>Kurt<br>np.array<br>pearson<br>skewness<br>spearman<br>std_dev<br>pd.DataFrame<br>var<br>37<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/stats/hypothetical/descriptive.py' href='.//utilmy/stats/hypothetical/descriptive.py'>utilmy/stats/hypothetical/descriptive.py</a> | function | <a href='.//utilmy/stats/hypothetical/descriptive.py#L110'>covar</a> | covar<br>array<br>cov<br>Cov<br>kurtosis<br>Kurt<br>np.array<br>pearson<br>skewness<br>spearman<br>std_dev<br>pd.DataFrame<br>var<br>37<br> |
 >>>>>>> origin/main
@@ -3218,6 +3426,7 @@ Repo: ./
 | <a name='utilmy/stats/hypothetical/hypothesis.py' href='.//utilmy/stats/hypothetical/hypothesis.py'>utilmy/stats/hypothetical/hypothesis.py</a> | class | <a href='.//utilmy/stats/hypothetical/hypothesis.py#L48'>BinomialTest</a> |  |
 | <a name='utilmy/stats/hypothetical/nonparametric.py' href='.//utilmy/stats/hypothetical/nonparametric.py'>utilmy/stats/hypothetical/nonparametric.py</a> | class | <a href='.//utilmy/stats/hypothetical/nonparametric.py#L77'>FriedmanTest</a> |  |
 | <a name='utilmy/stats/hypothetical/posthoc.py' href='.//utilmy/stats/hypothetical/posthoc.py'>utilmy/stats/hypothetical/posthoc.py</a> | class | <a href='.//utilmy/stats/hypothetical/posthoc.py#L35'>GamesHowell</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/stats/hypothetical/tests/test_aov.py' href='.//utilmy/stats/hypothetical/tests/test_aov.py'>utilmy/stats/hypothetical/tests/test_aov.py</a> | function | <a href='.//utilmy/stats/hypothetical/tests/test_aov.py#L16'>multivariate_test_data</a> | np.array<br> |
 | <a name='utilmy/stats/hypothetical/tests/test_aov.py' href='.//utilmy/stats/hypothetical/tests/test_aov.py'>utilmy/stats/hypothetical/tests/test_aov.py</a> | function | <a href='.//utilmy/stats/hypothetical/tests/test_aov.py#L9'>test_data</a> | pd.read_csv<br> |
@@ -3491,6 +3700,8 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/dataset.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py'>utilmy/templates/templist/pypi_package/mygenerator/dataset.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py#L57'>PhoneNlpDataset:__len__</a> | len<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/dataset.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py'>utilmy/templates/templist/pypi_package/mygenerator/dataset.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py#L105'>PhoneNlpDataset:get_phone_number</a> | s.replace<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/stats/hypothetical/tests/test_aov.py' href='.//utilmy/stats/hypothetical/tests/test_aov.py'>utilmy/stats/hypothetical/tests/test_aov.py</a> | function | <a href='.//utilmy/stats/hypothetical/tests/test_aov.py#L21'>multivariate_test_data</a> | np.array<br> |
 | <a name='utilmy/stats/hypothetical/tests/test_aov.py' href='.//utilmy/stats/hypothetical/tests/test_aov.py'>utilmy/stats/hypothetical/tests/test_aov.py</a> | function | <a href='.//utilmy/stats/hypothetical/tests/test_aov.py#L9'>test_data</a> | pd.read_csv<br> |
 | <a name='utilmy/stats/hypothetical/tests/test_aov.py' href='.//utilmy/stats/hypothetical/tests/test_aov.py'>utilmy/stats/hypothetical/tests/test_aov.py</a> | class | <a href='.//utilmy/stats/hypothetical/tests/test_aov.py#L79'>TestAnovaOneWay</a> |  |
@@ -3832,6 +4043,9 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/dataset.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py'>utilmy/templates/templist/pypi_package/mygenerator/dataset.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py#L95'>PhoneNlpDataset:__init__</a> | PhoneNumber<br>int<br>range<br>self.get_phone_number<br>meta_rows.append<br>super<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/dataset.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py'>utilmy/templates/templist/pypi_package/mygenerator/dataset.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py#L63'>PhoneNlpDataset:__len__</a> | len<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/dataset.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py'>utilmy/templates/templist/pypi_package/mygenerator/dataset.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/dataset.py#L129'>PhoneNlpDataset:get_phone_number</a> | s.replace<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/pipeline.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/pipeline.py'>utilmy/templates/templist/pypi_package/mygenerator/pipeline.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/pipeline.py#L14'>run_generate_numbers_sequence</a> | len<br>config_load<br>pathlib.Path<br>dataset.NlpDataset<br>transform.TextToImage<br>tf.fit_transform<br>ds_img.save<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/pipeline.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/pipeline.py'>utilmy/templates/templist/pypi_package/mygenerator/pipeline.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/pipeline.py#L60'>run_generate_phone_numbers</a> | config_load<br>pathlib.Path<br>dataset.PhoneNlpDataset<br>transform.TextToImage<br>tf.fit_transform<br>ds_img.save<br> |
@@ -3842,6 +4056,7 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | class | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L307'>ScaleImage</a> |  |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | class | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L337'>TextToImage</a> |  |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L62'>CharToImages:__init__</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L96'>CharToImages:fit</a> | fit_transform<br>self.fit<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L104'>CharToImages:fit_transform</a> | self.fit<br> |
@@ -3873,6 +4088,8 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py'>utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py#L142'>os_extract_archive</a> | isinstance<br>is_match_fn<br>open_fn<br>archive.extractall<br>os.remove<br>shutil.rmtree<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py'>utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py#L189'>to_file</a> | open<br>fp.write<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L96'>CharToImages:fit</a> |  |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L104'>CharToImages:fit_transform</a> | self.fit<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/transform.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py'>utilmy/templates/templist/pypi_package/mygenerator/transform.py</a> | method | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/transform.py#L72'>CharToImages:transform</a> | _get_image_fn<br>ds.get_text_only<br>len<br>img_list.append<br>dataset.ImageDataset<br> |
@@ -3902,12 +4119,16 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py'>utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py#L39'>logw</a> | logger.warning<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py'>utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py#L177'>os_extract_archive</a> | isinstance<br>is_match_fn<br>open_fn<br>archive.extractall<br>os.remove<br>shutil.rmtree<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py'>utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_exceptions.py#L224'>to_file</a> | open<br>fp.write<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_image.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py'>utilmy/templates/templist/pypi_package/mygenerator/util_image.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py#L26'>image_merge</a> | np.zeros<br>len<br>enumerate<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_image.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py'>utilmy/templates/templist/pypi_package/mygenerator/util_image.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py#L126'>image_read</a> | isinstance<br>hasattr<br>np.asarray<br>cv2.imdecode<br>filepath_or_buffer.endswith<br>tifffile.imread<br>cv2.imread<br>cv2.cvtColor<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_image.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py'>utilmy/templates/templist/pypi_package/mygenerator/util_image.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py#L62'>image_remove_extra_padding</a> | cv2.cvtColor<br>max<br>int<br>np.where<br>morphology.remove_small_objects<br>graybin.astype<br>cv2.findNonZero<br>cv2.boundingRect<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_image.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py'>utilmy/templates/templist/pypi_package/mygenerator/util_image.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py#L92'>image_resize</a> | float<br>int<br>cv2.resize<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/util_image.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py'>utilmy/templates/templist/pypi_package/mygenerator/util_image.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/util_image.py#L12'>padding_generate</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L52'>config_load</a> | logw<br>log2<br>yaml.load<br>str<br>log<br>os.makedirs<br>open<br>yaml.dump<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L96'>dataset_donwload</a> | log<br>os.makedirs<br>wget.download<br>url.split<br>os_extract_archive<br>log2<br> |
@@ -3920,6 +4141,8 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L142'>os_extract_archive</a> | isinstance<br>is_match_fn<br>open_fn<br>archive.extractall<br>os.remove<br>shutil.rmtree<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L189'>to_file</a> | open<br>fp.write<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L81'>config_load</a> | logw<br>log2<br>yaml.load<br>str<br>log<br>os.makedirs<br>open<br>yaml.dump<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L125'>dataset_donwload</a> | log<br>os.makedirs<br>wget.download<br>url.split<br>os_extract_archive<br>log2<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L142'>dataset_get_path</a> | cfg.get<br>cfgd.get<br>glob.glob<br>log2<br>len<br>dataset_donwload<br>Exception<br> |
@@ -3930,11 +4153,15 @@ Repo: ./
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L39'>logw</a> | logger.warning<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L177'>os_extract_archive</a> | isinstance<br>is_match_fn<br>open_fn<br>archive.extractall<br>os.remove<br>shutil.rmtree<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/utils.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py'>utilmy/templates/templist/pypi_package/mygenerator/utils.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/utils.py#L224'>to_file</a> | open<br>fp.write<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/validate.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py'>utilmy/templates/templist/pypi_package/mygenerator/validate.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py#L50'>image_padding_get</a> | cv2.bitwise_not<br>range<br>np.sum<br>xpad_list.append<br>xchar_list.append<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/validate.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py'>utilmy/templates/templist/pypi_package/mygenerator/validate.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py#L34'>image_padding_load</a> | util_image.image_read<br>image_padding_get<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/validate.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py'>utilmy/templates/templist/pypi_package/mygenerator/validate.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py#L12'>image_padding_validate</a> | image_padding_get<br>sum<br>len<br>logw<br> |
 | <a name='utilmy/templates/templist/pypi_package/mygenerator/validate.py' href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py'>utilmy/templates/templist/pypi_package/mygenerator/validate.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/mygenerator/validate.py#L104'>run_image_padding_validate</a> | sorted<br>log<br>len<br>util_image.image_read<br>image_padding_get<br>logw<br>sum<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/templates/templist/pypi_package/run_pipy.py' href='.//utilmy/templates/templist/pypi_package/run_pipy.py'>utilmy/templates/templist/pypi_package/run_pipy.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/run_pipy.py#L77'>ask</a> | input<br>ans.lower<br> |
 | <a name='utilmy/templates/templist/pypi_package/run_pipy.py' href='.//utilmy/templates/templist/pypi_package/run_pipy.py'>utilmy/templates/templist/pypi_package/run_pipy.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/run_pipy.py#L39'>get_current_githash</a> | subprocess.check_output<br>label.decode<br> |
@@ -4356,6 +4583,8 @@ Repo: ./
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1503'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1250'>html_show</a> | Highchart<br>hc.buildhtmlheader<br>print<br>display<br>html_show<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/templates/templist/pypi_package/run_pipy.py' href='.//utilmy/templates/templist/pypi_package/run_pipy.py'>utilmy/templates/templist/pypi_package/run_pipy.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/run_pipy.py#L131'>ask</a> | input<br>ans.lower<br> |
 | <a name='utilmy/templates/templist/pypi_package/run_pipy.py' href='.//utilmy/templates/templist/pypi_package/run_pipy.py'>utilmy/templates/templist/pypi_package/run_pipy.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/run_pipy.py#L75'>get_current_githash</a> | subprocess.check_output<br>label.decode<br> |
 | <a name='utilmy/templates/templist/pypi_package/run_pipy.py' href='.//utilmy/templates/templist/pypi_package/run_pipy.py'>utilmy/templates/templist/pypi_package/run_pipy.py</a> | function | <a href='.//utilmy/templates/templist/pypi_package/run_pipy.py#L113'>git_commit</a> | ask<br>exit<br>os.system<br> |
@@ -4771,6 +5000,9 @@ Repo: ./
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1281'>colormap_get_names</a> | np.linspace<br>np.vstack<br>plot_color_gradients<br>len<br>plt.subplots<br>fig.subplots_adjust<br>zip<br>ax.imshow<br>ax.text<br>ax.set_axis_off<br>cmaps.items<br>plt.show<br> |
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1503'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1250'>html_show</a> | display<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1238'>html_show_chart_highchart</a> | Highchart<br>hc.buildhtmlheader<br>print<br>display<br> |
 | <a name='utilmy/viz/vizhtml.py' href='.//utilmy/viz/vizhtml.py'>utilmy/viz/vizhtml.py</a> | function | <a href='.//utilmy/viz/vizhtml.py#L1259'>images_to_html</a> | glob.glob<br>flist.sorted<br>print<br>open<br>fp2.read<br>base64.b64encode<br> |
@@ -4788,6 +5020,7 @@ Repo: ./
 | <a name='utilmy/viz/zarchive/toptoolbar.py' href='.//utilmy/viz/zarchive/toptoolbar.py'>utilmy/viz/zarchive/toptoolbar.py</a> | class | <a href='.//utilmy/viz/zarchive/toptoolbar.py#L4'>TopToolbar</a> |  |
 | <a name='utilmy/viz/zarchive/toptoolbar.py' href='.//utilmy/viz/zarchive/toptoolbar.py'>utilmy/viz/zarchive/toptoolbar.py</a> | method | <a href='.//utilmy/viz/zarchive/toptoolbar.py#L28'>TopToolbar:__init__</a> |  |
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L24'>main</a> | os.makedirs<br>print<br>parse_main_page<br>len<br>enumerate<br>process_url<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L45'>parse_main_page</a> | print<br>requests.get<br>response.raise_for_status<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br>url_list.append<br> |
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L62'>process_and_paginate_soup</a> | _extract_url<br>response_soup.find_all<br>element.find<br>print<br>response_soup.find<br>time.sleep<br>requests.get<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br> |
@@ -4831,6 +5064,8 @@ Repo: ./
 | <a name='utilmy/webscraper/scrape_batch.py' href='.//utilmy/webscraper/scrape_batch.py'>utilmy/webscraper/scrape_batch.py</a> | function | <a href='.//utilmy/webscraper/scrape_batch.py#L14'>extract_to_pandas</a> | BeautifulSoup<br>soup.find<br>pd.read_html<br> |
 | <a name='utilmy/webscraper/scrape_batch.py' href='.//utilmy/webscraper/scrape_batch.py'>utilmy/webscraper/scrape_batch.py</a> | function | <a href='.//utilmy/webscraper/scrape_batch.py#L7'>test_extract_to_pandas</a> | requests.get<br>extract_to_pandas<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L55'>parse_main_page</a> | print<br>requests.get<br>response.raise_for_status<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br>url_list.append<br> |
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L78'>process_and_paginate_soup</a> | _extract_url<br>response_soup.find_all<br>element.find<br>print<br>response_soup.find<br>time.sleep<br>requests.get<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br> |
 | <a name='utilmy/webscraper/cli_arxiv.py' href='.//utilmy/webscraper/cli_arxiv.py'>utilmy/webscraper/cli_arxiv.py</a> | function | <a href='.//utilmy/webscraper/cli_arxiv.py#L119'>process_url</a> | page_title.replace<br>print<br>requests.get<br>open<br>pdf.write<br>parser.from_file<br>out_file.write<br> |
@@ -4869,13 +5104,20 @@ Repo: ./
 | <a name='utilmy/webscraper/pdf_scraper.py' href='.//utilmy/webscraper/pdf_scraper.py'>utilmy/webscraper/pdf_scraper.py</a> | function | <a href='.//utilmy/webscraper/pdf_scraper.py#L48'>parse_main_page</a> | print<br>requests.get<br>response.raise_for_status<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br>url_list.append<br> |
 | <a name='utilmy/webscraper/pdf_scraper.py' href='.//utilmy/webscraper/pdf_scraper.py'>utilmy/webscraper/pdf_scraper.py</a> | function | <a href='.//utilmy/webscraper/pdf_scraper.py#L71'>process_and_paginate_soup</a> | _extract_url<br>response_soup.find_all<br>element.find<br>print<br>response_soup.find<br>time.sleep<br>requests.get<br>bs4.BeautifulSoup<br>process_and_paginate_soup<br> |
 | <a name='utilmy/webscraper/pdf_scraper.py' href='.//utilmy/webscraper/pdf_scraper.py'>utilmy/webscraper/pdf_scraper.py</a> | function | <a href='.//utilmy/webscraper/pdf_scraper.py#L112'>process_url</a> | page_title.replace<br>print<br>requests.get<br>open<br>pdf.write<br>parser.from_file<br>out_file.write<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/webscraper/test/Scraper_INSTAGRAM.py' href='.//utilmy/webscraper/test/Scraper_INSTAGRAM.py'>utilmy/webscraper/test/Scraper_INSTAGRAM.py</a> | function | <a href='.//utilmy/webscraper/test/Scraper_INSTAGRAM.py#L16'>make_soup</a> | BeautifulSoup<br> |
 | <a name='utilmy/webscraper/test/url_scraper.py' href='.//utilmy/webscraper/test/url_scraper.py'>utilmy/webscraper/test/url_scraper.py</a> | class | <a href='.//utilmy/webscraper/test/url_scraper.py#L9'>GlassDoor</a> |  |
 | <a name='utilmy/webscraper/test/url_scraper.py' href='.//utilmy/webscraper/test/url_scraper.py'>utilmy/webscraper/test/url_scraper.py</a> | method | <a href='.//utilmy/webscraper/test/url_scraper.py#L14'>GlassDoor:parse</a> | response.xpath<br>open<br>csv.DictWriter<br>os.fstat<br>writer.writeheader<br>writer.writerow<br>response.urljoin<br>scrapy.Request<br> |
 | <a name='utilmy/webscraper/test/vc_scraper.py' href='.//utilmy/webscraper/test/vc_scraper.py'>utilmy/webscraper/test/vc_scraper.py</a> | class | <a href='.//utilmy/webscraper/test/vc_scraper.py#L9'>GlassDoor</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/webscraper/test/vc_scraper.py' href='.//utilmy/webscraper/test/vc_scraper.py'>utilmy/webscraper/test/vc_scraper.py</a> | method | <a href='.//utilmy/webscraper/test/vc_scraper.py#L24'>GlassDoor:parse</a> | response.xpath<br>range<br>print<br>open<br>csv.DictWriter<br>os.fstat<br>writer.writeheader<br>writer.writerow<br> |
+=======
+| <a name='utilmy/webscraper/test/vc_scraper.py' href='.//utilmy/webscraper/test/vc_scraper.py'>utilmy/webscraper/test/vc_scraper.py</a> | method | <a href='.//utilmy/webscraper/test/vc_scraper.py#L29'>GlassDoor:parse</a> | response.xpath<br>range<br>print<br>open<br>csv.DictWriter<br>os.fstat<br>writer.writeheader<br>writer.writerow<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/webscraper/test/vc_scraper.py' href='.//utilmy/webscraper/test/vc_scraper.py'>utilmy/webscraper/test/vc_scraper.py</a> | method | <a href='.//utilmy/webscraper/test/vc_scraper.py#L29'>GlassDoor:parse</a> | response.xpath<br>range<br>print<br>open<br>csv.DictWriter<br>os.fstat<br>writer.writeheader<br>writer.writerow<br> |
 >>>>>>> origin/main
@@ -4891,7 +5133,11 @@ Repo: ./
 | <a name='utilmy/zml/core_deploy.py' href='.//utilmy/zml/core_deploy.py'>utilmy/zml/core_deploy.py</a> | function | <a href='.//utilmy/zml/core_deploy.py#L16'>load_arguments</a> | argparse.ArgumentParser<br>p.add_argument<br>p.parse_args<br> |
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L144'>check</a> | get_global_pars<br>log<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L90'>data_profile</a> | get_config_path<br>get_global_pars<br>log<br>run_profile<br>data_profile<br> |
+=======
+| <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L90'>data_profile</a> | run_profile<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L90'>data_profile</a> | run_profile<br> |
 >>>>>>> origin/main
@@ -4906,6 +5152,7 @@ Repo: ./
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L122'>train</a> | get_config_path<br>get_global_pars<br>log<br>run_train.run_train<br> |
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L185'>train_sampler</a> | get_config_path<br>get_global_pars<br>log<br>run_sampler.run_train<br> |
 | <a name='utilmy/zml/core_run.py' href='.//utilmy/zml/core_run.py'>utilmy/zml/core_run.py</a> | function | <a href='.//utilmy/zml/core_run.py#L204'>transform</a> | get_config_path<br>get_global_pars<br>log<br>run_sampler.run_transform<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/core_test.py' href='.//utilmy/zml/core_test.py'>utilmy/zml/core_test.py</a> | function | <a href='.//utilmy/zml/core_test.py#L116'>json_load</a> | json.load<br> |
 | <a name='utilmy/zml/core_test.py' href='.//utilmy/zml/core_test.py'>utilmy/zml/core_test.py</a> | function | <a href='.//utilmy/zml/core_test.py#L41'>log_info_repo</a> | os_bash<br>repo.replace<br>workflow.replace<br>sha.replace<br>branch.replace<br>locals<br>dlocal.get<br>log_separator<br>print<br> |
@@ -4991,6 +5238,8 @@ Repo: ./
 | <a name='utilmy/zml/example/regress/regress_salary.py' href='.//utilmy/zml/example/regress/regress_salary.py'>utilmy/zml/example/regress/regress_salary.py</a> | function | <a href='.//utilmy/zml/example/regress/regress_salary.py#L115'>salary_lightgbm</a> | post_process_fun<br>y_norm<br>pre_process_fun<br>copy.deepcopy<br>global_pars_update<br>os_get_function_name<br> |
 | <a name='utilmy/zml/example/regress/regress_salary.py' href='.//utilmy/zml/example/regress/regress_salary.py'>utilmy/zml/example/regress/regress_salary.py</a> | function | <a href='.//utilmy/zml/example/regress/regress_salary.py#L85'>y_norm</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/core_test.py' href='.//utilmy/zml/core_test.py'>utilmy/zml/core_test.py</a> | function | <a href='.//utilmy/zml/core_test.py#L149'>json_load</a> | json.load<br> |
 | <a name='utilmy/zml/core_test.py' href='.//utilmy/zml/core_test.py'>utilmy/zml/core_test.py</a> | function | <a href='.//utilmy/zml/core_test.py#L53'>log_info_repo</a> | os_bash<br>repo.replace<br>workflow.replace<br>sha.replace<br>branch.replace<br>locals<br>dlocal.get<br>log_separator<br>print<br> |
 | <a name='utilmy/zml/core_test.py' href='.//utilmy/zml/core_test.py'>utilmy/zml/core_test.py</a> | function | <a href='.//utilmy/zml/core_test.py#L179'>log_remote_push</a> | str<br>log<br>os.system<br> |
@@ -5074,6 +5323,9 @@ Repo: ./
 | <a name='utilmy/zml/example/regress/regress_salary.py' href='.//utilmy/zml/example/regress/regress_salary.py'>utilmy/zml/example/regress/regress_salary.py</a> | function | <a href='.//utilmy/zml/example/regress/regress_salary.py#L305'>salary_glm</a> | post_process_fun<br>y_norm<br>pre_process_fun<br>global_pars_update<br> |
 | <a name='utilmy/zml/example/regress/regress_salary.py' href='.//utilmy/zml/example/regress/regress_salary.py'>utilmy/zml/example/regress/regress_salary.py</a> | function | <a href='.//utilmy/zml/example/regress/regress_salary.py#L131'>salary_lightgbm</a> | post_process_fun<br>y_norm<br>pre_process_fun<br>copy.deepcopy<br>global_pars_update<br>os_get_function_name<br> |
 | <a name='utilmy/zml/example/regress/regress_salary.py' href='.//utilmy/zml/example/regress/regress_salary.py'>utilmy/zml/example/regress/regress_salary.py</a> | function | <a href='.//utilmy/zml/example/regress/regress_salary.py#L93'>y_norm</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L280'>daal4py_als</a> | d4p.implicit_als_training_init<br>algo1.compute<br>d4p.implicit_als_training<br>algo2.compute<br> |
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L276'>daal4py_svd</a> | d4p.implicit_als_training_init<br>algo1.compute<br>d4p.implicit_als_training<br>algo2.compute<br> |
@@ -5089,7 +5341,11 @@ Repo: ./
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L269'>nmf_4</a> | NMF_HALS<br> |
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L272'>nmf_5</a> | NMF_MU<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L71'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br>recompute_factors_bias<br>Y.copy<br> |
+=======
+| <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L71'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/example/svd/benchmark_mf.py' href='.//utilmy/zml/example/svd/benchmark_mf.py'>utilmy/zml/example/svd/benchmark_mf.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf.py#L71'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br> |
 >>>>>>> origin/main
@@ -5118,7 +5374,11 @@ Repo: ./
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L267'>nmf_4</a> | NMF_HALS<br> |
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L270'>nmf_5</a> | NMF_MU<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L69'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br>recompute_factors_bias<br>Y.copy<br> |
+=======
+| <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L69'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | function | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L69'>recompute_factors</a> | np.dot<br>np.eye<br>np.zeros<br>iter_rows<br>s_u.reshape<br> |
 >>>>>>> origin/main
@@ -5135,6 +5395,7 @@ Repo: ./
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | method | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L171'>ImplicitMF:__init__</a> |  |
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | method | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L190'>ImplicitMF:iteration</a> | sparse.eye<br>np.zeros<br>time.time<br>range<br>sparse.diags<br>counts_i.copy<br>spsolve<br> |
 | <a name='utilmy/zml/example/svd/benchmark_mf0.py' href='.//utilmy/zml/example/svd/benchmark_mf0.py'>utilmy/zml/example/svd/benchmark_mf0.py</a> | method | <a href='.//utilmy/zml/example/svd/benchmark_mf0.py#L180'>ImplicitMF:train_model</a> | range<br>self.iteration<br>sparse.csr_matrix<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/example/test.py' href='.//utilmy/zml/example/test.py'>utilmy/zml/example/test.py</a> | function | <a href='.//utilmy/zml/example/test.py#L231'>check</a> |  |
 | <a name='utilmy/zml/example/test.py' href='.//utilmy/zml/example/test.py'>utilmy/zml/example/test.py</a> | function | <a href='.//utilmy/zml/example/test.py#L188'>data_profile</a> | run_profile<br> |
@@ -5157,6 +5418,8 @@ Repo: ./
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L22'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L142'>hyperparam</a> | hyperparam_wrapper<br>config_full.split<br>load_function_uri<br>mdict<br>objective_fun<br>log<br>run_train<br>run_hyper_optuna<br>os.makedirs<br>json.dump<br>open<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/example/test.py' href='.//utilmy/zml/example/test.py'>utilmy/zml/example/test.py</a> | function | <a href='.//utilmy/zml/example/test.py#L266'>check</a> |  |
 | <a name='utilmy/zml/example/test.py' href='.//utilmy/zml/example/test.py'>utilmy/zml/example/test.py</a> | function | <a href='.//utilmy/zml/example/test.py#L201'>data_profile</a> | run_profile<br> |
 | <a name='utilmy/zml/example/test.py' href='.//utilmy/zml/example/test.py'>utilmy/zml/example/test.py</a> | function | <a href='.//utilmy/zml/example/test.py#L33'>global_pars_update</a> |  |
@@ -5177,11 +5440,15 @@ Repo: ./
 | <a name='utilmy/zml/example/test_features.py' href='.//utilmy/zml/example/test_features.py'>utilmy/zml/example/test_features.py</a> | function | <a href='.//utilmy/zml/example/test_features.py#L480'>pd_col_amyfun</a> | prepro_load<br>prepro<br>list<br>prepro_save<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L22'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L142'>hyperparam</a> | hyperparam_wrapper<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L188'>hyperparam_wrapper</a> | config_full.split<br>load_function_uri<br>mdict<br>objective_fun<br>log<br>run_train<br>run_hyper_optuna<br>os.makedirs<br>json.dump<br>open<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L79'>post_process_fun</a> | os_get_function_name<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L80'>pre_process_fun</a> | os_get_function_name<br> |
 | <a name='utilmy/zml/example/test_hyperopt.py' href='.//utilmy/zml/example/test_hyperopt.py'>utilmy/zml/example/test_hyperopt.py</a> | function | <a href='.//utilmy/zml/example/test_hyperopt.py#L82'>titanic1</a> | os_get_function_name<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/example/test_keras_vaemdn.py' href='.//utilmy/zml/example/test_keras_vaemdn.py'>utilmy/zml/example/test_keras_vaemdn.py</a> | function | <a href='.//utilmy/zml/example/test_keras_vaemdn.py#L81'>config_sampler</a> | post_process_fun<br>pre_process_fun<br>len<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/example/test_keras_vaemdn.py' href='.//utilmy/zml/example/test_keras_vaemdn.py'>utilmy/zml/example/test_keras_vaemdn.py</a> | function | <a href='.//utilmy/zml/example/test_keras_vaemdn.py#L19'>global_pars_update</a> | print<br> |
@@ -5193,6 +5460,8 @@ Repo: ./
 | <a name='utilmy/zml/example/test_mkeras_dense.py' href='.//utilmy/zml/example/test_mkeras_dense.py'>utilmy/zml/example/test_mkeras_dense.py</a> | function | <a href='.//utilmy/zml/example/test_mkeras_dense.py#L20'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/titanic_gefs.py' href='.//utilmy/zml/example/titanic_gefs.py'>utilmy/zml/example/titanic_gefs.py</a> | function | <a href='.//utilmy/zml/example/titanic_gefs.py#L85'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/example/test_keras_vaemdn.py' href='.//utilmy/zml/example/test_keras_vaemdn.py'>utilmy/zml/example/test_keras_vaemdn.py</a> | function | <a href='.//utilmy/zml/example/test_keras_vaemdn.py#L89'>config_sampler</a> | post_process_fun<br>pre_process_fun<br>len<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/example/test_keras_vaemdn.py' href='.//utilmy/zml/example/test_keras_vaemdn.py'>utilmy/zml/example/test_keras_vaemdn.py</a> | function | <a href='.//utilmy/zml/example/test_keras_vaemdn.py#L19'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/test_keras_vaemdn2.py' href='.//utilmy/zml/example/test_keras_vaemdn2.py'>utilmy/zml/example/test_keras_vaemdn2.py</a> | function | <a href='.//utilmy/zml/example/test_keras_vaemdn2.py#L78'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>len<br>global_pars_update<br>config_name=os_get_function_name<br> |
@@ -5202,6 +5471,9 @@ Repo: ./
 | <a name='utilmy/zml/example/test_mkeras_dense.py' href='.//utilmy/zml/example/test_mkeras_dense.py'>utilmy/zml/example/test_mkeras_dense.py</a> | function | <a href='.//utilmy/zml/example/test_mkeras_dense.py#L85'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/example/test_mkeras_dense.py' href='.//utilmy/zml/example/test_mkeras_dense.py'>utilmy/zml/example/test_mkeras_dense.py</a> | function | <a href='.//utilmy/zml/example/test_mkeras_dense.py#L20'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/titanic_gefs.py' href='.//utilmy/zml/example/titanic_gefs.py'>utilmy/zml/example/titanic_gefs.py</a> | function | <a href='.//utilmy/zml/example/titanic_gefs.py#L93'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/example/titanic_gefs.py' href='.//utilmy/zml/example/titanic_gefs.py'>utilmy/zml/example/titanic_gefs.py</a> | function | <a href='.//utilmy/zml/example/titanic_gefs.py#L19'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L344'>custom_generate_feature_all</a> | featurestore_generate_feature<br> |
@@ -5217,7 +5489,11 @@ Repo: ./
 | <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L33'>pd_merge</a> | print<br>dfall.join<br> |
 | <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L279'>pd_ts_tsfresh</a> | pd.read_csv<br>pd_tsfresh_m5data_sales<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L250'>pd_tsfresh_m5data</a> | df_calendar.drop<br>range<br>pd_tsfresh_features_single_row<br>pd.merge<br>str<br>merged_df_selected_cols.to_parquet<br>X_feat.append<br>pd_tsfresh_m5data<br>roll_time_series<br>X.fillna<br>extract_relevant_features<br>filtered_col_name.replace<br>X_filtered.rename<br>pd.concat<br> |
+=======
+| <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L250'>pd_tsfresh_m5data</a> | roll_time_series<br>X.fillna<br>extract_relevant_features<br>filtered_col_name.replace<br>X_filtered.rename<br>pd.concat<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/example/tseries/tseries_m5sales.py' href='.//utilmy/zml/example/tseries/tseries_m5sales.py'>utilmy/zml/example/tseries/tseries_m5sales.py</a> | function | <a href='.//utilmy/zml/example/tseries/tseries_m5sales.py#L250'>pd_tsfresh_m5data</a> | roll_time_series<br>X.fillna<br>extract_relevant_features<br>filtered_col_name.replace<br>X_filtered.rename<br>pd.concat<br> |
 >>>>>>> origin/main
@@ -5293,7 +5569,11 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/auto_feature_AFEM/AFE.py' href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py'>utilmy/zml/source/bin/auto_feature_AFEM/AFE.py</a> | method | <a href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py#L649'>Generator:collect_agg</a> | tqdm<br>self.layer<br>newpath.getpathdetail<br>newfeats.append<br>len<br>pd.concat<br> |
 | <a name='utilmy/zml/source/bin/auto_feature_AFEM/AFE.py' href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py'>utilmy/zml/source/bin/auto_feature_AFEM/AFE.py</a> | method | <a href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py#L350'>Generator:defaultfunc</a> | len<br>targetentity.getfeatname<br>targetentity.getfeattype<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/bin/auto_feature_AFEM/AFE.py' href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py'>utilmy/zml/source/bin/auto_feature_AFEM/AFE.py</a> | method | <a href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py#L302'>Generator:layer</a> | hash<br>self._layer<br>layers<br>len<br>self.layer<br>range<br>dataframe.merge<br>Path<br> |
+=======
+| <a name='utilmy/zml/source/bin/auto_feature_AFEM/AFE.py' href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py'>utilmy/zml/source/bin/auto_feature_AFEM/AFE.py</a> | method | <a href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py#L302'>Generator:layer</a> | hash<br>self._layer<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/bin/auto_feature_AFEM/AFE.py' href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py'>utilmy/zml/source/bin/auto_feature_AFEM/AFE.py</a> | method | <a href='.//utilmy/zml/source/bin/auto_feature_AFEM/AFE.py#L302'>Generator:layer</a> | hash<br>self._layer<br> |
 >>>>>>> origin/main
@@ -5325,6 +5605,7 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/column_encoder.py' href='.//utilmy/zml/source/bin/column_encoder.py'>utilmy/zml/source/bin/column_encoder.py</a> | method | <a href='.//utilmy/zml/source/bin/column_encoder.py#L105'>PasstroughEncoder:__init__</a> |  |
 | <a name='utilmy/zml/source/bin/column_encoder.py' href='.//utilmy/zml/source/bin/column_encoder.py'>utilmy/zml/source/bin/column_encoder.py</a> | method | <a href='.//utilmy/zml/source/bin/column_encoder.py#L78'>PasstroughEncoder:fit</a> | FunctionTransformer<br> |
 | <a name='utilmy/zml/source/bin/column_encoder.py' href='.//utilmy/zml/source/bin/column_encoder.py'>utilmy/zml/source/bin/column_encoder.py</a> | method | <a href='.//utilmy/zml/source/bin/column_encoder.py#L88'>PasstroughEncoder:transform</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/bin/deltapy/extract.py' href='.//utilmy/zml/source/bin/deltapy/extract.py'>utilmy/zml/source/bin/deltapy/extract.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/extract.py#L527'>_embed_seq</a> | print<br>exit<br>np.zeros<br>range<br> |
 | <a name='utilmy/zml/source/bin/deltapy/extract.py' href='.//utilmy/zml/source/bin/deltapy/extract.py'>utilmy/zml/source/bin/deltapy/extract.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/extract.py#L736'>_embed_seq</a> | print<br>exit<br>np.zeros<br>range<br> |
@@ -5397,6 +5678,8 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L213'>bkb</a> | len<br> |
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L223'>butter_lowpass</a> | signal.butter<br>butter_lowpass_filter<br>butter_lowpass<br>signal.lfilter<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/bin/deltapy/extract.py' href='.//utilmy/zml/source/bin/deltapy/extract.py'>utilmy/zml/source/bin/deltapy/extract.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/extract.py#L701'>_embed_seq</a> | print<br>exit<br>np.zeros<br>range<br> |
 | <a name='utilmy/zml/source/bin/deltapy/extract.py' href='.//utilmy/zml/source/bin/deltapy/extract.py'>utilmy/zml/source/bin/deltapy/extract.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/extract.py#L987'>_embed_seq</a> | print<br>exit<br>np.zeros<br>range<br> |
 | <a name='utilmy/zml/source/bin/deltapy/extract.py' href='.//utilmy/zml/source/bin/deltapy/extract.py'>utilmy/zml/source/bin/deltapy/extract.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/extract.py#L987'>_embed_seq</a> | print<br>exit<br>np.zeros<br>range<br> |
@@ -5467,6 +5750,9 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/deltapy/mapper.py' href='.//utilmy/zml/source/bin/deltapy/mapper.py'>utilmy/zml/source/bin/deltapy/mapper.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/mapper.py#L13'>pca_feature</a> | KernelPCA<br>ValueError<br>IncrementalPCA<br>PCA<br>pca.fit_transform<br>pd.concat<br>range<br>pd.DataFrame<br> |
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L213'>bkb</a> | len<br> |
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L223'>butter_lowpass</a> | signal.butter<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L229'>butter_lowpass_filter</a> | butter_lowpass<br>signal.lfilter<br> |
 | <a name='utilmy/zml/source/bin/deltapy/transform.py' href='.//utilmy/zml/source/bin/deltapy/transform.py'>utilmy/zml/source/bin/deltapy/transform.py</a> | function | <a href='.//utilmy/zml/source/bin/deltapy/transform.py#L57'>fast_fracdiff</a> | len<br>int<br>np.ceil<br>np.arange<br>tuple<br>pl.ifft<br>pl.fft<br>np.real<br> |
@@ -5493,6 +5779,7 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | class | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L10'>HungaBungaZeroKnowledge</a> |  |
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L11'>HungaBungaZeroKnowledge:__init__</a> | super<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L26'>HungaBungaZeroKnowledge:fit</a> | HungaBungaClassifier<br>HungaBungaRegressor<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L37'>HungaBungaZeroKnowledge:predict</a> |  |
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L177'>run_all_classifiers</a> | main_loop<br>StandardScaler<br> |
@@ -5501,6 +5788,8 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L197'>HungaBungaClassifier:fit</a> | run_all_classifiers<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L201'>HungaBungaClassifier:predict</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L40'>HungaBungaZeroKnowledge:fit</a> | HungaBungaClassifier<br>HungaBungaRegressor<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/__init__.py' href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py'>utilmy/zml/source/bin/hunga_bunga/__init__.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/__init__.py#L58'>HungaBungaZeroKnowledge:predict</a> |  |
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L177'>run_all_classifiers</a> | main_loop<br>StandardScaler<br> |
@@ -5508,6 +5797,9 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L193'>HungaBungaClassifier:__init__</a> | super<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L221'>HungaBungaClassifier:fit</a> | run_all_classifiers<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/classification.py' href='.//utilmy/zml/source/bin/hunga_bunga/classification.py'>utilmy/zml/source/bin/hunga_bunga/classification.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/classification.py#L232'>HungaBungaClassifier:predict</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/bin/hunga_bunga/core.py' href='.//utilmy/zml/source/bin/hunga_bunga/core.py'>utilmy/zml/source/bin/hunga_bunga/core.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/core.py#L75'>cv_clf</a> | sss<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/core.py' href='.//utilmy/zml/source/bin/hunga_bunga/core.py'>utilmy/zml/source/bin/hunga_bunga/core.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/core.py#L81'>cv_reg</a> | time<br>klass<br>clf.fit<br> |
@@ -5519,6 +5811,7 @@ Repo: ./
 | <a name='utilmy/zml/source/bin/hunga_bunga/core.py' href='.//utilmy/zml/source/bin/hunga_bunga/core.py'>utilmy/zml/source/bin/hunga_bunga/core.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/core.py#L29'>GridSearchCVProgressBar:_get_param_iterator</a> | super<br>list<br>len<br>getattr<br>ParallelProgressBar<br>__call__<br>tqdm<br>iterable.set_description<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/core.py' href='.//utilmy/zml/source/bin/hunga_bunga/core.py'>utilmy/zml/source/bin/hunga_bunga/core.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/core.py#L29'>RandomizedSearchCVProgressBar:_get_param_iterator</a> | super<br>list<br>len<br>getattr<br>ParallelProgressBar<br>__call__<br>tqdm<br>iterable.set_description<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L287'>gen_reg_data</a> | np.apply_along_axis<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L292'>run_all_regressors</a> | main_loop<br>StandardScaler<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | class | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L297'>HungaBungaRegressor</a> |  |
@@ -5540,6 +5833,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/Autokeras.py' href='.//utilmy/zml/source/models/akeras/Autokeras.py'>utilmy/zml/source/models/akeras/Autokeras.py</a> | class | <a href='.//utilmy/zml/source/models/akeras/Autokeras.py#L31'>Model</a> |  |
 | <a name='utilmy/zml/source/models/akeras/Autokeras.py' href='.//utilmy/zml/source/models/akeras/Autokeras.py'>utilmy/zml/source/models/akeras/Autokeras.py</a> | method | <a href='.//utilmy/zml/source/models/akeras/Autokeras.py#L32'>Model:__init__</a> | ak.TextClassifier<br>ak.ImageClassifier<br>ak.StructuredDataClassifier<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | function | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L303'>run_all_regressors</a> | main_loop<br>StandardScaler<br> |
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | class | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L318'>HungaBungaRegressor</a> |  |
 | <a name='utilmy/zml/source/bin/hunga_bunga/regression.py' href='.//utilmy/zml/source/bin/hunga_bunga/regression.py'>utilmy/zml/source/bin/hunga_bunga/regression.py</a> | method | <a href='.//utilmy/zml/source/bin/hunga_bunga/regression.py#L319'>HungaBungaRegressor:__init__</a> | super<br> |
@@ -5559,6 +5854,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/Autokeras.py' href='.//utilmy/zml/source/models/akeras/Autokeras.py'>utilmy/zml/source/models/akeras/Autokeras.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/Autokeras.py#L250'>test_single</a> | log<br>get_params<br>Model<br>fit<br>predict<br>print<br>evaluate<br>fitted_model.export_model<br>save<br>load<br> |
 | <a name='utilmy/zml/source/models/akeras/Autokeras.py' href='.//utilmy/zml/source/models/akeras/Autokeras.py'>utilmy/zml/source/models/akeras/Autokeras.py</a> | class | <a href='.//utilmy/zml/source/models/akeras/Autokeras.py#L36'>Model</a> |  |
 | <a name='utilmy/zml/source/models/akeras/Autokeras.py' href='.//utilmy/zml/source/models/akeras/Autokeras.py'>utilmy/zml/source/models/akeras/Autokeras.py</a> | method | <a href='.//utilmy/zml/source/models/akeras/Autokeras.py#L37'>Model:__init__</a> | ak.TextClassifier<br>ak.ImageClassifier<br>ak.StructuredDataClassifier<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/akeras/charcnn.py' href='.//utilmy/zml/source/models/akeras/charcnn.py'>utilmy/zml/source/models/akeras/charcnn.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/charcnn.py#L147'>evaluate</a> | get_dataset<br>compute_pars.get<br>ypred.argmax<br>np.argmax<br>accuracy_score<br> |
 | <a name='utilmy/zml/source/models/akeras/charcnn.py' href='.//utilmy/zml/source/models/akeras/charcnn.py'>utilmy/zml/source/models/akeras/charcnn.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/charcnn.py#L120'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -5584,6 +5882,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/charcnn_zhang.py' href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py'>utilmy/zml/source/models/akeras/charcnn_zhang.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py#L215'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 | <a name='utilmy/zml/source/models/akeras/charcnn_zhang.py' href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py'>utilmy/zml/source/models/akeras/charcnn_zhang.py</a> | class | <a href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py#L41'>Model</a> |  |
 | <a name='utilmy/zml/source/models/akeras/charcnn_zhang.py' href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py'>utilmy/zml/source/models/akeras/charcnn_zhang.py</a> | method | <a href='.//utilmy/zml/source/models/akeras/charcnn_zhang.py#L42'>Model:__init__</a> | CharCNNZhang<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/akeras/deepctr.py' href='.//utilmy/zml/source/models/akeras/deepctr.py'>utilmy/zml/source/models/akeras/deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/deepctr.py#L383'>_config_process</a> |  |
 | <a name='utilmy/zml/source/models/akeras/deepctr.py' href='.//utilmy/zml/source/models/akeras/deepctr.py'>utilmy/zml/source/models/akeras/deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/deepctr.py#L166'>_preprocess_criteo</a> | kw.get<br>str<br>range<br>MinMaxScaler<br>mms.fit_transform<br>LabelEncoder<br>lbe.fit_transform<br>enumerate<br>train_test_split<br> |
@@ -5618,6 +5917,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/preprocess.py' href='.//utilmy/zml/source/models/akeras/preprocess.py'>utilmy/zml/source/models/akeras/preprocess.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/preprocess.py#L48'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zml/source/models/akeras/preprocess.py' href='.//utilmy/zml/source/models/akeras/preprocess.py'>utilmy/zml/source/models/akeras/preprocess.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/preprocess.py#L226'>test</a> | log<br>get_params<br>print<br>get_dataset<br>_preprocess_criteo<br>_preprocess_movielens<br>_preprocess_none<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/akeras/deepctr.py' href='.//utilmy/zml/source/models/akeras/deepctr.py'>utilmy/zml/source/models/akeras/deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/deepctr.py#L449'>_config_process</a> |  |
 | <a name='utilmy/zml/source/models/akeras/deepctr.py' href='.//utilmy/zml/source/models/akeras/deepctr.py'>utilmy/zml/source/models/akeras/deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/deepctr.py#L175'>_preprocess_criteo</a> | kw.get<br>str<br>range<br>MinMaxScaler<br>mms.fit_transform<br>LabelEncoder<br>lbe.fit_transform<br>enumerate<br>train_test_split<br> |
 | <a name='utilmy/zml/source/models/akeras/deepctr.py' href='.//utilmy/zml/source/models/akeras/deepctr.py'>utilmy/zml/source/models/akeras/deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/deepctr.py#L218'>_preprocess_movielens</a> | kw.get<br>LabelEncoder<br>lbe.fit_transform<br>train_test_split<br>split<br>x.split<br>len<br>list<br>np.array<br>max<br>pad_sequences<br>vocabulary_size=len<br>SparseFeat<br>VarLenSparseFeat<br>get_feature_names<br> |
@@ -5650,6 +5951,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/preprocess.py' href='.//utilmy/zml/source/models/akeras/preprocess.py'>utilmy/zml/source/models/akeras/preprocess.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/preprocess.py#L61'>log</a> | print<br> |
 | <a name='utilmy/zml/source/models/akeras/preprocess.py' href='.//utilmy/zml/source/models/akeras/preprocess.py'>utilmy/zml/source/models/akeras/preprocess.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/preprocess.py#L48'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zml/source/models/akeras/preprocess.py' href='.//utilmy/zml/source/models/akeras/preprocess.py'>utilmy/zml/source/models/akeras/preprocess.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/preprocess.py#L261'>test</a> | log<br>get_params<br>print<br>get_dataset<br>_preprocess_criteo<br>_preprocess_movielens<br>_preprocess_none<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/akeras/textcnn.py' href='.//utilmy/zml/source/models/akeras/textcnn.py'>utilmy/zml/source/models/akeras/textcnn.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/textcnn.py#L83'>evaluate</a> |  |
 | <a name='utilmy/zml/source/models/akeras/textcnn.py' href='.//utilmy/zml/source/models/akeras/textcnn.py'>utilmy/zml/source/models/akeras/textcnn.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/textcnn.py#L61'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -5662,6 +5966,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/akeras/textcnn.py' href='.//utilmy/zml/source/models/akeras/textcnn.py'>utilmy/zml/source/models/akeras/textcnn.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/textcnn.py#L199'>test</a> | log<br>get_params<br>print<br>get_dataset<br> |
 | <a name='utilmy/zml/source/models/akeras/textcnn.py' href='.//utilmy/zml/source/models/akeras/textcnn.py'>utilmy/zml/source/models/akeras/textcnn.py</a> | class | <a href='.//utilmy/zml/source/models/akeras/textcnn.py#L44'>Model</a> |  |
 | <a name='utilmy/zml/source/models/akeras/textcnn.py' href='.//utilmy/zml/source/models/akeras/textcnn.py'>utilmy/zml/source/models/akeras/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/akeras/textcnn.py#L45'>Model:__init__</a> | TextCNN<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/akeras/util.py' href='.//utilmy/zml/source/models/akeras/util.py'>utilmy/zml/source/models/akeras/util.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/util.py#L42'>_config_process</a> | Path<br>open<br>json.load<br> |
 | <a name='utilmy/zml/source/models/akeras/util.py' href='.//utilmy/zml/source/models/akeras/util.py'>utilmy/zml/source/models/akeras/util.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/util.py#L80'>fit</a> |  |
@@ -5714,6 +6019,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/atorch/textcnn.py' href='.//utilmy/zml/source/models/atorch/textcnn.py'>utilmy/zml/source/models/atorch/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/textcnn.py#L302'>TextCNN:forward</a> | self.embed<br>emb_x.unsqueeze<br>x.size<br>torch.cat<br>fc_x.squeeze<br>self.dropout<br>self.fc<br> |
 | <a name='utilmy/zml/source/models/atorch/textcnn.py' href='.//utilmy/zml/source/models/atorch/textcnn.py'>utilmy/zml/source/models/atorch/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/textcnn.py#L295'>TextCNN:rebuild_embed</a> | nn.Embedding<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/akeras/util.py' href='.//utilmy/zml/source/models/akeras/util.py'>utilmy/zml/source/models/akeras/util.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/util.py#L50'>_config_process</a> | Path<br>open<br>json.load<br> |
 | <a name='utilmy/zml/source/models/akeras/util.py' href='.//utilmy/zml/source/models/akeras/util.py'>utilmy/zml/source/models/akeras/util.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/util.py#L101'>fit</a> |  |
 | <a name='utilmy/zml/source/models/akeras/util.py' href='.//utilmy/zml/source/models/akeras/util.py'>utilmy/zml/source/models/akeras/util.py</a> | function | <a href='.//utilmy/zml/source/models/akeras/util.py#L70'>get_dataset</a> | kw.get<br>pd.read_pickle<br>pd.read_csv<br>ListDataset<br>range<br>next<br>to_pandas<br>train_series.plot<br>plt.savefig<br> |
@@ -5764,6 +6071,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/atorch/textcnn.py' href='.//utilmy/zml/source/models/atorch/textcnn.py'>utilmy/zml/source/models/atorch/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/textcnn.py#L333'>TextCNN:__init__</a> | print<br>super<br>model_pars.get<br>nn.ModuleList<br>nn.Dropout<br>nn.Linear<br>len<br> |
 | <a name='utilmy/zml/source/models/atorch/textcnn.py' href='.//utilmy/zml/source/models/atorch/textcnn.py'>utilmy/zml/source/models/atorch/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/textcnn.py#L380'>TextCNN:forward</a> | self.embed<br>emb_x.unsqueeze<br>x.size<br>torch.cat<br>fc_x.squeeze<br>self.dropout<br>self.fc<br> |
 | <a name='utilmy/zml/source/models/atorch/textcnn.py' href='.//utilmy/zml/source/models/atorch/textcnn.py'>utilmy/zml/source/models/atorch/textcnn.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/textcnn.py#L367'>TextCNN:rebuild_embed</a> | nn.Embedding<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L78'>customModel</a> |  |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L105'>fit</a> | get_dataset<br>torch.tensor<br>log<br>compute_pars.get<br>pd.DataFrame<br> |
@@ -5777,6 +6087,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L223'>preprocess</a> | make_classification<br>train_test_split<br>pd.read_csv<br> |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L177'>reset</a> |  |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L182'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L299'>test</a> | train_test_split<br>Model<br>print<br>fit<br>predict<br>save<br>load_model<br>test2<br> |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L359'>test2</a> | train_test_split<br>Model<br>print<br>fit<br>predict<br>save<br>load_model<br> |
@@ -5810,6 +6121,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L201'>save</a> | torch.save<br> |
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L403'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L299'>test</a> | train_test_split<br>Model<br>print<br>fit<br>predict<br>save<br>load_model<br> |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L359'>test2</a> | train_test_split<br>Model<br>print<br>fit<br>predict<br>save<br>load_model<br> |
 | <a name='utilmy/zml/source/models/atorch/torch_ctr.py' href='.//utilmy/zml/source/models/atorch/torch_ctr.py'>utilmy/zml/source/models/atorch/torch_ctr.py</a> | class | <a href='.//utilmy/zml/source/models/atorch/torch_ctr.py#L82'>Model</a> |  |
@@ -5841,6 +6154,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L217'>reset_model</a> |  |
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L226'>save</a> | torch.save<br> |
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | function | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L460'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | class | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L107'>Model</a> |  |
 | <a name='utilmy/zml/source/models/atorch/transformer_sentence.py' href='.//utilmy/zml/source/models/atorch/transformer_sentence.py'>utilmy/zml/source/models/atorch/transformer_sentence.py</a> | method | <a href='.//utilmy/zml/source/models/atorch/transformer_sentence.py#L108'>Model:__init__</a> | getattr<br>self.EmbeddingModel<br>models.Pooling<br>model_pars.get<br>SentenceTransformer<br> |
@@ -5885,6 +6201,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/dataset.py' href='.//utilmy/zml/source/models/dataset.py'>utilmy/zml/source/models/dataset.py</a> | method | <a href='.//utilmy/zml/source/models/dataset.py#L37'>dictEval:reset</a> |  |
 | <a name='utilmy/zml/source/models/dataset.py' href='.//utilmy/zml/source/models/dataset.py'>utilmy/zml/source/models/dataset.py</a> | method | <a href='.//utilmy/zml/source/models/dataset.py#L63'>dictEval:tf_dataset_create</a> | print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L206'>eval</a> | get_dataset<br> |
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L186'>fit</a> | get_dataset<br>compute_pars.get<br> |
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L299'>get_dataset</a> | data_pars.get<br>get_xy_random2<br>get_xy_fd2<br>Exception<br> |
@@ -5911,6 +6228,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L129'>fit</a> | copy.deepcopy<br>compute_pars.get<br>cpars.get<br>EarlyStopping<br>ModelCheckpoint<br>get_dataset_split<br>col.endswith<br>col.split<br>Xtrain.rename<br>Xtest.rename<br>log2<br>get_dataset_split_for_model_tfsparse<br>get_dataset_split_for_model_pandastuple<br>pd.concat<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L274'>get_dataset_split</a> | d.get<br>get_dataset_split_for_model_pandastuple<br>data_pars.get<br>isinstance<br>pd_read_file<br>len<br>Xtuple_train.append<br>get_dataset_split_for_model_petastorm<br>make_batch_reader<br>make_petastorm_dataset<br>train_dataset.map<br>tf.reshape<br>train_dataset.batch<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L245'>eval</a> | get_dataset<br> |
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L225'>fit</a> | get_dataset<br>compute_pars.get<br> |
 | <a name='utilmy/zml/source/models/keras_deepctr.py' href='.//utilmy/zml/source/models/keras_deepctr.py'>utilmy/zml/source/models/keras_deepctr.py</a> | function | <a href='.//utilmy/zml/source/models/keras_deepctr.py#L374'>get_dataset</a> | data_pars.get<br>get_xy_random2<br>get_xy_fd2<br>Exception<br> |
@@ -5936,6 +6255,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L50'>WideDeep_sparse</a> | model_pars2.get<br>tf_FeatureColumns<br>prepare.numeric_columns<br>prepare.categorical_columns<br>prepare.embeddings_columns<br>prepare.get_features<br>dnn_hidden_units.split<br>enumerate<br>model.compile<br>log2<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L129'>fit</a> | copy.deepcopy<br>compute_pars.get<br>cpars.get<br>EarlyStopping<br>ModelCheckpoint<br>get_dataset_split<br>col.endswith<br>col.split<br>Xtrain.rename<br>Xtest.rename<br>log2<br>get_dataset_split_for_model_tfsparse<br>get_dataset_split_for_model_pandastuple<br>pd.concat<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L274'>get_dataset_split</a> | d.get<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L294'>get_dataset_split_for_model_pandastuple</a> | data_pars.get<br>isinstance<br>pd_read_file<br>len<br>Xtuple_train.append<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L323'>get_dataset_split_for_model_petastorm</a> | make_batch_reader<br>make_petastorm_dataset<br>train_dataset.map<br>tf.reshape<br>train_dataset.batch<br> |
@@ -5943,7 +6265,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L26'>init</a> | Model<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L244'>load_model</a> | pickle.load<br>Model<br>log<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L14'>log</a> | print<br>log2<br>log3<br> |
+=======
+| <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L14'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L14'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -5954,7 +6280,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L31'>reset</a> |  |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L224'>save</a> | os.makedirs<br>Model<br>pickle.dump<br>open<br>log<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L568'>test</a> | test_data_classifier_petfinder<br>print<br>post_process_fun<br>int<br>pre_process_fun<br>log<br>prepare.split_sparse_data<br>list<br>os.makedirs<br>df.to_parquet<br>test_helper<br>tf_FeatureColumns<br>test2<br>prepare.data_to_tensorflow<br>prepare.numeric_columns<br>prepare.categorical_columns<br>prepare.bucketized_columns<br>prepare.get_features<br>tf_linear.values<br>tf_dnn.values<br>Model<br>fit<br>predict<br>save<br> |
+=======
+| <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L568'>test</a> | test_data_classifier_petfinder<br>print<br>post_process_fun<br>int<br>pre_process_fun<br>log<br>prepare.split_sparse_data<br>list<br>os.makedirs<br>df.to_parquet<br>test_helper<br>tf_FeatureColumns<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L568'>test</a> | test_data_classifier_petfinder<br>print<br>post_process_fun<br>int<br>pre_process_fun<br>log<br>prepare.split_sparse_data<br>list<br>os.makedirs<br>df.to_parquet<br>test_helper<br>tf_FeatureColumns<br> |
 >>>>>>> origin/main
@@ -5974,9 +6304,15 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L472'>tf_FeatureColumns:categorical_columns</a> | feature_column.categorical_column_with_vocabulary_list<br>feature_column.indicator_column<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L499'>tf_FeatureColumns:crossed_feature_columns</a> | feature_column.crossed_column<br>feature_column.indicator_column<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L436'>tf_FeatureColumns:data_to_tensorflow</a> | train_test_split<br>log<br>self.df_to_dataset<br>self.df_to_dataset_dense<br>data_to_tensorflow<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L408'>tf_FeatureColumns:data_to_tensorflow_split</a> | train_test_split<br>log<br>self.df_to_dataset<br>self.df_to_dataset_dense<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L365'>tf_FeatureColumns:df_to_dataset</a> | dataframe.copy<br>dataframe.pop<br>ds.shuffle<br>ds.batch<br>df_to_dataset_dense<br>dataframe.apply<br> |
+=======
+| <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L436'>tf_FeatureColumns:data_to_tensorflow</a> | self.df_to_dataset<br>log<br>self.df_to_dataset_dense<br> |
+| <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L408'>tf_FeatureColumns:data_to_tensorflow_split</a> | train_test_split<br>log<br>self.df_to_dataset<br>self.df_to_dataset_dense<br> |
+| <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L365'>tf_FeatureColumns:df_to_dataset</a> | dataframe.copy<br>dataframe.pop<br>ds.shuffle<br>ds.batch<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L436'>tf_FeatureColumns:data_to_tensorflow</a> | self.df_to_dataset<br>log<br>self.df_to_dataset_dense<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L408'>tf_FeatureColumns:data_to_tensorflow_split</a> | train_test_split<br>log<br>self.df_to_dataset<br>self.df_to_dataset_dense<br> |
@@ -5989,6 +6325,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L456'>tf_FeatureColumns:numeric_columns</a> | feature_column.numeric_column<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L397'>tf_FeatureColumns:split_sparse_data</a> | train_test_split<br>log<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep.py' href='.//utilmy/zml/source/models/keras_widedeep.py'>utilmy/zml/source/models/keras_widedeep.py</a> | method | <a href='.//utilmy/zml/source/models/keras_widedeep.py#L516'>tf_FeatureColumns:transform_output</a> | layers.DenseFeatures<br>next<br>log<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/keras_widedeep_dense.py' href='.//utilmy/zml/source/models/keras_widedeep_dense.py'>utilmy/zml/source/models/keras_widedeep_dense.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep_dense.py#L53'>Modelcustom</a> | layers.Input<br>layers.concatenate<br>layers.Dense<br>keras.Model<br>wide_model.compile<br>log2<br>layers.Embedding<br>layers.Flatten<br>deep_model.compile<br>model.compile<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep_dense.py' href='.//utilmy/zml/source/models/keras_widedeep_dense.py'>utilmy/zml/source/models/keras_widedeep_dense.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep_dense.py#L199'>evaluate</a> |  |
@@ -6209,6 +6546,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L143'>get_dataset_split_for_model_pandastuple</a> | data_pars.get<br>isinstance<br>pd_read_file<br>len<br>Xtuple_train.append<br> |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L231'>get_params</a> | get_params<br>json.load<br>Exception<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/keras_widedeep_dense.py' href='.//utilmy/zml/source/models/keras_widedeep_dense.py'>utilmy/zml/source/models/keras_widedeep_dense.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep_dense.py#L83'>Modelcustom</a> | layers.Input<br>layers.concatenate<br>layers.Dense<br>keras.Model<br>wide_model.compile<br>log2<br>layers.Embedding<br>layers.Flatten<br>deep_model.compile<br>model.compile<br> |
 | <a name='utilmy/zml/source/models/keras_widedeep_dense.py' href='.//utilmy/zml/source/models/keras_widedeep_dense.py'>utilmy/zml/source/models/keras_widedeep_dense.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep_dense.py#L249'>evaluate</a> |  |
 | <a name='utilmy/zml/source/models/keras_widedeep_dense.py' href='.//utilmy/zml/source/models/keras_widedeep_dense.py'>utilmy/zml/source/models/keras_widedeep_dense.py</a> | function | <a href='.//utilmy/zml/source/models/keras_widedeep_dense.py#L231'>fit</a> | get_dataset<br>copy.deepcopy<br>compute_pars.get<br>EarlyStopping<br>ModelCheckpoint<br> |
@@ -6427,13 +6766,20 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L174'>get_dataset2</a> | log3<br>data_pars.get<br>get_dataset_split_for_model_pandastuple<br> |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L143'>get_dataset_split_for_model_pandastuple</a> | data_pars.get<br>isinstance<br>pd_read_file<br>len<br>Xtuple_train.append<br> |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L231'>get_params</a> | json.load<br>Exception<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L227'>get_params_sklearn</a> |  |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L23'>init</a> | Model<br> |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L131'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L118'>load_model</a> | pickle.load<br>Model<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L12'>log</a> | print<br>log2<br>log3<br> |
+=======
+| <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L12'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/model_sklearn.py' href='.//utilmy/zml/source/models/model_sklearn.py'>utilmy/zml/source/models/model_sklearn.py</a> | function | <a href='.//utilmy/zml/source/models/model_sklearn.py#L12'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -6455,6 +6801,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L216'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L203'>load_model</a> | pickle.load<br>Model<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L18'>log</a> | print<br>log2<br>log3<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L21'>log2</a> | print<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L24'>log3</a> | print<br> |
@@ -6464,6 +6811,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L191'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L301'>test</a> | pd.read_csv<br>df1.set_index<br>df2.set_index<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L18'>log</a> | print<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L21'>log2</a> | print<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L24'>log3</a> | print<br> |
@@ -6472,6 +6821,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L36'>reset</a> |  |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L191'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L301'>test</a> | test_dataset_tseries<br>log<br>np.sum<br>post_process_fun<br>float<br>pre_process_fun<br>reset<br>Model<br>fit<br>predict<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L452'>test2</a> | test_dataset_tseries<br>df.drop<br>temporal_train_test_split<br>LighGBM_recursive<br>forecaster.fit<br>ForecastingHorizon<br>forecaster.predict<br>LighGBM_forecaster<br> |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | function | <a href='.//utilmy/zml/source/models/model_tseries.py#L263'>test_dataset_tseries</a> | pd.read_csv<br>df1.set_index<br>df2.set_index<br> |
@@ -6479,6 +6831,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | class | <a href='.//utilmy/zml/source/models/model_tseries.py#L85'>Model</a> |  |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | class | <a href='.//utilmy/zml/source/models/model_tseries.py#L58'>myModel</a> |  |
 | <a name='utilmy/zml/source/models/model_tseries.py' href='.//utilmy/zml/source/models/model_tseries.py'>utilmy/zml/source/models/model_tseries.py</a> | method | <a href='.//utilmy/zml/source/models/model_tseries.py#L86'>Model:__init__</a> | globals<br>model_class<br>log<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaem.py#L361'>decode2</a> | params.Params<br>print<br>p_vae_active_learning<br>np.load<br>plt.figure<br>plt.subplots<br>ax1.plot<br>ax1.errorbar<br>plt.xlabel<br>plt.ylabel<br>plt.xticks<br>plt.yticks<br>ax1.legend<br>ax1.ticklabel_format<br>plt.show<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaem.py#L302'>encode2</a> | p_vae_active_learning<br>process.compress_data<br>tf.reset_default_graph<br>vae.get_imputation<br>x_real.min<br>pd.DataFrame<br>sns.pairplot<br>g.map_diag<br>g.set<br>g.map_upper<br>g.map_lower<br>process.invert_noise<br> |
@@ -6502,6 +6855,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaem.py#L182'>Model_custom:encode</a> | range<br>print<br>log2<br>pa.table<br>pq.write_table<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaem.py#L145'>Model_custom:fit</a> | load_data<br>encode2<br>decode2<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaem.py#L447'>decode2</a> | params.Params<br>print<br>p_vae_active_learning<br>np.load<br>plt.figure<br>plt.subplots<br>ax1.plot<br>ax1.errorbar<br>plt.xlabel<br>plt.ylabel<br>plt.xticks<br>plt.yticks<br>ax1.legend<br>ax1.ticklabel_format<br>plt.show<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaem.py#L379'>encode2</a> | p_vae_active_learning<br>process.compress_data<br>tf.reset_default_graph<br>vae.get_imputation<br>x_real.min<br>pd.DataFrame<br>sns.pairplot<br>g.map_diag<br>g.set<br>g.map_upper<br>g.map_lower<br>process.invert_noise<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaem.py#L45'>init</a> | Model<br> |
@@ -6523,6 +6878,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaem.py#L260'>Model_custom:decode</a> | range<br>pa.table<br>pq.write_table<br>print<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaem.py#L236'>Model_custom:encode</a> | range<br>print<br>log2<br>pa.table<br>pq.write_table<br> |
 | <a name='utilmy/zml/source/models/model_vaem.py' href='.//utilmy/zml/source/models/model_vaem.py'>utilmy/zml/source/models/model_vaem.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaem.py#L199'>Model_custom:fit</a> | load_data<br>encode2<br>decode2<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L183'>AUTOENCODER_BASIC</a> | print<br>custom_loss_func_dice<br>K.sum<br>dim_list.split<br>int<br>encoder.compile<br>decoder.compile<br>decoder<br>autoencoder.compile<br> |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L232'>AUTOENCODER_MULTIMODAL</a> | MultimodalAutoencoder<br>autoencoder.compile<br>autoencoder.summary<br> |
@@ -6532,7 +6890,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L367'>encode</a> | get_dataset<br>data_pars.get<br>get_dataset_tuple<br>np.ones<br>compute_pars.get<br>os_makedirs<br>enumerate<br>range<br>log2<br>pa.table<br>pq.write_table<br>log<br> |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L333'>fit</a> | get_dataset<br>copy.deepcopy<br>compute_pars.get<br>EarlyStopping<br>np.ones<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L489'>get_dataset</a> | len<br>Xtuple_train.append<br>get_dataset<br>data_pars.get<br>test_dataset_correlation<br>get_dataset_tuple<br>Exception<br> |
+=======
+| <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L489'>get_dataset</a> | data_pars.get<br>test_dataset_correlation<br>get_dataset_tuple<br>Exception<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L489'>get_dataset</a> | data_pars.get<br>test_dataset_correlation<br>get_dataset_tuple<br>Exception<br> |
 >>>>>>> origin/main
@@ -6542,7 +6904,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L595'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L571'>load_model</a> | pickle.load<br>Model<br>VAEMDN<br>AUTOENCODER_BASIC<br>log<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L17'>log</a> | print<br>log2<br>log3<br> |
+=======
+| <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L17'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L17'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -6553,7 +6919,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L57'>sampling</a> | K.shape<br>K.int_shape<br>K.random_normal<br>K.random_uniform<br>K.exp<br> |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L553'>save</a> | os.makedirs<br>Model<br>pickle.dump<br>open<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L679'>test</a> | np.ones<br>range<br>np.zeros<br>np.floor<br>np.sum<br>np.matmul<br>np.uint32<br>np.corrcoef<br>np.squeeze<br>test<br>test_dataset_correlation<br>test_helper<br>test2<br>test_data_classifier_fake<br>pd_train_test_split2<br>post_process_fun<br>int<br>pre_process_fun<br>len<br>test3<br>test_data_classifier_petfinder<br>init<br>Model<br>log<br>fit<br>predict<br>encode<br>print<br>enumerate<br>decode<br>decoded_array.append<br>save<br>load_model<br> |
+=======
+| <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L679'>test</a> | test_dataset_correlation<br>np.uint32<br>test_helper<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L679'>test</a> | test_dataset_correlation<br>np.uint32<br>test_helper<br> |
 >>>>>>> origin/main
@@ -6564,6 +6934,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | function | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L880'>test_helper</a> | init<br>Model<br>log<br>fit<br>predict<br>encode<br>print<br>enumerate<br>decode<br>decoded_array.append<br>save<br>load_model<br> |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | class | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L294'>Model</a> |  |
 | <a name='utilmy/zml/source/models/model_vaemdn.py' href='.//utilmy/zml/source/models/model_vaemdn.py'>utilmy/zml/source/models/model_vaemdn.py</a> | method | <a href='.//utilmy/zml/source/models/model_vaemdn.py#L295'>Model:__init__</a> | model_pars.get<br>VAEMDN<br>AUTOENCODER_BASIC<br>log2<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L328'>benchmark</a> | log<br>os.system<br>fetch_data<br>train_test_split<br>benchmark_helper<br>post_process_fun<br>int<br>pre_process_fun<br>test_helper<br> |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L348'>benchmark_helper</a> | post_process_fun<br>int<br>pre_process_fun<br>log<br>test_helper<br> |
@@ -6585,6 +6956,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | class | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L48'>Model</a> |  |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | method | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L49'>Model:__init__</a> | globals<br>log2<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L421'>benchmark</a> | log<br>os.system<br>fetch_data<br>train_test_split<br>benchmark_helper<br> |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L446'>benchmark_helper</a> | post_process_fun<br>int<br>pre_process_fun<br>log<br>test_helper<br> |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L119'>fit</a> | get_dataset<br>log2<br>compute_pars.get<br>print<br> |
@@ -6604,6 +6977,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | function | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L392'>test_helper</a> | Model<br>log<br>fit<br>predict<br>save<br> |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | class | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L84'>Model</a> |  |
 | <a name='utilmy/zml/source/models/optuna_lightgbm.py' href='.//utilmy/zml/source/models/optuna_lightgbm.py'>utilmy/zml/source/models/optuna_lightgbm.py</a> | method | <a href='.//utilmy/zml/source/models/optuna_lightgbm.py#L85'>Model:__init__</a> | globals<br>log2<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/repo/functions.py' href='.//utilmy/zml/source/models/repo/functions.py'>utilmy/zml/source/models/repo/functions.py</a> | function | <a href='.//utilmy/zml/source/models/repo/functions.py#L176'>fit</a> | np.ones<br>vae.fit<br> |
 | <a name='utilmy/zml/source/models/repo/functions.py' href='.//utilmy/zml/source/models/repo/functions.py'>utilmy/zml/source/models/repo/functions.py</a> | function | <a href='.//utilmy/zml/source/models/repo/functions.py#L21'>get_dataset</a> | np.ones<br>range<br>np.zeros<br>np.floor<br>np.sum<br>np.matmul<br>np.uint32<br>np.corrcoef<br>np.squeeze<br> |
@@ -6612,6 +6988,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/repo/functions.py' href='.//utilmy/zml/source/models/repo/functions.py'>utilmy/zml/source/models/repo/functions.py</a> | function | <a href='.//utilmy/zml/source/models/repo/functions.py#L11'>sampling</a> | K.shape<br>K.int_shape<br>K.random_normal<br>K.random_uniform<br>K.exp<br> |
 | <a name='utilmy/zml/source/models/repo/functions.py' href='.//utilmy/zml/source/models/repo/functions.py'>utilmy/zml/source/models/repo/functions.py</a> | function | <a href='.//utilmy/zml/source/models/repo/functions.py#L184'>save</a> | model.save_weights<br> |
 | <a name='utilmy/zml/source/models/repo/functions.py' href='.//utilmy/zml/source/models/repo/functions.py'>utilmy/zml/source/models/repo/functions.py</a> | function | <a href='.//utilmy/zml/source/models/repo/functions.py#L190'>test</a> | encoder.predict<br>np.zeros<br>range<br>np.max<br>np.argmax<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/repo/model_rec.py' href='.//utilmy/zml/source/models/repo/model_rec.py'>utilmy/zml/source/models/repo/model_rec.py</a> | function | <a href='.//utilmy/zml/source/models/repo/model_rec.py#L178'>eval</a> | encode<br>log<br>decode<br> |
 | <a name='utilmy/zml/source/models/repo/model_rec.py' href='.//utilmy/zml/source/models/repo/model_rec.py'>utilmy/zml/source/models/repo/model_rec.py</a> | function | <a href='.//utilmy/zml/source/models/repo/model_rec.py#L147'>fit</a> | get_dataset<br> |
@@ -6671,6 +7048,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_ease.py' href='.//utilmy/zml/source/models/torch_ease.py'>utilmy/zml/source/models/torch_ease.py</a> | class | <a href='.//utilmy/zml/source/models/torch_ease.py#L62'>Model</a> |  |
 | <a name='utilmy/zml/source/models/torch_ease.py' href='.//utilmy/zml/source/models/torch_ease.py'>utilmy/zml/source/models/torch_ease.py</a> | method | <a href='.//utilmy/zml/source/models/torch_ease.py#L63'>Model:__init__</a> | get_dataset<br>TorchEASE<br>log2<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/repo/model_rec.py' href='.//utilmy/zml/source/models/repo/model_rec.py'>utilmy/zml/source/models/repo/model_rec.py</a> | function | <a href='.//utilmy/zml/source/models/repo/model_rec.py#L233'>eval</a> | encode<br>log<br>decode<br> |
 | <a name='utilmy/zml/source/models/repo/model_rec.py' href='.//utilmy/zml/source/models/repo/model_rec.py'>utilmy/zml/source/models/repo/model_rec.py</a> | function | <a href='.//utilmy/zml/source/models/repo/model_rec.py#L192'>fit</a> | get_dataset<br> |
 | <a name='utilmy/zml/source/models/repo/model_rec.py' href='.//utilmy/zml/source/models/repo/model_rec.py'>utilmy/zml/source/models/repo/model_rec.py</a> | function | <a href='.//utilmy/zml/source/models/repo/model_rec.py#L127'>get_dataset</a> | utils.load_data<br> |
@@ -6728,13 +7107,20 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_ease.py' href='.//utilmy/zml/source/models/torch_ease.py'>utilmy/zml/source/models/torch_ease.py</a> | function | <a href='.//utilmy/zml/source/models/torch_ease.py#L224'>train_test_split2</a> | log3<br>df.drop<br>np.sum<br>X.head<br>train_test_split<br>len<br> |
 | <a name='utilmy/zml/source/models/torch_ease.py' href='.//utilmy/zml/source/models/torch_ease.py'>utilmy/zml/source/models/torch_ease.py</a> | class | <a href='.//utilmy/zml/source/models/torch_ease.py#L98'>Model</a> |  |
 | <a name='utilmy/zml/source/models/torch_ease.py' href='.//utilmy/zml/source/models/torch_ease.py'>utilmy/zml/source/models/torch_ease.py</a> | method | <a href='.//utilmy/zml/source/models/torch_ease.py#L99'>Model:__init__</a> | get_dataset<br>TorchEASE<br>log2<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L76'>fit</a> | get_dataset<br> |
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L97'>get_dataset</a> | data_pars.get<br>pd.concat<br>Dataset<br>SparseDummySampler<br>np.vectorize<br>id_mapper<br>Exception<br> |
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L27'>init</a> | Model<br> |
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L162'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L15'>log</a> | print<br>log2<br>log3<br> |
+=======
+| <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L15'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L15'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -6745,7 +7131,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L32'>reset</a> |  |
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L145'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L197'>test</a> | make_rand_sparse_dataset<br>post_process_fun<br>int<br>pre_process_fun<br>test_helper<br>Model<br>log<br>fit<br>predict<br>save<br> |
+=======
+| <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L197'>test</a> | make_rand_sparse_dataset<br>post_process_fun<br>int<br>pre_process_fun<br>test_helper<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/torch_rectorch.py' href='.//utilmy/zml/source/models/torch_rectorch.py'>utilmy/zml/source/models/torch_rectorch.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rectorch.py#L197'>test</a> | make_rand_sparse_dataset<br>post_process_fun<br>int<br>pre_process_fun<br>test_helper<br> |
 >>>>>>> origin/main
@@ -6761,7 +7151,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L24'>init</a> | Model<br> |
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L380'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L13'>log</a> | print<br>log2<br>log3<br> |
+=======
+| <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L13'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L13'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -6771,7 +7165,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L29'>reset</a> |  |
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L363'>save</a> | os.makedirs<br>pickle.dump<br>open<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L394'>test</a> | post_process_fun<br>int<br>pre_process_fun<br>print<br>os.system<br>test_helper<br>reset<br>log<br>Model<br>fit<br>encode<br>decode<br>predict<br>eval<br> |
+=======
+| <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L394'>test</a> | post_process_fun<br>int<br>pre_process_fun<br>print<br>os.system<br>test_helper<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | function | <a href='.//utilmy/zml/source/models/torch_rvae.py#L394'>test</a> | post_process_fun<br>int<br>pre_process_fun<br>print<br>os.system<br>test_helper<br> |
 >>>>>>> origin/main
@@ -6792,6 +7190,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | method | <a href='.//utilmy/zml/source/models/torch_rvae.py#L897'>RVAE:reparameterize</a> | dict<br>self.sample_normal<br> |
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | method | <a href='.//utilmy/zml/source/models/torch_rvae.py#L883'>RVAE:sample_normal</a> | torch.randn_like<br>eps.mul<br> |
 | <a name='utilmy/zml/source/models/torch_rvae.py' href='.//utilmy/zml/source/models/torch_rvae.py'>utilmy/zml/source/models/torch_rvae.py</a> | method | <a href='.//utilmy/zml/source/models/torch_rvae.py#L711'>RVAE:save</a> | self._save_to_csv<br>self.cpu<br>torch.save<br>open<br>json.dump<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/torch_tabular.py' href='.//utilmy/zml/source/models/torch_tabular.py'>utilmy/zml/source/models/torch_tabular.py</a> | function | <a href='.//utilmy/zml/source/models/torch_tabular.py#L153'>fit</a> | copy.deepcopy<br>compute_pars.get<br>get_dataset<br>pd.concat<br> |
 | <a name='utilmy/zml/source/models/torch_tabular.py' href='.//utilmy/zml/source/models/torch_tabular.py'>utilmy/zml/source/models/torch_tabular.py</a> | function | <a href='.//utilmy/zml/source/models/torch_tabular.py#L264'>get_dataset</a> | len<br>Xtuple_train.append<br>get_dataset<br>data_pars.get<br>get_dataset_tuple<br>log2<br> |
@@ -6864,6 +7263,8 @@ Repo: ./
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L116'>fit</a> | get_dataset<br>copy.deepcopy<br>compute_pars.get<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L168'>get_dataset</a> | len<br>Xtuple_train.append<br>get_dataset<br>data_pars.get<br>get_dataset_tuple<br>log2<br>Exception<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/torch_tabular.py' href='.//utilmy/zml/source/models/torch_tabular.py'>utilmy/zml/source/models/torch_tabular.py</a> | function | <a href='.//utilmy/zml/source/models/torch_tabular.py#L191'>fit</a> | copy.deepcopy<br>compute_pars.get<br>get_dataset<br>pd.concat<br> |
 | <a name='utilmy/zml/source/models/torch_tabular.py' href='.//utilmy/zml/source/models/torch_tabular.py'>utilmy/zml/source/models/torch_tabular.py</a> | function | <a href='.//utilmy/zml/source/models/torch_tabular.py#L324'>get_dataset</a> | data_pars.get<br>get_dataset_tuple<br>log2<br> |
 | <a name='utilmy/zml/source/models/torch_tabular.py' href='.//utilmy/zml/source/models/torch_tabular.py'>utilmy/zml/source/models/torch_tabular.py</a> | function | <a href='.//utilmy/zml/source/models/torch_tabular.py#L300'>get_dataset_tuple</a> | len<br>Xtuple_train.append<br> |
@@ -6934,6 +7335,9 @@ Repo: ./
 | <a name='utilmy/zml/source/models/ztmp2/keras_widedeep_old.py' href='.//utilmy/zml/source/models/ztmp2/keras_widedeep_old.py'>utilmy/zml/source/models/ztmp2/keras_widedeep_old.py</a> | method | <a href='.//utilmy/zml/source/models/ztmp2/keras_widedeep_old.py#L103'>Model:__init__</a> | globals<br>Modelcustom<br>log<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L116'>fit</a> | get_dataset<br>copy.deepcopy<br>compute_pars.get<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L168'>get_dataset</a> | data_pars.get<br>get_dataset_tuple<br>log2<br>Exception<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L146'>get_dataset_tuple</a> | len<br>Xtuple_train.append<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L49'>init</a> | Model<br> |
@@ -6941,7 +7345,11 @@ Repo: ./
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L252'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L237'>load_model</a> | pickle.load<br>Model<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L38'>log</a> | print<br>log2<br> |
+=======
+| <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L38'>log</a> | print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L38'>log</a> | print<br> |
 >>>>>>> origin/main
@@ -6949,6 +7357,7 @@ Repo: ./
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L128'>predict</a> | get_dataset<br>get_dataset_tuple<br>log2<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L215'>reset</a> |  |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L220'>save</a> | os.makedirs<br>Model<br>pickle.dump<br>open<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L265'>test</a> | pd.DataFrame<br>range<br>train_test_split<br>log<br>colg_input.items<br>test_helper<br>Model<br>fit<br>predict<br>save<br>load_model<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L338'>test_helper</a> | Model<br>log<br>fit<br>predict<br>save<br>load_model<br> |
@@ -7091,6 +7500,8 @@ Repo: ./
 | <a name='utilmy/zml/source/run_hyperopt.py' href='.//utilmy/zml/source/run_hyperopt.py'>utilmy/zml/source/run_hyperopt.py</a> | function | <a href='.//utilmy/zml/source/run_hyperopt.py#L155'>test_hyper3</a> | objective1<br>run_hyper_optuna<br>log<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L11'>log</a> | print<br>log2<br>log3<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L265'>test</a> | pd.DataFrame<br>range<br>train_test_split<br>log<br>colg_input.items<br>test_helper<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | function | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L338'>test_helper</a> | Model<br>log<br>fit<br>predict<br>save<br>load_model<br> |
 | <a name='utilmy/zml/source/models/ztmp2/model_vaem.py' href='.//utilmy/zml/source/models/ztmp2/model_vaem.py'>utilmy/zml/source/models/ztmp2/model_vaem.py</a> | class | <a href='.//utilmy/zml/source/models/ztmp2/model_vaem.py#L99'>Model</a> |  |
@@ -7231,6 +7642,9 @@ Repo: ./
 | <a name='utilmy/zml/source/run_hyperopt.py' href='.//utilmy/zml/source/run_hyperopt.py'>utilmy/zml/source/run_hyperopt.py</a> | function | <a href='.//utilmy/zml/source/run_hyperopt.py#L195'>test_hyper2</a> | objective<br>model=RandomForestClassifier<br>model.fit<br>objective1<br>result_p=run_hyper_optuna<br> |
 | <a name='utilmy/zml/source/run_hyperopt.py' href='.//utilmy/zml/source/run_hyperopt.py'>utilmy/zml/source/run_hyperopt.py</a> | function | <a href='.//utilmy/zml/source/run_hyperopt.py#L166'>test_hyper3</a> | objective1<br>run_hyper_optuna<br>log<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L11'>log</a> | print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L14'>log2</a> | print<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L17'>log3</a> | print<br> |
@@ -7238,6 +7652,7 @@ Repo: ./
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L30'>model_dict_load</a> | log<br>load_function_uri<br>model_dict_fun<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L111'>predict</a> | log2<br>log<br>load<br>map_model<br>modelx.reset<br>modelx.load_model<br>modelx.predict<br>post_process_fun<br>len<br>log3<br>np_conv_to_one_col<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L241'>run_data_check</a> | os.makedirs<br>load<br>load_dataset<br>preprocess<br>int<br>len<br>pd_stat_dataset_shift<br>metrics_psi.to_csv<br>log<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L176'>run_predict</a> | model_dict_load<br>log<br>glob.glob<br>enumerate<br>run_predict<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L91'>run_predict_batch</a> | model_dict_load<br>log<br>glob.glob<br>enumerate<br>run_predict<br> |
@@ -7259,6 +7674,8 @@ Repo: ./
 | <a name='utilmy/zml/source/run_preprocess.py' href='.//utilmy/zml/source/run_preprocess.py'>utilmy/zml/source/run_preprocess.py</a> | function | <a href='.//utilmy/zml/source/run_preprocess.py#L43'>save_features</a> | os.makedirs<br>isinstance<br>log<br>list<br>df0.to_parquet<br> |
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L16'>log</a> | print<br>log2<br>log3<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L176'>run_predict</a> | model_dict_load<br>log<br>load<br>load_dataset<br>preprocess<br>list<br>predict<br>dfX.reset_index<br>log2<br>os.makedirs<br>dfX.sample<br>dfX.to_parquet<br>colexport.append<br> |
 | <a name='utilmy/zml/source/run_inference.py' href='.//utilmy/zml/source/run_inference.py'>utilmy/zml/source/run_inference.py</a> | function | <a href='.//utilmy/zml/source/run_inference.py#L91'>run_predict_batch</a> | model_dict_load<br>log<br>glob.glob<br>enumerate<br>run_predict<br> |
 | <a name='utilmy/zml/source/run_inpection.py' href='.//utilmy/zml/source/run_inpection.py'>utilmy/zml/source/run_inpection.py</a> | function | <a href='.//utilmy/zml/source/run_inpection.py#L20'>log</a> | print<br> |
@@ -7278,6 +7695,9 @@ Repo: ./
 | <a name='utilmy/zml/source/run_preprocess.py' href='.//utilmy/zml/source/run_preprocess.py'>utilmy/zml/source/run_preprocess.py</a> | function | <a href='.//utilmy/zml/source/run_preprocess.py#L417'>run_preprocess</a> | preprocess<br> |
 | <a name='utilmy/zml/source/run_preprocess.py' href='.//utilmy/zml/source/run_preprocess.py'>utilmy/zml/source/run_preprocess.py</a> | function | <a href='.//utilmy/zml/source/run_preprocess.py#L70'>save_features</a> | os.makedirs<br>isinstance<br>log<br>list<br>df0.to_parquet<br> |
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L16'>log</a> | print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L19'>log2</a> | print<br> |
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L22'>log3</a> | print<br> |
@@ -7288,6 +7708,7 @@ Repo: ./
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L40'>save_features</a> | os.makedirs<br>df.to_parquet<br> |
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L101'>train</a> | log2<br>log<br>int<br>len<br>dfX.sample<br>map_model<br>modelx.reset<br>modelx.init<br>modelx.fit<br>modelx.transform<br>pd.DataFrame<br>post_process_fun<br>modelx.eval<br>os.makedirs<br>save<br>modelx.save<br>modelx.load_model<br> |
 | <a name='utilmy/zml/source/run_sampler.py' href='.//utilmy/zml/source/run_sampler.py'>utilmy/zml/source/run_sampler.py</a> | function | <a href='.//utilmy/zml/source/run_sampler.py#L287'>transform</a> | map_model<br>modelx.reset<br>log<br>modelx.load_model<br>load<br>modelx.transform<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/run_train.py' href='.//utilmy/zml/source/run_train.py'>utilmy/zml/source/run_train.py</a> | function | <a href='.//utilmy/zml/source/run_train.py#L306'>cols_validate</a> | Exception<br>sum<br>log<br> |
 | <a name='utilmy/zml/source/run_train.py' href='.//utilmy/zml/source/run_train.py'>utilmy/zml/source/run_train.py</a> | function | <a href='.//utilmy/zml/source/run_train.py#L104'>data_split</a> | log2<br>dfX.sample<br>int<br>len<br>m.items<br>os.makedirs<br>isinstance<br>glob.glob<br>enumerate<br>pd_read_file<br>dfXi.sample<br>data_pars.get<br> |
@@ -7338,6 +7759,8 @@ Repo: ./
 | <a name='utilmy/zml/source/util.py' href='.//utilmy/zml/source/util.py'>utilmy/zml/source/util.py</a> | method | <a href='.//utilmy/zml/source/util.py#L227'>logger_class:load_config</a> | open<br>yaml.load<br> |
 | <a name='utilmy/zml/source/util.py' href='.//utilmy/zml/source/util.py'>utilmy/zml/source/util.py</a> | method | <a href='.//utilmy/zml/source/util.py#L239'>logger_class:log</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/run_train.py' href='.//utilmy/zml/source/run_train.py'>utilmy/zml/source/run_train.py</a> | function | <a href='.//utilmy/zml/source/run_train.py#L332'>cols_validate</a> | Exception<br>sum<br>log<br> |
 | <a name='utilmy/zml/source/run_train.py' href='.//utilmy/zml/source/run_train.py'>utilmy/zml/source/run_train.py</a> | function | <a href='.//utilmy/zml/source/run_train.py#L130'>data_split</a> | log2<br>dfX.sample<br>int<br>len<br>m.items<br>os.makedirs<br>isinstance<br>glob.glob<br>enumerate<br>pd_read_file<br>dfXi.sample<br>data_pars.get<br> |
 | <a name='utilmy/zml/source/run_train.py' href='.//utilmy/zml/source/run_train.py'>utilmy/zml/source/run_train.py</a> | function | <a href='.//utilmy/zml/source/run_train.py#L16'>log</a> | print<br> |
@@ -7386,6 +7809,9 @@ Repo: ./
 | <a name='utilmy/zml/source/util.py' href='.//utilmy/zml/source/util.py'>utilmy/zml/source/util.py</a> | method | <a href='.//utilmy/zml/source/util.py#L329'>logger_class:debug</a> |  |
 | <a name='utilmy/zml/source/util.py' href='.//utilmy/zml/source/util.py'>utilmy/zml/source/util.py</a> | method | <a href='.//utilmy/zml/source/util.py#L299'>logger_class:load_config</a> | open<br>yaml.load<br> |
 | <a name='utilmy/zml/source/util.py' href='.//utilmy/zml/source/util.py'>utilmy/zml/source/util.py</a> | method | <a href='.//utilmy/zml/source/util.py#L317'>logger_class:log</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L1388'>col_extractname</a> | len<br>colnew.append<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L1411'>col_remove</a> | cols.remove<br>cols3.append<br> |
@@ -7398,17 +7824,23 @@ Repo: ./
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L386'>fetch_dataset</a> | log<br>mkdtemp<br>pathlib.Path<br>mktemp<br>url_dataset.replace<br>urlx.replace<br>urlpath.split<br>os.makedirs<br>requests.Session<br>s.get<br>print<br>open<br>f.write<br>res.raise_for_status<br>urlparse<br>parse_qs<br>download_googledrive<br>download_dtopbox<br>os.listdir<br>os.unlink<br>os.link<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L378'>fetch_spark_koalas</a> | path_data_x.replace<br>ks.read_parquet<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L228'>load</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L491'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L12'>log</a> | print<br>log2<br>log3<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L228'>load</a> | pickle.load<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L491'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L12'>log</a> | print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L18'>log2</a> | print<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L21'>log3</a> | print<br> |
@@ -7444,7 +7876,11 @@ Repo: ./
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L1505'>pd_stat_shift_trend_changes</a> | target_diffs.fillna<br>target_diffs.divide<br>target_diffs_norm.diff<br>target_diffs_lvl2.fillna<br>int<br> |
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L1529'>pd_stat_shift_trend_correlation</a> | df.merge<br>pd.isnull<br>len<br>np.corrcoef<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L221'>save</a> | os.makedirs<br>isinstance<br>log<br>list<br>df0.to_parquet<br> |
+=======
+| <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/util_feature.py' href='.//utilmy/zml/source/util_feature.py'>utilmy/zml/source/util_feature.py</a> | function | <a href='.//utilmy/zml/source/util_feature.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
 >>>>>>> origin/main
@@ -7468,7 +7904,11 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util.py' href='.//utilmy/zml/source/utils/util.py'>utilmy/zml/source/utils/util.py</a> | function | <a href='.//utilmy/zml/source/utils/util.py#L40'>os_make_dirs</a> | isinstance<br>os.makedirs<br>print<br> |
 | <a name='utilmy/zml/source/utils/util.py' href='.//utilmy/zml/source/utils/util.py'>utilmy/zml/source/utils/util.py</a> | function | <a href='.//utilmy/zml/source/utils/util.py#L193'>printlog</a> | str<br>print<br>writelog<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util.py' href='.//utilmy/zml/source/utils/util.py'>utilmy/zml/source/utils/util.py</a> | function | <a href='.//utilmy/zml/source/utils/util.py#L71'>save</a> | save<br>print<br>os_make_dirs<br>open<br>pickle.dump<br> |
+=======
+| <a name='utilmy/zml/source/utils/util.py' href='.//utilmy/zml/source/utils/util.py'>utilmy/zml/source/utils/util.py</a> | function | <a href='.//utilmy/zml/source/utils/util.py#L71'>save</a> | os_make_dirs<br>open<br>pickle.dump<br>print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/utils/util.py' href='.//utilmy/zml/source/utils/util.py'>utilmy/zml/source/utils/util.py</a> | function | <a href='.//utilmy/zml/source/utils/util.py#L71'>save</a> | os_make_dirs<br>open<br>pickle.dump<br>print<br> |
 >>>>>>> origin/main
@@ -7488,6 +7928,7 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_automl.py' href='.//utilmy/zml/source/utils/util_automl.py'>utilmy/zml/source/utils/util_automl.py</a> | function | <a href='.//utilmy/zml/source/utils/util_automl.py#L66'>model_auto_tpot</a> | import_<br>train_test_split<br>tpot.TPOTRegressor<br>tpot.TPOTClassifier<br>print<br>clf.fit<br>tpot.score<br>str<br>tpot.export<br> |
 | <a name='utilmy/zml/source/utils/util_automl.py' href='.//utilmy/zml/source/utils/util_automl.py'>utilmy/zml/source/utils/util_automl.py</a> | class | <a href='.//utilmy/zml/source/utils/util_automl.py#L57'>dict2</a> |  |
 | <a name='utilmy/zml/source/utils/util_automl.py' href='.//utilmy/zml/source/utils/util_automl.py'>utilmy/zml/source/utils/util_automl.py</a> | method | <a href='.//utilmy/zml/source/utils/util_automl.py#L58'>dict2:__init__</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util_credit.py' href='.//utilmy/zml/source/utils/util_credit.py'>utilmy/zml/source/utils/util_credit.py</a> | function | <a href='.//utilmy/zml/source/utils/util_credit.py#L77'>fun_get_segmentlimit</a> | range<br>len<br> |
 | <a name='utilmy/zml/source/utils/util_credit.py' href='.//utilmy/zml/source/utils/util_credit.py'>utilmy/zml/source/utils/util_credit.py</a> | function | <a href='.//utilmy/zml/source/utils/util_credit.py#L103'>model_logistic_score</a> | score_calc<br>np.log<br>clf.predict_proba<br>clf.predict<br>sk_showmetrics<br>np.min<br> |
@@ -7531,6 +7972,8 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L223'>np_dict_tostr_key</a> | list<br> |
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L219'>np_dict_tostr_val</a> | list<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/utils/util_credit.py' href='.//utilmy/zml/source/utils/util_credit.py'>utilmy/zml/source/utils/util_credit.py</a> | function | <a href='.//utilmy/zml/source/utils/util_credit.py#L82'>fun_get_segmentlimit</a> | range<br>len<br> |
 | <a name='utilmy/zml/source/utils/util_credit.py' href='.//utilmy/zml/source/utils/util_credit.py'>utilmy/zml/source/utils/util_credit.py</a> | function | <a href='.//utilmy/zml/source/utils/util_credit.py#L108'>model_logistic_score</a> | score_calc<br>np.log<br>clf.predict_proba<br>clf.predict<br>sk_showmetrics<br>np.min<br> |
 | <a name='utilmy/zml/source/utils/util_credit.py' href='.//utilmy/zml/source/utils/util_credit.py'>utilmy/zml/source/utils/util_credit.py</a> | function | <a href='.//utilmy/zml/source/utils/util_credit.py#L99'>np_drop_duplicates</a> | np.array<br>list<br> |
@@ -7553,6 +7996,9 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L265'>np_dict_tolist</a> | list<br> |
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L285'>np_dict_tostr_key</a> | list<br> |
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L275'>np_dict_tostr_val</a> | list<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/utils/util_date.py' href='.//utilmy/zml/source/utils/util_date.py'>utilmy/zml/source/utils/util_date.py</a> | function | <a href='.//utilmy/zml/source/utils/util_date.py#L30'>pd_datestring_split</a> | isinstance<br>Exception<br>pd.DataFrame<br>pd.to_datetime<br> |
 | <a name='utilmy/zml/source/utils/util_deep.py' href='.//utilmy/zml/source/utils/util_deep.py'>utilmy/zml/source/utils/util_deep.py</a> | function | <a href='.//utilmy/zml/source/utils/util_deep.py#L7'>tf_to_dot</a> | Digraph<br>graph.as_graph_def<br>dot.node<br>dot.edge<br> |
@@ -7565,6 +8011,7 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_metric.py' href='.//utilmy/zml/source/utils/util_metric.py'>utilmy/zml/source/utils/util_metric.py</a> | function | <a href='.//utilmy/zml/source/utils/util_metric.py#L169'>ndcg_at_k</a> | dcg_at_k<br> |
 | <a name='utilmy/zml/source/utils/util_metric.py' href='.//utilmy/zml/source/utils/util_metric.py'>utilmy/zml/source/utils/util_metric.py</a> | function | <a href='.//utilmy/zml/source/utils/util_metric.py#L61'>precision_at_k</a> | np.asarray<br>ValueError<br>np.mean<br> |
 | <a name='utilmy/zml/source/utils/util_metric.py' href='.//utilmy/zml/source/utils/util_metric.py'>utilmy/zml/source/utils/util_metric.py</a> | function | <a href='.//utilmy/zml/source/utils/util_metric.py#L36'>r_precision</a> | np.asarray<br>r.nonzero<br>np.mean<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util_model.py' href='.//utilmy/zml/source/utils/util_model.py'>utilmy/zml/source/utils/util_model.py</a> | function | <a href='.//utilmy/zml/source/utils/util_model.py#L79'>import_</a> | import_module<br>print<br>getattr<br> |
 | <a name='utilmy/zml/source/utils/util_model.py' href='.//utilmy/zml/source/utils/util_model.py'>utilmy/zml/source/utils/util_model.py</a> | function | <a href='.//utilmy/zml/source/utils/util_model.py#L208'>model_catboost_classifier</a> | dict2<br>range<br>pd.DataFrame<br>catboost.CatBoostClassifier<br>clf.fit<br>clf.predict<br>cm.astype<br>cm.sum<br>print<br> |
@@ -7601,6 +8048,8 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_model.py' href='.//utilmy/zml/source/utils/util_model.py'>utilmy/zml/source/utils/util_model.py</a> | method | <a href='.//utilmy/zml/source/utils/util_model.py#L463'>model_template1:score</a> | Y.clip<br>r2_score<br> |
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L53'>create_model_name</a> |  |
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L207'>data_loader</a> | pd.read_csv<br>pd.to_datetime<br>MinMaxScaler<br>minmax.transform<br>pd.DataFrame<br> |
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L180'>load_arguments</a> | print<br>argparse.ArgumentParser<br>p.add_argument<br>p.parse_args<br>load_config<br> |
@@ -7608,6 +8057,7 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L78'>optim_optuna</a> | module_load<br>objective<br>module.get_params<br>pars.items<br>trial.suggest_loguniform<br>trial.suggest_int<br>trial.suggest_categorical<br>trial.suggest_discrete_uniform<br>trial.suggest_uniform<br>Exception<br>module.Model<br>module.fit<br>tf.reset_default_graph<br>optuna.create_study<br>study.optimize<br>param_dict.update<br>modelname.replace<br>not<br>os.makedirs<br>save<br>study.trials_dataframe<br>study_trials.to_csv<br>json.dump<br> |
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L220'>test_all</a> | data_loader<br>optim<br>print<br> |
 | <a name='utilmy/zml/source/utils/util_optim.py' href='.//utilmy/zml/source/utils/util_optim.py'>utilmy/zml/source/utils/util_optim.py</a> | function | <a href='.//utilmy/zml/source/utils/util_optim.py#L233'>test_fast</a> | data_loader<br>optim<br>print<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util_pipeline.py' href='.//utilmy/zml/source/utils/util_pipeline.py'>utilmy/zml/source/utils/util_pipeline.py</a> | function | <a href='.//utilmy/zml/source/utils/util_pipeline.py#L62'>pd_grid_search</a> | train_test_split<br>GridSearchCV<br>full_pipeline.predict<br>print<br> |
 | <a name='utilmy/zml/source/utils/util_pipeline.py' href='.//utilmy/zml/source/utils/util_pipeline.py'>utilmy/zml/source/utils/util_pipeline.py</a> | function | <a href='.//utilmy/zml/source/utils/util_pipeline.py#L17'>pd_pipeline</a> | Pipeline<br>MySelector<br>MyBinarizer<br>CountVectorizer<br>TfidfVectorizer<br>FeatureUnion<br>PCA<br>LinearSVC<br>train_test_split<br>full_pipeline.fit<br> |
@@ -7657,6 +8107,8 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L314'>sk_distribution_kernel_sample</a> | np.zeros<br>func<br>kde.cdf<br>range<br>brentq<br> |
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L248'>stat_hypothesis_test_permutation</a> | t.groupby<br>abs<br>means_table.column<br>make_array<br>np.arange<br>t.select<br>shuffled.group<br>m_tbl.column<br>np.append<br>np.count_nonzero<br>Table<br>plots.title<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/source/utils/util_pipeline.py' href='.//utilmy/zml/source/utils/util_pipeline.py'>utilmy/zml/source/utils/util_pipeline.py</a> | function | <a href='.//utilmy/zml/source/utils/util_pipeline.py#L71'>pd_grid_search</a> | train_test_split<br>GridSearchCV<br>full_pipeline.predict<br>print<br> |
 | <a name='utilmy/zml/source/utils/util_pipeline.py' href='.//utilmy/zml/source/utils/util_pipeline.py'>utilmy/zml/source/utils/util_pipeline.py</a> | function | <a href='.//utilmy/zml/source/utils/util_pipeline.py#L17'>pd_pipeline</a> | Pipeline<br>MySelector<br>MyBinarizer<br>CountVectorizer<br>TfidfVectorizer<br>FeatureUnion<br>PCA<br>LinearSVC<br>train_test_split<br>full_pipeline.fit<br> |
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L57'>np_conditional_entropy</a> | Counter<br>sum<br>xy_counter.keys<br>math.log<br> |
@@ -7668,6 +8120,9 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L306'>sk_distribution_kernel_bestbandwidth</a> | GridSearchCV<br>np.linspace<br>grid.fit<br> |
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L320'>sk_distribution_kernel_sample</a> | np.zeros<br>func<br>kde.cdf<br>range<br>brentq<br> |
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | function | <a href='.//utilmy/zml/source/utils/util_stat.py#L254'>stat_hypothesis_test_permutation</a> | t.groupby<br>abs<br>means_table.column<br>make_array<br>np.arange<br>t.select<br>shuffled.group<br>m_tbl.column<br>np.append<br>np.count_nonzero<br>Table<br>plots.title<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | class | <a href='.//utilmy/zml/source/utils/util_stat.py#L42'>dict2</a> |  |
 | <a name='utilmy/zml/source/utils/util_stat.py' href='.//utilmy/zml/source/utils/util_stat.py'>utilmy/zml/source/utils/util_stat.py</a> | method | <a href='.//utilmy/zml/source/utils/util_stat.py#L44'>dict2:__init__</a> |  |
@@ -7677,7 +8132,11 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_text.py' href='.//utilmy/zml/source/utils/util_text.py'>utilmy/zml/source/utils/util_text.py</a> | function | <a href='.//utilmy/zml/source/utils/util_text.py#L101'>coltext_stopwords</a> | text.split<br>t.strip<br> |
 | <a name='utilmy/zml/source/utils/util_text.py' href='.//utilmy/zml/source/utils/util_text.py'>utilmy/zml/source/utils/util_text.py</a> | function | <a href='.//utilmy/zml/source/utils/util_text.py#L67'>get_stopwords</a> | json.load<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util_text.py' href='.//utilmy/zml/source/utils/util_text.py'>utilmy/zml/source/utils/util_text.py</a> | function | <a href='.//utilmy/zml/source/utils/util_text.py#L111'>pd_coltext_clean</a> | isinstance<br>Exception<br>x.translate<br>re.sub<br>coltext_stopwords<br>pd_coltext_clean_advanced<br>set<br> |
+=======
+| <a name='utilmy/zml/source/utils/util_text.py' href='.//utilmy/zml/source/utils/util_text.py'>utilmy/zml/source/utils/util_text.py</a> | function | <a href='.//utilmy/zml/source/utils/util_text.py#L111'>pd_coltext_clean</a> | isinstance<br>Exception<br>x.translate<br>re.sub<br>coltext_stopwords<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/utils/util_text.py' href='.//utilmy/zml/source/utils/util_text.py'>utilmy/zml/source/utils/util_text.py</a> | function | <a href='.//utilmy/zml/source/utils/util_text.py#L111'>pd_coltext_clean</a> | isinstance<br>Exception<br>x.translate<br>re.sub<br>coltext_stopwords<br> |
 >>>>>>> origin/main
@@ -7725,7 +8184,11 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/util_text_embedding.py' href='.//utilmy/zml/source/utils/util_text_embedding.py'>utilmy/zml/source/utils/util_text_embedding.py</a> | method | <a href='.//utilmy/zml/source/utils/util_text_embedding.py#L151'>MDVEncoder:transform</a> | np.zeros<br>len<br>enumerate<br> |
 | <a name='utilmy/zml/source/utils/util_text_embedding.py' href='.//utilmy/zml/source/utils/util_text_embedding.py'>utilmy/zml/source/utils/util_text_embedding.py</a> | method | <a href='.//utilmy/zml/source/utils/util_text_embedding.py#L71'>NgramNaiveFisherKernel:__init__</a> | super<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/source/utils/util_text_embedding.py' href='.//utilmy/zml/source/utils/util_text_embedding.py'>utilmy/zml/source/utils/util_text_embedding.py</a> | method | <a href='.//utilmy/zml/source/utils/util_text_embedding.py#L189'>NgramNaiveFisherKernel:_ngram_presence_fisher_kernel</a> | np.unique<br>sum<br>theta.sum<br>CountVectorizer<br>vectorizer.fit_transform<br>vectorizer.transform<br>enumerate<br>np.ones<br>similarity.append<br>gamma_inv.sum<br>sparse.vstack<br>similarity.reshape<br>np.empty<br>len<br>np.nan_to_num<br>_ngram_presence_fisher_kernel2<br>np.zeros<br>np.array<br> |
+=======
+| <a name='utilmy/zml/source/utils/util_text_embedding.py' href='.//utilmy/zml/source/utils/util_text_embedding.py'>utilmy/zml/source/utils/util_text_embedding.py</a> | method | <a href='.//utilmy/zml/source/utils/util_text_embedding.py#L189'>NgramNaiveFisherKernel:_ngram_presence_fisher_kernel</a> | np.unique<br>sum<br>theta.sum<br>CountVectorizer<br>vectorizer.fit_transform<br>vectorizer.transform<br>enumerate<br>np.ones<br>similarity.append<br>gamma_inv.sum<br>sparse.vstack<br>similarity.reshape<br>np.empty<br>len<br>np.nan_to_num<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/source/utils/util_text_embedding.py' href='.//utilmy/zml/source/utils/util_text_embedding.py'>utilmy/zml/source/utils/util_text_embedding.py</a> | method | <a href='.//utilmy/zml/source/utils/util_text_embedding.py#L189'>NgramNaiveFisherKernel:_ngram_presence_fisher_kernel</a> | np.unique<br>sum<br>theta.sum<br>CountVectorizer<br>vectorizer.fit_transform<br>vectorizer.transform<br>enumerate<br>np.ones<br>similarity.append<br>gamma_inv.sum<br>sparse.vstack<br>similarity.reshape<br>np.empty<br>len<br>np.nan_to_num<br> |
 >>>>>>> origin/main
@@ -7757,6 +8220,7 @@ Repo: ./
 | <a name='utilmy/zml/source/utils/ztest.py' href='.//utilmy/zml/source/utils/ztest.py'>utilmy/zml/source/utils/ztest.py</a> | class | <a href='.//utilmy/zml/source/utils/ztest.py#L53'>dict2</a> |  |
 | <a name='utilmy/zml/source/utils/ztest.py' href='.//utilmy/zml/source/utils/ztest.py'>utilmy/zml/source/utils/ztest.py</a> | method | <a href='.//utilmy/zml/source/utils/ztest.py#L54'>dict2:__init__</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L277'>check</a> |  |
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L82'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L26'>global_pars_update</a> | print<br> |
@@ -7772,6 +8236,8 @@ Repo: ./
 | <a name='utilmy/zml/tseries.py' href='.//utilmy/zml/tseries.py'>utilmy/zml/tseries.py</a> | function | <a href='.//utilmy/zml/tseries.py#L20'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/tseries.py' href='.//utilmy/zml/tseries.py'>utilmy/zml/tseries.py</a> | function | <a href='.//utilmy/zml/tseries.py#L154'>pd_dsa2_custom</a> | prepro_load<br>pd_ts_date<br>pd_ts_rolling<br>pd.concat<br>list<br>prepro_save<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L285'>check</a> |  |
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L90'>config1</a> | post_process_fun<br>int<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/titanic_classifier.py' href='.//utilmy/zml/titanic_classifier.py'>utilmy/zml/titanic_classifier.py</a> | function | <a href='.//utilmy/zml/titanic_classifier.py#L26'>global_pars_update</a> | print<br> |
@@ -7786,11 +8252,15 @@ Repo: ./
 | <a name='utilmy/zml/tseries.py' href='.//utilmy/zml/tseries.py'>utilmy/zml/tseries.py</a> | function | <a href='.//utilmy/zml/tseries.py#L87'>config1</a> | post_process_fun<br>float<br>pre_process_fun<br>global_pars_update<br>config_name=os_get_function_name<br> |
 | <a name='utilmy/zml/tseries.py' href='.//utilmy/zml/tseries.py'>utilmy/zml/tseries.py</a> | function | <a href='.//utilmy/zml/tseries.py#L20'>global_pars_update</a> | print<br> |
 | <a name='utilmy/zml/tseries.py' href='.//utilmy/zml/tseries.py'>utilmy/zml/tseries.py</a> | function | <a href='.//utilmy/zml/tseries.py#L162'>pd_dsa2_custom</a> | prepro_load<br>pd_ts_date<br>pd_ts_rolling<br>pd.concat<br>list<br>prepro_save<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L39'>_filter_on_size</a> | list<br>datetime.timedelta<br>file_list.append<br> |
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L21'>_run</a> | subprocess.check_call<br>list<br> |
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L60'>add</a> | _run<br>_filter_on_size<br> |
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L29'>commit</a> | str<br>_run<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L68'>main</a> | print<br>add<br>commit<br> |
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L16'>path_leaf</a> | ntpath.basename<br> |
@@ -7798,11 +8268,16 @@ Repo: ./
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L41'>fit</a> |  |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L384'>get_dataset</a> | len<br>Xtuple_train.append<br>get_dataset<br>data_pars.get<br>get_dataset_tuple<br>log2<br>Exception<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L74'>main</a> | print<br>add<br>commit<br> |
 | <a name='utilmy/zml/zgitutil.py' href='.//utilmy/zml/zgitutil.py'>utilmy/zml/zgitutil.py</a> | function | <a href='.//utilmy/zml/zgitutil.py#L16'>path_leaf</a> | ntpath.basename<br> |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L41'>fit</a> |  |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L41'>fit</a> |  |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L384'>get_dataset</a> | data_pars.get<br>get_dataset_tuple<br>log2<br>Exception<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L364'>get_dataset_tuple</a> | len<br>Xtuple_train.append<br> |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L270'>init</a> | Model<br> |
@@ -7815,7 +8290,11 @@ Repo: ./
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L59'>save</a> |  |
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L59'>save</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L433'>test</a> | pd.DataFrame<br>range<br>train_test_split<br>log<br>colg_input.items<br>test_helper<br>Model<br>fit<br>predict<br>save<br>load_model<br> |
+=======
+| <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L433'>test</a> | pd.DataFrame<br>range<br>train_test_split<br>log<br>colg_input.items<br>test_helper<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zml/ztemplate.py' href='.//utilmy/zml/ztemplate.py'>utilmy/zml/ztemplate.py</a> | function | <a href='.//utilmy/zml/ztemplate.py#L433'>test</a> | pd.DataFrame<br>range<br>train_test_split<br>log<br>colg_input.items<br>test_helper<br> |
 >>>>>>> origin/main
@@ -7834,7 +8313,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/_HELP.py' href='.//utilmy/zzarchive/_HELP.py'>utilmy/zzarchive/_HELP.py</a> | function | <a href='.//utilmy/zzarchive/_HELP.py#L810'>set_rc_version</a> | open<br>f.seek<br>f.write<br>f.truncate<br> |
 | <a name='utilmy/zzarchive/_HELP.py' href='.//utilmy/zzarchive/_HELP.py'>utilmy/zzarchive/_HELP.py</a> | class | <a href='.//utilmy/zzarchive/_HELP.py#L207'>LookupTable</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/allmodule.py' href='.//utilmy/zzarchive/allmodule.py'>utilmy/zzarchive/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br>pprint2<br>pprint.PrettyPrinter<br>pp.pprint<br> |
+=======
+| <a name='utilmy/zzarchive/allmodule.py' href='.//utilmy/zzarchive/allmodule.py'>utilmy/zzarchive/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/allmodule.py' href='.//utilmy/zzarchive/allmodule.py'>utilmy/zzarchive/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br> |
 >>>>>>> origin/main
@@ -7856,6 +8339,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/coke_functions.py' href='.//utilmy/zzarchive/coke_functions.py'>utilmy/zzarchive/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/coke_functions.py#L48'>season</a> | int<br> |
 | <a name='utilmy/zzarchive/coke_functions.py' href='.//utilmy/zzarchive/coke_functions.py'>utilmy/zzarchive/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/coke_functions.py#L38'>weekday</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/coke_functions.py' href='.//utilmy/zzarchive/coke_functions.py'>utilmy/zzarchive/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/coke_functions.py#L33'>year</a> | arrow.get<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/datanalysis.py' href='.//utilmy/zzarchive/datanalysis.py'>utilmy/zzarchive/datanalysis.py</a> | function | <a href='.//utilmy/zzarchive/datanalysis.py#L760'>col_feature_importance</a> |  |
 | <a name='utilmy/zzarchive/datanalysis.py' href='.//utilmy/zzarchive/datanalysis.py'>utilmy/zzarchive/datanalysis.py</a> | function | <a href='.//utilmy/zzarchive/datanalysis.py#L825'>col_pair_correl</a> |  |
@@ -7940,13 +8424,19 @@ Repo: ./
 | <a name='utilmy/zzarchive/excel.py' href='.//utilmy/zzarchive/excel.py'>utilmy/zzarchive/excel.py</a> | function | <a href='.//utilmy/zzarchive/excel.py#L43'>npdot</a> |  |
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L249'>_compute_overlaps</a> | xrange<br> |
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L292'>cosine</a> | np.sqrt<br> |
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L329'>cross</a> | double<br>np.zeros<br> |
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L130'>day</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L154'>daytime</a> | int<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L266'>distance_jaccard</a> | _compute_overlaps<br>float<br> |
+=======
+| <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L266'>distance_jaccard</a> | xrange<br>float<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L266'>distance_jaccard</a> | xrange<br>float<br> |
 >>>>>>> origin/main
@@ -7965,9 +8455,15 @@ Repo: ./
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L139'>weekday</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/fast.py' href='.//utilmy/zzarchive/fast.py'>utilmy/zzarchive/fast.py</a> | function | <a href='.//utilmy/zzarchive/fast.py#L132'>year</a> | arrow.get<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L94'>task_find_best</a> | t.ready<br>sorted<br> |
 | <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L101'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
 | <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L83'>task_progress</a> | np.mean<br>print<br> |
+=======
+| <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L100'>task_find_best</a> | t.ready<br>sorted<br> |
+| <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L107'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
+| <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L89'>task_progress</a> | np.mean<br>print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L100'>task_find_best</a> | t.ready<br>sorted<br> |
 | <a name='utilmy/zzarchive/fast_parallel.py' href='.//utilmy/zzarchive/fast_parallel.py'>utilmy/zzarchive/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/fast_parallel.py#L107'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
@@ -7985,20 +8481,27 @@ Repo: ./
 | <a name='utilmy/zzarchive/filelock.py' href='.//utilmy/zzarchive/filelock.py'>utilmy/zzarchive/filelock.py</a> | method | <a href='.//utilmy/zzarchive/filelock.py#L137'>FileLock:purge</a> | self.release<br> |
 | <a name='utilmy/zzarchive/filelock.py' href='.//utilmy/zzarchive/filelock.py'>utilmy/zzarchive/filelock.py</a> | method | <a href='.//utilmy/zzarchive/filelock.py#L106'>FileLock:release</a> | os.unlink<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L139'>fun_obj</a> | pf.folio_volta<br>int<br>pf.volhisto_fromprice<br>len<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L133'>getweight</a> | np.reshape<br>np.sum<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L18'>mapping_calc_risk_elvis_v03</a> | mapping_calc_risk_v01<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L107'>mapping_calc_risk_v00</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L165'>fun_obj</a> | pf.folio_volta<br>int<br>pf.volhisto_fromprice<br>len<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L151'>getweight</a> | np.reshape<br>np.sum<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L18'>mapping_calc_risk_elvis_v03</a> | mapping_calc_risk_v01<br> |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L115'>mapping_calc_risk_v00</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L72'>mapping_calc_risk_v01</a> |  |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L31'>mapping_calc_risk_v02</a> |  |
 | <a name='utilmy/zzarchive/function_custom.py' href='.//utilmy/zzarchive/function_custom.py'>utilmy/zzarchive/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/function_custom.py#L98'>mapping_risk_ww_v01</a> | np.sum<br>np.array<br> |
 | <a name='utilmy/zzarchive/geospatial.py' href='.//utilmy/zzarchive/geospatial.py'>utilmy/zzarchive/geospatial.py</a> | class | <a href='.//utilmy/zzarchive/geospatial.py#L33'>coordinates_box</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/kagglegym.py#L175'>make</a> | Environment<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/kagglegym.py#L77'>r_score</a> | r2_score<br> |
@@ -8010,6 +8513,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/kagglegym.py#L135'>Environment:step</a> | r_score<br>Observation<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/kagglegym.py#L87'>Observation:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/kagglegym.py#L213'>make</a> | Environment<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/kagglegym.py#L77'>r_score</a> | r2_score<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | class | <a href='.//utilmy/zzarchive/kagglegym.py#L110'>Environment</a> |  |
@@ -8019,6 +8524,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/kagglegym.py#L137'>Environment:reset</a> | int<br>Observation<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/kagglegym.py#L162'>Environment:step</a> | r_score<br>Observation<br> |
 | <a name='utilmy/zzarchive/kagglegym.py' href='.//utilmy/zzarchive/kagglegym.py'>utilmy/zzarchive/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/kagglegym.py#L96'>Observation:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L2632'>VS_build</a> | print<br>subprocess.Popen<br>process.poll<br>process.communicate<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L2597'>VS_start</a> | os.getenv<br>Exception<br>default.append<br>libs.append<br> |
@@ -8046,7 +8554,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1885'>datetime_tostring</a> | isinstance<br>datelist1.strftime<br>pd.to_datetime<br>t.strftime<br>date2.append<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1885'>datetime_tostring</a> | isinstance<br>datelist1.strftime<br>pd.to_datetime<br>t.strftime<br>date2.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1250'>find</a> | xrange<br>findx<br>type<br>vec.index<br>len<br>finds<br> |
+=======
+| <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1250'>find</a> | xrange<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1250'>find</a> | xrange<br> |
 >>>>>>> origin/main
@@ -8059,6 +8571,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L100'>load_session</a> | dill.load_session<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1211'>np_cleanmatrix</a> | np.nan_to_num<br>np.shape<br>range<br>abs<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1244'>np_find</a> | xrange<br>np_find<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1301'>np_find_maxpos</a> | max<br>np_find_maxpos_2nd<br>float<br>enumerate<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1306'>np_find_maxpos_2nd</a> | float<br>enumerate<br> |
@@ -8068,6 +8581,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1320'>np_findlocalmax2</a> | n=len<br>np.zeros<br>np_find_maxpos<br>enumerate<br>range<br>len<br>findhigher<br>np.abs<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1407'>np_findlocalmin</a> | n=len<br>np.zeros<br>np_find_minpos<br>enumerate<br>range<br>len<br>findlower<br>np.abs<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1244'>np_find</a> | xrange<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1301'>np_find_maxpos</a> | max<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1306'>np_find_maxpos_2nd</a> | float<br>enumerate<br> |
@@ -8076,6 +8591,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1392'>np_findlocalmax</a> | n=len<br>np.zeros<br>enumerate<br>np_find_maxpos<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1320'>np_findlocalmax2</a> | n=len<br>np.zeros<br>np_find_maxpos<br>enumerate<br>range<br>len<br>findhigher<br>np.abs<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1407'>np_findlocalmin</a> | n=len<br>np.zeros<br>enumerate<br>np_find_minpos<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1355'>np_findlocalmin2</a> | n=len<br>np.zeros<br>np_find_minpos<br>enumerate<br>range<br>len<br>findlower<br>np.abs<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1176'>np_interpolate_nan</a> | __np_nan_helper<br>np.interp<br>x<br> |
@@ -8083,8 +8601,13 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1454'>np_memory_array_adress</a> |  |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1448'>np_remove_zeros</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1451'>np_sort</a> | pd.DataFrame<br>df.sort_values<br>np_sortbycol<br>len<br>np.reshape<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1227'>np_sortbycol</a> | pd.DataFrame<br>df.sort_values<br>np_sortbycol<br>len<br>np.reshape<br> |
+=======
+| <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1451'>np_sort</a> |  |
+| <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1227'>np_sortbycol</a> | len<br>pd.DataFrame<br>df.sort_values<br>np.reshape<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1451'>np_sort</a> |  |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1227'>np_sortbycol</a> | len<br>pd.DataFrame<br>df.sort_values<br>np.reshape<br> |
@@ -8128,6 +8651,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1524'>sk_tree_get_ifthen</a> | recurse<br>print<br>str<br>zip<br>int<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1506'>sk_votingpredict</a> | np.zeros<br>enumerate<br>clf.predict_proba<br>range<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1198'>sort</a> | pd.DataFrame<br>df.sort_values<br>sort<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1192'>sortcol</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L2070'>textvect_topanda</a> | pd.DataFrame<br>pd.HDFStore<br>st.append<br> |
@@ -8148,6 +8672,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/multiprocessfunc.py' href='.//utilmy/zzarchive/multiprocessfunc.py'>utilmy/zzarchive/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/multiprocessfunc.py#L297'>res_shared2</a> | float<br> |
 | <a name='utilmy/zzarchive/multithread.py' href='.//utilmy/zzarchive/multithread.py'>utilmy/zzarchive/multithread.py</a> | function | <a href='.//utilmy/zzarchive/multithread.py#L8'>multithread_run</a> | range<br>enumerate<br>tuple<br>len<br>print<br>time.sleep<br>log<br>job_list.append<br>pool.apply_async<br>res_list.append<br>pool.terminate<br>pool.join<br>multithread_run_list<br>ThreadWithResult<br>__init__<br>function<br>target<br>super<br>kwargs.values<br>list_of_threads.append<br>thread.start<br>zip<br>kwargs.keys<br>thread.join<br>results.append<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1198'>sort</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L1192'>sortcol</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/linux.py' href='.//utilmy/zzarchive/linux.py'>utilmy/zzarchive/linux.py</a> | function | <a href='.//utilmy/zzarchive/linux.py#L2070'>textvect_topanda</a> | pd.DataFrame<br>pd.HDFStore<br>st.append<br> |
@@ -8167,6 +8693,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/multiprocessfunc.py' href='.//utilmy/zzarchive/multiprocessfunc.py'>utilmy/zzarchive/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/multiprocessfunc.py#L338'>parzen_estimation</a> | np.abs<br>len<br> |
 | <a name='utilmy/zzarchive/multiprocessfunc.py' href='.//utilmy/zzarchive/multiprocessfunc.py'>utilmy/zzarchive/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/multiprocessfunc.py#L400'>res_shared2</a> | float<br> |
 | <a name='utilmy/zzarchive/multithread.py' href='.//utilmy/zzarchive/multithread.py'>utilmy/zzarchive/multithread.py</a> | function | <a href='.//utilmy/zzarchive/multithread.py#L8'>multithread_run</a> | range<br>enumerate<br>tuple<br>len<br>print<br>time.sleep<br>log<br>job_list.append<br>pool.apply_async<br>res_list.append<br>pool.terminate<br>pool.join<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/multithread.py' href='.//utilmy/zzarchive/multithread.py'>utilmy/zzarchive/multithread.py</a> | function | <a href='.//utilmy/zzarchive/multithread.py#L48'>multithread_run_list</a> | ThreadWithResult<br>__init__<br>function<br>target<br>super<br>kwargs.values<br>list_of_threads.append<br>thread.start<br>zip<br>kwargs.keys<br>thread.join<br>results.append<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L187'>_date_align</a> | np.zeros<br>range<br>len<br> |
@@ -8183,7 +8712,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L573'>correlation_mat</a> | Xmat.copy<br>x.mean<br>x.std<br>np.corrcoef<br>MinCovDet<br>OAS<br>correl_inv.copy<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L37'>data_jpsector</a> | util.load_obj<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L201'>date_align</a> | range<br>np.float<br>len<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L201'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L201'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
 >>>>>>> origin/main
@@ -8208,7 +8741,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1327'>folio_leverageetf</a> | np.zeros<br>xrange<br>len<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1424'>folio_longshort_pct</a> | np.zeros<br>xrange<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br>folio_longshort_unitfixed<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
 >>>>>>> origin/main
@@ -8217,17 +8754,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1911'>folio_perfreport_schedule</a> | np.shape<br>generate_schedule<br>np.zeros<br>enumerate<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1597'>folio_riskpa</a> | np.shape<br>np.zeros<br>np.ones<br>range<br>np.sum<br>np.std<br>min<br>list<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1464'>folio_volta</a> | folio_volta<br>len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br>folio_volta2<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1503'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1460'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L480'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L4085'>get</a> | np.shape<br>getret_fromquotes<br>len<br>getlogret_fromquotes<br>np.log<br>getprice_fromret<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1464'>folio_volta</a> | len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1503'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1460'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L480'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L4085'>get</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L897'>getdiff_fromquotes</a> | np.shape<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L912'>getlogret_fromquotes</a> | np.shape<br>np.log<br> |
@@ -8247,7 +8790,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L1140'>pd_transform_asset</a> | util.pd_date_intersection<br>util.pd_array_todataframe<br>util.pd_insertcol<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L388'>plot_check</a> | util.find<br>getret_fromquotes<br>price_normalize100<br>plot_price<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br>plot_priceintraday<br>np.loadtxt<br>np.unique<br>xdays.append<br>np.hstack<br>fig.add_axes<br>ax.tick_params<br>ax.set_xticks<br>ax.set_xticklabels<br>ax.set_ylabel<br>ax.set_ylim<br>candlestick<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
 >>>>>>> origin/main
@@ -8297,7 +8844,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/portfolio.py#L2469'>folioOptimizationF:calc_baskettable</a> | np.shape<br>np.zeros<br>range<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>print<br> |
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/portfolio.py#L2204'>folioOptimizationF:calc_optimal_weight</a> | datanalysis.sk_optim_de<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | np.reshape<br>np.array<br>np.sum<br>round<br>calcbasket_objext<br>float<br>calcbasket_obj<br>concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>self._loss_obj<br>self._objective_criteria<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio.py' href='.//utilmy/zzarchive/portfolio.py'>utilmy/zzarchive/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
 >>>>>>> origin/main
@@ -8351,7 +8902,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L30'>data_jpsector</a> | util.load_obj<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L298'>date_add_bdays</a> | type<br>dateint_todatetime<br>datestring_todatetime<br>datetime.timedelta<br>current_date.weekday<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L412'>date_align</a> | range<br>np.float<br>len<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L412'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L412'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
 >>>>>>> origin/main
@@ -8379,7 +8934,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L103'>datetime_convertzone1_tozone2</a> | pytz.timezone<br>type<br>tz.localize<br>t2.append<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L158'>datetime_todate</a> | isinstance<br>datetime.date<br>pd.to_datetime<br>date2.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br>datetime_tointhour<br>yy2.append<br>np.array<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
 >>>>>>> origin/main
@@ -8397,7 +8956,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1537'>folio_leverageetf</a> | np.zeros<br>xrange<br>len<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1634'>folio_longshort_pct</a> | np.zeros<br>xrange<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br>folio_longshort_unitfixed<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
 >>>>>>> origin/main
@@ -8406,17 +8969,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2121'>folio_perfreport_schedule</a> | np.shape<br>generate_schedule<br>np.zeros<br>enumerate<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1807'>folio_riskpa</a> | np.shape<br>np.zeros<br>np.ones<br>range<br>np.sum<br>np.std<br>min<br>list<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1674'>folio_volta</a> | folio_volta<br>len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br>folio_volta2<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1713'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1670'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L690'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L4293'>get</a> | np.shape<br>getret_fromquotes<br>len<br>getlogret_fromquotes<br>np.log<br>getprice_fromret<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1674'>folio_volta</a> | len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1713'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1670'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L690'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L4293'>get</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1107'>getdiff_fromquotes</a> | np.shape<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1122'>getlogret_fromquotes</a> | np.shape<br>np.log<br> |
@@ -8436,7 +9005,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L1350'>pd_transform_asset</a> | util.pd_date_intersection<br>util.pd_array_todataframe<br>util.pd_insertcol<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L598'>plot_check</a> | util.find<br>getret_fromquotes<br>price_normalize100<br>plot_price<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br>plot_priceintraday<br>np.loadtxt<br>np.unique<br>xdays.append<br>np.hstack<br>fig.add_axes<br>ax.tick_params<br>ax.set_xticks<br>ax.set_xticklabels<br>ax.set_ylabel<br>ax.set_ylim<br>candlestick<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
 >>>>>>> origin/main
@@ -8486,7 +9059,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2679'>folioOptimizationF:calc_baskettable</a> | np.shape<br>np.zeros<br>range<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>print<br> |
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2414'>folioOptimizationF:calc_optimal_weight</a> | datanalysis.sk_optim_de<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | np.reshape<br>np.array<br>np.sum<br>round<br>calcbasket_objext<br>float<br>calcbasket_obj<br>concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>self._loss_obj<br>self._objective_criteria<br> |
+=======
+| <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/portfolio_withdate.py' href='.//utilmy/zzarchive/portfolio_withdate.py'>utilmy/zzarchive/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
 >>>>>>> origin/main
@@ -8533,7 +9110,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/_HELP.py' href='.//utilmy/zzarchive/py2to3/_HELP.py'>utilmy/zzarchive/py2to3/_HELP.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/_HELP.py#L810'>set_rc_version</a> | open<br>f.seek<br>f.write<br>f.truncate<br> |
 | <a name='utilmy/zzarchive/py2to3/_HELP.py' href='.//utilmy/zzarchive/py2to3/_HELP.py'>utilmy/zzarchive/py2to3/_HELP.py</a> | class | <a href='.//utilmy/zzarchive/py2to3/_HELP.py#L207'>LookupTable</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/allmodule.py' href='.//utilmy/zzarchive/py2to3/allmodule.py'>utilmy/zzarchive/py2to3/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br>pprint2<br>pprint.PrettyPrinter<br>pp.pprint<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/allmodule.py' href='.//utilmy/zzarchive/py2to3/allmodule.py'>utilmy/zzarchive/py2to3/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/allmodule.py' href='.//utilmy/zzarchive/py2to3/allmodule.py'>utilmy/zzarchive/py2to3/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/allmodule.py#L34'>pprint</a> | isinstance<br>tabulate<br> |
 >>>>>>> origin/main
@@ -8555,6 +9136,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/coke_functions.py' href='.//utilmy/zzarchive/py2to3/coke_functions.py'>utilmy/zzarchive/py2to3/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/coke_functions.py#L48'>season</a> | int<br> |
 | <a name='utilmy/zzarchive/py2to3/coke_functions.py' href='.//utilmy/zzarchive/py2to3/coke_functions.py'>utilmy/zzarchive/py2to3/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/coke_functions.py#L38'>weekday</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/py2to3/coke_functions.py' href='.//utilmy/zzarchive/py2to3/coke_functions.py'>utilmy/zzarchive/py2to3/coke_functions.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/coke_functions.py#L33'>year</a> | arrow.get<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/datanalysis.py' href='.//utilmy/zzarchive/py2to3/datanalysis.py'>utilmy/zzarchive/py2to3/datanalysis.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/datanalysis.py#L690'>col_feature_importance</a> |  |
 | <a name='utilmy/zzarchive/py2to3/datanalysis.py' href='.//utilmy/zzarchive/py2to3/datanalysis.py'>utilmy/zzarchive/py2to3/datanalysis.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/datanalysis.py#L755'>col_pair_correl</a> |  |
@@ -8636,13 +9218,19 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/excel.py' href='.//utilmy/zzarchive/py2to3/excel.py'>utilmy/zzarchive/py2to3/excel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/excel.py#L43'>npdot</a> |  |
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L249'>_compute_overlaps</a> | xrange<br> |
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L292'>cosine</a> | np.sqrt<br> |
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L329'>cross</a> | double<br>np.zeros<br> |
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L130'>day</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L154'>daytime</a> | int<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L266'>distance_jaccard</a> | _compute_overlaps<br>float<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L266'>distance_jaccard</a> | xrange<br>float<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L266'>distance_jaccard</a> | xrange<br>float<br> |
 >>>>>>> origin/main
@@ -8661,9 +9249,15 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L139'>weekday</a> | arrow.get<br> |
 | <a name='utilmy/zzarchive/py2to3/fast.py' href='.//utilmy/zzarchive/py2to3/fast.py'>utilmy/zzarchive/py2to3/fast.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast.py#L132'>year</a> | arrow.get<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L94'>task_find_best</a> | t.ready<br>sorted<br> |
 | <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L101'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
 | <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L83'>task_progress</a> | np.mean<br>print<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L100'>task_find_best</a> | t.ready<br>sorted<br> |
+| <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L107'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
+| <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L89'>task_progress</a> | np.mean<br>print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L100'>task_find_best</a> | t.ready<br>sorted<br> |
 | <a name='utilmy/zzarchive/py2to3/fast_parallel.py' href='.//utilmy/zzarchive/py2to3/fast_parallel.py'>utilmy/zzarchive/py2to3/fast_parallel.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/fast_parallel.py#L107'>task_parallel_job_01</a> | os.chdir<br>util.a_run_ipython<br>str<br> |
@@ -8681,20 +9275,27 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/filelock.py' href='.//utilmy/zzarchive/py2to3/filelock.py'>utilmy/zzarchive/py2to3/filelock.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/filelock.py#L137'>FileLock:purge</a> | self.release<br> |
 | <a name='utilmy/zzarchive/py2to3/filelock.py' href='.//utilmy/zzarchive/py2to3/filelock.py'>utilmy/zzarchive/py2to3/filelock.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/filelock.py#L106'>FileLock:release</a> | os.unlink<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L139'>fun_obj</a> | pf.folio_volta<br>int<br>pf.volhisto_fromprice<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L133'>getweight</a> | np.reshape<br>np.sum<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L18'>mapping_calc_risk_elvis_v03</a> | mapping_calc_risk_v01<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L107'>mapping_calc_risk_v00</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L165'>fun_obj</a> | pf.folio_volta<br>int<br>pf.volhisto_fromprice<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L151'>getweight</a> | np.reshape<br>np.sum<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L18'>mapping_calc_risk_elvis_v03</a> | mapping_calc_risk_v01<br> |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L115'>mapping_calc_risk_v00</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L72'>mapping_calc_risk_v01</a> |  |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L31'>mapping_calc_risk_v02</a> |  |
 | <a name='utilmy/zzarchive/py2to3/function_custom.py' href='.//utilmy/zzarchive/py2to3/function_custom.py'>utilmy/zzarchive/py2to3/function_custom.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/function_custom.py#L98'>mapping_risk_ww_v01</a> | np.sum<br>np.array<br> |
 | <a name='utilmy/zzarchive/py2to3/geospatial.py' href='.//utilmy/zzarchive/py2to3/geospatial.py'>utilmy/zzarchive/py2to3/geospatial.py</a> | class | <a href='.//utilmy/zzarchive/py2to3/geospatial.py#L33'>coordinates_box</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L175'>make</a> | Environment<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L77'>r_score</a> | r2_score<br> |
@@ -8706,6 +9307,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L135'>Environment:step</a> | r_score<br>Observation<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L87'>Observation:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L213'>make</a> | Environment<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L77'>r_score</a> | r2_score<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | class | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L110'>Environment</a> |  |
@@ -8715,6 +9318,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L137'>Environment:reset</a> | int<br>Observation<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L162'>Environment:step</a> | r_score<br>Observation<br> |
 | <a name='utilmy/zzarchive/py2to3/kagglegym.py' href='.//utilmy/zzarchive/py2to3/kagglegym.py'>utilmy/zzarchive/py2to3/kagglegym.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/kagglegym.py#L96'>Observation:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L2632'>VS_build</a> | print<br>subprocess.Popen<br>process.poll<br>process.communicate<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L2597'>VS_start</a> | os.getenv<br>Exception<br>default.append<br>libs.append<br> |
@@ -8742,7 +9348,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1885'>datetime_tostring</a> | isinstance<br>datelist1.strftime<br>pd.to_datetime<br>t.strftime<br>date2.append<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1885'>datetime_tostring</a> | isinstance<br>datelist1.strftime<br>pd.to_datetime<br>t.strftime<br>date2.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1250'>find</a> | xrange<br>findx<br>type<br>vec.index<br>len<br>finds<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1250'>find</a> | xrange<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1250'>find</a> | xrange<br> |
 >>>>>>> origin/main
@@ -8755,6 +9365,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L100'>load_session</a> | dill.load_session<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1211'>np_cleanmatrix</a> | np.nan_to_num<br>np.shape<br>range<br>abs<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1244'>np_find</a> | xrange<br>np_find<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1301'>np_find_maxpos</a> | max<br>np_find_maxpos_2nd<br>float<br>enumerate<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1306'>np_find_maxpos_2nd</a> | float<br>enumerate<br> |
@@ -8764,6 +9375,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1320'>np_findlocalmax2</a> | n=len<br>np.zeros<br>np_find_maxpos<br>enumerate<br>range<br>len<br>findhigher<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1407'>np_findlocalmin</a> | n=len<br>np.zeros<br>np_find_minpos<br>enumerate<br>range<br>len<br>findlower<br>np.abs<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1244'>np_find</a> | xrange<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1301'>np_find_maxpos</a> | max<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1306'>np_find_maxpos_2nd</a> | float<br>enumerate<br> |
@@ -8772,6 +9385,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1392'>np_findlocalmax</a> | n=len<br>np.zeros<br>enumerate<br>np_find_maxpos<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1320'>np_findlocalmax2</a> | n=len<br>np.zeros<br>np_find_maxpos<br>enumerate<br>range<br>len<br>findhigher<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1407'>np_findlocalmin</a> | n=len<br>np.zeros<br>enumerate<br>np_find_minpos<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1355'>np_findlocalmin2</a> | n=len<br>np.zeros<br>np_find_minpos<br>enumerate<br>range<br>len<br>findlower<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1176'>np_interpolate_nan</a> | __np_nan_helper<br>np.interp<br>x<br> |
@@ -8779,8 +9395,13 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1454'>np_memory_array_adress</a> |  |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1448'>np_remove_zeros</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1451'>np_sort</a> | pd.DataFrame<br>df.sort_values<br>np_sortbycol<br>len<br>np.reshape<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1227'>np_sortbycol</a> | pd.DataFrame<br>df.sort_values<br>np_sortbycol<br>len<br>np.reshape<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1451'>np_sort</a> |  |
+| <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1227'>np_sortbycol</a> | len<br>pd.DataFrame<br>df.sort_values<br>np.reshape<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1451'>np_sort</a> |  |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1227'>np_sortbycol</a> | len<br>pd.DataFrame<br>df.sort_values<br>np.reshape<br> |
@@ -8824,6 +9445,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1524'>sk_tree_get_ifthen</a> | recurse<br>print<br>str<br>zip<br>int<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1506'>sk_votingpredict</a> | np.zeros<br>enumerate<br>clf.predict_proba<br>range<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1198'>sort</a> | pd.DataFrame<br>df.sort_values<br>sort<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1192'>sortcol</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L2070'>textvect_topanda</a> | pd.DataFrame<br>pd.HDFStore<br>st.append<br> |
@@ -8843,6 +9465,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/multiprocessfunc.py' href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py'>utilmy/zzarchive/py2to3/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py#L268'>parzen_estimation</a> | np.abs<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/multiprocessfunc.py' href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py'>utilmy/zzarchive/py2to3/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py#L297'>res_shared2</a> | float<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1198'>sort</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L1192'>sortcol</a> | pd.DataFrame<br>df.sort_values<br> |
 | <a name='utilmy/zzarchive/py2to3/linux.py' href='.//utilmy/zzarchive/py2to3/linux.py'>utilmy/zzarchive/py2to3/linux.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/linux.py#L2070'>textvect_topanda</a> | pd.DataFrame<br>pd.HDFStore<br>st.append<br> |
@@ -8861,6 +9485,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/multiprocessfunc.py' href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py'>utilmy/zzarchive/py2to3/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py#L382'>np_sin</a> | np.sin<br> |
 | <a name='utilmy/zzarchive/py2to3/multiprocessfunc.py' href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py'>utilmy/zzarchive/py2to3/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py#L338'>parzen_estimation</a> | np.abs<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/multiprocessfunc.py' href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py'>utilmy/zzarchive/py2to3/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/multiprocessfunc.py#L400'>res_shared2</a> | float<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L187'>_date_align</a> | np.zeros<br>range<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L263'>_notnone</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
@@ -8876,7 +9503,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L573'>correlation_mat</a> | Xmat.copy<br>x.mean<br>x.std<br>np.corrcoef<br>MinCovDet<br>OAS<br>correl_inv.copy<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L37'>data_jpsector</a> | util.load_obj<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L201'>date_align</a> | range<br>np.float<br>len<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L201'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L201'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
 >>>>>>> origin/main
@@ -8901,7 +9532,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1327'>folio_leverageetf</a> | np.zeros<br>xrange<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1424'>folio_longshort_pct</a> | np.zeros<br>xrange<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br>folio_longshort_unitfixed<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1345'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
 >>>>>>> origin/main
@@ -8910,17 +9545,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1911'>folio_perfreport_schedule</a> | np.shape<br>generate_schedule<br>np.zeros<br>enumerate<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1597'>folio_riskpa</a> | np.shape<br>np.zeros<br>np.ones<br>range<br>np.sum<br>np.std<br>min<br>list<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1464'>folio_volta</a> | folio_volta<br>len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br>folio_volta2<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1503'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1460'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L480'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L4085'>get</a> | np.shape<br>getret_fromquotes<br>len<br>getlogret_fromquotes<br>np.log<br>getprice_fromret<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1464'>folio_volta</a> | len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1503'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1460'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L480'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L4085'>get</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L897'>getdiff_fromquotes</a> | np.shape<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L912'>getlogret_fromquotes</a> | np.shape<br>np.log<br> |
@@ -8940,7 +9581,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L1140'>pd_transform_asset</a> | util.pd_date_intersection<br>util.pd_array_todataframe<br>util.pd_insertcol<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L388'>plot_check</a> | util.find<br>getret_fromquotes<br>price_normalize100<br>plot_price<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br>plot_priceintraday<br>np.loadtxt<br>np.unique<br>xdays.append<br>np.hstack<br>fig.add_axes<br>ax.tick_params<br>ax.set_xticks<br>ax.set_xticklabels<br>ax.set_ylabel<br>ax.set_ylim<br>candlestick<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L267'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
 >>>>>>> origin/main
@@ -8990,7 +9635,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L2469'>folioOptimizationF:calc_baskettable</a> | np.shape<br>np.zeros<br>range<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>print<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L2204'>folioOptimizationF:calc_optimal_weight</a> | datanalysis.sk_optim_de<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | np.reshape<br>np.array<br>np.sum<br>round<br>calcbasket_objext<br>float<br>calcbasket_obj<br>concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>self._loss_obj<br>self._objective_criteria<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio.py' href='.//utilmy/zzarchive/py2to3/portfolio.py'>utilmy/zzarchive/py2to3/portfolio.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio.py#L2388'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
 >>>>>>> origin/main
@@ -9044,7 +9693,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L30'>data_jpsector</a> | util.load_obj<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L298'>date_add_bdays</a> | type<br>dateint_todatetime<br>datestring_todatetime<br>datetime.timedelta<br>current_date.weekday<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L412'>date_align</a> | range<br>np.float<br>len<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L412'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L412'>date_align</a> | np.array<br>isint<br>len<br>np.zeros<br>print<br>range<br>util.find<br>_date_align<br> |
 >>>>>>> origin/main
@@ -9072,7 +9725,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L103'>datetime_convertzone1_tozone2</a> | pytz.timezone<br>type<br>tz.localize<br>t2.append<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L158'>datetime_todate</a> | isinstance<br>datetime.date<br>pd.to_datetime<br>date2.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br>datetime_tointhour<br>yy2.append<br>np.array<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L169'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
 >>>>>>> origin/main
@@ -9090,7 +9747,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1537'>folio_leverageetf</a> | np.zeros<br>xrange<br>len<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1634'>folio_longshort_pct</a> | np.zeros<br>xrange<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br>folio_longshort_unitfixed<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1555'>folio_longshort_unit</a> | len<br>np.zeros<br>xrange<br>np.mod<br> |
 >>>>>>> origin/main
@@ -9099,17 +9760,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2121'>folio_perfreport_schedule</a> | np.shape<br>generate_schedule<br>np.zeros<br>enumerate<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1807'>folio_riskpa</a> | np.shape<br>np.zeros<br>np.ones<br>range<br>np.sum<br>np.std<br>min<br>list<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1674'>folio_volta</a> | folio_volta<br>len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br>folio_volta2<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1713'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1670'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L690'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L4293'>get</a> | np.shape<br>getret_fromquotes<br>len<br>getlogret_fromquotes<br>np.log<br>getprice_fromret<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1674'>folio_volta</a> | len<br>np.shape<br>np.zeros<br>range<br>np.std<br>util.findhigher<br>max<br>min<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1713'>folio_volta2</a> | np.shape<br>np.zeros<br>range<br>np.std<br>max<br>min<br>np.abs<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1670'>folio_voltarget</a> | folio_volta<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L690'>generate_sepvertical</a> | np.zeros<br>datestring_todatetime<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L4293'>get</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1107'>getdiff_fromquotes</a> | np.shape<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1122'>getlogret_fromquotes</a> | np.shape<br>np.log<br> |
@@ -9129,7 +9796,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L1350'>pd_transform_asset</a> | util.pd_date_intersection<br>util.pd_array_todataframe<br>util.pd_insertcol<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L598'>plot_check</a> | util.find<br>getret_fromquotes<br>price_normalize100<br>plot_price<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br>plot_priceintraday<br>np.loadtxt<br>np.unique<br>xdays.append<br>np.hstack<br>fig.add_axes<br>ax.tick_params<br>ax.set_xticks<br>ax.set_xticklabels<br>ax.set_ylabel<br>ax.set_ylim<br>candlestick<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L477'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
 >>>>>>> origin/main
@@ -9179,7 +9850,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2679'>folioOptimizationF:calc_baskettable</a> | np.shape<br>np.zeros<br>range<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>print<br> |
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2414'>folioOptimizationF:calc_optimal_weight</a> | datanalysis.sk_optim_de<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | np.reshape<br>np.array<br>np.sum<br>round<br>calcbasket_objext<br>float<br>calcbasket_obj<br>concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>self._loss_obj<br>self._objective_criteria<br> |
+=======
+| <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/py2to3/portfolio_withdate.py' href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py'>utilmy/zzarchive/py2to3/portfolio_withdate.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/portfolio_withdate.py#L2598'>folioOptimizationF:calcbasket_obj</a> | concenfactor=folio_concenfactor2<br>np.zeros<br>xrange<br>np.mod<br>self._weightcalc_generic<br>np.sum<br>self._loss_obj<br>self._objective_criteria<br> |
 >>>>>>> origin/main
@@ -9261,6 +9936,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/util_min.py' href='.//utilmy/zzarchive/py2to3/util_min.py'>utilmy/zzarchive/py2to3/util_min.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_min.py#L470'>save</a> | py_save_obj<br> |
 | <a name='utilmy/zzarchive/py2to3/util_min.py' href='.//utilmy/zzarchive/py2to3/util_min.py'>utilmy/zzarchive/py2to3/util_min.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_min.py#L476'>save_test</a> | py_load_obj<br>print<br>str<br>gc.collect<br> |
 | <a name='utilmy/zzarchive/py2to3/util_min.py' href='.//utilmy/zzarchive/py2to3/util_min.py'>utilmy/zzarchive/py2to3/util_min.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_min.py#L511'>z_key_splitinto_dir_name</a> | keyname.split<br>len<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L22'>create_adam_optimizer</a> |  |
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L17'>create_bias_variable</a> | tf.constant_initializer<br>tf.Variable<br> |
@@ -9543,6 +10219,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/py3/util.py' href='.//utilmy/zzarchive/py3/util.py'>utilmy/zzarchive/py3/util.py</a> | method | <a href='.//utilmy/zzarchive/py3/util.py#L128'>testclass:__init__</a> |  |
 | <a name='utilmy/zzarchive/py3/util.py' href='.//utilmy/zzarchive/py3/util.py'>utilmy/zzarchive/py3/util.py</a> | method | <a href='.//utilmy/zzarchive/py3/util.py#L131'>testclass:z_autotest</a> | io.StringIO<br>f<br>exec<br>print<br>codeErr.getvalue<br>codeOut.getvalue<br>codeOut.close<br>codeErr.close<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L36'>create_adam_optimizer</a> |  |
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L24'>create_bias_variable</a> | tf.constant_initializer<br>tf.Variable<br> |
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L11'>create_weight_variable</a> | tf.Variable<br> |
@@ -9559,6 +10237,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L217'>TextLoader:preprocess</a> | codecs.open<br>f.read<br>collections.Counter<br>sorted<br>list<br>len<br>dict<br>range<br>open<br>pickle.dump<br>np.array<br>np.save<br> |
 | <a name='utilmy/zzarchive/py2to3/util_ml.py' href='.//utilmy/zzarchive/py2to3/util_ml.py'>utilmy/zzarchive/py2to3/util_ml.py</a> | method | <a href='.//utilmy/zzarchive/py2to3/util_ml.py#L284'>TextLoader:reset_batch_pointer</a> |  |
 | <a name='utilmy/zzarchive/py2to3/utilgeo.py' href='.//utilmy/zzarchive/py2to3/utilgeo.py'>utilmy/zzarchive/py2to3/utilgeo.py</a> | function | <a href='.//utilmy/zzarchive/py2to3/utilgeo.py#L24'>df_to_geojson</a> | df.iterrows<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/report.py' href='.//utilmy/zzarchive/report.py'>utilmy/zzarchive/report.py</a> | function | <a href='.//utilmy/zzarchive/report.py#L36'>map_show</a> |  |
 | <a name='utilmy/zzarchive/report.py' href='.//utilmy/zzarchive/report.py'>utilmy/zzarchive/report.py</a> | function | <a href='.//utilmy/zzarchive/report.py#L97'>xl_create_pdf</a> | sales_report=create_pivot<br>manager_df.append<br>sales_report.xs<br>env=Environment<br>get_summary_stats<br>sales_report.to_html<br>HTML<br> |
@@ -9569,7 +10250,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/aapackage_gen/34/util34.py' href='.//utilmy/zzarchive/storage/aapackage_gen/34/util34.py'>utilmy/zzarchive/storage/aapackage_gen/34/util34.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackage_gen/34/util34.py#L18'>getmodule_doc</a> | ca.getmodule_doc<br> |
 | <a name='utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py' href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py'>utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py#L50'>dedent</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py' href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py'>utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py#L116'>describe</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br>describe_func<br>inspect.getargspec<br>str<br>len<br>describe_klass<br>indent<br>getattr<br>inspect.ismethod<br>1;describe_func<br>print<br>dedent<br>describe<br>dir<br>inspect.isclass<br>inspect.isfunction<br>inspect.isbuiltin<br>describe_builtin<br>describe_builtin2<br>describe_func2<br>describe_klass2<br>describe2<br> |
+=======
+| <a name='utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py' href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py'>utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py#L116'>describe</a> | wi<br>indent<br>dir<br>getattr<br>inspect.isclass<br>describe_klass<br>print<br>inspect.isfunction<br>describe_func<br>inspect.isbuiltin<br>describe_builtin<br>dedent<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py' href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py'>utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py#L116'>describe</a> | wi<br>indent<br>dir<br>getattr<br>inspect.isclass<br>describe_klass<br>print<br>inspect.isfunction<br>describe_func<br>inspect.isbuiltin<br>describe_builtin<br>dedent<br> |
 >>>>>>> origin/main
@@ -9636,15 +10321,21 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L670'>outlier_clean</a> | range<br> |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L678'>overwrite_data</a> | pd.HDFStore<br>store.remove<br>store.append<br>store.close<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L163'>pathScheme_</a> |  |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L144'>pathScheme_bb</a> | int<br>range<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L136'>pathScheme_std</a> |  |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L841'>permute</a> | int<br>np.copy<br>range<br>permute2<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>comoment<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L163'>pathScheme_</a> | np.zeros<br>range<br>getdvector<br>pathScheme_<br>np.arange<br>np.histogram<br>dx.dN<br>np.sum<br> |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L144'>pathScheme_bb</a> | int<br>range<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L136'>pathScheme_std</a> |  |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L841'>permute</a> | int<br>np.copy<br>range<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L854'>permute2</a> | int<br>np.copy<br>range<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>comoment<br> |
 | <a name='utilmy/zzarchive/storage/aapackagedev/random.py' href='.//utilmy/zzarchive/storage/aapackagedev/random.py'>utilmy/zzarchive/storage/aapackagedev/random.py</a> | function | <a href='.//utilmy/zzarchive/storage/aapackagedev/random.py#L758'>plot_outlier</a> | int<br>np.copy<br>range<br> |
@@ -9657,17 +10348,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/allmodule.py' href='.//utilmy/zzarchive/storage/allmodule.py'>utilmy/zzarchive/storage/allmodule.py</a> | function | <a href='.//utilmy/zzarchive/storage/allmodule.py#L4'>aa_isanaconda</a> | txt.find<br> |
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L130'>payoff1</a> | pricepath[len<br>np.maximum<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L181'>payoff2</a> | np.shape<br>np.sum<br>np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L145'>payoffeuro1</a> | np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L145'>payoffeuro1</a> | np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L34'>dedent</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br> |
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L97'>describe</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br>describe_func<br>inspect.getargspec<br>str<br>len<br>describe_klass<br>indent<br>getattr<br>inspect.ismethod<br>1;describe_func<br>dedent<br>describe<br>dir<br>inspect.isclass<br>inspect.isfunction<br>inspect.isbuiltin<br>describe_builtin<br>describe_builtin2<br>describe_func2<br>describe_func3<br>aux.replace<br>aux.rstrip<br>describe_klass2<br>describe2<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L199'>payoff2</a> | np.shape<br>np.sum<br>np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L151'>payoffeuro1</a> | np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/benchmarktest.py' href='.//utilmy/zzarchive/storage/benchmarktest.py'>utilmy/zzarchive/storage/benchmarktest.py</a> | function | <a href='.//utilmy/zzarchive/storage/benchmarktest.py#L151'>payoffeuro1</a> | np.maximum<br> |
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L34'>dedent</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br> |
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L97'>describe</a> | wi<br>indent<br>dir<br>getattr<br>inspect.isclass<br>describe_klass<br>inspect.isfunction<br>describe_func<br>inspect.isbuiltin<br>describe_builtin<br>dedent<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L168'>describe2</a> | wi<br>dir<br>getattr<br>inspect.isclass<br>describe_klass2<br>inspect.isfunction<br>describe_func2<br>describe_func3<br>inspect.isbuiltin<br>describe_builtin2<br> |
 | <a name='utilmy/zzarchive/storage/codeanalysis.py' href='.//utilmy/zzarchive/storage/codeanalysis.py'>utilmy/zzarchive/storage/codeanalysis.py</a> | function | <a href='.//utilmy/zzarchive/storage/codeanalysis.py#L38'>describe_builtin</a> | wi<br>docstr.split<br>func_descr.replace<br>s.find<br> |
@@ -9687,7 +10384,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L327'>brownian_logret</a> | len<br>np.diff<br>nx.evaluate<br>sqrt<br> |
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L334'>brownian_process</a> | logret_to_price<br>brownian_logret<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L80'>bs</a> | d2f<br>np.exp<br>bscall<br>d1f<br>bsput<br>bs<br>bsdelta<br>N<br>bsgamma<br>np.sqrt<br>bsstrikedelta<br>bsstrikegamma<br>bstheta<br>bsrho<br>bsvega<br>dN<br>bsdvd<br>bsvanna<br>bsvolga<br>bsgammaspot<br> |
+=======
+| <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L80'>bs</a> | d1f<br>np.exp<br>np.sqrt<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L80'>bs</a> | d1f<br>np.exp<br>np.sqrt<br> |
 >>>>>>> origin/main
@@ -9711,7 +10412,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L49'>dN2d</a> | np.sqrt<br> |
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L338'>gbm_logret</a> | len<br>np.diff<br>nx.evaluate<br>sqrt<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L355'>gbm_process</a> | len<br>np.diff<br>nx.evaluate<br>sqrt<br>np.zeros<br>range<br>np.array<br>gbm_process_euro<br>np.cumprod<br>gbm_process2<br>logret_to_price<br>gbm_logret<br> |
+=======
+| <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L355'>gbm_process</a> | len<br>np.diff<br>nx.evaluate<br>sqrt<br>np.zeros<br>range<br>np.array<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L355'>gbm_process</a> | len<br>np.diff<br>nx.evaluate<br>sqrt<br>np.zeros<br>range<br>np.array<br> |
 >>>>>>> origin/main
@@ -9725,7 +10430,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L557'>generateallmultigbmfast2</a> | len<br>np.zeros<br>np.asmatrix<br>np.diff<br>np.dot<br>np.multiply<br>range<br>np.sqrt<br>vol*sqrt<br>multigbm_processfast<br>multigbm_processfast2<br> |
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L705'>generateallmultiprocess</a> | len<br>np.zeros<br>range<br>multigbm_process<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L390'>generateallprocess</a> | np.zeros<br>len<br>range<br>process<br>generateallprocess_gbmeuro<br>s0*exp<br>vol*sqrt<br>nx.evaluate<br> |
+=======
+| <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L390'>generateallprocess</a> | np.zeros<br>len<br>range<br>process<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L390'>generateallprocess</a> | np.zeros<br>len<br>range<br>process<br> |
 >>>>>>> origin/main
@@ -9748,7 +10457,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L652'>multibrownian_logret</a> | np.asmatrix<br>np.shape<br>len<br>np.zeros<br>range<br>np.multiply<br>vol*sqrt<br>np.dot<br> |
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L673'>multigbm_logret</a> | np.asmatrix<br>np.shape<br>np.dot<br>np.array<br>np.multiply<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L698'>multigbm_process</a> | np.asmatrix<br>np.dot<br>np.multiply<br>np.exp<br>range<br> |
+=======
+| <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L698'>multigbm_process</a> | multigbm_logret<br>multilogret_to_price<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/derivatives.py' href='.//utilmy/zzarchive/storage/derivatives.py'>utilmy/zzarchive/storage/derivatives.py</a> | function | <a href='.//utilmy/zzarchive/storage/derivatives.py#L698'>multigbm_process</a> | multigbm_logret<br>multilogret_to_price<br> |
 >>>>>>> origin/main
@@ -9769,7 +10482,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L95'>get_xy</a> | y=int<br>x.split<br> |
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L38'>init_weight</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L27'>log</a> | open<br>logfile<br> |
+=======
+| <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L27'>log</a> | open<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L27'>log</a> | open<br> |
 >>>>>>> origin/main
@@ -9777,6 +10494,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L30'>logfile</a> | open<br>myfile.write<br> |
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L24'>save_prediction</a> | pickle.dump<br>open<br> |
 | <a name='utilmy/zzarchive/storage/dl_utils.py' href='.//utilmy/zzarchive/storage/dl_utils.py'>utilmy/zzarchive/storage/dl_utils.py</a> | function | <a href='.//utilmy/zzarchive/storage/dl_utils.py#L21'>save_weights</a> | pickle.dump<br>open<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/excel.py' href='.//utilmy/zzarchive/storage/excel.py'>utilmy/zzarchive/storage/excel.py</a> | function | <a href='.//utilmy/zzarchive/storage/excel.py#L23'>add_one</a> |  |
 | <a name='utilmy/zzarchive/storage/excel.py' href='.//utilmy/zzarchive/storage/excel.py'>utilmy/zzarchive/storage/excel.py</a> | function | <a href='.//utilmy/zzarchive/storage/excel.py#L16'>double_sum</a> |  |
@@ -9786,6 +10504,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L92'>compileJAVA</a> | os.getenv<br>subprocess.check_call<br> |
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L102'>compileJAVAtext</a> | os.getcwd<br>text_file=open<br>text_file.write<br>text_file.close<br>compileJAVA<br> |
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L220'>directorygetalltext</a> | glob.glob<br>getfulltext<br>vv.append<br>pd.DataFrame<br>pd.HDFStore<br>st.append<br>directorygetalltext2<br> |
+=======
+| <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L92'>compileJAVA</a> | os.getenv<br>subprocess.check_call<br> |
+| <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L102'>compileJAVAtext</a> | os.getcwd<br>text_file=open<br>text_file.write<br>text_file.close<br>compileJAVA<br> |
+| <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L220'>directorygetalltext</a> | glob.glob<br>getfulltext<br>vv.append<br>pd.DataFrame<br>pd.HDFStore<br>st.append<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L92'>compileJAVA</a> | os.getenv<br>subprocess.check_call<br> |
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L102'>compileJAVAtext</a> | os.getcwd<br>text_file=open<br>text_file.write<br>text_file.close<br>compileJAVA<br> |
@@ -9807,6 +10530,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L86'>loadSingleton</a> | os.getenv<br>subprocess.check_call<br> |
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L68'>showLoadedClass</a> | zipfile.ZipFile<br>archive.namelist<br> |
 | <a name='utilmy/zzarchive/storage/java.py' href='.//utilmy/zzarchive/storage/java.py'>utilmy/zzarchive/storage/java.py</a> | function | <a href='.//utilmy/zzarchive/storage/java.py#L98'>writeText</a> | open<br>text_file.write<br>text_file.close<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L177'>bm_generator</a> |  |
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L73'>func</a> | range<br>time.sleep<br> |
@@ -9843,6 +10567,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/panda_util.py' href='.//utilmy/zzarchive/storage/panda_util.py'>utilmy/zzarchive/storage/panda_util.py</a> | function | <a href='.//utilmy/zzarchive/storage/panda_util.py#L96'>sqlquery_topanda</a> |  |
 | <a name='utilmy/zzarchive/storage/panda_util.py' href='.//utilmy/zzarchive/storage/panda_util.py'>utilmy/zzarchive/storage/panda_util.py</a> | function | <a href='.//utilmy/zzarchive/storage/panda_util.py#L432'>unique_rows</a> | np.ascontiguousarray<br>np.unique<br>unique_a.view<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L213'>bm_generator</a> |  |
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L89'>func</a> | range<br>time.sleep<br> |
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L360'>init2</a> |  |
@@ -9858,6 +10584,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L382'>np_sin</a> | np.sin<br> |
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L338'>parzen_estimation</a> | np.abs<br>len<br> |
 | <a name='utilmy/zzarchive/storage/multiprocessfunc.py' href='.//utilmy/zzarchive/storage/multiprocessfunc.py'>utilmy/zzarchive/storage/multiprocessfunc.py</a> | function | <a href='.//utilmy/zzarchive/storage/multiprocessfunc.py#L400'>res_shared2</a> | float<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L411'>_date_align</a> | np.zeros<br>range<br>len<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L492'>_notnone</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
@@ -9879,7 +10608,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L770'>dataframe_toarray</a> |  |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L311'>date_add_bdays</a> | type<br>dateint_todatetime<br>datestring_todatetime<br>datetime.timedelta<br>current_date.weekday<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L429'>date_align</a> | np.float<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L429'>date_align</a> | len<br>np.zeros<br>np.array<br>isint<br>util.find<br>range<br>_date_align<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L429'>date_align</a> | len<br>np.zeros<br>np.array<br>isint<br>util.find<br>range<br>_date_align<br> |
 >>>>>>> origin/main
@@ -9907,7 +10640,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L125'>datetime_convertzone1_tozone2</a> | pytz.timezone<br>type<br>tz.localize<br>t2.append<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L181'>datetime_todate</a> | isinstance<br>datetime.date<br>date2.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L190'>datetime_toint</a> | isinstance<br>int<br>date2.append<br>datetime_tointhour<br>yy2.append<br>np.array<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L190'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L190'>datetime_toint</a> | isinstance<br>int<br>date2.append<br> |
 >>>>>>> origin/main
@@ -9922,7 +10659,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1370'>folio_lowcorrelation</a> | ww_selection<br>np.corrcoef<br>np.nan_to_num<br>np.zeros<br>range<br>util.np_sortbycol<br>int<br>np.std<br>np.isnan<br>util.find<br>np.sum<br>stk_select.append<br>pf.volhisto_fromret<br>sum<br>1/len<br>pf.getret_fromquotes<br>len<br>np.empty<br>np.ones<br>enumerate<br>pf.calcbasket_table<br>pf.price_normalize100<br>np.column_stack<br>np.zeros_like<br>np.array<br>np.concatenate<br>print<br>str<br>pf.plot_price<br>sym01[int<br>pf.volhisto_fromprice<br>xrange<br>folio_inverseetf<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1577'>folio_riskpa</a> | np.shape<br>np.zeros<br>np.ones<br>range<br>np.sum<br>np.std<br>isfloat<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1523'>folio_volta</a> | folio_volta<br>np.shape<br>np.zeros<br>range<br>np.std<br>min<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1523'>folio_volta</a> | np.shape<br>np.zeros<br>range<br>np.std<br>min<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1523'>folio_volta</a> | np.shape<br>np.zeros<br>range<br>np.std<br>min<br> |
 >>>>>>> origin/main
@@ -9938,7 +10679,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L3414'>imp_errorticker</a> | datetime.datetime<br>int<br>quotes_historical_yahoo_ochl<br>errorlist.append<br>print<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L3354'>imp_findticker</a> | v.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L4411'>imp_finviz</a> | requests.get<br>BeautifulSoup<br>soup.find_all<br>len<br>int<br>titlesarray.append<br>titlesarray.insert<br>while<br>str<br>page<br>secondsoup.find_all<br>alldata.append<br>open<br>csv.DictWriter<br>overview.writeheader<br>overview.writerow<br>imp_finviz_news<br>imp_finviz_financials<br>financial.writeheader<br>financial.writerow<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L4411'>imp_finviz</a> | requests.get<br>BeautifulSoup<br>soup.find_all<br>len<br>int<br>titlesarray.append<br>titlesarray.insert<br>while<br>str<br>page<br>secondsoup.find_all<br>alldata.append<br>open<br>csv.DictWriter<br>overview.writeheader<br>overview.writerow<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L4411'>imp_finviz</a> | requests.get<br>BeautifulSoup<br>soup.find_all<br>len<br>int<br>titlesarray.append<br>titlesarray.insert<br>while<br>str<br>page<br>secondsoup.find_all<br>alldata.append<br>open<br>csv.DictWriter<br>overview.writeheader<br>overview.writerow<br> |
 >>>>>>> origin/main
@@ -9979,7 +10724,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L3609'>pd_filterbydate</a> | type<br>pd.date_range<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1329'>pd_transform_asset</a> | util.pd_date_intersection<br>util.pd_array_todataframe<br>util.pd_insertcol<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L496'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br>plot_priceintraday<br>np.loadtxt<br>np.unique<br>xdays.append<br>np.hstack<br>fig.add_axes<br>ax.tick_params<br>ax.set_xticks<br>ax.set_xticklabels<br>ax.set_ylabel<br>ax.set_ylim<br>candlestick<br>plot_pricedate<br>type<br>datestring_todatetime<br>np.row_stack<br>array_todataframe<br>df_asset.plot<br>ax.axvline<br>ax.savefig<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L496'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L496'>plot_price</a> | _reshape<br>_notnone<br>np.concatenate<br>np.shape<br>np.arange<br>np.zeros<br>ta_lowbandtrend1<br>ta_highbandtrend1<br>plt.figure<br>plt.plot<br>plt.grid<br>plt.title<br>plt.xlabel<br>plt.ylabel<br>int<br>plt.xticks<br>len<br>plt.savefig<br>plt.show<br>range<br>min<br>fig.savefig<br>plt.legend<br> |
 >>>>>>> origin/main
@@ -9988,7 +10737,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1134'>price_normalize100</a> | np.shape<br>len<br>np.reshape<br>np.zeros<br>range<br>np.cumprod<br> |
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L1154'>price_normalize_1d</a> | np.empty<br>np.cumprod<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L924'>regression</a> | len<br>yreturn.ravel<br>xreturn.reshape<br>reg.fit<br>F<br>reg.score<br>regression_fixedsymbolstock<br>range<br>np.reshape<br>np.column_stack<br>regression<br>getpriceret_fromregression<br>np.max<br>regression_getpricefromww<br>np.copy<br>np.zeros<br>regression_allstocks_vs_riskfactors<br>np.shape<br>print<br>np.arange<br>np.empty<br>enumerate<br>pf.getlogret_fromquotes<br>pf.regression_fixedsymbolstock<br>util.np_sortbycolumn<br>util.pd_array_todataframe<br>util.print_object<br> |
+=======
+| <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L924'>regression</a> | len<br>yreturn.ravel<br>xreturn.reshape<br>reg.fit<br>F<br>reg.score<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/portfolio.py' href='.//utilmy/zzarchive/storage/portfolio.py'>utilmy/zzarchive/storage/portfolio.py</a> | function | <a href='.//utilmy/zzarchive/storage/portfolio.py#L924'>regression</a> | len<br>yreturn.ravel<br>xreturn.reshape<br>reg.fit<br>F<br>reg.score<br> |
 >>>>>>> origin/main
@@ -10041,6 +10794,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L68'>_build_interaction_matrix</a> | sp.lil_matrix<br>mat.tocoo<br> |
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L23'>_download_movielens</a> | requests.get<br>print<br>open<br>req.iter_content<br>fd.write<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L80'>_get_movie_raw_metadata</a> | _get_movielens_path<br>_download_movielens<br>zipfile.ZipFile<br>datafile.read<br> |
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L14'>_get_movielens_path</a> |  |
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L38'>_get_raw_movielens_data</a> | _get_movielens_path<br>_download_movielens<br>zipfile.ZipFile<br>datafile.read<br> |
@@ -10052,6 +10806,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/rec_metrics.py' href='.//utilmy/zzarchive/storage/rec_metrics.py'>utilmy/zzarchive/storage/rec_metrics.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_metrics.py#L52'>full_auc</a> | ground_truth.tocsr<br>np.arange<br>enumerate<br>predict<br>np.zeros<br>len<br>scores.append<br>sum<br> |
 | <a name='utilmy/zzarchive/storage/rec_metrics.py' href='.//utilmy/zzarchive/storage/rec_metrics.py'>utilmy/zzarchive/storage/rec_metrics.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_metrics.py#L14'>precision_at_k</a> | ground_truth.tocsr<br>np.arange<br>enumerate<br>np.empty<br>uid_array.fill<br>model.predict<br>set<br>precisions.append<br>float<br>sum<br>len<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L88'>_get_movie_raw_metadata</a> | _get_movielens_path<br>_download_movielens<br>zipfile.ZipFile<br>datafile.read<br> |
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L14'>_get_movielens_path</a> |  |
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L38'>_get_raw_movielens_data</a> | _get_movielens_path<br>_download_movielens<br>zipfile.ZipFile<br>datafile.read<br> |
@@ -10062,6 +10818,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/rec_data.py' href='.//utilmy/zzarchive/storage/rec_data.py'>utilmy/zzarchive/storage/rec_data.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_data.py#L162'>get_triplets</a> | size=len<br> |
 | <a name='utilmy/zzarchive/storage/rec_metrics.py' href='.//utilmy/zzarchive/storage/rec_metrics.py'>utilmy/zzarchive/storage/rec_metrics.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_metrics.py#L60'>full_auc</a> | ground_truth.tocsr<br>np.arange<br>enumerate<br>predict<br>np.zeros<br>len<br>scores.append<br>sum<br> |
 | <a name='utilmy/zzarchive/storage/rec_metrics.py' href='.//utilmy/zzarchive/storage/rec_metrics.py'>utilmy/zzarchive/storage/rec_metrics.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_metrics.py#L22'>precision_at_k</a> | ground_truth.tocsr<br>np.arange<br>enumerate<br>np.empty<br>uid_array.fill<br>model.predict<br>set<br>precisions.append<br>float<br>sum<br>len<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/rec_metrics.py' href='.//utilmy/zzarchive/storage/rec_metrics.py'>utilmy/zzarchive/storage/rec_metrics.py</a> | function | <a href='.//utilmy/zzarchive/storage/rec_metrics.py#L6'>predict</a> |  |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L468'>Plot2D_random_save</a> | range<br>pd.read_hdf<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>plt.savefig<br>plt.clf<br> |
@@ -10081,15 +10840,21 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L674'>outlier_clean</a> | range<br> |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L682'>overwrite_data</a> | pd.HDFStore<br>store.remove<br>store.append<br>store.close<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L167'>pathScheme_</a> |  |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L148'>pathScheme_bb</a> | int<br>range<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L140'>pathScheme_std</a> |  |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L845'>permute</a> | int<br>np.copy<br>range<br>permute2<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>comoment<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L167'>pathScheme_</a> | np.zeros<br>range<br>getdvector<br>pathScheme_<br>np.arange<br>np.histogram<br>dx.dN<br>np.sum<br> |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L148'>pathScheme_bb</a> | int<br>range<br>np.sqrt<br> |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L140'>pathScheme_std</a> |  |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L845'>permute</a> | int<br>np.copy<br>range<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L858'>permute2</a> | int<br>np.copy<br>range<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>comoment<br> |
 | <a name='utilmy/zzarchive/storage/sobol.py' href='.//utilmy/zzarchive/storage/sobol.py'>utilmy/zzarchive/storage/sobol.py</a> | function | <a href='.//utilmy/zzarchive/storage/sobol.py#L762'>plot_outlier</a> | pd.read_hdf<br>plt.scatter<br>plt.axis<br>title1+str<br>plt.title<br>plt.savefig<br>plt.clf<br> |
@@ -10112,15 +10877,21 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/stateprocessor.py' href='.//utilmy/zzarchive/storage/stateprocessor.py'>utilmy/zzarchive/storage/stateprocessor.py</a> | function | <a href='.//utilmy/zzarchive/storage/stateprocessor.py#L8'>sort</a> | pf.getret_fromquotes<br> |
 | <a name='utilmy/zzarchive/storage/stateprocessor.py' href='.//utilmy/zzarchive/storage/stateprocessor.py'>utilmy/zzarchive/storage/stateprocessor.py</a> | function | <a href='.//utilmy/zzarchive/storage/stateprocessor.py#L111'>store_patternstate</a> | util.find<br>lstate.append<br>np.array<br>str<br>util.save_obj<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L104'>EEvarbrownian</a> | symbols<br>factor<br>exp<br>Integral<br>ee.doit<br>simplify<br>1/sqrt<br>ee.subs<br>vv.doit<br>vv.subs<br>EEvarbrownian2d<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L126'>EEvarbrownian2d</a> | symbols<br>factor<br>exp<br>Integral<br>ee.doit<br>simplify<br>ee.subs<br>vv.doit<br>vv.subs<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L273'>N</a> | 1/sqrt<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L313'>bs</a> | d2f<br>exp<br>bscall<br>d1f<br>vol*sqrt<br>s0*exp<br>K*exp<br>bsput<br>bs<br>bsdelta<br>N<br>bsstrikedelta<br>bsstrikegamma<br>sqrt<br>bsgamma<br>bstheta<br>St*exp<br>bsrho<br>bsvega<br>dN<br>bsdvd<br>bsvanna<br>bsvolga<br>bsgammaspot<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L104'>EEvarbrownian</a> | symbols<br>factor<br>exp<br>Integral<br>ee.doit<br>simplify<br>1/sqrt<br>ee.subs<br>vv.doit<br>vv.subs<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L126'>EEvarbrownian2d</a> | symbols<br>factor<br>exp<br>Integral<br>ee.doit<br>simplify<br>ee.subs<br>vv.doit<br>vv.subs<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L273'>N</a> | 1/sqrt<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L313'>bs</a> | d1f<br>exp<br>N<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L293'>bsbinarycall</a> | d2f<br>exp<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L299'>bscall</a> | d1f<br>vol*sqrt<br>s0*exp<br>K*exp<br> |
@@ -10144,17 +10915,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L195'>decomposecorrel</a> | factor<br>print2<br>m1.eigenvals<br>m1.eigenvects<br>simplify<br>m1.LDLdecomposition<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L260'>diffn</a> | Derivative<br>simplify<br>dffk.doit<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L245'>dnn</a> | exp<br>dnn<br>1/sqrt<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L241'>dnn2</a> | exp<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L87'>factorpoly</a> | rr=roots<br>rr.iteritems<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L168'>lagrangian2d</a> | simplify<br>print2<br>solvers.solve<br>range<br>res.__len__<br>str<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L233'>nn</a> | 1/sqrt<br>nn2<br>abs<br>Integral<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L245'>dnn</a> | 1/sqrt<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L241'>dnn2</a> | exp<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L87'>factorpoly</a> | rr=roots<br>rr.iteritems<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L168'>lagrangian2d</a> | simplify<br>print2<br>solvers.solve<br>range<br>res.__len__<br>str<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L233'>nn</a> | 1/sqrt<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L236'>nn2</a> | abs<br>Integral<br> |
 | <a name='utilmy/zzarchive/storage/symbolicmath.py' href='.//utilmy/zzarchive/storage/symbolicmath.py'>utilmy/zzarchive/storage/symbolicmath.py</a> | function | <a href='.//utilmy/zzarchive/storage/symbolicmath.py#L68'>print2</a> | spp<br> |
@@ -10187,7 +10964,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L731'>RWI</a> |  |
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L726'>STDDEV</a> | df.join<br>str<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L418'>STO</a> | pd.Series<br>df.join<br>STO<br>str<br> |
+=======
+| <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L418'>STO</a> | pd.Series<br>str<br>df.join<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L418'>STO</a> | pd.Series<br>str<br>df.join<br> |
 >>>>>>> origin/main
@@ -10199,7 +10980,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L20'>date_earningquater</a> | datetime<br> |
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L39'>date_option_expiry</a> | datetime<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L339'>distance</a> | datetime.date<br>np.zeros<br>range<br>len<br>pd.Series<br>df.join<br>distance<br> |
+=======
+| <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L339'>distance</a> | pd.Series<br>df.join<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L339'>distance</a> | pd.Series<br>df.join<br> |
 >>>>>>> origin/main
@@ -10221,6 +11006,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L274'>qearning_dist</a> | np.zeros<br>enumerate<br>date_earningquater<br>pd.Series<br>df.join<br> |
 | <a name='utilmy/zzarchive/storage/technical_indicator.py' href='.//utilmy/zzarchive/storage/technical_indicator.py'>utilmy/zzarchive/storage/technical_indicator.py</a> | function | <a href='.//utilmy/zzarchive/storage/technical_indicator.py#L113'>supportmaxmin1</a> | np_findlocalmax<br>len<br>np_find_maxpos<br>range<br>findhigher<br>np.abs<br>np.shape<br>np.arange<br>min<br>np.zeros<br>max<br>np_findlocalmin<br>np_find_minpos<br>findlower<br>pd.Series<br>df1.join<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L18'>mc01</a> |  |
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L28'>mc02</a> |  |
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L152'>multiprocess</a> | mp.Pool<br>pool.terminate<br>pool.join<br>print<br> |
@@ -10229,6 +11015,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L149'>serial</a> |  |
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L209'>test01</a> | range<br>list<br>mp.Process<br> |
 | <a name='utilmy/zzarchive/storage/testmulti.py' href='.//utilmy/zzarchive/storage/testmulti.py'>utilmy/zzarchive/storage/testmulti.py</a> | function | <a href='.//utilmy/zzarchive/storage/testmulti.py#L209'>test01</a> | range<br>list<br>mp.Process<br> |
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/storage/theano_imdb.py' href='.//utilmy/zzarchive/storage/theano_imdb.py'>utilmy/zzarchive/storage/theano_imdb.py</a> | function | <a href='.//utilmy/zzarchive/storage/theano_imdb.py#L54'>get_dataset_file</a> | print<br> |
@@ -10255,6 +11043,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/storage/theano_lstm.py' href='.//utilmy/zzarchive/storage/theano_lstm.py'>utilmy/zzarchive/storage/theano_lstm.py</a> | function | <a href='.//utilmy/zzarchive/storage/theano_lstm.py#L448'>train_lstm</a> | locals<br>print<br>get_dataset<br>load_data<br>numpy.arange<br>numpy.max<br>init_params<br>load_params<br>init_tparams<br>build_model<br>theano.shared<br>theano.function<br>tensor.grad<br>wrt=list<br>tensor.scalar<br>optimizer<br>get_minibatches_idx<br>len<br>time.time<br>range<br>use_noise.set_value<br>prepare_data<br>f_grad_shared<br>f_update<br>numpy.isnan<br>numpy.isinf<br>numpy.mod<br>unzip<br>numpy.savez<br>pickle.dump<br>open<br>pred_error<br>history_errs.append<br>numpy.array<br>zipp<br> |
 | <a name='utilmy/zzarchive/storage/theano_lstm.py' href='.//utilmy/zzarchive/storage/theano_lstm.py'>utilmy/zzarchive/storage/theano_lstm.py</a> | function | <a href='.//utilmy/zzarchive/storage/theano_lstm.py#L66'>unzip</a> | OrderedDict<br>zipped.items<br>vv.get_value<br> |
 | <a name='utilmy/zzarchive/storage/theano_lstm.py' href='.//utilmy/zzarchive/storage/theano_lstm.py'>utilmy/zzarchive/storage/theano_lstm.py</a> | function | <a href='.//utilmy/zzarchive/storage/theano_lstm.py#L58'>zipp</a> | params.items<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/util.py' href='.//utilmy/zzarchive/util.py'>utilmy/zzarchive/util.py</a> | function | <a href='.//utilmy/zzarchive/util.py#L411'>a_autoreload</a> | a_run_ipython<br> |
 | <a name='utilmy/zzarchive/util.py' href='.//utilmy/zzarchive/util.py'>utilmy/zzarchive/util.py</a> | function | <a href='.//utilmy/zzarchive/util.py#L417'>a_cleanmemory</a> | gc.collect<br> |
@@ -10479,6 +11268,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/util.py' href='.//utilmy/zzarchive/util.py'>utilmy/zzarchive/util.py</a> | method | <a href='.//utilmy/zzarchive/util.py#L152'>testclass:z_autotest</a> | io.StringIO<br>f<br>exec<br>print<br>codeErr.getvalue<br>codeOut.getvalue<br>codeOut.close<br>codeErr.close<br> |
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L483'>aws_accesskey_get</a> | print<br> |
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L500'>aws_conn_create</a> | aws_accesskey_get<br>EC2Connection<br>aws_conn_getallregions<br>conn=EC2Connection<br>print<br> |
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L492'>aws_conn_do</a> | aws_conn_create<br> |
@@ -10490,7 +11281,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L687'>aws_ec2_create_con</a> | paramiko.Transport<br>transport.add_server_key<br>transport.connect<br>print<br>sftp.listdir<br>paramiko.SSHClient<br>ssh.set_missing_host_key_policy<br>ssh.connect<br>ssh.exec_command<br>stdin.flush<br>stdout.read<br>sftp.close<br>transport.close<br>ssh.close<br> |
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L368'>aws_ec2_get_id</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L283'>aws_ec2_get_instanceid</a> | con.get_all_instances<br> |
+=======
+| <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L283'>aws_ec2_get_instanceid</a> |  |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | function | <a href='.//utilmy/zzarchive/util_aws.py#L283'>aws_ec2_get_instanceid</a> |  |
 >>>>>>> origin/main
@@ -10519,7 +11314,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | method | <a href='.//utilmy/zzarchive/util_aws.py#L226'>aws_ec2_ssh:jupyter_start</a> |  |
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | method | <a href='.//utilmy/zzarchive/util_aws.py#L219'>aws_ec2_ssh:listdir</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | method | <a href='.//utilmy/zzarchive/util_aws.py#L131'>aws_ec2_ssh:put</a> | put_all<br>os.chdir<br>os.walk<br>print<br>self.put<br> |
+=======
+| <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | method | <a href='.//utilmy/zzarchive/util_aws.py#L131'>aws_ec2_ssh:put</a> |  |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/util_aws.py' href='.//utilmy/zzarchive/util_aws.py'>utilmy/zzarchive/util_aws.py</a> | method | <a href='.//utilmy/zzarchive/util_aws.py#L131'>aws_ec2_ssh:put</a> |  |
 >>>>>>> origin/main
@@ -10566,6 +11365,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_min.py' href='.//utilmy/zzarchive/util_min.py'>utilmy/zzarchive/util_min.py</a> | function | <a href='.//utilmy/zzarchive/util_min.py#L476'>save_test</a> | py_load_obj<br>print<br>str<br>gc.collect<br> |
 | <a name='utilmy/zzarchive/util_min.py' href='.//utilmy/zzarchive/util_min.py'>utilmy/zzarchive/util_min.py</a> | function | <a href='.//utilmy/zzarchive/util_min.py#L511'>z_key_splitinto_dir_name</a> | keyname.split<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L38'>create_adam_optimizer</a> |  |
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L33'>create_bias_variable</a> | tf.constant_initializer<br>tf.Variable<br> |
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L27'>create_weight_variable</a> | tf.Variable<br> |
@@ -10594,6 +11394,8 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L447'>sql_postgres_pivot</a> |  |
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L432'>sql_postgres_query_to_csv</a> | psycopg2.connect<br>con.cursor<br>print<br>open<br>cur.copy_expert<br>con.close<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L52'>create_adam_optimizer</a> |  |
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L40'>create_bias_variable</a> | tf.constant_initializer<br>tf.Variable<br> |
 | <a name='utilmy/zzarchive/util_ml.py' href='.//utilmy/zzarchive/util_ml.py'>utilmy/zzarchive/util_ml.py</a> | function | <a href='.//utilmy/zzarchive/util_ml.py#L27'>create_weight_variable</a> | tf.Variable<br> |
@@ -10621,6 +11423,9 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L395'>sql_postgres_create_table</a> | psycopg2.connect<br>con.cursor<br>print<br>sys.exit<br>cur.execute<br>time.time<br>os.listdir<br>i.endswith<br>i.startswith<br>open<br>cur.copy_expert<br>con.commit<br>con.close<br> |
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L481'>sql_postgres_pivot</a> |  |
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L466'>sql_postgres_query_to_csv</a> | psycopg2.connect<br>con.cursor<br>print<br>open<br>cur.copy_expert<br>con.close<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/util_sql.py' href='.//utilmy/zzarchive/util_sql.py'>utilmy/zzarchive/util_sql.py</a> | function | <a href='.//utilmy/zzarchive/util_sql.py#L69'>sql_query</a> | sql.create_engine<br>pd.read_sql_query<br>output.find<br>df.to_csv<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L101'>web_getjson_fromurl</a> | urllib3.connection_from_url<br>http.urlopen<br>print<br>json.loads<br> |
@@ -10630,6 +11435,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L116'>web_gettext_fromurl</a> | urllib3.connection_from_url<br>http.urlopen<br>BeautifulSoup<br>soup.find_all<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L74'>web_importio_todataframe</a> | requests.get<br>ApiError<br>resp.json<br>list<br>colname.append<br>str<br>np.array<br>colmax=len<br>np.empty<br>pd_createdf<br>np.arange<br>len<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L59'>web_restapi_toresp</a> | requests.get<br>ApiError<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L195'>web_send_email</a> | MIMEMultipart<br>msg.set_charset<br>MIMEText<br>msg.attach<br>smtplib.SMTP_SSL<br>server_ssl.ehlo<br>login<br>server_ssl.login<br>server_ssl.sendmail<br>msg.as_string<br>server_ssl.close<br>print<br>web_send_email_tls<br>smtplib.SMTP<br>mailserver.ehlo<br>mailserver.starttls<br>mailserver.login<br>mailserver.sendmail<br>mailserver.quit<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L220'>web_send_email_tls</a> | MIMEMultipart<br>msg.set_charset<br>MIMEText<br>msg.attach<br>smtplib.SMTP<br>mailserver.ehlo<br>mailserver.starttls<br>mailserver.login<br>mailserver.sendmail<br>msg.as_string<br>mailserver.quit<br>print<br> |
@@ -10830,10 +11636,15 @@ Repo: ./
 | <a name='utilmy/zzarchive/zzarchive/zutil.py' href='.//utilmy/zzarchive/zzarchive/zutil.py'>utilmy/zzarchive/zzarchive/zutil.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil.py#L1627'>str_to_utf8</a> | x.encode<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil.py' href='.//utilmy/zzarchive/zzarchive/zutil.py'>utilmy/zzarchive/zzarchive/zutil.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil.py#L1277'>z_key_splitinto_dir_name</a> | keyname.split<br>len<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L195'>web_send_email</a> | MIMEMultipart<br>msg.set_charset<br>MIMEText<br>msg.attach<br>smtplib.SMTP_SSL<br>server_ssl.ehlo<br>login<br>server_ssl.login<br>server_ssl.sendmail<br>msg.as_string<br>server_ssl.close<br>print<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L220'>web_send_email_tls</a> | MIMEMultipart<br>msg.set_charset<br>MIMEText<br>msg.attach<br>smtplib.SMTP<br>mailserver.ehlo<br>mailserver.starttls<br>mailserver.login<br>mailserver.sendmail<br>msg.as_string<br>mailserver.quit<br>print<br> |
 | <a name='utilmy/zzarchive/util_web.py' href='.//utilmy/zzarchive/util_web.py'>utilmy/zzarchive/util_web.py</a> | function | <a href='.//utilmy/zzarchive/util_web.py#L256'>web_sendurl</a> | web_gettext_fromurl<br>send_email<br> |
 | <a name='utilmy/zzarchive/utilgeo.py' href='.//utilmy/zzarchive/utilgeo.py'>utilmy/zzarchive/utilgeo.py</a> | function | <a href='.//utilmy/zzarchive/utilgeo.py#L24'>df_to_geojson</a> | df.iterrows<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L1292'>col_extractname</a> | len<br>colnew.append<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L1315'>col_remove</a> | cols.remove<br>cols3.append<br> |
@@ -10843,17 +11654,23 @@ Repo: ./
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L386'>fetch_dataset</a> | log<br>mkdtemp<br>pathlib.Path<br>mktemp<br>url_dataset.replace<br>urlx.replace<br>urlpath.split<br>os.makedirs<br>requests.Session<br>s.get<br>print<br>open<br>f.write<br>res.raise_for_status<br>urlparse<br>parse_qs<br>download_googledrive<br>download_dtopbox<br>os.listdir<br>os.unlink<br>os.link<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L378'>fetch_spark_koalas</a> | path_data_x.replace<br>ks.read_parquet<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L228'>load</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L490'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L12'>log</a> | print<br>log2<br>log3<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L228'>load</a> | pickle.load<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L300'>load_dataset</a> | log<br>fetch_spark_koalas<br>fetch_dataset<br>glob.glob<br>ntpath.dirname<br>ntpath.basename<br>len<br>print<br>pd.read_csv<br>fi.endswith<br>pd.read_parquet<br>pd.read_pickle<br>pd.concat<br>df.head<br>list<br>np.arange<br>df.set_index<br>pd_read_file<br>dfy.head<br>df.join<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L206'>load_features</a> | pd.read_parquet<br>log<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L490'>load_function_uri</a> | uri_name.split<br>len<br>package_path.replace<br>getattr<br>str<br>log<br>Path<br>NameError<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L12'>log</a> | print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L18'>log2</a> | print<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L21'>log3</a> | print<br> |
@@ -10889,7 +11706,11 @@ Repo: ./
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L1409'>pd_stat_shift_trend_changes</a> | target_diffs.fillna<br>target_diffs.divide<br>target_diffs_norm.diff<br>target_diffs_lvl2.fillna<br>int<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L1433'>pd_stat_shift_trend_correlation</a> | df.merge<br>pd.isnull<br>len<br>np.corrcoef<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L221'>save</a> | os.makedirs<br>isinstance<br>log<br>list<br>df0.to_parquet<br> |
+=======
+| <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L221'>save</a> | os.makedirs<br>log<br>pickle.dump<br>open<br> |
 >>>>>>> origin/main
@@ -10898,6 +11719,7 @@ Repo: ./
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | function | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L143'>test_get_classification_data</a> | make_classification<br>range<br>pd.DataFrame<br>np.arange<br>len<br>dfX.set_index<br>dfy.set_index<br> |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | class | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L28'>dict2</a> |  |
 | <a name='utilmy/zzarchive/zzarchive/zutil_features.py' href='.//utilmy/zzarchive/zzarchive/zutil_features.py'>utilmy/zzarchive/zzarchive/zutil_features.py</a> | method | <a href='.//utilmy/zzarchive/zzarchive/zutil_features.py#L29'>dict2:__init__</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/install/run_doc.py' href='.//utilmy/zzml/install/run_doc.py'>utilmy/zzml/install/run_doc.py</a> | function | <a href='.//utilmy/zzml/install/run_doc.py#L155'>get_recursive_files</a> | glob.glob<br> |
 | <a name='utilmy/zzml/install/run_doc.py' href='.//utilmy/zzml/install/run_doc.py'>utilmy/zzml/install/run_doc.py</a> | function | <a href='.//utilmy/zzml/install/run_doc.py#L148'>os_package_root_path</a> |  |
@@ -10919,6 +11741,8 @@ Repo: ./
 | <a name='utilmy/zzml/install/zconda/zold/distri_model_tch.py' href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py'>utilmy/zzml/install/zconda/zold/distri_model_tch.py</a> | method | <a href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py#L47'>Net:__init__</a> | super<br>nn.Conv2d<br>nn.Dropout2d<br>nn.Linear<br> |
 | <a name='utilmy/zzml/install/zconda/zold/distri_model_tch.py' href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py'>utilmy/zzml/install/zconda/zold/distri_model_tch.py</a> | method | <a href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py#L55'>Net:forward</a> | F.relu<br>x.view<br>F.dropout<br>self.fc2<br>F.log_softmax<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/install/run_doc.py' href='.//utilmy/zzml/install/run_doc.py'>utilmy/zzml/install/run_doc.py</a> | function | <a href='.//utilmy/zzml/install/run_doc.py#L162'>get_recursive_files</a> | glob.glob<br> |
 | <a name='utilmy/zzml/install/run_doc.py' href='.//utilmy/zzml/install/run_doc.py'>utilmy/zzml/install/run_doc.py</a> | function | <a href='.//utilmy/zzml/install/run_doc.py#L148'>os_package_root_path</a> |  |
 | <a name='utilmy/zzml/install/run_pypi.py' href='.//utilmy/zzml/install/run_pypi.py'>utilmy/zzml/install/run_pypi.py</a> | function | <a href='.//utilmy/zzml/install/run_pypi.py#L102'>ask</a> | input<br>ans.lower<br> |
@@ -10938,6 +11762,9 @@ Repo: ./
 | <a name='utilmy/zzml/install/zconda/zold/distri_model_tch.py' href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py'>utilmy/zzml/install/zconda/zold/distri_model_tch.py</a> | class | <a href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py#L53'>Net</a> |  |
 | <a name='utilmy/zzml/install/zconda/zold/distri_model_tch.py' href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py'>utilmy/zzml/install/zconda/zold/distri_model_tch.py</a> | method | <a href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py#L54'>Net:__init__</a> | super<br>nn.Conv2d<br>nn.Dropout2d<br>nn.Linear<br> |
 | <a name='utilmy/zzml/install/zconda/zold/distri_model_tch.py' href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py'>utilmy/zzml/install/zconda/zold/distri_model_tch.py</a> | method | <a href='.//utilmy/zzml/install/zconda/zold/distri_model_tch.py#L67'>Net:forward</a> | F.relu<br>x.view<br>F.dropout<br>self.fc2<br>F.log_softmax<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L37'>get_config</a> | VersioneerConfig<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L20'>get_keywords</a> |  |
@@ -10948,15 +11775,21 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L308'>plus_or_dot</a> | pieces.get<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L59'>register_vcs_handler</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L445'>render</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>render<br>pieces.get<br>render_pep440<br>ValueError<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L405'>render_git_describe</a> | render_git_describe_long<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L425'>render_git_describe_long</a> |  |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L315'>render_pep440</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L445'>render</a> | pieces.get<br>render_pep440<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>ValueError<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L405'>render_git_describe</a> |  |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L425'>render_git_describe_long</a> |  |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L315'>render_pep440</a> | plus_or_dot<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L383'>render_pep440_old</a> |  |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L356'>render_pep440_post</a> | plus_or_dot<br> |
@@ -10965,6 +11798,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | function | <a href='.//utilmy/zzml/mlmodels/_version.py#L107'>versions_from_parentdir</a> | range<br>dirname.startswith<br>dirname[len<br>rootdirs.append<br>print<br>NotThisMethod<br> |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | class | <a href='.//utilmy/zzml/mlmodels/_version.py#L51'>NotThisMethod</a> |  |
 | <a name='utilmy/zzml/mlmodels/_version.py' href='.//utilmy/zzml/mlmodels/_version.py'>utilmy/zzml/mlmodels/_version.py</a> | class | <a href='.//utilmy/zzml/mlmodels/_version.py#L33'>VersioneerConfig</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/benchmark.py' href='.//utilmy/zzml/mlmodels/benchmark.py'>utilmy/zzml/mlmodels/benchmark.py</a> | function | <a href='.//utilmy/zzml/mlmodels/benchmark.py#L72'>benchmark_run</a> | path_norm<br>pd.DataFrame<br>log<br>json.load<br>ddict.items<br>get_all_json_path<br>json_list.append<br>len<br>Exception<br>path_norm_dict<br>module_load<br>module.Model<br>print<br>type<br>module.fit<br>module.predict<br>np.array<br>metric_eval<br>str<br>traceback.print_exc<br>os.makedirs<br>bench_df.to_csv<br> |
 | <a name='utilmy/zzml/mlmodels/benchmark.py' href='.//utilmy/zzml/mlmodels/benchmark.py'>utilmy/zzml/mlmodels/benchmark.py</a> | function | <a href='.//utilmy/zzml/mlmodels/benchmark.py#L164'>cli_load_arguments</a> | argparse.ArgumentParser<br>add<br>p.add_argument<br>p.parse_args<br> |
@@ -10977,6 +11811,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L299'>get_dataset</a> | d.get<br>os_package_root_path<br>pd.read_csv<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L272'>import_data</a> | datasets.MNIST<br>transforms.Normalize<br>import_data_fromfile<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/benchmark.py' href='.//utilmy/zzml/mlmodels/benchmark.py'>utilmy/zzml/mlmodels/benchmark.py</a> | function | <a href='.//utilmy/zzml/mlmodels/benchmark.py#L92'>benchmark_run</a> | path_norm<br>pd.DataFrame<br>log<br>json.load<br>ddict.items<br>get_all_json_path<br>json_list.append<br>len<br>Exception<br>path_norm_dict<br>module_load<br>module.Model<br>print<br>type<br>module.fit<br>module.predict<br>np.array<br>metric_eval<br>str<br>traceback.print_exc<br>os.makedirs<br>bench_df.to_csv<br> |
 | <a name='utilmy/zzml/mlmodels/benchmark.py' href='.//utilmy/zzml/mlmodels/benchmark.py'>utilmy/zzml/mlmodels/benchmark.py</a> | function | <a href='.//utilmy/zzml/mlmodels/benchmark.py#L192'>cli_load_arguments</a> | argparse.ArgumentParser<br>add<br>p.add_argument<br>p.parse_args<br> |
 | <a name='utilmy/zzml/mlmodels/benchmark.py' href='.//utilmy/zzml/mlmodels/benchmark.py'>utilmy/zzml/mlmodels/benchmark.py</a> | function | <a href='.//utilmy/zzml/mlmodels/benchmark.py#L52'>config_model_list</a> | os_package_root_path<br>get_recursive_files<br>mlist.append<br>print<br> |
@@ -10987,11 +11823,15 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L104'>download_googledrive</a> | path_norm<br>d.get<br>str<br>os.makedirs<br>gdown.download<br>target_list.append<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L299'>get_dataset</a> | d.get<br>os_package_root_path<br>pd.read_csv<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L272'>import_data</a> | sent_generator<br>pd.read_csv<br>texts.extend<br>pad_sequences<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L253'>import_data_dask</a> | kw.get<br>dd.read_csv<br>dd.read_pickle<br>Exception<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L212'>import_data_fromfile</a> | m.get<br>pd.read_pickle<br>pd.read_csv<br>import_to_numpy<br>import_to_pandas<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L195'>import_data_tch</a> | datasets.MNIST<br>transforms.Normalize<br> |
 | <a name='utilmy/zzml/mlmodels/data.py' href='.//utilmy/zzml/mlmodels/data.py'>utilmy/zzml/mlmodels/data.py</a> | function | <a href='.//utilmy/zzml/mlmodels/data.py#L11'>tf_dataset</a> | d.get<br>path_norm<br>dataset_id.replace<br>os.makedirs<br>tfds.as_numpy<br>tfds.load<br>print<br>get_keys<br>x.keys<br>np.savez_compressed<br>x.get<br>os.listdir<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/dataloader.py' href='.//utilmy/zzml/mlmodels/dataloader.py'>utilmy/zzml/mlmodels/dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/dataloader.py#L131'>_check_output_shape</a> | isinstance<br>inter_output.items<br>hasattr<br>tuple<br>zip<br> |
 | <a name='utilmy/zzml/mlmodels/dataloader.py' href='.//utilmy/zzml/mlmodels/dataloader.py'>utilmy/zzml/mlmodels/dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/dataloader.py#L109'>_validate_data_info</a> | data_info.get<br>KeyError<br>Exception<br>int<br> |
@@ -11029,6 +11869,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L174'>metric_average</a> | torch.tensor<br>hvd.allreduce<br>avg_tensor.item<br> |
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L180'>test</a> | model.eval<br>data.cuda<br>target.cuda<br>model<br>F.nll_loss<br>pred.eq<br>len<br>metric_average<br>hvd.rank<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/dataloader_test.py' href='.//utilmy/zzml/mlmodels/dataloader_test.py'>utilmy/zzml/mlmodels/dataloader_test.py</a> | function | <a href='.//utilmy/zzml/mlmodels/dataloader_test.py#L106'>gluon_append_target_string</a> |  |
 | <a name='utilmy/zzml/mlmodels/dataloader_test.py' href='.//utilmy/zzml/mlmodels/dataloader_test.py'>utilmy/zzml/mlmodels/dataloader_test.py</a> | function | <a href='.//utilmy/zzml/mlmodels/dataloader_test.py#L116'>identical_test_set_split</a> |  |
 | <a name='utilmy/zzml/mlmodels/dataloader_test.py' href='.//utilmy/zzml/mlmodels/dataloader_test.py'>utilmy/zzml/mlmodels/dataloader_test.py</a> | function | <a href='.//utilmy/zzml/mlmodels/dataloader_test.py#L63'>load_npz</a> | np.load<br>tuple<br>sorted<br> |
@@ -11048,12 +11890,16 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L38'>load_arguments</a> | argparse.ArgumentParser<br>p.add_argument<br>p.parse_args<br>load_config<br> |
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L180'>metric_average</a> | torch.tensor<br>hvd.allreduce<br>avg_tensor.item<br> |
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L193'>test</a> | model.eval<br>data.cuda<br>target.cuda<br>model<br>F.nll_loss<br>pred.eq<br>len<br>metric_average<br>hvd.rank<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/distri_torch.py' href='.//utilmy/zzml/mlmodels/distri_torch.py'>utilmy/zzml/mlmodels/distri_torch.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distri_torch.py#L147'>train</a> | model.train<br>train_sampler.set_epoch<br>enumerate<br>data.cuda<br>target.cuda<br>optimizer.zero_grad<br>model<br>F.nll_loss<br>loss.backward<br>optimizer.step<br>print<br>Rank<br>hvd.local_rank<br>len<br>loss.item<br> |
 | <a name='utilmy/zzml/mlmodels/distributed.py' href='.//utilmy/zzml/mlmodels/distributed.py'>utilmy/zzml/mlmodels/distributed.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distributed.py#L36'>config_model_list</a> | os_package_root_path<br>get_recursive_files<br>mlist.append<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/distributed.py' href='.//utilmy/zzml/mlmodels/distributed.py'>utilmy/zzml/mlmodels/distributed.py</a> | function | <a href='.//utilmy/zzml/mlmodels/distributed.py#L33'>get_all_json_path</a> | get_recursive_files<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m4.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m4.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m4.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m4.py#L4'>benchmark_m4</a> | partial<br>trainer=Trainer<br>distr_output=PiecewiseLinearOutput<br>evaluate<br>get_dataset<br>estimator<br>print<br>estimator.train<br>make_evaluation_predictions<br>Evaluator<br>num_series=len<br>pprint.pprint<br>type<br>results.append<br>pd.DataFrame<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L283'>create_startdate</a> | range<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L288'>gluonts_create_dataset</a> | ListDataset<br>zip<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L230'>gluonts_create_dynamic</a> |  |
@@ -11062,12 +11908,17 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L327'>pandas_to_gluonts_multiseries</a> | gluonts_create_dynamic<br>gluonts_create_static<br>gluonts_create_timeseries<br>create_startdate<br>gluonts_create_dataset<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L505'>plot_prob_forecasts</a> | plt.subplots<br>forecast_entry.plot<br>ax.axvline<br>plt.legend<br>plt.show<br>plt.clf<br>plt.savefig<br>plt.close<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L296'>gluonts_create_dataset</a> | ListDataset<br>zip<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L230'>gluonts_create_dynamic</a> |  |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L245'>gluonts_create_static</a> | static_cat_list.append<br>np.concatenate<br>static_cat.reshape<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L262'>gluonts_create_timeseries</a> | np.ones<br>train_target_values.copy<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L345'>pandas_to_gluonts_multiseries</a> | gluonts_create_dynamic<br>gluonts_create_static<br>gluonts_create_timeseries<br>create_startdate<br>gluonts_create_dataset<br> |
 | <a name='utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py' href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py'>utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/benchmark_timeseries_m5.py#L532'>plot_prob_forecasts</a> | plt.subplots<br>forecast_entry.plot<br>ax.axvline<br>plt.legend<br>plt.show<br>plt.clf<br>plt.savefig<br>plt.close<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/example/custom_model/1_lstm.py' href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py'>utilmy/zzml/mlmodels/example/custom_model/1_lstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py#L120'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/example/custom_model/1_lstm.py' href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py'>utilmy/zzml/mlmodels/example/custom_model/1_lstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py#L85'>fit</a> | get_dataset<br>print<br>compute_pars.get<br>sess.run<br>range<br>np.zeros<br>min<br>np.expand_dims<br> |
@@ -11083,8 +11934,13 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/example/custom_model/1_lstm.py' href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py'>utilmy/zzml/mlmodels/example/custom_model/1_lstm.py</a> | method | <a href='.//utilmy/zzml/mlmodels/example/custom_model/1_lstm.py#L38'>Model:__init__</a> | reset_model<br>model_pars.get<br>lstm_cell<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L12'>log</a> | print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L22'>metrics_eval</a> | len<br>isinstance<br>getattr<br>metric_scorer<br>pd.DataFrame<br> |
 | <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L158'>test</a> | metrics_eval<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L30'>metrics_eval</a> | len<br>isinstance<br>getattr<br>metric_scorer<br>pd.DataFrame<br> |
+| <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L166'>test</a> | metrics_eval<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L30'>metrics_eval</a> | len<br>isinstance<br>getattr<br>metric_scorer<br>pd.DataFrame<br> |
 | <a name='utilmy/zzml/mlmodels/metrics.py' href='.//utilmy/zzml/mlmodels/metrics.py'>utilmy/zzml/mlmodels/metrics.py</a> | function | <a href='.//utilmy/zzml/mlmodels/metrics.py#L166'>test</a> | metrics_eval<br> |
@@ -11100,15 +11956,21 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_gluon/fb_prophet.py' href='.//utilmy/zzml/mlmodels/model_gluon/fb_prophet.py'>utilmy/zzml/mlmodels/model_gluon/fb_prophet.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_gluon/fb_prophet.py#L10'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_gluon/fb_prophet.py' href='.//utilmy/zzml/mlmodels/model_gluon/fb_prophet.py'>utilmy/zzml/mlmodels/model_gluon/fb_prophet.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_gluon/fb_prophet.py#L11'>Model:__init__</a> | copy.deepcopy<br>Prophet<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L49'>_config_process</a> | log<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L77'>get_params</a> | Path<br>open<br>json.load<br>_config_process<br>log<br>path_setup<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L38'>path_setup</a> | os_package_root_path<br>os.getcwd<br>os.makedirs<br>log<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L113'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>save<br>load<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L64'>_config_process</a> | log<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L98'>get_params</a> | Path<br>open<br>json.load<br>_config_process<br>log<br>path_setup<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L45'>path_setup</a> | os_package_root_path<br>os.getcwd<br>os.makedirs<br>log<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L143'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>save<br>load<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L26'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluon_automl.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py'>utilmy/zzml/mlmodels/model_gluon/gluon_automl.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluon_automl.py#L27'>Model:__init__</a> |  |
@@ -11116,7 +11978,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L463'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L327'>fit</a> | get_dataset<br>model_gluon.train<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L183'>get_dataset</a> | DataLoader<br>loader.compute<br>loader.get_data<br>get_dataset<br>data_pars.get<br>Exception<br>get_dataset_gluonts<br>get_dataset_pandas_single<br>get_dataset_pandas_multi<br>pd.read_csv<br>d.get<br>pandas_to_gluonts_multiseries<br>Path<br>load_datasets<br>df.set_index<br>pd_clean_v1<br>pandas_to_gluonts<br>next<br>to_pandas<br>train_series.plot<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L183'>get_dataset</a> | data_pars.get<br>Exception<br>get_dataset_gluonts<br>get_dataset_pandas_single<br>get_dataset_pandas_multi<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L183'>get_dataset</a> | data_pars.get<br>Exception<br>get_dataset_gluonts<br>get_dataset_pandas_single<br>get_dataset_pandas_multi<br> |
 >>>>>>> origin/main
@@ -11131,6 +11997,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L511'>plot_prob_forecasts</a> | plt.subplots<br>forecast_entry.plot<br>plt.grid<br>plt.legend<br>plt.show<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L354'>predict</a> | get_dataset<br>make_evaluation_predictions<br>list<br>total=len<br>kw.get<br>np.zeros<br>range<br>np.mean<br>log<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L478'>save</a> | path_norm<br>os.makedirs<br>pickle.dump<br>open<br>log<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L586'>test</a> | log<br>get_params<br>module_load_full<br>fit<br>save<br>load<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br>test<br>test_single<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L539'>test_single</a> | log<br>get_params<br>module_load_full<br>fit<br>save<br>load<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br> |
@@ -11192,6 +12059,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/Autokeras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py#L31'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py#L32'>Model:__init__</a> | ak.TextClassifier<br>ak.ImageClassifier<br>ak.StructuredDataClassifier<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L586'>test</a> | test_single<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L539'>test_single</a> | log<br>get_params<br>module_load_full<br>fit<br>save<br>load<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br> |
 | <a name='utilmy/zzml/mlmodels/model_gluon/gluonts_model.py' href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py'>utilmy/zzml/mlmodels/model_gluon/gluonts_model.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_gluon/gluonts_model.py#L74'>Model</a> |  |
@@ -11251,6 +12120,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/Autokeras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py#L250'>test_single</a> | log<br>get_params<br>Model<br>fit<br>predict<br>print<br>evaluate<br>fitted_model.export_model<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/Autokeras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py#L36'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/Autokeras.py#L37'>Model:__init__</a> | ak.TextClassifier<br>ak.ImageClassifier<br>ak.StructuredDataClassifier<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/charcnn.py'>utilmy/zzml/mlmodels/model_keras/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/charcnn.py#L147'>evaluate</a> | get_dataset<br>compute_pars.get<br>ypred.argmax<br>np.argmax<br>accuracy_score<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/charcnn.py'>utilmy/zzml/mlmodels/model_keras/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/charcnn.py#L120'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -11276,6 +12148,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py#L215'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py#L41'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/charcnn_zhang.py#L42'>Model:__init__</a> | CharCNNZhang<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/deepctr.py' href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py'>utilmy/zzml/mlmodels/model_keras/deepctr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py#L383'>_config_process</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/deepctr.py' href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py'>utilmy/zzml/mlmodels/model_keras/deepctr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py#L166'>_preprocess_criteo</a> | kw.get<br>str<br>range<br>MinMaxScaler<br>mms.fit_transform<br>LabelEncoder<br>lbe.fit_transform<br>enumerate<br>train_test_split<br> |
@@ -11347,6 +12220,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/old/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py#L40'>Model:__init__</a> | deepcopy<br>ak.StructuredDataRegressor<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/old/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py#L40'>Model_keras_empty:__init__</a> | deepcopy<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/deepctr.py' href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py'>utilmy/zzml/mlmodels/model_keras/deepctr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py#L449'>_config_process</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/deepctr.py' href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py'>utilmy/zzml/mlmodels/model_keras/deepctr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py#L175'>_preprocess_criteo</a> | kw.get<br>str<br>range<br>MinMaxScaler<br>mms.fit_transform<br>LabelEncoder<br>lbe.fit_transform<br>enumerate<br>train_test_split<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/deepctr.py' href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py'>utilmy/zzml/mlmodels/model_keras/deepctr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/deepctr.py#L218'>_preprocess_movielens</a> | kw.get<br>LabelEncoder<br>lbe.fit_transform<br>train_test_split<br>split<br>x.split<br>len<br>list<br>np.array<br>max<br>pad_sequences<br>vocabulary_size=len<br>SparseFeat<br>VarLenSparseFeat<br>get_feature_names<br> |
@@ -11416,6 +12291,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/old/Autokeras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py#L357'>Model_keras_empty</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/old/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py#L45'>Model:__init__</a> | deepcopy<br>ak.StructuredDataRegressor<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/old/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/Autokeras.py#L45'>Model_keras_empty:__init__</a> | deepcopy<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/old/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn.py'>utilmy/zzml/mlmodels/model_keras/old/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn.py#L146'>evaluate</a> | get_dataset<br>compute_pars.get<br>ypred.argmax<br>np.argmax<br>accuracy_score<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn.py'>utilmy/zzml/mlmodels/model_keras/old/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn.py#L123'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -11439,6 +12317,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py#L238'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py#L41'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/charcnn_zhang.py#L42'>Model:__init__</a> | CharCNNZhang<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py#L198'>_preprocess_test</a> | pd.read_csv<br>df.fillna<br>zip<br>df.groupby<br>list<br>enumerate<br>word_to_index.items<br>tag_to_index.items<br>pad_sequences<br>train_test_split<br>np.array<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py#L114'>evaluate</a> |  |
@@ -11465,6 +12344,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py'>utilmy/zzml/mlmodels/model_keras/old/nbeats.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py#L69'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py'>utilmy/zzml/mlmodels/model_keras/old/nbeats.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py#L70'>Model:__init__</a> | NBeatsNet<br>model.compile_model<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py#L237'>_preprocess_test</a> | pd.read_csv<br>df.fillna<br>zip<br>df.groupby<br>list<br>enumerate<br>word_to_index.items<br>tag_to_index.items<br>pad_sequences<br>train_test_split<br>np.array<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py#L123'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/namentity_crm_bilstm.py#L93'>fit</a> | get_dataset<br>EarlyStopping<br>os.makedirs<br>ModelCheckpoint<br> |
@@ -11489,6 +12370,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py'>utilmy/zzml/mlmodels/model_keras/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py#L318'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>print<br>Model<br>fit<br>predict<br>evaluate<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py'>utilmy/zzml/mlmodels/model_keras/old/nbeats.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py#L74'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py'>utilmy/zzml/mlmodels/model_keras/old/nbeats.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/nbeats.py#L75'>Model:__init__</a> | NBeatsNet<br>model.compile_model<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py'>utilmy/zzml/mlmodels/model_keras/old/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py#L83'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py'>utilmy/zzml/mlmodels/model_keras/old/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py#L61'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -11501,6 +12385,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py'>utilmy/zzml/mlmodels/model_keras/old/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py#L210'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>save<br>predict<br>evaluate<br>print<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py'>utilmy/zzml/mlmodels/model_keras/old/textcnn.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py#L44'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py'>utilmy/zzml/mlmodels/model_keras/old/textcnn.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textcnn.py#L45'>Model:__init__</a> | TextCNN<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py'>utilmy/zzml/mlmodels/model_keras/old/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py#L209'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py'>utilmy/zzml/mlmodels/model_keras/old/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py#L177'>fit</a> | sent_generator<br>pd.read_csv<br>texts.extend<br>pad_sequences<br> |
@@ -11521,6 +12406,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/preprocess.py' href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py'>utilmy/zzml/mlmodels/model_keras/preprocess.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py#L48'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/preprocess.py' href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py'>utilmy/zzml/mlmodels/model_keras/preprocess.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py#L226'>test</a> | log<br>get_params<br>print<br>get_dataset<br>_preprocess_criteo<br>_preprocess_movielens<br>_preprocess_none<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py'>utilmy/zzml/mlmodels/model_keras/old/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py#L217'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py'>utilmy/zzml/mlmodels/model_keras/old/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py#L185'>fit</a> | sent_generator<br>pd.read_csv<br>texts.extend<br>pad_sequences<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/old/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py'>utilmy/zzml/mlmodels/model_keras/old/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/old/textvae.py#L301'>get_dataset</a> | codecs.open<br>csv.reader<br>next<br>texts.append<br>print<br>len<br>open<br>line.split<br>np.asarray<br>f.close<br> |
@@ -11539,6 +12426,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/preprocess.py' href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py'>utilmy/zzml/mlmodels/model_keras/preprocess.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py#L61'>log</a> | print<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/preprocess.py' href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py'>utilmy/zzml/mlmodels/model_keras/preprocess.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py#L48'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/preprocess.py' href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py'>utilmy/zzml/mlmodels/model_keras/preprocess.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/preprocess.py#L261'>test</a> | log<br>get_params<br>print<br>get_dataset<br>_preprocess_criteo<br>_preprocess_movielens<br>_preprocess_none<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L263'>fit</a> | model.fit<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L59'>get_params</a> | open<br>json.load<br>print<br>log<br>path_setup<br> |
@@ -11552,7 +12442,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L307'>reset_model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L310'>save</a> | model.save<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L319'>test</a> | log<br>get_params<br>data_loader<br>data_provider<br>data_prov.get_dataset<br>get_pre_train_word2vec<br>len<br>Model<br>model_.model<br>fit<br>print<br>predict<br>metrics<br>save<br>load<br>test2<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L319'>test</a> | log<br>get_params<br>data_loader<br>data_provider<br>data_prov.get_dataset<br>get_pre_train_word2vec<br>len<br>Model<br>model_.model<br>fit<br>print<br>predict<br>metrics<br>save<br>load<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py'>utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/raw/no_03_textcnn.py#L319'>test</a> | log<br>get_params<br>data_loader<br>data_provider<br>data_prov.get_dataset<br>get_pre_train_word2vec<br>len<br>Model<br>model_.model<br>fit<br>print<br>predict<br>metrics<br>save<br>load<br> |
 >>>>>>> origin/main
@@ -11580,6 +12474,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py'>utilmy/zzml/mlmodels/model_keras/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py#L199'>test</a> | log<br>get_params<br>print<br>get_dataset<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py'>utilmy/zzml/mlmodels/model_keras/textcnn.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py#L44'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py'>utilmy/zzml/mlmodels/model_keras/textcnn.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/textcnn.py#L45'>Model:__init__</a> | TextCNN<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py'>utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py#L121'>fit</a> | get_dataset<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py'>utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py#L90'>get_dataset</a> | log<br>os_package_root_path<br>os.getcwd<br>os.makedirs<br>mnist.load_data<br>K.image_data_format<br>x_train.reshape<br>x_test.reshape<br>x_train.astype<br>x_test.astype<br> |
@@ -11612,6 +12507,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py#L40'>Model:__init__</a> | deepcopy<br>ak.StructuredDataRegressor<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py#L40'>Model_keras_empty:__init__</a> | deepcopy<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py'>utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py#L144'>fit</a> | get_dataset<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py'>utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py#L106'>get_dataset</a> | log<br>os_package_root_path<br>os.getcwd<br>os.makedirs<br>mnist.load_data<br>K.image_data_format<br>x_train.reshape<br>x_test.reshape<br>x_train.astype<br>x_test.astype<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py'>utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/02_cnn.py#L238'>get_params</a> | log<br>path_norm<br>os.makedirs<br> |
@@ -11642,6 +12539,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py#L357'>Model_keras_empty</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py#L45'>Model:__init__</a> | deepcopy<br>ak.StructuredDataRegressor<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py'>utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py#L45'>Model_keras_empty:__init__</a> | deepcopy<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn.py#L146'>evaluate</a> | get_dataset<br>compute_pars.get<br>ypred.argmax<br>np.argmax<br>accuracy_score<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/charcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/charcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn.py#L123'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -11665,6 +12565,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py#L238'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py#L41'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py'>utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/charcnn_zhang.py#L42'>Model:__init__</a> | CharCNNZhang<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py#L198'>_preprocess_test</a> | pd.read_csv<br>df.fillna<br>zip<br>df.groupby<br>list<br>enumerate<br>word_to_index.items<br>tag_to_index.items<br>pad_sequences<br>train_test_split<br>np.array<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py#L114'>evaluate</a> |  |
@@ -11691,6 +12592,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py'>utilmy/zzml/mlmodels/model_keras/todo/nbeats.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py#L69'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py'>utilmy/zzml/mlmodels/model_keras/todo/nbeats.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py#L70'>Model:__init__</a> | NBeatsNet<br>model.compile_model<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py#L237'>_preprocess_test</a> | pd.read_csv<br>df.fillna<br>zip<br>df.groupby<br>list<br>enumerate<br>word_to_index.items<br>tag_to_index.items<br>pad_sequences<br>train_test_split<br>np.array<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py#L123'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py'>utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/namentity_crm_bilstm.py#L93'>fit</a> | get_dataset<br>EarlyStopping<br>os.makedirs<br>ModelCheckpoint<br> |
@@ -11715,6 +12618,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py'>utilmy/zzml/mlmodels/model_keras/todo/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py#L318'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>print<br>Model<br>fit<br>predict<br>evaluate<br>save<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py'>utilmy/zzml/mlmodels/model_keras/todo/nbeats.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py#L74'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/nbeats.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py'>utilmy/zzml/mlmodels/model_keras/todo/nbeats.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/nbeats.py#L75'>Model:__init__</a> | NBeatsNet<br>model.compile_model<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py#L83'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py#L61'>fit</a> | get_dataset<br>EarlyStopping<br> |
@@ -11727,6 +12633,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/textcnn.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py#L210'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>save<br>predict<br>evaluate<br>print<br>load<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/textcnn.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py#L44'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textcnn.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py'>utilmy/zzml/mlmodels/model_keras/todo/textcnn.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textcnn.py#L45'>Model:__init__</a> | TextCNN<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py'>utilmy/zzml/mlmodels/model_keras/todo/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py#L209'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py'>utilmy/zzml/mlmodels/model_keras/todo/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py#L177'>fit</a> | sent_generator<br>pd.read_csv<br>texts.extend<br>pad_sequences<br> |
@@ -11751,6 +12658,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/util.py' href='.//utilmy/zzml/mlmodels/model_keras/util.py'>utilmy/zzml/mlmodels/model_keras/util.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/util.py#L109'>Model_empty</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/util.py' href='.//utilmy/zzml/mlmodels/model_keras/util.py'>utilmy/zzml/mlmodels/model_keras/util.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/util.py#L110'>Model_empty:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py'>utilmy/zzml/mlmodels/model_keras/todo/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py#L217'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py'>utilmy/zzml/mlmodels/model_keras/todo/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py#L185'>fit</a> | sent_generator<br>pd.read_csv<br>texts.extend<br>pad_sequences<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/todo/textvae.py' href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py'>utilmy/zzml/mlmodels/model_keras/todo/textvae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/todo/textvae.py#L301'>get_dataset</a> | codecs.open<br>csv.reader<br>next<br>texts.append<br>print<br>len<br>open<br>line.split<br>np.asarray<br>f.close<br> |
@@ -11773,6 +12682,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_keras/util.py' href='.//utilmy/zzml/mlmodels/model_keras/util.py'>utilmy/zzml/mlmodels/model_keras/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_keras/util.py#L163'>save</a> | print<br>save_model<br> |
 | <a name='utilmy/zzml/mlmodels/model_keras/util.py' href='.//utilmy/zzml/mlmodels/model_keras/util.py'>utilmy/zzml/mlmodels/model_keras/util.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_keras/util.py#L150'>Model_empty</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_keras/util.py' href='.//utilmy/zzml/mlmodels/model_keras/util.py'>utilmy/zzml/mlmodels/model_keras/util.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_keras/util.py#L151'>Model_empty:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py'>utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py#L110'>train</a> | print<br>load_train_vali_data<br>train_loader.train_scaler_and_transform<br>valid_loader.apply_scaler<br>LambdaRank<br>get_device<br>net.to<br>net.apply<br>get_ckptdir<br>ValueError<br>NDCG<br>range<br>scheduler.step<br>net.train<br>net.zero_grad<br>train_loader.generate_batch_per_query<br>np.sum<br>ideal_dcg.maxDCG<br>torch.tensor<br>net<br>y_pred_batch.append<br>pd.DataFrame<br>np.arange<br>rank_df.sort_values<br>torch.no_grad<br>torch.exp<br>y_pred.t<br>Y_tensor.t<br>torch.pow<br>torch.log2<br>torch.abs<br>torch.sum<br>float<br>np.isnan<br>ipdb.set_trace<br>grad_batch.append<br>zip<br>y_pred.backward<br>net.dump_param<br>optimizer.step<br>eval_cross_entropy_loss<br>eval_ndcg_at_k<br>save_to_ckpt<br>torch.save<br>get_time<br> |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py'>utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/LambdaRank.py#L49'>LambdaRank</a> |  |
@@ -11793,6 +12705,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/RankNet.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/RankNet.py'>utilmy/zzml/mlmodels/model_rank/dev/RankNet.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/RankNet.py#L27'>RankNetPairs:__init__</a> | super<br> |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/RankNet.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/RankNet.py'>utilmy/zzml/mlmodels/model_rank/dev/RankNet.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/RankNet.py#L83'>RankNetPairs:forward</a> | range<br>getattr<br>str<br>F.relu<br>self.activation<br>torch.sigmoid<br> |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L13'>get_time</a> |  |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L17'>DataLoader</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L19'>DataLoader:__init__</a> |  |
@@ -11834,6 +12747,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L23'>init</a> | Model<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L143'>load</a> | pickle.load<br>Model<br>load_info<br>glob.glob<br>fp.split<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L22'>DataLoader</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L24'>DataLoader:__init__</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py' href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py'>utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_rank/dev/load_mslr.py#L60'>DataLoader:_load_mslr</a> | print<br>pd.read_csv<br>df.drop<br>len<br> |
@@ -11873,6 +12788,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L294'>get_params</a> | json.load<br>Exception<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L23'>init</a> | Model<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L143'>load</a> | pickle.load<br>Model<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L156'>load_info</a> | glob.glob<br>pickle.load<br>fp.split<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_lightgbm/model.py#L112'>predict</a> | get_dataset<br>compute_pars.get<br> |
@@ -11889,7 +12807,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py#L60'>init</a> | Model<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py#L50'>json_parse</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py#L146'>load</a> | pickle.load<br>Model<br>load_info<br>glob.glob<br>fp.split<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py#L146'>load</a> | pickle.load<br>Model<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/model.py#L146'>load</a> | pickle.load<br>Model<br> |
 >>>>>>> origin/main
@@ -11908,6 +12830,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py#L50'>process</a> | pandas_reader<br>loader.get_data<br>Exception<br> |
 | <a name='utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py' href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py'>utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_sklearn/model_sklearn/myprocessor.py#L180'>test</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L440'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L336'>fit</a> | compute_pars.get<br>model0.named_parameters<br>any<br>model0.parameters<br>list<br>json_norm<br>trainer.run<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L207'>get_config_file</a> |  |
@@ -11924,6 +12847,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L241'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L242'>Model:__init__</a> | deepcopy<br>mpars.items<br>get_task<br>model_pars.get<br>get_glove_embedding_matrix<br>get_dataset<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L503'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L389'>fit</a> | compute_pars.get<br>model0.named_parameters<br>any<br>model0.parameters<br>list<br>json_norm<br>trainer.run<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L230'>get_config_file</a> |  |
@@ -11939,6 +12864,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L572'>test_train</a> | log<br>get_params<br>Model<br>fit<br>save<br>load<br>predict<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L276'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/matchZoo.py' href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py'>utilmy/zzml/mlmodels/model_tch/matchZoo.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/matchZoo.py#L277'>Model:__init__</a> | deepcopy<br>mpars.items<br>get_task<br>model_pars.get<br>get_glove_embedding_matrix<br>get_dataset<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L22'>Model</a> | model_pars.update<br>torch.device<br>NBeatsNet<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L36'>data_generator</a> | split<br>len<br>arrays.append<br> |
@@ -11950,7 +12878,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L237'>load</a> | torch.load<br>model.load_state_dict<br>optimiser.load_state_dict<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L211'>load_checkpoint</a> | torch.load<br>model.load_state_dict<br>optimiser.load_state_dict<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L125'>plot</a> | net.eval<br>net<br>plt.figure<br>plt.subplots_adjust<br>range<br>f.cpu<br>plt.subplot<br>plt.plot<br>plt.savefig<br>plt.clf<br>print<br>plot_model<br>plot<br>plot_predict<br>enumerate<br>plt.grid<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L125'>plot</a> | net.eval<br>net<br>plt.figure<br>plt.subplots_adjust<br>range<br>f.cpu<br>plt.subplot<br>plt.plot<br>plt.savefig<br>plt.clf<br>print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L125'>plot</a> | net.eval<br>net<br>plt.figure<br>plt.subplots_adjust<br>range<br>f.cpu<br>plt.subplot<br>plt.plot<br>plt.savefig<br>plt.clf<br>print<br> |
 >>>>>>> origin/main
@@ -11960,6 +12892,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L222'>save</a> | torch.save<br>model.state_dict<br>optimiser.state_dict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L200'>save_checkpoint</a> | torch.save<br>model.state_dict<br>optimiser.state_dict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py' href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py'>utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/03_nbeats_dataloader.py#L316'>test</a> | log<br>get_params<br>get_dataset<br>NBeatsNet<br>fit<br>predict<br>print<br>plot_predict<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py' href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py'>utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py#L399'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py' href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py'>utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py#L295'>fit</a> | compute_pars.get<br>model0.named_parameters<br>any<br>model0.parameters<br>list<br>json_norm<br>trainer.run<br> |
@@ -11994,6 +12927,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L272'>save_checkpoint</a> | torch.save<br>model.state_dict<br>optimiser.state_dict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L364'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>print<br>plot_predict<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py' href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py'>utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py#L452'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py' href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py'>utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py#L338'>fit</a> | compute_pars.get<br>model0.named_parameters<br>any<br>model0.parameters<br>list<br>json_norm<br>trainer.run<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py' href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py'>utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/matchzoo_models.py#L229'>get_config_file</a> |  |
@@ -12026,6 +12961,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L405'>save</a> | torch.save<br>model0.state_dict<br>optimiser.state_dict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L367'>save_checkpoint</a> | torch.save<br>model.state_dict<br>optimiser.state_dict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L497'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>print<br>plot_predict<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L28'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/nbeats.py' href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py'>utilmy/zzml/mlmodels/model_tch/old/nbeats.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/nbeats.py#L29'>Model:__init__</a> | model_pars.get<br>NBeatsNet<br> |
@@ -12038,6 +12976,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pplm.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pplm.py'>utilmy/zzml/mlmodels/model_tch/old/pplm.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pplm.py#L75'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pplm.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pplm.py'>utilmy/zzml/mlmodels/model_tch/old/pplm.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pplm.py#L76'>Model:__init__</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L161'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L103'>fit</a> | nn.CrossEntropyLoss<br>_get_device<br>model0.to<br>optim.Adam<br>get_dataset<br>compute_pars.get<br>len<br>os.makedirs<br>run.train<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L86'>get_dataset</a> | get_dataset_mnist_torch<br>Exception<br> |
@@ -12047,6 +12986,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L165'>save</a> | save_tch<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L178'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L206'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L126'>fit</a> | nn.CrossEntropyLoss<br>_get_device<br>model0.to<br>optim.Adam<br>get_dataset<br>compute_pars.get<br>len<br>os.makedirs<br>run.train<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L102'>get_dataset</a> | get_dataset_mnist_torch<br>Exception<br> |
@@ -12055,6 +12996,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L167'>predict</a> | _get_device<br>get_dataset<br>enumerate<br>image.to<br>model<br>torch.max<br>y_pred.append<br>y_true.append<br>np.vstack<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L219'>save</a> | save_tch<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L246'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L45'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py' href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py'>utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/pytorch_vae.py#L46'>Model:__init__</a> |  |
@@ -12082,6 +13026,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_tch/old/textcnn.py'>utilmy/zzml/mlmodels/model_tch/old/textcnn.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/textcnn.py#L237'>TextCNN:forward</a> | self.embed<br>emb_x.unsqueeze<br>x.size<br>torch.cat<br>fc_x.squeeze<br>self.dropout<br>self.fc<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/textcnn.py' href='.//utilmy/zzml/mlmodels/model_tch/old/textcnn.py'>utilmy/zzml/mlmodels/model_tch/old/textcnn.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/textcnn.py#L232'>TextCNN:rebuild_embed</a> | nn.Embedding<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L91'>_get_device</a> | torch.device<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L42'>_train</a> | m.train<br>enumerate<br>image.to<br>target.to<br>optimizer.zero_grad<br>m<br>criterion<br>loss.backward<br>optimizer.step<br>loss.item<br>torch.max<br>len<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L68'>_valid</a> | m.eval<br>enumerate<br>image.to<br>target.to<br>m<br>criterion<br>loss.item<br>torch.max<br>len<br> |
@@ -12099,6 +13044,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L105'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L106'>Model:__init__</a> | copy.deepcopy<br>m.get<br>bool<br>compute_pars.get<br>_get_device<br>hub.load<br>nn.Linear<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L114'>_get_device</a> | torch.device<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L42'>_train</a> | m.train<br>enumerate<br>image.to<br>target.to<br>optimizer.zero_grad<br>m<br>criterion<br>loss.backward<br>optimizer.step<br>loss.item<br>torch.max<br>len<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L81'>_valid</a> | m.eval<br>enumerate<br>image.to<br>target.to<br>m<br>criterion<br>loss.item<br>torch.max<br>len<br> |
@@ -12115,6 +13062,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L480'>test2</a> | log<br>get_params<br>Model<br>predict<br>save<br>load<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L138'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/torchhub.py' href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py'>utilmy/zzml/mlmodels/model_tch/old/torchhub.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/torchhub.py#L139'>Model:__init__</a> | copy.deepcopy<br>m.get<br>bool<br>compute_pars.get<br>_get_device<br>hub.load<br>nn.Linear<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L86'>_preprocess_XXXX</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L297'>evaluate</a> | load_and_cache_examples<br>os.makedirs<br>SequentialSampler<br>DataLoader<br>log<br>len<br>tqdm_notebook<br>model.eval<br>tuple<br>torch.no_grad<br>model<br>tmp_eval_loss.mean<br>logits.detach<br>np.append<br>np.argmax<br>np.squeeze<br>metrics<br>results.update<br>open<br>sorted<br>str<br>writer.write<br> |
@@ -12124,7 +13074,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L273'>get_mismatched</a> | processor.get_dev_examples<br>zip<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L410'>get_params</a> | JsonComment<br>json.load<br>log<br>path_norm<br>Exception<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L395'>load</a> | log<br>torch.load<br>processor.get_labels<br>processor.get_dev_examples<br>processor.get_train_examples<br>convert_examples_to_features<br>cls_token_at_end=bool<br>sep_token_extra=bool<br>pad_on_left=bool<br>torch.save<br>torch.tensor<br>TensorDataset<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L395'>load</a> | print<br>load_keras<br>Model<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L395'>load</a> | print<br>load_keras<br>Model<br> |
 >>>>>>> origin/main
@@ -12135,6 +13089,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L451'>test</a> | log<br>processors.keys<br>output_modes.keys<br>processor.get_labels<br>len<br>KeyError<br>torch.device<br>Model<br>get_dataset<br>fit<br>os.makedirs<br>hasattr<br>model_to_save.save_pretrained<br>torch.save<br>list<br>sorted<br>logging.getLogger<br>checkpoint.split<br>model_eval.to<br>evaluate<br>dict<br>result.items<br>results.update<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L71'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_classifier.py#L72'>Model:__init__</a> | config_class.from_pretrained<br>tokenizer_class.from_pretrained<br>model_class.from_pretrained<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py#L178'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py#L130'>fit</a> | log<br>data_pars.copy<br>train_pars.update<br>get_dataset<br>SentencesDataset<br>DataLoader<br>val_pars.update<br>train_reader.get_num_labels<br>getattr<br>train_loss.float<br>EmbeddingSimilarityEvaluator<br> |
@@ -12202,6 +13157,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L201'>save</a> | torch.save<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L403'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py#L187'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py#L139'>fit</a> | log<br>data_pars.copy<br>train_pars.update<br>get_dataset<br>SentencesDataset<br>DataLoader<br>val_pars.update<br>train_reader.get_num_labels<br>getattr<br>train_loss.float<br>EmbeddingSimilarityEvaluator<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/old/transformer_sentence.py#L295'>fit2</a> | log<br>get_dataset2<br>getattr<br>train_loss.float<br>EmbeddingSimilarityEvaluator<br> |
@@ -12267,6 +13224,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L217'>reset_model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L226'>save</a> | torch.save<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L460'>test</a> | path_norm<br>log<br>get_params<br>get_dataset<br>Model<br>fit<br>predict<br>evaluate<br>print<br>save<br>load<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L107'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/transformer_sentence.py' href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py'>utilmy/zzml/mlmodels/model_tch/transformer_sentence.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/transformer_sentence.py#L108'>Model:__init__</a> | getattr<br>self.EmbeddingModel<br>models.Pooling<br>model_pars.get<br>SentenceTransformer<br> |
@@ -12292,6 +13252,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/util_transformer.py' href='.//utilmy/zzml/mlmodels/model_tch/util_transformer.py'>utilmy/zzml/mlmodels/model_tch/util_transformer.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/util_transformer.py#L271'>TransformerDataReader:compute</a> | load_function<br>train_func<br>test_func<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/util_transformer.py' href='.//utilmy/zzml/mlmodels/model_tch/util_transformer.py'>utilmy/zzml/mlmodels/model_tch/util_transformer.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/util_transformer.py#L280'>TransformerDataReader:get_data</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L79'>_preprocess_XXXX</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L274'>evaluate</a> | load_and_cache_examples<br>os.makedirs<br>SequentialSampler<br>DataLoader<br>log<br>len<br>tqdm_notebook<br>model.eval<br>tuple<br>torch.no_grad<br>model<br>tmp_eval_loss.mean<br>logits.detach<br>np.append<br>np.argmax<br>np.squeeze<br>metrics<br>results.update<br>open<br>sorted<br>str<br>writer.write<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L126'>fit</a> | SummaryWriter<br>torch.manual_seed<br>torch.randperm<br>SubsetRandomSampler<br>DataLoader<br>len<br>model.named_parameters<br>any<br>math.ceil<br>AdamW<br>WarmupLinearSchedule<br>ImportError<br>amp.initialize<br>log<br>model.zero_grad<br>trange<br>tqdm<br>enumerate<br>model.train<br>tuple<br>model<br>print<br>amp.scale_loss<br>scaled_loss.backward<br>loss.backward<br>loss.item<br>optimizer.step<br>scheduler.step<br>evaluate<br>results.items<br>tb_writer.add_scalar<br>scheduler.get_lr<br>os.makedirs<br>hasattr<br>model_to_save.save_pretrained<br> |
@@ -12312,6 +13273,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L60'>Model:__init__</a> | config_class.from_pretrained<br>tokenizer_class.from_pretrained<br>model_class.from_pretrained<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L347'>Model_empty:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L86'>_preprocess_XXXX</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L340'>evaluate</a> | load_and_cache_examples<br>os.makedirs<br>SequentialSampler<br>DataLoader<br>log<br>len<br>tqdm_notebook<br>model.eval<br>tuple<br>torch.no_grad<br>model<br>tmp_eval_loss.mean<br>logits.detach<br>np.append<br>np.argmax<br>np.squeeze<br>metrics<br>results.update<br>open<br>sorted<br>str<br>writer.write<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L147'>fit</a> | SummaryWriter<br>torch.manual_seed<br>torch.randperm<br>SubsetRandomSampler<br>DataLoader<br>len<br>model.named_parameters<br>any<br>math.ceil<br>AdamW<br>WarmupLinearSchedule<br>ImportError<br>amp.initialize<br>log<br>model.zero_grad<br>trange<br>tqdm<br>enumerate<br>model.train<br>tuple<br>model<br>print<br>amp.scale_loss<br>scaled_loss.backward<br>loss.backward<br>loss.item<br>optimizer.step<br>scheduler.step<br>evaluate<br>results.items<br>tb_writer.add_scalar<br>scheduler.get_lr<br>os.makedirs<br>hasattr<br>model_to_save.save_pretrained<br> |
@@ -12331,6 +13294,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L425'>Model_empty</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L60'>Model:__init__</a> | config_class.from_pretrained<br>tokenizer_class.from_pretrained<br>model_class.from_pretrained<br> |
 | <a name='utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py' href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py'>utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tch/zdocs/transformer_classifier2.py#L426'>Model_empty:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/1_lstm.py' href='.//utilmy/zzml/mlmodels/model_tf/1_lstm.py'>utilmy/zzml/mlmodels/model_tf/1_lstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/1_lstm.py#L132'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/1_lstm.py' href='.//utilmy/zzml/mlmodels/model_tf/1_lstm.py'>utilmy/zzml/mlmodels/model_tf/1_lstm.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/1_lstm.py#L96'>fit</a> | get_dataset<br>print<br>compute_pars.get<br>session.run<br>range<br>np.zeros<br>min<br>np.expand_dims<br> |
@@ -12402,6 +13368,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py'>utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py#L70'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py'>utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/19_lstm_dilated.py#L71'>Model:__init__</a> | len<br>tf.placeholder<br>rnn_reformat<br>contruct_cells<br>multi_dilated_rnn<br>tf.Variable<br>tf.matmul<br>tf.random_normal<br>enumerate<br>tf.concat<br>tf.reduce_mean<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L59'>fit</a> | tf.InteractiveSession<br>sess.run<br>range<br>np.expand_dims<br>np.mean<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L78'>predict</a> | np.zeros<br>sess.run<br>np.expand_dims<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L23'>sinusoidal_positional_encoding</a> | inputs.get_shape<br>tf.tile<br>np.array<br>np.power<br>range<br>np.sin<br>np.cos<br>tf.convert_to_tensor<br>tf.concat<br> |
@@ -12409,12 +13376,17 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L40'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L41'>Model:__init__</a> | tf.placeholder<br>sinusoidal_positional_encoding<br>tf.sign<br>tf.squeeze<br>tf.fill<br>float<br>tf.where<br>tf.expand_dims<br>tf.reduce_mean<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L78'>fit</a> | tf.InteractiveSession<br>sess.run<br>range<br>np.expand_dims<br>np.mean<br>print<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L104'>predict</a> | np.zeros<br>sess.run<br>np.expand_dims<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L23'>sinusoidal_positional_encoding</a> | inputs.get_shape<br>tf.tile<br>np.array<br>np.power<br>range<br>np.sin<br>np.cos<br>tf.convert_to_tensor<br>tf.concat<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L132'>test</a> | pd.read_csv<br>pd.to_datetime<br>print<br>MinMaxScaler<br>minmax.transform<br>pd.DataFrame<br>model_create<br>fit<br>predict<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L49'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/20_only_attention.py#L50'>Model:__init__</a> | tf.placeholder<br>sinusoidal_positional_encoding<br>tf.sign<br>tf.squeeze<br>tf.fill<br>float<br>tf.where<br>tf.expand_dims<br>tf.reduce_mean<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py#L23'>embed_seq</a> | tf.get_variable<br>tf.concat<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py'>utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/21_multihead_attention.py#L124'>fit</a> | tf.InteractiveSession<br>sess.run<br>range<br>np.expand_dims<br>np.mean<br>print<br> |
@@ -12547,6 +13519,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/access.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/access.py'>utilmy/zzml/mlmodels/model_tf/raw/access.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/access.py#L313'>MemoryAccess:state_size</a> | AccessState<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L34'>_vector_norms</a> | tf.reduce_sum<br>tf.sqrt<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L39'>weighted_softmax</a> | tf.expand_dims<br>snt.BatchApply<br>softmax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L58'>CosineWeights</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L241'>Freeness</a> |  |
@@ -12578,6 +13551,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/dnc.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py'>utilmy/zzml/mlmodels/model_tf/raw/dnc.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py#L138'>DNC:output_size</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/dnc.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py'>utilmy/zzml/mlmodels/model_tf/raw/dnc.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py#L134'>DNC:state_size</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L45'>weighted_softmax</a> | tf.expand_dims<br>snt.BatchApply<br>softmax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L64'>CosineWeights</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/addressing.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py'>utilmy/zzml/mlmodels/model_tf/raw/addressing.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/addressing.py#L247'>Freeness</a> |  |
@@ -12608,6 +13583,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/dnc.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py'>utilmy/zzml/mlmodels/model_tf/raw/dnc.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py#L132'>DNC:initial_state</a> | DNCState<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/dnc.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py'>utilmy/zzml/mlmodels/model_tf/raw/dnc.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py#L156'>DNC:output_size</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/raw/dnc.py' href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py'>utilmy/zzml/mlmodels/model_tf/raw/dnc.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/raw/dnc.py#L147'>DNC:state_size</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py'>utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py#L166'>do_action_example</a> | to_name<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py'>utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/0_template_rl.py#L148'>fit</a> | model.agent<br>agent.train<br> |
@@ -12628,6 +13606,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/1.turtle-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/1.turtle-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/1.turtle-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/1.turtle-agent.py#L40'>buy_stock</a> | buy<br>print<br>states_buy.append<br>range<br>int<br>len<br>states_sell.append<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L30'>Agent</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L31'>Agent:__init__</a> | deque<br>tf.reset_default_graph<br>tf.InteractiveSession<br>tf.placeholder<br>tf.split<br>tf.subtract<br>tf.reduce_mean<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L62'>Agent:act</a> | random.random<br>random.randrange<br>np.argmax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L101'>Agent:buy</a> | self.get_state<br>range<br>len<br>self.act<br>inventory.append<br>states_buy.append<br>print<br>inventory.pop<br>states_sell.append<br> |
@@ -12746,6 +13725,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py#L125'>Agent:predict</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py#L206'>Agent:train</a> | range<br>self.get_state<br>len<br>self._select_action<br>inventory.append<br>inventory.pop<br>self._memorize<br>min<br>random.sample<br>self._construct_memories<br>np.exp<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L72'>Agent:act</a> | random.random<br>random.randrange<br>np.argmax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L129'>Agent:buy</a> | self.get_state<br>range<br>len<br>self.act<br>inventory.append<br>states_buy.append<br>print<br>inventory.pop<br>states_sell.append<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/10.duel-q-learning-agent.py#L83'>Agent:get_state</a> | range<br>res.append<br>np.array<br> |
@@ -12862,6 +13843,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py#L135'>Agent:get_state</a> | range<br>res.append<br>np.array<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py#L150'>Agent:predict</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/20.duel-curiosity-q-learning-agent.py#L261'>Agent:train</a> | range<br>self.get_state<br>len<br>self._select_action<br>inventory.append<br>inventory.pop<br>self._memorize<br>min<br>random.sample<br>self._construct_memories<br>np.exp<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py#L53'>feed_forward</a> | np.dot<br>relu<br>softmax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/21.neuro-evolution-agent.py#L44'>relu</a> | np.maximum<br> |
@@ -12945,6 +13929,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py#L20'>Model:__init__</a> | Agent<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/5_q-learning-agent.py#L201'>to_name:__init__</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L215'>fit</a> | agent.fit<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L24'>get_imports</a> | globals<br>isinstance<br>poorly_named_packages.keys<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L223'>predict</a> |  |
@@ -12969,6 +13954,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L111'>Model:set_weights</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L232'>to_name:__init__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L320'>fit</a> | agent.fit<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L24'>get_imports</a> | globals<br>isinstance<br>poorly_named_packages.keys<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L336'>predict</a> |  |
@@ -12992,6 +13979,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L155'>Model:predict</a> | np.dot<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L169'>Model:set_weights</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/6_evolution-strategy-agent.py#L354'>to_name:__init__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py#L205'>fit</a> | agent.train<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py#L213'>predict</a> |  |
@@ -13013,6 +14003,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/7.double-q-learning-agent.py#L42'>QModel:__init__</a> | tf.placeholder<br>tf.reduce_sum<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | class | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L30'>Agent</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L43'>Agent:__init__</a> | tf.reset_default_graph<br>np.zeros<br>tf.placeholder<br>tf.reduce_sum<br>tf.InteractiveSession<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L71'>Agent:_construct_memories</a> | np.array<br>len<br>np.empty<br>range<br>np.amax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L66'>Agent:_memorize</a> | len<br> |
@@ -13057,6 +14048,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/util.py' href='.//utilmy/zzml/mlmodels/model_tf/util.py'>utilmy/zzml/mlmodels/model_tf/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/util.py#L41'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/util.py' href='.//utilmy/zzml/mlmodels/model_tf/util.py'>utilmy/zzml/mlmodels/model_tf/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/util.py#L83'>set_root_dir</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L91'>Agent:_construct_memories</a> | np.array<br>len<br>np.empty<br>range<br>np.amax<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L75'>Agent:_memorize</a> | len<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py' href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py'>utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py</a> | method | <a href='.//utilmy/zzml/mlmodels/model_tf/rl/8.recurrent-q-learning-agent.py#L135'>Agent:buy</a> | self.get_state<br>np.zeros<br>range<br>len<br>np.argmax<br>inventory.append<br>states_buy.append<br>print<br>inventory.pop<br>states_sell.append<br>np.append<br> |
@@ -13099,6 +14092,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/model_tf/util.py' href='.//utilmy/zzml/mlmodels/model_tf/util.py'>utilmy/zzml/mlmodels/model_tf/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/util.py#L27'>os_module_path</a> |  |
 | <a name='utilmy/zzml/mlmodels/model_tf/util.py' href='.//utilmy/zzml/mlmodels/model_tf/util.py'>utilmy/zzml/mlmodels/model_tf/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/util.py#L52'>os_package_root_path</a> | Path<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/model_tf/util.py' href='.//utilmy/zzml/mlmodels/model_tf/util.py'>utilmy/zzml/mlmodels/model_tf/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/model_tf/util.py#L94'>set_root_dir</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L510'>cli_load_arguments</a> | path_norm<br>argparse.ArgumentParser<br>add<br>p.add_argument<br>p.parse_args<br>cli_load_arguments<br>print<br>os.getcwd<br>config_init<br>log<br>config_generate_json<br>config_model_list<br>test_all<br>test_cli<br>fit_cli<br>predict_cli<br> |
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L349'>config_generate_json</a> | os.makedirs<br>module_load<br>inspect.signature<br>modelname.replace<br>json.dump<br>open<br>print<br> |
@@ -13115,7 +14111,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L150'>model_create</a> | module.get_params<br>module.init<br> |
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L41'>module_env_build</a> | env_build<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L58'>module_load</a> | str<br>Path<br>import_module<br>model_uri.replace<br>print<br>module_load_full<br>module_load<br>module.init<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L58'>module_load</a> | str<br>Path<br>import_module<br>model_uri.replace<br>print<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L58'>module_load</a> | str<br>Path<br>import_module<br>model_uri.replace<br>print<br> |
 >>>>>>> origin/main
@@ -13124,7 +14124,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L475'>predict_cli</a> | path_norm<br>log<br>config_get_pars<br>module_load<br>load<br>predict<br> |
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L204'>save</a> | module.save<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L229'>test</a> | os_package_root_path<br>config_model_list<br>module_names.sort<br>print<br>test<br>module_load<br>module.test<br>test_global<br>test_api<br>log<br>get_params<br>module_load_full<br>fit_global<br>predict_global<br>test_module<br>module.get_params<br>module.Model<br>module.fit<br>module.predict<br>module.evaluate<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L229'>test</a> | print<br>module_load<br>module.test<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L229'>test</a> | print<br>module_load<br>module.test<br> |
 >>>>>>> origin/main
@@ -13133,6 +14137,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L499'>test_cli</a> | test_module<br>test<br>test_global<br> |
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L240'>test_global</a> | print<br>module_load<br>module.test<br> |
 | <a name='utilmy/zzml/mlmodels/models.py' href='.//utilmy/zzml/mlmodels/models.py'>utilmy/zzml/mlmodels/models.py</a> | function | <a href='.//utilmy/zzml/mlmodels/models.py#L292'>test_module</a> | log<br>module_load<br>module.get_params<br>module.Model<br>module.fit<br>module.predict<br>print<br>module.evaluate<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/optim.py' href='.//utilmy/zzml/mlmodels/optim.py'>utilmy/zzml/mlmodels/optim.py</a> | function | <a href='.//utilmy/zzml/mlmodels/optim.py#L267'>cli</a> | argparse.ArgumentParser<br>cli.add_subparsers<br>argument<br>subcommand<br>decorator<br>parent.add_parser<br>parser.add_argument<br>parser.set_defaults<br>test<br>test_json<br>test_all<br>search<br>path_norm<br>json.load<br>log<br>optim<br>cli_load_arguments<br>add<br>p.add_argument<br>p.parse_args<br> |
 | <a name='utilmy/zzml/mlmodels/optim.py' href='.//utilmy/zzml/mlmodels/optim.py'>utilmy/zzml/mlmodels/optim.py</a> | function | <a href='.//utilmy/zzml/mlmodels/optim.py#L340'>cli_load_arguments</a> | argparse.ArgumentParser<br>add<br>p.add_argument<br>p.parse_args<br> |
@@ -13165,6 +14170,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/pipeline.py' href='.//utilmy/zzml/mlmodels/pipeline.py'>utilmy/zzml/mlmodels/pipeline.py</a> | method | <a href='.//utilmy/zzml/mlmodels/pipeline.py#L204'>Pipe:get_model_path</a> |  |
 | <a name='utilmy/zzml/mlmodels/pipeline.py' href='.//utilmy/zzml/mlmodels/pipeline.py'>utilmy/zzml/mlmodels/pipeline.py</a> | method | <a href='.//utilmy/zzml/mlmodels/pipeline.py#L158'>Pipe:run</a> | Exception<br>log<br>os.makedirs<br>args.get<br>load_model<br>pexec<br>FunctionTransformer<br>pexec_.fit<br>pexec_.transform<br>pipe_checkpoint<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/optim.py' href='.//utilmy/zzml/mlmodels/optim.py'>utilmy/zzml/mlmodels/optim.py</a> | function | <a href='.//utilmy/zzml/mlmodels/optim.py#L297'>cli</a> | argparse.ArgumentParser<br>cli.add_subparsers<br>argument<br>subcommand<br>decorator<br>parent.add_parser<br>parser.add_argument<br>parser.set_defaults<br>test<br>test_json<br>test_all<br>search<br>path_norm<br>json.load<br>log<br>optim<br> |
 | <a name='utilmy/zzml/mlmodels/optim.py' href='.//utilmy/zzml/mlmodels/optim.py'>utilmy/zzml/mlmodels/optim.py</a> | function | <a href='.//utilmy/zzml/mlmodels/optim.py#L370'>cli_load_arguments</a> | argparse.ArgumentParser<br>add<br>p.add_argument<br>p.parse_args<br> |
 | <a name='utilmy/zzml/mlmodels/optim.py' href='.//utilmy/zzml/mlmodels/optim.py'>utilmy/zzml/mlmodels/optim.py</a> | function | <a href='.//utilmy/zzml/mlmodels/optim.py#L363'>main</a> | cli_load_arguments<br>test_json<br>test_all<br>optim_cli<br> |
@@ -13195,6 +14202,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/pipeline.py' href='.//utilmy/zzml/mlmodels/pipeline.py'>utilmy/zzml/mlmodels/pipeline.py</a> | method | <a href='.//utilmy/zzml/mlmodels/pipeline.py#L279'>Pipe:get_fitted_pipe_list</a> |  |
 | <a name='utilmy/zzml/mlmodels/pipeline.py' href='.//utilmy/zzml/mlmodels/pipeline.py'>utilmy/zzml/mlmodels/pipeline.py</a> | method | <a href='.//utilmy/zzml/mlmodels/pipeline.py#L295'>Pipe:get_model_path</a> |  |
 | <a name='utilmy/zzml/mlmodels/pipeline.py' href='.//utilmy/zzml/mlmodels/pipeline.py'>utilmy/zzml/mlmodels/pipeline.py</a> | method | <a href='.//utilmy/zzml/mlmodels/pipeline.py#L238'>Pipe:run</a> | Exception<br>log<br>os.makedirs<br>args.get<br>load_model<br>pexec<br>FunctionTransformer<br>pexec_.fit<br>pexec_.transform<br>pipe_checkpoint<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocess/generic.py' href='.//utilmy/zzml/mlmodels/preprocess/generic.py'>utilmy/zzml/mlmodels/preprocess/generic.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/generic.py#L796'>create_kerasDataloader</a> | TensorDataset<br>__getitem__<br>np.array<br>__len__<br>kerasDataloader<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/generic.py' href='.//utilmy/zzml/mlmodels/preprocess/generic.py'>utilmy/zzml/mlmodels/preprocess/generic.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/generic.py#L264'>get_dataset_keras</a> | args.get<br>data_info.get<br>transform_info.get<br>load_function<br>print<br>dset<br>kerasDataLoader<br> |
@@ -13233,6 +14243,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/generic_old.py' href='.//utilmy/zzml/mlmodels/preprocess/generic_old.py'>utilmy/zzml/mlmodels/preprocess/generic_old.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocess/generic_old.py#L448'>pandasDataset</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/generic_old.py' href='.//utilmy/zzml/mlmodels/preprocess/generic_old.py'>utilmy/zzml/mlmodels/preprocess/generic_old.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/generic_old.py#L405'>NumpyDataset:__init__</a> | tf_dataset_download<br>data_pars.get<br>np.load<br>path_norm<br>Image.fromarray<br>self.target_transform<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L57'>torch_transform_data_augment</a> | transform_list.append<br>transforms.Compose<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L87'>torch_transform_generic</a> | transforms.Compose<br>transforms.RandomCrop<br>transforms.RandomHorizontalFlip<br>transforms.ToTensor<br>transforms.Normalize<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L28'>torch_transform_mnist</a> | transforms.Grayscale<br>transforms.ToTensor<br>transforms.Normalize<br> |
@@ -13255,6 +14266,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py' href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py'>utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py#L13'>Dataset:__init__</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py' href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py'>utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py#L19'>Dataset:__len__</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L69'>torch_transform_data_augment</a> | transform_list.append<br>transforms.Compose<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L99'>torch_transform_generic</a> | transforms.Compose<br>transforms.RandomCrop<br>transforms.RandomHorizontalFlip<br>transforms.ToTensor<br>transforms.Normalize<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/image.py' href='.//utilmy/zzml/mlmodels/preprocess/image.py'>utilmy/zzml/mlmodels/preprocess/image.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/image.py#L28'>torch_transform_mnist</a> | transforms.Grayscale<br>transforms.ToTensor<br>transforms.Normalize<br> |
@@ -13276,6 +14289,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py' href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py'>utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py#L22'>Dataset:__getitem__</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py' href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py'>utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py#L13'>Dataset:__init__</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py' href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py'>utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/keras_dataloader/dataset.py#L31'>Dataset:__len__</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocess/tabular_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py'>utilmy/zzml/mlmodels/preprocess/tabular_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py#L449'>check_model</a> | model.compile<br>model.fit<br>print<br>model.save_weights<br>model.load_weights<br>os.remove<br>save_model<br>load_model<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/tabular_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py'>utilmy/zzml/mlmodels/preprocess/tabular_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py#L139'>gen_sequence</a> | np.array<br>range<br> |
@@ -13285,6 +14301,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/tabular_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py'>utilmy/zzml/mlmodels/preprocess/tabular_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py#L95'>get_xy_fd_dsin</a> | SparseFeat<br>DenseFeat<br>VarLenSparseFeat<br>np.array<br>get_feature_names<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/tabular_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py'>utilmy/zzml/mlmodels/preprocess/tabular_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py#L372'>has_arg</a> | inspect.getargspec<br>inspect.getfullargspec<br>inspect.signature<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/tabular_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py'>utilmy/zzml/mlmodels/preprocess/tabular_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/tabular_keras.py#L203'>layer_test</a> | AssertionError<br>K.floatx<br>list<br>enumerate<br>all<br>input_data.append<br>np.full<br>input_mask.append<br>input_data.astype<br>print<br>layer_cls<br>layer.get_weights<br>layer.set_weights<br>layer.compute_output_shape<br>layer._compute_output_shape<br>isinstance<br>Input<br>layer<br>Model<br>model.predict<br>zip<br>assert_allclose<br>model.get_config<br>model.get_weights<br>recovered_model.set_weights<br>recovered_model.predict<br>has_arg<br>model.compile<br>model.train_on_batch<br>layer.get_config<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/preprocess/text_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py'>utilmy/zzml/mlmodels/preprocess/text_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py#L60'>_remove_long_seq</a> | zip<br>len<br>new_seq.append<br>new_label.append<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/text_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py'>utilmy/zzml/mlmodels/preprocess/text_keras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py#L79'>IMDBDataset</a> |  |
@@ -13333,6 +14350,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/timeseries.py' href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py'>utilmy/zzml/mlmodels/preprocess/timeseries.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py#L446'>SklearnMinMaxScaler:compute</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/timeseries.py' href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py'>utilmy/zzml/mlmodels/preprocess/timeseries.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py#L460'>SklearnMinMaxScaler:get_data</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocess/text_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py'>utilmy/zzml/mlmodels/preprocess/text_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py#L78'>_remove_long_seq</a> | zip<br>len<br>new_seq.append<br>new_label.append<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/text_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py'>utilmy/zzml/mlmodels/preprocess/text_keras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py#L97'>IMDBDataset</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/text_keras.py' href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py'>utilmy/zzml/mlmodels/preprocess/text_keras.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocess/text_keras.py#L9'>Preprocess_namentity</a> |  |
@@ -13379,6 +14398,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/timeseries.py' href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py'>utilmy/zzml/mlmodels/preprocess/timeseries.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py#L544'>SklearnMinMaxScaler:__init__</a> | MinMaxScaler<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/timeseries.py' href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py'>utilmy/zzml/mlmodels/preprocess/timeseries.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py#L503'>SklearnMinMaxScaler:compute</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocess/timeseries.py' href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py'>utilmy/zzml/mlmodels/preprocess/timeseries.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/timeseries.py#L529'>SklearnMinMaxScaler:get_data</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocess/ztemp.py' href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py'>utilmy/zzml/mlmodels/preprocess/ztemp.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py#L576'>batch_generator</a> | len<br>range<br>min<br> |
 | <a name='utilmy/zzml/mlmodels/preprocess/ztemp.py' href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py'>utilmy/zzml/mlmodels/preprocess/ztemp.py</a> | function | <a href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py#L272'>custom_dataset</a> | spacy.load<br>logging.getLogger<br>get_dataset<br>data.Field<br>data.TabularDataset<br>LOGGER.debug<br>comment.build_vocab<br>get_iterator<br>data.Iterator<br> |
@@ -13413,6 +14435,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocess/ztemp.py' href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py'>utilmy/zzml/mlmodels/preprocess/ztemp.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocess/ztemp.py#L86'>MNIST:train_labels</a> | warnings.warn<br> |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L21'>MissingDataPreprocessorError</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L31'>Preprocessor</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L17'>PreprocessorError</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L26'>PreprocessorNotFittedError</a> |  |
@@ -13423,6 +14446,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L54'>Preprocessor:fit_transform</a> | inspect.isclass<br>preprocessor.fit<br>preprocessor_instance.transform<br>preprocessor<br>transform<br>self._name_outputs<br> |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L72'>Preprocessor:transform</a> | PreprocessorNotFittedError<br>self._preprocessor<br>self._name_outputs<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L41'>Preprocessor</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L17'>PreprocessorError</a> |  |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | class | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L36'>PreprocessorNotFittedError</a> |  |
@@ -13432,6 +14457,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L70'>Preprocessor:_name_outputs</a> | hasattr<br>len<br>dict<br>Exception<br> |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L83'>Preprocessor:fit_transform</a> | inspect.isclass<br>preprocessor.fit<br>preprocessor_instance.transform<br>preprocessor<br>transform<br>self._name_outputs<br> |
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L107'>Preprocessor:transform</a> | PreprocessorNotFittedError<br>self._preprocessor<br>self._name_outputs<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/preprocessor.py' href='.//utilmy/zzml/mlmodels/preprocessor.py'>utilmy/zzml/mlmodels/preprocessor.py</a> | method | <a href='.//utilmy/zzml/mlmodels/preprocessor.py#L22'>PreprocessorNotFittedError:__init__</a> | print<br> |
 | <a name='utilmy/zzml/mlmodels/template/00_template_keras.py' href='.//utilmy/zzml/mlmodels/template/00_template_keras.py'>utilmy/zzml/mlmodels/template/00_template_keras.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/00_template_keras.py#L46'>_preprocess_XXXX</a> |  |
@@ -13452,6 +14480,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/template/00_template_keras.py' href='.//utilmy/zzml/mlmodels/template/00_template_keras.py'>utilmy/zzml/mlmodels/template/00_template_keras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/template/00_template_keras.py#L32'>Model:__init__</a> | model_pars.get<br>Exception<br> |
 | <a name='utilmy/zzml/mlmodels/template/00_template_keras.py' href='.//utilmy/zzml/mlmodels/template/00_template_keras.py'>utilmy/zzml/mlmodels/template/00_template_keras.py</a> | method | <a href='.//utilmy/zzml/mlmodels/template/00_template_keras.py#L121'>Model_empty:__init__</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L68'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L55'>fit</a> |  |
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L126'>get_dataset</a> |  |
@@ -13467,6 +14496,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L98'>test</a> | log<br>get_params<br>get_dataset<br>module_load_full<br>print<br>fit<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br>test<br>Model<br>model=fit<br> |
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L63'>test2</a> | log<br>get_params<br>get_dataset<br>module_load_full<br>print<br>fit<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L76'>evaluate</a> |  |
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L63'>fit</a> |  |
 | <a name='utilmy/zzml/mlmodels/template/model_xxx.py' href='.//utilmy/zzml/mlmodels/template/model_xxx.py'>utilmy/zzml/mlmodels/template/model_xxx.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/model_xxx.py#L164'>get_dataset</a> |  |
@@ -13481,6 +14512,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L36'>get_params</a> | log<br>os_package_root_path<br>os.get_cwd<br>os.makedirs<br>pd.Timestamp<br> |
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L121'>test</a> | log<br>get_params<br>get_dataset<br>Model<br>model=fit<br>predict<br>print<br>metrics<br>plot_prob_forecasts<br>plot_predict<br> |
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L78'>test2</a> | log<br>get_params<br>get_dataset<br>module_load_full<br>print<br>fit<br>predict<br>metrics<br>plot_prob_forecasts<br>plot_predict<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | class | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L8'>Model</a> |  |
 | <a name='utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py' href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py'>utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py</a> | method | <a href='.//utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py#L9'>Model:__init__</a> |  |
@@ -13495,7 +14529,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py' href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py'>utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py#L176'>predict</a> | get_dataset<br>print<br>np.zeros<br>sess.run<br>np.expand_dims<br>range<br> |
 | <a name='utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py' href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py'>utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py#L213'>reset_model</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py' href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py'>utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py#L258'>test</a> | os_package_root_path<br>print<br>log<br>get_dataset<br>get_pars<br>module_load_full<br>fit<br>predict<br>test2<br>Model<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py' href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py'>utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py#L258'>test</a> | os_package_root_path<br>print<br>log<br>get_dataset<br>get_pars<br>module_load_full<br>fit<br>predict<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py' href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py'>utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py</a> | function | <a href='.//utilmy/zzml/mlmodels/template/zarchive/model_tf_sequential.py#L258'>test</a> | os_package_root_path<br>print<br>log<br>get_dataset<br>get_pars<br>module_load_full<br>fit<br>predict<br> |
 >>>>>>> origin/main
@@ -13513,6 +14551,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L384'>get_device_torch</a> | print<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L169'>get_model_uri</a> | Path<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L131'>get_recursive_files</a> | glob.glob<br>get_recursive_files2<br>os.listdir<br>get_recursive_files<br>fnmatch.fnmatch<br>outFiles.append<br>get_recursive_files3<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L138'>get_recursive_files2</a> | os.listdir<br>get_recursive_files<br>fnmatch.fnmatch<br>outFiles.append<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L156'>get_recursive_files3</a> | os.listdir<br>get_recursive_files<br>fnmatch.fnmatch<br>outFiles.append<br> |
@@ -13523,6 +14562,8 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L278'>load_config</a> | JsonComment<br>print<br>json.load<br>vars<br>to_namespace<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L644'>load_function</a> | getattr<br>load_function_uri<br>uri_name.split<br>len<br>str<br>Path<br>NameError<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L131'>get_recursive_files</a> | glob.glob<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L138'>get_recursive_files2</a> | os.listdir<br>get_recursive_files<br>fnmatch.fnmatch<br>outFiles.append<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L156'>get_recursive_files3</a> | os.listdir<br>get_recursive_files<br>fnmatch.fnmatch<br>outFiles.append<br> |
@@ -13532,6 +14573,9 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L693'>load_callable_from_uri</a> | assert<br>uri.split<br>uri.rsplit<br>importlib.import_module<br>dict<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L278'>load_config</a> | JsonComment<br>print<br>json.load<br>vars<br>to_namespace<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L644'>load_function</a> | getattr<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L650'>load_function_uri</a> | uri_name.split<br>len<br>getattr<br>str<br>Path<br>NameError<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L632'>load_gluonts</a> | Predictor.deserialize<br>Model_empty<br> |
@@ -13550,7 +14594,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L411'>os_path_split</a> | str<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L259'>params_json_load</a> | JsonComment<br>json.load<br>pars.get<br>list_pars.append<br>log<br>tuple<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L183'>path_norm</a> | os_package_root_path<br>path.strip<br>len<br>path.startswith<br>path_norm_dict<br>ddict.items<br>path_norm<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L183'>path_norm</a> | os_package_root_path<br>path.strip<br>len<br>path.startswith<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L183'>path_norm</a> | os_package_root_path<br>path.strip<br>len<br>path.startswith<br> |
 >>>>>>> origin/main
@@ -13560,7 +14608,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L615'>save_keras</a> | os_path_split<br>os.makedirs<br> |
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L583'>save_pkl</a> | os_path_split<br>os.makedirs<br>pickle.dump<br>open<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L533'>save_tch</a> | os_path_split<br>os.makedirs<br>save_pars.get<br>torch.save<br>optimizer.state_dict<br>save_tch_checkpoint<br>model.state_dict<br>optimiser.state_dict<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L533'>save_tch</a> | os_path_split<br>os.makedirs<br>save_pars.get<br>torch.save<br>optimizer.state_dict<br> |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/util.py' href='.//utilmy/zzml/mlmodels/util.py'>utilmy/zzml/mlmodels/util.py</a> | function | <a href='.//utilmy/zzml/mlmodels/util.py#L533'>save_tch</a> | os_path_split<br>os.makedirs<br>save_pars.get<br>torch.save<br>optimizer.state_dict<br> |
 >>>>>>> origin/main
@@ -13608,7 +14660,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L2185'>pd_trim</a> |  |
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L1165'>price_normalize</a> | ll.append<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L853'>score_fun</a> | price.reshape<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L853'>score_fun</a> |  |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L853'>score_fun</a> |  |
 >>>>>>> origin/main
@@ -13618,7 +14674,11 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L2403'>to_json_highcharts</a> | os.makedirs<br>json.dumps<br>open<br> |
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L2199'>train_split_time</a> | list<br>df.sort_values<br>print<br>df.groupby<br>len<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L860'>unit_fun</a> | np.exp<br> |
+=======
+| <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L860'>unit_fun</a> |  |
+>>>>>>> origin/main
 =======
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L860'>unit_fun</a> |  |
 >>>>>>> origin/main
@@ -13641,6 +14701,7 @@ Repo: ./
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | method | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L1084'>sphere_function:get_bounds</a> |  |
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | method | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L1090'>sphere_function:get_extra_info</a> |  |
 | <a name='utilmy/zzml/mlmodels/utils/bayesian.py' href='.//utilmy/zzml/mlmodels/utils/bayesian.py'>utilmy/zzml/mlmodels/utils/bayesian.py</a> | method | <a href='.//utilmy/zzml/mlmodels/utils/bayesian.py#L1450'>sphere_function:get_name</a> | get_name<br>get_extra_info<br>str<br> |
+<<<<<<< HEAD
 <<<<<<< HEAD
 | <a name='utilmy/zzml/mlmodels/utils/model_v1.py' href='.//utilmy/zzml/mlmodels/utils/model_v1.py'>utilmy/zzml/mlmodels/utils/model_v1.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/model_v1.py#L59'>fit</a> | get_dataset<br>log<br>fit_metrics<br>compute_pars.get<br>mpars.get<br>scorer<br> |
 | <a name='utilmy/zzml/mlmodels/utils/model_v1.py' href='.//utilmy/zzml/mlmodels/utils/model_v1.py'>utilmy/zzml/mlmodels/utils/model_v1.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/model_v1.py#L75'>fit_metrics</a> | get_dataset<br>compute_pars.get<br>mpars.get<br>scorer<br> |
@@ -13709,6 +14770,8 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L296'>get_root</a> | VersioneerBadRootError<br>print<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L1478'>get_version</a> | get_config<br>git_versions_from_keywords<br>git_pieces_from_vcs<br>render<br>versions_from_parentdir<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/mlmodels/utils/model_v1.py' href='.//utilmy/zzml/mlmodels/utils/model_v1.py'>utilmy/zzml/mlmodels/utils/model_v1.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/model_v1.py#L80'>fit</a> | get_dataset<br>log<br> |
 | <a name='utilmy/zzml/mlmodels/utils/model_v1.py' href='.//utilmy/zzml/mlmodels/utils/model_v1.py'>utilmy/zzml/mlmodels/utils/model_v1.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/model_v1.py#L96'>fit_metrics</a> | get_dataset<br>compute_pars.get<br>mpars.get<br>scorer<br> |
 | <a name='utilmy/zzml/mlmodels/utils/model_v1.py' href='.//utilmy/zzml/mlmodels/utils/model_v1.py'>utilmy/zzml/mlmodels/utils/model_v1.py</a> | function | <a href='.//utilmy/zzml/mlmodels/utils/model_v1.py#L241'>get_dataset</a> | data_pars.get<br>Exception<br> |
@@ -13775,6 +14838,9 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L440'>get_keywords</a> |  |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L296'>get_root</a> | VersioneerBadRootError<br>print<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L1478'>get_version</a> | get_versions<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L1402'>get_versions</a> | get_config<br>git_versions_from_keywords<br>git_pieces_from_vcs<br>render<br>versions_from_parentdir<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L897'>get_versions</a> | get_config<br>git_versions_from_keywords<br>git_pieces_from_vcs<br>render<br>versions_from_parentdir<br> |
@@ -13790,6 +14856,7 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L373'>register_vcs_handler</a> |  |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L373'>register_vcs_handler</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L865'>render</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>render<br>pieces.get<br>render_pep440<br>ValueError<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L865'>render</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>render<br>pieces.get<br>render_pep440<br>ValueError<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L825'>render_git_describe</a> | render_git_describe_long<br> |
@@ -13799,6 +14866,8 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L735'>render_pep440</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L735'>render_pep440</a> | plus_or_dot<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L865'>render</a> | pieces.get<br>render_pep440<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>ValueError<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L865'>render</a> | pieces.get<br>render_pep440<br>render_pep440_pre<br>render_pep440_post<br>render_pep440_old<br>render_git_describe<br>render_git_describe_long<br>ValueError<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L825'>render_git_describe</a> |  |
@@ -13807,6 +14876,9 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L845'>render_git_describe_long</a> |  |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L735'>render_pep440</a> | plus_or_dot<br> |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L735'>render_pep440</a> | plus_or_dot<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L803'>render_pep440_old</a> |  |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | function | <a href='.//utilmy/zzml/versioneer.py#L803'>render_pep440_old</a> |  |
@@ -13827,6 +14899,7 @@ Repo: ./
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | class | <a href='.//utilmy/zzml/versioneer.py#L292'>VersioneerConfig</a> |  |
 | <a name='utilmy/zzml/versioneer.py' href='.//utilmy/zzml/versioneer.py'>utilmy/zzml/versioneer.py</a> | class | <a href='.//utilmy/zzml/versioneer.py#L292'>VersioneerConfig</a> |  |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L69'>help</a> | print<br>help_get_codesource<br>len<br>inspect.getsourcelines<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L75'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L65'>log</a> | print<br> |
@@ -13838,6 +14911,8 @@ Repo: ./
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L20'>test_all</a> | pd.DataFrame<br>text.pd_text_similarity<br>SequenceMatcher<br>pd.Series<br>check_similarity<br>assert_series_equal<br>log<br>m.test_lsh<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L116'>test_lsh</a> | pd.DataFrame<br>pd_text_getcluster<br>df.head<br>print<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L90'>help</a> | print<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L101'>help_get_codesource</a> | len<br>inspect.getsourcelines<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L80'>log</a> | print<br> |
@@ -13848,4 +14923,7 @@ Repo: ./
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L49'>test</a> | pd.DataFrame<br>pd_text_similarity<br>SequenceMatcher<br>pd.Series<br>check_similarity<br>assert_series_equal<br>log<br>test_lsh<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L20'>test_all</a> | pd.DataFrame<br>text.pd_text_similarity<br>SequenceMatcher<br>pd.Series<br>check_similarity<br>assert_series_equal<br>log<br>m.test_lsh<br> |
 | <a name='utilmy/zzz_text.py' href='.//utilmy/zzz_text.py'>utilmy/zzz_text.py</a> | function | <a href='.//utilmy/zzz_text.py#L142'>test_lsh</a> | pd.DataFrame<br>pd_text_getcluster<br>df.head<br>print<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main

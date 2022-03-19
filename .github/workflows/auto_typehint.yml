@@ -4,8 +4,14 @@ name: Auto-typing Hints - ztypehint branch
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
+=======
+  workflow_dispatch:
+    inputs:  
+
+>>>>>>> origin/main
 =======
   workflow_dispatch:
     inputs:  
@@ -17,7 +23,11 @@ on:
 
   schedule:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - cron:  '* 3 * * *'      #### 60mins
+=======
+    - cron:  '0 3 * * *'      #### 60mins
+>>>>>>> origin/main
 =======
     - cron:  '0 3 * * *'      #### 60mins
 >>>>>>> origin/main
@@ -114,8 +124,11 @@ jobs:
       run:  |
         pip install --upgrade monkeytype
 <<<<<<< HEAD
+<<<<<<< HEAD
         python  utilmy/docs/generate_typehint.py  run_utilmy --nfile 10000
 =======
+=======
+>>>>>>> origin/main
 
         ### in docs/types folder
         # python  utilmy/docs/generate_typehint.py  run_utilmy --nfile 10000
@@ -123,6 +136,9 @@ jobs:
 
         ### in current main code folder
         python  utilmy/docs/generate_typehint.py  run_utilmy_overwrite --nfile 10000
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 

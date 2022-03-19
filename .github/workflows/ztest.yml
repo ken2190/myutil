@@ -4,13 +4,19 @@ name: zz ztest
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
 =======
+=======
+>>>>>>> origin/main
   workflow_dispatch:
     inputs:  
 
     
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
   push:
     branches:

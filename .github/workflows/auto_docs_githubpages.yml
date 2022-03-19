@@ -5,14 +5,20 @@ name: Auto docs_github_pages arita37.github.io/myutil/en/zdocs_y23487teg65f6/
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   schedule:
     - cron:  '* 14 * * *'      #### 60mins
 =======
+=======
+>>>>>>> origin/main
   workflow_dispatch:
     inputs:  
 
   schedule:
     - cron:  '0 14 * * *'      #### 60mins
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
     #    - cron:  '*/10 * * * *'   
 
@@ -81,7 +87,11 @@ jobs:
            python -c "import utilmy"        
            pip install -U sphinx  sphinx-rtd-theme  GitPython  rinohtype pygments
 <<<<<<< HEAD
+<<<<<<< HEAD
            pip install -r  py36_sphynxdoc.txt
+=======
+           pip install -r  config/conda/py36_sphynxdoc.txt
+>>>>>>> origin/main
 =======
            pip install -r  config/conda/py36_sphynxdoc.txt
 >>>>>>> origin/main

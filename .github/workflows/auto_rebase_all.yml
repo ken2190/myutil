@@ -3,15 +3,21 @@ name: Auto Rebase Branches - main schedule
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   schedule:
     - cron:  '* 13 * * *'      #### 60mins
 =======
+=======
+>>>>>>> origin/main
   workflow_dispatch:
     inputs:  
 
 
   schedule:
     - cron:  '0 13 * * *'      #### 60mins
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
     #    - cron:  '*/10 * * * *'   
 
@@ -23,7 +29,12 @@ on:
 env:
     ROOT_BRANCH_NAME: main
 <<<<<<< HEAD
+<<<<<<< HEAD
     BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani
+=======
+    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
+>>>>>>> origin/main
 =======
     BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
     GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
@@ -56,6 +67,7 @@ jobs:
               echo "##################"
               git checkout $branch
 <<<<<<< HEAD
+<<<<<<< HEAD
               git pull --allow-unrelated-histories 
               git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
 =======
@@ -63,6 +75,14 @@ jobs:
               # git pull origin main --allow-unrelated-histories
               git fetch
               git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
+              # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
+>>>>>>> origin/main
+=======
+              #git pull --allow-unrelated-histories 
+              # git pull origin main --allow-unrelated-histories
+              git fetch
+              git merge origin/main  --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
+              # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}              
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
 >>>>>>> origin/main
               git push
@@ -78,7 +98,10 @@ jobs:
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/main
       #- name: Create Auto PR      
       #  env:
       #      GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
@@ -90,6 +113,9 @@ jobs:
       #      { /bin/hub pull-request  --base arita37:main    --head arita37:alex    -m "PR into main" } || { echo 'failed ' ; } 
       #      { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 

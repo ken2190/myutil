@@ -10,25 +10,35 @@ from box import Box
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ################################################################################################
 from utilmy import log,log2
 =======
+=======
+>>>>>>> origin/main
 #############################################################################################
 from utilmy import log, log2
 def help():
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 
 ################################################################################################
 def test_all():
 <<<<<<< HEAD
+<<<<<<< HEAD
     """function test_all
     Args:
     Returns:
         
     """
+=======
+    """function test_all"""
+>>>>>>> origin/main
 =======
     """function test_all"""
 >>>>>>> origin/main
@@ -39,6 +49,7 @@ def test_all():
 
 ################################################################################################
 ################################################################################################
+<<<<<<< HEAD
 <<<<<<< HEAD
 def data_mnist_get_train_test(batch=32):
     """function data_mnist_get_train_test
@@ -71,12 +82,17 @@ def data_mnist_get_train_test(batch=32):
 
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> origin/main
 def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
     """ Save Arbitrary dict in tensorboard
     #### Usage 1
     logdir = 'logs/params'
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
     cc = {'arbitray dict' : 1, 'ykey': {'mykey2' : 5 } }
@@ -87,6 +103,10 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
     tensorboard_log(cc, writer= tb_writer)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 =======
 
 >>>>>>> origin/main
@@ -122,6 +142,7 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 def tf_check():
     """function tf_check
@@ -134,6 +155,8 @@ def tf_check():
     print( tf.config.list_physical_devices())
 
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
     
@@ -153,10 +176,14 @@ def gpu_usage():
     
 def gpu_available():
 <<<<<<< HEAD
+<<<<<<< HEAD
     """function gpu_available
     Args:
     Returns:
         
+=======
+    """function gpu_available        
+>>>>>>> origin/main
 =======
     """function gpu_available        
 >>>>>>> origin/main
@@ -181,6 +208,7 @@ def gpu_available():
    
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -442,10 +470,15 @@ def model_deletes(dry=0):
 
 
 =======
+=======
+>>>>>>> origin/main
 ##########################################################################################
 if __name__ == '__main__':
     import fire
     fire.Fire()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 
 

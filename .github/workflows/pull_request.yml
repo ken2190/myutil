@@ -4,8 +4,14 @@ name: Pull Request Check
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
+=======
+  workflow_dispatch:
+    inputs:  
+
+>>>>>>> origin/main
 =======
   workflow_dispatch:
     inputs:  

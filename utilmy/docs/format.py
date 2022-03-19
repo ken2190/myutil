@@ -9,7 +9,11 @@ Some rules are
             if no text was found else preserve text and fill the rest with #'s
     rule 2 - normalize log statements in the file
 <<<<<<< HEAD
+<<<<<<< HEAD
     rule 3 - put all consecutive imports on one line
+=======
+    
+>>>>>>> origin/main
 =======
     
 >>>>>>> origin/main
@@ -220,8 +224,11 @@ if 'check if .py compile':
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ##############################################################################################
 =======
+=======
+>>>>>>> origin/main
 def format_header(text):
     """  Normalized header
     """
@@ -242,6 +249,9 @@ def format_header(text):
     return '\n'.join(lines)
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 def format_comments(text="default", line_size=90):
     """
@@ -286,8 +296,12 @@ def format_logs(text="default", line_size=90):
 
 def format_imports(text):
 <<<<<<< HEAD
+<<<<<<< HEAD
     """
     Takes a string of text and formats it based on rule 3 (see docs).
+=======
+    """rule 3 - put all consecutive imports on one line
+>>>>>>> origin/main
 =======
     """rule 3 - put all consecutive imports on one line
 >>>>>>> origin/main

@@ -2,11 +2,17 @@ name: docker_1
 
 on:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/main
   workflow_dispatch:
     inputs:  
 
     
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
   push:
     branches:
