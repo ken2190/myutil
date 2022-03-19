@@ -3052,11 +3052,8 @@ test()
 utilmy/tabular/util_sparse.py
 -------------------------functions----------------------
 help()
-help()
 is_float(x)
 is_int(x)
-log(*s, **kw)
-log2(*s, **kw)
 pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/")
 test1()
 test_all()
