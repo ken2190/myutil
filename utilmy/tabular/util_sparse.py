@@ -19,18 +19,6 @@ def help():
     ss = HELP + help_create(NMAME) 
     print(ss)
 
-####################################################################################
-verbose = 0
-
-def log(*s, **kw):  print(*s, flush=True, **kw)
-def log2(*s, **kw):  
-    if verbose >1 : print(*s, flush=True, **kw)
-
-def help():
-    from utilmy import help_create
-    print(HELP + help_create( MNAME))
-
-
 
 ###################################################################################
 def test_all():
