@@ -174,12 +174,15 @@ def test_deeplearning_torch():
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 def test_deeplearning_torch_onnx():
     from utilmy.deeplearning.torch import  util_onnx as m ;  m.test_all()
 
 
 
 
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main
 #######################################################################################

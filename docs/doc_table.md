@@ -736,6 +736,7 @@ Repo: ./
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L4'>load_csv</a> | pd.read_csv<br>xw.Range<br> |
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L52'>loaddf</a> | ws.range<br>xw.Range<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L172'>diskcache_image_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L63'>diskcache_image_createcache</a> | log<br>sorted<br>len<br>prepro_image2b<br>str<br>fname.split<br>cv2.imread<br>cv2.cvtColor<br>util_image.image_center_crop<br>time.sleep<br>diskcache.Cache<br>size_limit=int<br>image_preps_mp<br>zip<br>key.split<br>enumerate<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L219'>diskcache_image_getsample</a> | dc.Cache<br>print<br>len<br>log<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -766,6 +767,8 @@ Repo: ./
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L34'>test_all</a> | log<br>test<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L46'>test_image_create_fake</a> | os.getcwd<br>image_create_fake<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L175'>diskcache_image_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L67'>diskcache_image_createcache</a> | log<br>sorted<br>len<br>prepro_image2b<br>str<br>fname.split<br>cv2.imread<br>cv2.cvtColor<br>util_image.image_center_crop<br>time.sleep<br>diskcache.Cache<br>size_limit=int<br>image_preps_mp<br>zip<br>key.split<br>enumerate<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L222'>diskcache_image_getsample</a> | dc.Cache<br>print<br>len<br>log<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -797,6 +800,9 @@ Repo: ./
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L45'>test2</a> |  |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L34'>test_all</a> | log<br>test1<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L50'>test_image_create_fake</a> | os.getcwd<br>image_create_fake<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/logs/test_log.py' href='.//utilmy/logs/test_log.py'>utilmy/logs/test_log.py</a> | function | <a href='.//utilmy/logs/test_log.py#L9'>test1</a> | log3<br>log2<br>log<br>logw<br>logc<br>logr<br>loge<br> |
 | <a name='utilmy/logs/test_log.py' href='.//utilmy/logs/test_log.py'>utilmy/logs/test_log.py</a> | function | <a href='.//utilmy/logs/test_log.py#L33'>test2</a> | print<br>util_log.logger_setup<br>log3<br>log2<br>log<br>logw<br>logc<br>logr<br>loge<br> |

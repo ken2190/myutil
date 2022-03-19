@@ -50,9 +50,14 @@ jobs:
               # git pull origin main --allow-unrelated-histories
               git fetch
 <<<<<<< HEAD
+<<<<<<< HEAD
               git merge origin origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
 =======
               git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
+>>>>>>> origin/main
+=======
+              git merge origin/main  --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
+              # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}              
 >>>>>>> origin/main
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push

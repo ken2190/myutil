@@ -1004,25 +1004,35 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 diskcache_image_check(db_path:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_r2p2_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_path = "_70k_clean_nobg_256_256-100000.cache", dirout)
 diskcache_image_loadcache(db_path:str = "db_images.cache")
 diskcache_image_save(image_path_list:str = "db_images.cache", db_dir:str = "tmp/", tag = "cache1")
 =======
+=======
+>>>>>>> origin/main
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir = "_70k_clean_nobg_256_256-100000.cache", dirout)
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 help()
 image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int, int])
 image_check()
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
 <<<<<<< HEAD
+<<<<<<< HEAD
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", out_dir:Union[str, bytes, os.PathLike] = f"", npool = 30)
+=======
+image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
+>>>>>>> origin/main
 =======
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
 >>>>>>> origin/main
@@ -1030,6 +1040,7 @@ image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size,
 image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+<<<<<<< HEAD
 <<<<<<< HEAD
 image_preps_mp(image_path_list:list, prepro_image_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
@@ -1045,6 +1056,8 @@ npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, r
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test()
 =======
+=======
+>>>>>>> origin/main
 image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
@@ -1059,6 +1072,9 @@ npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, r
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test1()
 test2()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 test_all()
 test_image_create_fake()

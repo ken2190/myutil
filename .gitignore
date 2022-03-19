@@ -152,6 +152,9 @@ run_script.py
 testdata/ppandas/file.csv
 *mymodel*
 <<<<<<< HEAD
+<<<<<<< HEAD
 ztmp/
+=======
+>>>>>>> origin/main
 =======
 >>>>>>> origin/main

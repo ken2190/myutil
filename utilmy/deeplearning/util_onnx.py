@@ -330,7 +330,11 @@ def test2():
 ########################################################################################################
 ############## Core Code ###############################################################################
 <<<<<<< HEAD
+<<<<<<< HEAD
 def onnx_convert(dir_model:str="mypath/mymodule.py:Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
+=======
+def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
+>>>>>>> origin/main
 =======
 def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
 >>>>>>> origin/main
@@ -347,7 +351,11 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
   onnx_pars = Box(onnx_pars)
  
 <<<<<<< HEAD
+<<<<<<< HEAD
   torch_model = load_function_uri(dir_model)    ### "mypath/mymodule.py:MyClassModel"
+=======
+  torch_module = load_function_uri(dir_model) 
+>>>>>>> origin/main
 =======
   torch_module = load_function_uri(dir_model) 
 >>>>>>> origin/main
@@ -397,7 +405,10 @@ def onnx_validate_onnx():
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/main
 
 
 
@@ -407,6 +418,9 @@ def onnx_validate_onnx():
 
 
 
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 #############################################################################################
 #############################################################################################
