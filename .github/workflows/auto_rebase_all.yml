@@ -49,11 +49,7 @@ jobs:
               #git pull --allow-unrelated-histories 
               # git pull origin main --allow-unrelated-histories
               git fetch
-<<<<<<< HEAD
-              git merge origin origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
-=======
-              git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
->>>>>>> origin/main
+              git merge origin/main  --no-ff --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push
               echo "Merge SUCCEEDED for branch $branch"
