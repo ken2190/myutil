@@ -60,12 +60,12 @@ def test_image_create_fake():
 
 #################################################################################################
 #### images storage ###############################################################################
-def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_r2p2_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
 
-     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_r2p2_1000k_clean_nobg" 
+     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg" 
 
     ### Not used, Only python?3.7  #####################################
     import asyncio
@@ -818,8 +818,8 @@ def image_check():
     # fname    = f"/img_all{tag}.cache"
     # fname    = f"/img_fashiondata_64_64-100000.cache"
     # fname = "img_train_nobg_256_256-100000.cache"
-    fname = "img_train_r2p2_40k_nobg_256_256-100000.cache"
-    fname = "img_train_r2p2_40k_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
 
     log('loading', fname)
 
