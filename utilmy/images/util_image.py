@@ -567,7 +567,7 @@ def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union
 
 
 #TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(out_dir :str =""):
+def image_resize_mp(dirout :str =""):
     """     python prepro.py  image_resize
 
           image white color padded
@@ -576,7 +576,7 @@ def image_resize_mp(out_dir :str =""):
     import cv2, gc, diskcache
 
     in_dir = data_dir + "/train_nobg"
-    out_dir = data_dir + "/train_nobg_256/"
+    dirout = data_dir + "/train_nobg_256/"
 
     nmax = 500000000
     global xdim, ydim
@@ -584,15 +584,15 @@ def image_resize_mp(out_dir :str =""):
     ydim = 256
     padcolor = 0  ## 0 : black
 
-    os.makedirs(out_dir, exist_ok=True)
-    log('target folder', out_dir);
+    os.makedirs(dirout, exist_ok=True)
+    log('target folder', dirout);
     time.sleep(5)
 
     def prepro_image3b(img_path):
         try:
             fname = str(img_path).split("/")[-1]
             id1 = fname.split(".")[0]
-            img_path_new = out_dir + "/" + fname
+            img_path_new = dirout + "/" + fname
 
             img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
             img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
@@ -611,7 +611,7 @@ def image_resize_mp(out_dir :str =""):
 
     log("#### Saving disk  #################################################################")
     images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
-    os_path_check(out_dir, n=5)
+    os_path_check(dirout, n=5)
 
 
 
@@ -691,13 +691,13 @@ def image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool=False, r
     return crop
 
 
-def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str, bytes, os.PathLike]="", level:int=1):
+def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", level:int=1):
     """ #### remove background
     
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg  
     
     
-        python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --out_dir  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
+        python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --dirout  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
 
         rembg  -ae 15 -p  /data/workspaces/noelkevin01/img/data/fashion/test2/  /data/workspaces/noelkevin01/img/data/fashion/test_nobg/  
         
@@ -705,14 +705,14 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str,
         
     """    
     in_dir  = "/gsp/v1000k_clean/"
-    out_dir = "//gsp/v1000k_clean_nobg/"
+    dirout = "//gsp/v1000k_clean_nobg/"
 
     
     fpaths = glob.glob(in_dir + "/*")
     log( str(fpaths)[:10] )
     for fp in fpaths : 
         if "." not in fp.split("/")[-1] :             
-            fp_out = fp.replace(in_dir, out_dir)
+            fp_out = fp.replace(in_dir, dirout)
             os.makedirs(fp_out, exist_ok=True)
             cmd = f"rembg   -p {fp}  {fp_out} "    #### no adjustment -ae 15
             log(cmd)
@@ -722,14 +722,14 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", out_dir:Union[str,
             
 
 def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
-                     out_dir:Union[str, bytes, os.PathLike]=f"", npool=30):
+                     dirout:Union[str, bytes, os.PathLike]=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
      
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --out_dir img/data/fashion/test_nobg_noface
+     python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
 
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --out_dir img/data/fashion/train_nobg_noface
+     python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
 
 
       five elements are [xmin, ymin, xmax, ymax, detection_confidence]
@@ -757,7 +757,7 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
-          fout = fp.replace(in_dir, out_dir)    
+          fout = fp.replace(in_dir, dirout)    
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass        
@@ -770,10 +770,10 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
     pool.join()     
 
         
-def image_text_blank(in_dir :Union[str,bytes,os.PathLike], out_dir :Union[str,bytes,os.PathLike], level="*"):
+def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,bytes,os.PathLike], level="*"):
     """
         Not working well
-        python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --out_dir img/data/fashion/ztest_noface
+        python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
         
     
     """
@@ -796,7 +796,7 @@ def image_text_blank(in_dir :Union[str,bytes,os.PathLike], out_dir :Union[str,by
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
-          fout = fp.replace(in_dir, out_dir)    
+          fout = fp.replace(in_dir, dirout)    
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass #TODO: code smell:better to handle specific exceptions
@@ -844,6 +844,100 @@ def image_check():
         print(key)
         key2 = key.split("/")[-1]
         cv2.imwrite(dir_check + f"/{key2}", img)
+
+
+
+
+#################################################################################################
+#### Donwload images ############################################################################
+def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npage=1) :
+    """
+        python util_image.py download_page  '    --dirout men_fs_blue  
+
+
+    """
+    import time, os, json, csv, requests, sys, urllib
+    from bs4 import BeautifulSoup as bs
+    from urllib.request import Request, urlopen
+    import urllib.parse
+
+
+    path = dirout 
+    os.makedirs(path, exist_ok=True)
+    # os.chdir(path)
+
+    query2     = urllib.parse.quote(query, encoding='utf-8')
+    url_prefix = 'httpl/' + query2
+    ### https://search.amazon.com/search/mall/%E3%83%A1%E3%8384+blue+/?p=2
+    print(url_prefix)
+    print(path)
+
+    csv_file   = open( path + 'ameta.csv','w',encoding="utf-8")
+    csv_writer = csv.writer(csv_file, delimiter='\t')
+    csv_writer.writerow(['path', 'id0', 'cat', 'genre_en', 'image_name', 'price','shop','item_url','page_url',  ])
+
+    page  = 1
+    count = 0
+    while page < npage+1 :
+        try:
+            urli = url_prefix  + f"/?p=+{page}"
+            req    = Request(url=urli)
+            source = urlopen(req).read()
+            soup   = bs(source,'lxml')
+
+            print('page', page, str(soup)[:5], str(urli)[-20:],  )
+
+            for individual_item in soup.find_all('div',class_='searchresultitem'):
+                count += 1
+                save = 0
+                shopname     = 'nan'
+                count_review = 'nan'
+
+                for names in individual_item.find_all('div',class_='title'):
+                    product_name = names.h2.a.text
+                    break
+
+                for price in individual_item.find_all('div',class_='price'):
+                    product_price = price.span.text
+                    product_price = product_price .replace("円", "").replace(",", "") 
+                    break
+                
+                for url in individual_item.find_all('div',class_='image'):
+                    product_url = url.a.get('href')
+                    break
+
+                for images in individual_item.find_all('div',class_='image'):
+                    try:
+                        product_image = images.a.img.get('src')
+                        urllib.request.urlretrieve(product_image, path + str(count)+".jpg")
+                        # upload_to_drive(str(count)+'.jpg')
+                        count += 1
+                        break
+                    except:
+                        save = 1
+                        print(product_url + " Error Detected")
+                    
+                for simpleshop in individual_item.find_all('div',class_='merchant'):
+                    shopname = simpleshop.a.text
+                    break
+
+                for review in individual_item.find_all('a',class_='dui-rating-filter'):
+                    count_review = review.text
+
+                if save == 0:
+                    csv_writer.writerow([str(count)+'.jpg', id0, cat, genre_en,  product_name, product_price, shopname, product_url, urli, ])
+
+        except Exception as e :
+            print(e)
+            time.sleep(2)
+            continue
+
+        page += 1
+    print("Success", page-1, count)
+
+
+
+
 
 
 
