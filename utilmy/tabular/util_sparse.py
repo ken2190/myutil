@@ -16,18 +16,10 @@ from utilmy import log, log2
 
 def help():
     from utilmy import help_create
-<<<<<<< HEAD
     ss = HELP + help_create(NMAME) 
     print(ss)
 
 
-=======
-    ss = HELP + help_create(MNAME)
-    print(ss)
-
-
-
->>>>>>> origin/main
 ###################################################################################
 def test_all():
     test1()
