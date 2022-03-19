@@ -89,8 +89,8 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
     log("#### paths  ####################################################################")
     in_dir   = "gsp/v1000k_clean_nobg/" if dirin is None else dirin
     tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
-    db_path  = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache"  if dirout is None else dirout + f"/img_{tag}.cache"
-    log(in_dir, db_path)
+    db_dir  = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache"  if dirout is None else dirout + f"/img_{tag}.cache"
+    log(in_dir, db_dir)
 
 
     log("#### Image list  ################################################################")
@@ -130,8 +130,8 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
 
     log("#### Converrt to diskcache storage  #############################################")
     #  from diskcache import FanoutCache  ### too much space
-    # che = FanoutCache( db_path, shards=4, size_limit=int(60e9), timeout=9999999 )
-    cache = diskcache.Cache(db_path, size_limit=int(100e9), timeout=9999999 )
+    # che = FanoutCache( db_dir, shards=4, size_limit=int(60e9), timeout=9999999 )
+    cache = diskcache.Cache(db_dir, size_limit=int(100e9), timeout=9999999 )
 
 
     log("#### Load and Covnert  ##########################################################")
@@ -148,7 +148,7 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
        # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
 
     log("#### Validate the cache ########################################################")   
-    log('size cache', len(cache), db_path)
+    log('size cache', len(cache), db_dir)
     for i,key in enumerate(cache):
        if i > 3 : break
        x0 = cache[key]
@@ -156,22 +156,22 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
        log(key, x0.shape, str(x0)[:50]  )
 
 
-def diskcache_image_loadcache(db_path:str="db_images.cache"):
+def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     """function image_cache_check
     Args:
-        db_path ( str ) :   
+        db_dir ( str ) :   
     Returns: dictionnary like         
     """
     import diskcache as dc
-    cache   = dc.Cache(db_path, size_limit= 100 * 10**9, timeout= 5 )
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
     log('Nimages', len(cache) )
     return cache
 
 
-def diskcache_image_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
+def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
-        db_path ( str ) :   
+        db_dir ( str ) :   
         dirout ( str ) :   
         tag:   
     Returns:
@@ -179,7 +179,7 @@ def diskcache_image_check(db_path:str="db_images.cache", dirout:str="tmp/", tag=
     """
     ##### Write some sample images  from cache #############################
     import diskcache as dc
-    cache   = dc.Cache(db_path, size_limit= 100 * 10**9, timeout= 5 )
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
     log('Nimages', len(cache) )
 
     log('### Check writing on disk  ###########################')
@@ -215,14 +215,14 @@ def diskcache_image_save(image_path_list:str="db_images.cache", db_dir:str="tmp/
         cache[img_path] = img
 
 
-def diskcache_image_getsample(db_path="_70k_clean_nobg_256_256-100000.cache", dirout):
+def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", dirout):
     """function image_save
     Args:
     Returns:
         
     """
     import diskcache as dc
-    cache   = dc.Cache(db_path)
+    cache   = dc.Cache(db_dir)
     print('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
@@ -355,30 +355,18 @@ def image_create_fake(
 
 #################################################################################################
 #### Transform in batches #######################################################################
-def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
-    """ resizes, crops and centers an image according to provided mean and std
-    Args:
-        image_path ( str ) :   
-        xdim:   
-        ydim:   
-    Returns:
-    
+#TODO: does this already exist in the multiprocessing module, 
+def run_multiprocess(myfun, list_args, npool=10, **kwargs):
     """
-    try :
-        # fname      = str(image_path).split("/")[-1]
-        # id1        = fname.split(".")[0]
-        # print(image_path)
-        image = image_read(image_path)
-        image = image_resize_pad(image, (xdim,ydim), padColor=0)
-        image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
-        image = (image / 255)           
-        image = (image-mean) /std  # Normalize the image to mean and std
-        image = image.astype('float32')
-        return image, image_path
-    except :
-        return [], ""
+       res = run_multiprocess(prepro, image_paths, npool=10, )
+    """
+    from functools import partial
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+    pool = Pool(npool)
+    res  = pool.map( partial(myfun, **kwargs), list_args)
+    pool.close()
+    pool.join()
+    return res
 
 
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
@@ -418,21 +406,6 @@ def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
     print('len images', len(images))
     print(str(labels)[:60])
     return images, labels
-
-
-#TODO: does this already exist in the multiprocessing module, 
-#and if so should we use that?
-def run_multiprocess(myfun, list_args, npool=10, **kwargs):
-    """
-       res = run_multiprocess(prepro, image_paths, npool=10, )
-    """
-    from functools import partial
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-    pool = Pool(npool)
-    res  = pool.map( partial(myfun, **kwargs), list_args)
-    pool.close()
-    pool.join()
-    return res
 
 
 #TODO redundant to image_resize_pad? ( uses parallel processing...)
@@ -486,6 +459,32 @@ def image_resize_mp(dirout :str =""):
 
 #################################################################################################
 #### Transform individual #######################################################################
+def image_prep(image_path:str, xdim :int=1, ydim :int=1,
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    """ resizes, crops and centers an image according to provided mean and std
+    Args:
+        image_path ( str ) :   
+        xdim:   
+        ydim:   
+    Returns:
+    
+    """
+    try :
+        # fname      = str(image_path).split("/")[-1]
+        # id1        = fname.split(".")[0]
+        # print(image_path)
+        image = image_read(image_path)
+        image = image_resize_pad(image, (xdim,ydim), padColor=0)
+        image = image_center_crop(image, (xdim,ydim))
+        assert max(image) > 1, "image should be uint8, 0-255"
+        image = (image / 255)           
+        image = (image-mean) /std  # Normalize the image to mean and std
+        image = image.astype('float32')
+        return image, image_path
+    except :
+        return [], ""
+
+
 def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
@@ -823,8 +822,8 @@ def image_check():
     log('loading', fname)
 
     import diskcache as dc
-    db_path = data_train + fname
-    cache = dc.Cache(db_path)
+    db_dir = data_train + fname
+    cache = dc.Cache(db_dir)
 
     lkey = list(cache)
     print('Nimages', len(lkey))
