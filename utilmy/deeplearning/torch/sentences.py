@@ -15,9 +15,13 @@ train Sentence Transformer with different Losses such as:**
 > TripletHard Loss
 > MultpleNegativesRanking Loss
 
+<<<<<<< HEAD
 #!pip3 install python-box
 # !pip install sentence-transformers
 #!pip3 install tensorflow
+=======
+# !pip install sentence-transformers
+>>>>>>> origin/main
 
 We create a new end-to-end example on how to use a custom inference.py script w
 ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯

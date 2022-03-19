@@ -9,17 +9,29 @@ from typing import Union
 from box import Box
 
 
+<<<<<<< HEAD
 ################################################################################################
 from utilmy import log,log2
+=======
+#############################################################################################
+from utilmy import log, log2
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+>>>>>>> origin/main
 
 
 ################################################################################################
 def test_all():
+<<<<<<< HEAD
     """function test_all
     Args:
     Returns:
         
     """
+=======
+    """function test_all"""
+>>>>>>> origin/main
     pass
 
 
@@ -86,10 +98,14 @@ def gpu_usage():
     
     
 def gpu_available():
+<<<<<<< HEAD
     """function gpu_available
     Args:
     Returns:
         
+=======
+    """function gpu_available        
+>>>>>>> origin/main
     """
     cmd = "nvidia-smi --query-gpu=pci.bus_id,utilization.gpu --format=csv  "
     from utilmy import os_system    
@@ -111,5 +127,14 @@ def gpu_available():
    
 
 
+<<<<<<< HEAD
+=======
+##########################################################################################
+if __name__ == '__main__':
+    import fire
+    fire.Fire()
+
+
+>>>>>>> origin/main
 
 
