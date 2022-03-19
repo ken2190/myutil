@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_explain"
 HELP = """ utils for model explanation
+
+python utilmy/tabular/util_explain.py  test1
+
 """
 import os, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
 from box import Box
