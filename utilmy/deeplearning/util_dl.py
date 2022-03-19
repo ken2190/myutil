@@ -9,17 +9,29 @@ from typing import Union
 from box import Box
 
 
+<<<<<<< HEAD
 ################################################################################################
 from utilmy import log,log2
+=======
+#############################################################################################
+from utilmy import log, log2
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+>>>>>>> origin/main
 
 
 ################################################################################################
 def test_all():
+<<<<<<< HEAD
     """function test_all
     Args:
     Returns:
         
     """
+=======
+    """function test_all"""
+>>>>>>> origin/main
     pass
 
 

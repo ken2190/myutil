@@ -442,6 +442,7 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/rule_encoder.py' href='.//utilmy/deeplearning/torch/rule_encoder.py'>utilmy/deeplearning/torch/rule_encoder.py</a> | method | <a href='.//utilmy/deeplearning/torch/rule_encoder.py#L839'>RuleEncoder:__init__</a> | super<br>nn.Sequential<br>nn.ReLU<br>nn.Linear<br> |
 | <a name='utilmy/deeplearning/torch/rule_encoder.py' href='.//utilmy/deeplearning/torch/rule_encoder.py'>utilmy/deeplearning/torch/rule_encoder.py</a> | method | <a href='.//utilmy/deeplearning/torch/rule_encoder.py#L863'>RuleEncoder:forward</a> | self.net<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L159'>dataset_download</a> | os.makedirs<br>util.http_get<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L119'>dataset_fake</a> | pd_read_csv<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L129'>dataset_fake2</a> | add_to_samples<br>set<br>gzip.open<br>csv.DictReader<br>df.append<br>train_data.items<br>len<br>train_samples.append<br>random.choice<br> |
@@ -459,6 +460,8 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L75'>test1</a> | Box<br>dataset_download<br>dataset_fake<br>log<br>sentrans_train<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L65'>test_all</a> | log<br>test1<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L157'>dataset_download</a> | os.makedirs<br>util.http_get<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L117'>dataset_fake</a> | pd_read_csv<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L127'>dataset_fake2</a> | add_to_samples<br>set<br>gzip.open<br>csv.DictReader<br>df.append<br>train_data.items<br>len<br>train_samples.append<br>random.choice<br> |
@@ -475,6 +478,9 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L311'>sentrans_train</a> | Box<br>model_load<br>pd_read_file<br>log<br>metrics_cosine_sim<br>load_dataloader<br>load_evaluator<br>load_loss<br>math.ceil<br>model_setup_compute<br>cc.get<br>model.fit<br>model_save<br>model_evaluate<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L73'>test1</a> | Box<br>dataset_download<br>dataset_fake<br>log<br>sentrans_train<br> |
 | <a name='utilmy/deeplearning/torch/sentences.py' href='.//utilmy/deeplearning/torch/sentences.py'>utilmy/deeplearning/torch/sentences.py</a> | function | <a href='.//utilmy/deeplearning/torch/sentences.py#L63'>test_all</a> | log<br>test1<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | function | <a href='.//utilmy/deeplearning/torch/util_torch.py#L108'>dataloader_create</a> | torch.tensor<br>DataLoader<br>log<br>len<br> |
 | <a name='utilmy/deeplearning/torch/util_torch.py' href='.//utilmy/deeplearning/torch/util_torch.py'>utilmy/deeplearning/torch/util_torch.py</a> | function | <a href='.//utilmy/deeplearning/torch/util_torch.py#L83'>device_setup</a> | random.seed<br>torch.manual_seed<br>log<br> |
@@ -556,16 +562,22 @@ Repo: ./
 | <a name='utilmy/deeplearning/torch/zrule_encoder2.py' href='.//utilmy/deeplearning/torch/zrule_encoder2.py'>utilmy/deeplearning/torch/zrule_encoder2.py</a> | method | <a href='.//utilmy/deeplearning/torch/zrule_encoder2.py#L339'>RuleEncoder:__init__</a> | super<br>nn.Sequential<br>nn.ReLU<br>nn.Linear<br> |
 | <a name='utilmy/deeplearning/torch/zrule_encoder2.py' href='.//utilmy/deeplearning/torch/zrule_encoder2.py'>utilmy/deeplearning/torch/zrule_encoder2.py</a> | method | <a href='.//utilmy/deeplearning/torch/zrule_encoder2.py#L347'>RuleEncoder:forward</a> | self.net<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L88'>gpu_available</a> | os_system<br>ss.split<br>x.split<br>len<br>print<br>enumerate<br>deviceid_free.append<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L74'>gpu_usage</a> | os_system<br>print<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L30'>tensorboard_log</a> | dict_flatten<br>d.items<br>isinstance<br>items.extend<br>items.append<br>dict<br>print<br>flatten_box.items<br>writer.add_scalar<br>writer.add_text<br>str<br>writer.close<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L17'>test_all</a> |  |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L87'>gpu_available</a> | os_system<br>ss.split<br>x.split<br>len<br>print<br>enumerate<br>deviceid_free.append<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L73'>gpu_usage</a> | os_system<br>print<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L14'>help</a> | print<br>help_create<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L29'>tensorboard_log</a> | dict_flatten<br>d.items<br>isinstance<br>items.extend<br>items.append<br>dict<br>print<br>flatten_box.items<br>writer.add_scalar<br>writer.add_text<br>str<br>writer.close<br> |
 | <a name='utilmy/deeplearning/util_dl.py' href='.//utilmy/deeplearning/util_dl.py'>utilmy/deeplearning/util_dl.py</a> | function | <a href='.//utilmy/deeplearning/util_dl.py#L20'>test_all</a> |  |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/deeplearning/util_embedding.py' href='.//utilmy/deeplearning/util_embedding.py'>utilmy/deeplearning/util_embedding.py</a> | function | <a href='.//utilmy/deeplearning/util_embedding.py#L669'>convert_txt_to_vector_parquet</a> |  |
 | <a name='utilmy/deeplearning/util_embedding.py' href='.//utilmy/deeplearning/util_embedding.py'>utilmy/deeplearning/util_embedding.py</a> | function | <a href='.//utilmy/deeplearning/util_embedding.py#L712'>data_add_onehot</a> | glob.glob<br>fi.split<br>log<br>pd.DataFrame<br>x.split<br>int<br>df.merge<br>pd.get_dummies<br>dfi_1hot.apply<br> |
@@ -762,6 +774,7 @@ Repo: ./
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L4'>load_csv</a> | pd.read_csv<br>xw.Range<br> |
 | <a name='utilmy/excel/xlvba.py' href='.//utilmy/excel/xlvba.py'>utilmy/excel/xlvba.py</a> | function | <a href='.//utilmy/excel/xlvba.py#L52'>loaddf</a> | ws.range<br>xw.Range<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L288'>diskcache_image_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L179'>diskcache_image_createcache</a> | log<br>sorted<br>len<br>prepro_image2b<br>str<br>fname.split<br>cv2.imread<br>cv2.cvtColor<br>util_image.image_center_crop<br>time.sleep<br>diskcache.Cache<br>size_limit=int<br>image_preps_mp<br>zip<br>key.split<br>enumerate<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L394'>diskcache_image_getsample</a> | dc.Cache<br>print<br>len<br>log<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -793,6 +806,8 @@ Repo: ./
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L37'>test_all</a> | log<br>test<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L55'>test_image_create_fake</a> | os.getcwd<br>image_create_fake<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L175'>diskcache_image_check</a> | dc.Cache<br>log<br>len<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L67'>diskcache_image_createcache</a> | log<br>sorted<br>len<br>prepro_image2b<br>str<br>fname.split<br>cv2.imread<br>cv2.cvtColor<br>util_image.image_center_crop<br>time.sleep<br>diskcache.Cache<br>size_limit=int<br>image_preps_mp<br>zip<br>key.split<br>enumerate<br>cv2.imwrite<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L222'>diskcache_image_getsample</a> | dc.Cache<br>print<br>len<br>log<br>os.makedirs<br>enumerate<br>key.split<br>cv2.imwrite<br> |
@@ -824,6 +839,9 @@ Repo: ./
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L45'>test2</a> |  |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L34'>test_all</a> | log<br>test1<br> |
 | <a name='utilmy/images/util_image.py' href='.//utilmy/images/util_image.py'>utilmy/images/util_image.py</a> | function | <a href='.//utilmy/images/util_image.py#L50'>test_image_create_fake</a> | os.getcwd<br>image_create_fake<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/logs/test_log.py' href='.//utilmy/logs/test_log.py'>utilmy/logs/test_log.py</a> | function | <a href='.//utilmy/logs/test_log.py#L9'>test1</a> | log3<br>log2<br>log<br>logw<br>logc<br>logr<br>loge<br> |
 | <a name='utilmy/logs/test_log.py' href='.//utilmy/logs/test_log.py'>utilmy/logs/test_log.py</a> | function | <a href='.//utilmy/logs/test_log.py#L33'>test2</a> | print<br>util_log.logger_setup<br>log3<br>log2<br>log<br>logw<br>logc<br>logr<br>loge<br> |
@@ -2163,6 +2181,7 @@ Repo: ./
 | <a name='utilmy/tabular/util_sampling.py' href='.//utilmy/tabular/util_sampling.py'>utilmy/tabular/util_sampling.py</a> | function | <a href='.//utilmy/tabular/util_sampling.py#L10'>test</a> | matrix_source<br>range<br>np.tile<br>print<br>np.zeros<br>reservoir_sampling<br>np.bincount<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L17'>help</a> | help_create<br>print<br> |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L137'>is_float</a> | float<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L129'>is_int</a> | int<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L65'>pd_historylist_to_csr</a> | len<br>lil_matrix<br>enumerate<br>isinstance<br>genre_list.split<br>genre.split<br>mmh3.hash<br>csr_matrix<br>print<br>X.count_nonzero<br> |
@@ -2172,6 +2191,8 @@ Repo: ./
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L115'>to_float</a> | float<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L122'>to_int</a> | int<br>float<br> |
 =======
+=======
+>>>>>>> origin/main
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L138'>is_float</a> | float<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L130'>is_int</a> | int<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L66'>pd_historylist_to_csr</a> | len<br>lil_matrix<br>enumerate<br>isinstance<br>genre_list.split<br>genre.split<br>mmh3.hash<br>csr_matrix<br>print<br>X.count_nonzero<br> |
@@ -2180,6 +2201,9 @@ Repo: ./
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L35'>test_create_fake_df</a> | range<br>pd.DataFrame<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L116'>to_float</a> | float<br> |
 | <a name='utilmy/tabular/util_sparse.py' href='.//utilmy/tabular/util_sparse.py'>utilmy/tabular/util_sparse.py</a> | function | <a href='.//utilmy/tabular/util_sparse.py#L123'>to_int</a> | int<br>float<br> |
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 >>>>>>> origin/main
 | <a name='utilmy/tabular/util_uncertainty.py' href='.//utilmy/tabular/util_uncertainty.py'>utilmy/tabular/util_uncertainty.py</a> | function | <a href='.//utilmy/tabular/util_uncertainty.py#L46'>help</a> | help_create<br>print<br> |
 | <a name='utilmy/tabular/util_uncertainty.py' href='.//utilmy/tabular/util_uncertainty.py'>utilmy/tabular/util_uncertainty.py</a> | function | <a href='.//utilmy/tabular/util_uncertainty.py#L298'>load_function_uri</a> | uri_name.split<br>len<br>getattr<br>str<br>Path<br>NameError<br> |
