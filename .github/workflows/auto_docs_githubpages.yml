@@ -4,9 +4,6 @@ name: Auto docs_github_pages arita37.github.io/myutil/en/zdocs_y23487teg65f6/
 
 
 on:
-  schedule:
-    - cron:  '* 14 * * *'      #### 60mins
-
   workflow_dispatch:
     inputs:  
 
