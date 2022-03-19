@@ -346,6 +346,7 @@ test_all()
 test_classactivation()
 test_dataset_classifier_mnist_tfdataset(batch = 32)
 tf_gpu_check()
+utils_plot_keras_training(training)
 
 -------------------------methods----------------------
 GradCAM.__init__(self, model, classIdx, layerName = None)
@@ -611,7 +612,7 @@ model_save(model, path, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
 pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
 sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
-test()
+test1()
 test_all()
 
 
@@ -937,7 +938,7 @@ test_all()
 
 
 
-utilmy/docs/templates/util_xxx.py
+utilmy/docs/util_template.py
 -------------------------functions----------------------
 help()
 test1()
@@ -1082,64 +1083,6 @@ writelog(m = "", f = None)
 utilmy/nlp/__init__.py
 
 
-utilmy/nlp/optim_rank.py
--------------------------functions----------------------
-cost_fitness(rank_score)
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
-rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
-test()
-test1()
-
-
-
-utilmy/nlp/rank_fusion.py
--------------------------functions----------------------
-comb(rank_list, fusion_function, params)
-file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-get_fusion_alg(text)
-norm_minmax(ranks, lowest, highest)
-norm_zscore(ranks, lowest, highest)
-parse_svmlight_rank(filepath)
-parse_svmlight_score(filepath)
-parse_trec(filepath, idIsFilename = False)
-print_comb(ranks, max_k, outstream, rank_name)
-sort_by_score_and_id(elem1, elem2)
-
--------------------------methods----------------------
-prettyfloat.__repr__(self)
-prettyfloat.__str__(self)
-prettyint.__repr__(self)
-prettyint.__str__(self)
-
-
-utilmy/nlp/rank_fusion_functions.py
--------------------------functions----------------------
-compareCondor(item1, item2)
-condor(doc_id_scores)
-expn_isr(result_list, params)
-expn_rrf(result_list, params)
-isr(result_list, params)
-log_isr(result_list, params)
-logn_isr(result_list, params)
-logn_rrf(result_list, params)
-max(result_list, params)
-min(result_list, params)
-mnz(result_list, params)
-rr(result_list, params)
-rrf(result_list, params)
-sum(result_list, params)
-votes(result_list, params)
-
-
-
 utilmy/nlp/util_cluster.py
 -------------------------functions----------------------
 help()
@@ -1172,6 +1115,19 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_explain.py
+-------------------------functions----------------------
+explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
+explainer_lime(model, y_train, txt_instance, top = 10)
+explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
+explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
+help()
+test1()
+test2()
+test_all()
+
+
+
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
 bigram_get_list(ranid, mode = 'name, proba')
@@ -1197,11 +1153,28 @@ write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
 
 
+utilmy/nlp/util_ner.py
+-------------------------functions----------------------
+add_encode_variable(dtf, column)
+add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
+evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
+help()
+ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
+tags_freq(tags, top = 30, figsize = (10, 5)
+test1()
+test2()
+test_all()
+utils_lst_count(lst, top = None)
+utils_ner_features(lst_dics_tuples, tag)
+utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
+
+
+
 utilmy/nlp/util_nlp.py
 -------------------------functions----------------------
 add_detect_lang(data, column)
-add_encode_variable(dtf, column)
-add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
 add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
 add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
 add_text_length(data, column)
@@ -1210,17 +1183,9 @@ bart(corpus, ratio = 0.2)
 create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
 create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
 display_string_matching(a, b, both = True, sentences = True, titles = [])
-dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
-embedding_bert(x, tokenizer = None, nlp = None, log = False)
 embedding_w2v(x, nlp = None, value_na = 0)
-evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
 evaluate_summary(y_test, predicted)
-explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
-explainer_lime(model, y_train, txt_instance, top = 10)
-explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
-explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
 features_selection(X, y, X_names, top = None, print_top = 10)
-fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
 fit_bow(corpus, vectorizer = None, vocabulary = None)
 fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
 fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
@@ -1228,25 +1193,19 @@ fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
 fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
 fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
 get_similar_words(lst_words, top, nlp = None)
-ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+help()
 plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
 plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
 plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
 plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
 predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
 predict_similarity_classif(X, dic_y)
-retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
 sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
-tags_freq(tags, top = 30, figsize = (10, 5)
+test1()
+test_all()
 text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
 textrank(corpus, ratio = 0.2)
-tokenize_bert(corpus, tokenizer = None, maxlen = None)
-utils_bert_embedding(txt, tokenizer, nlp, log = False)
 utils_cosine_sim(a, b, nlp = None)
-utils_lst_count(lst, top = None)
-utils_ner_features(lst_dics_tuples, tag)
-utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
-utils_plot_keras_training(training)
 utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
 utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
 utils_string_matching(a, lst_b, threshold = None, top = None)
@@ -1254,44 +1213,6 @@ vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 vocabulary_embeddings(dic_vocabulary, nlp = None)
 word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
 word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
-
-
-
-utilmy/nlp/util_rank.py
--------------------------functions----------------------
-rank_adjust(ll1, ll2, kk =  1)
-rank_biased_overlap(list1, list2, p = 0.9)
-rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
-rbo_find_p()
-
--------------------------methods----------------------
-RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
-RankingSimilarity._bound_range(self, value: float)
-RankingSimilarity.assert_p(self, p: float)
-RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
-RankingSimilarity.rbo_ext(self, p = 0.98)
-RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
-
-
-utilmy/nlp/util_rankmerge.py
--------------------------functions----------------------
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge(df, method = 'borda')
-rank_merge_v2(list1, list2, nrank)
-rank_merge_v3(list1, list2, maxrank = 100)
-rank_merge_v4(ll1, ll2)
-rank_merge_v5(ll1, ll2, kk =  1)
-rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
-test()
-test()
-test()
-test1()
-test_rankadjust2(df1, df2)
 
 
 
@@ -1311,6 +1232,19 @@ test_all()
 -------------------------methods----------------------
 SentenceEncoder.__init__(self, num_labels = None)
 SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/nlp/util_transformers.py
+-------------------------functions----------------------
+embedding_bert(x, tokenizer = None, nlp = None, log = False)
+fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
+help()
+test1()
+test2()
+test_all()
+tokenize_bert(corpus, tokenizer = None, maxlen = None)
+utils_bert_embedding(txt, tokenizer, nlp, log = False)
+
 
 
 utilmy/nnumpy.py
@@ -1895,6 +1829,105 @@ TSPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
 TSSegmentPolicy.__init__(self, user_segment, n_playlists, alpha_zero = 1, beta_zero = 99, cascade_model = True)
 TSSegmentPolicy.recommend_to_users_batch(self, batch_users, n_recos = 12, l_init = 3)
 TSSegmentPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
+
+
+utilmy/recsys/ranking/__init__.py
+
+
+utilmy/recsys/ranking/optim_rank.py
+-------------------------functions----------------------
+cost_fitness(rank_score)
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
+rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+test()
+test1()
+
+
+
+utilmy/recsys/ranking/rank_fusion.py
+-------------------------functions----------------------
+comb(rank_list, fusion_function, params)
+file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+get_fusion_alg(text)
+norm_minmax(ranks, lowest, highest)
+norm_zscore(ranks, lowest, highest)
+parse_svmlight_rank(filepath)
+parse_svmlight_score(filepath)
+parse_trec(filepath, idIsFilename = False)
+print_comb(ranks, max_k, outstream, rank_name)
+sort_by_score_and_id(elem1, elem2)
+
+-------------------------methods----------------------
+prettyfloat.__repr__(self)
+prettyfloat.__str__(self)
+prettyint.__repr__(self)
+prettyint.__str__(self)
+
+
+utilmy/recsys/ranking/rank_fusion_functions.py
+-------------------------functions----------------------
+compareCondor(item1, item2)
+condor(doc_id_scores)
+expn_isr(result_list, params)
+expn_rrf(result_list, params)
+isr(result_list, params)
+log_isr(result_list, params)
+logn_isr(result_list, params)
+logn_rrf(result_list, params)
+max(result_list, params)
+min(result_list, params)
+mnz(result_list, params)
+rr(result_list, params)
+rrf(result_list, params)
+sum(result_list, params)
+votes(result_list, params)
+
+
+
+utilmy/recsys/ranking/util_rank.py
+-------------------------functions----------------------
+rank_adjust(ll1, ll2, kk =  1)
+rank_biased_overlap(list1, list2, p = 0.9)
+rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
+rbo_find_p()
+
+-------------------------methods----------------------
+RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
+RankingSimilarity._bound_range(self, value: float)
+RankingSimilarity.assert_p(self, p: float)
+RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
+RankingSimilarity.rbo_ext(self, p = 0.98)
+RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
+
+
+utilmy/recsys/ranking/util_rankmerge.py
+-------------------------functions----------------------
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge(df, method = 'borda')
+rank_merge_v2(list1, list2, nrank)
+rank_merge_v3(list1, list2, maxrank = 100)
+rank_merge_v4(ll1, ll2)
+rank_merge_v5(ll1, ll2, kk =  1)
+rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
+test()
+test()
+test()
+test1()
+test_rankadjust2(df1, df2)
+
 
 
 utilmy/recsys/util_ltr.py
@@ -3019,11 +3052,8 @@ test()
 utilmy/tabular/util_sparse.py
 -------------------------functions----------------------
 help()
-help()
 is_float(x)
 is_int(x)
-log(*s, **kw)
-log2(*s, **kw)
 pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/")
 test1()
 test_all()
