@@ -32,16 +32,20 @@ def help():
 #################################################################################################
 ##### TESTS  ####################################################################################
 def test_all():
-    """function test_all        
-    """
+    """function test_all        """
     log(MNAME)
-    test()
+    test1()
 
 
-def test():
-    """function test
-    """
+def test1():
+    """function test"""
     pass
+
+
+def test2():
+    """function test"""
+    pass
+
 
 def test_image_create_fake():
     dirout = os.getcwd() + "/ztmp/images/"
