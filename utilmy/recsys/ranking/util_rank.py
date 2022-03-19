@@ -10,9 +10,9 @@ https://changyaochen.github.io/Comparing-two-ranked-lists/
 from typing import List, Optional, Union
 import numpy as np
 from tqdm import tqdm
-import math, glob, os, sys, time
+import math, glob
 
-from utilmy.utilmy import log, log2
+from utilmy.utilmy import log
 
 
 def test_all():
@@ -40,7 +40,6 @@ def rank_topk_check(dirin=None, dirout=None, nmax=3000, tag='fasttext'):
 
     """
     from scipy.stats import kendalltau
-    from utilmy.nlp import util_rank as rank1
     from utilmy import pd_read_file, pd_to_file
 
     flist = sorted(glob.glob( dirin  ))
