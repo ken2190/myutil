@@ -16,6 +16,7 @@ from utilmy import log, log2
 
 def help():
     from utilmy import help_create
+<<<<<<< HEAD
     ss = HELP + help_create(NMAME) 
     print(ss)
 
@@ -30,6 +31,11 @@ def help():
     from utilmy import help_create
     print(HELP + help_create( MNAME))
 
+=======
+    ss = HELP + help_create(MNAME)
+    print(ss)
+
+>>>>>>> origin/main
 
 
 ###################################################################################

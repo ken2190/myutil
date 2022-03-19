@@ -15,12 +15,18 @@ uc.run_all()
 # Train the model and save 
 # Prepair cocount similarity file and model and save fasttext_ss and cocount_ss results.
 """
+<<<<<<< HEAD
 import os, sys, socket, platform, time, gc,logging
 import re
 from nltk.corpus.reader.cmudict import read_cmudict_block
 import numpy as np
 import pandas as pd 
 from util_rank import *
+=======
+import re
+import pandas as pd
+from recsys.ranking.util_rank import *
+>>>>>>> origin/main
 
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -32,11 +38,14 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 
 ###############################################################################################
+<<<<<<< HEAD
 from utilmy.utilmy import log, log2
 
 
 
 
+=======
+>>>>>>> origin/main
 
 
 #####################################################################################################
@@ -171,9 +180,12 @@ def cocount_get_topk(matrix, w_to_id):
             if w_to_id[key] == idx:
                 return key
 
+<<<<<<< HEAD
     from numpy import dot
     from numpy.linalg import norm
 
+=======
+>>>>>>> origin/main
     top_similar_dic = {}
 
     for w in w_to_id:

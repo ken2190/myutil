@@ -8,7 +8,11 @@ Some rules are
     rule 1 - change a line starting with 3 #'s into x #'s where x is 90 by default
             if no text was found else preserve text and fill the rest with #'s
     rule 2 - normalize log statements in the file
+<<<<<<< HEAD
     rule 3 - put all consecutive imports on one line
+=======
+    
+>>>>>>> origin/main
     rule 4 - align assignment operators
 
 
@@ -215,7 +219,30 @@ if 'check if .py compile':
 
 
 
+<<<<<<< HEAD
 ##############################################################################################
+=======
+def format_header(text):
+    """  Normalized header
+    """
+    lines = text.split("\n")
+
+ 
+    for line in lines:
+        if "MNAME=" in line :
+            dd['mname'] = False
+
+    if dd.mname :
+        msg = 'MNAME=" utilmy.  "'
+        lines = [msg] + lines 
+
+    if dd['help'] :
+        pass
+
+    return '\n'.join(lines)
+
+
+>>>>>>> origin/main
 def format_comments(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 1 (see docs).
@@ -258,8 +285,12 @@ def format_logs(text="default", line_size=90):
 
 
 def format_imports(text):
+<<<<<<< HEAD
     """
     Takes a string of text and formats it based on rule 3 (see docs).
+=======
+    """rule 3 - put all consecutive imports on one line
+>>>>>>> origin/main
     """
     # rule to find consective imports
     regex4 = r"^import[\s\w]+?(?=from|^\s*$)"

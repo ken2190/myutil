@@ -2,8 +2,17 @@ name: Auto Rebase Branches - main schedule
 
 
 on:
+<<<<<<< HEAD
   schedule:
     - cron:  '* 13 * * *'      #### 60mins
+=======
+  workflow_dispatch:
+    inputs:  
+
+
+  schedule:
+    - cron:  '0 13 * * *'      #### 60mins
+>>>>>>> origin/main
     #    - cron:  '*/10 * * * *'   
 
   push:
@@ -13,7 +22,12 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
+<<<<<<< HEAD
     BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani
+=======
+    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
+>>>>>>> origin/main
     ### Remove :  lets7512,andrescass,
 
 
@@ -41,8 +55,16 @@ jobs:
               echo ""
               echo "##################"
               git checkout $branch
+<<<<<<< HEAD
               git pull --allow-unrelated-histories 
               git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
+=======
+              #git pull --allow-unrelated-histories 
+              # git pull origin main --allow-unrelated-histories
+              git fetch
+              git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
+              # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
+>>>>>>> origin/main
               git push
               echo "Merge SUCCEEDED for branch $branch"
 
@@ -55,6 +77,20 @@ jobs:
 
 
 
+<<<<<<< HEAD
+=======
+      #- name: Create Auto PR      
+      #  env:
+      #      GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+      #  run: |
+      #      curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+            # git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+      #      git config --global hub.protocol ssh            
+      #      { /bin/hub pull-request --base arita37:main    --head arita37:aniket  -m "PR into main" } || { echo 'failed ' ; } 
+      #      { /bin/hub pull-request  --base arita37:main    --head arita37:alex    -m "PR into main" } || { echo 'failed ' ; } 
+      #      { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
+
+>>>>>>> origin/main
 
 
   ####3 rebase All branches except some branch

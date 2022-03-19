@@ -1,17 +1,39 @@
+<<<<<<< HEAD
 
 ## for data
 import pandas as pd, numpy as np
+=======
+# -*- coding: utf-8 -*-
+MNAME = "utilmy.nlp.util_nlp"
+HELP = """ utils for NLP processing
+
+### pip install fire
+
+python  utilmy/nlp/util_nlp.py test1
+
+
+"""
+import os,sys, collections, random, numpy as np,  glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
+from copy import deepcopy
+from abc import abstractmethod
+from tqdm import tqdm
+
+>>>>>>> origin/main
 
 ## for plotting
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 ## for analysis
+<<<<<<< HEAD
 import re
 import langdetect 
 import nltk
 import wordcloud
 import contractions
+=======
+import re, langdetect, nltk, wordcloud, contractions
+>>>>>>> origin/main
 
 ## for sentiment
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -43,11 +65,41 @@ import transformers
 import rouge
 
 
+<<<<<<< HEAD
+=======
+#### Types
+
+
+#############################################################################################
+from utilmy import log, log2
+
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+#############################################################################################
+def test_all():
+    log(MNAME)
+    test1()
+    # test2()
+
+
+
+def test1():
+    pass
+
+
+
+>>>>>>> origin/main
 
 ###############################################################################
 #                  TEXT ANALYSIS                                              #
 ###############################################################################
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 def plot_distributions(dtf, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
     '''
     Plot univariate and bivariate distributions.
@@ -328,6 +380,7 @@ def add_word_freq(data, column, lst_words, freq="count"):
 
 
         
+<<<<<<< HEAD
 ###############################################################################
 #                            NER                                              #
 ###############################################################################
@@ -628,6 +681,8 @@ def evaluate_multi_classif(y_test, predicted, predicted_prob, figsize=(15,5)):
     ax[1].grid(True)
     plt.show()
 
+=======
+>>>>>>> origin/main
 
 
 ###############################################################################
@@ -758,6 +813,7 @@ def fit_ml_classif(X_train, y_train, X_test, vectorizer=None, classifier=None):
 
 
 
+<<<<<<< HEAD
 def explainer_lime(model, y_train, txt_instance, top=10):
     '''
     Use lime to build an a explainer.
@@ -776,6 +832,8 @@ def explainer_lime(model, y_train, txt_instance, top=10):
     return dtf_explainer
 
 
+=======
+>>>>>>> origin/main
 
 ###############################################################################
 #                        WORD2VEC (WORD EMBEDDING)                            #
@@ -1046,6 +1104,7 @@ def text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], fitted_t
 
 
 
+<<<<<<< HEAD
 def utils_plot_keras_training(training):
     '''
     Plot loss and metrics of keras training.
@@ -1075,6 +1134,8 @@ def utils_plot_keras_training(training):
     ax22.set_ylabel("Score", color="steelblue")
     plt.show()
 
+=======
+>>>>>>> origin/main
 
 
 def fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None, model=None, weights=None, epochs=100, batch_size=256):
@@ -1127,6 +1188,7 @@ def fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None,
 
 
 
+<<<<<<< HEAD
 def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[], top=5, figsize=(5,3)):
     '''
     Takes the weights of an Attention layer and builds an explainer.
@@ -1196,6 +1258,8 @@ def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=
     shap.summary_plot(shap_values, feature_names=X_names, class_names=class_names, plot_type="bar") 
 
 
+=======
+>>>>>>> origin/main
 
 ###############################################################################
 #                        TOPIC MODELING                                       #
@@ -1353,6 +1417,7 @@ def plot_w2v_cluster(dic_words=None, nlp=None, plot_type="2d", annotate=True, fi
 
 
 
+<<<<<<< HEAD
 ###############################################################################
 #                      BERT (TRANSFORMERS LANGUAGE MODEL)                     #
 ###############################################################################
@@ -1536,6 +1601,8 @@ def fit_bert_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=Non
     predicted = [dic_y_mapping[np.argmax(pred)] for pred in predicted_prob] if encode_y is True else [np.argmax(pred)]
     return training.model, predicted_prob, predicted
 
+=======
+>>>>>>> origin/main
 
 
 ###############################################################################
@@ -1599,6 +1666,7 @@ def predict_similarity_classif(X, dic_y):
 
 
 
+<<<<<<< HEAD
 def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level=False, top=5, figsize=(20,10)):
     '''
     Plot a text instance into a 2d vector space and compute similarity.
@@ -1667,6 +1735,8 @@ def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, tok
 
 
 
+=======
+>>>>>>> origin/main
 ###############################################################################
 #                  STRING MATCHING                                            #
 ###############################################################################
@@ -1957,4 +2027,17 @@ def bart(corpus, ratio=0.2):
                               min_length=int(len(txt.split())*ratio)
                         )[0]["summary_text"].replace(" .", ".")
                      for txt in corpus]
+<<<<<<< HEAD
     return lst_summaries
+=======
+    return lst_summaries
+
+
+
+
+
+###################################################################################################
+if __name__ == "__main__":
+    import fire 
+    fire.Fire()
+>>>>>>> origin/main

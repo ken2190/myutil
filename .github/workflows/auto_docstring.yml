@@ -3,15 +3,25 @@ name: Auto docstring - zdocstring branch
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
+=======
+  workflow_dispatch:
+    inputs:  
+      
+>>>>>>> origin/main
   push:
     branches:
     - zrefactor
 
 
   schedule:
+<<<<<<< HEAD
     - cron:  '* 2 * * *'      #### 60mins
+=======
+    - cron:  '0 2 * * *'      #### 60mins
+>>>>>>> origin/main
     #    - cron:  '*/10 * * * *'
 
 

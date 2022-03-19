@@ -2,14 +2,24 @@ name: Auto-format - zformat
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
+<<<<<<< HEAD
   # Trigger the workflow on push or pull request,
   # but only for the main branch
+=======
+  workflow_dispatch:
+    inputs:  
+
+>>>>>>> origin/main
   push:
     branches:
     - zrefactor
 
   schedule:
+<<<<<<< HEAD
     - cron:  '* 7  * * *'      #### 60mins
+=======
+    - cron:  '0 7  * * *'      #### 60mins
+>>>>>>> origin/main
     #    - cron:  '*/10 * * * *'
 
 

@@ -4,10 +4,19 @@ HELP=""" utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
+<<<<<<< HEAD
 from box import Box
 import io, cv2,  tifffile.tifffile, matplotlib
 from PIL import Image
 from typing import Union,Tuple,Sequence,List
+=======
+from typing import Union,Tuple,Sequence,List
+from box import Box
+
+import io, cv2,  tifffile.tifffile, matplotlib
+from PIL import Image
+
+>>>>>>> origin/main
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
@@ -21,6 +30,7 @@ from utilmy import pd_read_file
 from utilmy import log, log2
 
 def help():
+<<<<<<< HEAD
     """function help
     Args:
     Returns:
@@ -52,6 +62,32 @@ def test():
     """
     pass
 
+=======
+    """function help        """
+    from utilmy import help_create
+    print(HELP + help_create(MNAME))
+
+
+
+#################################################################################################
+##### TESTS  ####################################################################################
+def test_all():
+    """function test_all        """
+    log(MNAME)
+    test1()
+
+
+def test1():
+    """function test"""
+    pass
+
+
+def test2():
+    """function test"""
+    pass
+
+
+>>>>>>> origin/main
 def test_image_create_fake():
     dirout = os.getcwd() + "/ztmp/images/"
     imsize=(300,300)
@@ -65,6 +101,7 @@ def test_image_create_fake():
 
 
 ################################################################################################
+<<<<<<< HEAD
 def image_create_fake(
     dirout=os.getcwd() + "/ztmp/images/", 
     nimages=1, 
@@ -213,6 +250,54 @@ def image_cache_create():
     log(in_dir)
     log(db_path)
     #TODO: is this a closure, or can this be shifted to outside?
+=======
+
+
+#################################################################################################
+#### images storage ###############################################################################
+def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
+    """function image_cache_create diskcache backend to Store and Read images very very fast/
+    Args:
+    Returns:
+
+     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg" 
+
+    ### Not used, Only python?3.7  #####################################
+    import asyncio
+    #TODO: if awaiting, is async helpful?
+    async def set_async(key, val):
+        loop = asyncio.get_running_loop()
+        future = loop.run_in_executor(None, cache.set, key, val)
+        result = await future
+        return result
+    # asyncio.run(set_async('test-key', 'test-value'))
+    ############################################################
+
+
+    """
+    import cv2, gc, diskcache 
+
+    # globals  for  multprocessed function
+    global xdim, ydim
+    xdim, ydim = xdim0, ydim0
+
+    log("#### paths  ####################################################################")
+    in_dir   = "gsp/v1000k_clean_nobg/" if dirin is None else dirin
+    tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
+    db_dir  = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache"  if dirout is None else dirout + f"/img_{tag}.cache"
+    log(in_dir, db_dir)
+
+
+    log("#### Image list  ################################################################")
+    image_list = sorted(list(glob.glob(  f'{in_dir}/**/*')))
+    fexclude   = sorted(list(glob.glob(  f'{file_exclude}')))
+    image_list = [  fi  for fi in image_list if fi not in fexclude   ] #TODO: some folders to exclude?
+    image_list = image_list[:nmax]    
+    log('N images', len(image_list))
+
+
+    ### Multi processoer function Helpfer
+>>>>>>> origin/main
     def prepro_image2b(image_path): 
         try :
             fname      = str(image_path).split("/")[-1]
@@ -224,6 +309,7 @@ def image_cache_create():
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
             image = util_image.image_center_crop(image, (245, 245))
+<<<<<<< HEAD
 
             # image = image.astype('float32')
             return image, image_path
@@ -234,11 +320,24 @@ def image_cache_create():
             try :
                # image = image.astype('float32')
                # cache[ fname ] =  image        ### not uulti thread write
+=======
+            # image = image.astype('float32')
+            return image, image_path
+            #return [1], "1"
+
+        except : 
+            ### Nested because of multpriocessing bugs.....
+            try :
+               # image = image.astype('float32')
+               # cache[ fname ] =  image        ### not uulti thread write
+               time.sleep(2)  ### Concurrency thread
+>>>>>>> origin/main
                return image, image_path
                # return [1], "1"
             except :
                return [],""
 
+<<<<<<< HEAD
     log("#### Converting  ############################################################")
     image_list = image_list[:nmax]
     log('Size Before', len(image_list))
@@ -264,20 +363,43 @@ def image_cache_create():
 
     log(str(images)[:500],  str(labels)[:500],  )
     log("#### Saving disk  #################################################################")
+=======
+    log("#### Converrt to diskcache storage  #############################################")
+    #  from diskcache import FanoutCache  ### too much space
+    # che = FanoutCache( db_dir, shards=4, size_limit=int(60e9), timeout=9999999 )
+    cache = diskcache.Cache(db_dir, size_limit=int(100e9), timeout=9999999 )
+
+
+    log("#### Load and Covnert  ##########################################################")
+    log('Size Before', len(image_list))
+    images, labels = image_preps_mp(image_list, prepro_image_fun= prepro_image2b, npool=32 )
+
+
+    log(str(images)[:500],  str(labels)[:500],  )
+    log("#### Saving disk  ##############################################################")
+>>>>>>> origin/main
     for path, img in zip(labels, images) :
        key = os.path.abspath(path)
        key = key.split("/")[-1]
        cache[ key ] =  img
+<<<<<<< HEAD
        # asyncio.run(set_async( key , img ))   ##only python 3.7
 
 
     print('size cache', len(cache),)
     print( db_path )
 
+=======
+       # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
+
+    log("#### Validate the cache ########################################################")   
+    log('size cache', len(cache), db_dir)
+>>>>>>> origin/main
     for i,key in enumerate(cache):
        if i > 3 : break
        x0 = cache[key]
        cv2.imwrite( data_train + f"/check_{i}.png", x0 )
+<<<<<<< HEAD
        print(key, x0.shape, str(x0)[:50]  )
 
 #TODO: diskcache
@@ -285,6 +407,27 @@ def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cac
     """function image_cache_check
     Args:
         db_path ( str ) :   
+=======
+       log(key, x0.shape, str(x0)[:50]  )
+
+
+def diskcache_image_loadcache(db_dir:str="db_images.cache"):
+    """function image_cache_check
+    Args:
+        db_dir ( str ) :   
+    Returns: dictionnary like         
+    """
+    import diskcache as dc
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+    return cache
+
+
+def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
+    """function image_cache_check
+    Args:
+        db_dir ( str ) :   
+>>>>>>> origin/main
         dirout ( str ) :   
         tag:   
     Returns:
@@ -292,7 +435,11 @@ def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cac
     """
     ##### Write some sample images  from cache #############################
     import diskcache as dc
+<<<<<<< HEAD
     cache   = dc.Cache(db_path, size_limit= 100 * 10**9, timeout= 5 )
+=======
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
+>>>>>>> origin/main
     log('Nimages', len(cache) )
 
     log('### Check writing on disk  ###########################')
@@ -306,11 +453,19 @@ def image_cache_check(db_path:str="db_images.cache", dirout:str="tmp/", tag="cac
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
 
+<<<<<<< HEAD
 #TODO: diskcache
 def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", tag="cache1"):
     """function image_cache_save
     Args:
         image_path_list ( str ) :   
+=======
+   
+def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
+    """function image_cache_save
+    Args:
+        dirin_image ( str ) :   
+>>>>>>> origin/main
         db_dir ( str ) :   
         tag:   
     Returns:
@@ -323,12 +478,43 @@ def image_cache_save(image_path_list:str="db_images.cache", db_dir:str="tmp/", t
 
 
     log('### Check writing on disk  ###########################')
+<<<<<<< HEAD
     for img_path in image_path_list:
         img = image_read(img_path)
         cache[img_path] = img
 
 #TODO: diskcache
 def image_check_npz(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
+=======
+    for img_path in dirin_image:
+        img = image_read(img_path)
+        cache[img_path] = img
+
+
+def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", dirout):
+    """function image_save
+    Args:
+    Returns:
+        
+    """
+    import diskcache as dc
+    cache   = dc.Cache(db_dir)
+    print('Nimages', len(cache) )
+
+    log('### writing on disk  ######################################')
+    dir_check = dirout 
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(img_list) :
+        if i > 10: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        key2 = key.split("/")[-1]
+        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
+    log( dir_check )
+
+
+def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
+>>>>>>> origin/main
     """function image_check_npz
     Args:
         path_npz:   
@@ -358,7 +544,12 @@ def image_check_npz(path_npz,  keys=['train'], path="", tag="", n_sample=3, reno
 
 
 
+<<<<<<< HEAD
 ##############################################################################
+=======
+###################################################################################################
+#### Images readers ###############################################################################
+>>>>>>> origin/main
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     """
     Read a file into an image object
@@ -386,6 +577,7 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 
     return image
 
+<<<<<<< HEAD
 
 def image_save():
     """function image_save
@@ -411,15 +603,27 @@ def image_save():
     log( dir_check )
 
 
+=======
+>>>>>>> origin/main
 image_load = image_read  ## alias
 
 
 
+<<<<<<< HEAD
 ##############################################################################
 def image_show_in_row(image_list:dict=None):
     """ helper function for data visualization
     Plot images in one row.
     """
+=======
+#################################################################################################
+#### Images utils ###############################################################################
+def image_show_in_row(image_list:Union[dict,list]=None):
+    """ helper function for data visualization
+    Plot images in one row.
+    """
+    assert image_list is not None, 'image_list must be a list or dict'
+>>>>>>> origin/main
     import matplotlib.pyplot as plt
    
     if isinstance(image_list, list): 
@@ -438,8 +642,172 @@ def image_show_in_row(image_list:dict=None):
     plt.show()
 
 
+<<<<<<< HEAD
 
 def image_resize_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
+=======
+def image_create_fake(
+    dirout=os.getcwd() + "/ztmp/images/", 
+    nimages=1, 
+    imsize=(300,300),
+    rgb_color = (255, 0, 0)):
+    """TODO: whats the use of this function
+    """
+    import cv2
+    import numpy as np
+
+    width, height = imsize
+    os.makedirs(dirout, exist_ok=True)
+    ii = 0 ; img_list =[]
+    for ii in range(nimages):
+
+        image = np.zeros((height, width, 3), np.uint8)
+        color = tuple(reversed(rgb_color))
+        image[:] = color
+
+        if dirout is not None :
+            cv2.imwrite( dirout + f'img_{ii}.jpg', image)
+        else:
+            img_list.append(image)
+    # will return empty list if a dirout was provided
+    return img_list
+
+
+
+#################################################################################################
+#### Transform in batches #######################################################################
+#TODO: does this already exist in the multiprocessing module, 
+def run_multiprocess(myfun, list_args, npool=10, **kwargs):
+    """
+       res = run_multiprocess(prepro, image_paths, npool=10, )
+    """
+    from functools import partial
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+    pool = Pool(npool)
+    res  = pool.map( partial(myfun, **kwargs), list_args)
+    pool.close()
+    pool.join()
+    return res
+
+
+def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
+    xdim :int=1, ydim :int=1,
+    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
+    """ run image_prep on multiple images
+    """
+    #TODO: add tqdm for running metrics
+
+    images = []
+    for i in range(len(image_paths)):
+        if i > nmax : break
+        image =  image_prep(image_paths[i], 
+        xdim =xdim, ydim =ydim,
+        mean  = mean,std  = std )
+        images.append(image)
+    return images
+
+    
+#TODO is this redundant to `run_multiprocess`
+def image_preps_mp(dirin_image:list, prepro_image_fun=None, npool=1):
+    """ Parallel processing
+    """
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+
+    pool = Pool(npool)
+    res  = pool.map(prepro_image_fun, dirin_image)
+    pool.close() ;     pool.join()  ; pool = None
+
+    print('len res', len(res))
+    images, labels = [], []
+    for (x,y) in res :
+        if len(y)> 0 and len(x)> 0 :
+            images.append(x)
+            labels.append(y)
+
+    print('len images', len(images))
+    print(str(labels)[:60])
+    return images, labels
+
+
+#TODO redundant to image_resize_pad? ( uses parallel processing...)
+def image_resize_mp(dirout :str =""):
+    """     python prepro.py  image_resize
+
+          image white color padded
+
+    """
+    import cv2, gc, diskcache
+
+    in_dir = data_dir + "/train_nobg"
+    dirout = data_dir + "/train_nobg_256/"
+
+    nmax = 500000000
+    global xdim, ydim
+    xdim = 256
+    ydim = 256
+    padcolor = 0  ## 0 : black
+
+    os.makedirs(dirout, exist_ok=True)
+    log('target folder', dirout);
+    time.sleep(5)
+
+    def prepro_image3b(img_path):
+        try:
+            fname = str(img_path).split("/")[-1]
+            id1 = fname.split(".")[0]
+            img_path_new = dirout + "/" + fname
+
+            img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
+            img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
+            img = img[:, :, ::-1]
+            cv2.imwrite(img_path_new, img)
+            # print(img_path_new)
+            return [1], "1"
+        except Exception as e:
+            # print(image_path, e)
+            return [], ""
+
+    log("#### Process  ######################################################################")
+    image_list = sorted(list(glob.glob(f'/{in_dir}/*.*')))
+    image_list = image_list[:nmax]
+    log('Size Before', len(image_list))
+
+    log("#### Saving disk  #################################################################")
+    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
+    os_path_check(dirout, n=5)
+
+
+
+#################################################################################################
+#### Transform individual #######################################################################
+def image_prep(image_path:str, xdim :int=1, ydim :int=1,
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    """ resizes, crops and centers an image according to provided mean and std
+    Args:
+        image_path ( str ) :   
+        xdim:   
+        ydim:   
+    Returns:
+    
+    """
+    try :
+        # fname      = str(image_path).split("/")[-1]
+        # id1        = fname.split(".")[0]
+        # print(image_path)
+        image = image_read(image_path)
+        image = image_resize_pad(image, (xdim,ydim), padColor=0)
+        image = image_center_crop(image, (xdim,ydim))
+        assert max(image) > 1, "image should be uint8, 0-255"
+        image = (image / 255)           
+        image = (image-mean) /std  # Normalize the image to mean and std
+        image = image.astype('float32')
+        return image, image_path
+    except :
+        return [], ""
+
+
+def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
+>>>>>>> origin/main
     """function image_resize_ratio
     Args:
         image:   
@@ -474,6 +842,7 @@ def image_resize_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
     return cv2.resize(image, dim, interpolation=inter)    
     
     
+<<<<<<< HEAD
     
 
 
@@ -481,10 +850,18 @@ def image_resize_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
 
 ############################################################################
 def image_center_crop(img, dim):
+=======
+def image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int,int]):
+>>>>>>> origin/main
     """Returns center cropped image
     Args:
     img: image to be center cropped
     dim: dimensions (width, height) to be cropped
+<<<<<<< HEAD
+=======
+    Returns:
+    crop_img: center cropped image
+>>>>>>> origin/main
     """
     width, height = img.shape[1], img.shape[0]
 
@@ -497,6 +874,7 @@ def image_center_crop(img, dim):
     return crop_img
 
 
+<<<<<<< HEAD
 def image_resize_pad(img,size=(256,256), padColor=0 ):
      """
        resize and keep into the target Box
@@ -505,6 +883,45 @@ def image_resize_pad(img,size=(256,256), padColor=0 ):
      h, w = img.shape[:2]
      sh, sw = size
 
+=======
+def image_resize(image : np.typing.ArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
+    """Resizes a image and maintains aspect ratio.
+    inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
+    """
+    # Grab the image size and initialize dimensions
+    dim = None
+    (h, w) = image.shape[:2]
+
+    # Return original image if no need to resize
+    if width is None and height is None:
+        return image
+
+    # We are resizing height if width is none
+    if width is None:
+        # Calculate the ratio of the height and construct the dimensions
+        r = height / float(h)
+        dim = (int(w * r), height)
+    # We are resizing width if height is none
+    else:
+        # Calculate the ratio of the width and construct the dimensions
+        r = width / float(w)
+        dim = (width, int(h * r))
+
+    # Return the resized image
+    return cv2.resize(image, dim, interpolation=inter)
+
+
+def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
+     """resize image while preserving aspect ratio.
+     longer side resized to shape, excess space padded
+     
+     """
+     h, w = img.shape[:2]
+     sh, sw = size
+     if not pad:
+         return image_resize(image, width=sw, height=sh, inter=cv2.INTER_AREA)
+     assert (sh is not None)  and (sw is not None) , 'if using padding, the target size must be provided'
+>>>>>>> origin/main
      # interpolation method
      if h > sh or w > sw: # shrinking image
          interp = cv2.INTER_AREA
@@ -542,6 +959,7 @@ def image_resize_pad(img,size=(256,256), padColor=0 ):
      return scaled_img
 
 
+<<<<<<< HEAD
 def image_resize(out_dir=""):
     """     python prepro.py  image_resize
 
@@ -621,6 +1039,8 @@ def image_resize2(image, width=None, height=None, inter=cv2.INTER_AREA):
     return cv2.resize(image, dim, interpolation=inter)
 
 
+=======
+>>>>>>> origin/main
 def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
     """
     Args:
@@ -632,7 +1052,11 @@ def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_
     return np.random.randint(low=min_padding, high=max_padding + 1, size=paddings_number)
 
 
+<<<<<<< HEAD
 def image_merge(image_list, n_dim, padding_size, max_height, total_width):
+=======
+def image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width):
+>>>>>>> origin/main
     """
     Args:
         image_list:  list of image
@@ -662,11 +1086,21 @@ def image_merge(image_list, n_dim, padding_size, max_height, total_width):
         if idx == idx_len:
             current_x += width
         else:
+<<<<<<< HEAD
             current_x += width + padding_size[idx]
     return final_image, padding_size
 
 
 def image_remove_extra_padding(img, inverse=False, removedot=True):
+=======
+            #TODO: is padding_size "per image". also is it an int or tuple
+            current_x += width + padding_size[idx]
+
+    return final_image, padding_size
+
+
+def image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool=False, removedot :bool =True):
+>>>>>>> origin/main
     """TODO: Issue with small dot noise points : noise or not ?
               Padding calc has also issues with small blobs.
     Args:
@@ -695,28 +1129,45 @@ def image_remove_extra_padding(img, inverse=False, removedot=True):
     return crop
 
 
+<<<<<<< HEAD
 def image_remove_bg(in_dir="", out_dir="", level=1):
+=======
+def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", level:int=1):
+>>>>>>> origin/main
     """ #### remove background
     
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg  
     
     
+<<<<<<< HEAD
         python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --out_dir  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
+=======
+        python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --dirout  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
+>>>>>>> origin/main
 
         rembg  -ae 15 -p  /data/workspaces/noelkevin01/img/data/fashion/test2/  /data/workspaces/noelkevin01/img/data/fashion/test_nobg/  
         
         mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/  
         
     """    
+<<<<<<< HEAD
     in_dir  = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean/"
     out_dir = "/data/workspaces/noelkevin01/img/data/gsp/v1000k_clean_nobg/"
+=======
+    in_dir  = "/gsp/v1000k_clean/"
+    dirout = "//gsp/v1000k_clean_nobg/"
+>>>>>>> origin/main
 
     
     fpaths = glob.glob(in_dir + "/*")
     log( str(fpaths)[:10] )
     for fp in fpaths : 
         if "." not in fp.split("/")[-1] :             
+<<<<<<< HEAD
             fp_out = fp.replace(in_dir, out_dir)
+=======
+            fp_out = fp.replace(in_dir, dirout)
+>>>>>>> origin/main
             os.makedirs(fp_out, exist_ok=True)
             cmd = f"rembg   -p {fp}  {fp_out} "    #### no adjustment -ae 15
             log(cmd)
@@ -725,15 +1176,26 @@ def image_remove_bg(in_dir="", out_dir="", level=1):
             except : pass         
             
 
+<<<<<<< HEAD
 def image_face_blank(in_dir="", level = "/*", 
                      out_dir=f"", npool=30):
+=======
+def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
+                     dirout:Union[str, bytes, os.PathLike]=f"", npool=30):
+>>>>>>> origin/main
     """  Remove face
 
      python prepro.py  image_face_blank
      
+<<<<<<< HEAD
      python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --out_dir img/data/fashion/test_nobg_noface
 
      python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --out_dir img/data/fashion/train_nobg_noface
+=======
+     python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
+
+     python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
+>>>>>>> origin/main
 
 
       five elements are [xmin, ymin, xmax, ymax, detection_confidence]
@@ -742,6 +1204,7 @@ def image_face_blank(in_dir="", level = "/*",
     import cv2, glob
     import face_detection
 
+<<<<<<< HEAD
     #in_dir  = "/data/workspaces/noelkevin01/" + in_dir
     #out_dir = "/data/workspaces/noelkevin01/" + out_dir
     npool    = 30
@@ -751,13 +1214,20 @@ def image_face_blank(in_dir="", level = "/*",
     
     # fpaths   = [  t for t in fpath if "/-1" not in fpaths ]
     # fpaths   = fpaths[:60]
+=======
+    fpaths   = glob.glob(os.path.join(in_dir,level))    
+>>>>>>> origin/main
     
     detector = face_detection.build_detector( "RetinaNetMobileNetV1", 
                             confidence_threshold=.5, nms_iou_threshold=.3)
 
     log(str(fpaths)[:60])
 
+<<<<<<< HEAD
     def myfun(fp):
+=======
+    def worker(fp):
+>>>>>>> origin/main
       try :
           log(fp)  
           img   = cv2.imread(fp)
@@ -769,12 +1239,17 @@ def image_face_blank(in_dir="", level = "/*",
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
+<<<<<<< HEAD
           fout = fp.replace(in_dir, out_dir)    
+=======
+          fout = fp.replace(in_dir, dirout)    
+>>>>>>> origin/main
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass        
 
 
+<<<<<<< HEAD
     #for fp in fpaths :
     #  myfun(fp)
 
@@ -789,16 +1264,34 @@ def image_text_blank(in_dir, out_dir, level="/*"):
     """
         Not working well
         python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --out_dir img/data/fashion/ztest_noface
+=======
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+    pool = Pool(npool) 
+    res  = pool.map(worker, fpaths)      
+    pool.close()
+    pool.join()     
+
+        
+def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,bytes,os.PathLike], level="*"):
+    """
+        Not working well
+        python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
+>>>>>>> origin/main
         
     
     """
     import cv2, glob
     from ztext_detector import detect_text_regions
     
+<<<<<<< HEAD
     in_dir  = "/data/workspaces/noelkevin01/" + in_dir
     out_dir = "/data/workspaces/noelkevin01/" + out_dir
 
     fpaths  = glob.glob(in_dir + level )
+=======
+
+    fpaths  = glob.glob(os.path.join(in_dir,level ))
+>>>>>>> origin/main
     log(str(fpaths)[:60])
     for fp in fpaths :
       try :
@@ -813,10 +1306,17 @@ def image_text_blank(in_dir, out_dir, level="/*"):
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
+<<<<<<< HEAD
           fout = fp.replace(in_dir, out_dir)    
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass
+=======
+          fout = fp.replace(in_dir, dirout)    
+          os.makedirs( os.path.dirname(fout), exist_ok=True)
+          cv2.imwrite( fout, img )
+      except : pass #TODO: code smell:better to handle specific exceptions
+>>>>>>> origin/main
 
 
 def image_check():
@@ -835,14 +1335,24 @@ def image_check():
     # fname    = f"/img_all{tag}.cache"
     # fname    = f"/img_fashiondata_64_64-100000.cache"
     # fname = "img_train_nobg_256_256-100000.cache"
+<<<<<<< HEAD
     fname = "img_train_r2p2_40k_nobg_256_256-100000.cache"
     fname = "img_train_r2p2_40k_nobg_256_256-100000.cache"
+=======
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+>>>>>>> origin/main
 
     log('loading', fname)
 
     import diskcache as dc
+<<<<<<< HEAD
     db_path = data_train + fname
     cache = dc.Cache(db_path)
+=======
+    db_dir = data_train + fname
+    cache = dc.Cache(db_dir)
+>>>>>>> origin/main
 
     lkey = list(cache)
     print('Nimages', len(lkey))
@@ -864,6 +1374,7 @@ def image_check():
 
 
 
+<<<<<<< HEAD
 def os_path_check(path, n=5):
     """function os_path_check
     Args:
@@ -875,6 +1386,117 @@ def os_path_check(path, n=5):
     from utilmy import os_system
     print('top files', os_system( f"ls -U   '{path}' | head -{n}") )
     print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
+=======
+
+#################################################################################################
+#### Donwload images ############################################################################
+def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npage=1) :
+    """
+        python util_image.py download_page  '    --dirout men_fs_blue  
+
+
+    """
+    import time, os, json, csv, requests, sys, urllib
+    from bs4 import BeautifulSoup as bs
+    from urllib.request import Request, urlopen
+    import urllib.parse
+
+
+    path = dirout 
+    os.makedirs(path, exist_ok=True)
+    # os.chdir(path)
+
+    query2     = urllib.parse.quote(query, encoding='utf-8')
+    url_prefix = 'httpl/' + query2
+    ### https://search.amazon.com/search/mall/%E3%83%A1%E3%8384+blue+/?p=2
+    print(url_prefix)
+    print(path)
+
+    csv_file   = open( path + 'ameta.csv','w',encoding="utf-8")
+    csv_writer = csv.writer(csv_file, delimiter='\t')
+    csv_writer.writerow(['path', 'id0', 'cat', 'genre_en', 'image_name', 'price','shop','item_url','page_url',  ])
+
+    page  = 1
+    count = 0
+    while page < npage+1 :
+        try:
+            urli = url_prefix  + f"/?p=+{page}"
+            req    = Request(url=urli)
+            source = urlopen(req).read()
+            soup   = bs(source,'lxml')
+
+            print('page', page, str(soup)[:5], str(urli)[-20:],  )
+
+            for individual_item in soup.find_all('div',class_='searchresultitem'):
+                count += 1
+                save = 0
+                shopname     = 'nan'
+                count_review = 'nan'
+
+                for names in individual_item.find_all('div',class_='title'):
+                    product_name = names.h2.a.text
+                    break
+
+                for price in individual_item.find_all('div',class_='price'):
+                    product_price = price.span.text
+                    product_price = product_price .replace("円", "").replace(",", "") 
+                    break
+                
+                for url in individual_item.find_all('div',class_='image'):
+                    product_url = url.a.get('href')
+                    break
+
+                for images in individual_item.find_all('div',class_='image'):
+                    try:
+                        product_image = images.a.img.get('src')
+                        urllib.request.urlretrieve(product_image, path + str(count)+".jpg")
+                        # upload_to_drive(str(count)+'.jpg')
+                        count += 1
+                        break
+                    except:
+                        save = 1
+                        print(product_url + " Error Detected")
+                    
+                for simpleshop in individual_item.find_all('div',class_='merchant'):
+                    shopname = simpleshop.a.text
+                    break
+
+                for review in individual_item.find_all('a',class_='dui-rating-filter'):
+                    count_review = review.text
+
+                if save == 0:
+                    csv_writer.writerow([str(count)+'.jpg', id0, cat, genre_en,  product_name, product_price, shopname, product_url, urli, ])
+
+        except Exception as e :
+            print(e)
+            time.sleep(2)
+            continue
+
+        page += 1
+    print("Success", page-1, count)
+
+
+
+
+
+
+
+
+##############################################################################################
+if 'utils':
+    #TODO: should be moved to another package?
+    def os_path_check(path, n=5):
+        """function os_path_check
+        Args:
+            path:   
+            n:   
+        Returns:
+            
+        """
+        from utilmy import os_system
+        print('top files', os_system( f"ls -U   '{path}' | head -{n}") )
+        print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
+>>>>>>> origin/main
    
     
 

@@ -73,7 +73,11 @@ date_is_holiday(array)
 date_now(fmt="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S %Z%z", add_days = 0, timezone = 'Asia/Tokyo')
 date_to_timezone(tdate, fmt="%Y%m%d-%H = "%Y%m%d-%H:%M", timezone = 'Asia/Tokyo')
 date_weekday_excel(x)
+<<<<<<< HEAD
 date_weekmonth(d)
+=======
+date_weekmonth(date_value)
+>>>>>>> origin/main
 date_weekmonth2(d)
 date_weekyear2(dt)
 date_weekyear_excel(x)
@@ -94,7 +98,11 @@ db_load_dict(df, colkey, colval, verbose = True)
 db_merge()
 db_size(db_dir =  None)
 diskcache_config(db_path = None, task = 'commit')
+<<<<<<< HEAD
 diskcache_get(cache)
+=======
+diskcache_get(cache, key, defaultval = None)
+>>>>>>> origin/main
 diskcache_getall(cache, limit = 1000000000)
 diskcache_getkeys(cache)
 diskcache_keycount(cache)
@@ -184,9 +192,21 @@ timer_decorator(func)
 utilmy/deeplearning/__init__.py
 
 
+<<<<<<< HEAD
 utilmy/deeplearning/autoencoder/keras_ae.py
 
 
+=======
+utilmy/deeplearning/autoencoder/__init__.py
+
+
+utilmy/deeplearning/autoencoder/keras_ae.py
+
+
+utilmy/deeplearning/keras/__init__.py
+
+
+>>>>>>> origin/main
 utilmy/deeplearning/keras/loss_graph.py
 -------------------------functions----------------------
 create_fake_neighbor(x: ndarray, max_neighbors: int)
@@ -270,6 +290,7 @@ validation_step(x, model, y_label_list = None)
 
 
 
+<<<<<<< HEAD
 utilmy/deeplearning/keras/train_vqvae_loss.py
 -------------------------functions----------------------
 apply_func(s, values)
@@ -329,6 +350,8 @@ VQ_VAE.reparameterize(self, z_mean, z_logsigma)
 VQ_VAE.reparameterize(self, z_mean, z_logsigma)
 
 
+=======
+>>>>>>> origin/main
 utilmy/deeplearning/keras/util_dataloader_img.py
 -------------------------functions----------------------
 help()
@@ -358,24 +381,46 @@ ModelCustom2()
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 default_collate_fn(samples)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+get_dataset2(data_pars = None, task_type = "train", **kw)
+get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
+get_dataset_tuple_keras(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
+help()
+import_data_tch(name = "", mode = "train", node_id = 0, data_folder_root = "")
+>>>>>>> origin/main
 init(*kw, **kwargs)
 input_template_feed_keras(Xtrain, cols_type_received, cols_ref, **kw)
 load_info(path = "")
 load_model(path = "")
 log(*s)
 log2(*s)
+<<<<<<< HEAD
+=======
+pd_to_tf_features(Xtrain:pd.DataFrame, cols_type_received, cols_ref, **kw)
+pd_to_tf_input_layer(df:pd.DataFrame, cols_cat_dict:    dict, cols_catstr_dict: dict, cols_num_dict:dict, is_sparse = True, **kw)
+>>>>>>> origin/main
 predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
 test(config = '')
+<<<<<<< HEAD
+=======
+test2()
+>>>>>>> origin/main
 test_helper(model_pars, data_pars, compute_pars)
 tf_data_create_sparse(cols_type_received:dict =  {'cols_sparse' : ['col1', 'col2'], 'cols_num'    : ['cola', 'colb']}, cols_ref:list =   [ 'col_sparse', 'col_num'  ], Xtrain:pd.DataFrame = None, **kw)
 tf_data_file_to_dataset(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
 tf_data_pandas_to_dataset(training_df: pd.DataFrame, colsX: str, coly: str)
+<<<<<<< HEAD
+=======
+tf_dataset(dataset_pars)
+>>>>>>> origin/main
 
 -------------------------methods----------------------
 DataGenerator.__getitem__(self, index)
@@ -391,6 +436,12 @@ image_compare_modelpred(file_path, model_path, target_size)
 keras_check_layer(mlayer, )
 test_all()
 test_classactivation()
+<<<<<<< HEAD
+=======
+test_dataset_classifier_mnist_tfdataset(batch = 32)
+tf_gpu_check()
+utils_plot_keras_training(training)
+>>>>>>> origin/main
 
 -------------------------methods----------------------
 GradCAM.__init__(self, model, classIdx, layerName = None)
@@ -403,7 +454,11 @@ utilmy/deeplearning/keras/util_layers.py
 -------------------------functions----------------------
 dataloader_get_mnist()
 help()
+<<<<<<< HEAD
 make_classifier(label_name_ncount:dict = None, layers_dim: List[int] = [128, 1024], tag: str = '1', latent_dim: int = 512)
+=======
+make_classifier(class_dict, latent_dim = 10)
+>>>>>>> origin/main
 make_classifier_2(latent_dim, class_dict)
 make_classifier_multihead(label_name_ncount:dict = None, layers_dim: List[int] = [128, 1024], tag: str = '1', latent_dim: int = 512)
 make_decoder(xdim, ydim, latent_dim)
@@ -556,6 +611,12 @@ test()
 
 
 
+<<<<<<< HEAD
+=======
+utilmy/deeplearning/torch/images/__init__.py
+
+
+>>>>>>> origin/main
 utilmy/deeplearning/torch/images/base.py
 -------------------------methods----------------------
 BaseHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss', loss_weight = 1.0), multi_class = False, label_smooth_eps = 0.0)
@@ -578,6 +639,31 @@ X3DHead.forward(self, x)
 X3DHead.init_weights(self)
 
 
+<<<<<<< HEAD
+=======
+utilmy/deeplearning/torch/models/__init__.py
+
+
+utilmy/deeplearning/torch/models/sentences_model.py
+-------------------------functions----------------------
+evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
+fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+fit2(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+get_dataset(data_pars = None, **kw)
+get_dataset2(data_pars = None, model = None, **kw)
+get_params(param_pars, **kw)
+load(load_pars = None)
+predict(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+predict2(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+reset_model()
+save(model, session = None, save_pars = None)
+test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
+
+-------------------------methods----------------------
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
+
+
+>>>>>>> origin/main
 utilmy/deeplearning/torch/rule_encoder.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
@@ -590,7 +676,11 @@ get_correct_results(out, label_Y)
 get_metrics(y_true, y_pred, y_score)
 get_perturbed_input(input_tensor, pert_coeff)
 help()
+<<<<<<< HEAD
 loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg, )
+=======
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
+>>>>>>> origin/main
 loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
 loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
 model_build(arg:dict, mode = 'train')
@@ -615,7 +705,68 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
+<<<<<<< HEAD
 utilmy/deeplearning/torch/rule_encoder2.py
+=======
+utilmy/deeplearning/torch/sentences.py
+-------------------------functions----------------------
+dataset_download(dirout = '/content/sample_data/sent_tans/')
+dataset_fake(dirdata)
+dataset_fake2(dirdata = '')
+help()
+load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
+load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
+load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
+metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
+model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
+model_load(path_or_name_or_object)
+model_save(model, path, reload = True)
+model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
+pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
+sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
+test1()
+test_all()
+
+
+
+utilmy/deeplearning/torch/util_torch.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+get_metrics(y_true, y_pred, y_score)
+help()
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+test2()
+test_all()
+test_dataset_classification_fake(nrows = 500)
+
+-------------------------methods----------------------
+model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
+model_dummy.forward(self, x)
+
+
+utilmy/deeplearning/torch/zkeras_torch_sentence.py
+-------------------------functions----------------------
+build_model()
+create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
+log(*s)
+metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
+model_load(path)
+model_save(path)
+sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
+test()
+
+-------------------------methods----------------------
+ReRanker.__init__(self)
+ReRanker.call(self, inputs, **kwargs)
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/deeplearning/torch/zrule_encoder2.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
 dataset_load(arg, mode = 'eval')
@@ -667,6 +818,7 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
+<<<<<<< HEAD
 utilmy/deeplearning/torch/sentence2.py
 -------------------------functions----------------------
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
@@ -739,6 +891,15 @@ model_deletes(dry = 0)
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
 tf_check()
+=======
+utilmy/deeplearning/util_dl.py
+-------------------------functions----------------------
+gpu_available()
+gpu_usage()
+help()
+tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
+test_all()
+>>>>>>> origin/main
 
 
 
@@ -751,6 +912,7 @@ embedding_table_comparison(embeddings_1:list, embeddings_2:list, labels_1:list, 
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
 faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
 faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
+<<<<<<< HEAD
 np_matrix_to_str(m, map_dict)
 np_matrix_to_str2(m, map_dict)
 np_matrix_to_str_sim(m)
@@ -759,13 +921,23 @@ np_str_to_array(vv, l2_norm = True, mdim  =  200)
 sim_score2(path = "")
 simscore_cosinus_calc(embs, words)
 test()
+=======
+help()
+sim_scores_faiss(path = "")
+sim_scores_sklearn(embs, words)
+test1()
+test_all()
+>>>>>>> origin/main
 topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
 topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
+<<<<<<< HEAD
 unzip(in_dir, out_dir)
+=======
+>>>>>>> origin/main
 viz_run(dirin = "in/model.vec", dirout = "ztmp/", nmax = 100)
 
 -------------------------methods----------------------
@@ -778,9 +950,29 @@ vizEmbedding.draw_hiearchy(self)
 vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
 
 
+<<<<<<< HEAD
 utilmy/deeplearning/util_yolo.py
 -------------------------functions----------------------
 convert_to_yolov5(info_dict:Dict, names:Dict, output:str)
+=======
+utilmy/deeplearning/util_onnx.py
+-------------------------functions----------------------
+help()
+onnx_convert(dir_model:str = "mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str)
+onnx_load_model()
+onnx_load_onnx()
+onnx_validate_onnx()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/deeplearning/util_yolo.py
+-------------------------functions----------------------
+convert_to_yolov5(info_dict:Dict, names:Dict, output:str)
+help()
+>>>>>>> origin/main
 test_all()
 test_convert_to_yolov5()
 test_yolov5_from_xml()
@@ -795,13 +987,21 @@ convert_txt_to_vector_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**
 data_add_onehot(dfref, img_dir, labels_col)
 folder_size()
 gzip()
+<<<<<<< HEAD
 np_matrix_to_str(m, map_dict)
+=======
+np_matrix_to_str(m)
+>>>>>>> origin/main
 np_matrix_to_str2(m, map_dict)
 np_matrix_to_str_sim(m)
 np_str_to_array(vv, l2_norm = True, mdim  =  200)
 predict(name = None)
 test()
+<<<<<<< HEAD
 topk()
+=======
+topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
+>>>>>>> origin/main
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
@@ -839,7 +1039,10 @@ IndexLock.get(self, **kw)
 IndexLock.put(self, val:list = None)
 IndexLock.read(self, )
 IndexLock.save_filter(self, val:list = None)
+<<<<<<< HEAD
 IndexLock.save_isok(self, flist:list)
+=======
+>>>>>>> origin/main
 toFile.__init__(self, fpath)
 toFile.write(self, msg)
 
@@ -871,6 +1074,7 @@ _get_words(row)
 _remmove_commemt_line(line)
 _remove_empty_line(line)
 _validate_file(file_path)
+<<<<<<< HEAD
 export_call_graph(repo_link: str, out_path:str = None)
 export_call_graph_url(repo_link: str, out_path:str = None)
 export_stats_perfile(in_path:str = None, out_path:str = None)
@@ -878,6 +1082,15 @@ export_stats_perrepo(in_path:str = None, out_path:str = None, repo_name:str = No
 export_stats_perrepo_txt(in_path:str = None, out_path:str = None, repo_name:str = None)
 export_stats_pertype(in_path:str = None, type:str = None, out_path:str = None)
 export_stats_repolink(repo_link: str, out_path:str = None)
+=======
+export_call_graph(in_path:str = None, out_path:str = None)
+export_call_graph_url(repo_link: str, out_path:str = None)
+export_stats_perfile(in_path:str = None, out_path:str = None)
+export_stats_perrepo(in_path:str = None, out_path:str = None, repo_name:str = None, type:str = 'csv')
+export_stats_perrepo_txt(in_path:str = None, out_path:str = None, repo_name:str = None)
+export_stats_pertype(in_path:str = None, type:str = None, out_path:str = None)
+export_stats_repolink(repo_link: str, out_path:str = None, type:str = 'csv')
+>>>>>>> origin/main
 export_stats_repolink_txt(repo_link: str, out_path:str = None)
 get_file_stats(file_path)
 get_list_class_info(file_path)
@@ -893,6 +1106,10 @@ get_list_method_info(file_path)
 get_list_method_stats(file_path)
 get_list_variable_global(file_path)
 get_stats(df:pd.DataFrame, file_path:str)
+<<<<<<< HEAD
+=======
+log(*s)
+>>>>>>> origin/main
 test_example()
 write_to_file(uri, type, list_functions, list_classes, list_imported, dict_functions, list_class_as, out_path)
 
@@ -900,6 +1117,7 @@ write_to_file(uri, type, list_functions, list_classes, list_imported, dict_funct
 
 utilmy/docs/docstring.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str)
 docstring(repo_dir: Path, dirout:str, overwrite_script: bool  =  False, test: bool  =  True)
 docstring_from_type_hints(repo_dir: Path, dirout:str, overwrite_script: bool  =  False, test: bool  =  True)
@@ -914,11 +1132,20 @@ automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, r
 docstring_from_type_hints(repo_dir: Path, overwrite_script: bool  =  False, test: bool  =  True)
 indent(string: str)
 main()
+=======
+docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+generate_docstring(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+help()
+run_all(mode = 'overwrite')
+test1(mode = 'test')
+test_all()
+>>>>>>> origin/main
 
 
 
 utilmy/docs/format.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 find_str(lines, word)
 format_add_header(dirin:str = "./")
 format_add_logger(dirin:str, dirout:str, nfile = 1000)
@@ -929,6 +1156,22 @@ test1()
 test2()
 test_all()
 to_file(lines, fpath)
+=======
+batch_format_dir(in_dir, out_dir)
+batch_format_file(in_file, out_dir)
+format_add_header(txt:str)
+format_add_logger(txt:str, )
+format_assignments(text)
+format_comments(text = "default", line_size = 90)
+format_header(text)
+format_imports(text)
+format_logs(text = "default", line_size = 90)
+help()
+run_format1()
+test1()
+test2()
+test_all()
+>>>>>>> origin/main
 
 
 
@@ -940,7 +1183,11 @@ markdown_createall(dfi, prefix = "")
 run_markdown(repo_stat_file, output = 'docs/doc_main.md', prefix="https = "https://github.com/user/repo/tree/a")
 run_table(repo_stat_file, output = 'docs/doc_table.md', prefix="https = "https://github.com/user/repo/tree/a")
 table_all_row(list_rows)
+<<<<<<< HEAD
 table_create(uri, name, type, start_line, list_funtions, prefix)
+=======
+table_create(dfi, prefix)
+>>>>>>> origin/main
 table_create_row(uri, name, type, start_line, list_funtions, prefix)
 test()
 
@@ -952,15 +1199,24 @@ glob_glob_python(dirin, suffix  = "*.py", nfile = 7, exclude = "")
 help()
 os_path_norm(diroot)
 run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
+<<<<<<< HEAD
 run_utilmy(nfile = 100)
 run_utilmy2(nfile = 100)
+=======
+run_utilmy(nfile = 10000)
+run_utilmy_overwrite(nfile = 100000)
+>>>>>>> origin/main
 test1()
 test2()
 test_all()
 
 
 
+<<<<<<< HEAD
 utilmy/docs/templates/util_xxx.py
+=======
+utilmy/docs/util_template.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 help()
 test1()
@@ -969,6 +1225,7 @@ test_all()
 
 
 
+<<<<<<< HEAD
 utilmy/docs/test.py
 -------------------------functions----------------------
 calculateBuyPrice(enter, profit)
@@ -983,6 +1240,43 @@ update_price()
 
 
 
+=======
+utilmy/docs/zold_cli_format.py
+-------------------------functions----------------------
+format_assignments(text)
+format_comments(text = "default", line_size = 90)
+format_dir(in_dir, out_dir)
+format_file(in_file, out_dir)
+format_imports(text)
+format_logs(text = "default", line_size = 90)
+load_arguments()
+main()
+mod_period(in_file)
+os_glob(in_dir)
+
+
+
+utilmy/docs/zold_docstring2.py
+-------------------------functions----------------------
+automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str)
+docstring_from_type_hints(repo_dir: Path, overwrite_script: bool  =  False, test: bool  =  True)
+indent(string: str)
+main()
+
+
+
+utilmy/docs/zold_docstring3.py
+-------------------------functions----------------------
+custom_generate_docstring(repo_dir: str, dirout: str, overwrite_script: bool  =  False, test: bool  =  True)
+help_get_docstring(func)
+main()
+
+
+
+utilmy/excel/__init__.py
+
+
+>>>>>>> origin/main
 utilmy/excel/xlvba.py
 -------------------------functions----------------------
 invokenumpy()
@@ -998,6 +1292,7 @@ utilmy/graph.py
 utilmy/iio.py
 
 
+<<<<<<< HEAD
 utilmy/images/util_image.py
 -------------------------functions----------------------
 help()
@@ -1029,6 +1324,44 @@ run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test()
 test_all()
 test_image_create_fake(dirout = None, nimages = 1, )
+=======
+utilmy/images/__init__.py
+
+
+utilmy/images/util_image.py
+-------------------------functions----------------------
+diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
+diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
+diskcache_image_getsample(db_dir = "_70k_clean_nobg_256_256-100000.cache", dirout)
+diskcache_image_loadcache(db_dir:str = "db_images.cache")
+diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
+download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+help()
+image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int, int])
+image_check()
+image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
+image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
+image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width)
+image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
+image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
+image_read(filepath_or_buffer: Union[str, io.BytesIO])
+image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
+image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool = False, removedot :bool  = True)
+image_resize(image : np.typing.ArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
+image_resize_mp(dirout :str  = "")
+image_resize_pad(img :np.typing.ArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
+image_resize_ratio(image : np.typing.ArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
+image_show_in_row(image_list:Union[dict, list] = None)
+image_text_blank(in_dir :Union[str, bytes, os.PathLike], dirout :Union[str, bytes, os.PathLike], level = "*")
+npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
+run_multiprocess(myfun, list_args, npool = 10, **kwargs)
+test1()
+test2()
+test_all()
+test_image_create_fake()
+>>>>>>> origin/main
 
 
 
@@ -1048,7 +1381,11 @@ LoggingStreamHandler.handle(self)
 
 utilmy/logs/util_log.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 log(log_config_path: str  =  None, log_template: str  =  "default", **kwargs)
+=======
+log(*s)
+>>>>>>> origin/main
 log2(*s)
 log3(*s)
 logc(*s)
@@ -1077,6 +1414,7 @@ writelog(m = "", f = None)
 
 
 
+<<<<<<< HEAD
 utilmy/nlp/optim_rank.py
 -------------------------functions----------------------
 cost_fitness(rank_score)
@@ -1133,6 +1471,9 @@ rrf(result_list, params)
 sum(result_list, params)
 votes(result_list, params)
 
+=======
+utilmy/nlp/__init__.py
+>>>>>>> origin/main
 
 
 utilmy/nlp/util_cluster.py
@@ -1167,6 +1508,22 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+<<<<<<< HEAD
+=======
+utilmy/nlp/util_explain.py
+-------------------------functions----------------------
+explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
+explainer_lime(model, y_train, txt_instance, top = 10)
+explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
+explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
+help()
+test1()
+test2()
+test_all()
+
+
+
+>>>>>>> origin/main
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
 bigram_get_list(ranid, mode = 'name, proba')
@@ -1192,11 +1549,36 @@ write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
 
 
+<<<<<<< HEAD
 utilmy/nlp/util_nlp.py
 -------------------------functions----------------------
 add_detect_lang(data, column)
 add_encode_variable(dtf, column)
 add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+=======
+utilmy/nlp/util_ner.py
+-------------------------functions----------------------
+add_encode_variable(dtf, column)
+add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
+evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
+help()
+ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
+tags_freq(tags, top = 30, figsize = (10, 5)
+test1()
+test2()
+test_all()
+utils_lst_count(lst, top = None)
+utils_ner_features(lst_dics_tuples, tag)
+utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
+
+
+
+utilmy/nlp/util_nlp.py
+-------------------------functions----------------------
+add_detect_lang(data, column)
+>>>>>>> origin/main
 add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
 add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
 add_text_length(data, column)
@@ -1205,6 +1587,7 @@ bart(corpus, ratio = 0.2)
 create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
 create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
 display_string_matching(a, b, both = True, sentences = True, titles = [])
+<<<<<<< HEAD
 dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
 embedding_bert(x, tokenizer = None, nlp = None, log = False)
 embedding_w2v(x, nlp = None, value_na = 0)
@@ -1216,6 +1599,11 @@ explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10
 explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
 features_selection(X, y, X_names, top = None, print_top = 10)
 fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
+=======
+embedding_w2v(x, nlp = None, value_na = 0)
+evaluate_summary(y_test, predicted)
+features_selection(X, y, X_names, top = None, print_top = 10)
+>>>>>>> origin/main
 fit_bow(corpus, vectorizer = None, vocabulary = None)
 fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
 fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
@@ -1223,13 +1611,18 @@ fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
 fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
 fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
 get_similar_words(lst_words, top, nlp = None)
+<<<<<<< HEAD
 ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+=======
+help()
+>>>>>>> origin/main
 plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
 plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
 plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
 plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
 predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
 predict_similarity_classif(X, dic_y)
+<<<<<<< HEAD
 retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
 sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
 tags_freq(tags, top = 30, figsize = (10, 5)
@@ -1242,6 +1635,14 @@ utils_lst_count(lst, top = None)
 utils_ner_features(lst_dics_tuples, tag)
 utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 utils_plot_keras_training(training)
+=======
+sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
+test1()
+test_all()
+text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
+textrank(corpus, ratio = 0.2)
+utils_cosine_sim(a, b, nlp = None)
+>>>>>>> origin/main
 utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
 utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
 utils_string_matching(a, lst_b, threshold = None, top = None)
@@ -1252,6 +1653,7 @@ word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
 
 
 
+<<<<<<< HEAD
 utilmy/nlp/util_rank.py
 -------------------------functions----------------------
 rank_adjust(ll1, ll2, kk =  1)
@@ -1290,6 +1692,8 @@ test_rankadjust2(df1, df2)
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/nlp/util_sentence.py
 -------------------------functions----------------------
 embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
@@ -1308,6 +1712,22 @@ SentenceEncoder.__init__(self, num_labels = None)
 SentenceEncoder.call(self, inputs, **kwargs)
 
 
+<<<<<<< HEAD
+=======
+utilmy/nlp/util_transformers.py
+-------------------------functions----------------------
+embedding_bert(x, tokenizer = None, nlp = None, log = False)
+fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
+help()
+test1()
+test2()
+test_all()
+tokenize_bert(corpus, tokenizer = None, maxlen = None)
+utils_bert_embedding(txt, tokenizer, nlp, log = False)
+
+
+
+>>>>>>> origin/main
 utilmy/nnumpy.py
 -------------------------functions----------------------
 is_float(x)
@@ -1366,7 +1786,11 @@ os_removedirs(path, verbose = False)
 os_search_content(srch_pattern = None, mode = "str", dir1 = "", file_pattern = "*.*", dirlevel = 1)
 os_sizeof(o, ids, hint = " deep_getsizeof(df_pd, set()
 os_sleep_cpu(cpu_min = 30, sleep = 10, interval = 5, msg =  "", verbose = True)
+<<<<<<< HEAD
 os_system(ll, logfile = None, sleep_sec = 10)
+=======
+os_system(cmd, doprint = False)
+>>>>>>> origin/main
 os_system_list(ll, logfile = None, sleep_sec = 10)
 os_to_file(txt = "", filename = "ztmp.txt", mode = 'a')
 os_variable_check(ll, globs = None, do_terminate = True)
@@ -1398,6 +1822,7 @@ toFileSafe.w(self, msg)
 toFileSafe.write(self, msg)
 
 
+<<<<<<< HEAD
 utilmy/optim/gp.py
 -------------------------functions----------------------
 NodesToProcess(G)
@@ -1408,11 +1833,20 @@ random_solution()
 random_walker(G, h)
 search()
 sigint_handler(signal, frame)
+=======
+utilmy/optim/__init__.py
+
+
+utilmy/optim/gp.py
+-------------------------functions----------------------
+run()
+>>>>>>> origin/main
 
 
 
 utilmy/optim/gp_dcgp.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 get_correlm(eqn)
 get_cost(ex)
 get_random_solution()
@@ -1420,11 +1854,15 @@ rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
 rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
 rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
 search()
+=======
+run4()
+>>>>>>> origin/main
 
 
 
 utilmy/optim/gp_formulae.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 NodesToProcess(G)
 decode(G)
 get_correlm(eqn)
@@ -1438,6 +1876,9 @@ rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
 rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
 search()
 sigint_handler(signal, frame)
+=======
+run1()
+>>>>>>> origin/main
 
 
 
@@ -1469,14 +1910,24 @@ multiproc_tochunk(flist, npool = 2)
 multithread_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
 multithread_run_list(**kwargs)
 pd_apply_parallel(df, fun_apply = None, npool = 5, verbose = True)
+<<<<<<< HEAD
 pd_groupby_parallel(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
+=======
+pd_groupby_parallel(df, colsgroup = None, fun_apply = None, n_pool = 4, npool = None)
+>>>>>>> origin/main
 pd_groupby_parallel2(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
 pd_random(nrows = 1000, ncols =  5)
 pd_read_file(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
 pd_read_file2(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
 test0()
+<<<<<<< HEAD
 test_fun_run(list_vars, const = 1, const2 = 1)
 test_fun_sum(group, name = None)
+=======
+test_all()
+test_fun_run(list_vars, const = 1, const2 = 1)
+test_fun_sum(df_group, name = None)
+>>>>>>> origin/main
 test_fun_sum2(list_vars, const = 1, const2 = 1)
 test_fun_sum_inv(group, name = None)
 test_pdreadfile()
@@ -1576,7 +2027,11 @@ log(*s, n = 0, m = 1)
 log_pd(df, *s, n = 0, m = 1)
 logs(*s)
 nlp_get_stopwords()
+<<<<<<< HEAD
 pd_coltext(df, col, stopwords =  None, pars = None)
+=======
+pd_coltext(df, col, pars = {})
+>>>>>>> origin/main
 pd_coltext_clean(df, col, stopwords =  None, pars = None)
 pd_coltext_universal_google(df, col, pars = {})
 pd_coltext_wordfreq(df, col, stopwords, ntoken = 100)
@@ -1628,7 +2083,11 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
+<<<<<<< HEAD
 load(name, path)
+=======
+load(file_name)
+>>>>>>> origin/main
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -1666,7 +2125,11 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
+<<<<<<< HEAD
 save(df, name, path = None)
+=======
+save(obj, path)
+>>>>>>> origin/main
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -1730,7 +2193,11 @@ hit_rate_at_k(y_preds, y_true, k = 3)
 hit_rate_at_k_nep(y_preds, y_true, k = 3)
 intra_list_similarity(y_preds: List[list], feature_df: pd.DataFrame)
 mean_average_precision(y, labels, assume_unique = True)
+<<<<<<< HEAD
 metrics_calc(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
+=======
+metrics_calc(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', methods = [''], nsample = -1, nfile = 1, featuredf:pd.DataFrame = None, popdict:dict = None, topk = 5, **kw)
+>>>>>>> origin/main
 metrics_calc_batch(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
 mrr_at_k(y_preds, y_true, k = 3)
 mrr_at_k_nep(y_preds, y_true, k = 3)
@@ -1738,7 +2205,11 @@ ndcg_at_k(y, labels, k = 10, assume_unique = True)
 novelty(y_preds: List[list], pop: dict, u: int, n: int)
 personalization(y_preds: List[list])
 popularity_bias_at_k(y_preds, x_train, k = 3)
+<<<<<<< HEAD
 precision_at(y_preds, y_true, k = 3)
+=======
+precision_at(y, labels, k = 10, assume_unique = True)
+>>>>>>> origin/main
 precision_at_k(y_preds, y_true, k = 3)
 recall_at_k(y_preds, y_true, k = 3)
 recall_average_at_k_mean(actual: List[list], y_preds: List[list], k = 10)
@@ -1913,6 +2384,117 @@ TSSegmentPolicy.recommend_to_users_batch(self, batch_users, n_recos = 12, l_init
 TSSegmentPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
 
 
+<<<<<<< HEAD
+=======
+utilmy/recsys/ranking/__init__.py
+
+
+utilmy/recsys/ranking/optim_rank.py
+-------------------------functions----------------------
+cost_fitness(rank_score)
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
+rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+test()
+test1()
+
+
+
+utilmy/recsys/ranking/rank_fusion.py
+-------------------------functions----------------------
+comb(rank_list, fusion_function, params)
+file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+get_fusion_alg(text)
+norm_minmax(ranks, lowest, highest)
+norm_zscore(ranks, lowest, highest)
+parse_svmlight_rank(filepath)
+parse_svmlight_score(filepath)
+parse_trec(filepath, idIsFilename = False)
+print_comb(ranks, max_k, outstream, rank_name)
+sort_by_score_and_id(elem1, elem2)
+
+-------------------------methods----------------------
+prettyfloat.__repr__(self)
+prettyfloat.__str__(self)
+prettyint.__repr__(self)
+prettyint.__str__(self)
+
+
+utilmy/recsys/ranking/rank_fusion_functions.py
+-------------------------functions----------------------
+compareCondor(item1, item2)
+condor(doc_id_scores)
+expn_isr(result_list, params)
+expn_rrf(result_list, params)
+isr(result_list, params)
+log_isr(result_list, params)
+logn_isr(result_list, params)
+logn_rrf(result_list, params)
+max(result_list, params)
+min(result_list, params)
+mnz(result_list, params)
+rr(result_list, params)
+rrf(result_list, params)
+sum(result_list, params)
+votes(result_list, params)
+
+
+
+utilmy/recsys/ranking/util_rank.py
+-------------------------functions----------------------
+rank_adjust(ll1, ll2, kk =  1)
+rank_biased_overlap(list1, list2, p = 0.9)
+rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
+rbo_find_p()
+
+-------------------------methods----------------------
+RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
+RankingSimilarity._bound_range(self, value: float)
+RankingSimilarity.assert_p(self, p: float)
+RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
+RankingSimilarity.rbo_ext(self, p = 0.98)
+RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
+
+
+utilmy/recsys/ranking/util_rankmerge.py
+-------------------------functions----------------------
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge(df, method = 'borda')
+rank_merge_v2(list1, list2, nrank)
+rank_merge_v3(list1, list2, maxrank = 100)
+rank_merge_v4(ll1, ll2)
+rank_merge_v5(ll1, ll2, kk =  1)
+rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
+test()
+test()
+test()
+test1()
+test_rankadjust2(df1, df2)
+
+
+
+utilmy/recsys/util_ltr.py
+-------------------------functions----------------------
+help()
+test_all()
+test_lambdarank()
+test_metrics()
+
+
+
+>>>>>>> origin/main
 utilmy/recsys/util_rec.py
 -------------------------functions----------------------
 _get_stratified_tr_mask(u, i, train_size, random_state)
@@ -2333,7 +2915,11 @@ _dataset(x, y = None, batch_size = 128, num_epochs = 1, shuffle = False, seed = 
 build_optimizer(name, lr = 0.001, **kwargs)
 evaluation_log_hook(estimator, logger, true_df, y_col, eval_df, every_n_iter = 10000, model_dir = None, batch_size = 256, eval_fns = None, **eval_kwargs)
 export_model(model, train_input_fn, eval_input_fn, tf_feat_cols, base_dir)
+<<<<<<< HEAD
 pandas_input_fn(df, feat_name_type)
+=======
+pandas_input_fn(df, y_col = None, batch_size = 128, num_epochs = 1, shuffle = False, seed = None)
+>>>>>>> origin/main
 pandas_input_fn_for_saved_model(df, feat_name_type)
 
 -------------------------methods----------------------
@@ -2434,6 +3020,12 @@ utilmy/recsys/zrecs/tools/generate_conda_file.py
 utilmy/recsys/zrecs/tools/generate_requirements_txt.py
 
 
+<<<<<<< HEAD
+=======
+utilmy/spark/__init__.py
+
+
+>>>>>>> origin/main
 utilmy/spark/conda/script.py
 
 
@@ -2535,8 +3127,13 @@ utilmy/spark/src/util_spark.py
 utilmy/spark/src/utils.py
 -------------------------functions----------------------
 config_load(config_path:str)
+<<<<<<< HEAD
 log()
 log()
+=======
+log(*s)
+log(*s)
+>>>>>>> origin/main
 log2(*s)
 log3(*s)
 log_sample(*s)
@@ -2559,7 +3156,11 @@ spark_session(config: dict)
 
 utilmy/spark/tests/test_common.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 assert_equal_spark_df(expected_sorted_df: DataFrame, actual_sorted_df: DataFrame, df_name: str)
+=======
+assert_equal_spark_df(expected_df: DataFrame, actual_df: DataFrame, df_name: str)
+>>>>>>> origin/main
 assert_equal_spark_df_schema(expected_schema: [tuple], actual_schema: [tuple], df_name: str)
 assert_equal_spark_df_sorted(expected_sorted_df: DataFrame, actual_sorted_df: DataFrame, df_name: str)
 
@@ -2579,7 +3180,11 @@ test_table_user_log_run(spark_session: SparkSession, config: dict)
 
 utilmy/spark/tests/test_table_user_session_log.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 test_table_user_session_log(spark_session: SparkSession)
+=======
+test_table_user_session_log(spark_session: SparkSession, config: dict)
+>>>>>>> origin/main
 test_table_user_session_log_run(spark_session: SparkSession)
 test_table_usersession_log_stats(spark_session: SparkSession, config: dict)
 
@@ -2587,7 +3192,11 @@ test_table_usersession_log_stats(spark_session: SparkSession, config: dict)
 
 utilmy/spark/tests/test_table_user_session_stats.py
 -------------------------functions----------------------
+<<<<<<< HEAD
 test_table_user_session_stats(spark_session: SparkSession)
+=======
+test_table_user_session_stats(spark_session: SparkSession, config: dict)
+>>>>>>> origin/main
 test_table_user_session_stats_ip(spark_session: SparkSession, config: dict)
 test_table_user_session_stats_run(spark_session: SparkSession)
 
@@ -2819,14 +3428,42 @@ test_heteroscedacity(y, y_pred, pred_value_only = 1)
 test_hypothesis(df_obs, df_ref, method = '', **kw)
 test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
+<<<<<<< HEAD
 test_normality(df, column, test_type)
+=======
+test_normality(error, distribution = "norm", test_size_limit = 5000)
+>>>>>>> origin/main
 test_normality2(df, column, test_type)
 test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
 
+<<<<<<< HEAD
 utilmy/tabular.py
+=======
+utilmy/tabular/__init__.py
+
+
+utilmy/tabular/sparse/test_data.py
+-------------------------functions----------------------
+pandas_to_csr(Xdf, ydf, hashsize = 5000)
+
+
+
+utilmy/tabular/sparse/test_model1.py
+-------------------------methods----------------------
+EASE.__init__(self)
+EASE._get_users_and_items(self, df)
+EASE.fit(self, df, lambda_: float  =  0.5, implicit = True)
+EASE.predict(self, train, users, items, k)
+
+
+utilmy/tabular/sparse/test_model2.py
+
+
+utilmy/tabular/tabular.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 estimator_boostrap_bayes(err, alpha = 0.05, )
 estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
@@ -2855,13 +3492,18 @@ test_heteroscedacity(y, y_pred, pred_value_only = 1)
 test_hypothesis(df_obs, df_ref, method = '', **kw)
 test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
+<<<<<<< HEAD
 test_normality(df, column, test_type)
+=======
+test_normality(error, distribution = "norm", test_size_limit = 5000)
+>>>>>>> origin/main
 test_normality2(df, column, test_type)
 test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
 
+<<<<<<< HEAD
 utilmy/tabular/__init__.py
 
 
@@ -2882,6 +3524,31 @@ EASE.predict(self, train, users, items, k)
 utilmy/tabular/sparse/test_model2.py
 
 
+=======
+utilmy/tabular/util_activelearning.py
+-------------------------functions----------------------
+generate_train_samples(model, Xtrain, ytrain, Xnew, ynew)
+help()
+load_function_uri(uri_name = "path_norm")
+model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
+model_extract_rules(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor])
+model_fit(name:str = 'imodels.SLIMRegressor', model_pars:dict = None, data_pars:dict = None, do_eval: bool = True, **kw)
+model_info(path = "")
+model_load(path: str = "")
+model_predict(model, predict_pars:dict)
+model_save(model, path: Optional[str] = None, info: None = None)
+model_viz_classification_preds(probs:np.ndarray, y_test:list)
+plot_samples(X_pool, X_training)
+test1()
+test2()
+test_all()
+test_data_classifier_diabetes()
+test_data_regression_boston()
+test_imodels()
+
+
+
+>>>>>>> origin/main
 utilmy/tabular/util_drift.py
 -------------------------functions----------------------
 estimator_boostrap_bayes(err, alpha = 0.05, )
@@ -2897,6 +3564,7 @@ test0()
 test1()
 test3()
 test_all()
+<<<<<<< HEAD
 test_anova(df, col1, col2)
 test_heteroscedacity(y, y_pred, pred_value_only = 1)
 test_hypothesis(df_obs, df_ref, method = '', **kw)
@@ -2905,6 +3573,16 @@ test_mutualinfo(error, Xtest, colname = None, bins = 5)
 test_normality(df, column, test_type)
 test_normality2(df, column, test_type)
 test_plot_qqplot(df, col_name)
+=======
+test_anova(df: DataFrame, col1: str, col2: str)
+test_heteroscedacity(y: Series, y_pred: ndarray, pred_value_only: int = 1)
+test_hypothesis(df_obs: DataFrame, df_ref: DataFrame, method: str = '', **kw)
+test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
+test_mutualinfo(error: Series, Xtest: DataFrame, colname: Optional[str] = None, bins: int = 5)
+test_normality(error: Series, distribution: str = "norm", test_size_limit: int = 5000)
+test_normality2(df: DataFrame, column: str, test_type: str)
+test_plot_qqplot(df: DataFrame, col_name: str)
+>>>>>>> origin/main
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
@@ -2930,6 +3608,69 @@ test_imodels()
 
 
 
+<<<<<<< HEAD
+=======
+utilmy/tabular/util_lightgbm.py
+-------------------------functions----------------------
+binary_error(y_true, y_pred)
+constant_metric(y_true, y_pred)
+custom_asymmetric_obj(y_true, y_pred)
+custom_dummy_obj(y_true, y_pred)
+decreasing_metric(y_true, y_pred)
+help()
+logregobj(y_true, y_pred)
+mse(y_true, y_pred)
+multi_error(y_true, y_pred)
+multi_logloss(y_true, y_pred)
+objective_ls(y_true, y_pred)
+test_actual_number_of_trees()
+test_binary()
+test_binary_classification_with_custom_objective()
+test_check_is_fitted()
+test_class_weight()
+test_classifier_chain()
+test_clone_and_property()
+test_continue_training_with_model()
+test_dart()
+test_eval_at_aliases()
+test_evaluate_train_set()
+test_feature_importances_single_leaf()
+test_feature_importances_type()
+test_first_metric_only()
+test_grid_search()
+test_inf_handle()
+test_joblib()
+test_lambdarank()
+test_metrics()
+test_multiclass()
+test_multiclass_custom_objective()
+test_multioutput_classifier()
+test_multioutput_regressor()
+test_multiple_eval_metrics()
+test_nan_handle()
+test_non_serializable_objects_in_callbacks(tmp_path)
+test_objective_aliases(custom_objective)
+test_pandas_categorical()
+test_pandas_sparse()
+test_predict()
+test_predict_with_params_from_init()
+test_random_search()
+test_random_state_object()
+test_regression()
+test_regression_with_custom_objective()
+test_regressor_chain()
+test_sklearn_integration(estimator, check)
+test_stacking_classifier()
+test_stacking_regressor()
+test_training_succeeds_when_data_is_dataframe_and_label_is_column_array(task)
+test_xendcg()
+
+-------------------------methods----------------------
+UnpicklableCallback.__call__(self, env)
+UnpicklableCallback.__reduce__(self)
+
+
+>>>>>>> origin/main
 utilmy/tabular/util_sampling.py
 -------------------------functions----------------------
 reservoir_sampling(src, nsample, temp_fac = 1.5, rs = None)
@@ -2940,11 +3681,16 @@ test()
 utilmy/tabular/util_sparse.py
 -------------------------functions----------------------
 help()
+<<<<<<< HEAD
 help()
 is_float(x)
 is_int(x)
 log(*s, **kw)
 log2(*s, **kw)
+=======
+is_float(x)
+is_int(x)
+>>>>>>> origin/main
 pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/")
 test1()
 test_all()
@@ -2957,6 +3703,7 @@ to_int(x)
 utilmy/tabular/util_uncertainty.py
 -------------------------functions----------------------
 help()
+<<<<<<< HEAD
 load_function_uri(uri_name = "path_norm")
 model_eval2(clf, Xval, yval, dirout = "")
 model_evaluate(model, data_pars:dict, predict_pars:dict)
@@ -2965,6 +3712,16 @@ model_load(path = "")
 model_predict(model, X_test, predict_pars:dict = None, interval = True)
 model_save(model, path = None, info = None)
 model_viz_classification_preds(preds, y_test)
+=======
+load_function_uri(uri_name: str = "path_norm")
+model_eval2(clf, Xval, yval, dirout = "")
+model_evaluate(model: Union[MapieClassifier, MapieRegressor], data_pars:dict, predict_pars:dict)
+model_fit(name: str  =  'mapie.regression.MapieRegressor', model: Optional[Union[RandomForestClassifier, DecisionTreeClassifier, LinearRegression]] = None, mapie_pars:dict = None, predict_pars:dict = None, data_pars:dict = None, do_prefit: bool = False, do_eval: bool = True, test_size: float = 0.3)
+model_load(path: str = "")
+model_predict(model, X_test, predict_pars:dict = None, interval = True)
+model_save(model: Union[MapieClassifier, MapieRegressor], path: Optional[str] = None, info: None = None)
+model_viz_classification_preds(preds: ndarray, y_test: ndarray)
+>>>>>>> origin/main
 test1()
 test2()
 test5()
@@ -3176,13 +3933,34 @@ utilmy/tools/__init__.py
 utilmy/tools/cli_code/cli_code/__init__.py
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_conda_merge.py
+=======
+utilmy/tools/cli_code/cli_code/cli_doc_auto/__init__.py
+
+
+utilmy/tools/cli_code/cli_code/cli_doc_auto/main.py
+-------------------------functions----------------------
+get_arguments()
+main()
+
+
+
+utilmy/tools/cli_code/setup.py
+
+
+utilmy/tools/cli_conda_merge.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 dump(output_yaml)
 getPipRequirementsContent(dependencies, versions = True, priorityVersions = True)
 getPriorityList()
 main()
+<<<<<<< HEAD
 merge(args)
+=======
+merge(yaml1, yaml2)
+>>>>>>> origin/main
 merge_channels(channels_list)
 merge_envs(args)
 merge_pips(pips)
@@ -3204,7 +3982,11 @@ DAG.topological_sort(self)
 DAG.validate(self)
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_convert_ipynb.py
+=======
+utilmy/tools/cli_convert_ipynb.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 check(file_list, dump = False)
 convert2python(source_files, data_file, out_dir)
@@ -3214,6 +3996,7 @@ scan(data_file)
 
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_doc_auto/__init__.py
 
 
@@ -3225,6 +4008,9 @@ main()
 
 
 utilmy/tools/cli_code/cli_code/cli_docs.py
+=======
+utilmy/tools/cli_docs.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 code_parse_line(li, pattern_type = "import/import_externa")
 conda_path_get(subfolder="package/F = "package/F:/")
@@ -3274,12 +4060,20 @@ Module.get_functions(self)
 Module.get_mlattr(self, full_name)
 Module.get_module_isbuiltin(self)
 Module.get_module_version(self)
+<<<<<<< HEAD
 Module.get_submodule(self)
+=======
+Module.get_submodule(self, attr)
+>>>>>>> origin/main
 Module.get_submodules(self)
 Module.is_imported(self, submodule_name)
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_download.py
+=======
+utilmy/tools/cli_download.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 get_arguments()
 main()
@@ -3295,7 +4089,11 @@ Downloader.download(self, filepath = '')
 Downloader.get_filename(self, headers)
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_env_autoinstall.py
+=======
+utilmy/tools/cli_env_autoinstall.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 conda_env_exits(conda_env)
 create_env(folder_input, conda_env, python_version = '3.6', packages = 'numpy')
@@ -3310,6 +4108,7 @@ scan(data_file)
 
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_format.py
 -------------------------functions----------------------
 format_assignments(text)
@@ -3326,6 +4125,9 @@ os_glob(in_dir)
 
 
 utilmy/tools/cli_code/cli_code/cli_github_search.py
+=======
+utilmy/tools/cli_github_search.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 get_arguments()
 main()
@@ -3333,12 +4135,20 @@ search_github(args, start_time)
 
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_json.py
+=======
+utilmy/tools/cli_json.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 dict_update(fields_list, d, value)
 json_codesource_to_json(fpath)
 json_csv_to_json(file_csv = "", out_path = "dataset/")
+<<<<<<< HEAD
 json_norm(x)
+=======
+json_norm(ddict)
+>>>>>>> origin/main
 json_norm_val(x)
 json_parse(ddict)
 json_to_object(ddict)
@@ -3361,7 +4171,11 @@ to_namespace.__init__(self, adict)
 to_namespace.get(self, key)
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_module_parser.py
+=======
+utilmy/tools/cli_module_parser.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 _onerror_reraise(e)
 _walk(*args, include_hidden = None, **kwargs)
@@ -3389,7 +4203,11 @@ ASTAnalyzer.visit_Lambda(self, node)
 ASTAnalyzer.visit_Name(self, node)
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/cli_repo_check.py
+=======
+utilmy/tools/cli_repo_check.py
+>>>>>>> origin/main
 -------------------------functions----------------------
 get_logger()
 get_os()
@@ -3404,6 +4222,7 @@ scan_dir(folder)
 
 
 
+<<<<<<< HEAD
 utilmy/tools/cli_code/cli_code/util_cli.py
 -------------------------functions----------------------
 _os_file_search_fast(fname, texts = None, mode = "regex/str")
@@ -3489,6 +4308,8 @@ utilmy/tools/cli_code/test/ztest/ztest_runall.py
 utilmy/tools/cli_code/test/ztest/ztest_util.py
 
 
+=======
+>>>>>>> origin/main
 utilmy/tools/codeparser_project_graph/project_graph/__init__.py
 
 
@@ -3543,6 +4364,97 @@ test_toplvl()
 
 
 
+<<<<<<< HEAD
+=======
+utilmy/tools/test/cli_convert_ipynb.py
+-------------------------functions----------------------
+check(file_list, dump = False)
+convert2python(source_files, data_file, out_dir)
+load_arguments()
+main()
+scan(data_file)
+
+
+
+utilmy/tools/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode = "run_preprocess", model_dict = None, return_mode = 'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/test/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode  =  "run_preprocess", model_dict =  None, return_mode =  'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/test/ztest/ast_analyzer_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_file_finder(self)
+
+
+utilmy/tools/test/ztest/file_finder_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_findVariablesInDir(self)
+TestFileFinder.test_findVariablesInFile(self)
+
+
+utilmy/tools/test/ztest/ok/ztest_import.py
+
+
+utilmy/tools/test/ztest/output_test.py
+-------------------------methods----------------------
+TestOutput.test_corner_cases(self)
+TestOutput.test_output(self)
+
+
+utilmy/tools/test/ztest/run_batch.py
+
+
+utilmy/tools/test/ztest/ztest_batch.py
+
+
+utilmy/tools/test/ztest/ztest_import.py
+
+
+utilmy/tools/test/ztest/ztest_runall.py
+
+
+utilmy/tools/test/ztest/ztest_util.py
+
+
+utilmy/tools/util_cli.py
+-------------------------functions----------------------
+_os_file_search_fast(fname, texts = None, mode = "regex/str")
+os_file_getname(path)
+os_file_getpath(path)
+os_file_gettext(file1)
+os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
+os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
+os_file_replace(source_file_path, pattern, substring)
+os_file_replacestring1(find_str, rep_str, file_path)
+os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
+
+
+
+utilmy/tseries/__init__.py
+
+
+>>>>>>> origin/main
 utilmy/tseries/util_tseries.py
 
 
@@ -3578,18 +4490,35 @@ IndexLock.get(self, **kw)
 IndexLock.put(self, val:list = None)
 IndexLock.read(self, )
 IndexLock.save_filter(self, val:list = None)
+<<<<<<< HEAD
 IndexLock.save_isok(self, flist:list)
+=======
+>>>>>>> origin/main
 toFile.__init__(self, fpath)
 toFile.write(self, msg)
 
 
+<<<<<<< HEAD
+=======
+utilmy/util_colab.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+
+
+
+>>>>>>> origin/main
 utilmy/util_conda.py
 -------------------------functions----------------------
 help()
 pip_auto_install()
 
+<<<<<<< HEAD
 -------------------------methods----------------------
 PipFinder.find_spec(cls, name, path, target = None)
+=======
+>>>>>>> origin/main
 
 
 utilmy/util_cpu.py
@@ -3653,6 +4582,10 @@ user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
 
 utilmy/util_download.py
 -------------------------functions----------------------
+<<<<<<< HEAD
+=======
+download_page_image(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+>>>>>>> origin/main
 download_with_progress(url, destination)
 get_cache_directory()
 
@@ -3686,14 +4619,29 @@ get_loggers(mode = 'print', n_loggers = 2, verbose_level = None)
 get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
+<<<<<<< HEAD
 glob_glob(dirin = "**/*.py", nfile = 1000, recursive = False, **kw)
+=======
+glob_glob(dirin:Union[str, list] = "**/*.py", nfile = 1000, direxclude:Union[str, list] = "", exclude:Union[str, list] = "", recursive = True, silent = False, show = 0, **kw)
+help()
+>>>>>>> origin/main
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
 help_get_docstring(func)
 help_get_funargs(func)
+<<<<<<< HEAD
 help_signature(f)
 import_function(fun_name = None, module_name = None, fuzzy_match = False)
 load(to_file = "")
+=======
+help_info(fun_name:str = "os.system", doprint = True)
+help_signature(f)
+import_function(fun_name = None, module_name = None, fuzzy_match = False)
+load(to_file = "")
+log(*s, **kw)
+log2(*s, **kw)
+log3(*s, **kw)
+>>>>>>> origin/main
 pd_generate_data(ncols = 7, nrows = 100)
 pd_getdata(verbose = True)
 pd_random(ncols = 7, nrows = 100)
@@ -3861,6 +4809,7 @@ process_url(url_data, idx, list_len, path_pdf = "", path_txt = "")
 
 
 
+<<<<<<< HEAD
 utilmy/webscraper/scrape_batch.py
 -------------------------functions----------------------
 download_page()
@@ -3869,6 +4818,8 @@ test_extract_to_pandas()
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/webscraper/test/Scraper_INSTAGRAM.py
 -------------------------functions----------------------
 make_soup(url)
@@ -3907,9 +4858,12 @@ web_sendurl(url1)
 
 
 
+<<<<<<< HEAD
 utilmy/zml/__init__.py
 
 
+=======
+>>>>>>> origin/main
 utilmy/zml/core_deploy.py
 -------------------------functions----------------------
 load_arguments()
@@ -3919,7 +4873,11 @@ load_arguments()
 utilmy/zml/core_run.py
 -------------------------functions----------------------
 check(config='outlier_predict.py = 'outlier_predict.py::titanic_lightgbm')
+<<<<<<< HEAD
 data_profile(config = '')
+=======
+data_profile(path_data = "NO PATH", path_output = "NO PATH@", n_sample =  5000)
+>>>>>>> origin/main
 data_profile2(config = '')
 deploy()
 get_config_path(config = '')
@@ -4262,7 +5220,11 @@ featurestore_meta_update(featnames, filename, colcat)
 pd_col_tocat(df, nan_cols, colcat)
 pd_merge(df_list, cols_join)
 pd_ts_tsfresh(df, input_raw_path, dir_out, features_group_name, auxiliary_csv_path, drop_cols, index_cols, merge_cols_mapping, cat_cols  =  None, id_cols  =  None, dep_col  =  None, coldate  =  None, max_rows  =  10)
+<<<<<<< HEAD
 pd_tsfresh_m5data(df_sales, dir_out, features_group_name, drop_cols, df_calendar, index_cols, merge_cols_mapping, id_cols)
+=======
+pd_tsfresh_m5data(df)
+>>>>>>> origin/main
 pd_tsfresh_m5data_sales(df_sales, dir_out, features_group_name, drop_cols, df_calendar, index_cols, merge_cols_mapping, id_cols)
 run_train(input_path  = "data/input/tseries/tseries_m5/raw", out_path = data_path, do_generate_raw = True, do_generate_feature = True, do_train = False, max_rows  =  10)
 train(input_path, n_experiments  =  3, colid  =  None, coly  =  None)
@@ -4551,14 +5513,22 @@ utilmy/zml/source/models/akeras/Autokeras.py
 evaluate(model, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
+<<<<<<< HEAD
 get_dataset(data_pars)
+=======
+get_dataset(data_pars = None)
+>>>>>>> origin/main
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
 get_params(param_pars = None, **kw)
 load(load_pars, config_mode = "test")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None, config_mode = "test")
+<<<<<<< HEAD
 test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -4851,7 +5821,11 @@ fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_xy_dataset(data_sample = None)
 get_xy_fd(use_neg = False, hash_flag = False, use_session = False)
+<<<<<<< HEAD
 get_xy_random(X, y, cols_family = {})
+=======
+get_xy_random()
+>>>>>>> origin/main
 get_xy_random2(X, y, cols_family = {})
 init(*kw, **kwargs)
 load_info(path = "")
@@ -4904,7 +5878,11 @@ tf_FeatureColumns.__init__(self, dataframe = None)
 tf_FeatureColumns.bucketized_columns(self, columnsBoundaries)
 tf_FeatureColumns.categorical_columns(self, indicator_column_names, colcat_nunique = None, output = False)
 tf_FeatureColumns.crossed_feature_columns(self, columns_crossed, nameOfLayer, bucket_size = 10)
+<<<<<<< HEAD
 tf_FeatureColumns.data_to_tensorflow(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, test_split = 0.2, colnum = [], colcat = [])
+=======
+tf_FeatureColumns.data_to_tensorflow(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, colnum = [], colcat:list = [])
+>>>>>>> origin/main
 tf_FeatureColumns.data_to_tensorflow_split(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, test_split = 0.2, colnum = [], colcat = [])
 tf_FeatureColumns.df_to_dataset(self, dataframe, target, shuffle = True, batch_size = 32)
 tf_FeatureColumns.df_to_dataset_dense(self, dataframe, target, shuffle = True, batch_size = 32)
@@ -4921,7 +5899,11 @@ utilmy/zml/source/models/keras_widedeep_dense.py
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 evaluate(Xy_pred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(Xtrain, cols_type_received, cols_ref, **kw)
@@ -4978,7 +5960,11 @@ model_class_loader(m_name = 'BayesianRegression', class_list:list = None)
 predict(Xpred = None, data_pars = {}, compute_pars = None, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
+<<<<<<< HEAD
 test(nrows = 500)
+=======
+test(nrows = 1000)
+>>>>>>> origin/main
 test_dataset_regress_fake(nrows = 500)
 y_norm(y, inverse = True, mode = 'boxcox')
 
@@ -4992,7 +5978,11 @@ utilmy/zml/source/models/model_encoder.py
 -------------------------functions----------------------
 decode(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 fit(data_pars: dict = None, compute_pars: dict = None, out_pars: dict = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref, split = False)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split = False)
 init(*kw, **kwargs)
 init(*kw, **kwargs)
@@ -5011,7 +6001,11 @@ predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 reset()
 save(path = None, info = None)
+<<<<<<< HEAD
 test(nrows = 500)
+=======
+test()
+>>>>>>> origin/main
 test_dataset_classi_fake(nrows = 500)
 test_helper(model_pars, data_pars, compute_pars)
 transform(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
@@ -5035,7 +6029,11 @@ gef_is_continuous(data)
 gef_normalize_data(data, maxv, minv)
 gef_standardize_data(data, mean, std)
 german(data)
+<<<<<<< HEAD
 get_data(data_pars = None, task_type = "train", **kw)
+=======
+get_data(name)
+>>>>>>> origin/main
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_dummies(data)
 init(*kw, **kwargs)
@@ -5112,7 +6110,11 @@ ShabadooException.__str__(self)
 utilmy/zml/source/models/model_outlier.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, ytrain = None, data_pars = None, )
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_split_for_model_pandastuple(Xtrain, ytrain = None, data_pars = None, )
 init(*kw, **kwargs)
@@ -5133,7 +6135,11 @@ utilmy/zml/source/models/model_sampler.py
 -------------------------functions----------------------
 eval(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars: dict = None, compute_pars: dict = None, out_pars: dict = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref, split = False)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5160,10 +6166,17 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zml/source/models/model_sklearn.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, ytrain = None, data_pars = None, )
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_split_for_model_pandastuple(Xtrain, ytrain = None, data_pars = None, )
 get_params(deep = False)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+get_dataset2(data_pars = None, task_type = "train", **kw)
+get_dataset_split_for_model_pandastuple(Xtrain, ytrain = None, data_pars = None, )
+get_params(param_pars = {}, **kw)
+>>>>>>> origin/main
 get_params_sklearn(deep = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5198,7 +6211,11 @@ predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 predict_forward(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
+<<<<<<< HEAD
 test(nrows = 10000, coly = None, coldate = None, colcat = None)
+=======
+test()
+>>>>>>> origin/main
 test2(nrows = 1000, file_path = None, coly = None, coldate = None, colcat = None)
 test_dataset_tseries(nrows = 10000, coly = None, coldate = None, colcat = None)
 time_train_test_split(df, test_size  =  0.4, cols = None, coltime  = "time_key", sort = True, minsize = 5, n_sample = 5, verbose = False)
@@ -5241,7 +6258,11 @@ benchmark(config = '', dmin = 5, dmax = 6)
 decode(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, index  =  0, **kw)
 encode(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, model_class = 'VAEMDN', **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, model_class = 'VAEMDN', **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_label(encoder, x_train, dummy_train, class_num = 5, batch_size = 256)
 init(*kw, **kwargs)
@@ -5254,7 +6275,11 @@ predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, model_
 reset()
 sampling(args)
 save(path = None, info = None)
+<<<<<<< HEAD
 test(n_rows = 100)
+=======
+test()
+>>>>>>> origin/main
 test2(n_sample           =  1000)
 test3(n_sample  =  1000)
 test4()
@@ -5281,7 +6306,11 @@ os_makedirs(dir_or_file)
 predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
+<<<<<<< HEAD
 test(nrows = 500)
+=======
+test(config = '')
+>>>>>>> origin/main
 test_dataset_classi_fake(nrows = 500)
 test_helper(model_pars, data_pars, compute_pars)
 
@@ -5364,7 +6393,11 @@ os_makedirs(dir_or_file)
 predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
+<<<<<<< HEAD
 test(nrows = 1000)
+=======
+test(n_sample           =  1000)
+>>>>>>> origin/main
 test_dataset_goodbooks(nrows = 1000)
 test_helper(model_pars, data_pars, compute_pars)
 train_test_split2(df, coly)
@@ -5432,7 +6465,11 @@ RVAE.save(self)
 utilmy/zml/source/models/torch_tabular.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref = None)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref = None)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5472,7 +6509,11 @@ ModelCustom2()
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 Modelsparse2()
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
@@ -5499,7 +6540,11 @@ eval(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
+<<<<<<< HEAD
 get_params(deep = False)
+=======
+get_params(param_pars = {}, **kw)
+>>>>>>> origin/main
 get_params_sklearn(deep = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5520,7 +6565,11 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zml/source/models/ztmp2/model_vaem.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_dataset()seed  =  3000"./data/bank/bankmarketing_train.csv")bank_raw.info())label_column="y")matrix1, ["job"])matrix1, ["marital"])matrix1, ["education"])matrix1, ["default"])matrix1, ["housing"])matrix1, ["loan"])matrix1, ["contact"])matrix1, ["month"])matrix1, ["day_of_week"])matrix1, ["poutcome"])matrix1, ["y"])(matrix1.values).astype(float))[0, :]max_Data  =  0.7min_Data = 0.3[0, 1, 2, 3, 4, 5, 6, 7])[8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])[8, 9])np.in1d(list_flt, list_discrete).nonzero()[0])list_cat)list_flt)>0 and len(list_cat)>0)
@@ -5550,7 +6599,11 @@ log(*s)
 log2(*s)
 p_vae_active_learning(Data_train_comp, Data_train, mask_train, Data_test, mask_test_comp, mask_test, cat_dims, dim_flt, dic_var_type, args, list_discrete, records_d, estimation_method = 1)
 reset()
+<<<<<<< HEAD
 save(model, output_dir)
+=======
+save(path = '', info = None)
+>>>>>>> origin/main
 save_model2(model, output_dir)
 train_p_vae(stage, x_train, Data_train, mask_train, epochs, latent_dim, cat_dims, dim_flt, batch_size, p, K, iteration, list_discrete, records_d, args)
 
@@ -5573,7 +6626,11 @@ log(*s)
 log2(*s)
 p_vae_active_learning(Data_train_compressed, Data_train, mask_train, Data_test, mask_test_compressed, mask_test, cat_dims, dim_flt, dic_var_type, args, list_discrete, records_d, estimation_method = 1)
 reset()
+<<<<<<< HEAD
 save(model, output_dir)
+=======
+save(path = '', info = None)
+>>>>>>> origin/main
 save_model2(model, output_dir)
 train_p_vae(stage, x_train, Data_train, mask_train, epochs, latent_dim, cat_dims, dim_flt, batch_size, p, K, iteration, list_discrete, records_d, args)
 
@@ -5587,7 +6644,11 @@ Model.fit(self,filePath, categories,cat_cols,num_cols,discrete_cols,targetCol,ns
 utilmy/zml/source/models/ztmp2/torch_rvae2.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5672,7 +6733,11 @@ log(*s, n = 0, m = 1)
 log_pd(df, *s, n = 0, m = 1)
 logs(*s)
 nlp_get_stopwords()
+<<<<<<< HEAD
 pd_coltext(df, col, stopwords =  None, pars = None)
+=======
+pd_coltext(df, col, pars = {})
+>>>>>>> origin/main
 pd_coltext_clean(df, col, stopwords =  None, pars = None)
 pd_coltext_universal_google(df, col, pars = {})
 pd_coltext_wordfreq(df, col, stopwords, ntoken = 100)
@@ -5850,7 +6915,11 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
+<<<<<<< HEAD
 load(name, path)
+=======
+load(file_name)
+>>>>>>> origin/main
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -5888,7 +6957,11 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
+<<<<<<< HEAD
 save(df, name, path = None)
+=======
+save(obj, path)
+>>>>>>> origin/main
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -5919,7 +6992,11 @@ logger_setup(logger_name = None, log_file = None, formatter = FORMATTER_1, isrot
 logger_setup2(name = __name__, level = None)
 os_make_dirs(filename)
 printlog(s = "", s1 = "", s2 = "", s3 = "", s4 = "", s5 = "", s6 = "", s7 = "", s8 = "", s9 = "", s10 = "", app_id = "", logfile = None, iswritelog = True, )
+<<<<<<< HEAD
 save(variable_list, folder, globals_main = None)
+=======
+save(obj, filename = "/folder1/keyname", isabsolutpath = 0)
+>>>>>>> origin/main
 save_all(variable_list, folder, globals_main = None)
 sk_tree_get_ifthen(tree, feature_names, target_names, spacer_base = " ")
 writelog(m = "", f = None)
@@ -5955,13 +7032,18 @@ fun_get_segmentlimit(x, l1)
 model_logistic_score(clf, df1, cols, coltarget, outype = "score")
 np_drop_duplicates(l1)
 pd_num_segment_limit(df, col_score = "scoress", coldefault = "y", ntotal_default = 491, def_list = None, nblock = 20.0)
+<<<<<<< HEAD
 split_train(X, y, split_ratio = 0.8)
+=======
+split_train(df1, ntrain = 10000, ntest = 100000, colused = None, coltarget = None)
+>>>>>>> origin/main
 split_train2(df1, ntrain = 10000, ntest = 100000, colused = None, coltarget = None, nratio = 0.4)
 split_train_test(X, y, split_ratio = 0.8)
 ztest()
 
 
 
+<<<<<<< HEAD
 utilmy/zml/source/utils/util_csv.py
 -------------------------functions----------------------
 csv_analysis()
@@ -5986,6 +7068,8 @@ xl_val(ws, colj, rowi)
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zml/source/utils/util_date.py
 -------------------------functions----------------------
 dateime_daytime(datetimex)
@@ -6029,6 +7113,7 @@ r_precision(r)
 
 
 
+<<<<<<< HEAD
 utilmy/zml/source/utils/util_model.py
 -------------------------functions----------------------
 import_(abs_module_path, class_name = None)
@@ -6066,6 +7151,8 @@ model_template1.predict(self, X, y = None, ymedian = None)
 model_template1.score(self, X, Ytrue = None, ymedian = None)
 
 
+=======
+>>>>>>> origin/main
 utilmy/zml/source/utils/util_optim.py
 -------------------------functions----------------------
 create_model_name(save_folder, model_name)
@@ -6085,6 +7172,7 @@ pd_pipeline(bin_cols, text_col, X, y)
 
 
 
+<<<<<<< HEAD
 utilmy/zml/source/utils/util_plot.py
 -------------------------functions----------------------
 pd_colnum_tocat_stat(input_data, feature, target_col, bins, cuts = 0)
@@ -6131,6 +7219,8 @@ sql_query(sqlr = "SELECT ticker,shortratio,sector1_id, FROM stockfundamental", d
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zml/source/utils/util_stat.py
 -------------------------functions----------------------
 np_conditional_entropy(x, y)
@@ -6275,7 +7365,11 @@ utilmy/zml/ztemplate.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 get_dataset(Xtrain, cols_type_received, cols_ref)
+=======
+get_dataset(data_pars = None, task_type = "train", **kw)
+>>>>>>> origin/main
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_model(path = "")
@@ -6309,9 +7403,12 @@ set_rc_version(rcfile, target_version)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/__init__.py
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/alldata.py
 
 
@@ -6347,6 +7444,7 @@ year(s)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/datanalysis.py
 -------------------------functions----------------------
 col_feature_importance(Xcol, Ytarget)
@@ -6437,6 +7535,8 @@ npdot()
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/fast.py
 -------------------------functions----------------------
 _compute_overlaps(u, v)
@@ -6450,7 +7550,11 @@ distance_jaccard_X(X)
 drawdown_calc_fast(price)
 fastStrptime(val, format)
 hour(s)
+<<<<<<< HEAD
 log_exp_sum2(a, b)
+=======
+log_exp_sum2()
+>>>>>>> origin/main
 mean(x)
 month(s)
 norm(vec)
@@ -6556,15 +7660,25 @@ np_find_maxpos(values)
 np_find_maxpos_2nd(numbers)
 np_find_minpos(values)
 np_findfirst(item, vec)
+<<<<<<< HEAD
 np_findlocalmax(v, trig)
 np_findlocalmax2(v, trig)
 np_findlocalmin(v, trig)
+=======
+np_findlocalmax(v)
+np_findlocalmax2(v, trig)
+np_findlocalmin(v)
+>>>>>>> origin/main
 np_findlocalmin2(v, trig)
 np_interpolate_nan(y)
 np_ma(vv, n)
 np_memory_array_adress(x)
 np_remove_zeros(vv, axis1 = 1)
+<<<<<<< HEAD
 np_sort(arr, colid, asc = True)
+=======
+np_sort(vv)
+>>>>>>> origin/main
 np_sortbycol(arr, colid, asc = True)
 np_sortbycolumn(arr, colid, asc = True)
 np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
@@ -6617,7 +7731,11 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
+<<<<<<< HEAD
 integratenp(its, nchunk)
+=======
+integratenp(its)
+>>>>>>> origin/main
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -6652,7 +7770,11 @@ correl_fast(xn, y, nx)
 correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
+<<<<<<< HEAD
 date_align(array1, dateref)
+=======
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
+>>>>>>> origin/main
 date_alignfromdateref(array1, dateref)
 date_earningquater(t1)
 date_extract_dailyopenclosetime(spdateref1, market = 'us')
@@ -6678,11 +7800,19 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
+<<<<<<< HEAD
 folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
 get(close, timelag)
+=======
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
+folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
+folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
+get(dataset, **kwargs)
+>>>>>>> origin/main
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -6797,7 +7927,11 @@ correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
 date_add_bdays(from_date, add_days)
+<<<<<<< HEAD
 date_align(array1, dateref)
+=======
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
+>>>>>>> origin/main
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -6840,11 +7974,19 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
+<<<<<<< HEAD
 folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
 get(close, timelag)
+=======
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
+folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
+folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
+get(dataset, **kwargs)
+>>>>>>> origin/main
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -6992,6 +8134,7 @@ year(s)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/py2to3/datanalysis.py
 -------------------------functions----------------------
 col_feature_importance(Xcol, Ytarget)
@@ -7079,6 +8222,8 @@ npdot()
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/py2to3/fast.py
 -------------------------functions----------------------
 _compute_overlaps(u, v)
@@ -7092,7 +8237,11 @@ distance_jaccard_X(X)
 drawdown_calc_fast(price)
 fastStrptime(val, format)
 hour(s)
+<<<<<<< HEAD
 log_exp_sum2(a, b)
+=======
+log_exp_sum2()
+>>>>>>> origin/main
 mean(x)
 month(s)
 norm(vec)
@@ -7198,15 +8347,25 @@ np_find_maxpos(values)
 np_find_maxpos_2nd(numbers)
 np_find_minpos(values)
 np_findfirst(item, vec)
+<<<<<<< HEAD
 np_findlocalmax(v, trig)
 np_findlocalmax2(v, trig)
 np_findlocalmin(v, trig)
+=======
+np_findlocalmax(v)
+np_findlocalmax2(v, trig)
+np_findlocalmin(v)
+>>>>>>> origin/main
 np_findlocalmin2(v, trig)
 np_interpolate_nan(y)
 np_ma(vv, n)
 np_memory_array_adress(x)
 np_remove_zeros(vv, axis1 = 1)
+<<<<<<< HEAD
 np_sort(arr, colid, asc = True)
+=======
+np_sort(vv)
+>>>>>>> origin/main
 np_sortbycol(arr, colid, asc = True)
 np_sortbycolumn(arr, colid, asc = True)
 np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
@@ -7259,7 +8418,11 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
+<<<<<<< HEAD
 integratenp(its, nchunk)
+=======
+integratenp(its)
+>>>>>>> origin/main
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -7287,7 +8450,11 @@ correl_fast(xn, y, nx)
 correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
+<<<<<<< HEAD
 date_align(array1, dateref)
+=======
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
+>>>>>>> origin/main
 date_alignfromdateref(array1, dateref)
 date_earningquater(t1)
 date_extract_dailyopenclosetime(spdateref1, market = 'us')
@@ -7313,11 +8480,19 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
+<<<<<<< HEAD
 folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
 get(close, timelag)
+=======
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
+folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
+folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
+get(dataset, **kwargs)
+>>>>>>> origin/main
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -7432,7 +8607,11 @@ correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
 date_add_bdays(from_date, add_days)
+<<<<<<< HEAD
 date_align(array1, dateref)
+=======
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
+>>>>>>> origin/main
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -7475,11 +8654,19 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
+<<<<<<< HEAD
 folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
 get(close, timelag)
+=======
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
+folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
+folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
+get(dataset, **kwargs)
+>>>>>>> origin/main
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -7662,6 +8849,7 @@ df_to_geojson(df, col_properties, lat = 'latitude', lon = 'longitude')
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/py3/util.py
 -------------------------functions----------------------
 a_autoreload()
@@ -7929,6 +9117,8 @@ testclass.__init__(self, x)
 testclass.z_autotest(self)
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/report.py
 -------------------------functions----------------------
 map_show()
@@ -7962,7 +9152,11 @@ getmodule_doc(module1, fileout = '')
 utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py
 -------------------------functions----------------------
 dedent()
+<<<<<<< HEAD
 describe(obj)
+=======
+describe(module)
+>>>>>>> origin/main
 describe2(module)
 describe_builtin(obj)
 describe_builtin2(obj, name1)
@@ -8099,7 +9293,11 @@ payoffeuro1(st)
 utilmy/zzarchive/storage/codeanalysis.py
 -------------------------functions----------------------
 dedent()
+<<<<<<< HEAD
 describe(obj)
+=======
+describe(module)
+>>>>>>> origin/main
 describe2(module, type1 = 0)
 describe_builtin(obj)
 describe_builtin2(obj, name1)
@@ -8125,7 +9323,11 @@ CRR_option_value(S0, K, T, r, vol, otype, M = 4)
 N(d)
 brownian_logret(mu, vol, timegrid)
 brownian_process(s0, vol, timegrid)
+<<<<<<< HEAD
 bs(S0, K, t, T, r, d, vol)
+=======
+bs(S0, K, t, T, r, d, vol, cp)
+>>>>>>> origin/main
 bsbinarycall(S0, K, t, T, r, d, vol)
 bscall(S0, K, t, T, r, d, vol)
 bsdelta(St, K, t, T, r, d, vol, cp1)
@@ -8174,7 +9376,11 @@ logret_to_price(s0, log_ret)
 logret_to_ret(log_returns)
 multibrownian_logret(mu, vol, corrmatrix, timegrid)
 multigbm_logret(mu, vol, corrmatrix, timegrid)
+<<<<<<< HEAD
 multigbm_process(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
+=======
+multigbm_process(s0, mu, vol, corrmatrix, timegrid)
+>>>>>>> origin/main
 multigbm_processfast(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
 multigbm_processfast2(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
 multigbm_processfast3(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
@@ -8204,6 +9410,7 @@ save_weights(file, tuple_weights)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/storage/excel.py
 -------------------------functions----------------------
 add_one(data)
@@ -8214,6 +9421,8 @@ npdot()
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/storage/global01.py
 
 
@@ -8251,7 +9460,11 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
+<<<<<<< HEAD
 integratenp(its, nchunk)
+=======
+integratenp(its)
+>>>>>>> origin/main
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -8264,6 +9477,7 @@ res_shared2()
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/storage/panda_util.py
 -------------------------functions----------------------
 array_toexcel(vv, wk, r1)subset = 'rownum', take_last=True)level=0))a) = True)level=0))a):)
@@ -8288,6 +9502,8 @@ unique_rows(a)
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/storage/portfolio.py
 -------------------------functions----------------------
 _date_align(dateref, datei, tmax, closei)
@@ -8309,7 +9525,11 @@ correlation_mat(matx, type1 = "robust", type2 = "correl")
 data_jpsector()
 dataframe_toarray(df)
 date_add_bdays(from_date, add_days)
+<<<<<<< HEAD
 date_align(array1, dateref)
+=======
+date_align(quotes, dateref = None, type1 = "close")
+>>>>>>> origin/main
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -8522,7 +9742,11 @@ utilmy/zzarchive/storage/symbolicmath.py
 EEvarbrownian(ff1d)
 EEvarbrownian2d(ff)
 N(x)
+<<<<<<< HEAD
 bs(s0, K, t, T, r, d, vol)
+=======
+bs(s0, K, t, T, r, d, vol, cp)
+>>>>>>> origin/main
 bsbinarycall(s0, K, t, T, r, d, vol)
 bscall(s0, K, t, T, r, d, vol)
 bsdelta(St, K, t, T, r, d, vol, cp1)
@@ -8544,7 +9768,11 @@ d2xf(St, K, t, T, r, d, vol)
 dN(x)
 decomposecorrel(m1)
 diffn(ff, x0, kk)
+<<<<<<< HEAD
 dnn(x, y, p)
+=======
+dnn(x)
+>>>>>>> origin/main
 dnn2(x, y, p)
 factorpoly(pp)
 lagrangian2d(ll)
@@ -8584,7 +9812,11 @@ ROC(df, n)
 RSI(df, n = 14)
 RWI(df, nn, nATR)
 STDDEV(df, n)
+<<<<<<< HEAD
 STO(df)
+=======
+STO(df, n)
+>>>>>>> origin/main
 STOK(df)
 TRIX(df, n)
 TSI(df, r, s)
@@ -8592,7 +9824,11 @@ ULTOSC(df)
 Vortex(df, n)
 date_earningquater(t1)
 date_option_expiry(date)
+<<<<<<< HEAD
 distance(df, tk, tkname)
+=======
+distance(df, ind)
+>>>>>>> origin/main
 distance_day(df, tk, tkname)
 findhigher(item, vec)
 findlower(item, vec)
@@ -8613,6 +9849,7 @@ supportmaxmin1(df1)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/storage/testmulti.py
 -------------------------functions----------------------
 mc01()
@@ -8626,6 +9863,8 @@ test01()
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/storage/theano_imdb.py
 -------------------------functions----------------------
 get_dataset_file(dataset, default_dataset, origin)
@@ -8660,6 +9899,7 @@ zipp(params, tparams)
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/util.py
 -------------------------functions----------------------
 a_autoreload()
@@ -8885,6 +10125,8 @@ testclass.__init__(self, x)
 testclass.z_autotest(self)
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/util_aws.py
 -------------------------functions----------------------
 aws_accesskey_get(access = '', key = '')
@@ -8897,7 +10139,11 @@ aws_ec2_allocate_elastic_ip(con, instance_id = "", elastic_ip = '', region = "ap
 aws_ec2_cmd_ssh(cmdlist =   ["ls " ], host = 'ip', doreturn = 0, ssh = None, username = 'ubuntu', keyfilepath = '')
 aws_ec2_create_con(contype = 'sftp/ssh', host = 'ip', port = 22, username = 'ubuntu', keyfilepath = '', password = '', keyfiletype = 'RSA', isprint = 1)
 aws_ec2_get_id(ipadress = '', instance_id = '')
+<<<<<<< HEAD
 aws_ec2_get_instanceid(con, ip_address)
+=======
+aws_ec2_get_instanceid()
+>>>>>>> origin/main
 aws_ec2_printinfo(instance = None, ipadress = "", instance_id = "")
 aws_ec2_python_script(script_path, args1, host)
 aws_ec2_res_start(con, region, key_name, ami_id, inst_type = "cx2.2", min_count  = 1, max_count  = 1, pars= {"security_group" =  {"security_group": [""], "disk_size": 25, "disk_type": "ssd", "volume_type": "gp2"})
@@ -9032,6 +10278,7 @@ df_to_geojson(df, col_properties, lat = 'latitude', lon = 'longitude')
 
 
 
+<<<<<<< HEAD
 utilmy/zzarchive/zzarchive/zutil.py
 -------------------------functions----------------------
 _os_file_search_fast(fname, texts = None, mode = "regex/str")
@@ -9231,6 +10478,8 @@ z_key_splitinto_dir_name(keyname)
 
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzarchive/zzarchive/zutil_features.py
 -------------------------functions----------------------
 col_extractname(col_onehot)
@@ -9240,7 +10489,11 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
+<<<<<<< HEAD
 load(name, path)
+=======
+load(file_name)
+>>>>>>> origin/main
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -9278,7 +10531,11 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
+<<<<<<< HEAD
 save(df, name, path = None)
+=======
+save(obj, path)
+>>>>>>> origin/main
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -9334,7 +10591,11 @@ git_pieces_from_vcs(tag_prefix, root, verbose, run_command = run_command)
 git_versions_from_keywords(keywords, tag_prefix, verbose)
 plus_or_dot(pieces)
 register_vcs_handler(vcs, method)
+<<<<<<< HEAD
 render(pieces)
+=======
+render(pieces, style)
+>>>>>>> origin/main
 render_git_describe(pieces)
 render_git_describe_long(pieces)
 render_pep440(pieces)
@@ -9362,7 +10623,11 @@ utilmy/zzml/mlmodels/data.py
 download_dtopbox(data_pars)
 download_googledrive(file_list, **kw)
 get_dataset(data_pars)
+<<<<<<< HEAD
 import_data(name = "", mode = "train", node_id = 0, data_folder_root = "")
+=======
+import_data()
+>>>>>>> origin/main
 import_data_dask(**kw)
 import_data_fromfile(**kw)
 import_data_tch(name = "", mode = "train", node_id = 0, data_folder_root = "")
@@ -9370,6 +10635,7 @@ tf_dataset(dataset_pars)
 
 
 
+<<<<<<< HEAD
 utilmy/zzml/mlmodels/dataloader.py
 -------------------------functions----------------------
 _check_output_shape(self, inter_output, shape, max_len)
@@ -9391,6 +10657,8 @@ test_single(arg)
 DataLoader.__init__(self, data_pars)
 
 
+=======
+>>>>>>> origin/main
 utilmy/zzml/mlmodels/dataloader_test.py
 -------------------------functions----------------------
 gluon_append_target_string(out, data_pars)
@@ -9526,7 +10794,11 @@ plot_predict(item_metrics, out_pars = None)
 plot_prob_forecasts(ypred, out_pars = None)
 predict(model, sess = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
 save(model, path)
+<<<<<<< HEAD
 test(data_path = "dataset/", choice = "", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", choice = "", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9545,7 +10817,11 @@ plot_predict(item_metrics, out_pars = None)
 plot_prob_forecasts(ypred, out_pars = None)
 predict(model, sess = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
 save(model, path)
+<<<<<<< HEAD
 test(data_path = "dataset/", choice = "", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", choice = "", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9599,14 +10875,22 @@ utilmy/zzml/mlmodels/model_keras/Autokeras.py
 evaluate(model, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
+<<<<<<< HEAD
 get_dataset(data_pars)
+=======
+get_dataset(data_pars = None)
+>>>>>>> origin/main
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
 get_params(param_pars = None, **kw)
 load(load_pars, config_mode = "test")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None, config_mode = "test")
+<<<<<<< HEAD
 test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9715,7 +10999,11 @@ metrics(ypred, model, session = None, model_pars = None, data_pars = None, compu
 os_package_root_path(filepath, sublevel = 0, path_add = "")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 save(model = None, session = None, save_pars = {})
+<<<<<<< HEAD
 test(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
+=======
+test(data_path = "dataset/")
+>>>>>>> origin/main
 test2(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
 
 -------------------------methods----------------------
@@ -9727,7 +11015,11 @@ utilmy/zzml/mlmodels/model_keras/old/Autokeras.py
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
+<<<<<<< HEAD
 get_dataset(data_pars)
+=======
+get_dataset(data_pars = None)
+>>>>>>> origin/main
 get_dataset_auto_mpg(data_pars)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
@@ -9735,7 +11027,11 @@ get_params(param_pars = None, **kw)
 load(load_pars)
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None)
+<<<<<<< HEAD
 test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9911,7 +11207,11 @@ metrics(ypred, model, session = None, model_pars = None, data_pars = None, compu
 os_package_root_path(filepath, sublevel = 0, path_add = "")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 save(model = None, session = None, save_pars = {})
+<<<<<<< HEAD
 test(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
+=======
+test(data_path = "dataset/")
+>>>>>>> origin/main
 test2(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
 
 -------------------------methods----------------------
@@ -9923,7 +11223,11 @@ utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
+<<<<<<< HEAD
 get_dataset(data_pars)
+=======
+get_dataset(data_pars = None)
+>>>>>>> origin/main
 get_dataset_auto_mpg(data_pars)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
@@ -9931,7 +11235,11 @@ get_params(param_pars = None, **kw)
 load(load_pars)
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None)
+<<<<<<< HEAD
 test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+=======
+test()
+>>>>>>> origin/main
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -10205,13 +11513,21 @@ fit(model, data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit_simple(net, optimiser, data_generator, on_save_callback, device, data_pars, out_pars, max_grad_steps = 500, )
 get_dataset(data_pars)
 get_params(param_pars, **kw)
+<<<<<<< HEAD
 load(model, optimiser, CHECKPOINT_NAME = "nbeats-fiting-checkpoint.th")
+=======
+load(load_pars)
+>>>>>>> origin/main
 load_checkpoint(model, optimiser, CHECKPOINT_NAME = "nbeats-fiting-checkpoint.th")
 plot(net, x, target, backcast_length, forecast_length, grad_step, out_path = "./")
 plot_model(net, x, target, grad_step, data_pars, disable_plot = False)
 plot_predict(x_test, y_test, p, data_pars, compute_pars, out_pars)
 predict(model, sess, data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 save(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
+=======
+save(model, session, save_pars)
+>>>>>>> origin/main
 save_checkpoint(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
 test(data_path = "dataset/milk.csv")
 
@@ -10250,13 +11566,21 @@ fit_simple(net, optimiser, data_generator, on_save_callback, device, data_pars, 
 get_data(data_pars)
 get_dataset(**kw)
 get_params(param_pars, **kw)
+<<<<<<< HEAD
 load(model, optimiser, CHECKPOINT_NAME = 'nbeats-fiting-checkpoint.th')
+=======
+load(load_pars)
+>>>>>>> origin/main
 load_checkpoint(model, optimiser, CHECKPOINT_NAME = 'nbeats-fiting-checkpoint.th')
 plot(net, x, target, backcast_length, forecast_length, grad_step, out_path = "./")
 plot_model(net, x, target, grad_step, data_pars, disable_plot = False)
 plot_predict(x_test, y_test, p, data_pars, compute_pars, out_pars)
 predict(model, data_pars = None, compute_pars = None, out_pars = None, **kw)
+<<<<<<< HEAD
 save(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
+=======
+save(model, session, save_pars)
+>>>>>>> origin/main
 save_checkpoint(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
 test(choice = "json", data_path = "nbeats.json", config_mode = "test")
 
@@ -10349,7 +11673,11 @@ get_dataset(task, tokenizer, evaluate = False)
 get_eval_report(labels, preds)
 get_mismatched(labels, preds)
 get_params(param_pars = {}, **kw)
+<<<<<<< HEAD
 load(task, tokenizer, evaluate = False)
+=======
+load(load_pars = {})
+>>>>>>> origin/main
 load_and_cache_examples(task, tokenizer, evaluate = False)
 metrics(task_name, preds, labels)
 reset_model()
@@ -11298,7 +12626,11 @@ module_load_full(model_uri = "", model_pars = None, data_pars = None, compute_pa
 predict(module, data_pars = None, compute_pars = None, out_pars = None, **kwarg)
 predict_cli(arg)
 save(module, save_pars, **kwarg)
+<<<<<<< HEAD
 test(folder = None)
+=======
+test(modelname)
+>>>>>>> origin/main
 test_all(folder = None)
 test_api(model_uri = "model_xxxx/yyyy.py", param_pars = None)
 test_cli(arg)
@@ -11482,7 +12814,11 @@ preprocess_timeseries_m5b()
 save_to_file(path, data)
 test_gluonts()
 test_gluonts2()
+<<<<<<< HEAD
 time_train_test_split(df, **kw)
+=======
+time_train_test_split(data_pars)
+>>>>>>> origin/main
 time_train_test_split2(df, **kw)
 tofloat(x)
 
@@ -11581,7 +12917,11 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py
 -------------------------functions----------------------
 get_params(choice = 0, data_path = "dataset/", **kw)
+<<<<<<< HEAD
 test(data_path = "dataset/", out_path = "GLUON/gluon.png", reset = True)
+=======
+test(data_path = "dataset/")
+>>>>>>> origin/main
 test2(data_path = "dataset/", out_path = "GLUON/gluon.png", reset = True)
 
 -------------------------methods----------------------
@@ -11623,7 +12963,11 @@ get_recursive_files(folderPath, ext = '/*model*/*.py')
 get_recursive_files2(folderPath, ext)
 get_recursive_files3(folderPath, ext)
 json_norm(ddict)
+<<<<<<< HEAD
 load(args, config_file, config_mode, verbose = 0)
+=======
+load(load_pars)
+>>>>>>> origin/main
 load_callable_from_dict(function_dict, return_other_keys = False)
 load_callable_from_uri(uri)
 load_config(args, config_file, config_mode, verbose = 0)
@@ -11712,7 +13056,11 @@ season_remove(x)
 season_remove(x)
 to_json_highcharts(df, cols, coldate, fpath, verbose = False)
 train_split_time(df, test_period  =  40, cols = None, coltime  = "time_key", minsize = 5)
+<<<<<<< HEAD
 unit_fun(price)
+=======
+unit_fun(ii, t, u0, x0, x)
+>>>>>>> origin/main
 unit_fun01(price)
 unit_fun01(price)
 unit_fun02(ii = 6990003, t = 0, price = 0, verbose = False)
@@ -11839,7 +13187,11 @@ utilmy/zzml/versioneer.py
 do_setup()
 do_vcs_install(manifest_in, versionfile_source, ipy)
 get_cmdclass()
+<<<<<<< HEAD
 get_config(root)
+=======
+get_config()
+>>>>>>> origin/main
 get_config_from_root(root)
 get_keywords()
 get_root()
@@ -11857,8 +13209,13 @@ plus_or_dot(pieces)
 plus_or_dot(pieces)
 register_vcs_handler(vcs, method)
 register_vcs_handler(vcs, method)
+<<<<<<< HEAD
 render(pieces)
 render(pieces)
+=======
+render(pieces, style)
+render(pieces, style)
+>>>>>>> origin/main
 render_git_describe(pieces)
 render_git_describe(pieces)
 render_git_describe_long(pieces)

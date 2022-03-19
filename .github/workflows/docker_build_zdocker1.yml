@@ -1,6 +1,13 @@
 name: docker_1
 
 on:
+<<<<<<< HEAD
+=======
+  workflow_dispatch:
+    inputs:  
+
+    
+>>>>>>> origin/main
   push:
     branches:
       - zdocker1
