@@ -329,7 +329,11 @@ def test2():
 
 ########################################################################################################
 ############## Core Code ###############################################################################
+<<<<<<< HEAD
 def onnx_convert(dir_model:str="mypath/mymodule.py:Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
+=======
+def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
+>>>>>>> origin/main
   """
                     export_params=True,        # store the trained parameter weights inside the model file
                     opset_version=10,          # the ONNX version to export the model to
@@ -342,7 +346,11 @@ def onnx_convert(dir_model:str="mypath/mymodule.py:Model", dir_weights:str, diro
   """  
   onnx_pars = Box(onnx_pars)
  
+<<<<<<< HEAD
   torch_model = load_function_uri(dir_model)    ### "mypath/mymodule.py:MyClassModel"
+=======
+  torch_module = load_function_uri(dir_model) 
+>>>>>>> origin/main
 
   torch.onnx.export(torch_model,               # model being run
                     x,                         # model input (or a tuple for multiple inputs)
@@ -388,6 +396,18 @@ def onnx_validate_onnx():
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+>>>>>>> origin/main
 #############################################################################################
 #############################################################################################
 

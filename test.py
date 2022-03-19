@@ -173,12 +173,15 @@ def test_deeplearning_torch():
     from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
 
+<<<<<<< HEAD
 def test_deeplearning_torch_onnx():
     from utilmy.deeplearning.torch import  util_onnx as m ;  m.test_all()
 
 
 
 
+=======
+>>>>>>> origin/main
 #######################################################################################
 def test_deeplearning():
    from utilmy.deeplearning import util_yolo as m ;  m.test_all()
