@@ -17,7 +17,8 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: adev01
     GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
@@ -50,7 +51,7 @@ jobs:
               # git pull --allow-unrelated-histories 
               # git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
               git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff || { git add -u . && git commit --no-edit ;}
-              # git push -f
+              git push -f
               echo "Merge SUCCEEDED for branch $branch"
             } || {
               echo "Merge FAILED for branch $branch"
