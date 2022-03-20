@@ -25,6 +25,9 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 import onnxruntime
+import torch.utils.model_zoo as model_zoo
+import torch.onnx
+import onnx
 
 #############################################################################################
 from utilmy import log, log2
@@ -469,6 +472,7 @@ def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str
 def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
     """ wrapper to load model
     """  
+    import onnxruntime
     ort_session = onnxruntime.InferenceSession(dironnx)
     return ort_session
 
@@ -480,9 +484,12 @@ def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirw
     """ Check ONNX :  Base check, Compare with Pytorch model values,
     x_numpy: Input X numpy to check prediction values
 
+    But before verifying the model’s output with ONNX Runtime, we will check the ONNX model with ONNX’s API. First, onnx.load("super_resolution.onnx") will load the saved model and will output a onnx.ModelProto structure (a top-level file/container format for bundling a ML model. For more information onnx.proto documentation.). Then, onnx.checker.check_model(onnx_model) will verify the model’s structure and confirm that the model has a valid schema. The validity of the ONNX graph is verified by checking the model’s version, the graph’s structure, as well as the nodes and their inputs and outputs.
+
+
     """
-    import onnxruntime
-    log("check ONNX")
+    import onnxruntime, onnx
+    log("check ONNX file")
     onnx_model = onnx.load(dironnx)
     onnx.checker.check_model(onnx_model)
 
