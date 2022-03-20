@@ -17,7 +17,8 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: tranchung    
     GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
@@ -49,12 +50,11 @@ jobs:
               #git pull --allow-unrelated-histories 
               # git pull origin main --allow-unrelated-histories
               git fetch
-              # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
-              git merge origin/main  --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
+              echo "git merge" && git merge origin/main  --no-ff --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
               # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}              
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
-              # git push
-              echo "Merge SUCCEEDED for branch $branch"
+              # echo "git push" && git push
+              echo "SUCCEEDED for branch $branch"
 
             } || {
               echo "Merge FAILED for branch $branch"
@@ -64,6 +64,46 @@ jobs:
           done
 
 
+### Merge Strategies
+### https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github
+### https://www.geeksforgeeks.org/merge-strategies-in-git/
+
+
+
+# Use Case
+# You want to create a new branch (e.g. a release branch) without a specific file or folder (because this might be not ready for a release) which already exists in the base branch.
+
+# How to Git console that?!
+# First you need to identify the commit bevor the file or folder was integrated into the git versioning. After you identified this specific commit, you can start by checking out this specific commit
+
+# git checkout specific_comit_aka_SHA-1_checksum
+
+# now your HEAD should be detached and point to the specific commit. The next step is to create a branch, based on this commit with:
+
+# git checkout -b name_of_your_branch
+
+# With this branch you are at the same point (history, files changes and everything) like the specific commit (the one bevor the integration of the specific files and folders)
+
+# Now you can start doing the magic. What you will do now is the following:
+
+# You'll merge the branch and state of the branch you really want to base on, meaning the branch of your imagination only with the files and folders you, in fact, don't want.
+# Then you'll reset your HEAD of the files and folders you do not want to the commit bevor these files and folders are integrated
+# then you'll clean it and commit it
+# Let's start with merging the branch:
+
+# git merge --no-commit --no-ff branch_with_the_files_you_dont_want
+
+# --no-commit and --no-ff are flags for git that with your merge you don't want to perform an automated commit and fast-forward the changes. As a result you get with git status the status of your branch with a lot of modified or added files. now we want to exclude the files we don't like:
+
+# git reset HEAD -- path/to/yourfile this will reset your file you do not want to the actual HEAD used in this branch, which is the commit bevor the file/folder was added. After that you can clean your git repository with:
+
+# git clean -fd which will clean your repo and delete the files you don't want.
+
+# The last step is to commit the changes with:
+
+# git commit -m "your message"
+
+# and you are done. Now you got a new branch based on another branch, but without the specific files or folder you didn't want to include
 
       #- name: Create Auto PR      
       #  env:
