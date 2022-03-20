@@ -325,24 +325,32 @@ def test2():
 
 
 
+"""
+which function do you have prefererence ?????
+"""
+
 
 
 ########################################################################################################
 ############## Core Code ###############################################################################
 def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
-  """
-                    export_params=True,        # store the trained parameter weights inside the model file
-                    opset_version=10,          # the ONNX version to export the model to
-                    do_constant_folding=True,  # whether to execute constant folding for optimization
-                    input_names = ['input'],   # the model's input names
-                    output_names = ['output'], # the model's output names
-                    dynamic_axes={'input' : {0 : 'batch_size'},    # variable length axes
-                                'output' : {0 : 'batch_size'}})
+    """
+        export_params=True,        # store the trained parameter weights inside the model file
+        opset_version=10,          # the ONNX version to export the model to
+        do_constant_folding=True,  # whether to execute constant folding for optimization
+        input_names = ['input'],   # the model's input names
+        output_names = ['output'], # the model's output names
+        dynamic_axes={'input' : {0 : 'batch_size'},    # variable length axes
+                    'output' : {0 : 'batch_size'}})
 
-  """  
+    """
+    """ Convert Pytorch model to ONNX
+    """
+
   onnx_pars = Box(onnx_pars)
- 
-  torch_module = load_function_uri(dir_model) 
+
+  torch_model = load_function_uri(dir_model)    ### "mypath/mymodule.py:MyClassModel"
+
 
   torch.onnx.export(torch_model,               # model being run
                     x,                         # model input (or a tuple for multiple inputs)
@@ -354,40 +362,146 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
 
 
 
-def onnx_load_model():
-  pass
+##############################################################################################################
+def test1():
+    dirmtp = "ztmp/"
+
+    dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
+    dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
+    dirout      = f"{dirtmp}/onnx_save.onnx"
+    onnx_pars = {}
+    config_dir = ""
+
+
+    isok = test_create_model_pytorch(dirsave=dir_model)
+    log('Convreting to ONNX')
+    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+
+    log('Checking ONNX')
+    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
+
+
+
+def test_create_model_pytorch(disksave=None, model_name=""):
+    """   Create model classfor testing purpose
+
+    
+    """    
+    ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+    class SuperResolutionNet(nn.Module):
+        def __init__(self, upscale_factor, inplace=False):
+            super(SuperResolutionNet, self).__init__()
+
+            self.relu = nn.ReLU(inplace=inplace)
+            self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+            self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+            self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+            self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+            self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+            self._initialize_weights()
+
+        def forward(self, x):
+            x = self.relu(self.conv1(x))
+            x = self.relu(self.conv2(x))
+            x = self.relu(self.conv3(x))
+            x = self.pixel_shuffle(self.conv4(x))
+            return x
+
+        def _initialize_weights(self):
+            init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv4.weight)    
+
+    """
+    ss = ss.replace("    ", "")  ### for indentation
+
+    if dirsave  is not None :
+        with open(dirsave, mode='w') as fp:
+            fp.write(ss)
+        return True    
+    else :
+        eval(ss)        
+        return SuperResolutionNet  ## return the class
+        
+
+
+
+def onnx_load_modelbase(dirfile:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
+    """ wrapper to load model + weights
+
+       dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
+       batch_size = 1    # just a random number
+    """  
+    torch_model = load_function_uri(dirfile) 
+
+    # Initialize model with the pretrained weights
+    map_location = lambda storage, loc: storage
+    if torch.cuda.is_available():
+        map_location = None
+
+    if 'http:' in dirweights:
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(model_url, map_location=map_location)
+    else :   
+       checkpoint = torch.load( dirweight)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint['loss']}\t at epoch: {checkpoint['epoch']}" )
+
+    torch_model.load_state_dict(model_state)
+
+    if mode_inference:
+       # set the model to inference mode
+        torch_model.eval()
+
+    if verbose>2: log(model)
+    return torch_model
 
 
 
 
 
+def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
+    """ wrapper to load model
+    """  
+    ort_session = onnxruntime.InferenceSession(dironnx)
+    return ort_session
 
 
 
 
-def onnx_load_onnx():
-  pass
+# TODO : list of numpy arrays to check
+def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirweights:str=None, x_numpy:Union[ndarray, list]=None):
+    """ Check ONNX :  Base check, Compare with Pytorch model values,
+    x_numpy: Input X numpy to check prediction values
+
+    """
+    import onnxruntime
+    log("check ONNX")
+    onnx_model = onnx.load(dironnx)
+    onnx.checker.check_model(onnx_model)
+
+    if dirmodel is not None :
+        log("    # compute Pytorch output prediction")
+        torch_model = onnx_load_modelbase(dirmodel, dirweights, mode_inference=True)
+        x_torch = torch_model.predict(torch.from_numpy(x_numpy))
+        log('pytorch values', to_numpy(x_torch) )
 
 
+    if x_numpy is not None :
+        # compute the output using ONNX Runtime's Python APIs.
+        ort_session = onnxruntime.InferenceSession(dironnx)
 
+        # compute ONNX Runtime output prediction
+        ort_inputs = {ort_session.get_inputs()[0].name: x_numpy }
+        ort_outs   = ort_session.run(None, ort_inputs)
 
-
-
-
-
-
-
-def onnx_validate_onnx():
-   pass
-
-
-
-
-
-
-
-
-
+        # compare ONNX Runtime and PyTorch results
+        log('onnx values', ort_outs)
+    
+    # np.testing.assert_allclose(, ort_outs[0], rtol=1e-03, atol=1e-05)
+    # print("Exported model has been tested with ONNXRuntime, and the result looks good!")
 
 
 
@@ -399,8 +513,12 @@ def onnx_validate_onnx():
 
 #############################################################################################
 #############################################################################################
-
 if 'utils':
+    def to_numpy(tensor):
+        return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+
+
+
     def load_function_uri(uri_name="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One

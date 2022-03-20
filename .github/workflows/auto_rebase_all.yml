@@ -53,8 +53,6 @@ jobs:
               echo "git merge" && git merge origin/main  --no-ff --allow-unrelated-histories --no-edit || { git add -u . && git commit --no-edit ;}
               # git merge origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}              
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
-              
-              
               # echo "git push" && git push
               echo "SUCCEEDED for branch $branch"
 
