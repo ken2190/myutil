@@ -47,8 +47,8 @@ jobs:
               echo ""
               echo "##################"
               git checkout $branch
-              git pull --allow-unrelated-histories 
-              git merge $ROOT_BRANCH_NAME
+              # git pull --allow-unrelated-histories 
+              git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
               # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
               git push -f
               echo "Merge SUCCEEDED for branch $branch"
