@@ -366,7 +366,7 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
                     'output' : {0 : 'batch_size'}})
 
     """
-    """ Convert Pytorch model to
+    """ Convert Pytorch model to ONNX
     """
 
   onnx_pars = Box(onnx_pars)
@@ -383,7 +383,27 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
 
 
 
-def test_create_model():
+
+##############################################################################################################
+def test1():
+    dirmtp = "ztmp/"
+    
+    dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
+    dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
+    dirout      = f"{dirtmp}/onnx_save.onnx"
+    onnx_pars = {}
+    config_dir = ""
+
+
+    isok = test_create_model_pytorch(dirsave=dir_model)
+    log('Convreting to ONNX')
+    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+
+    log('Checking ONNX')
+    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
+
+
+def test_create_model_pytorch(ondisk=True):
     ### for testing purpose
     class SuperResolutionNet(nn.Module):
         def __init__(self, upscale_factor, inplace=False):
