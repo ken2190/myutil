@@ -64,6 +64,24 @@ jobs:
             }
 
           done
+      # - name: Create Auto PR
+      #   uses: devops-infra/action-pull-request@v0.4.2
+      #   with:
+      #     github_token: ${{ secrets.WORKFLOW_TOKEN }}
+      #     source_branch: development
+      #     target_branch: master
+      #     title: My pull request
+      - name: Create Auto PR      
+        #env:
+        #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+        run: |
+           curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+           git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+           git config --global hub.protocol ssh
+           # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+           bin/hub pull-request --base arita37:main    --head arita37:aniket     -m "PR into main"  || echo "failed"
+           bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "PR into main"  || echo "failed"
+           bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "PR into main"  || echo "failed"
 
 
 ### Merge Strategies
