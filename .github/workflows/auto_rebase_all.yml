@@ -50,7 +50,7 @@ jobs:
               git checkout $branch
               # git pull --allow-unrelated-histories 
               # git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
-              git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  || { git add -u . && git commit --no-edit ;}
+              git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  -m '${ROOT_BRANCH_NAME into}  ${branch} ' || { git add -u . && git commit --no-edit ;}
               git push -f
               echo "Merge SUCCEEDED for branch $branch"
             } || {
