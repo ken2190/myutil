@@ -327,28 +327,6 @@ def test2():
 
 """
 which function do you have prefererence ?????
-
-oK,  I WILL write the other one now
-def onnx_load_modelbase(dirin:str, ):
-  
-
-Think you need to UN-follow me in the Live Share Box
-let me send screenshot
-in upwork
-snet in upwork
-
-
-starting to code now
-Ok good,
-
-
-Ok, please tell me how to unfollow
-
-I worte already
-I'm here
-Here
-
-I'm gonna write the main function: onnx_convert
 """
 
 
@@ -387,7 +365,7 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
 ##############################################################################################################
 def test1():
     dirmtp = "ztmp/"
-    
+
     dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
     dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
     dirout      = f"{dirtmp}/onnx_save.onnx"
@@ -403,8 +381,13 @@ def test1():
     onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
 
 
-def test_create_model_pytorch(ondisk=True):
-    ### for testing purpose
+
+def test_create_model_pytorch(disksave=None, model_name=""):
+    """   Create model classfor testing purpose
+
+    
+    """    
+    ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
     class SuperResolutionNet(nn.Module):
         def __init__(self, upscale_factor, inplace=False):
             super(SuperResolutionNet, self).__init__()
@@ -431,7 +414,17 @@ def test_create_model_pytorch(ondisk=True):
             init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
             init.orthogonal_(self.conv4.weight)    
 
-    return SuperResolutionNet(1.0)
+    """
+    ss = ss.replace("    ", "")  ### for indentation
+
+    if dirsave  is not None :
+        with open(dirsave, mode='w') as fp:
+            fp.write(ss)
+        return True    
+    else :
+        eval(ss)        
+        return SuperResolutionNet  ## return the class
+        
 
 
 
