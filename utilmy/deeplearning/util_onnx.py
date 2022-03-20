@@ -19,7 +19,12 @@ from typing import List, Optional, Tuple, Union
 from numpy import ndarray  #### typing
 from box import Box
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
 
+import onnxruntime
 
 #############################################################################################
 from utilmy import log, log2
@@ -334,7 +339,7 @@ which function do you have prefererence ?????
 ########################################################################################################
 ############## Core Code ###############################################################################
 def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str ):
-    """
+    """ Convert Pytorch model to ONNX
         export_params=True,        # store the trained parameter weights inside the model file
         opset_version=10,          # the ONNX version to export the model to
         do_constant_folding=True,  # whether to execute constant folding for optimization
@@ -344,27 +349,25 @@ def onnx_convert(dir_model:str="mypath/mymodule.py::Model", dir_weights:str, dir
                     'output' : {0 : 'batch_size'}})
 
     """
-    """ Convert Pytorch model to ONNX
-    """
 
-  onnx_pars = Box(onnx_pars)
+    onnx_pars = Box(onnx_pars)
 
-  torch_model = load_function_uri(dir_model)    ### "mypath/mymodule.py:MyClassModel"
+    torch_model = load_function_uri(dir_model)    ### "mypath/mymodule.py:MyClassModel"
 
 
-  torch.onnx.export(torch_model,               # model being run
-                    x,                         # model input (or a tuple for multiple inputs)
-                    dirout +"/model.onnx",   # where to save the model (can be a file or file-like object)
+    torch.onnx.export(torch_model,               # model being run
+                        x,                         # model input (or a tuple for multiple inputs)
+                        dirout +"/model.onnx",   # where to save the model (can be a file or file-like object)
 
-                    **onnx_pars)
+                        **onnx_pars)
 
 
 
 
 
 ##############################################################################################################
-def test1():
-    dirmtp = "ztmp/"
+def test3():
+    dirtmp = "ztmp/"
 
     dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
     dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
@@ -382,7 +385,7 @@ def test1():
 
 
 
-def test_create_model_pytorch(disksave=None, model_name=""):
+def test_create_model_pytorch(dirsave=None, model_name=""):
     """   Create model classfor testing purpose
 
     
@@ -422,28 +425,29 @@ def test_create_model_pytorch(disksave=None, model_name=""):
             fp.write(ss)
         return True    
     else :
-        eval(ss)        
+        SuperResolutionNet =  None
+        eval(ss)        ## trick
         return SuperResolutionNet  ## return the class
         
 
 
 
-def onnx_load_modelbase(dirfile:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
+def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
     """ wrapper to load model + weights
 
        dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
        batch_size = 1    # just a random number
     """  
-    torch_model = load_function_uri(dirfile) 
+    torch_model = load_function_uri(dirmodel) 
 
     # Initialize model with the pretrained weights
     map_location = lambda storage, loc: storage
     if torch.cuda.is_available():
         map_location = None
 
-    if 'http:' in dirweights:
+    if 'http:' in dirweight:
        import torch.utils.model_zoo as model_zoo
-       model_state = model_zoo.load_url(model_url, map_location=map_location)
+       model_state = model_zoo.load_url(dirmodel, map_location=map_location)
     else :   
        checkpoint = torch.load( dirweight)
        model_state = checkpoint['model_state_dict']
@@ -455,7 +459,7 @@ def onnx_load_modelbase(dirfile:str="myClassmodel.py:MyNNClass",  dirweight:str=
        # set the model to inference mode
         torch_model.eval()
 
-    if verbose>2: log(model)
+    if verbose>2: log(torch_model)
     return torch_model
 
 
