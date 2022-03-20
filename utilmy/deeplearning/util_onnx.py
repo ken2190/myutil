@@ -325,6 +325,37 @@ def test2():
 
 
 
+"""
+can you see here ?
+
+
+HERE, type somthing !!!!
+now
+
+why don't you just type at message session
+
+because we can code together at same time.
+on different parts.
+
+it's  util_onnex
+
+OK, Which part do you are going to work on?
+
+
+Give me 30mins , have family issues
+
+OK, yofueel
+ 
+sorry am back
+havce small age kid, he wake up... adn cry
+
+
+you can start writing coe.
+
+Branch is anddang,(ie your branchm )
+
+"""
+
 
 
 ########################################################################################################
