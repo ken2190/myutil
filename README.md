@@ -13,6 +13,44 @@
 
 
 
+
+### Install for development
+```
+git clone  https://github.com/arita37/myutil.git
+cd myutil
+git checkout  YourBranchUsername
+pip install -e .   ### Install in developer mode : changes are reflected
+python -c "from utilmy import log, log2"      ### Check Install
+
+### Ref
+https://stackoverflow.com/questions/35064426/when-would-the-e-editable-option-be-useful-with-pip-install
+
+### Optional Dependencies
+https://github.com/arita37/myutil/blob/main/py36.txt
+
+pip install -r py36.txt
+
+
+###And open it in Vscode
+
+```
+
+
+
+
+
+### Advice
+```
+  Keep minimal coding : Less code is BETTER Code.
+  Do NOT add stupid functions
+  Add functions that you WILL REUSE.
+  Follow strictly naming pattern
+  Open in pycharm as below :
+```
+
+
+
+
 ## Documentation
 
     pip install --upgrade utilmy
