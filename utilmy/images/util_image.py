@@ -7,7 +7,7 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from box import Box
 import io, cv2,  tifffile.tifffile, matplotlib
 from PIL import Image
-from typing import Union,Tuple,Sequence,List
+from typing import Union,Tuple,Sequence,List,Any
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
@@ -15,7 +15,11 @@ try :
    import diskcache as dc 
 except : pass
 
-
+try:
+    import numpy.typing
+    npArrayLike = numpy.typing.ArrayLike
+except ImportError:
+    npArrayLike = Any
 #############################################################################################
 from utilmy import pd_read_file
 from utilmy import log, log2
@@ -93,7 +97,7 @@ def image_create_fake(
 
 ################################################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,npArrayLike],str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :   
@@ -119,10 +123,11 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000, 
     xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
+    mean :float = 0.5,std :float    = 0.5)->List[npArrayLike]:
     """ run image_prep on multiple images
     """
-    #TODO: add tqdm for running metrics
+    #TODO: add tqdm for running metrics? ( will have to take care of tqdm_notebook and tqdm, 
+    # to be compatible with both jupyter and .py files)
 
     images = []
     for i in range(len(image_paths)):
@@ -138,7 +143,7 @@ def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
 
 
     
-#TODO is this redundant to `run_multiprocess`
+#TODO @aniket: is this redundant to `run_multiprocess`
 def image_preps_mp(image_path_list:list, prepro_image_fun=None, npool=1):
     """ Parallel processing
     """
@@ -442,7 +447,7 @@ def image_show_in_row(image_list:Union[dict,list]=None):
 
 
 
-def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
+def image_resize_ratio(image : npArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
         image:   
@@ -483,7 +488,7 @@ def image_resize_ratio(image : np.typing.ArrayLike, width :Union[int,None] =None
 
 
 ############################################################################
-def image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int,int]):
+def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
     """Returns center cropped image
     Args:
     img: image to be center cropped
@@ -502,7 +507,7 @@ def image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int,int]):
     return crop_img
 
 
-def image_resize(image : np.typing.ArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
+def image_resize(image : npArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
     """Resizes a image and maintains aspect ratio.
     inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
     """
@@ -529,7 +534,7 @@ def image_resize(image : np.typing.ArrayLike , width :Union[None,int] =None, hei
     return cv2.resize(image, dim, interpolation=inter)
 
 
-def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
+def image_resize_pad(img :npArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
      
@@ -576,7 +581,7 @@ def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union
      return scaled_img
 
 
-#TODO redundant to image_resize_pad? ( uses parallel processing...)
+#TODO @aniket redundant to image_resize_pad? ( uses parallel processing...)
 def image_resize_mp(out_dir :str =""):
     """     python prepro.py  image_resize
 
@@ -637,7 +642,7 @@ def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_
     return np.random.randint(low=min_padding, high=max_padding + 1, size=paddings_number)
 
 
-def image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width):
+def image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width):
     """
     Args:
         image_list:  list of image
@@ -667,13 +672,13 @@ def image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_s
         if idx == idx_len:
             current_x += width
         else:
-            #TODO: is padding_size "per image". also is it an int or tuple
+            #TODO @aniket: is padding_size "per image". also is it an int or tuple
             current_x += width + padding_size[idx]
 
     return final_image, padding_size
 
 
-def image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool=False, removedot :bool =True):
+def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot :bool =True):
     """TODO: Issue with small dot noise points : noise or not ?
               Padding calc has also issues with small blobs.
     Args:
