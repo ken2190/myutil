@@ -17,7 +17,8 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: adev01
     GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
@@ -39,40 +40,63 @@ jobs:
           echo "Fetching latest..."
           git fetch origin
           git checkout ${{ env.ROOT_BRANCH_NAME }}
+          git pull
           echo "Beginning merge...."
           IFS=","
           for branch in $BRANCHES_TO_REBASE; do
             { 
               echo ""
-              echo "##################"
+              echo "########  $branch  "
               git checkout $branch
-              #git pull --allow-unrelated-histories 
-              # git pull origin main --allow-unrelated-histories
-              git fetch
-              git merge origin origin/main  --allow-unrelated-histories || { git add -u . && git commit --no-edit ;}
-              # git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
-              git push
+              # git pull --allow-unrelated-histories 
+              # git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
+              git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  -m '${ROOT_BRANCH_NAME into}  ${branch} ' || { git add -u . && git commit --no-edit ;}
+              ##              
+              ### it destroyed the github action files, create more issues...
+              git push -f
               echo "Merge SUCCEEDED for branch $branch"
-
             } || {
               echo "Merge FAILED for branch $branch"
-
             }
-
           done
+      # - name: Create Auto PR
+      #   uses: devops-infra/action-pull-request@v0.4.2
+      #   with:
+      #     github_token: ${{ secrets.WORKFLOW_TOKEN }}
+      #     source_branch: development
+      #     target_branch: master
+      #     title: My pull request
+      - name: Create Auto PR      
+        #env:
+        #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+        run: |
+           curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+           git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+           git config --global hub.protocol ssh
+           # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+           echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
+           echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
+           echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
 
 
 
-      #- name: Create Auto PR      
-      #  env:
-      #      GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
-      #  run: |
+      # - name: Create Auto PR List      
+      #   #env:
+      #   #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+      #   run: |
       #      curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
-            # git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
-      #      git config --global hub.protocol ssh            
-      #      { /bin/hub pull-request --base arita37:main    --head arita37:aniket  -m "PR into main" } || { echo 'failed ' ; } 
-      #      { /bin/hub pull-request  --base arita37:main    --head arita37:alex    -m "PR into main" } || { echo 'failed ' ; } 
-      #      { /bin/hub pull-request  --base arita37:main    --head arita37:tranchung  -m "PR into main" } || { echo 'failed ' ;} 
+      #      git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+      #      git config --global hub.protocol ssh
+      #      for branch in $BRANCHES_TO_REBASE; do
+      #       {            
+      #         bin/hub pull-request --base arita37:main    --head arita37:autopr  -m "PR into main"  || echo "failed"
+      #       }   
+
+
+
+
+
+
 
 
 
