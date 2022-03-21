@@ -396,7 +396,7 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     return image
 
 
-def diskcache_image_getsample(db_path="_70k_clean_nobg_256_256-100000.cache", dirout):
+def diskcache_image_getsample(db_path, dirout):
     """function image_save
     Args:
     Returns:
