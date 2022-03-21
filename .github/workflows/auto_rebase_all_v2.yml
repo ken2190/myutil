@@ -1,4 +1,4 @@
-name: Auto Rebase Branches - main schedule
+name: zbackup Auto Rebase Branches - main schedule
 
 
 on:
