@@ -1085,6 +1085,51 @@ writelog(m = "", f = None)
 utilmy/nlp/__init__.py
 
 
+utilmy/nlp/keras/__init__.py
+
+
+utilmy/nlp/keras/sentences.py
+-------------------------functions----------------------
+embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
+get_embed(model_emb, word)
+help()
+model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
+model_get_embed(model)
+model_load(model_path)
+test1()
+test2()
+test3()
+test_all()
+
+-------------------------methods----------------------
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/nlp/torch/__init__.py
+
+
+utilmy/nlp/torch/sentences.py
+-------------------------functions----------------------
+dataset_download(dirout = '/content/sample_data/sent_tans/')
+dataset_fake(dirdata)
+dataset_fake2(dirdata = '')
+help()
+load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
+load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
+load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
+metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
+model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
+model_load(path_or_name_or_object)
+model_save(model, path, reload = True)
+model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
+pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
+sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
+test1()
+test_all()
+
+
+
 utilmy/nlp/util_cluster.py
 -------------------------functions----------------------
 help()
@@ -1216,24 +1261,6 @@ vocabulary_embeddings(dic_vocabulary, nlp = None)
 word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
 word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
 
-
-
-utilmy/nlp/util_sentence.py
--------------------------functions----------------------
-embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
-get_embed(model_emb, word)
-help()
-model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
-model_get_embed(model)
-model_load(model_path)
-test1()
-test2()
-test3()
-test_all()
-
--------------------------methods----------------------
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
 
 
 utilmy/nlp/util_transformers.py
