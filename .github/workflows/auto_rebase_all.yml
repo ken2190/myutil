@@ -53,7 +53,7 @@ jobs:
               git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  -m '${ROOT_BRANCH_NAME into}  ${branch} ' || { git add -u . && git commit --no-edit ;}
               ##              
               ### it destroyed the github action files, create more issues...
-              git push -f
+              ### git push -f
               echo "Merge SUCCEEDED for branch $branch"
             } || {
               echo "Merge FAILED for branch $branch"
