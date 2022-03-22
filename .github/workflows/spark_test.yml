@@ -1,6 +1,10 @@
 name: Spark_run
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+    
   push:
     branches:
       - spark

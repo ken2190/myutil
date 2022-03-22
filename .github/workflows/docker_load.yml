@@ -1,6 +1,10 @@
 name: load_use_docker
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+    
   push:
     branches:
       - master

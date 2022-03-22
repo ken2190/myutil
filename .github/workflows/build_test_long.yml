@@ -1,19 +1,20 @@
-name: Auto docs_github_pages arita37.github.io/myutil/en/zdocs_y23487teg65f6/
- 
-### target page :  https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.html#module-utilmy.cli
+name: AA_Build_test_long
 
+###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
   workflow_dispatch:
     inputs:  
 
-  schedule:
-    - cron:  '0 14 * * *'      #### 60mins
-    #    - cron:  '*/10 * * * *'   
-
+    
   push:
     branches:
-    - zdocs_y23487teg65f6
+    - main
+
+
+  schedule:
+    - cron:  '0 2 * * *'      #### 60mins
+    #    - cron:  '*/10 * * * *'
 
 
 
@@ -42,7 +43,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36.txt') }}
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/conda/py36_big.txt') }}
           
 
     #- name: Install numpy
@@ -53,7 +54,7 @@ jobs:
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-           pip install -r  py36_min.txt
+           pip install -r  config/conda/py36_min.txt
 
 
     - name: Install utilmy
@@ -66,32 +67,27 @@ jobs:
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
         ls .
-        pip install -r  py36.txt
-        #pip install -r install/requirements_fake.txt
+        pip install -r  config/conda/py36_big.txt
 
 
     - name: test_import
       run: |
            python -c "import os, pandas as pd; print(os)"
            python -c "import utilmy"        
-           pip install -U sphinx  sphinx-rtd-theme  GitPython  rinohtype pygments
-           pip install -r  config/conda/py36_sphynxdoc.txt
         
 
-    ################################################################################
-    #- name: Prereqs
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #  #run: |
-    #  #  apt-get update
-    #  #  apt-get install -y git
 
-    - name: Execute script to build our documentation and update pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    ########  Runs All test  ######################################
+    - name: test_setup
       run: |
-        chmod -R 777 docs_ghpage
-        docs_ghpage/buildDocs.sh
-      shell: bash
+          mkdir -p    /home/runner/work/log_tmp/
+          chmod -R 777 . 
+
+
+    ################################################################
+    - name: test_deeplearning_torch
+      # continue-on-error: true 
+      run: |
+          python test.py test_deeplearning_torch
 
 

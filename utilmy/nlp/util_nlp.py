@@ -1,17 +1,25 @@
+# -*- coding: utf-8 -*-
+MNAME = "utilmy.nlp.util_nlp"
+HELP = """ utils for NLP processing
 
-## for data
-import pandas as pd, numpy as np
+### pip install fire
+
+python  utilmy/nlp/util_nlp.py test1
+
+
+"""
+import os,sys, collections, random, numpy as np,  glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
+from copy import deepcopy
+from abc import abstractmethod
+from tqdm import tqdm
+
 
 ## for plotting
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 ## for analysis
-import re
-import langdetect 
-import nltk
-import wordcloud
-import contractions
+import re, langdetect, nltk, wordcloud, contractions
 
 ## for sentiment
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -43,11 +51,34 @@ import transformers
 import rouge
 
 
+#### Types
+
+
+#############################################################################################
+from utilmy import log, log2
+
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+#############################################################################################
+def test_all():
+    log(MNAME)
+    test1()
+    # test2()
+
+
+
+def test1():
+    pass
+
+
+
 
 ###############################################################################
 #                  TEXT ANALYSIS                                              #
 ###############################################################################
-
 def plot_distributions(dtf, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
     '''
     Plot univariate and bivariate distributions.
@@ -328,306 +359,6 @@ def add_word_freq(data, column, lst_words, freq="count"):
 
 
         
-###############################################################################
-#                            NER                                              #
-###############################################################################
-
-def ner_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=False):
-    '''
-    Display the spacy NER model.
-    :parameter
-        :param txt: string - text input for the model.
-        :param model: string - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
-        :param lst_tag_filter: list or None - example ["ORG", "GPE", "LOC"], None for all tags
-        :param title: str or None
-    '''
-    ner = spacy.load("en_core_web_lg") if ner is None else ner
-    doc = ner(txt)
-    doc.user_data["title"] = title
-    if serve == True:
-        spacy.displacy.serve(doc, style="ent", options={"ents":lst_tag_filter})
-    else:
-        spacy.displacy.render(doc, style="ent", options={"ents":lst_tag_filter})
-
-
-
-def utils_ner_text(txt, ner=None, lst_tag_filter=None, grams_join="_"):
-    '''
-    Find entities in text, replace strings with tags and extract tags:
-        Donald Trump --> Donald_Trump
-        [Donald Trump, PERSON]
-    '''
-    ## apply model
-    ner = spacy.load("en_core_web_lg") if ner is None else ner
-    entities = ner(txt).ents
-
-    ## tag text
-    tagged_txt = txt
-    for tag in entities:
-        if (lst_tag_filter is None) or (tag.label_ in lst_tag_filter):
-            try:
-                tagged_txt = re.sub(tag.text, grams_join.join(tag.text.split()), tagged_txt) #it breaks with wild characters like *+
-            except Exception as e:
-                continue
-
-    ## extract tags list
-    if lst_tag_filter is None:
-        lst_tags = [(tag.text, tag.label_) for tag in entities]  #list(set([(word.text, word.label_) for word in ner(x).ents]))
-    else: 
-        lst_tags = [(word.text, word.label_) for word in entities if word.label_ in lst_tag_filter]
-
-    return tagged_txt, lst_tags
-        
-        
-
-def utils_lst_count(lst, top=None):
-    '''
-    Counts the elements in a list.
-    :parameter
-        :param lst: list
-        :param top: num - number of top elements to return
-    :return
-        lst_top - list with top elements
-    '''
-    dic_counter = collections.Counter()
-    for x in lst:
-        dic_counter[x] += 1
-    dic_counter = collections.OrderedDict(sorted(dic_counter.items(), key=lambda x: x[1], reverse=True))
-    lst_top = [ {key:value} for key,value in dic_counter.items() ]
-    if top is not None:
-        lst_top = lst_top[:top]
-    return lst_top
-
-
-
-def utils_ner_features(lst_dics_tuples, tag):
-    '''
-    Creates columns
-        :param lst_dics_tuples: [{('Texas','GPE'):1}, {('Trump','PERSON'):3}]
-        :param tag: string - 'PERSON'
-    :return
-        int
-    '''
-    if len(lst_dics_tuples) > 0:
-        tag_type = []
-        for dic_tuples in lst_dics_tuples:
-            for tuple in dic_tuples:
-                type, n = tuple[1], dic_tuples[tuple]
-                tag_type = tag_type + [type]*n
-                dic_counter = collections.Counter()
-                for x in tag_type:
-                    dic_counter[x] += 1
-        return dic_counter[tag]   #pd.DataFrame([dic_counter])
-    else:
-        return 0
-
-
-
-def add_ner_spacy(data, column, ner=None, lst_tag_filter=None, grams_join="_", create_features=True):
-    '''
-    Apply spacy NER model and add tag features.
-    :parameter
-        :param dtf: dataframe - dtf with a text column
-        :param column: string - name of column containing text
-        :param ner: spacy object - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
-        :param lst_tag_filter: list - ["ORG","PERSON","NORP","GPE","EVENT", ...]. If None takes all
-        :param grams_join: string - "_", " ", or more (ex. "new york" --> "new_york")
-        :param create_features: bool - create columns with category features
-    :return
-        dtf
-    '''
-    ner = spacy.load("en_core_web_lg") if ner is None else ner
-    dtf = data.copy()
-
-    ## tag text and exctract tags
-    print("--- tagging ---")
-    dtf[[column+"_tagged", "tags"]] = dtf[[column]].apply(lambda x: utils_ner_text(x[0], ner, lst_tag_filter, grams_join), 
-                                                          axis=1, result_type='expand')
-
-    ## put all tags in a column
-    print("--- counting tags ---")
-    dtf["tags"] = dtf["tags"].apply(lambda x: utils_lst_count(x, top=None))
-    
-    ## extract features
-    if create_features == True:
-        print("--- creating features ---")
-        ### features set
-        tags_set = []
-        for lst in dtf["tags"].tolist():
-            for dic in lst:
-                for k in dic.keys():
-                    tags_set.append(k[1])
-        tags_set = list(set(tags_set))
-        ### create columns
-        for feature in tags_set:
-            dtf["tags_"+feature] = dtf["tags"].apply(lambda x: utils_ner_features(x, feature))
-    return dtf
-
-
-
-def tags_freq(tags, top=30, figsize=(10,5)): 
-    '''
-    Compute frequency of spacy tags.
-    '''  
-    tags_list = tags.sum()
-    map_lst = list(map(lambda x: list(x.keys())[0], tags_list))
-    dtf_tags = pd.DataFrame(map_lst, columns=['tag','type'])
-    dtf_tags["count"] = 1
-    dtf_tags = dtf_tags.groupby(['type','tag']).count().reset_index().sort_values("count", ascending=False)
-    fig, ax = plt.subplots(figsize=figsize)
-    fig.suptitle("Top frequent tags", fontsize=12)
-    sns.barplot(x="count", y="tag", hue="type", data=dtf_tags.iloc[:top,:], dodge=False, ax=ax)
-    ax.set(ylabel=None)
-    ax.grid(axis="x")
-    plt.show()
-    return dtf_tags
-        
-
-        
-def retrain_ner_spacy(train_data, output_dir, model="blank", n_iter=100):
-    '''
-    Retrain spacy NER model with new tags.
-    :parameter
-        :param train_data: list [
-                ("Who is Shaka Khan?", {"entities": [(7, 17, "PERSON")]}),
-                ("I like London and Berlin.", {"entities": [(7, 13, "LOC"), (18, 24, "LOC")]}), 
-            ]
-        :param output_dir: string - path of directory to save model
-        :param model: string - "blanck" or "en_core_web_lg", ...
-        :param n_iter: num - number of iteration
-    '''
-    try:
-        ## prepare data
-#        train_data = []
-#        for name in lst:
-#            frase = "ciao la mia azienda si chiama "+name+" e fa business"
-#            tupla = (frase, {"entities":[(30, 30+len(name), tag_type)]})
-#            train_data.append(tupla)
-        
-        ## load model
-        if model == "blank":
-            ner_model = spacy.blank("en")
-        else:
-            ner_model = spacy.load(model)
-        
-        ## create a new pipe
-        if "ner" not in ner_model.pipe_names:
-            new_pipe = ner_model.create_pipe("ner")
-            ner_model.add_pipe(new_pipe, last=True)
-        else:
-            new_pipe = ner_model.get_pipe("ner")
-        
-        ## add label
-        for _, annotations in train_data:
-            for ent in annotations.get("entities"):
-                new_pipe.add_label(ent[2])
-            
-        ## train
-        other_pipes = [pipe for pipe in ner_model.pipe_names if pipe != "ner"] ###ignora altre pipe
-        with ner_model.disable_pipes(*other_pipes):
-            print("--- Training spacy ---")
-            if model == "blank":
-                ner_model.begin_training()
-            for n in range(n_iter):
-                random.shuffle(train_data)
-                losses = {}
-                batches = spacy.util.minibatch(train_data, size=spacy.util.compounding(4., 32., 1.001)) ###batch up data using spaCy's minibatch
-                for batch in batches:
-                    texts, annotations = zip(*batch)
-                    ner_model.update(docs=texts, golds=annotations, drop=0.5, losses=losses)  ###update
-        
-        ## test the trained model
-        print("--- Test new model ---")
-        for text, _ in train_data:
-            doc = ner_model(text)
-            print([(ent.text, ent.label_) for ent in doc.ents])
-
-        ## save model to output directory
-        ner_model.to_disk(output_dir)
-        print("Saved model to", output_dir)
-
-    except Exception as e:
-        print("--- got error ---")
-        print(e)        
-        
-
-
-###############################################################################
-#             MODEL DESIGN & TESTING - MULTILABEL CLASSIFICATION              #
-###############################################################################
-
-def dtf_partitioning(dtf, y, test_size=0.3, shuffle=False):
-    '''
-    Split the dataframe into train / test
-    '''
-    dtf_train, dtf_test = model_selection.train_test_split(dtf, test_size=test_size, shuffle=shuffle) 
-    print("X_train shape:", dtf_train.drop(y, axis=1).shape, "| X_test shape:", dtf_test.drop(y, axis=1).shape)
-    print("y:")
-    for i in dtf_train["y"].value_counts(normalize=True).index:
-        print(" ", i, " -->  train:", round(dtf_train["y"].value_counts(normalize=True).loc[i], 2),
-                          "| test:", round(dtf_test["y"].value_counts(normalize=True).loc[i], 2))
-    print(dtf_train.shape[1], "features:", dtf_train.drop(y, axis=1).columns.to_list())
-    return dtf_train, dtf_test
-
-
-
-def add_encode_variable(dtf, column):
-    '''
-    Transform an array of strings into an array of int.
-    '''
-    dtf[column+"_id"] = dtf[column].factorize(sort=True)[0]
-    dic_class_mapping = dict( dtf[[column+"_id",column]].drop_duplicates().sort_values(column+"_id").values )
-    return dtf, dic_class_mapping
-
-
-
-def evaluate_multi_classif(y_test, predicted, predicted_prob, figsize=(15,5)):
-    '''
-    Evaluates a model performance.
-    :parameter
-        :param y_test: array
-        :param predicted: array
-        :param predicted_prob: array
-        :param figsize: tuple - plot setting
-    '''
-    classes = np.unique(y_test)
-    y_test_array = pd.get_dummies(y_test, drop_first=False).values
-    
-    ## Accuracy, Precision, Recall
-    accuracy = metrics.accuracy_score(y_test, predicted)
-    auc = metrics.roc_auc_score(y_test, predicted_prob, multi_class="ovr")
-    print("Accuracy:",  round(accuracy,2))
-    print("Auc:", round(auc,2))
-    print("Detail:")
-    print(metrics.classification_report(y_test, predicted))
-    
-    ## Plot confusion matrix
-    cm = metrics.confusion_matrix(y_test, predicted)
-    fig, ax = plt.subplots()
-    sns.heatmap(cm, annot=True, fmt='d', ax=ax, cmap=plt.cm.Blues, cbar=False)
-    ax.set(xlabel="Pred", ylabel="True", xticklabels=classes, yticklabels=classes, title="Confusion matrix")
-    plt.yticks(rotation=0)
-
-    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=figsize)
-    ## Plot roc
-    for i in range(len(classes)):
-        fpr, tpr, thresholds = metrics.roc_curve(y_test_array[:,i], predicted_prob[:,i])
-        ax[0].plot(fpr, tpr, lw=3, label='{0} (area={1:0.2f})'.format(classes[i], metrics.auc(fpr, tpr)))
-    ax[0].plot([0,1], [0,1], color='navy', lw=3, linestyle='--')
-    ax[0].set(xlim=[-0.05,1.0], ylim=[0.0,1.05], xlabel='False Positive Rate', 
-              ylabel="True Positive Rate (Recall)", title="Receiver operating characteristic")
-    ax[0].legend(loc="lower right")
-    ax[0].grid(True)
-    
-    ## Plot precision-recall curve
-    for i in range(len(classes)):
-        precision, recall, thresholds = metrics.precision_recall_curve(y_test_array[:,i], predicted_prob[:,i])
-        ax[1].plot(recall, precision, lw=3, label='{0} (area={1:0.2f})'.format(classes[i], metrics.auc(recall, precision)))
-    ax[1].set(xlim=[0.0,1.05], ylim=[0.0,1.05], xlabel='Recall', ylabel="Precision", title="Precision-Recall curve")
-    ax[1].legend(loc="best")
-    ax[1].grid(True)
-    plt.show()
-
 
 
 ###############################################################################
@@ -756,24 +487,6 @@ def fit_ml_classif(X_train, y_train, X_test, vectorizer=None, classifier=None):
     predicted_prob = model.predict_proba(X_test)
     return model, predicted_prob, predicted
 
-
-
-def explainer_lime(model, y_train, txt_instance, top=10):
-    '''
-    Use lime to build an a explainer.
-    :parameter
-        :param model: pipeline with vectorizer and classifier
-        :param Y_train: array
-        :param txt_instance: string - raw text
-        :param top: num - top features to display
-    :return
-        dtf with explanations
-    '''
-    explainer = lime_text.LimeTextExplainer(class_names=np.unique(y_train))
-    explained = explainer.explain_instance(txt_instance, model.predict_proba, num_features=top) 
-    explained.show_in_notebook(text=txt_instance, predict_proba=False)
-    dtf_explainer = pd.DataFrame(explained.as_list(), columns=['feature','effect'])
-    return dtf_explainer
 
 
 
@@ -1046,35 +759,6 @@ def text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], fitted_t
 
 
 
-def utils_plot_keras_training(training):
-    '''
-    Plot loss and metrics of keras training.
-    '''
-    metrics = [k for k in training.history.keys() if ("loss" not in k) and ("val" not in k)]
-    fig, ax = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(15,3))
-    
-    ## training
-    ax[0].set(title="Training")
-    ax11 = ax[0].twinx()
-    ax[0].plot(training.history['loss'], color='black')
-    ax[0].set_xlabel('Epochs')
-    ax[0].set_ylabel('Loss', color='black')
-    for metric in metrics:
-        ax11.plot(training.history[metric], label=metric)
-    ax11.set_ylabel("Score", color='steelblue')
-    ax11.legend()
-    
-    ## validation
-    ax[1].set(title="Validation")
-    ax22 = ax[1].twinx()
-    ax[1].plot(training.history['val_loss'], color='black')
-    ax[1].set_xlabel('Epochs')
-    ax[1].set_ylabel('Loss', color='black')
-    for metric in metrics:
-        ax22.plot(training.history['val_'+metric], label=metric)
-    ax22.set_ylabel("Score", color="steelblue")
-    plt.show()
-
 
 
 def fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None, model=None, weights=None, epochs=100, batch_size=256):
@@ -1125,75 +809,6 @@ def fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None,
     predicted = [dic_y_mapping[np.argmax(pred)] for pred in predicted_prob] if encode_y is True else [np.argmax(pred)]
     return training.model, predicted_prob, predicted
 
-
-
-def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[], top=5, figsize=(5,3)):
-    '''
-    Takes the weights of an Attention layer and builds an explainer.
-    :parameter
-        :param model: model instance (after fitting)
-        :param tokenizer: keras tokenizer (after fitting)
-        :param txt_instance: string - raw text
-        :param lst_ngrams_detectors: list - [bigram and trigram models], if empty doesn't detect common n-grams
-        :param top: num - top features to display
-    :return
-        text html, it can be visualized on notebook with display(HTML(text))
-    '''
-    ## preprocess txt_instance
-    lst_corpus = utils_preprocess_ngrams([re.sub(r'[^\w\s]', '', txt_instance.lower().strip())], lst_ngrams_detectors=lst_ngrams_detectors)
-    X_instance = kprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences(lst_corpus), 
-                                                    maxlen=int(model.input.shape[1]), padding="post", truncating="post")
-    
-    ## get attention weights
-    layer = [layer for layer in model.layers if "attention" in layer.name][0]
-    func = K.function([model.input], [layer.output])
-    weights = func(X_instance)[0]
-    weights = np.mean(weights, axis=2).flatten()
-    
-    ## rescale weights, remove null vector, map word-weight
-    weights = preprocessing.MinMaxScaler(feature_range=(0,1)).fit_transform(np.array(weights).reshape(-1,1)).reshape(-1)
-    weights = [weights[n] for n,idx in enumerate(X_instance[0]) if idx != 0]
-    dic_word_weigth = {word:weights[n] for n,word in enumerate(lst_corpus[0]) if word in tokenizer.word_index.keys()}
-
-    ## plot
-    if len(dic_word_weigth) > 0:
-        dtf = pd.DataFrame.from_dict(dic_word_weigth, orient='index', columns=["score"])
-        dtf.sort_values(by="score", ascending=True).tail(top).plot(kind="barh", legend=False, figsize=figsize).grid(axis='x')
-        plt.show()
-    else:
-        print("--- No word recognized ---")
-
-    ## return html visualization (yellow:255,215,0 | blue:100,149,237)
-    text = []
-    for word in lst_corpus[0]:
-        weight = dic_word_weigth.get(word)
-        if weight is not None:
-            text.append('<b><span style="background-color:rgba(100,149,237,' + str(weight) + ');">' + word + '</span></b>')
-        else:
-            text.append(word)
-    text = ' '.join(text)
-    return text
-
-
-
-def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=10):
-    '''
-    Use shap to build an a explainer (works only if model has binary_crossentropy).
-    :parameter
-        :param model: model instance (after fitting)
-        :param X_train: array
-        :param X_instance: array of size n (n,)
-        :param dic_vocabulary: dict - {"word":0, ...}
-        :param class_names: list - labels
-        :param top: num - top features to display
-    :return
-        dtf with explanations
-    '''
-    explainer = shap.DeepExplainer(model, data=X_train[:100])
-    shap_values = explainer.shap_values(X_instance.reshape(1,-1))
-    inv_dic_vocabulary = {v:k for k,v in dic_vocabulary.items()}
-    X_names = [inv_dic_vocabulary[idx] if idx in dic_vocabulary.values() else " " for idx in X_instance]
-    shap.summary_plot(shap_values, feature_names=X_names, class_names=class_names, plot_type="bar") 
 
 
 
@@ -1353,189 +968,6 @@ def plot_w2v_cluster(dic_words=None, nlp=None, plot_type="2d", annotate=True, fi
 
 
 
-###############################################################################
-#                      BERT (TRANSFORMERS LANGUAGE MODEL)                     #
-###############################################################################
-
-def utils_bert_embedding(txt, tokenizer, nlp, log=False):
-    '''
-    Word embedding with Bert (equivalent to nlp["word"]).
-    :parameter
-        :param txt: string 
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
-    :return
-        tensor sentences x words x vector (1x3x768) 
-    '''
-    idx = tokenizer.encode(txt)
-    if log is True:
-        print("tokens:", tokenizer.convert_ids_to_tokens(idx))
-        print("ids   :", tokenizer.encode(txt))
-    idx = np.array(idx)[None,:]  
-    embedding = nlp(idx)
-    X = np.array(embedding[0][0][1:-1])
-    return X
-
-
-
-def embedding_bert(x, tokenizer=None, nlp=None, log=False):
-    '''
-    Creates a feature matrix (num_docs x vector_size)
-    :parameter
-        :param x: string or list
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
-        :param log: bool - print tokens
-    :return
-        vector or matrix 
-    '''
-    tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased') if tokenizer is None else tokenizer
-    nlp = transformers.TFBertModel.from_pretrained('bert-base-uncased') if nlp is None else nlp
-    
-    ## single word --> vec (size,)
-    if (type(x) is str) and (len(x.split()) == 1):
-        X = utils_bert_embedding(x, tokenizer, nlp, log).reshape(-1)
-    
-    ## list of words --> matrix (n, size)
-    elif (type(x) is list) and (type(x[0]) is str) and (len(x[0].split()) == 1):
-        X = utils_bert_embedding(x, tokenizer, nlp, log)
-    
-    ## list of lists of words --> matrix (n mean vectors, size)
-    elif (type(x) is list) and (type(x[0]) is list):
-        lst_mean_vecs = [utils_bert_embedding(lst, tokenizer, nlp, log).mean(0) for lst in x]
-        X = np.array(lst_mean_vecs)
-    
-    ## single text --> matrix (n words, size)
-    elif (type(x) is str) and (len(x.split()) > 1):
-        X = utils_bert_embedding(x, tokenizer, nlp, log)
-        
-    ## list of texts --> matrix (n mean vectors, size)
-    else:
-        lst_mean_vecs = [utils_bert_embedding(txt, tokenizer, nlp, log).mean(0) for txt in x]
-        X = np.array(lst_mean_vecs)
-    return X
-
-
-
-# def tokenize_bert(corpus, tokenizer=None, maxlen=None):
-#     tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True) if tokenizer is None else tokenizer
-#     maxlen = np.max([len(i.split()) for i in corpus]) if maxlen is None else maxlen
-#     idx, masks, types = [],[],[]
-#     for txt in corpus:
-#         dic_tokens = tokenizer.encode_plus(txt, add_special_tokens=True, max_length=maxlen)
-#         idx.append(dic_tokens['input_ids'])
-#         masks.append(dic_tokens['special_tokens_mask'])
-#         types.append(dic_tokens['token_type_ids'])        
-#     return [np.asarray(idx, dtype='int32'), np.asarray(masks, dtype='int32'), np.asarray(types, dtype='int32')]
-
-def tokenize_bert(corpus, tokenizer=None, maxlen=None):
-    '''
-    Preprocess corpus to create features for Bert.
-    :parameter
-        :param corpus: list - dtf["text"]
-        :param tokenizer: transformer tokenizer
-        :param maxlen: num - max length of the padded sequence 
-    :return
-        tensor/list with idx, masks, segments
-    '''
-    tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True) if tokenizer is None else tokenizer
-    maxlen = np.max([len(txt.split(" ")) for txt in corpus]) if maxlen is None else maxlen
-    if maxlen < 20:
-        raise Exception("maxlen cannot be less than 20")
-    else:
-        print("maxlen:", maxlen)
-
-    ## add special tokens: [CLS] my name is mau ##ro [SEP]
-    maxqnans = np.int((maxlen-20)/2)
-    corpus_tokenized = ["[CLS] "+
-                        " ".join(tokenizer.tokenize(re.sub(r'[^\w\s]+|\n', '', str(txt).lower().strip()))[:maxqnans])+
-                        " [SEP] " for txt in corpus]
-   
-    ## generate masks: [1, 1, 1, 1, 1, 1, 1, | (padding) 0, 0, 0, 0, 0, ...]
-    masks = [[1]*len(txt.split(" ")) + [0]*(maxlen - len(txt.split(" "))) for txt in corpus_tokenized]
-    
-    ## padding
-    #corpus_tokenized = kprocessing.sequence.pad_sequences(corpus_tokenized, maxlen=maxlen, dtype=object, value='[PAD]')
-    txt2seq = [txt + " [PAD]"*(maxlen-len(txt.split(" "))) if len(txt.split(" ")) != maxlen else txt for txt in corpus_tokenized]
-    
-    ## generate idx: [101, 22, 35, 44, 50, 60, 102, 0, 0, 0, 0, 0, 0, ...]
-    idx = [tokenizer.encode(seq.split(" ")) for seq in txt2seq]
-    
-    ## generate segments: [0, 0, 0, 0, 0, 0, 1 [SEP], 0, 0, 0, 0, 2 [SEP], 0, ...]
-    segments = [] 
-    for seq in txt2seq:
-        temp, i = [], 0
-        for token in seq.split(" "):
-            temp.append(i)
-            if token == "[SEP]":
-                i += 1
-        segments.append(temp)
-    
-    ## check
-    genLength = set([len(seq.split(" ")) for seq in txt2seq])
-    if len(genLength) != 1: 
-        print(genLength)
-        raise Exception("--- texts are not of same size ---")
-
-    X = [np.asarray(idx, dtype='int32'), np.asarray(masks, dtype='int32'), np.asarray(segments, dtype='int32')]
-    print("created tensor idx-masks-segments:", str(len(X))+"x "+str(X[0].shape))
-    return X
-
-
-
-def fit_bert_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None, model=None, epochs=100, batch_size=64):
-    '''
-    Pre-trained Bert + Fine-tuning (transfer learning) with tf2 and transformers.
-    :parameter
-        :param X_train: array of sequence
-        :param y_train: array of classes
-        :param X_test: array of sequence
-        :param model: model object - model to fit (before fitting)
-        :param encode_y: bool - whether to encode y with a dic_y_mapping
-        :param dic_y_mapping: dict - {0:"A", 1:"B", 2:"C"}. If None it calculates
-        :param epochs: num - epochs to run
-        :param batch_size: num - it does backpropagation every batch, the more the faster but it can use all the memory
-    :return
-        model fitted and predictions
-    '''
-    ## encode y
-    if encode_y is True:
-        dic_y_mapping = {n:label for n,label in enumerate(np.unique(y_train))}
-        inverse_dic = {v:k for k,v in dic_y_mapping.items()}
-        y_train = np.array( [inverse_dic[y] for y in y_train] )
-    print(dic_y_mapping)
-    
-    ## model
-    if model is None:
-        ### inputs
-        idx = layers.Input((X_train[0].shape[1]), dtype="int32", name="input_idx")
-        masks = layers.Input((X_train[1].shape[1]), dtype="int32", name="input_masks")
-        segments = layers.Input((X_train[2].shape[1]), dtype="int32", name="input_segments")
-        ### pre-trained bert
-        bert = transformers.TFBertModel.from_pretrained("bert-base-uncased")
-        bert_out, _ = bert([idx, masks, segments])
-        ### fine-tuning
-        x = layers.GlobalAveragePooling1D()(bert_out)
-        x = layers.Dense(64, activation="relu")(x)
-        y_out = layers.Dense(len(np.unique(y_train)), activation='softmax')(x)
-        ### compile
-        model = models.Model([idx, masks, segments], y_out)
-        for layer in model.layers[:4]:
-            layer.trainable = False
-        model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-        print(model.summary())
-        
-    ## train
-    verbose = 0 if epochs > 1 else 1
-    training = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, shuffle=True, verbose=verbose, validation_split=0.3)
-    if epochs > 1:
-        utils_plot_keras_training(training)
-    
-    ## test
-    predicted_prob = model.predict(X_test)
-    predicted = [dic_y_mapping[np.argmax(pred)] for pred in predicted_prob] if encode_y is True else [np.argmax(pred)]
-    return training.model, predicted_prob, predicted
-
 
 
 ###############################################################################
@@ -1596,74 +1028,6 @@ def predict_similarity_classif(X, dic_y):
     
     predicted = [labels[np.argmax(pred)] for pred in predicted_prob]
     return predicted_prob, predicted
-
-
-
-def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level=False, top=5, figsize=(20,10)):
-    '''
-    Plot a text instance into a 2d vector space and compute similarity.
-    :parameter
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
-        :param dic_clusters: dict - dict - {0:lst_words, 1:lst_words, ...}
-        :param txt_instance: string - raw text
-        :param token_level: bool - if True the text is broken down into tokens otherwise the mean vector is taken
-        :param top: num - top similarity to display
-    '''
-    ## create embedding Matrix
-    y = np.concatenate([embedding_bert(v, tokenizer, nlp) for v in dic_clusters.values()])
-    X = embedding_bert(txt_instance, tokenizer, nlp) if token_level is True else embedding_bert(txt_instance, tokenizer, nlp).mean(0).reshape(1,-1)
-    M = np.concatenate([y,X])
-    
-    ## pca
-    pca = manifold.TSNE(perplexity=40, n_components=2, init='pca')
-    M = pca.fit_transform(M)
-    y, X = M[:len(y)], M[len(y):]
-    
-    ## create dtf clusters
-    dtf = pd.DataFrame()
-    for k,v in dic_clusters.items():
-        size = len(dtf) + len(v)
-        dtf_group = pd.DataFrame(y[len(dtf):size], columns=["x","y"], index=v)
-        dtf_group["cluster"] = k
-        dtf = dtf.append(dtf_group)
-        
-    ## plot clusters
-    fig, ax = plt.subplots(figsize=figsize)
-    sns.scatterplot(data=dtf, x="x", y="y", hue="cluster", ax=ax)
-    ax.legend().texts[0].set_text(None)
-    ax.set(xlabel=None, ylabel=None, xticks=[], xticklabels=[], yticks=[], yticklabels=[])
-    for i in range(len(dtf)):
-        ax.annotate(dtf.index[i], xy=(dtf["x"].iloc[i],dtf["y"].iloc[i]), xytext=(5,2), textcoords='offset points', ha='right', va='bottom')
-    
-    ## add txt_instance
-    if token_level is True:
-        tokens = tokenizer.convert_ids_to_tokens(tokenizer.encode(txt_instance))[1:-1]
-        dtf = pd.DataFrame(X, columns=["x","y"], index=tokens)
-        dtf = dtf[~dtf.index.str.contains("#")]
-        dtf = dtf[dtf.index.str.len() > 1]
-        X = dtf.values
-        ax.scatter(x=dtf["x"], y=dtf["y"], c="red")
-        for i in range(len(dtf)):
-            ax.annotate(dtf.index[i], xy=(dtf["x"].iloc[i],dtf["y"].iloc[i]), xytext=(5,2), textcoords='offset points', ha='right', va='bottom')
-    else:
-        ax.scatter(x=X[0][0], y=X[0][1], c="red", linewidth=10)
-        ax.annotate("x", xy=(X[0][0],X[0][1]), ha='center', va='center', fontsize=25)
-    
-    ## calculate similarity
-    sim_matrix = utils_cosine_sim(X,y) 
-
-    ## add top similarity
-    for row in range(sim_matrix.shape[0]):
-        ### sorted {keyword:score}
-        dic_sim = {n:sim_matrix[row][n] for n in range(sim_matrix.shape[1])}
-        dic_sim = {k:v for k,v in sorted(dic_sim.items(), key=lambda item:item[1], reverse=True)}
-        ### plot lines
-        for k in dict(list(dic_sim.items())[0:top]).keys():
-            p1 = [X[row][0], X[row][1]]
-            p2 = [y[k][0], y[k][1]]
-            ax.plot([p1[0],p2[0]], [p1[1],p2[1]], c="red", alpha=0.5)
-    plt.show()
 
 
 
@@ -1958,3 +1322,12 @@ def bart(corpus, ratio=0.2):
                         )[0]["summary_text"].replace(" .", ".")
                      for txt in corpus]
     return lst_summaries
+
+
+
+
+
+###################################################################################################
+if __name__ == "__main__":
+    import fire 
+    fire.Fire()

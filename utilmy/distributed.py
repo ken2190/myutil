@@ -242,7 +242,7 @@ class IndexLock(object):
         Returns:
            
         """
-        return put(self, val)
+        return self.put( val)
 
 
     ######################################################################
