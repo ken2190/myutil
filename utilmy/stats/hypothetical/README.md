@@ -85,7 +85,6 @@ library for conducting hypothesis and other group comparison tests.
 * Runs and count of runs
 
 
-
 ## Requirements
 
 * Python 3.5+
