@@ -19,7 +19,15 @@ from typing import List, Optional, Tuple, Union
 from numpy import ndarray  #### typing
 from box import Box
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
 
+import onnxruntime
+import torch.utils.model_zoo as model_zoo
+import torch.onnx
+import onnx
 
 #############################################################################################
 from utilmy import log, log2
@@ -324,7 +332,6 @@ def test2():
     final_img.save("./_static/img/cat_superres_with_ort.jpg")
 
 
-
 ########################################################################################################
 ############## Core Code ###############################################################################
 def onnx_convert(
@@ -369,8 +376,112 @@ def onnx_convert(
     )
 
 
+##############################################################################################################
+def test3():
+    dirtmp = "ztmp/"
+
+    dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
+    dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
+    dirout      = f"{dirtmp}/onnx_save.onnx"
+    onnx_pars = {}
+    config_dir = ""
+
+    x_numpy = None  ### need image
 
 
+    isok = test_create_model_pytorch(dirsave=dir_model)
+    log('Convreting to ONNX')
+    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+
+    log('Checking ONNX')
+    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
+
+
+
+def test_create_model_pytorch(dirsave=None, model_name=""):
+    """   Create model classfor testing purpose
+
+    
+    """    
+    ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+    class SuperResolutionNet(nn.Module):
+        def __init__(self, upscale_factor, inplace=False):
+            super(SuperResolutionNet, self).__init__()
+
+            self.relu = nn.ReLU(inplace=inplace)
+            self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+            self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+            self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+            self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+            self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+            self._initialize_weights()
+
+        def forward(self, x):
+            x = self.relu(self.conv1(x))
+            x = self.relu(self.conv2(x))
+            x = self.relu(self.conv3(x))
+            x = self.pixel_shuffle(self.conv4(x))
+            return x
+
+        def _initialize_weights(self):
+            init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+            init.orthogonal_(self.conv4.weight)    
+
+    """
+    ss = ss.replace("    ", "")  ### for indentation
+
+    if dirsave  is not None :
+        with open(dirsave, mode='w') as fp:
+            fp.write(ss)
+        return True    
+    else :
+        SuperResolutionNet =  None
+        eval(ss)        ## trick
+        return SuperResolutionNet  ## return the class
+
+
+def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
+    """ wrapper to load Pytorch model + weights
+       dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
+       batch_size = 1    # just a random number
+    """  
+    torch_model = load_function_uri(dirmodel) 
+
+    # Initialize model with the pretrained weights
+    map_location = lambda storage, loc: storage
+    if torch.cuda.is_available():
+        map_location = None
+
+    if 'http:' in dirweight:
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(dirmodel, map_location=map_location)
+    else :   
+       checkpoint = torch.load( dirweight)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint['loss']}\t at epoch: {checkpoint['epoch']}" )
+
+    torch_model.load_state_dict(model_state)
+
+    if mode_inference:
+       # set the model to inference mode
+        torch_model.eval()
+
+    if verbose>2: log(torch_model)
+    return torch_model
+>>>>>>> 7630b465210c8c819fc66811fe4645bf35ec1d10
+
+
+
+
+def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
+    """ wrapper to load model
+    """  
+    import onnxruntime
+    ort_session = onnxruntime.InferenceSession(dironnx)
+    return ort_session
 
 
 ##############################################################################################################
@@ -392,6 +503,10 @@ def test1():
     onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
 
 
+# TODO : list of numpy arrays to check
+def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirweights:str=None, x_numpy:Union[ndarray, list]=None):
+    """ Check ONNX :  Base check, Compare with Pytorch model values,
+    x_numpy: Input X numpy to check prediction values
 
 def test_create_model_pytorch(disksave=None, model_name=""):
     """   Create model classfor testing purpose
@@ -470,8 +585,22 @@ def onnx_load_modelbase(dirfile:str="myClassmodel.py:MyNNClass",  dirweight:str=
     return torch_model
 
 
+    """
+    import onnxruntime, onnx
+    log("check ONNX file")
+    onnx_model = onnx.load(dironnx)
+    onnx.checker.check_model(onnx_model)
+
+    if dirmodel is not None :
+        log("    # compute Pytorch output prediction")
+        torch_model = onnx_load_modelbase(dirmodel, dirweights, mode_inference=True)
+        x_torch = torch_model.predict(torch.from_numpy(x_numpy))
+        log('pytorch values', to_numpy(x_torch) )
 
 
+    if x_numpy is not None :
+        # compute the output using ONNX Runtime's Python APIs.
+        ort_session = onnxruntime.InferenceSession(dironnx)
 
 def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
     """ wrapper to load model
@@ -510,16 +639,6 @@ def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirw
 
         # compare ONNX Runtime and PyTorch results
         log('onnx values', ort_outs)
-    
-    # np.testing.assert_allclose(, ort_outs[0], rtol=1e-03, atol=1e-05)
-    # print("Exported model has been tested with ONNXRuntime, and the result looks good!")
-
-
-
-
-
-
-
 
 
 #############################################################################################
@@ -563,10 +682,6 @@ if 'utils':
 
             except Exception as e2:
                 raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
-
-
-
-
 
 
 ###################################################################################################

@@ -1003,20 +1003,45 @@ utilmy/images/__init__.py
 
 utilmy/images/util_image.py
 -------------------------functions----------------------
+<<<<<<< HEAD
+<<<<<<< HEAD
 diskcache_image_check(db_path:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_r2p2_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_path = "_70k_clean_nobg_256_256-100000.cache", dirout)
 diskcache_image_loadcache(db_path:str = "db_images.cache")
 diskcache_image_save(image_path_list:str = "db_images.cache", db_dir:str = "tmp/", tag = "cache1")
+=======
+=======
+>>>>>>> origin/main
+diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
+diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
+diskcache_image_getsample(db_dir = "_70k_clean_nobg_256_256-100000.cache", dirout)
+diskcache_image_loadcache(db_dir:str = "db_images.cache")
+diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
+download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 help()
 image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int, int])
 image_check()
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
+<<<<<<< HEAD
+<<<<<<< HEAD
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", out_dir:Union[str, bytes, os.PathLike] = f"", npool = 30)
+=======
+image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
+>>>>>>> origin/main
+=======
+image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
+>>>>>>> origin/main
 image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width)
 image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+<<<<<<< HEAD
+<<<<<<< HEAD
 image_preps_mp(image_path_list:list, prepro_image_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", out_dir:Union[str, bytes, os.PathLike] = "", level:int = 1)
@@ -1030,6 +1055,27 @@ image_text_blank(in_dir :Union[str, bytes, os.PathLike], out_dir :Union[str, byt
 npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test()
+=======
+=======
+>>>>>>> origin/main
+image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
+image_read(filepath_or_buffer: Union[str, io.BytesIO])
+image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
+image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool = False, removedot :bool  = True)
+image_resize(image : np.typing.ArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
+image_resize_mp(dirout :str  = "")
+image_resize_pad(img :np.typing.ArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
+image_resize_ratio(image : np.typing.ArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
+image_show_in_row(image_list:Union[dict, list] = None)
+image_text_blank(in_dir :Union[str, bytes, os.PathLike], dirout :Union[str, bytes, os.PathLike], level = "*")
+npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
+run_multiprocess(myfun, list_args, npool = 10, **kwargs)
+test1()
+test2()
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 test_all()
 test_image_create_fake()
 
@@ -1081,6 +1127,51 @@ writelog(m = "", f = None)
 
 
 utilmy/nlp/__init__.py
+
+
+utilmy/nlp/keras/__init__.py
+
+
+utilmy/nlp/keras/sentences.py
+-------------------------functions----------------------
+embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
+get_embed(model_emb, word)
+help()
+model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
+model_get_embed(model)
+model_load(model_path)
+test1()
+test2()
+test3()
+test_all()
+
+-------------------------methods----------------------
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/nlp/torch/__init__.py
+
+
+utilmy/nlp/torch/sentences.py
+-------------------------functions----------------------
+dataset_download(dirout = '/content/sample_data/sent_tans/')
+dataset_fake(dirdata)
+dataset_fake2(dirdata = '')
+help()
+load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
+load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
+load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
+metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
+model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
+model_load(path_or_name_or_object)
+model_save(model, path, reload = True)
+model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
+pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
+sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
+test1()
+test_all()
+
 
 
 utilmy/nlp/util_cluster.py
@@ -1214,24 +1305,6 @@ vocabulary_embeddings(dic_vocabulary, nlp = None)
 word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
 word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
 
-
-
-utilmy/nlp/util_sentence.py
--------------------------functions----------------------
-embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
-get_embed(model_emb, word)
-help()
-model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
-model_get_embed(model)
-model_load(model_path)
-test1()
-test2()
-test3()
-test_all()
-
--------------------------methods----------------------
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
 
 
 utilmy/nlp/util_transformers.py
