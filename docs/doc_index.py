@@ -709,14 +709,7 @@ utilmy/deeplearning/util_dl.py
 -------------------------functions----------------------
 gpu_available()
 gpu_usage()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 help()
->>>>>>> origin/main
-=======
-help()
->>>>>>> origin/main
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
 
@@ -1010,80 +1003,35 @@ utilmy/images/__init__.py
 
 utilmy/images/util_image.py
 -------------------------functions----------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-diskcache_image_check(db_path:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
-diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_r2p2_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
-diskcache_image_getsample(db_path = "_70k_clean_nobg_256_256-100000.cache", dirout)
-diskcache_image_loadcache(db_path:str = "db_images.cache")
-diskcache_image_save(image_path_list:str = "db_images.cache", db_dir:str = "tmp/", tag = "cache1")
-=======
-=======
->>>>>>> origin/main
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
-diskcache_image_getsample(db_dir = "_70k_clean_nobg_256_256-100000.cache", dirout)
+diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
-<<<<<<< HEAD
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 help()
-image_center_crop(img:np.typing.ArrayLike, dim:Tuple[int, int])
+image_center_crop(img:npArrayLike, dim:Tuple[int, int])
 image_check()
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
-<<<<<<< HEAD
-<<<<<<< HEAD
-image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", out_dir:Union[str, bytes, os.PathLike] = f"", npool = 30)
-=======
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
->>>>>>> origin/main
-=======
-image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
->>>>>>> origin/main
-image_merge(image_list :Sequence[np.typing.ArrayLike], n_dim :int, padding_size, max_height, total_width)
+image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
 image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
-<<<<<<< HEAD
-<<<<<<< HEAD
-image_preps_mp(image_path_list:list, prepro_image_fun = None, npool = 1)
-image_read(filepath_or_buffer: Union[str, io.BytesIO])
-image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", out_dir:Union[str, bytes, os.PathLike] = "", level:int = 1)
-image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool = False, removedot :bool  = True)
-image_resize(image : np.typing.ArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
-image_resize_mp(out_dir :str  = "")
-image_resize_pad(img :np.typing.ArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
-image_resize_ratio(image : np.typing.ArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
-image_show_in_row(image_list:Union[dict, list] = None)
-image_text_blank(in_dir :Union[str, bytes, os.PathLike], out_dir :Union[str, bytes, os.PathLike], level = "*")
-npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
-os_path_check(path, n = 5)
-run_multiprocess(myfun, list_args, npool = 10, **kwargs)
-test()
-=======
-=======
->>>>>>> origin/main
 image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
-image_remove_extra_padding(img :np.typing.ArrayLike, inverse : bool = False, removedot :bool  = True)
-image_resize(image : np.typing.ArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
+image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
+image_resize(image : npArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
 image_resize_mp(dirout :str  = "")
-image_resize_pad(img :np.typing.ArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
-image_resize_ratio(image : np.typing.ArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
+image_resize_pad(img :npArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
+image_resize_ratio(image : npArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
 image_show_in_row(image_list:Union[dict, list] = None)
 image_text_blank(in_dir :Union[str, bytes, os.PathLike], dirout :Union[str, bytes, os.PathLike], level = "*")
 npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test1()
 test2()
-<<<<<<< HEAD
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 test_all()
 test_image_create_fake()
 
@@ -1273,45 +1221,45 @@ utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 
 utilmy/nlp/util_nlp.py
 -------------------------functions----------------------
-add_detect_lang(data, column)
-add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
-add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
-add_text_length(data, column)
-add_word_freq(data, column, lst_words, freq = "count")
-bart(corpus, ratio = 0.2)
-create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
-create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
-display_string_matching(a, b, both = True, sentences = True, titles = [])
-embedding_w2v(x, nlp = None, value_na = 0)
-evaluate_summary(y_test, predicted)
-features_selection(X, y, X_names, top = None, print_top = 10)
-fit_bow(corpus, vectorizer = None, vocabulary = None)
-fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
-fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
-fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
-fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
-fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
-get_similar_words(lst_words, top, nlp = None)
+bagwords_features_selection(X, y, X_names, top = None, print_top = 10)
+bagwords_fit_bow(corpus, vectorizer = None, vocabulary = None)
+bagwords_fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
+bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
 help()
-plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
-plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
-plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
-plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
-predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
-predict_similarity_classif(X, dic_y)
-sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
+seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
+seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
+str_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
+string_matching_cossim(a, lst_b, threshold = None, top = None)
+string_matching_display(a, b, both = True, sentences = True, titles = [])
+summary_bart(corpus, ratio = 0.2)
+summary_evaluate_summary(y_test, predicted)
+summary_textrank(corpus, ratio = 0.2)
 test1()
 test_all()
-text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
-textrank(corpus, ratio = 0.2)
-utils_cosine_sim(a, b, nlp = None)
-utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
-utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
-utils_string_matching(a, lst_b, threshold = None, top = None)
-vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
-vocabulary_embeddings(dic_vocabulary, nlp = None)
-word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
-word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
+text_add_detect_lang(data, column)
+text_add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
+text_add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
+text_add_text_length(data, column)
+text_add_word_freq(data, column, lst_words, freq = "count")
+text_cluster_cosine_sim(a, b, nlp = None)
+text_cluster_predict_similarity_classif(X, dic_y)
+text_create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
+text_plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
+text_plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
+text_utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
+text_word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
+topic_fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
+topic_get_similar_words(lst_words, top, nlp = None)
+topic_plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
+topic_word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
+word2vec_create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
+word2vec_embedding_w2v(x, nlp = None, value_na = 0)
+word2vec_fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
+word2vec_fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
+word2vec_plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
+word2vec_text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
+word2vec_utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
+word2vec_vocabulary_embeddings(dic_vocabulary, nlp = None)
 
 
 
