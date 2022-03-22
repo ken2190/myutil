@@ -418,7 +418,7 @@ def image_preps_mp(dirin_image:list, prepro_image_fun=None, npool=1):
 
 
 #TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(dirout :str =""):
+def image_resize_mp(dirin:str="", dirout :str =""):
     """     python prepro.py  image_resize
 
           image white color padded
@@ -426,8 +426,8 @@ def image_resize_mp(dirout :str =""):
     """
     import cv2, gc, diskcache
 
-    in_dir = data_dir + "/train_nobg"
-    dirout = data_dir + "/train_nobg_256/"
+    in_dir = dirin 
+    # dirout = dirout 
 
     nmax = 500000000
     global xdim, ydim
@@ -446,6 +446,8 @@ def image_resize_mp(dirout :str =""):
             img_path_new = dirout + "/" + fname
 
             img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
+            
+            ### for MP needs to reference to file-base images
             img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
             img = img[:, :, ::-1]
             cv2.imwrite(img_path_new, img)
@@ -584,7 +586,7 @@ def image_resize_pad(img :npArrayLike,size : Tuple[Union[None,int],Union[None,in
      h, w = img.shape[:2]
      sh, sw = size
      if not pad:
-         return image_resize(image, width=sw, height=sh, inter=cv2.INTER_AREA)
+         return image_resize(img, width=sw, height=sh, inter=cv2.INTER_AREA)
      assert (sh is not None)  and (sw is not None) , 'if using padding, the target size must be provided'
      # interpolation method
      if h > sh or w > sw: # shrinking image
