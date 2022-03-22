@@ -45,9 +45,11 @@ jobs:
 
       - name: Create Auto PR  local to main
         run: |
+           alias pr="bin/hub pull-request "
            echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
            echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+           export name='alex' && echo $name &&  pr  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
 
 
       - name: Create Auto PR  main to local
