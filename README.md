@@ -4,8 +4,6 @@
 [     https://pypi.org/project/utilmy/#history ](https://pypi.org/project/utilmy/#history)
 
 
-
-
 ## myutil
     1000s of One liner function utilities.
     
@@ -15,60 +13,12 @@
 
 
 ### Install for development
-```
-git clone  https://github.com/arita37/myutil.git
-cd myutil
-git checkout  YourBranchUsername
-pip install -e .   ### Install in developer mode : changes are reflected
-python -c "from utilmy import log, log2"      ### Check Install
 
-### Ref
-https://stackoverflow.com/questions/35064426/when-would-the-e-editable-option-be-useful-with-pip-install
-
-### Optional Dependencies
-https://github.com/arita37/myutil/blob/main/py36.txt
-
-pip install -r py36.txt
-
-
-###And open it in Vscode
-
-```
+    https://github.com/arita37/myutil/issues/9
 
 
 
-
-
-### Advice
-```
-  Keep minimal coding : Less code is BETTER Code.
-  Do NOT add stupid functions
-  Add functions that you WILL REUSE.
-  Follow strictly naming pattern
-  Open in pycharm as below :
-```
-
-
-
-
-## Documentation
-
-    pip install --upgrade utilmy
-
-   https://github.com/arita37/myutil/issues/127
-   
-
-
-## How to contribute ?
-
-     This package is looking for contributors. 
-     Please check here:
-   https://github.com/arita37/myutil/issues/144
-   
-
-
-
-## Usage examples
+## How to use 
  
     https://drive.google.com/drive/folders/1FawUmqrNOxabWbepiCchDd1b60pseDXm?usp=sharing
  
@@ -80,11 +30,12 @@ pip install -r py36.txt
 
 
 
-VizHTML
-https://colab.research.google.com/drive/1blfkg8sFMcRmIULhJVMZ8BIC5x_2YrDl?usp=sharing
+    VizHTML
+    https://colab.research.google.com/drive/1blfkg8sFMcRmIULhJVMZ8BIC5x_2YrDl?usp=sharing
 
 
  
+
  ## Datasets available :
  
  https://github.com/arita37/zdata/blob/main/README.md
