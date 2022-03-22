@@ -116,7 +116,7 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
-            image = util_image.image_center_crop(image, (245, 245))
+            image = image_center_crop(image, (245, 245))
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
@@ -156,7 +156,7 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
     for i,key in enumerate(cache):
        if i > 3 : break
        x0 = cache[key]
-       cv2.imwrite( data_train + f"/check_{i}.png", x0 )
+       cv2.imwrite( dirout + f"/check_{i}.png", x0 )
        log(key, x0.shape, str(x0)[:50]  )
 
 
@@ -219,7 +219,7 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
         cache[img_path] = img
 
 
-def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", dirout):
+def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", img_list:list=None, dirout=""):
     """function image_save
     Args:
     Returns:
@@ -578,7 +578,7 @@ def image_resize_pad(img :np.typing.ArrayLike,size : Tuple[Union[None,int],Union
      h, w = img.shape[:2]
      sh, sw = size
      if not pad:
-         return image_resize(image, width=sw, height=sh, inter=cv2.INTER_AREA)
+         return image_resize(img, width=sw, height=sh, inter=cv2.INTER_AREA)
      assert (sh is not None)  and (sw is not None) , 'if using padding, the target size must be provided'
      # interpolation method
      if h > sh or w > sw: # shrinking image
@@ -804,7 +804,7 @@ def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,byt
       except : pass #TODO: code smell:better to handle specific exceptions
 
 
-def image_check():
+def image_check(db_dir:str, dirout:str):
     """     python prepro.py  image_check
 
           image white color padded
@@ -826,7 +826,6 @@ def image_check():
     log('loading', fname)
 
     import diskcache as dc
-    db_dir = data_train + fname
     cache = dc.Cache(db_dir)
 
     lkey = list(cache)
@@ -837,7 +836,7 @@ def image_check():
     # idlist = df['id']
 
     log('### writing on disk  ######################################')
-    dir_check = data_train + "/zcheck/"
+    dir_check = dirout + "/zcheck/"
     os.makedirs(dir_check, exist_ok=True)
     for i, key in enumerate(cache):
         if i > 10: break
