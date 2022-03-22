@@ -223,12 +223,13 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
         cache[img_path] = img
 
 
-def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", dirout):
+def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
     """function image_save
     Args:
     Returns:
 
     """
+    # db_dir = "_70k_clean_nobg_256_256-100000.cache"
     import diskcache as dc
     cache   = dc.Cache(db_dir)
     print('Nimages', len(cache) )
