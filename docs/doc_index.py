@@ -750,13 +750,16 @@ vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  
 utilmy/deeplearning/util_onnx.py
 -------------------------functions----------------------
 help()
-onnx_convert(dir_model:str = "mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str)
-onnx_load_model()
-onnx_load_onnx()
-onnx_validate_onnx()
+onnx_check_onnx(dironnx:str = "super_resolution.onnx", dirmodel:str = None, dirweights:str = None, x_numpy:Union[ndarray, list] = None)
+onnx_convert(model_path:str, dirout:str, input_shape:tuple, onnx_version:int = 10, do_constant_folding:bool = True, input_names = ['input'], output_names = ['output'], dynamic_axes={'input'  = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}})
+onnx_load_modelbase(dirmodel:str = "myClassmodel.py:MyNNClass", dirweight:str = "", mode_inference = True, verbose = 1)
+onnx_load_onnx(dironnx:str = "super_resolution.onnx", )
 test1()
 test2()
+test3()
+test4()
 test_all()
+test_create_model_pytorch(dirsave = None, model_name = "")
 
 
 
