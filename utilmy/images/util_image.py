@@ -50,6 +50,51 @@ def test2():
     """function test"""
     pass
 
+def test_diskcache():
+    import tempfile
+    import skimage
+    import numpy as np
+    # dump some skimage images to a directory to create a cache from
+    import skimage.data
+    import os
+    
+    images = ('astronaut',
+          'binary_blobs',
+          'brick',
+          'colorwheel',
+          'camera',
+          'cat',
+          'checkerboard',
+          'clock',
+          'coffee',
+          'coins',
+        #   'eagle',
+          'grass',
+          'gravel',
+          'horse',
+          'logo',
+          'page',
+          'text',
+          'rocket',
+          )
+    with  tempfile.TemporaryDirectory() as dirin:              
+        # print(dirin)
+        subdirs = ['1','2','3']
+        for d_ in subdirs:
+            os.mkdir(os.path.join(dirin,d_))
+        with  tempfile.TemporaryDirectory() as dirout:              
+            # print(dirout)
+            n_images = len(images)
+
+            for i,imname in enumerate(images):
+                im = getattr(skimage.data,imname)()
+                d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
+                skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
+                # break
+            
+            cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=256, ydim0=256, tag0= "dc_tag", nmax=10000000, file_exclude="" )
+            assert len(cache) == n_images, 'size of the cache is not the same as n_images'
+
 
 def test_image_create_fake():
     dirout = os.getcwd() + "/ztmp/images/"
@@ -68,7 +113,9 @@ def test_image_create_fake():
 
 #################################################################################################
 #### images storage ###############################################################################
-def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "train_1000k_clean_nobg", nmax=10000000, file_exclude="" ):
+#TODO dirin,dirout as paths
+#TODO typehints
+def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -95,9 +142,9 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
     xdim, ydim = xdim0, ydim0
 
     log("#### paths  ####################################################################")
-    in_dir   = "gsp/v1000k_clean_nobg/" if dirin is None else dirin
+    in_dir = dirin
     tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
-    db_dir  = "/dev/shm/train_npz/small/" + f"/img_{tag}.cache"  if dirout is None else dirout + f"/img_{tag}.cache"
+    db_dir  = dirout + f"/img_{tag}.cache"
     log(in_dir, db_dir)
 
 
@@ -156,12 +203,14 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
        # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
 
     log("#### Validate the cache ########################################################")
-    log('size cache', len(cache), db_dir)
-    for i,key in enumerate(cache):
-       if i > 3 : break
-       x0 = cache[key]
-       cv2.imwrite( data_train + f"/check_{i}.png", x0 )
-       log(key, x0.shape, str(x0)[:50]  )
+    #TODO: this is probably done in diskcache_image_check
+    # log('size cache', len(cache), db_dir)
+    # for i,key in enumerate(cache):
+    #    if i > 3 : break
+    #    x0 = cache[key]
+    #    cv2.imwrite( data_train + f"/check_{i}.png", x0 )
+    #    log(key, x0.shape, str(x0)[:50]  )
+    return cache
 
 
 def diskcache_image_loadcache(db_dir:str="db_images.cache"):
