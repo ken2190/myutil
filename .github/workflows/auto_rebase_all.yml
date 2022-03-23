@@ -42,17 +42,20 @@ jobs:
            git config --global hub.protocol ssh
            # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
 
+
       - name: Create Auto PR  local to main
         run: |
            echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
-           echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+           # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+           export name='alex' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+
 
       - name: Create Auto PR  main to local
         run: |
-           echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m " main into aniket"     || echo "failed"
+           echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m "main into aniket"     || echo "failed"
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
-           echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:bishwa-bk    --head arita37:main  -m "main into bishwaw"  || echo "failed"
+           # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:bishwa-bk    --head arita37:main  -m "main into bishwaw"    || echo "failed"
 
 
 

@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:  
 
-  schedule:
-    - cron:  '0 14 * * *'      #### 60mins
-    #    - cron:  '*/10 * * * *'   
+#  schedule:
+#    - cron:  '0 14 * * *'      #### 60mins
+#    #    - cron:  '*/10 * * * *'   
 
   push:
     branches:
