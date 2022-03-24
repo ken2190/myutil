@@ -92,9 +92,18 @@ def test_diskcache():
                 skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
                 # break
             
-            cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=256, ydim0=256, tag0= "dc_tag", nmax=10000000, file_exclude="" )
+            tag0 = 'dc_tag'
+            xdim0 = 256
+            ydim0 = 256
+            nmax = 10000000
+            cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-
+            with  tempfile.TemporaryDirectory() as dircheck:              
+                tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
+                diskcache_image_check(
+                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"), 
+                    dirout = dircheck, 
+                    tag = tag)
 
 def test_image_create_fake():
     dirout = os.getcwd() + "/ztmp/images/"
@@ -115,6 +124,7 @@ def test_image_create_fake():
 #### images storage ###############################################################################
 #TODO dirin,dirout as paths
 #TODO typehints
+#TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
@@ -224,7 +234,7 @@ def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     log('Nimages', len(cache) )
     return cache
 
-
+#TODO: type hints for path
 def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
