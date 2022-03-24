@@ -38,7 +38,7 @@ geopandas==0.10.2
 google-auth==1.35.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
-grpcio==1.44.0
+grpcio==1.45.0
 h5py==2.10.0
 hijri-converter==2.2.3
 holidays==0.13
@@ -74,6 +74,7 @@ networkx==2.6.3
 nltk==3.6.3
 numpy==1.18.5
 oauthlib==3.2.0
+opencv-python==4.5.5.64
 opt-einsum==3.3.0
 packaging==21.3
 pandas==1.2.1
@@ -85,7 +86,7 @@ phik==0.12.2
 pickleshare==0.7.5
 Pillow==9.0.1
 pmlb==1.0.1.post3
-polars==0.13.13
+polars==0.13.14
 pretty-html-table==0.9.15
 prompt-toolkit==3.0.28
 protobuf==3.19.4
@@ -136,14 +137,14 @@ tensorflow-estimator==2.2.0
 termcolor==1.1.0
 threadpoolctl==3.1.0
 torch==1.7.0+cpu
-tqdm==4.63.0
+tqdm==4.63.1
 traitlets==5.1.1
 typing_extensions==4.1.1
 tzdata==2022.1
 tzlocal==4.1
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@61f4a004ac866b5e02f26272b18e287604f2dd24#egg=utilmy
+-e git+https://github.com/arita37/myutil@3951ebb35417d8eac772a8bf9852c4f97e7a031c#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.0.3
