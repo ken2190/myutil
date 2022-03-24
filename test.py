@@ -75,7 +75,13 @@ def test_utilmy():
    sess.load('mysess')
    sess.load('mysess', tag='01')
 
-   
+
+
+##########################################################################################
+def test_image():
+    from utilmy.images import util_image as m
+    m.test_all()
+
 
 ##########################################################################################
 def test_ppandas():

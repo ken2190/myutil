@@ -109,7 +109,7 @@ def test1():
                     val_path=   dirdata + f"/data_fake.parquet",
                     eval_path = dirdata + f"/data_fake.parquet",
                     metricname='cosinus',
-                    dirout= dirdata + f"/results/" + lloss, cc=cc) 
+                    dirout= dirdata + f"/results/" + lname, cc=cc) 
     
 
 
