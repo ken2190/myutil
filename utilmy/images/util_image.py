@@ -7,14 +7,14 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List
 from box import Box
 
-import io, cv2,  tifffile.tifffile, matplotlib
+import io, cv2,  matplotlib
+# import  tifffile.tifffile
 from PIL import Image
-from typing import Union,Tuple,Sequence,List,Any
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
+   import diskcache as dc    
    from albumentations.core.transforms_interface import ImageOnlyTransform
-   import diskcache as dc
 except : pass
 
 try:
@@ -39,6 +39,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test_diskcache()
 
 
 def test1():
@@ -57,7 +58,7 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-    
+
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -77,12 +78,12 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:              
+    with  tempfile.TemporaryDirectory() as dirin:
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:              
+        with  tempfile.TemporaryDirectory() as dirout:
             # print(dirout)
             n_images = len(images)
 
@@ -91,20 +92,20 @@ def test_diskcache():
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
                 skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
                 # break
-            
+
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:              
+            with  tempfile.TemporaryDirectory() as dircheck:
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
                 diskcache_image_check(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"), 
-                    dirout = dircheck, 
+                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
+                    dirout = dircheck,
                     tag = tag)
-            
+
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
@@ -492,8 +493,8 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     """
     import cv2, gc, diskcache
 
-    in_dir = dirin 
-    # dirout = dirout 
+    in_dir = dirin
+    # dirout = dirout
 
     nmax = 500000000
     global xdim, ydim
@@ -512,7 +513,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
             img_path_new = dirout + "/" + fname
 
             img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
-            
+
             ### for MP needs to reference to file-base images
             img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
             img = img[:, :, ::-1]
