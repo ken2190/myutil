@@ -281,7 +281,8 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
         img = image_read(img_path)
         cache[img_path] = img
 
-
+#TODO: this is the same as `diskcache_image_check`
+# 
 def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
     """function image_save
     Args:
