@@ -1007,7 +1007,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
-diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
+diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
@@ -1036,6 +1036,7 @@ run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test1()
 test2()
 test_all()
+test_diskcache()
 test_image_create_fake()
 
 
