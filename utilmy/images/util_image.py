@@ -57,7 +57,7 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-    
+
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -77,12 +77,12 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:              
+    with  tempfile.TemporaryDirectory() as dirin:
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:              
+        with  tempfile.TemporaryDirectory() as dirout:
             # print(dirout)
             n_images = len(images)
 
@@ -91,20 +91,20 @@ def test_diskcache():
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
                 skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
                 # break
-            
+
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:              
+            with  tempfile.TemporaryDirectory() as dircheck:
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
                 diskcache_image_check(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"), 
-                    dirout = dircheck, 
+                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
+                    dirout = dircheck,
                     tag = tag)
-            
+
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
@@ -183,7 +183,7 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
-            image = image_center_crop(image, (245, 245))
+            image = util_image.image_center_crop(image, (245, 245))
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
@@ -219,14 +219,6 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
        # asyncio.run(set_async( key , img ))   ##only python 3.7 multi-threading
 
     log("#### Validate the cache ########################################################")
-<<<<<<< HEAD
-    log('size cache', len(cache), db_dir)
-    for i,key in enumerate(cache):
-       if i > 3 : break
-       x0 = cache[key]
-       cv2.imwrite( dirout + f"/check_{i}.png", x0 )
-       log(key, x0.shape, str(x0)[:50]  )
-=======
     #TODO: this is probably done in diskcache_image_check
     # log('size cache', len(cache), db_dir)
     # for i,key in enumerate(cache):
@@ -235,7 +227,6 @@ def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim
     #    cv2.imwrite( data_train + f"/check_{i}.png", x0 )
     #    log(key, x0.shape, str(x0)[:50]  )
     return cache
->>>>>>> 6f808154534e63e1b19a2c570b8cc644c3a29d82
 
 
 def diskcache_image_loadcache(db_dir:str="db_images.cache"):
@@ -296,14 +287,9 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
         img = image_read(img_path)
         cache[img_path] = img
 
-<<<<<<< HEAD
-
-def diskcache_image_getsample(db_dir="_70k_clean_nobg_256_256-100000.cache", img_list:list=None, dirout=""):
-=======
 #TODO: this is the same as `diskcache_image_check`
 # consider removing? ( or different purpose in mind?)
 def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
->>>>>>> 6f808154534e63e1b19a2c570b8cc644c3a29d82
     """function image_save
     Args:
     Returns:
@@ -506,8 +492,8 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     """
     import cv2, gc, diskcache
 
-    in_dir = dirin 
-    # dirout = dirout 
+    in_dir = dirin
+    # dirout = dirout
 
     nmax = 500000000
     global xdim, ydim
@@ -526,7 +512,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
             img_path_new = dirout + "/" + fname
 
             img = cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB)
-            
+
             ### for MP needs to reference to file-base images
             img = util_image.image_resize_pad(img, (xdim, ydim), padColor=padcolor)  ### 255 white, 0 for black
             img = img[:, :, ::-1]
@@ -892,7 +878,7 @@ def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,byt
       except : pass #TODO: code smell:better to handle specific exceptions
 
 
-def image_check(db_dir:str, dirout:str):
+def image_check():
     """     python prepro.py  image_check
 
           image white color padded
@@ -914,6 +900,7 @@ def image_check(db_dir:str, dirout:str):
     log('loading', fname)
 
     import diskcache as dc
+    db_dir = data_train + fname
     cache = dc.Cache(db_dir)
 
     lkey = list(cache)
@@ -924,7 +911,7 @@ def image_check(db_dir:str, dirout:str):
     # idlist = df['id']
 
     log('### writing on disk  ######################################')
-    dir_check = dirout + "/zcheck/"
+    dir_check = data_train + "/zcheck/"
     os.makedirs(dir_check, exist_ok=True)
     for i, key in enumerate(cache):
         if i > 10: break
