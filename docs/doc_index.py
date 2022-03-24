@@ -1007,6 +1007,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
+diskcache_image_check2()
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
@@ -1014,7 +1015,6 @@ diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
 image_center_crop(img:npArrayLike, dim:Tuple[int, int])
-image_check()
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
