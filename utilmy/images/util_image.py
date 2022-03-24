@@ -104,6 +104,12 @@ def test_diskcache():
                     db_dir  = os.path.join(dirout,f"img_{tag}.cache"), 
                     dirout = dircheck, 
                     tag = tag)
+            
+                cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
+                assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
+                for k in cache2:
+                    assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
+
 
 def test_image_create_fake():
     dirout = os.getcwd() + "/ztmp/images/"
@@ -282,7 +288,7 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
         cache[img_path] = img
 
 #TODO: this is the same as `diskcache_image_check`
-# 
+# consider removing? ( or different purpose in mind?)
 def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
     """function image_save
     Args:
