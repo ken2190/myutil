@@ -750,13 +750,16 @@ vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  
 utilmy/deeplearning/util_onnx.py
 -------------------------functions----------------------
 help()
-onnx_convert(dir_model:str = "mypath/mymodule.py::Model", dir_weights:str, dirout:str, onnx_pars:dict, config_dir:str)
-onnx_load_model()
-onnx_load_onnx()
-onnx_validate_onnx()
+onnx_check_onnx(dironnx:str = "super_resolution.onnx", dirmodel:str = None, dirweights:str = None, x_numpy:Union[ndarray, list] = None)
+onnx_convert(model_path:str, dirout:str, input_shape:tuple, onnx_version:int = 10, do_constant_folding:bool = True, input_names = ['input'], output_names = ['output'], dynamic_axes={'input'  = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}})
+onnx_load_modelbase(dirmodel:str = "myClassmodel.py:MyNNClass", dirweight:str = "", mode_inference = True, verbose = 1)
+onnx_load_onnx(dironnx:str = "super_resolution.onnx", )
 test1()
 test2()
+test3()
+test4()
 test_all()
+test_create_model_pytorch(dirsave = None, model_name = "")
 
 
 
@@ -1004,7 +1007,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
-diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "train_1000k_clean_nobg", nmax = 10000000, file_exclude = "")
+diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
@@ -1023,7 +1026,7 @@ image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
 image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
 image_resize(image : npArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
-image_resize_mp(dirout :str  = "")
+image_resize_mp(dirin:str = "", dirout :str  = "")
 image_resize_pad(img :npArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
 image_resize_ratio(image : npArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
 image_show_in_row(image_list:Union[dict, list] = None)
@@ -1033,6 +1036,7 @@ run_multiprocess(myfun, list_args, npool = 10, **kwargs)
 test1()
 test2()
 test_all()
+test_diskcache()
 test_image_create_fake()
 
 
