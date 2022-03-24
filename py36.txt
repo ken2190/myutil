@@ -37,6 +37,11 @@ wget
 psutil
 
 ########################################################
+#### utilmy.images
+opencv-python
+
+
+########################################################
 #### utilmy.text
 datasketch  ### lSH
 rapidfuzz
@@ -75,7 +80,7 @@ stdlib_list
 
 
 ########################################################
-#### utilmy.keyvalue
+#### utilmy.db
 diskcache
 
 

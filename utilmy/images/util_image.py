@@ -7,14 +7,14 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List
 from box import Box
 
-import io, cv2,  tifffile.tifffile, matplotlib
+import io, cv2,  matplotlib
+# import  tifffile.tifffile
 from PIL import Image
-from typing import Union,Tuple,Sequence,List,Any
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
+   import diskcache as dc    
    from albumentations.core.transforms_interface import ImageOnlyTransform
-   import diskcache as dc
 except : pass
 
 try:
@@ -39,6 +39,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test_diskcache()
 
 
 def test1():
