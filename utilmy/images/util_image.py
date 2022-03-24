@@ -7,14 +7,14 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List
 from box import Box
 
-import io, cv2,  tifffile.tifffile, matplotlib
+import io, cv2,  matplotlib
+# import  tifffile.tifffile
 from PIL import Image
-from typing import Union,Tuple,Sequence,List,Any
 
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
+   import diskcache as dc    
    from albumentations.core.transforms_interface import ImageOnlyTransform
-   import diskcache as dc
 except : pass
 
 try:
@@ -39,6 +39,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test_diskcache()
 
 
 def test1():
@@ -116,11 +117,7 @@ def test_image_create_fake():
     imsize=(300,300)
     red = (255, 0, 0)
     nimages = 1
-    image_create_fake(
-    dirout=dirout,
-    nimages=nimages,
-    imsize=imsize,
-    rgb_color = red)
+    image_create_fake(dirout=dirout, nimages=nimages, imsize=imsize, rgb_color = red)
 
 
 ################################################################################################
@@ -312,6 +309,51 @@ def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Uni
     log( dir_check )
 
 
+
+def diskcache_image_check2():
+    """     python prepro.py  image_check
+
+          image white color padded
+
+    """
+    # print( 'nf files', len(glob.glob("/data/workspaces/noelkevin01/img/data/fashion/train_nobg_256/*")) )
+    nmax = 100000
+    global xdim, ydim
+    xdim = 64
+    ydim = 64
+
+    log("### Load  ##################################################")
+    # fname    = f"/img_all{tag}.cache"
+    # fname    = f"/img_fashiondata_64_64-100000.cache"
+    # fname = "img_train_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+
+    log('loading', fname)
+
+    import diskcache as dc
+    db_dir = data_train + fname
+    cache = dc.Cache(db_dir)
+
+    lkey = list(cache)
+    print('Nimages', len(lkey))
+
+    ### key check:
+    # df = pd_read_file("/data/workspaces/noelkevin01/img/data/fashion/csv/styles_df.csv" )
+    # idlist = df['id']
+
+    log('### writing on disk  ######################################')
+    dir_check = data_train + "/zcheck/"
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(cache):
+        if i > 10: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        print(key)
+        key2 = key.split("/")[-1]
+        cv2.imwrite(dir_check + f"/{key2}", img)
+
+
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
@@ -405,7 +447,7 @@ def image_create_fake(
     nimages=1,
     imsize=(300,300),
     rgb_color = (255, 0, 0)):
-    """TODO: whats the use of this function
+    """ create fake image for testing
     """
     import cv2
     import numpy as np
@@ -878,48 +920,6 @@ def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,byt
       except : pass #TODO: code smell:better to handle specific exceptions
 
 
-def image_check():
-    """     python prepro.py  image_check
-
-          image white color padded
-
-    """
-    # print( 'nf files', len(glob.glob("/data/workspaces/noelkevin01/img/data/fashion/train_nobg_256/*")) )
-    nmax = 100000
-    global xdim, ydim
-    xdim = 64
-    ydim = 64
-
-    log("### Load  ##################################################")
-    # fname    = f"/img_all{tag}.cache"
-    # fname    = f"/img_fashiondata_64_64-100000.cache"
-    # fname = "img_train_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-
-    log('loading', fname)
-
-    import diskcache as dc
-    db_dir = data_train + fname
-    cache = dc.Cache(db_dir)
-
-    lkey = list(cache)
-    print('Nimages', len(lkey))
-
-    ### key check:
-    # df = pd_read_file("/data/workspaces/noelkevin01/img/data/fashion/csv/styles_df.csv" )
-    # idlist = df['id']
-
-    log('### writing on disk  ######################################')
-    dir_check = data_train + "/zcheck/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache):
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        print(key)
-        key2 = key.split("/")[-1]
-        cv2.imwrite(dir_check + f"/{key2}", img)
 
 
 
