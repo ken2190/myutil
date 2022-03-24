@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+MNANE="utilmy.nlp.keras.sentences"
 HELP = """  sentence --> generate vectors
 
 
@@ -11,7 +12,6 @@ from tensorflow.keras.layers import Dropout, Dense,Softmax, GlobalAveragePooling
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 from tensorflow.keras.metrics import SparseCategoricalAccuracy
-
 import tensorflow_hub as hub
 
 ###################################################################################
@@ -20,25 +20,18 @@ from utilmy.utilmy import log, log2
 
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
-    """
+    """function help """
     from utilmy import help_create
-    ss = help_create("utilmy.nlp.util_sentence") + HELP
-    print(ss)
-
+    print( HELP + help_create(MNAME)  )
 
 ###################################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all        
     """
-    pass
-    
+    log(MNAME)
+    # test1()
+
+
 def test3():
   """function test3
   Args:
@@ -142,7 +135,6 @@ def test2():
   model_finetune_classifier(model_path, df, n_labels=4, lrate=1e-5)
   model = model_load(model)
   embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
-
 
 
 
@@ -298,9 +290,6 @@ def embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d):
 
   
 
-  
-  
-  
   
   
   

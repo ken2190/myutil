@@ -25,13 +25,20 @@ import re, langdetect, nltk, wordcloud, contractions
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 
+## for ner
+import spacy
+import collections
 
 ## for machine learning
 from sklearn import preprocessing, model_selection, feature_extraction, feature_selection, metrics, manifold, naive_bayes, pipeline
 
 ## for deep learning
 from tensorflow.keras import callbacks, models, layers, preprocessing as kprocessing
+from tensorflow.keras import backend as K
 
+## for explainer
+from lime import lime_text
+import shap
 
 ## for W2V and textRank
 import gensim
@@ -43,6 +50,8 @@ import transformers
 ## for summarization
 import rouge
 
+
+#### Types
 
 
 #############################################################################################
@@ -183,7 +192,7 @@ def text_create_stopwords(lst_langs=["english"], lst_add_words=[], lst_keep_word
 
 
 
-def text_preprocess_text(txt, lst_regex=None, punkt=True, lower=True, slang=True, lst_stopwords=None, stemm=False, lemm=True):
+def text_utils_preprocess_text(txt, lst_regex=None, punkt=True, lower=True, slang=True, lst_stopwords=None, stemm=False, lemm=True):
     '''
     Preprocess a string.
     :parameter
@@ -255,7 +264,7 @@ def text_add_preprocessed_text(data, column, lst_regex=None, punkt=False, lower=
 
     ## apply preprocess
     dtf = dtf[ pd.notnull(dtf[column]) ]
-    dtf[column+"_clean"] = dtf[column].apply(lambda x: text_preprocess_text(x, lst_regex, punkt, lower, slang, lst_stopwords, stemm, lemm))
+    dtf[column+"_clean"] = dtf[column].apply(lambda x: utils_preprocess_text(x, lst_regex, punkt, lower, slang, lst_stopwords, stemm, lemm))
 
     ## residuals
     dtf["check"] = dtf[column+"_clean"].apply(lambda x: len(x))
@@ -485,7 +494,7 @@ def bagwords_fit_ml_classif(X_train, y_train, X_test, vectorizer=None, classifie
 #                        WORD2VEC (WORD EMBEDDING)                            #
 ###############################################################################
 
-def word2vec_preprocess_ngrams(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[]):
+def word2vec_utils_preprocess_ngrams(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[]):
     '''
     Create a list of lists of grams with gensim:
         [ ["hi", "my", "name", "is", "Tom"],
@@ -525,7 +534,7 @@ def word2vec_create_ngrams_detectors(corpus, grams_join=" ", lst_common_terms=[]
         list with n-grams models and dataframe with frequency
     '''
     ## fit models
-    lst_corpus = word2vec_preprocess_ngrams(corpus, ngrams=1, grams_join=grams_join)
+    lst_corpus = utils_preprocess_ngrams(corpus, ngrams=1, grams_join=grams_join)
     bigrams_detector = gensim.models.phrases.Phrases(lst_corpus, delimiter=grams_join.encode(), common_terms=lst_common_terms,
                                                      min_count=min_count, threshold=min_count*2)
     bigrams_detector = gensim.models.phrases.Phraser(bigrams_detector)
@@ -564,7 +573,7 @@ def word2vec_fit_w2v(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], 
     :return
         lst_corpus and the nlp model
     '''
-    lst_corpus = word2vec_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
+    lst_corpus = utils_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
     nlp = gensim.models.word2vec.Word2Vec(lst_corpus, size=size, window=window, min_count=min_count, sg=sg, iter=epochs)
     return lst_corpus, nlp.wv
 
@@ -722,7 +731,7 @@ def word2vec_text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[],
     print("--- tokenization ---")
 
     ## detect common n-grams in corpus
-    lst_corpus = word2vec_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
+    lst_corpus = utils_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
 
     ## bow with keras to get text2tokens without creating the sparse matrix
     ### train
@@ -790,12 +799,12 @@ def word2vec_fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapp
     ## train
     verbose = 0 if epochs > 1 else 1
     training = model.fit(x=X_train, y=y_train, batch_size=batch_size, epochs=epochs, shuffle=True, verbose=verbose, validation_split=0.3)
-    #if epochs > 1:
-    #    utils_plot_keras_training(training)
+    if epochs > 1:
+        utils_plot_keras_training(training)
 
     ## test
     predicted_prob = model.predict(X_test)
-    predicted = [dic_y_mapping[np.argmax(pred)] for pred in predicted_prob] if encode_y is True else [np.argmax(predicted_prob)]
+    predicted = [dic_y_mapping[np.argmax(pred)] for pred in predicted_prob] if encode_y is True else [np.argmax(pred)]
     return training.model, predicted_prob, predicted
 
 
@@ -838,7 +847,7 @@ def topic_word_clustering(corpus, nlp=None, ngrams=1, grams_join=" ", lst_ngrams
     ## fit W2V
     if nlp is None:
         print("--- training W2V---")
-        lst_corpus, nlp = word2vec_fit_w2v(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors,
+        lst_corpus, nlp = fit_w2v(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors,
                                   min_count=1, size=300, window=20, sg=0, epochs=100)
 
     ## fit K-Means
@@ -866,7 +875,7 @@ def topic_fit_lda(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], n_t
         model and dtf topics
     '''
     ## train the lda
-    lst_corpus = word2vec_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
+    lst_corpus = utils_preprocess_ngrams(corpus, ngrams=ngrams, grams_join=grams_join, lst_ngrams_detectors=lst_ngrams_detectors)
     id2word = gensim.corpora.Dictionary(lst_corpus) #map words with an id
     dic_corpus = [id2word.doc2bow(word) for word in lst_corpus]  #create dictionary Word:Freq
     print("--- training ---")
@@ -1003,7 +1012,7 @@ def text_cluster_predict_similarity_classif(X, dic_y):
     :return
         predicted_prob, predicted
     '''
-    predicted_prob = np.array([text_cluster_cosine_sim(X, y).T.tolist()[0] for y in dic_y.values()]).T
+    predicted_prob = np.array([utils_cosine_sim(X, y).T.tolist()[0] for y in dic_y.values()]).T
     labels = list(dic_y.keys())
 
     ## adjust and rescale
@@ -1056,7 +1065,7 @@ def string_matching_cossim(a, lst_b, threshold=None, top=None):
 
 
 
-def string_vlookup(lst_left, lst_right, threshold=0.7, top=1):
+def str_vlookup(lst_left, lst_right, threshold=0.7, top=1):
     '''
     str_vlookup for similar strings.
     :parameter
@@ -1187,8 +1196,8 @@ def seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model=None,
                          y=y_train.reshape(y_train.shape[0], y_train.shape[1], 1)[:,1:],
                          batch_size=batch_size, epochs=epochs, shuffle=True, verbose=verbose, validation_split=0.3,
                          callbacks=[callbacks.EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=2)])
-    #if epochs > 1:
-    #    utils_plot_keras_training(training)
+    if epochs > 1:
+        utils_plot_keras_training(training)
 
     ## build prediction enconder-decoder model
     if build_encoder_decoder is True:
