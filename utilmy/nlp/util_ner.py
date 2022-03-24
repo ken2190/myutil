@@ -11,6 +11,9 @@ from typing import List, Optional, Tuple, Union
 from numpy import ndarray
 from box import Box
 
+
+import spacy
+
 #############################################################################################
 from utilmy import log, log2,help_create
 
@@ -51,7 +54,7 @@ def test2() -> None:
 #############################################################################################
 #                            NER                                              #
 
-def ner_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=False):
+def ner_spacy_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=False):
     '''
     Display the spacy NER model.
     :parameter
@@ -70,7 +73,7 @@ def ner_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=False):
 
 
 
-def ner_text(txt, ner=None, lst_tag_filter=None, grams_join="_"):
+def ner_spacy_text(txt, ner=None, lst_tag_filter=None, grams_join="_"):
     '''
     Find entities in text, replace strings with tags and extract tags:
         Donald Trump --> Donald_Trump
@@ -99,26 +102,6 @@ def ner_text(txt, ner=None, lst_tag_filter=None, grams_join="_"):
 
 
 
-def list_topk(lst, top:int=None):
-    '''
-    Counts the elements in a list.
-    :parameter
-        :param lst: list
-        :param top: num - number of top elements to return
-    :return
-        lst_top - list with top elements
-    '''
-    dic_counter = collections.Counter()
-    for x in lst:
-        dic_counter[x] += 1
-    dic_counter = collections.OrderedDict(sorted(dic_counter.items(), key=lambda x: x[1], reverse=True))
-    lst_top = [ {key:value} for key,value in dic_counter.items() ]
-    if top is not None:
-        lst_top = lst_top[:top]
-    return lst_top
-
-
-
 def ner_features(lst_dics_tuples, tag):
     '''
     Creates columns
@@ -142,7 +125,7 @@ def ner_features(lst_dics_tuples, tag):
 
 
 
-def ner_add_ner_spacy(data, column, ner=None, lst_tag_filter=None, grams_join="_", create_features=True):
+def ner_spacy_add_tag_features(data, column, ner=None, lst_tag_filter=None, grams_join="_", create_features=True):
     '''
     Apply spacy NER model and add tag features.
     :parameter
@@ -271,8 +254,26 @@ def ner_spacy_retrain(train_data, output_dir, model="blank", n_iter=100):
 
 
 
-
-
+if 'utils':
+    def list_topk(lst, top:int=None):
+        '''
+        Counts the elements in a list.
+        :parameter
+            :param lst: list
+            :param top: num - number of top elements to return
+        :return
+            lst_top - list with top elements
+        '''
+        dic_counter = collections.Counter()
+        for x in lst:
+            dic_counter[x] += 1
+        dic_counter = collections.OrderedDict(sorted(dic_counter.items(), key=lambda x: x[1], reverse=True))
+        lst_top = [ {key:value} for key,value in dic_counter.items() ]
+        if top is not None:
+            lst_top = lst_top[:top]
+        return lst_top
+    
+    
 
 
 ###################################################################################################
