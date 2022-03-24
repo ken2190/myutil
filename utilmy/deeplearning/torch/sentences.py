@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-"""sentence_tansformer.ipynb
+MNAME="utilmy.deeplearning.torch.sentences"
+HELP="""sentence_tansformer
+
 cd deeplearning/torch/
 python sentences.py  test
+
 
 Original file is located at
     https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
@@ -11,14 +14,11 @@ train Sentence Transformer with different Losses such as:**
 > Cusine Loss
 > TripletHard Loss
 > MultpleNegativesRanking Loss
-#!pip3 install python-box
+
 # !pip install sentence-transformers
-#!pip3 install tensorflow
 
-
-
-
-We create a new end-to-end example on how to use a custom inference.py script with a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+We create a new end-to-end example on how to use a custom inference.py script w
+ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
 
 🖼  blog: https://lnkd.in/dXNu4R-G
 📈  notebook: https://lnkd.in/dkjDMNaC
@@ -26,15 +26,9 @@ We create a new end-to-end example on how to use a custom inference.py script wi
 
 """
 import sys, os, gzip, csv, random, math, logging, pandas as pd
+from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
-
-import sentence_transformers as st
-
-from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
-from sentence_transformers import models, losses, datasets
-from sentence_transformers.readers import InputExample
-from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
 
 import torch
 from torch import nn
@@ -43,20 +37,40 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+try :
+    import sentence_transformers as st
+    from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
+    from sentence_transformers import models, losses, datasets
+    from sentence_transformers.readers import InputExample
+    from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
+except Exception as e:
+    print(e)
 
 
 #### read data on disk
 from utilmy import pd_read_file
 
 
-#####################################################################################
-def log(*s):
-    print(*s, flush=True)
 
-    
+#############################################################################################
+from utilmy import log, log2
+def help():
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+#############################################################################################
+def test_all() -> None:
+    """function test_all
+    """
+    log(MNAME)
+    test1() ### pip install
+
+
+
 
 #####################################################################################
-def test():
+def test1():
     #  Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
@@ -95,7 +109,7 @@ def test():
                     val_path=   dirdata + f"/data_fake.parquet",
                     eval_path = dirdata + f"/data_fake.parquet",
                     metricname='cosinus',
-                    dirout= dirdata + f"/results/" + lloss, cc=cc) 
+                    dirout= dirdata + f"/results/" + lname, cc=cc) 
     
 
 
@@ -105,7 +119,7 @@ def dataset_fake(dirdata):
     sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
 
     # Read the AllNLI.tsv.gz file and create the training dataset
-    df = pd_read(nli_dataset_path, npool=1) 
+    df = pd_read_csv(nli_dataset_path, npool=1) 
     df.iloc[:50, :].to_parquet(dirdata +"/fake_data.parquet")
 
 
@@ -216,7 +230,7 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
 
 
 ###################################################################################################################
-def pd_read(path_or_df='./myfile.csv', npool=1,  **kw):
+def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
     if isinstance(path_or_df, str):
         if '.tsv' in path_or_df or '.csv' in  path_or_df  :
             dftrain = pd_read_file(path_or_df, npool=npool)
@@ -233,7 +247,7 @@ def pd_read(path_or_df='./myfile.csv', npool=1,  **kw):
 def load_evaluator(name='sts', path_or_df="", dname='sts', cc:dict=None):
     if dname == 'sts':        
         log("Read STSbenchmark dev dataset")
-        df = pd_read(path_or_df) 
+        df = pd_read_csv(path_or_df) 
         if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
      
         dev_samples = []        
@@ -247,7 +261,7 @@ def load_evaluator(name='sts', path_or_df="", dname='sts', cc:dict=None):
 
 
 def load_dataloader(name='sts', path_or_df = "", cc:dict= None, npool=4):    
-    df = pd_read(path_or_df, npool=npool) 
+    df = pd_read_csv(path_or_df, npool=npool) 
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
     
@@ -366,6 +380,7 @@ def sentrans_train(modelname_or_path='distilbert-base-nli-mean-tokens',
         model_evaluate(model, dirout)
         
         log("\n******************< finish  > ********************")
+
 
 
 ##########################################################################################

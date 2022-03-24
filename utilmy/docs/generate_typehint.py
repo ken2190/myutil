@@ -10,11 +10,13 @@ HELP  = """ Utils for type generation
 
 
 """
-from email.policy import default
 import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, numpy as np
-import subprocess, shutil, re, sysconfig
 from box import Box
+
+import subprocess, shutil, re, sysconfig
 from ast import literal_eval
+from email.policy import default
+
 
 ## required if we want to annotate files in site-packages
 os.environ["MONKEYTYPE_TRACE_MODULES"] = 'utilmy,site-packages'
@@ -81,14 +83,14 @@ def run_utilmy(nfile=10000):
 
 
 
-def run_utilmy2(nfile=100000):
+def run_utilmy_overwrite(nfile=100000):
   """function run_utilmy2
   Args:
       nfile:   
   Returns:
       
   """
-  log(utilmy.__file__)
+  log('OVERWRITE FILES')
   exclude = ""; 
   dir0   = os.getcwd()
   dirin  = dir0 + "/utilmy/" 
@@ -96,7 +98,9 @@ def run_utilmy2(nfile=100000):
   diroot = dir0        
   dirin = dirin.replace("\\", "/") + '/'
 
-  run_monkeytype(dirin, dirout, mode='full', diroot=diroot, nfile=nfile, exclude="z" )
+  log("dirin0: ", dirin)
+
+  run_monkeytype(dirin, dirout, mode='full,overwrite', diroot=diroot, nfile=nfile, exclude="/z" )
   os.system( f"ls {dirout}/")
 
 
@@ -172,16 +176,17 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
     import os, sys
     os.makedirs(dirout, exist_ok=True)
-    if "utilmy." in dirin :
-        dir0 =  os.path.dirname( utilmy.__file__) + "/"        
-        dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
+    #if "utilmy." in dirin :
+    #    dir0 =  os.path.dirname( utilmy.__file__) + "/"        
+    #    dirin = dir0 +  dirin.replace("utilmy", "").replace(".", "/").replace("//","/")
 
     diroot = os.getcwd()  if diroot is None else diroot
     diroot = os_path_norm(diroot)
 
+    log("dirin:", dirin)
+
     
     flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude=exclude)
-    log(flist)
 
     for fi0 in flist :
       try :
@@ -214,11 +219,23 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
         dircur = os.getcwd()
         os.chdir(fi_dir)
+
         if "full" in mode :  #### Overwrite
-            dirouti = dirout +"/full/"+ fi_pref
+            
+            dirouti     = dirout +"/full/"+ fi_pref if 'overwrite' not in mode  else dirout +"/"+ fi_pref.replace("/utilmy/", "/") 
+            dirouti_tmp = dirouti.replace(".py",  "_tmp.py")
+            
             os_makedirs(dirouti)
-            cmd = f'monkeytype apply {mod_name} > {dirouti} 2>&1' 
+            cmd = f'monkeytype apply {mod_name} > {dirouti_tmp} 2>&1' 
             subprocess.call(cmd, shell=True)
+
+            isok = os_file_compile_check(dirouti_tmp)
+            if isok :
+              if os.path.exists(dirouti): os.remove(dirouti)
+              os.remove(dirouti)
+              os.rename(dirouti_tmp, dirouti)
+            else :
+              os.remove(dirouti_tmp)
 
 
         if "stub" in mode:
@@ -241,8 +258,115 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
 
 
+if 'utilties':
+    def os_path_norm(diroot:str):
+        """os_path_norm 
+        Args:
+            diroot:
+        Returns:
+            _description_
+        """
+        diroot = diroot.replace("\\", "/")
+        return diroot + "/" if diroot[-1] != "/" else  diroot
+
+
+    def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
+        """glob_glob_python 
+        Args:
+            dirin: _description_
+            suffix: _description_. Defaults to "*.py".
+            nfile: _description_. Defaults to 7.
+            exclude: _description_. Defaults to "".
+
+        Returns:
+            _description_
+        """
+        import glob
+        dirin = str(dirin)
+        flist = glob.glob(dirin + suffix) 
+        flist = flist + glob.glob(dirin + "/**/" + suffix ) 
+        elist = []
+        
+        if exclude != "":    
+           for ei in exclude.split(";"):
+               elist = glob.glob(ei + "/" + suffix ) 
+        flist = [ fi for fi in flist if fi not in elist ]
+
+        #### Unix format 
+        flist = [  fi.replace("\\", "/") for fi in flist]
+
+        flist = flist[:nfile]
+        log(dirin, flist)
+        return flist
+
+    def os_makedirs(filename):
+        if isinstance(filename, str):
+            filename = [os.path.dirname(filename)]
+
+        if isinstance(filename, list):
+            folder_list = filename
+            for f in folder_list:
+                try:
+                    if not os.path.exists(f):
+                        os.makedirs(f)
+                except Exception as e:
+                    print(e)
+            return folder_list
+
+
+
+    #############################################################################################
+    def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
+        """ check if .py can be compiled
+        """
+        flist   = glob_glob_python( dirin, "*.py",nfile= nfile)
+        results = []
+        for fi in flist :
+            res = os_file_compile_check(fi)
+            results.append(res)
+
+        #results = [os.system(f"python -m py_compile {i}") for i in flist]
+        results = { flist[i]:  results[i] for i in range(len(flist)) }
+        return results
+
+
+    def os_file_compile_check(filename:str, verbose=1):
+        """ check if .py can be compiled
+
+        """
+        import ast, traceback
+        try : 
+            with open(filename, mode='r') as f:
+                source = f.read()
+            ast.parse(source)
+            return True
+        except Exception as e:
+            if verbose >0 : 
+                print(e)
+                traceback.print_exc() # Remove to silence any errros
+        return False
+
+
+    def os_file_compile_check_ovewrite(filei:str, filei_tmp:str):
+        """
+
+        """
+        isok = os_file_compile_check(file_tmp, verbose=0)   
+        log('compile', isok)
+        if isok :
+            if os.path.exists(filei): os.remove(filei)
+            os.rename(filei, filei_tmp)
+        else :
+            os.remove(filei_tmp)
+
+
+
+
+
+
 ################################################################################
 ################################################################################
 if __name__ == '__main__':
-  test1()
+  import fire 
+  fire.Fire()
  
