@@ -100,6 +100,8 @@ def test1():
     
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
+
+    ### Error ztest//AllNLI.tsv.gz Error tokenizing data. C error: Expected 1 fields in line 3, saw 2
     for lname in lloss :
         log("Classifier with Loss ", lname)
         sentrans_train(modelname_or_path = modelid,
