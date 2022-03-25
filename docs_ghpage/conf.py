@@ -19,9 +19,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'helloWorld'
-copyright = '2020, Michael Altfield'
-author = 'Michael Altfield'
+project = 'utilmy'
+copyright = ''
+author = ''
 
 # The short X.Y version
 version = ''
@@ -41,8 +41,14 @@ release = '1.0.0'
 extensions = [
     'sphinx_rtd_theme',
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
+    # 'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx.ext.napoleon',  #### Google Doc Style
+
+     #'sphinxcontrib.fulltoc',
+
+    #### Buggy 
+    #'sphinx_pyreverse'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -81,6 +87,29 @@ pygments_style = None
 #html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 
+
+html_show_sourcelink = False
+
+
+
+html_theme_options = {
+    'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+    'analytics_anonymize_ip': False,
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'vcs_pageview_mode': '',
+    'style_nav_header_background': 'white',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
+
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -106,7 +135,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'helloWorlddoc'
+htmlhelp_basename = 'utilmydoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -133,7 +162,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'helloWorld.tex', 'helloWorld Documentation',
+    (master_doc, 'utilmy.tex', 'utilmy Documentation',
      'Michael Altfield', 'manual'),
 ]
 
@@ -143,7 +172,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'helloworld', 'helloWorld Documentation',
+    (master_doc, 'utilmy', 'utilmy Documentation',
      [author], 1)
 ]
 
@@ -154,8 +183,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'helloWorld', 'helloWorld Documentation',
-     author, 'helloWorld', 'One line description of project.',
+    (master_doc, 'utilmy', 'utilmy Documentation',
+     author, 'utilmy', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -182,8 +211,31 @@ epub_exclude_files = ['search.html']
 
 # add sourcecode to path
 import sys, os
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('../'))
  
+
+
+
+
+###### Mock class
+# class Mock(MagicMock):
+#     @classmethod
+#     def __getattr__(cls, name):
+#             return MagicMock()
+
+# MOCK_MODULES = ['numpy', 'mpi4py']
+# sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
+
+
+
+
+
+
+
+
+
+
 ############################
 # SETUP THE RTD LOWER-LEFT #
 ############################
