@@ -1166,6 +1166,16 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_embedding.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+test_text_get_embedding()
+test_text_sentence_extraction()
+
+
+
 utilmy/nlp/util_explain.py
 -------------------------functions----------------------
 explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
@@ -1206,20 +1216,16 @@ write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
 utilmy/nlp/util_ner.py
 -------------------------functions----------------------
-add_encode_variable(dtf, column)
-add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
-dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
-evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
 help()
-ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
-retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
-tags_freq(tags, top = 30, figsize = (10, 5)
+ner_features(lst_dics_tuples, tag)
+ner_freq_spacy_tag(tags, top = 30, figsize = (10, 5)
+ner_spacy_add_tag_features(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+ner_spacy_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+ner_spacy_retrain(train_data, output_dir, model = "blank", n_iter = 100)
+ner_spacy_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 test1()
 test2()
 test_all()
-utils_lst_count(lst, top = None)
-utils_ner_features(lst_dics_tuples, tag)
-utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 
 
 
@@ -1232,9 +1238,9 @@ bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
 help()
 seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
 seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
-str_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 string_matching_cossim(a, lst_b, threshold = None, top = None)
 string_matching_display(a, b, both = True, sentences = True, titles = [])
+string_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 summary_bart(corpus, ratio = 0.2)
 summary_evaluate_summary(y_test, predicted)
 summary_textrank(corpus, ratio = 0.2)
@@ -1248,7 +1254,7 @@ text_add_word_freq(data, column, lst_words, freq = "count")
 text_cluster_cosine_sim(a, b, nlp = None)
 text_cluster_predict_similarity_classif(X, dic_y)
 text_create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
-text_plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
+text_plot_distributions(df, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
 text_plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
 text_utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
 text_word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
@@ -1991,6 +1997,15 @@ BaseCrossValidator._iter_train_mask()
 BaseCrossValidator.get_n_splits(self)
 BaseCrossValidator.split(self, X)
 BootstrapCV._iter_train_mask(self, u, i, r)
+
+
+utilmy/recsys/util_sequencepattern.py
+-------------------------functions----------------------
+help()
+pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
+test1()
+test_all()
+
 
 
 utilmy/recsys/vectors.py
@@ -3932,12 +3947,38 @@ pd_plot_density_d3(df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plo
 pd_plot_network(df:pd.DataFrame, cola: str = 'col_node1', colb: str = 'col_node2', coledge: str = 'col_edge', colweight: str = "weight", html_code:bool  =  True)
 pd_plot_scatter_get_data(df0:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, nmax: int = 20000, **kw)
 pd_plot_scatter_matplot(df:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, cfg: dict  =  {}, mode = 'd3', save_path: str = '', verbose = True, **kw)
+show_table_image(df, colgroup =  None, colimage  =  None, title = None, format: str = 'blue_light', dir_out = 'print_table_image.html', custom_css_class = None, use_datatable = False, table_id = None, )
 to_float(x)
 zz_css_get_template(css_name:str =  "A4_size")
 zz_pd_plot_histogram_highcharts_old(df, col, figsize = None, title = None, cfg:dict = {}, mode = 'd3', save_img = '')
 zz_test_get_random_data(n = 100)
 
 -------------------------methods----------------------
+htmlDoc.__init__(self, dir_out = "", mode = "", title: str  =  "", format: str  =  None, cfg: dict  =  None, css_name: str  =  "default", css_file: str  =  None, jscript_file: str  =  None, verbose = True, **kw)
+htmlDoc.add_css(self, css)
+htmlDoc.add_js(self, js)
+htmlDoc.br(self, css: str = '')
+htmlDoc.div(self, x, css: str = '')
+htmlDoc.get_html(self)
+htmlDoc.h1(self, x, css: str = '')
+htmlDoc.h2(self, x, css: str = '')
+htmlDoc.h3(self, x, css: str = '')
+htmlDoc.h4(self, x, css: str = '')
+htmlDoc.hidden(self, x, css: str = '')
+htmlDoc.hr(self, css: str = '')
+htmlDoc.images_dir(self, dir_input = "*.png", title: str = "", verbose:bool  = False)
+htmlDoc.open_browser(self)
+htmlDoc.p(self, x, css: str = '')
+htmlDoc.pd_plot_network(self, df:pd.DataFrame, cola:    str = 'col_node1', colweight:str = "weight", colb: str = 'col_node2', coledge: str = 'col_edge')
+htmlDoc.plot_density(self, df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plot Density', 460, 460), xlabel: str  =  'x-axis', ylabel: str  =  'y-axis', color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_histogram(self, df:pd.DataFrame, col, title: str = '', xlabel: str = None, ylabel: str = None, 14, 7), colormap:str  =  'RdYlBu', nsample = 10000, binWidth = None, color:str = '#7CB5EC', nbin = 10, q5 = 0.005, q95 = 0.95, cfg: dict  =  {}, mode: str = 'matplot', save_img = "", **kw)
+htmlDoc.plot_parallel(self, df: pd.DataFrame, col = [], title: str  =  '', 460, 460), color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_scatter(self, df:pd.DataFrame, colx, coly, collabel = None, colclass1 = None, colclass2 = None, colclass3 = None, title: str = '', 14, 7), nsample: int = 10000, cfg: dict  =  {}, mode: str = 'matplot', save_img = '', **kw)
+htmlDoc.print(self)
+htmlDoc.save(self, dir_out = None)
+htmlDoc.sep(self, css: str = '')
+htmlDoc.table(self, df:pd.DataFrame, format: str = 'blue_light', custom_css_class = None, colimage  =  None, use_datatable = False, table_id = None, **kw)
+htmlDoc.tag(self, x)
 mpld3_TopToolbar.__init__(self)
 
 
