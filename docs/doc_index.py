@@ -1166,6 +1166,16 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_embedding.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+test_text_get_embedding()
+test_text_sentence_extraction()
+
+
+
 utilmy/nlp/util_explain.py
 -------------------------functions----------------------
 explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
@@ -1987,6 +1997,15 @@ BaseCrossValidator._iter_train_mask()
 BaseCrossValidator.get_n_splits(self)
 BaseCrossValidator.split(self, X)
 BootstrapCV._iter_train_mask(self, u, i, r)
+
+
+utilmy/recsys/util_sequencepattern.py
+-------------------------functions----------------------
+help()
+pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
+test1()
+test_all()
+
 
 
 utilmy/recsys/vectors.py
