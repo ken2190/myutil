@@ -144,8 +144,8 @@ def dataset_fake2(dirdata=''):
                 sent1 = row['sentence1'].strip()
                 sent2 = row['sentence2'].strip()
 
-                df.append(sent1, sent2, row['label'])
-                df.append(sent2, sent1, row['label'])  #Also add the opposite
+                df.append([sent1, sent2, row['label']])
+                df.append([sent2, sent1, row['label']])  #Also add the opposite
 
 
     train_samples = []
@@ -190,9 +190,8 @@ def model_load(path_or_name_or_object):
     if isinstance(path_or_name_or_object, str) :
        # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
        model = SentenceTransformer(path_or_name_or_object)
-       model.eval()
-    
-    return model
+       model.eval()    
+       return model
 
 
 def model_save(model,path, reload=True):
@@ -232,7 +231,7 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
 
 
 ###################################################################################################################
-def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
+def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
     if isinstance(path_or_df, str):
         if '.tsv' in path_or_df or '.csv' in  path_or_df  :
             dftrain = pd_read_file(path_or_df, npool=npool)
@@ -246,7 +245,7 @@ def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
     return dftrain    
         
         
-def load_evaluator( path_or_df="", dname='sts',  cc:dict=None):
+def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
     """  Evaluator using df[['sentence1', 'sentence2', 'score']]
 
 
@@ -297,7 +296,7 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=
 
 
 def load_loss(model ='', lossname ='cosinus',  cc:dict= None):
-
+    train_loss = None
     if lossname == 'MultpleNegativesRankingLoss':
       train_loss = losses.MultipleNegativesRankingLoss(model)
 
