@@ -53,9 +53,8 @@ from utilmy import pd_read_file
 
 
 #############################################################################################
-from utilmy import log, log2
+from utilmy import log, log2, help_create
 def help():
-    from utilmy import help_create
     print( HELP + help_create(MNAME) )
 
 
@@ -71,8 +70,10 @@ def test_all() -> None:
 
 #####################################################################################
 def test1():
+    """
     #  Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
+    """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
     cc = Box({})
@@ -96,20 +97,20 @@ def test1():
     modelid = "distilbert-base-nli-mean-tokens"
     
     dataset_download(dirout= dirdata)
-    dataset_fake(dirdata)
+    dataset_fake(dirdata)  ### Create fake version
     
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
     for lname in lloss :
         log("Classifier with Loss ", lname)
-        sentrans_train(modelname_or_path = modelid,
-                    taskname  = "classifier", 
-                    lossname  = lname,
-                    train_path= dirdata + f"/data_fake.parquet",
-                    val_path=   dirdata + f"/data_fake.parquet",
-                    eval_path = dirdata + f"/data_fake.parquet",
-                    metricname='cosinus',
-                    dirout= dirdata + f"/results/" + lloss, cc=cc) 
+        model_load_fit_sentence(modelname_or_path = modelid,
+                                taskname  = "classifier",
+                                lossname  = lname,
+                                train_path= dirdata + f"/data_fake.parquet",
+                                val_path=   dirdata + f"/data_fake.parquet",
+                                eval_path = dirdata + f"/data_fake.parquet",
+                                metricname='cosinus',
+                                dirout= dirdata + f"/results/" + lname, cc=cc)
     
 
 
@@ -168,7 +169,8 @@ def dataset_download(dirout='/content/sample_data/sent_tans/'):
 
 
 ###################################################################################################################        
-def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./', cc:dict= None, batch_size=16, name='sts-test'):
+def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./',
+                   cc:dict= None, batch_size=16, name='sts-test'):
     ### Evaluate Model
     df = pd.read_csv(dirdata, error_bad_lines=False)
     test_samples = []
@@ -244,28 +246,47 @@ def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw):
     return dftrain    
         
         
-def load_evaluator(name='sts', path_or_df="", dname='sts', cc:dict=None):
-    if dname == 'sts':        
-        log("Read STSbenchmark dev dataset")
-        df = pd_read_csv(path_or_df) 
-        if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
-     
-        dev_samples = []        
-        for i,row in df.iterrows():
-            if row['split'] == 'dev':
-                score = float(row['score']) / 5.0 #Normalize score to range 0 ... 1
-                dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
-
-        dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=name)
-        return dev_evaluator
+def load_evaluator( path_or_df="", dname='sts',  cc:dict=None):
+    """  Evaluator using df[['sentence1', 'sentence2', 'score']]
 
 
-def load_dataloader(name='sts', path_or_df = "", cc:dict= None, npool=4):    
+    """
+    cc = Box(cc)
+
+    if dname == 'sts':
+       log("Read STSbenchmark dev dataset")
+       df = pd_read_csv(path_or_df)
+    else :
+       df = pd_read_file(path_or_df)
+
+    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+
+    score_max = df['score'].max()
+
+    dev_samples = []
+    for i,row in df.iterrows():
+        if row['split'] == 'dev':
+            score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+            dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+
+    dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
+    return dev_evaluator
+
+
+
+
+
+def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
+    """
+      input data df[['sentence1', 'sentence2', 'label']]
+
+    """
+    cc = Box(cc)
     df = pd_read_csv(path_or_df, npool=npool) 
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
     
-    train_samples = []
+    train_samples = [] ; train_dataloader = DataLoader([], shuffle=True, batch_size=cc.batch_size)
     for i,row in df.iterrows():
       train_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=row['label']))
       train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
@@ -308,26 +329,28 @@ def metrics_cosine_sim(sentence1 = "sentence 1" , sentence2 = "sentence 2", mode
 
 
 
-def sentrans_train(modelname_or_path='distilbert-base-nli-mean-tokens',
-                 taskname="classifier",   lossname="cosinus",
-                 datasetname = 'sts',  
-                   
-                 train_path="train/*.csv", val_path  ="val/*.csv",  eval_path ="eval/*.csv",
-                   
-                 metricname='cosinus',
-                 dirout ="mymodel_save/",
-                 cc:dict= None):
-  #  """"
-  # cc = Box({})
-  # cc.epoch = 3
-  # cc.lr = 1E-5
-  # cc.warmup = 100
-  # cc.n_sample  = 1000
-  # cc.batch_size=16
-  # cc.mode = 'cpu/gpu'
-  # cc.ncpu =5
-  # cc.ngpu= 2
-  # """
+def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
+                            taskname="classifier", lossname="cosinus",
+                            datasetname = 'sts',
+
+                            train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
+
+                            metricname='cosinus',
+                            dirout ="mymodel_save/",
+                            cc:dict= None):
+    """" Load pre-trained model and fine tune with specific dataset
+
+         task='classifier',  df[['sentence1', 'sentence2', 'label']]
+
+          # cc.epoch = 3
+          # cc.lr = 1E-5
+          # cc.warmup = 100
+          # cc.n_sample  = 1000
+          # cc.batch_size=16
+          # cc.mode = 'cpu/gpu'
+          # cc.ncpu =5
+          # cc.ngpu= 2
+    """
     cc = Box(cc)   #### can use cc.epoch   cc.lr
 
     ##### load model form disk or from internet
@@ -344,8 +367,8 @@ def sentrans_train(modelname_or_path='distilbert-base-nli-mean-tokens',
             cc.data_nclass = df['label'].nunique()
         del df
         
-        train_dataloader = load_dataloader(datasetname, train_path, cc)        
-        val_evaluator    = load_evaluator(datasetname,  eval_path,  cc)
+        train_dataloader = load_dataloader(train_path, datasetname, cc=cc)
+        val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
     
         ##### Task Loss
         train_loss       = load_loss(model, lossname,  cc= cc)        
@@ -359,17 +382,16 @@ def sentrans_train(modelname_or_path='distilbert-base-nli-mean-tokens',
         
         log('########## train')
         model.fit(train_objectives=[(train_dataloader, train_loss)],
-          evaluator =val_evaluator,
-          epochs    =cc.epoch,
+          evaluator = val_evaluator,
+          epochs    = cc.epoch,
           evaluation_steps = cc.eval_steps,
           warmup_steps     = cc.warmup_steps,
-          output_path=dirout,
+          output_path      = dirout,
           use_amp=True          #Set to True, if your GPU supports FP16 operations
           )
 
         log("\n******************< Eval similarity > ********************")
-         # print calculate_cosine_similarity after training
-        log(" cosine_similarity after training")    
+        log(" cosine_similarity after training")
         metrics_cosine_sim(df['sentence1'][0], df['sentence2'][0])
         
         log("### Save the model  ")
