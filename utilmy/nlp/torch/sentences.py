@@ -169,7 +169,8 @@ def dataset_download(dirout='/content/sample_data/sent_tans/'):
 
 
 ###################################################################################################################        
-def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./', cc:dict= None, batch_size=16, name='sts-test'):
+def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./',
+                   cc:dict= None, batch_size=16, name='sts-test'):
     ### Evaluate Model
     df = pd.read_csv(dirdata, error_bad_lines=False)
     test_samples = []
