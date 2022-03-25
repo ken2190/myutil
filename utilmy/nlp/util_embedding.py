@@ -10,9 +10,7 @@ https://github.com/fidelity/PhraseExtraction
 
 """
 import os,sys, collections, random, numpy as np,  glob, pandas as pd
-from box import Box
-from copy import deepcopy
-from tqdm import tqdm
+from box import Box ; from copy import deepcopy ;from tqdm import tqdm
 
 ## for plotting
 import matplotlib.pyplot as plt; seaborn as sns
