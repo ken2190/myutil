@@ -137,7 +137,9 @@ def test_viz_vizhtml():
    log(" from utilmy.viz import vizhtml as vi     ")
    m.test_all()
 
-   
+
+
+
 
 #########################################################################################
 def test_parallel():
