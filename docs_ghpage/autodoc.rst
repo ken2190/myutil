@@ -1,9 +1,10 @@
 .. _autodoc:
  
-helloWorld.py
+
 =============
  
-.. automodule:: helloWorld
+.. automodule:: utilmy
+  :imported-members:
   :members:
   :undoc-members:
- 
+  :show-inheritance:

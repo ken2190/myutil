@@ -1007,6 +1007,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
+diskcache_image_check2()
 diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
@@ -1014,7 +1015,6 @@ diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
 image_center_crop(img:npArrayLike, dim:Tuple[int, int])
-image_check()
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
@@ -1119,16 +1119,16 @@ dataset_download(dirout = '/content/sample_data/sent_tans/')
 dataset_fake(dirdata)
 dataset_fake2(dirdata = '')
 help()
-load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
-load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
+load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, npool = 4)
+load_evaluator(path_or_df = "", dname = 'sts', cc:dict = None)
 load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
 metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_load(path_or_name_or_object)
+model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
 model_save(model, path, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
 pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
-sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
 test1()
 test_all()
 
@@ -1166,6 +1166,16 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_embedding.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+test_text_get_embedding()
+test_text_sentence_extraction()
+
+
+
 utilmy/nlp/util_explain.py
 -------------------------functions----------------------
 explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
@@ -1181,45 +1191,38 @@ test_all()
 
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
+bigram_generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
 bigram_get_list(ranid, mode = 'name, proba')
 bigram_get_seq3(ranid, itemtag, lname, pnorm)
 bigram_load_convert(path)
+bigram_write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 bigram_write_seq(rr = 0, dirin = None, dirout = None, tag = "")
-ccount_get_sample(lname, lproba = None, pnorm = None, k = 5)
 embedding_load_parquet(dirin = "df.parquet", nmax = 500)
 embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
-generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
 gensim_model_check(model_path)
 gensim_model_load(dirin, modeltype = 'fastext', **kw)
 gensim_model_train_save(model_or_path = None, dirinput = 'lee_background.cor', dirout = "./modelout/model", epochs = 1, pars: dict  =  None, **kw)
 help()
-np_intersec(va, vb)
-np_str_to_array(vv, l2_norm = True, mdim = 200)
 test_all()
 test_gensim1()
 text_generate_random_sentences(dirout = None, n_sentences = 5, )
 text_preprocess(sentence, lemmatizer, stop_words)
-write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
 
 
 utilmy/nlp/util_ner.py
 -------------------------functions----------------------
-add_encode_variable(dtf, column)
-add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
-dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
-evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
 help()
-ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
-retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
-tags_freq(tags, top = 30, figsize = (10, 5)
+ner_features(lst_dics_tuples, tag)
+ner_freq_spacy_tag(tags, top = 30, figsize = (10, 5)
+ner_spacy_add_tag_features(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+ner_spacy_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+ner_spacy_retrain(train_data, output_dir, model = "blank", n_iter = 100)
+ner_spacy_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 test1()
 test2()
 test_all()
-utils_lst_count(lst, top = None)
-utils_ner_features(lst_dics_tuples, tag)
-utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
 
 
 
@@ -1232,9 +1235,9 @@ bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
 help()
 seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
 seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
-str_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 string_matching_cossim(a, lst_b, threshold = None, top = None)
 string_matching_display(a, b, both = True, sentences = True, titles = [])
+string_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
 summary_bart(corpus, ratio = 0.2)
 summary_evaluate_summary(y_test, predicted)
 summary_textrank(corpus, ratio = 0.2)
@@ -1248,7 +1251,7 @@ text_add_word_freq(data, column, lst_words, freq = "count")
 text_cluster_cosine_sim(a, b, nlp = None)
 text_cluster_predict_similarity_classif(X, dic_y)
 text_create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
-text_plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
+text_plot_distributions(df, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
 text_plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
 text_utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
 text_word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
@@ -1264,6 +1267,19 @@ word2vec_plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, anno
 word2vec_text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
 word2vec_utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
 word2vec_vocabulary_embeddings(dic_vocabulary, nlp = None)
+
+
+
+utilmy/nlp/util_topk.py
+-------------------------functions----------------------
+embedding_load_parquet(dirin = "df.parquet", nmax = 500)
+embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
+embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
+faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type = "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10 ** 7, nfile=1000if faiss_index is None = 1000if faiss_index is None:)
+help()
+test1()
+test_all()
 
 
 
@@ -1991,6 +2007,15 @@ BaseCrossValidator._iter_train_mask()
 BaseCrossValidator.get_n_splits(self)
 BaseCrossValidator.split(self, X)
 BootstrapCV._iter_train_mask(self, u, i, r)
+
+
+utilmy/recsys/util_sequencepattern.py
+-------------------------functions----------------------
+help()
+pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
+test1()
+test_all()
+
 
 
 utilmy/recsys/vectors.py
@@ -3932,12 +3957,38 @@ pd_plot_density_d3(df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plo
 pd_plot_network(df:pd.DataFrame, cola: str = 'col_node1', colb: str = 'col_node2', coledge: str = 'col_edge', colweight: str = "weight", html_code:bool  =  True)
 pd_plot_scatter_get_data(df0:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, nmax: int = 20000, **kw)
 pd_plot_scatter_matplot(df:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, cfg: dict  =  {}, mode = 'd3', save_path: str = '', verbose = True, **kw)
+show_table_image(df, colgroup =  None, colimage  =  None, title = None, format: str = 'blue_light', dir_out = 'print_table_image.html', custom_css_class = None, use_datatable = False, table_id = None, )
 to_float(x)
 zz_css_get_template(css_name:str =  "A4_size")
 zz_pd_plot_histogram_highcharts_old(df, col, figsize = None, title = None, cfg:dict = {}, mode = 'd3', save_img = '')
 zz_test_get_random_data(n = 100)
 
 -------------------------methods----------------------
+htmlDoc.__init__(self, dir_out = "", mode = "", title: str  =  "", format: str  =  None, cfg: dict  =  None, css_name: str  =  "default", css_file: str  =  None, jscript_file: str  =  None, verbose = True, **kw)
+htmlDoc.add_css(self, css)
+htmlDoc.add_js(self, js)
+htmlDoc.br(self, css: str = '')
+htmlDoc.div(self, x, css: str = '')
+htmlDoc.get_html(self)
+htmlDoc.h1(self, x, css: str = '')
+htmlDoc.h2(self, x, css: str = '')
+htmlDoc.h3(self, x, css: str = '')
+htmlDoc.h4(self, x, css: str = '')
+htmlDoc.hidden(self, x, css: str = '')
+htmlDoc.hr(self, css: str = '')
+htmlDoc.images_dir(self, dir_input = "*.png", title: str = "", verbose:bool  = False)
+htmlDoc.open_browser(self)
+htmlDoc.p(self, x, css: str = '')
+htmlDoc.pd_plot_network(self, df:pd.DataFrame, cola:    str = 'col_node1', colweight:str = "weight", colb: str = 'col_node2', coledge: str = 'col_edge')
+htmlDoc.plot_density(self, df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plot Density', 460, 460), xlabel: str  =  'x-axis', ylabel: str  =  'y-axis', color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_histogram(self, df:pd.DataFrame, col, title: str = '', xlabel: str = None, ylabel: str = None, 14, 7), colormap:str  =  'RdYlBu', nsample = 10000, binWidth = None, color:str = '#7CB5EC', nbin = 10, q5 = 0.005, q95 = 0.95, cfg: dict  =  {}, mode: str = 'matplot', save_img = "", **kw)
+htmlDoc.plot_parallel(self, df: pd.DataFrame, col = [], title: str  =  '', 460, 460), color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_scatter(self, df:pd.DataFrame, colx, coly, collabel = None, colclass1 = None, colclass2 = None, colclass3 = None, title: str = '', 14, 7), nsample: int = 10000, cfg: dict  =  {}, mode: str = 'matplot', save_img = '', **kw)
+htmlDoc.print(self)
+htmlDoc.save(self, dir_out = None)
+htmlDoc.sep(self, css: str = '')
+htmlDoc.table(self, df:pd.DataFrame, format: str = 'blue_light', custom_css_class = None, colimage  =  None, use_datatable = False, table_id = None, **kw)
+htmlDoc.tag(self, x)
 mpld3_TopToolbar.__init__(self)
 
 
