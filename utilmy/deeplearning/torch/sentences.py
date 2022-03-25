@@ -125,7 +125,9 @@ def dataset_fake(dirdata):
     df = df.sample(frac=0.1)
     df['score'] = np.random.random( len(df) )
 
-    df['label'] = pd.factorize(df['label'])[0]   ###into integer
+    #df['label'] = pd.factorize(df['label'])[0]   ###into integer
+    df['label'] = np.random.randint(0,1, len(df) )
+    df['label'] = df['label'].astype('float')
 
     log(df, df.columns, df.shape)
     dirout = dirdata +"/data_fake.parquet"
@@ -369,6 +371,18 @@ def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dic
 def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
     """
       input data df[['sentence1', 'sentence2', 'label']]
+          X, Y = check_paired_arrays(X, Y)
+  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
+    X, Y = check_pairwise_arrays(X, Y)
+  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
+    X = check_array(
+  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
+    raise ValueError(
+ValueError: Expected 2D array, got 1D array instead:
+array=[].
+Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+[myutil]$ 
+      
 
     """
     cc = Box(cc)
@@ -376,10 +390,12 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
     
-    train_samples = [] ; train_dataloader = []
+    train_samples = [] 
     for i,row in df.iterrows():
-      train_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label= row['label'] ))
+      train_samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
+                            label= [ row['label'] ] ))
 
+    log( train_samples) 
     train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
     log('Nelements', len(train_dataloader))
     return train_dataloader
