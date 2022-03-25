@@ -159,7 +159,7 @@ def dataset_download(dirout='/content/sample_data/sent_tans/'):
     #### Check if dataset exsist. If not, download and extract  it    
     nli_dataset_path = dirout + '/AllNLI.tsv.gz'
     sts_dataset_path = dirout + '/stsbenchmark.tsv.gz'
-    os.makedirs(dirout, exist_ok=False)    
+    os.makedirs(dirout, exist_ok=True)    
     if not os.path.exists(nli_dataset_path):
         util.http_get('https://sbert.net/datasets/AllNLI.tsv.gz', nli_dataset_path)
 
@@ -228,106 +228,6 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
     return model
 
 
-
-
-###################################################################################################################
-def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
-    if isinstance(path_or_df, str):
-        if '.tsv' in path_or_df or '.csv' in  path_or_df  :
-            dftrain = pd_read_file(path_or_df, npool=npool)
-        else :    
-            dftrain = pd.read_csv(path_or_df, error_bad_lines=False)
-        
-    elif isinstance(path_or_df, pd.DataFrame):
-        dftrain = path_or_df
-    else : 
-        raise Exception('need path_or_df')
-    return dftrain    
-        
-        
-def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
-    """  Evaluator using df[['sentence1', 'sentence2', 'score']]
-
-
-    """
-    cc = Box(cc)
-
-    if dname == 'sts':
-       log("Read STSbenchmark dev dataset")
-       df = pd_read_csv(path_or_df)
-    else :
-       df = pd_read_file(path_or_df)
-
-    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
-
-    score_max = df['score'].max()
-
-    dev_samples = []
-    for i,row in df.iterrows():
-        if row['split'] == 'dev':
-            score = float(row['score']) / score_max #Normalize score to range 0 ... 1
-            dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
-
-    dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
-    return dev_evaluator
-
-
-
-
-
-def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
-    """
-      input data df[['sentence1', 'sentence2', 'label']]
-
-    """
-    cc = Box(cc)
-    df = pd_read_csv(path_or_df, npool=npool) 
-    
-    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
-    
-    train_samples = [] ; train_dataloader = DataLoader([], shuffle=True, batch_size=cc.batch_size)
-    for i,row in df.iterrows():
-      train_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=row['label']))
-      train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
-
-    log('Nelements', len(train_dataloader))
-    return train_dataloader
-
-
-
-def load_loss(model ='', lossname ='cosinus',  cc:dict= None):
-    train_loss = None
-    if lossname == 'MultpleNegativesRankingLoss':
-      train_loss = losses.MultipleNegativesRankingLoss(model)
-
-    elif lossname == 'softmax':
-      nclass     =  cc.get('data_nclass', -1)
-      train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
-                                      num_labels=nclass )
-    elif lossname =='cosinus':
-      train_loss = losses.CosineSimilarityLoss(model)
-
-    elif lossname =='triplethard':
-      train_loss = losses.BatchHardTripletLoss(model=model)
-
-
-    return train_loss
-
-
-def metrics_cosine_sim(sentence1 = "sentence 1" , sentence2 = "sentence 2", model_id = "model name or path or object"):
-  ### function to compute cosinue similarity      
-  model = model_load(model_id)
-
-  #Compute embedding for both lists
-  embeddings1 = model.encode(sentence1, convert_to_tensor=True)
-  embeddings2 = model.encode(sentence2, convert_to_tensor=True)
-
-  #Compute cosine-similarity
-  cosine_scores = util.cos_sim(embeddings1, embeddings2)
-  log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
-
-
-
 def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
                             taskname="classifier", lossname="cosinus",
                             datasetname = 'sts',
@@ -357,6 +257,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
     
     if taskname == 'classifier':
         df = pd_read_file(train_path)
+        log(df.columns, df.shape)
         log(" metrics_cosine_similarity before training")  
         metrics_cosine_sim(df['sentence1'][0], df['sentence2'][0], model)
         
@@ -401,6 +302,102 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         model_evaluate(model, dirout)
         
         log("\n******************< finish  > ********************")
+
+
+###################################################################################################################
+def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
+    if isinstance(path_or_df, str):
+        if '.tsv' in path_or_df or '.csv' in  path_or_df  :
+            dftrain = pd_read_file(path_or_df, npool=npool)
+        else :    
+            dftrain = pd.read_csv(path_or_df, error_bad_lines=False)
+        
+    elif isinstance(path_or_df, pd.DataFrame):
+        dftrain = path_or_df
+    else : 
+        raise Exception('need path_or_df')
+    return dftrain    
+        
+        
+def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
+    """  Evaluator using df[['sentence1', 'sentence2', 'score']]
+
+
+    """
+    cc = Box(cc)
+
+    if dname == 'sts':
+       log("Read STSbenchmark dev dataset")
+       df = pd_read_csv(path_or_df)
+    else :
+       df = pd_read_file(path_or_df)
+
+    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+
+    score_max = df['score'].max()
+
+    dev_samples = []
+    for i,row in df.iterrows():
+        if row['split'] == 'dev':
+            score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+            dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+
+    dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
+    return dev_evaluator
+
+
+def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
+    """
+      input data df[['sentence1', 'sentence2', 'label']]
+
+    """
+    cc = Box(cc)
+    df = pd_read_csv(path_or_df, npool=npool) 
+    
+    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+    
+    train_samples = [] ; train_dataloader = DataLoader([], shuffle=True, batch_size=cc.batch_size)
+    for i,row in df.iterrows():
+      train_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=row['label']))
+      train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
+
+    log('Nelements', len(train_dataloader))
+    return train_dataloader
+
+
+def load_loss(model ='', lossname ='cosinus',  cc:dict= None):
+    train_loss = None
+    if lossname == 'MultpleNegativesRankingLoss':
+      train_loss = losses.MultipleNegativesRankingLoss(model)
+
+    elif lossname == 'softmax':
+      nclass     =  cc.get('data_nclass', -1)
+      train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
+                                      num_labels=nclass )
+    elif lossname =='cosinus':
+      train_loss = losses.CosineSimilarityLoss(model)
+
+    elif lossname =='triplethard':
+      train_loss = losses.BatchHardTripletLoss(model=model)
+
+
+    return train_loss
+
+
+def metrics_cosine_sim(sentence1 = "sentence 1" , sentence2 = "sentence 2", model_id = "model name or path or object"):
+  ### function to compute cosinue similarity      
+  model = model_load(model_id)
+
+  #Compute embedding for both lists
+  embeddings1 = model.encode(sentence1, convert_to_tensor=True)
+  embeddings2 = model.encode(sentence2, convert_to_tensor=True)
+
+  #Compute cosine-similarity
+  cosine_scores = util.cos_sim(embeddings1, embeddings2)
+  log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
+
+
+
 
 
 
