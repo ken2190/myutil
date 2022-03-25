@@ -43,14 +43,11 @@ import gensim.downloader as gensim_api
 import rouge
 
 
-#### Types
 
 
 #############################################################################################
-from utilmy import log, log2
-
+from utilmy import log, log2, help_create
 def help():
-    from utilmy import help_create
     print( HELP + help_create(MNAME) )
 
 
