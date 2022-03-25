@@ -1200,8 +1200,6 @@ bigram_write_seq(rr = 0, dirin = None, dirout = None, tag = "")
 embedding_load_parquet(dirin = "df.parquet", nmax = 500)
 embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
-faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type = "IVF4096,Flat", nfile = 1000, emb_dim = 200)
-faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10 ** 7, nfile=1000if faiss_index is None = 1000if faiss_index is None:)
 gensim_model_check(model_path)
 gensim_model_load(dirin, modeltype = 'fastext', **kw)
 gensim_model_train_save(model_or_path = None, dirinput = 'lee_background.cor', dirout = "./modelout/model", epochs = 1, pars: dict  =  None, **kw)
@@ -1269,6 +1267,19 @@ word2vec_plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, anno
 word2vec_text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
 word2vec_utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
 word2vec_vocabulary_embeddings(dic_vocabulary, nlp = None)
+
+
+
+utilmy/nlp/util_topk.py
+-------------------------functions----------------------
+embedding_load_parquet(dirin = "df.parquet", nmax = 500)
+embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
+embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
+faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type = "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10 ** 7, nfile=1000if faiss_index is None = 1000if faiss_index is None:)
+help()
+test1()
+test_all()
 
 
 
