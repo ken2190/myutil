@@ -152,3 +152,5 @@ run_script.py
 testdata/ppandas/file.csv
 *mymodel*
 model.pt
+cardio_train.csv
+ztest/data_fake.parquet
