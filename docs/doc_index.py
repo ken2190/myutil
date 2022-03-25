@@ -1191,26 +1191,25 @@ test_all()
 
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
+bigram_generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
 bigram_get_list(ranid, mode = 'name, proba')
 bigram_get_seq3(ranid, itemtag, lname, pnorm)
 bigram_load_convert(path)
+bigram_write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 bigram_write_seq(rr = 0, dirin = None, dirout = None, tag = "")
-ccount_get_sample(lname, lproba = None, pnorm = None, k = 5)
 embedding_load_parquet(dirin = "df.parquet", nmax = 500)
 embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
-generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
+faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type = "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10 ** 7, nfile=1000if faiss_index is None = 1000if faiss_index is None:)
 gensim_model_check(model_path)
 gensim_model_load(dirin, modeltype = 'fastext', **kw)
 gensim_model_train_save(model_or_path = None, dirinput = 'lee_background.cor', dirout = "./modelout/model", epochs = 1, pars: dict  =  None, **kw)
 help()
-np_intersec(va, vb)
-np_str_to_array(vv, l2_norm = True, mdim = 200)
 test_all()
 test_gensim1()
 text_generate_random_sentences(dirout = None, n_sentences = 5, )
 text_preprocess(sentence, lemmatizer, stop_words)
-write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 
 
 
