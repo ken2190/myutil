@@ -5,10 +5,30 @@ HELP= """
 
 """
 import os, sys, time, datetime,inspect, json, yaml, gc, random
-from typing import List, Optional, Tuple, Union
 from box import Box
 
-####################################################################
+
+#### Typing ######################################################################################
+## https://www.pythonsheets.com/notes/python-typing.html
+from typing import List, Optional, Tuple, Union, Dict
+Dict_none = Union(dict, None)
+List_none = Union(list, None)
+Int_none  = Union[None,int]
+Path_type = Union[str, bytes, os.PathLike]
+
+try:
+    import numpy.typing
+    npArrayLike = numpy.typing.ArrayLike
+except ImportError:
+    npArrayLike = Any
+
+
+
+
+
+
+
+###################################################################################################
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
