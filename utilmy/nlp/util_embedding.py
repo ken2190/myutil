@@ -43,11 +43,9 @@ def test1():
 
 
 
-#############################################################################################
-def text_get_embedding():
-  """
-
-    https://github.com/arita37/textwiser
+def test_text_get_embedding():
+  """ retrieve text embedding from various models
+       https://github.com/arita37/textwiser
 
   """
   # Conceptually, TextWiser is composed of an Embedding, potentially with a pretrained model,
@@ -74,7 +72,7 @@ def text_get_embedding():
 
 
 
-def text_sentence_extraction():
+def test_text_sentence_extraction():
   """ Extract Key phrases from Text as summary
      pip install PhraseExtraction
     https://github.com/fidelity/PhraseExtraction
@@ -133,6 +131,14 @@ def text_sentence_extraction():
   from ranking import TextRank
   TR_WordEmbedding= ranking.TextRank(method= "WordEmbeddings")
   ranked_df = TR_WordEmbedding.rank_phrases(key_phrases)
+
+
+
+#########Core #######################################################################################
+
+
+
+
 
 
 
