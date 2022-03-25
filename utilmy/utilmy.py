@@ -11,8 +11,8 @@ from box import Box
 #### Typing ######################################################################################
 ## https://www.pythonsheets.com/notes/python-typing.html
 from typing import List, Optional, Tuple, Union, Dict
-Dict_none = Union(dict, None)
-List_none = Union(list, None)
+Dict_none = Union[dict, None]
+List_none = Union[list, None]
 Int_none  = Union[None,int]
 Path_type = Union[str, bytes, os.PathLike]
 
