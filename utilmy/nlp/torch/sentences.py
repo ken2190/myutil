@@ -26,7 +26,7 @@ ith a Sentence Transformer and a mean pooling layer to create sentence embedding
 
 
 """
-import sys, os, gzip, csv, random, math, logging, pandas as pd, numpy as np
+import sys, os, gzip, csv, random, math, logging, pandas as pd, numpy as np, glob
 from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
@@ -49,7 +49,7 @@ except Exception as e:
 
 
 #### read data on disk
-from utilmy import pd_read_file
+from utilmy import pd_read_file, pd_to_file
 
 
 #############################################################################################
@@ -61,19 +61,25 @@ def help():
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all
-    """
+    """function test_all"""
     log(MNAME)
-    test1() ### pip install
+    test1() 
 
 
-
-
-#####################################################################################
 def test1():
     """ Run Various test suing sent trans_former,
         <> losses, <> tasks    # Mostly Single sentence   ---> Classification
     python utilmy/nlp/torch/sentences.py test1
+
+
+    model.encode(self, sentences: Union[str, List[str]],
+               batch_size: int = 32,
+               show_progress_bar: bool = None,
+               output_value: str = 'sentence_embedding',
+               convert_to_numpy: bool = True,
+               convert_to_tensor: bool = False,
+               device: str = None,
+               normalize_embeddings: bool = False) -> Union[List[Tensor], ndarray, Tensor]:
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
@@ -98,9 +104,9 @@ def test1():
     dirdata = 'ztmp/'
     modelid = "distilbert-base-nli-mean-tokens"
     
-    
+    cols = ['sentence1', 'sentence2', 'label', 'score' ]
     dfcheck = dataset_fake(dirdata, fname='data_fake.parquet', nsample=10)  ### Create fake version
-    assert len(dfcheck[[ 'sentence1', 'sentence2', 'label', 'score'  ]]) > 1 , "missing columns"
+    assert len(dfcheck[ cols ]) > 1 , "missing columns"
     ## Score can be empty or [0,1]
     
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
@@ -108,15 +114,17 @@ def test1():
     for lname in lloss :
         log("\n\n\n ########### Classifier with Loss ", lname)
         cc.lossname = lname
-        model_load_fit_sentence(modelname_or_path = modelid,
+        model = model_load_fit_sentence(modelname_or_path = modelid,
                                 taskname  = "classifier",
                                 lossname  = lname,
+                                metricname='cosinus',
 
+                                cols = cols,
                                 datasetname= cc.datasetname,
                                 train_path= dirdata + f"/data_fake.parquet",
                                 val_path=   dirdata + f"/data_fake.parquet",
                                 eval_path = dirdata + f"/data_fake.parquet",
-                                metricname='cosinus',
+
                                 dirout= dirdata + f"/results/" + lname, nsample=100, cc=cc)
     
 
@@ -272,6 +280,7 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None)->Sentenc
 def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
                             taskname="classifier", lossname="cosinus",
                             datasetname = 'sts',
+                            cols= ['sentence1', 'sentence2', 'label', 'score' ],
 
                             train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
 
@@ -280,6 +289,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
                             cc:dict= None):
     """" Load pre-trained model and fine tune with specific dataset
 
+         cols= ['sentence1', 'sentence2', 'label', 'score' ],
          task='classifier',  df[['sentence1', 'sentence2', 'label']]
 
           # cc.epoch = 3
@@ -303,7 +313,8 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
     if taskname == 'classifier':
         df = pd_read_file(train_path)
         log(df.columns, df.shape)
-        assert len(df[[ 'sentence1', 'sentence2', 'label', 'score'  ]]) > 1 , "missing columns"
+        ### Check colum used
+        assert len(df[cols]) > 1 , "missing columns"
 
         log(" metrics_cosine_similarity before training")  
         model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
@@ -343,45 +354,64 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0],)
         
         log("### Save model  ")
-        model_save(model, dirout, reload=True)
+        model_save(model, dirout, reload=False)
         model = model_load(dirout)
 
         log('### Show eval metrics')
         model_evaluate(model, dirdata=eval_path, dirout= dirout +"/eval/")
         
         log("\n******************< finish  > ********************")
+        return model
 
 
 def model_check_cos_sim(model = "model name or path or object", sentence1 = "sentence 1" , sentence2 = "sentence 2", ):
+  """     ### function to compute cosinue similarity      
   """  
-    sentences – the sentences to embed
-
-    batch_size – the batch size used for the computation
-
-    show_progress_bar – Output a progress bar when encode sentences
-
-    output_value – Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
-
-    convert_to_numpy – If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
-
-    convert_to_tensor – If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
-
-    device – Which torch.device to use for the computation
-
-
-  """  
-  ### function to compute cosinue similarity      
-  # model = model_load(model_id)
   log('model', model)
   #Compute embedding for both lists
-  embeddings1 = model.encode(sentence1, convert_to_tensor=True)
+  embeddings1 = model.encode(sentence1, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
   
   # , convert_to_tensor=True)
-  embeddings2 = model.encode(sentence2, convert_to_tensor=True)
+  embeddings2 = model.encode(sentence2, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
 
   #Compute cosine-similarity
   cosine_scores = util.cos_sim(embeddings1, embeddings2)
   log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
+
+
+
+def model_encode(model = "model name or path or object", dirdata:str="data/*.parquet", coltext:str='sentence1', 
+                dirout:str="embs/myfile.parquet",  **kw ):
+    """   Sentence encoder  
+    sentences – the sentences to embed
+    batch_size – the batch size used for the computation
+    show_progress_bar – Output a progress bar when encode sentences
+    output_value – Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
+    convert_to_numpy – If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
+    convert_to_tensor – If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
+    device – Which torch.device to use for the computation
+
+    """  
+    model = model_load(model)
+    log('model', model)
+
+    flist = glob.glob(dirdata)
+    log('Nfiles', len(flist))
+
+    embs_all=[]
+    for fi in flist :
+        dfi = pd_read_file3(fi)  
+        dfi = dfi[coltext].values
+        embs = model.encode(dfi, **kw)
+        embs_all.extend(embs_all)
+
+    embs_all = pd.DataFrame(embs_all, columns= ['emb'])    
+    log(embs_all.shape)
+
+    if dirout is None :
+        return embs_all
+    else :
+        pd_to_file(embs_all, dirout, show=1)   
 
 
 ###################################################################################################################  
