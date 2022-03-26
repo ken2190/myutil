@@ -490,7 +490,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
     xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np_.typing.ArrayLike]:
+    mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
     """ run image_prep on multiple images
     """
     #TODO: add tqdm for running metrics
