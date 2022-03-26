@@ -78,7 +78,7 @@ def test_utilmy():
 
 
 ##########################################################################################
-def test_image():
+def test_images():
     from utilmy.images import util_image as m
     m.test_all()
 
@@ -128,6 +128,7 @@ def test_decorators():
 def test_nlp():
     from utilmy.nlp import util_cluster as m ; m.test_all()  
     from utilmy.nlp import util_gensim as m ;  m.test_all()  
+    # from utilmy.nlp.torch import sentences   as m ;  m.test_all()      
 
    
 #########################################################################################
@@ -178,7 +179,7 @@ def test_deeplearning_keras():
 #########################################################################################
 def test_deeplearning_torch():
     from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
-    from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
+    # from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
 
 
@@ -202,6 +203,15 @@ def test_recsys():
 #######################################################################################
 def test_compile():
    from utilmy.docs import format as m
+
+
+
+
+#######################################################################################
+def test_long():
+    from utilmy.nlp.torch import sentences   as m ;  m.test_all()      
+
+
 
 
 

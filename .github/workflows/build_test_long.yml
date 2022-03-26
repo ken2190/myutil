@@ -7,9 +7,9 @@ on:
     inputs:  
 
     
-  push:
-    branches:
-    - main
+#  push:
+#    branches:
+#    - main
 
 
   schedule:
@@ -85,9 +85,13 @@ jobs:
 
 
     ################################################################
-    - name: test_deeplearning_torch
+    # - name: test_deeplearning_torch
+    #   # continue-on-error: true 
+    #   run: |
+    #       python test.py test_deeplearning_torch
+
+    - name: test long
       # continue-on-error: true 
       run: |
-          python test.py test_deeplearning_torch
-
+          python test.py test_long
 

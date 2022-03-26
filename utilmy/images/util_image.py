@@ -4,10 +4,10 @@ HELP=""" utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
-from typing import Union,Tuple,Sequence,List
+from typing import Union,Tuple,Sequence,List,Any
 from box import Box
 
-import io, cv2,  matplotlib
+import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
 
@@ -22,7 +22,9 @@ try:
     npArrayLike = numpy.typing.ArrayLike
 except ImportError:
     npArrayLike = Any
+    
 #############################################################################################
+from utilmy import Dict_none, Int_none,List_none, Path_type
 from utilmy import pd_read_file
 from utilmy import log, log2
 
@@ -39,6 +41,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test2()
     test_diskcache()
 
 
@@ -49,7 +52,23 @@ def test1():
 
 def test2():
     """function test"""
-    pass
+    dirimg = os.getcwd() + "/ztmp/images/"
+    image_create_fake(dirout=dirimg, nimages=1, imsize=(60,60), rgb_color = (255, 0, 0) )
+    flist = glob.glob(dirimg +"/*")
+
+    ##################################
+    for fi in flist:
+        log(fi)
+        img_np = image_read(fi)
+        image_save(img_np, dirfile=  fi.replace(".jpg", "_b.jpg"))
+    log('\n\nimage_read, image_save',  glob.glob(dirimg +"/*")[:5])
+
+    #################################
+    img_list = image_prep(flist[0], xdim=30, ydim=30, mean=0.5, std=0.5,verbose=True )
+    log('\n\nimage_prep', str(img_list)[:100])
+
+
+
 
 def test_diskcache():
     import tempfile
@@ -112,12 +131,6 @@ def test_diskcache():
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
 
 
-def test_image_create_fake():
-    dirout = os.getcwd() + "/ztmp/images/"
-    imsize=(300,300)
-    red = (255, 0, 0)
-    nimages = 1
-    image_create_fake(dirout=dirout, nimages=nimages, imsize=imsize, rgb_color = red)
 
 
 ################################################################################################
@@ -128,7 +141,7 @@ def test_image_create_fake():
 #TODO dirin,dirout as paths
 #TODO typehints
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -416,10 +429,19 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 image_load = image_read  ## alias
 
 
+def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg"):
+    """image_save 
+    Args:
+        img: _description_
+        fileout: 
+    """
+    os.makedirs(  os.path.dirname( os.path.abspath( dirfile    )),  exist_ok=True)
+    cv2.imwrite(dirfile, img)    
+
 
 #################################################################################################
 #### Images utils ###############################################################################
-def image_show_in_row(image_list:Union[dict,list]=None):
+def image_show_in_row(image_list:Union[dict,list, None]=None):
     """ helper function for data visualization
     Plot images in one row.
     """
@@ -449,8 +471,7 @@ def image_create_fake(
     rgb_color = (255, 0, 0)):
     """ create fake image for testing
     """
-    import cv2
-    import numpy as np
+    import cv2, numpy as np
 
     width, height = imsize
     os.makedirs(dirout, exist_ok=True)
@@ -468,6 +489,29 @@ def image_create_fake(
     # will return empty list if a dirout was provided
     return img_list
 
+
+def image_create_fake2(dirin:str=None):
+    """ Fake images on disk /0/ img
+
+    """
+    import tempfile, skimage
+    images = ('astronaut','binary_blobs', 'brick', 'colorwheel', 'camera', 'cat', 'checkerboard', 'clock', 'coffee', 'coins', 
+            #   'eagle', 'grass', 'gravel', 'horse', 'logo', 'page', 'text', 'rocket',
+          )
+
+    dirin = tempfile.TemporaryDirectory() if dirin is None else dirin
+    os.makedirs(dirin, exist_ok=True)
+    subdirs = ['1','2','3']
+    for d_ in subdirs:
+        os.mkdir(os.path.join(dirin,d_))
+        n_images = len(images)
+        for i,imname in enumerate(images):
+            im = getattr(skimage.data,imname)()
+            d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
+            dirouti = os.path.join(dirin,d_,imname+'.png')
+            log(dirouti)
+            skimage.io.imsave( dirouti,im)
+            # break
 
 
 #################################################################################################
@@ -488,7 +532,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
     xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
+    mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
     """ run image_prep on multiple images
     """
     #TODO: add tqdm for running metrics
@@ -571,7 +615,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
+    images, labels = image_preps_mp(image_list, prepro_image_fun=prepro_image3b)
     os_path_check(dirout, n=5)
 
 
@@ -579,7 +623,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    mean :float = 0.5,std :float    = 0.5, verbose=False) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
@@ -595,12 +639,13 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
         image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
+        assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
         image = image.astype('float32')
         return image, image_path
-    except :
+    except Exception as e :
+        if verbose: log(e)
         return [], ""
 
 
@@ -1039,7 +1084,8 @@ if 'utils':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test2()
 
 
 
