@@ -163,18 +163,23 @@ def extrac_block(lines):
     return dd
 
 
-def normalize_header(headers):
-    pass
-def normalize_import(imports):
-    pass
-def normalize_logger(loggers):
-    pass
-def normalize_test(tests):
-    pass
-def normalize_core(cores):
-    pass
-def normalize_footer(footers):
-    pass
+def normalize_header(txt):
+    return txt
+
+def normalize_import(txt):
+    return txt
+
+def normalize_logger(txt):
+    return txt
+
+def normalize_test(txt):
+    return txt
+
+def normalize_core(txt):
+    return txt
+
+def normalize_footer(txt):
+    return txt
 
 
 def read_and_normalize_file(file_path, output_file):
