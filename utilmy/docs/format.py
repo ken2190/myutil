@@ -2,6 +2,37 @@
 MNAME = "utilmy.docs.format"
 HELP = """ A simple python module to parse the code and format it based on some rules.
 
+can you open the chatbox on the right ?
+can you write here below ?
+
+Ok, let's write here
+
+Goal is
+
+read a .py file
+Identify Block of code :
+        header block,
+        import,
+        log block,
+        test block,
+        Core Block,
+        Bottom Block
+
+reformat each block, followinf rules
+Write back on disk
+Ok ?
+
+2) Block defintion are:
+
+
+
+
+
+ok, I can write here
+ok, but what is the block here
+
+
+
 Goal is to normalize all python files with similar structure.
 
 Some rules are
