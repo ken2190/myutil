@@ -194,26 +194,46 @@ def codesource_extrac_block(txt)
 
     for ii,line in enumerate(lines) :
 
+<<<<<<< HEAD
+=======
+      ## Block Import
+>>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'import ' in line and ii < 20 :
          dd.header = lineblock
          lineblock = []
 
+<<<<<<< HEAD
+=======
+      ### Block import
+>>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if ('def ' in line or 'class ' in line  or 'from utilmy import log' in line ) and ii < 50 and not 'import' in dd:
          dd['import'] = lineblock
          lineblock = []
 
+<<<<<<< HEAD
 
+=======
+      ### Block Test
+>>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if ('def test(' in line ) and ii < 50 and not 'logger' in dd :
           flag_test = True
           dd['logger'] = lineblock
 
 
+<<<<<<< HEAD
+=======
+      ### Block Core
+>>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'def ' in line and 'def test' not in line and flag_test and ii >10 :
           ####  functions    
          dd['test'] = lineblock
          lineblock = []
 
 
+<<<<<<< HEAD
+=======
+      ### Block Footer
+>>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'if main ==  ' in line and  ii >10 :
          dd['core'] = lineblock
          lineblock = []
