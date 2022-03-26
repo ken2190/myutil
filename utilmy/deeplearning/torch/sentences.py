@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 MNAME="utilmy.deeplearning.torch.sentences"
-HELP="""sentence_tansformer
+HELP="""sentence_tansformer wrapper
 
 cd deeplearning/torch/
 python sentences.py  test
 
 
 Original file is located at
-    https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
+https://colab.research.google.com/drive/1dPPD-2Vrn61v2uYZT1AXiujqqw7ZwzEA#scrollTo=TZCBsq36j4aH
+
 
 train Sentence Transformer with different Losses such as:**
 > Softmax Loss
@@ -91,6 +92,7 @@ def test1():
 
     #### Data
     cc.data_nclass = 5
+    cc.datasetname = 'sts5'
 
 
     dirdata = 'ztmp/'
@@ -102,10 +104,13 @@ def test1():
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
     for lname in lloss :
-        log("Classifier with Loss ", lname)
+        log("\n\n\n Classifier with Loss ", lname)
+        cc.lossname = lname
         model_load_fit_sentence(modelname_or_path = modelid,
                                 taskname  = "classifier",
                                 lossname  = lname,
+
+                                datasetname= cc.datasetname,
                                 train_path= dirdata + f"/data_fake.parquet",
                                 val_path=   dirdata + f"/data_fake.parquet",
                                 eval_path = dirdata + f"/data_fake.parquet",
@@ -121,17 +126,19 @@ def dataset_fake(dirdata):
 
     # Read the AllNLI.tsv.gz file and create the training dataset
     df = pd_read_csv(nli_dataset_path, npool=1) 
+
+    df = df[df['split'] == 'train' ]
     
-    df = df.sample(frac=0.1)
+    # df = df.sample(frac=0.1)
     df['score'] = np.random.random( len(df) )
 
-    #df['label'] = pd.factorize(df['label'])[0]   ###into integer
-    df['label'] = np.random.randint(0,1, len(df) )
-    df['label'] = df['label'].astype('float')
+    df['label'] = pd.factorize(df['label'])[0]   ###into integer
+    #df['label'] = 6.0  # np.random.randint(0, 3, len(df) )
+    df['label'] = df['label'].astype('float')  ### needed for cosinus loss 
 
     log(df, df.columns, df.shape)
     dirout = dirdata +"/data_fake.parquet"
-    df.iloc[:50, :].to_parquet(dirout)
+    df.iloc[:10, :].to_parquet(dirout)
     return dirout
 
 
@@ -361,9 +368,9 @@ def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dic
 
     dev_samples = []
     for i,row in df.iterrows():
-        if row['split'] == 'dev':
-            score = float(row['score']) / score_max #Normalize score to range 0 ... 1
-            dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+        # if row['split'] == 'dev':
+        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+        dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
 
     dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
     return dev_evaluator
@@ -373,17 +380,17 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=
     """
       input data df[['sentence1', 'sentence2', 'label']]
           X, Y = check_paired_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
-    X, Y = check_pairwise_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
-    X = check_array(
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
-    raise ValueError(
-ValueError: Expected 2D array, got 1D array instead:
-array=[].
-Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
-[myutil]$ 
-      
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
+            X, Y = check_pairwise_arrays(X, Y)
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
+            X = check_array(
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
+            raise ValueError(
+        ValueError: Expected 2D array, got 1D array instead:
+        array=[].
+        Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+        [myutil]$ 
+            
 
     """
     cc = Box(cc)
@@ -393,8 +400,10 @@ Reshape your data either using array.reshape(-1, 1) if your data has a single fe
     
     train_samples = [] 
     for i,row in df.iterrows():
+
+      labeli =  row['label']   if 'softmax' in cc.get('lossname', '') else  float(row['label']) 
       train_samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
-                            label= [ row['label'] ] ))
+                            label=   labeli  ))
 
     log( train_samples) 
     train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
