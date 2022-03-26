@@ -75,7 +75,13 @@ def test_utilmy():
    sess.load('mysess')
    sess.load('mysess', tag='01')
 
-   
+
+
+##########################################################################################
+def test_images():
+    from utilmy.images import util_image as m
+    m.test_all()
+
 
 ##########################################################################################
 def test_ppandas():
@@ -188,7 +194,9 @@ def test_viz_vizhtml():
    log(" from utilmy.viz import vizhtml as vi     ")
    m.test_all()
 
-   
+
+
+
 
 #########################################################################################
 def test_parallel():
