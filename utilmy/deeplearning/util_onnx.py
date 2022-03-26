@@ -444,6 +444,7 @@ def onnx_convert(
     """
     filename = '.'.join(os.path.basena:strme(model_path).split('.')[:-1])
     out_path = os.path.join(dirout:str, filename + '.onnx')
+    os.makedirs(dirout, exist_ok=True)
 
     model = torch.load(model_path)
     model.eval()
