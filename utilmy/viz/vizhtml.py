@@ -28,7 +28,9 @@ from typing import List
 from tqdm import tqdm
 from box import Box
 from utilmy.viz.css import getcss
-from utilmy.viz.test_vizhtml import test1, test2, test3, test4, test_scatter_and_histogram_matplot, test_pd_plot_network, test_page, test_cssname, test_external_css, test_table, test_getdata, test_colimage_table, test_tseries_dateformat 
+from utilmy.viz.test_vizhtml import (test1, test2, test3, test4, test_scatter_and_histogram_matplot, test_pd_plot_network, 
+  test_page, test_cssname, test_external_css, test_table, test_getdata, test_colimage_table, test_tseries_dateformat 
+)
 
 try :
    import matplotlib.pyplot as plt
@@ -90,9 +92,13 @@ def test_all():
    test_tseries_dateformat()
    
 #####################################################################################
-def show(file, title='table',format: str='blue_light',dir_out='table.html', css_class=None, use_datatable=True, table_id=None,):
+def show(file_csv_parquet:str="myfile.parquet", title='table',format: str='blue_light',dir_out='table.html', css_class=None, use_datatable=True, table_id=None,):
+    """  Open HTML file with the parquet file data.
+
+
+    """
     from utilmy import pd_read_file
-    df = pd_read_file(file)
+    df = pd_read_file(file_csv_parquet)
     log(df)
     title = title + "<br>" + file
     doc = vi.htmlDoc(dir_out="", title=title, format=format, cfg={})
@@ -104,10 +110,13 @@ def show(file, title='table',format: str='blue_light',dir_out='table.html', css_
       
 def show_table_image(df, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
                      custom_css_class=None, use_datatable=False, table_id=None,):
-   
+    """ Show table images
+
+
+    """                
     if isinstance(df, str) : ## path
        from utilmy import pd_read_file
-       df = pd_read_file(file)
+       df = pd_read_file(df)
 
     if colimage:
         colimage = [colimage] if isinstance(colimage, str) else colimage

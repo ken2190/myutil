@@ -50,18 +50,9 @@ list_built_in = [
 ]
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 def log(*s): print(*s, flush=True)
 
 
->>>>>>> origin/main
-=======
-def log(*s): print(*s, flush=True)
-
-
->>>>>>> origin/main
 ###########################################################################################################
 ########  Export ##########################################################################################
 def export_stats_pertype(in_path:str=None, type:str=None, out_path:str=None):
@@ -133,104 +124,18 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
     """
     root = in_path
     flist = glob.glob(root +"/*.py")
-<<<<<<< HEAD
-<<<<<<< HEAD
-    flist = flist + glob.glob(root +"/*/*.py")
-=======
     flist = flist + glob.glob(root +"/**/*.py")
->>>>>>> origin/main
-=======
-    flist = flist + glob.glob(root +"/**/*.py")
->>>>>>> origin/main
     flist = flist + glob.glob(root +"/*/*/*.py")
     flist = flist + glob.glob(root +"/*/*/*/*.py")
     flist = flist + glob.glob(root +"/*/*/*/*/*.py")
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     flist = list(set(flist))
->>>>>>> origin/main
-=======
-    flist = list(set(flist))
->>>>>>> origin/main
     flist.sort()
     header = False
     # print(flist)
     for i in range(len(flist)):
         # output_file = re.search(r'(\w+).py', file).group(1)
         # export_stats_perfile(file, f"{out_path}/file_{output_file}.csv")
-<<<<<<< HEAD
-<<<<<<< HEAD
-        df = get_list_function_stats(flist[i])
-        print(df)
-        print(flist[i])
-        if type == 'txt':
-            with open(f'{out_path}', 'a+') as f:
-                f.write(f"\n\n{flist[i]}\n")
-        if df is not None:
-            if repo_name:
-                df['uri']   = df['uri'].apply(lambda x : x.replace(f'{repo_name}/','', 1))
-
-            if type == 'csv':
-                if not header:
-                    df.to_csv(f'{out_path}', mode='a', header=True, index=False)
-                    header = True
-                else:
-                    df.to_csv(f'{out_path}', mode='a', header=False, index=False)
-
-            elif type == 'txt':
-                with open(f'{out_path}', 'a+') as f:
-                    f.write(f"-------------------------functions----------------------\n")
-                    for index, row in df.iterrows():
-                        str1 = ''
-                        for arg_name, arg_type, arg_value in zip(row['arg_name'], row['arg_type'], row['arg_value']):
-                            str1 += f'{arg_name}{f":{arg_type}" if arg_type else ""}{f" = {arg_value}" if arg_value else ""}, '
-                        str1 = str1[:-2] if str1 != '' else str1
-                        f.write(f"{row['name']}({str1})\n")
-                    f.write('\n')
-
-        df = get_list_class_stats(flist[i])
-        print(df)
-        if df is not None:
-            if repo_name:
-                df['uri']   = df['uri'].apply(lambda x : x.replace(f'{repo_name}/','', 1))
-            if type == 'csv':
-                if not header:
-                    df.to_csv(f'{out_path}', mode='a', header=True, index=False)
-                    header = True
-                else:
-                    df.to_csv(f'{out_path}', mode='a', header=False, index=False)
-            # elif type == 'txt':
-            #     for index, row in df.iterrows():
-            #         print(f"{index}: {df['uri']}")
-
-
-        df = get_list_method_stats(flist[i])
-        print(df)
-        if df is not None:
-            if repo_name:
-                df['uri']   = df['uri'].apply(lambda x : x.replace(f'{repo_name}/',''))
-            if type == 'csv':
-                if not header:
-                    df.to_csv(f'{out_path}', mode='w+', header=True, index=False)
-                    header = True
-                else:
-                    df.to_csv(f'{out_path}', mode='a', header=False, index=False)
-            elif type == 'txt':
-                with open(f'{out_path}', 'a+') as f:
-                    f.write(f"-------------------------methods----------------------\n")
-                    for index, row in df.iterrows():
-                        str1 = ''
-                        for arg_name, arg_type, arg_value in zip(row['arg_name'], row['arg_type'], row['arg_value']):
-                            str1 += f'{arg_name}{f":{arg_type}" if arg_type else ""}{f" = {arg_value}" if arg_value else ""}, '
-                        str1 = str1[:-2] if str1 != '' else str1
-                        # f.write(f"{row['uri']}({str1})\n")
-                        f.write(f"{row['name'].replace(':', '.')}({str1})\n")
-
-=======
-=======
->>>>>>> origin/main
         try :
             df = get_list_function_stats(flist[i])
             print(df)
@@ -299,10 +204,6 @@ def export_stats_perrepo(in_path:str=None, out_path:str=None, repo_name:str=None
                             f.write(f"{row['name'].replace(':', '.')}({str1})\n")
         except Exception as e :
             log(flist[i], e) 
-<<<<<<< HEAD
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 
 
 def export_stats_repolink_txt(repo_link: str, out_path:str=None):

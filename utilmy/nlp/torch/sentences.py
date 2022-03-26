@@ -25,7 +25,7 @@ ith a Sentence Transformer and a mean pooling layer to create sentence embedding
 
 
 """
-import sys, os, gzip, csv, random, math, logging, pandas as pd, numpy as np
+import sys, os, gzip, csv, random, math, logging, pandas as pd
 from typing import List, Optional, Tuple, Union
 from datetime import datetime
 from box import Box
@@ -93,7 +93,7 @@ def test1():
     cc.data_nclass = 5
 
 
-    dirdata = 'ztmp/'
+    dirdata ='ztest/'
     modelid = "distilbert-base-nli-mean-tokens"
     
     dataset_download(dirout= dirdata)
@@ -121,18 +121,7 @@ def dataset_fake(dirdata):
 
     # Read the AllNLI.tsv.gz file and create the training dataset
     df = pd_read_csv(nli_dataset_path, npool=1) 
-    
-    df = df.sample(frac=0.1)
-    df['score'] = np.random.random( len(df) )
-
-    #df['label'] = pd.factorize(df['label'])[0]   ###into integer
-    df['label'] = np.random.randint(0,1, len(df) )
-    df['label'] = df['label'].astype('float')
-
-    log(df, df.columns, df.shape)
-    dirout = dirdata +"/data_fake.parquet"
-    df.iloc[:50, :].to_parquet(dirout)
-    return dirout
+    df.iloc[:50, :].to_parquet(dirdata +"/fake_data.parquet")
 
 
 
@@ -203,8 +192,7 @@ def model_load(path_or_name_or_object):
        model = SentenceTransformer(path_or_name_or_object)
        model.eval()    
        return model
-    else :
-       return path_or_name_or_object
+
 
 def model_save(model,path, reload=True):
     model.save( path)
@@ -217,23 +205,14 @@ def model_save(model,path, reload=True):
 
 
 def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
-    """model_setup_compute _summary_
      # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
-    Args:
-        model: _description_
-        use_gpu: _description_. Defaults to 0.
-        ngpu: _description_. Defaults to 1.
-        ncpu: _description_. Defaults to 1.
-        cc: _description_. Defaults to None.
-    """
-    cc = Box(cc) if cc is not None else Box({})
     if cc.get('use_gpu', 0) > 0 :        ### default is CPU
         if torch.cuda.device_count() < 0 :
             log('no gpu')
             device = 'cpu'
             torch.set_num_threads(ncpu)
             log('cpu used:', ncpu, " / " ,torch.get_num_threads())
-            # model = nn.DataParallel(model)            
+            model = nn.DataParallel(model)            
         else :    
             log("Let's use", torch.cuda.device_count(), "GPU")
             device = torch.device("cuda:0")
@@ -242,7 +221,7 @@ def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
             device = 'cpu'
             torch.set_num_threads(ncpu)
             log('cpu used:', ncpu, " / " ,torch.get_num_threads())
-            # model = nn.DataParallel(model)  ### Bug TOFix
+            model = nn.DataParallel(model)  
         
     log('device', device)
     model.to(device)
@@ -275,7 +254,6 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
 
     ##### load model form disk or from internet
     model = model_load(modelname_or_path)
-    log('model loaded:', model)
     
     if taskname == 'classifier':
         df = pd_read_file(train_path)
@@ -287,7 +265,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         ##### dataloader train, evaluator
         if 'data_nclass' not in cc :
             cc.data_nclass = df['label'].nunique()
-        df = df.iloc[:100,:]
+        del df
         
         train_dataloader = load_dataloader(train_path, datasetname, cc=cc)
         val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
@@ -296,7 +274,6 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         train_loss       = load_loss(model, lossname,  cc= cc)        
         
         ##### Configure the training
-        cc.use_amp = cc.get('use_amp', False)
         cc.warmup_steps = math.ceil(len(train_dataloader) * cc.epoch * 0.1) #10% of train data for warm-up.
         log("Warmup-steps: {}".format(cc.warmup_steps))
           
@@ -310,7 +287,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
           evaluation_steps = cc.eval_steps,
           warmup_steps     = cc.warmup_steps,
           output_path      = dirout,
-          use_amp= cc.use_amp          #Set to True, if your GPU supports FP16 operations
+          use_amp=True          #Set to True, if your GPU supports FP16 operations
           )
 
         log("\n******************< Eval similarity > ********************")
@@ -329,11 +306,11 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
 
 ###################################################################################################################
 def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
-    if isinstance(path_or_df, str):            
-        if  'AllNLI' in path_or_df:
-            dftrain = pd.read_csv(path_or_df, error_bad_lines=False,nrows=100, sep="\t")
-        else :
+    if isinstance(path_or_df, str):
+        if '.tsv' in path_or_df or '.csv' in  path_or_df  :
             dftrain = pd_read_file(path_or_df, npool=npool)
+        else :    
+            dftrain = pd.read_csv(path_or_df, error_bad_lines=False)
         
     elif isinstance(path_or_df, pd.DataFrame):
         dftrain = path_or_df
@@ -372,18 +349,6 @@ def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dic
 def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
     """
       input data df[['sentence1', 'sentence2', 'label']]
-          X, Y = check_paired_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
-    X, Y = check_pairwise_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
-    X = check_array(
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
-    raise ValueError(
-ValueError: Expected 2D array, got 1D array instead:
-array=[].
-Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
-[myutil]$ 
-      
 
     """
     cc = Box(cc)
@@ -391,18 +356,16 @@ Reshape your data either using array.reshape(-1, 1) if your data has a single fe
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
     
-    train_samples = [] 
+    train_samples = [] ; train_dataloader = DataLoader([], shuffle=True, batch_size=cc.batch_size)
     for i,row in df.iterrows():
-      train_samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
-                            label= [ row['label'] ] ))
+      train_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=row['label']))
+      train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
 
-    log( train_samples) 
-    train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
     log('Nelements', len(train_dataloader))
     return train_dataloader
 
 
-def load_loss(model ='', lossname ='cosine',  cc:dict= None):
+def load_loss(model ='', lossname ='cosinus',  cc:dict= None):
     train_loss = None
     if lossname == 'MultpleNegativesRankingLoss':
       train_loss = losses.MultipleNegativesRankingLoss(model)
@@ -411,12 +374,12 @@ def load_loss(model ='', lossname ='cosine',  cc:dict= None):
       nclass     =  cc.get('data_nclass', -1)
       train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
                                       num_labels=nclass )
+    elif lossname =='cosinus':
+      train_loss = losses.CosineSimilarityLoss(model)
 
     elif lossname =='triplethard':
       train_loss = losses.BatchHardTripletLoss(model=model)
 
-    else : #if lossname =='cosine':
-      train_loss = losses.CosineSimilarityLoss(model)
 
     return train_loss
 

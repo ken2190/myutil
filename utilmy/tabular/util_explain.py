@@ -344,13 +344,6 @@ def test_imodels():
 #############################################################################################
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 """
 
 https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integration.html

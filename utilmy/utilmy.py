@@ -5,30 +5,34 @@ HELP= """
 
 """
 import os, sys, time, datetime,inspect, json, yaml, gc, random
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-from typing import List, Optional, Tuple, Union
->>>>>>> origin/main
-=======
-from typing import List, Optional, Tuple, Union
->>>>>>> origin/main
 from box import Box
 
-####################################################################
+
+#### Typing ######################################################################################
+## https://www.pythonsheets.com/notes/python-typing.html
+### from utilmy import (  )
+from typing import List, Optional, Tuple, Union, Dict, Any
+Dict_none = Union[dict, None]
+List_none = Union[list, None]
+Int_none  = Union[None,int]
+Path_type = Union[str, bytes, os.PathLike]
+
+try:
+    import numpy.typing
+    npArrayLike = numpy.typing.ArrayLike
+except ImportError:
+    npArrayLike = Any
+
+
+
+
+
+
+
+###################################################################################################
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
-<<<<<<< HEAD
-<<<<<<< HEAD
-    Args:
-        verbose ( int ) :   
-    Returns:
-        
-=======
->>>>>>> origin/main
-=======
->>>>>>> origin/main
     """
     if verbose is None :
         verbose = os.environ.get('utilmy-verbose', 3)
@@ -259,19 +263,6 @@ def import_function(fun_name=None, module_name=None, fuzzy_match=False):
         raise Exception( msg )  
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-def glob_glob(dirin="**/*.py", nfile=1000, recursive=False, **kw):
-    """  **/*.py   any sub-directories
-
-    """
-    import glob
-    flist  = sorted( glob.glob(dirin , recursive= recursive, **kw ))
-    flist  = flist[:nfile]
-    log('Nfile: ', len(flist), str(flist)[:100])
-=======
-=======
->>>>>>> origin/main
 def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str, list]="",  exclude:Union[str, list]="",  recursive=True, silent=False, show=0, **kw):
     """  List of files.
        dirin:      **/*.py   any sub-directories or list of sub-directories
@@ -311,10 +302,6 @@ def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str
 
     if not slient : log('Nfile: ', len(flist), str(flist)[:100])
     if show>0 : log(flist)
-<<<<<<< HEAD
->>>>>>> origin/main
-=======
->>>>>>> origin/main
     return flist
 
 

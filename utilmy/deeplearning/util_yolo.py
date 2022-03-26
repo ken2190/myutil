@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import os,  numpy as np
-from typing import Dict, Mapping
-
-
-=======
-=======
->>>>>>> origin/main
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_yolo"
 HELP = """ utils for Yolo
@@ -42,10 +33,6 @@ def test_all():
     # test_extract_info_from_xml()
     test_convert_to_yolov5()
     test_yolov5_from_xml()
-<<<<<<< HEAD
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 
 
 def test_convert_to_yolov5():
@@ -70,21 +57,6 @@ def test_yolov5_from_xml():
     yolov5_from_xml(xml_folder="testdata/util_yolo",output= "testdata/util_yolo")
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
-    """
-    # test_extract_info_from_xml()
-    test_convert_to_yolov5()
-    test_yolov5_from_xml()
-=======
->>>>>>> origin/main
-=======
->>>>>>> origin/main
 
     
 ##############################################################################################################
@@ -233,15 +205,5 @@ def yolov5_from_xml(xml_file_path:str = "None", xml_folder:str= "None",output:st
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-<<<<<<< HEAD
-    # yolov5_from_xml(xml_folder="xml_folder")
-    test_all()
-=======
     import fire 
     fire.Fire()
->>>>>>> origin/main
-=======
-    import fire 
-    fire.Fire()
->>>>>>> origin/main

@@ -1,4 +1,4 @@
-name: Auto Rebase Branches - main schedule
+name: zbackup Auto Rebase Branches - main schedule
 
 
 on:
@@ -6,13 +6,13 @@ on:
     inputs:  
 
 
-  schedule:
-    - cron:  '0 13 * * *'      #### 60mins
+#  schedule:
+#    - cron:  '0 13 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'   
 
-  push:
-    branches:
-    - zrebase_all
+#  push:
+#    branches:
+#    - zrebase_all
 
 
 env:
@@ -33,7 +33,40 @@ jobs:
         with:
             token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      - name: Create Auto PR- donwload hub      
+      #### No desctructive add main and local and push ALL
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          echo "Fetching latest..."
+          git fetch origin
+          git checkout ${{ env.ROOT_BRANCH_NAME }}
+          git pull
+          echo "Beginning merge...."
+          IFS=","
+          for branch in $BRANCHES_TO_REBASE; do
+            { 
+              echo ""
+              echo "########  $branch  "
+              git checkout $branch
+              # git pull --allow-unrelated-histories 
+              # git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
+              git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  -m '${ROOT_BRANCH_NAME into}  ${branch} ' || { git add -u . && git commit --no-edit ;}
+              ##              
+              ### it destroyed the github action files, create more issues...
+              ### git push -f
+              echo "Merge SUCCEEDED for branch $branch"
+            } || {
+              echo "Merge FAILED for branch $branch"
+            }
+          done
+      # - name: Create Auto PR
+      #   uses: devops-infra/action-pull-request@v0.4.2
+      #   with:
+      #     github_token: ${{ secrets.WORKFLOW_TOKEN }}
+      #     source_branch: development
+      #     target_branch: master
+      #     title: My pull request
+      - name: Create Auto PR      
         #env:
         #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
         run: |
@@ -41,23 +74,9 @@ jobs:
            git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
            git config --global hub.protocol ssh
            # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
-
-
-      - name: Create Auto PR  local to main
-        run: |
            echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
-           # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
-           export name='alex' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
-           export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
-
-
-      - name: Create Auto PR  main to local
-        run: |
-           echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m "main into aniket"     || echo "failed"
-           echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
-           export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "$name into main"  || echo "failed"
-
+           echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
 
 
 

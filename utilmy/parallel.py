@@ -239,7 +239,7 @@ def test_pdreadfile():
 def pd_read_file(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False, nrows=-1, nfile=1000000, concat_sort=True,
                  n_pool=1, npool=None,
                  drop_duplicates=None, col_filter:str=None,  col_filter_vals:list=None, dtype_reduce=None,
-                 fun_apply=None, use_ext=None,   **kw):
+                 fun_apply=None, use_ext=None,   **kw)->pd.DataFrame:
     """  Read file in parallel from disk : very Fast
     :param path_glob: list of pattern, or sep by ";"
     :return:
@@ -312,7 +312,7 @@ def pd_read_file(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False
 
 
 def pd_read_file2(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False, nrows=-1, nfile=1000000, concat_sort=True, n_pool=1, npool=None,
-                 drop_duplicates=None, col_filter:str=None,  col_filter_vals:list=None, dtype_reduce=None, fun_apply=None, use_ext=None,  **kw):
+                 drop_duplicates=None, col_filter:str=None,  col_filter_vals:list=None, dtype_reduce=None, fun_apply=None, use_ext=None,  **kw)->pd.DataFrame:
     """  Read file in parallel from disk : very Fast
     :param path_glob: list of pattern, or sep by ";"
     :return:
@@ -410,7 +410,7 @@ def pd_read_file2(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=Fals
 ############################################################################################################
 def pd_groupby_parallel2(df, colsgroup=None, fun_apply=None,
                         npool: int = 1, **kw,
-                        ):
+                        )->pd.DataFrame:
     """Performs a Pandas groupby operation in parallel.
     pd.core.groupby.DataFrameGroupBy
     Example usage:
@@ -439,7 +439,7 @@ def pd_groupby_parallel2(df, colsgroup=None, fun_apply=None,
     return pd.concat(got)
 
 
-def pd_groupby_parallel(df, colsgroup=None, fun_apply=None, n_pool=4, npool=None):
+def pd_groupby_parallel(df, colsgroup=None, fun_apply=None, n_pool=4, npool=None)->pd.DataFrame:
     """
     Use of multi-thread on group by apply when order is not important
     """
@@ -464,7 +464,7 @@ def pd_groupby_parallel(df, colsgroup=None, fun_apply=None, n_pool=4, npool=None
     return df_out
 
 
-def pd_apply_parallel(df, fun_apply=None, npool=5, verbose=True ):
+def pd_apply_parallel(df, fun_apply=None, npool=5, verbose=True )->pd.DataFrame:
     """ Pandas parallel apply
     """
     import pandas as pd, numpy as np, time, gc
