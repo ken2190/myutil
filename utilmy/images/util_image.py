@@ -41,6 +41,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test2()
     test_diskcache()
 
 
@@ -51,7 +52,23 @@ def test1():
 
 def test2():
     """function test"""
-    pass
+    dirimg = os.getcwd() + "/ztmp/images/"
+    image_create_fake(dirout=dirimg, nimages=1, imsize=(60,60), rgb_color = (255, 0, 0) )
+    flist = glob.glob(dirimg +"/*")
+
+    ##################################
+    for fi in flist:
+        log(fi)
+        img_np = image_read(fi)
+        image_save(img_np, dirfile=  fi.replace(".jpg", "_b.jpg"))
+    log('\n\nimage_read, image_save',  glob.glob(dirimg +"/*")[:5])
+
+    #################################
+    img_list = image_prep(flist[0], xdim=30, ydim=30, mean=0.5, std=0.5,verbose=True )
+    log('\n\nimage_prep', str(img_list)[:100])
+
+
+
 
 def test_diskcache():
     import tempfile
@@ -114,12 +131,6 @@ def test_diskcache():
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
 
 
-def test_image_create_fake():
-    dirout = os.getcwd() + "/ztmp/images/"
-    imsize=(300,300)
-    red = (255, 0, 0)
-    nimages = 1
-    image_create_fake(dirout=dirout, nimages=nimages, imsize=imsize, rgb_color = red)
 
 
 ################################################################################################
@@ -418,6 +429,15 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 image_load = image_read  ## alias
 
 
+def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg"):
+    """image_save 
+    Args:
+        img: _description_
+        fileout: 
+    """
+    os.makedirs(  os.path.dirname( os.path.abspath( dirfile    )),  exist_ok=True)
+    cv2.imwrite(dirfile, img)    
+
 
 #################################################################################################
 #### Images utils ###############################################################################
@@ -581,7 +601,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ,str] :
+    mean :float = 0.5,std :float    = 0.5, verbose=False) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
@@ -597,12 +617,13 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
         image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
+        assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
         image = image.astype('float32')
         return image, image_path
-    except :
+    except Exception as e :
+        if verbose: log(e)
         return [], ""
 
 
@@ -1041,7 +1062,8 @@ if 'utils':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test2()
 
 
 
