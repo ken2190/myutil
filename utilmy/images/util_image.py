@@ -265,7 +265,7 @@ def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
 
-
+#TODO: this is the same as `diskcache_image_createcache` ?
 def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
     """function image_cache_save
     Args:
@@ -311,7 +311,7 @@ def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Uni
     log( dir_check )
 
 
-
+#TODO: not needed?
 def diskcache_image_check2():
     """     python prepro.py  image_check
 
@@ -357,7 +357,7 @@ def diskcache_image_check2():
 
 
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
-    """function image_check_npz
+    """function npz_image_check
     Args:
         path_npz:
         keys:
