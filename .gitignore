@@ -151,3 +151,9 @@ ztmp_monkey.py
 run_script.py
 testdata/ppandas/file.csv
 *mymodel*
+model.pt
+cardio_train.csv
+ztest/data_fake.parquet
+ztest/data_fake.parquet
+ztest/data_fake.parquet
+sendtoterminalplus.vsx

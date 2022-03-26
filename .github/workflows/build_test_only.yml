@@ -7,19 +7,20 @@ on:
     inputs:  
 
     
-  push:
-    branches-ignore:
-      - main
-      - 'z*'
-      - zauto_rebase_all
-      - zdocstring
-      - zttypehint
-      - zformat
+  # push:
+  #   branches-ignore:
+  #     - main
+  #     - 'z*'
+  #     - zauto_rebase_all
+  #     - zdocstring
+  #     - zttypehint
+  #     - zformat
       
 
   pull_request:
     branches-ignore:
       - main
+      - ztmp*
 
 jobs:
   build:
