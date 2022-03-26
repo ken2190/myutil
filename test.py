@@ -200,6 +200,15 @@ def test_compile():
 
 
 
+
+#######################################################################################
+def test_long():
+    from utilmy.nlp.torch import sentences   as m ;  m.test_all()      
+
+
+
+
+
 import utilmy as  uu
 
 
