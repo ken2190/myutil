@@ -471,7 +471,5 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    # fire.Fire()
-
-
-test1()
+    fire.Fire()
+    # test1()
