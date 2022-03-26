@@ -93,7 +93,7 @@ def test1():
     cc.data_nclass = 5
 
 
-    dirdata = 'ztest/'
+    dirdata = 'ztmp/'
     modelid = "distilbert-base-nli-mean-tokens"
     
     dataset_download(dirout= dirdata)
