@@ -490,7 +490,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
     xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np.typing.ArrayLike]:
+    mean :float = 0.5,std :float    = 0.5)->List[np_.typing.ArrayLike]:
     """ run image_prep on multiple images
     """
     #TODO: add tqdm for running metrics
@@ -581,7 +581,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[Union[list,np.typing.ArrayLike],str] :
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ],str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
