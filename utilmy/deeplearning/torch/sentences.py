@@ -205,7 +205,7 @@ def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv'
     model= model_load(model)
     test_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(test_samples, batch_size=batch_size, name=name)
     test_evaluator(model, output_path=dirout)    
-    # log( pd_read_file(dirout +"/*" ))
+    log( pd_read_file(dirout +"/*" ))
 
 
 def model_load(path_or_name_or_object):
