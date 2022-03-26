@@ -5,9 +5,17 @@ name: Auto-Doc in docs/doc_index.py
 on:
   # Trigger the workflow on push or pull request,
   # but only for the main branch
-  push:
-    branches:
-    - main
+  workflow_dispatch:
+    inputs:  
+
+#  push:
+#    branches:
+#    - main
+
+  schedule:
+    - cron:  '0 2 * * *'      #### 60mins
+    #    - cron:  '*/10 * * * *'
+
 
 #  pull_request:
 #    branches:
