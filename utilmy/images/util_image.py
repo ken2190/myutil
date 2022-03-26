@@ -130,7 +130,7 @@ def test_image_create_fake():
 #TODO dirin,dirout as paths
 #TODO typehints
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:str=None, dirout:str=None, xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -421,7 +421,7 @@ image_load = image_read  ## alias
 
 #################################################################################################
 #### Images utils ###############################################################################
-def image_show_in_row(image_list:Union[dict,list]=None):
+def image_show_in_row(image_list:Union[dict,list, None]=None):
     """ helper function for data visualization
     Plot images in one row.
     """
@@ -490,7 +490,7 @@ def run_multiprocess(myfun, list_args, npool=10, **kwargs):
 
 def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
     xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[np_.typing.ArrayLike]:
+    mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
     """ run image_prep on multiple images
     """
     #TODO: add tqdm for running metrics
@@ -573,7 +573,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
+    images, labels = image_preps_mp(image_list, prepro_image_fun=prepro_image3b)
     os_path_check(dirout, n=5)
 
 
@@ -581,7 +581,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ],str] :
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
