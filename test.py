@@ -78,7 +78,7 @@ def test_utilmy():
 
 
 ##########################################################################################
-def test_image():
+def test_images():
     from utilmy.images import util_image as m
     m.test_all()
 
