@@ -41,6 +41,7 @@ def test_all():
     """function test_all        """
     log(MNAME)
     test1()
+    test2()
     test_diskcache()
 
 
@@ -51,7 +52,23 @@ def test1():
 
 def test2():
     """function test"""
-    pass
+    dirimg = os.getcwd() + "/ztmp/images/"
+    image_create_fake(dirout=dirimg, nimages=1, imsize=(60,60), rgb_color = (255, 0, 0) )
+    flist = glob.glob(dirimg +"/*")
+
+    ##################################
+    for fi in flist:
+        log(fi)
+        img_np = image_read(fi)
+        image_save(img_np, dirfile=  fi.replace(".jpg", "_b.jpg"))
+    log('\n\nimage_read, image_save',  glob.glob(dirimg +"/*")[:5])
+
+    #################################
+    img_list = image_prep(flist[0], xdim=30, ydim=30, mean=0.5, std=0.5,verbose=True )
+    log('\n\nimage_prep', str(img_list)[:100])
+
+
+
 
 def test_diskcache():
     import tempfile
@@ -114,12 +131,6 @@ def test_diskcache():
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
 
 
-def test_image_create_fake():
-    dirout = os.getcwd() + "/ztmp/images/"
-    imsize=(300,300)
-    red = (255, 0, 0)
-    nimages = 1
-    image_create_fake(dirout=dirout, nimages=nimages, imsize=imsize, rgb_color = red)
 
 
 ################################################################################################
@@ -127,8 +138,10 @@ def test_image_create_fake():
 
 #################################################################################################
 #### images storage ###############################################################################
+#TODO dirin,dirout as paths
+#TODO typehints
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", xdim0:int=256, ydim0:int=256, tag0:str= "", nmax:int=10000000, file_exclude:str="" ):
+def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -226,7 +239,7 @@ def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:
     return cache
 
 
-def diskcache_image_loadcache(db_dir:Union[str, bytes, os.PathLike]="db_images.cache"):
+def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -237,8 +250,8 @@ def diskcache_image_loadcache(db_dir:Union[str, bytes, os.PathLike]="db_images.c
     log('Nimages', len(cache) )
     return cache
 
-
-def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache", dirout:Union[str, bytes, os.PathLike]="tmp/", tag="cache1"):
+#TODO: type hints for path
+def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -264,10 +277,98 @@ def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache
     log( dir_check )
 
 
+def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
+    """function image_cache_save
+    Args:
+        dirin_image ( str ) :
+        db_dir ( str ) :
+        tag:
+    Returns:
+
+    """
+    ##### Write some sample images  from cache #############################
+    import diskcache as dc
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+
+
+    log('### Check writing on disk  ###########################')
+    for img_path in dirin_image:
+        img = image_read(img_path)
+        cache[img_path] = img
+
+#TODO: this is the same as `diskcache_image_check`
+# consider removing? ( or different purpose in mind?)
+def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
+    """function image_save
+    Args:
+    Returns:
+
+    """
+    # db_dir = "_70k_clean_nobg_256_256-100000.cache"
+    import diskcache as dc
+    cache   = dc.Cache(db_dir)
+    print('Nimages', len(cache) )
+
+    log('### writing on disk  ######################################')
+    dir_check = dirout
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(img_list) :
+        if i > 10: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        key2 = key.split("/")[-1]
+        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
+    log( dir_check )
+
+
+
+def diskcache_image_check2():
+    """     python prepro.py  image_check
+
+          image white color padded
+
+    """
+    # print( 'nf files', len(glob.glob("/data/workspaces/noelkevin01/img/data/fashion/train_nobg_256/*")) )
+    nmax = 100000
+    global xdim, ydim
+    xdim = 64
+    ydim = 64
+
+    log("### Load  ##################################################")
+    # fname    = f"/img_all{tag}.cache"
+    # fname    = f"/img_fashiondata_64_64-100000.cache"
+    # fname = "img_train_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+    fname = "img_train_a_40k_nobg_256_256-100000.cache"
+
+    log('loading', fname)
+
+    import diskcache as dc
+    db_dir = data_train + fname
+    cache = dc.Cache(db_dir)
+
+    lkey = list(cache)
+    print('Nimages', len(lkey))
+
+    ### key check:
+    # df = pd_read_file("/data/workspaces/noelkevin01/img/data/fashion/csv/styles_df.csv" )
+    # idlist = df['id']
+
+    log('### writing on disk  ######################################')
+    dir_check = data_train + "/zcheck/"
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(cache):
+        if i > 10: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        print(key)
+        key2 = key.split("/")[-1]
+        cv2.imwrite(dir_check + f"/{key2}", img)
 
 
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
-    """function npz_image_check
+    """function image_check_npz
     Args:
         path_npz:
         keys:
@@ -327,6 +428,15 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 
 image_load = image_read  ## alias
 
+
+def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg"):
+    """image_save 
+    Args:
+        img: _description_
+        fileout: 
+    """
+    os.makedirs(  os.path.dirname( os.path.abspath( dirfile    )),  exist_ok=True)
+    cv2.imwrite(dirfile, img)    
 
 
 #################################################################################################
@@ -491,7 +601,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ,str] :
+    mean :float = 0.5,std :float    = 0.5, verbose=False) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
@@ -507,12 +617,13 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
         image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
+        assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
         image = image.astype('float32')
         return image, image_path
-    except :
+    except Exception as e :
+        if verbose: log(e)
         return [], ""
 
 
@@ -951,7 +1062,8 @@ if 'utils':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test2()
 
 
 
