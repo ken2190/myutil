@@ -71,9 +71,10 @@ def test_all() -> None:
 
 #####################################################################################
 def test1():
-    """
-    #  Run Various test suing strans_former,
+    """ Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
+
+    python utilmy/nlp/torch/sentences.py test1
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
@@ -98,8 +99,9 @@ def test1():
     dirdata = 'ztmp/'
     modelid = "distilbert-base-nli-mean-tokens"
     
-    dataset_download(dirout= dirdata)
-    dataset_fake(dirdata)  ### Create fake version
+    
+    dfcheck = dataset_fake(dirdata, fname='data_fake.parquet', nsample=10)  ### Create fake version
+    assert len(dfcheck[[ 'sentence1', 'sentence2', 'label', 'score'  ]]) > 1 , "missing columns"
     
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
@@ -115,12 +117,16 @@ def test1():
                                 val_path=   dirdata + f"/data_fake.parquet",
                                 eval_path = dirdata + f"/data_fake.parquet",
                                 metricname='cosinus',
-                                dirout= dirdata + f"/results/" + lname, cc=cc)
+                                dirout= dirdata + f"/results/" + lname, nsample=100, cc=cc)
     
 
 
 ###################################################################################################################        
-def dataset_fake(dirdata:str, nsample=10):        
+def dataset_fake(dirdata:str, fname='data_fake.parquet', nsample=10):        
+    """ Fake text data for tests
+    """
+
+    dataset_download(dirout= dirdata)
     nli_dataset_path = dirdata + '/AllNLI.tsv.gz'
     sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
 
@@ -137,9 +143,10 @@ def dataset_fake(dirdata:str, nsample=10):
     df['label'] = df['label'].astype('float')  ### needed for cosinus loss 
 
     log(df, df.columns, df.shape)
-    dirout = dirdata +"/data_fake.parquet"
-    df.iloc[:nsample, :].to_parquet(dirout)
-    return dirout
+    dirout = dirdata +"/" + fname
+    df = df.iloc[:nsample, :]
+    df.to_parquet(dirout)
+    return df.iloc[:10, :]
 
 
 def dataset_fake2(dirdata=''):
@@ -268,7 +275,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
                             train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
 
                             metricname='cosinus',
-                            dirout ="mymodel_save/",
+                            dirout ="mymodel_save/", nsample=100000,
                             cc:dict= None):
     """" Load pre-trained model and fine tune with specific dataset
 
@@ -284,6 +291,9 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
           # cc.ngpu= 2
     """
     cc = Box(cc)   #### can use cc.epoch   cc.lr
+    cc.modelname   = modelname_or_path
+    cc.nsample     =  nsample
+    cc.datasetname = datasetname
 
     ##### load model form disk or from internet
     model = model_load(modelname_or_path)
@@ -292,6 +302,8 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
     if taskname == 'classifier':
         df = pd_read_file(train_path)
         log(df.columns, df.shape)
+        assert len(df[[ 'sentence1', 'sentence2', 'label', 'score'  ]]) > 1 , "missing columns"
+
         log(" metrics_cosine_similarity before training")  
         model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
         
@@ -299,7 +311,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         ##### dataloader train, evaluator
         if 'data_nclass' not in cc :
             cc.data_nclass = df['label'].nunique()
-        df = df.iloc[:100,:]
+        df = df.iloc[:nsample,:]
         
         train_dataloader = load_dataloader(train_path, datasetname, cc=cc)
         val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
@@ -471,6 +483,6 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    # fire.Fire()
+    fire.Fire()
 
 
