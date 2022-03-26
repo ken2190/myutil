@@ -154,3 +154,5 @@ testdata/ppandas/file.csv
 model.pt
 cardio_train.csv
 ztest/data_fake.parquet
+ztest/data_fake.parquet
+ztest/data_fake.parquet
