@@ -128,7 +128,7 @@ def test_decorators():
 def test_nlp():
     from utilmy.nlp import util_cluster as m ; m.test_all()  
     from utilmy.nlp import util_gensim as m ;  m.test_all()  
-    from utilmy.nlp import sentences   as m ;  m.test_all()      
+    from utilmy.nlp.torch import sentences   as m ;  m.test_all()      
 
    
 #########################################################################################
