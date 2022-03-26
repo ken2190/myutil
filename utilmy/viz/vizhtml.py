@@ -110,13 +110,13 @@ def show(file_csv_parquet:str="myfile.parquet", title='table',format: str='blue_
       
 def show_table_image(df, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
                      custom_css_class=None, use_datatable=False, table_id=None,):
-     """
+    """ Show table images
 
 
-     """                
+    """                
     if isinstance(df, str) : ## path
        from utilmy import pd_read_file
-       df = pd_read_file(file)
+       df = pd_read_file(df)
 
     if colimage:
         colimage = [colimage] if isinstance(colimage, str) else colimage
