@@ -127,10 +127,8 @@ def test_image_create_fake():
 
 #################################################################################################
 #### images storage ###############################################################################
-#TODO dirin,dirout as paths
-#TODO typehints
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", xdim0:int=256, ydim0:int=256, tag0:str= "", nmax:int=10000000, file_exclude:str="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -228,7 +226,7 @@ def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=25
     return cache
 
 
-def diskcache_image_loadcache(db_dir:str="db_images.cache"):
+def diskcache_image_loadcache(db_dir:Union[str, bytes, os.PathLike]="db_images.cache"):
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -239,8 +237,8 @@ def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     log('Nimages', len(cache) )
     return cache
 
-#TODO: type hints for path
-def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
+
+def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache", dirout:Union[str, bytes, os.PathLike]="tmp/", tag="cache1"):
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -265,95 +263,7 @@ def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
 
-#TODO: this is the same as `diskcache_image_createcache` ?
-def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
-    """function image_cache_save
-    Args:
-        dirin_image ( str ) :
-        db_dir ( str ) :
-        tag:
-    Returns:
 
-    """
-    ##### Write some sample images  from cache #############################
-    import diskcache as dc
-    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
-    log('Nimages', len(cache) )
-
-
-    log('### Check writing on disk  ###########################')
-    for img_path in dirin_image:
-        img = image_read(img_path)
-        cache[img_path] = img
-
-#TODO: this is the same as `diskcache_image_check`
-# consider removing? ( or different purpose in mind?)
-def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
-    """function image_save
-    Args:
-    Returns:
-
-    """
-    # db_dir = "_70k_clean_nobg_256_256-100000.cache"
-    import diskcache as dc
-    cache   = dc.Cache(db_dir)
-    print('Nimages', len(cache) )
-
-    log('### writing on disk  ######################################')
-    dir_check = dirout
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(img_list) :
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        key2 = key.split("/")[-1]
-        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
-    log( dir_check )
-
-
-#TODO: not needed?
-def diskcache_image_check2():
-    """     python prepro.py  image_check
-
-          image white color padded
-
-    """
-    # print( 'nf files', len(glob.glob("/data/workspaces/noelkevin01/img/data/fashion/train_nobg_256/*")) )
-    nmax = 100000
-    global xdim, ydim
-    xdim = 64
-    ydim = 64
-
-    log("### Load  ##################################################")
-    # fname    = f"/img_all{tag}.cache"
-    # fname    = f"/img_fashiondata_64_64-100000.cache"
-    # fname = "img_train_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-
-    log('loading', fname)
-
-    import diskcache as dc
-    db_dir = data_train + fname
-    cache = dc.Cache(db_dir)
-
-    lkey = list(cache)
-    print('Nimages', len(lkey))
-
-    ### key check:
-    # df = pd_read_file("/data/workspaces/noelkevin01/img/data/fashion/csv/styles_df.csv" )
-    # idlist = df['id']
-
-    log('### writing on disk  ######################################')
-    dir_check = data_train + "/zcheck/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache):
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        print(key)
-        key2 = key.split("/")[-1]
-        cv2.imwrite(dir_check + f"/{key2}", img)
 
 
 def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
