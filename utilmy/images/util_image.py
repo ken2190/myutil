@@ -421,7 +421,7 @@ image_load = image_read  ## alias
 
 #################################################################################################
 #### Images utils ###############################################################################
-def image_show_in_row(image_list:Union[dict,list]=None):
+def image_show_in_row(image_list:Union[dict,list, None]=None):
     """ helper function for data visualization
     Plot images in one row.
     """
@@ -573,7 +573,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image=prepro_image3b)
+    images, labels = image_preps_mp(image_list, prepro_image_fun=prepro_image3b)
     os_path_check(dirout, n=5)
 
 
@@ -581,7 +581,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ],str] :
+    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
