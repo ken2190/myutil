@@ -287,7 +287,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         ##### dataloader train, evaluator
         if 'data_nclass' not in cc :
             cc.data_nclass = df['label'].nunique()
-        del df
+        df = df.iloc[:100,:]
         
         train_dataloader = load_dataloader(train_path, datasetname, cc=cc)
         val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
@@ -296,6 +296,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         train_loss       = load_loss(model, lossname,  cc= cc)        
         
         ##### Configure the training
+        cc.use_amp = cc.get('use_amp', False)
         cc.warmup_steps = math.ceil(len(train_dataloader) * cc.epoch * 0.1) #10% of train data for warm-up.
         log("Warmup-steps: {}".format(cc.warmup_steps))
           
@@ -309,7 +310,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
           evaluation_steps = cc.eval_steps,
           warmup_steps     = cc.warmup_steps,
           output_path      = dirout,
-          use_amp=True          #Set to True, if your GPU supports FP16 operations
+          use_amp= cc.use_amp          #Set to True, if your GPU supports FP16 operations
           )
 
         log("\n******************< Eval similarity > ********************")
