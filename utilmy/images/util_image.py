@@ -7,7 +7,7 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List,Any
 from box import Box
 
-import io, cv2,  matplotlib
+import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
 
@@ -471,8 +471,7 @@ def image_create_fake(
     rgb_color = (255, 0, 0)):
     """ create fake image for testing
     """
-    import cv2
-    import numpy as np
+    import cv2, numpy as np
 
     width, height = imsize
     os.makedirs(dirout, exist_ok=True)
@@ -490,6 +489,29 @@ def image_create_fake(
     # will return empty list if a dirout was provided
     return img_list
 
+
+def image_create_fake2(dirin:str=None):
+    """ Fake images on disk /0/ img
+
+    """
+    import tempfile, skimage
+    images = ('astronaut','binary_blobs', 'brick', 'colorwheel', 'camera', 'cat', 'checkerboard', 'clock', 'coffee', 'coins', 
+            #   'eagle', 'grass', 'gravel', 'horse', 'logo', 'page', 'text', 'rocket',
+          )
+
+    dirin = tempfile.TemporaryDirectory() if dirin is None else dirin
+    os.makedirs(dirin, exist_ok=True)
+    subdirs = ['1','2','3']
+    for d_ in subdirs:
+        os.mkdir(os.path.join(dirin,d_))
+        n_images = len(images)
+        for i,imname in enumerate(images):
+            im = getattr(skimage.data,imname)()
+            d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
+            dirouti = os.path.join(dirin,d_,imname+'.png')
+            log(dirouti)
+            skimage.io.imsave( dirouti,im)
+            # break
 
 
 #################################################################################################
