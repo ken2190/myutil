@@ -71,9 +71,8 @@ def test_all() -> None:
 
 #####################################################################################
 def test1():
-    """ Run Various test suing strans_former,
-    # Mostly Single sentence   ---> Classification
-
+    """ Run Various test suing sent trans_former,
+        <> losses, <> tasks    # Mostly Single sentence   ---> Classification
     python utilmy/nlp/torch/sentences.py test1
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
@@ -102,6 +101,7 @@ def test1():
     
     dfcheck = dataset_fake(dirdata, fname='data_fake.parquet', nsample=10)  ### Create fake version
     assert len(dfcheck[[ 'sentence1', 'sentence2', 'label', 'score'  ]]) > 1 , "missing columns"
+    ## Score can be empty or [0,1]
     
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
@@ -131,7 +131,7 @@ def dataset_fake(dirdata:str, fname='data_fake.parquet', nsample=10):
     sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
 
     # Read the AllNLI.tsv.gz file and create the training dataset
-    df = pd_read_csv(nli_dataset_path, npool=1) 
+    df = pd_read_file3(nli_dataset_path, npool=1) 
 
     df = df[df['split'] == 'train' ]
     
@@ -225,7 +225,8 @@ def model_load(path_or_name_or_object):
     else :
        return path_or_name_or_object
 
-def model_save(model,path, reload=True):
+
+def model_save(model,path:str, reload=True):
     model.save( path)
     log(path)
     
@@ -313,7 +314,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
             cc.data_nclass = df['label'].nunique()
         df = df.iloc[:nsample,:]
         
-        train_dataloader = load_dataloader(train_path, datasetname, cc=cc)
+        train_dataloader = load_dataloader(train_path, datasetname, cc=cc, istrain=True)
         val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
     
         ##### Task Loss
@@ -341,108 +342,14 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         log(" cosine_similarity after training")
         model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0],)
         
-        log("### Save the model  ")
+        log("### Save model  ")
         model_save(model, dirout, reload=True)
         model = model_load(dirout)
 
         log('### Show eval metrics')
-        model_evaluate(model, dirdata=eval_path, dirout= dirout)
+        model_evaluate(model, dirdata=eval_path, dirout= dirout +"/eval/")
         
         log("\n******************< finish  > ********************")
-
-
-###################################################################################################################
-def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
-    if isinstance(path_or_df, str):            
-        if  'AllNLI' in path_or_df:
-            dftrain = pd.read_csv(path_or_df, error_bad_lines=False,nrows=100, sep="\t")
-        else :
-            dftrain = pd_read_file(path_or_df, npool=npool)
-        
-    elif isinstance(path_or_df, pd.DataFrame):
-        dftrain = path_or_df
-    else : 
-        raise Exception('need path_or_df')
-    return dftrain    
-        
-        
-def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
-    """  Evaluator using df[['sentence1', 'sentence2', 'score']]
-    """
-    cc = Box(cc)
-
-    if dname == 'sts':
-       log("Read STSbenchmark dev dataset")
-       df = pd_read_csv(path_or_df)
-    else :
-       df = pd_read_file(path_or_df)
-
-    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
-    log('eval dataset', df)
-
-    score_max = df['score'].max()
-
-    dev_samples = []
-    for i,row in df.iterrows():
-        # if row['split'] == 'dev':
-        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
-        dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
-
-    dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
-    return dev_evaluator
-
-
-def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=4):
-    """
-      input data df[['sentence1', 'sentence2', 'label']]
-          X, Y = check_paired_arrays(X, Y)
-        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
-            X, Y = check_pairwise_arrays(X, Y)
-        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
-            X = check_array(
-        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
-            raise ValueError(
-        ValueError: Expected 2D array, got 1D array instead:
-        array=[].
-        Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
-        [myutil]$ 
-            
-
-    """
-    cc = Box(cc)
-    df = pd_read_csv(path_or_df, npool=npool) 
-    
-    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
-    log('train dataset', df)
-    
-    train_samples = [] 
-    for i,row in df.iterrows():
-      labeli =  float(row['label'] )   if 'cosine' in cc.get('lossname', '') else  int(row['label']) 
-      train_samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
-                            label=   labeli  ))
-
-    train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
-    log('Nelements', len(train_dataloader))
-    return train_dataloader
-
-
-def load_loss(model ='', lossname ='cosine',  cc:dict= None):
-    train_loss = None
-    if lossname == 'MultpleNegativesRankingLoss':
-      train_loss = losses.MultipleNegativesRankingLoss(model)
-
-    elif lossname == 'softmax':
-      nclass     =  cc.get('data_nclass', -1)
-      train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
-                                      num_labels=nclass )
-
-    elif lossname =='triplethard':
-      train_loss = losses.BatchHardTripletLoss(model=model)
-
-    else : #if lossname =='cosine':
-      train_loss = losses.CosineSimilarityLoss(model)
-
-    return train_loss
 
 
 def model_check_cos_sim(model = "model name or path or object", sentence1 = "sentence 1" , sentence2 = "sentence 2", ):
@@ -476,6 +383,99 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
   cosine_scores = util.cos_sim(embeddings1, embeddings2)
   log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
 
+
+###################################################################################################################  
+def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
+    """  Evaluator using df[['sentence1', 'sentence2', 'score']]
+    """
+    cc = Box(cc)
+
+    if dname == 'sts':
+       log("Read STSbenchmark dev dataset")
+       df = pd_read_file3(path_or_df)
+    else :
+       df = pd_read_file(path_or_df)
+
+    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+    log('eval dataset', df)
+
+    score_max = df['score'].max()
+
+    dev_samples = []
+    for i,row in df.iterrows():
+        # if row['split'] == 'dev':
+        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+        dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+
+    dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
+    return dev_evaluator
+
+
+def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, istrain=True, npool=4):
+    """  dataframe --> dataloader
+      dfcheck[[ 'sentence1', 'sentence2', 'label', 'score'  ]]
+
+    """
+    cc = Box(cc)
+    df = pd_read_file3(path_or_df, npool=npool) 
+    
+    if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+    log('train dataset', df)
+    
+    if istrain :
+        samples = [] 
+        for i,row in df.iterrows():
+            labeli =  float(row['label'] )   if 'cosine' in cc.get('lossname', '') else  int(row['label']) 
+            samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
+                                         label=   labeli  ))
+        dataloader = DataLoader(samples, shuffle=True, batch_size=cc.batch_size)
+
+    else :
+        samples = [] 
+        for i,row in df.iterrows():
+            samples.append( InputExample(texts=[row['sentence1'], row['sentence2']],  ))
+        dataloader = DataLoader(samples, shuffle=True, batch_size=cc.batch_size)
+
+    log('Nelements', len(dataloader))
+    return dataloader
+
+
+def load_loss(model ='', lossname ='cosine',  cc:dict= None):
+    train_loss = None
+    if lossname == 'MultpleNegativesRankingLoss':
+      train_loss = losses.MultipleNegativesRankingLoss(model)
+
+    elif lossname == 'softmax':
+      nclass     =  cc.get('data_nclass', -1)
+      train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
+                                      num_labels=nclass )
+
+    elif lossname =='triplethard':
+      train_loss = losses.BatchHardTripletLoss(model=model)
+
+    else : #if lossname =='cosine':
+      train_loss = losses.CosineSimilarityLoss(model)
+
+    return train_loss
+
+
+
+###################################################################################################################  
+if 'utils':
+    def pd_read_file3(path_or_df='./myfile.csv', npool=1, nrows=1000,  **kw)->pd.DataFrame:
+        if isinstance(path_or_df, str):            
+            if  'AllNLI' in path_or_df:
+                dftrain = pd.read_csv(path_or_df, error_bad_lines=False, nrows=nrows, sep="\t")
+            else :
+                dftrain = pd_read_file(path_or_df, npool=npool, nrows=nrows)
+            
+        elif isinstance(path_or_df, pd.DataFrame):
+            dftrain = path_or_df
+        else : 
+            raise Exception('need path_or_df')
+        return dftrain    
+        
+      
 
 
 
