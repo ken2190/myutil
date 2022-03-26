@@ -164,10 +164,64 @@ def extrac_block(lines):
 
 
 def normalize_header(txt):
-    return txt
+   #### not need of regex, code easier to read 
+   lines = txt.split("\n")
+
+   lines2 = []
+   if '# -*- coding: utf-8 -*-' not  in txt :
+       lines2.append('# -*- coding: utf-8 -*- ')
+
+   if 'MNAME' not  in txt :   ### MNAME = "utilmy.docs.format"
+       nmane =  ".".join( os.path.abspath(__file__).split("/")[-3:] )
+       lines2.append( f'MNAME="{mname}" ')
+
+   if 'HELP' not  in txt :   ### HELP
+       lines2.append( f'HELP=" util" ')
+
+   ### Add previous line
+   lines2 = lines2 + lines
+   return "\n".join( lines2)    
+
+
 
 def normalize_import(txt):
-    return txt
+    """  merge all import in one line and append others
+
+    """
+    lines = txt.split("\n")
+    
+    import_list = [] ; from_list = []
+    for line in lines :
+      if "import " in line :
+         if "from " in line : from_list.append(line)
+         else :               import_list.append(line)
+
+            
+    #### Merge all import in one line   ################################################
+    llall = []
+    for imp in import_list :
+        ll    = [ t.strip() for t in  imp.split(",") if 'import' not in t ]
+        llall = llall + ll
+
+    lall = sorted( lall )
+    lines2 = [[]]
+    for mi in lall:
+       ss =  ss + mi + ","
+       if len(ss) >  90 :
+          lines2 = lines2.append( ss[:-1] )  
+          ss = "import "
+
+    #### Remaining import 
+    for ii, line in enumerate(lines):
+      if ii > 100 : break
+      if line.startswith("import ") : continue  ### Remove Old import
+      lines2.append(line)  
+
+    #### 
+    return '\n'.join(lines2)
+
+
+
 
 def normalize_logger(txt):
     return txt
