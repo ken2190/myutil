@@ -380,8 +380,9 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 
 
 
-def model_encode(model = "model name or path or object", dirdata:str="data/*.parquet", coltext:str='sentence1', 
-                dirout:str="embs/myfile.parquet",  **kw ):
+def model_encode(model = "model name or path or object", dirdata:Union[str, pd.DataFrame]="data/*.parquet", 
+                coltext:str='sentence1', 
+                dirout:str="embs/myfile.parquet",   **kw ):
     """   Sentence encoder  
     sentences – the sentences to embed
     batch_size – the batch size used for the computation
@@ -395,19 +396,23 @@ def model_encode(model = "model name or path or object", dirdata:str="data/*.par
     model = model_load(model)
     log('model', model)
 
-    flist = glob.glob(dirdata)
-    log('Nfiles', len(flist))
+    if isinstance( dirdata, pd.DataFrame) :
+        dfi      = dirdata[coltext].values
+        embs_all = model.encode(dfi, convert_to_numpy=True, **kw)
 
-    embs_all=[]
-    for fi in flist :
-        dfi = pd_read_file3(fi)  
-        dfi = dfi[coltext].values
-        embs = model.encode(dfi, **kw)
-        embs_all.extend(embs_all)
+    else :
+        flist = glob.glob(dirdata)
+        log('Nfiles', len(flist))
+
+        embs_all=[]
+        for fi in flist :
+            dfi = pd_read_file3(fi)  
+            dfi = dfi[coltext].values
+            embs = model.encode(dfi, convert_to_numpy=True, **kw)
+            embs_all.extend(embs)
 
     embs_all = pd.DataFrame(embs_all, columns= ['emb'])    
     log(embs_all.shape)
-
     if dirout is None :
         return embs_all
     else :
