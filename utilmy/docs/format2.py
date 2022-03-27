@@ -30,6 +30,24 @@ def test1():
     format_file3('test_script/test_script_no_core.py', 'test_script/output')
 
 
+
+def run_format_utilmy():
+    dirin =  "utilmy/"
+    direxclude ="*utilmy/z*"
+
+    format_list = [ format_file ]
+    src_files = glob_glob_python(dirin, nfile=10000, exclude=direxclude)
+    #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
+ 
+    for ii, fi in src_files:
+        try :
+            log(ii,fi)
+            batch_format_file(fi, dirout, format_list)
+        except Exception as e:
+            log(e)   
+
+
+
 #################################################################################################################
 def format_file(file_path):
     all_lines = get_file(file_path)
@@ -68,9 +86,6 @@ def format_file3(file_path, output_file):
     batch_format_file(in_file= file_path, dirout= output_file, 
                     format_list= [ format_file ])
 
-
-def format_file_batch(dirin, dirout):
-    pass
 
 
 #################################################################################################################
@@ -428,6 +443,22 @@ def extrac_block(lines):
 
 #############################################################################################
 if 'check if .py compile':
+    def batch_format_dir(dirin:str, dirout:str, format_list:list, nfile=10, direxclude=""):
+        """function batch_format_dir
+            
+        """
+        src_files = glob_glob_python(dirin, nfile=nfile, exclude=direxclude)
+        #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
+
+        for ii, fi in src_files:
+            try :
+                log(ii,fi)
+                batch_format_file(fi, dirout, format_list)
+            except Exception as e:
+                log(e)   
+
+
+
     def batch_format_file(in_file:str, dirout:str, format_list:list):
         """function batch_format_file with Compile check        
         """
@@ -500,6 +531,34 @@ if 'check if .py compile':
                 print(e)
                 traceback.print_exc() # Remove to silence any errros
             return False
+
+
+    def glob_glob_python(dirin, suffix ="*.py", nfile=10000, exclude=""):
+        """glob_glob_python 
+        Args:
+            dirin: _description_
+            suffix: _description_. Defaults to "*.py".
+            nfile: _description_. Defaults to 7.
+            exclude: _description_. Defaults to "".
+
+        Returns:
+            _description_
+        """
+        flist = glob.glob(dirin + suffix) 
+        flist = flist + glob.glob(dirin + "/**/" + suffix ) 
+        elist = []
+        
+        if exclude != "":    
+           for ei in exclude.split(";"):
+               elist = glob.glob(ei + "/" + suffix ) 
+        flist = [ fi for fi in flist if fi not in elist ]
+
+        #### Unix format 
+        flist = [  fi.replace("\\", "/") for fi in flist]
+
+        flist = flist[:nfile]
+        log(flist)
+        return flist
 
 
 
