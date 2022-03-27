@@ -437,7 +437,7 @@ if 'check if .py compile':
     def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
         """
         """
-        flist   = glob_glob_python( dirin, "*.py",nfile= nfile)
+        flist   = glob.glob( dirin + "/**/*.py")
         res_dict = {}
         for fi in flist :
             res = os_file_compile_check(fi)
