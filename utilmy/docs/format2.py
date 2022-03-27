@@ -5,7 +5,6 @@ HELP = """ utils for re-formatting files using TEMPLATES
 
 
 """
-
 import re, os, sys, glob
 from pprint import pprint
 
@@ -18,27 +17,37 @@ def log(*s) :
 
 #################################################################################################################
 def test1():
-    format_file2('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
-    format_file2('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
-    format_file2('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
-    format_file2('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
+    """ python utilmy/docs/format2.py  test1 
+    
+    """
+    #### cd myutil
+    dirtest = "utilmy/docs/"
 
 
-    format_file3('test_script/test_script_normalize_import.py', 'test_script/output')
-    format_file3('test_script/test_script_no_header.py', 'test_script/output')
-    format_file3('test_script/test_script_no_logger.py', 'test_script/output')
-    format_file3('test_script/test_script_no_core.py', 'test_script/output')
+    format_file2(dirtest + '/test_script/test_script_no_header.py', dirtest + '/test_script/output/test_script_no_header.py')
+    format_file2(dirtest + '/test_script/test_script_no_logger.py', dirtest + '/test_script/output/test_script_no_logger.py')
+    format_file2(dirtest + '/test_script/test_script_no_core.py', dirtest + '/test_script/output/test_script_no_core.py')
+    format_file2(dirtest + '/test_script/test_script_normalize_import.py', dirtest + '/test_script/output/test_script_normalize_import.py')
+
+
+    format_file3(dirtest + '/test_script/test_script_normalize_import.py', dirtest + '/test_script/output')
+    format_file3(dirtest + '/test_script/test_script_no_header.py', dirtest + '/test_script/output')
+    format_file3(dirtest + '/test_script/test_script_no_logger.py', dirtest + '/test_script/output')
+    format_file3(dirtest + '/test_script/test_script_no_core.py', dirtest + '/test_script/output')
 
 
 
-def run_format_utilmy():
-    dirin =  "utilmy/"
+
+##### Run Scripts ###############################################################################################
+def format_utilmy(nfile=10):
+    dirin = os.getcwd() + "/utilmy/"
     direxclude ="*utilmy/z*"
 
+    dirout =  os.getcwd() +'/utilmy/'
     format_list = [ format_file ]
-    src_files = glob_glob_python(dirin, nfile=10000, exclude=direxclude)
-    #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
- 
+
+
+    src_files = glob_glob_python(dirin, nfile=nfile, exclude=direxclude)
     for ii, fi in src_files:
         try :
             log(ii,fi)
@@ -47,8 +56,23 @@ def run_format_utilmy():
             log(e)   
 
 
+def format_file2(file_path, output_file):
+    new_all_lines = format_file(file_path)
+    # new_all_lines = ss.split("\n")
+    print(str(new_all_lines)[:100] )
+    os.makedirs( os.path.dirname(output_file) , exist_ok=True)
+    with open(output_file, 'w+', encoding='utf-8') as f:
+        f.writelines(new_all_lines)
 
-#################################################################################################################
+
+def format_file3(file_path, output_file):
+    ## Safe Modification
+    batch_format_file(in_file= file_path, dirout= output_file, 
+                    format_list= [ format_file ])
+
+
+
+###### Core formatter ###########################################################################################
 def format_file(file_path):
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
@@ -73,22 +97,6 @@ def format_file(file_path):
     return new_all_lines
 
 
-def format_file2(file_path, output_file):
-    new_all_lines = format_file(file_path)
-    # new_all_lines = ss.split("\n")
-    print(str(new_all_lines)[:100] )
-    with open(output_file, 'w+', encoding='utf-8') as f:
-        f.writelines(new_all_lines)
-
-
-def format_file3(file_path, output_file):
-    ## Safe Modification
-    batch_format_file(in_file= file_path, dirout= output_file, 
-                    format_list= [ format_file ])
-
-
-
-#################################################################################################################
 def normalize_header(file_name, lines):
     """Nomarlize Header block
 
@@ -564,7 +572,7 @@ if 'check if .py compile':
 
 if __name__ == '__main__':
     import fire 
-    # fire.Fire()
-    test1()
+    fire.Fire()
+    # test1()
 
 
