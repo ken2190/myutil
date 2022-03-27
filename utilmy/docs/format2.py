@@ -3,6 +3,7 @@ MNAME = "utilmy.docs.format2"
 HELP = """ utils for re-formatting files using TEMPLATES
 
 
+
 """
 
 import re, os, sys, glob
@@ -17,20 +18,20 @@ def log(*s) :
 
 #################################################################################################################
 def test1():
-    read_and_normalize_file2('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
-    read_and_normalize_file2('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
-    read_and_normalize_file2('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
-    read_and_normalize_file2('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
+    format_file2('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
+    format_file2('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
+    format_file2('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
+    format_file2('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
 
 
-    read_and_normalize_file3('test_script/test_script_normalize_import.py', 'test_script/output')
-    read_and_normalize_file3('test_script/test_script_no_header.py', 'test_script/output')
-    read_and_normalize_file3('test_script/test_script_no_logger.py', 'test_script/output')
-    read_and_normalize_file3('test_script/test_script_no_core.py', 'test_script/output')
+    format_file3('test_script/test_script_normalize_import.py', 'test_script/output')
+    format_file3('test_script/test_script_no_header.py', 'test_script/output')
+    format_file3('test_script/test_script_no_logger.py', 'test_script/output')
+    format_file3('test_script/test_script_no_core.py', 'test_script/output')
 
 
 #################################################################################################################
-def read_and_normalize_file(file_path):
+def format_file(file_path):
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
 
@@ -54,18 +55,22 @@ def read_and_normalize_file(file_path):
     return new_all_lines
 
 
-def read_and_normalize_file2(file_path, output_file):
-    new_all_lines = read_and_normalize_file(file_path)
+def format_file2(file_path, output_file):
+    new_all_lines = format_file(file_path)
     # new_all_lines = ss.split("\n")
     print(str(new_all_lines)[:100] )
     with open(output_file, 'w+', encoding='utf-8') as f:
         f.writelines(new_all_lines)
 
 
-def read_and_normalize_file3(file_path, output_file):
+def format_file3(file_path, output_file):
     ## Safe Modification
     batch_format_file(in_file= file_path, dirout= output_file, 
-                    format_list= [ read_and_normalize_file ])
+                    format_list= [ format_file ])
+
+
+def format_file_batch(dirin, dirout):
+    pass
 
 
 #################################################################################################################
