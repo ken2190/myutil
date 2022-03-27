@@ -5,9 +5,11 @@ HELP = """ utils for """
 
 import re
 import os
+import glob
 from pprint import pprint
 
 
+# from utilmy import log, log2, help_create
 
 def get_file(file_path):
     """function _get_all_line
@@ -16,6 +18,7 @@ def get_file(file_path):
     Returns:
         
     """
+    # print(file_path)
     with open(file_path, 'r', encoding='utf-8') as f:
         all_lines = (f.readlines())
     return all_lines
@@ -308,23 +311,21 @@ def normalize_test(lines):
             '\n',
         ])
 
-    """  
-    # check test2 function:
-    is_exist_test2 = False
-    for line in lines:
-        if line.startswith("def test2"):
-            is_exist_test2 = True
-            break
+    # # check test2 function:
+    # is_exist_test2 = False
+    # for line in lines:
+    #     if line.startswith("def test2"):
+    #         is_exist_test2 = True
+    #         break
     
-    if not is_exist_test2:
-        lines2.extend([
-            'def test2() -> None:\n',
-            '    """function test"""\n',
-            '    pass\n',
-            '\n',
-            '\n',
-        ])
-    """
+    # if not is_exist_test2:
+    #     lines2.extend([
+    #         'def test2() -> None:\n',
+    #         '    """function test"""\n',
+    #         '    pass\n',
+    #         '\n',
+    #         '\n',
+    #     ])
 
     ###### Eztend lines
     lines2.extend(lines)
@@ -336,18 +337,30 @@ def normalize_core(lines):
 
 def normalize_footer(lines):
 
-    txt = "\n".join(lines)
+    lines2 = []
 
-    if "if __name__" not in txt: lines2.append( 'if __name__ == "__main__":' )
-    if "import fire" not in txt:  lines2.append( '  import fire' )
-    if "import fire" not in txt:  lines2.append( '  fire.Fire()' )
-
-    lines2 = lines2 + lines
+    # check test_all function:
+    main_start_line = 0
+    is_exist_main = False
+    for ii, line in enumerate(lines):
+        if line.startswith("if __name__"):
+            is_exist_main = True
+            main_start_line = ii
+            break
+    if not is_exist_main:
+        lines2.extend(lines)
+        lines2.extend([
+            'if __name__ == "__main__":\n',
+            '   import fire\n',
+            '   fire.Fire()\n',
+        ])
+    else:
+        lines2.extend(lines)
+        if  not ('import fire' in lines[main_start_line+1]  and 'fire.Fire()' in lines[main_start_line+2]):
+            lines2.insert(main_start_line+1, '   import fire\n')
+            lines2.insert(main_start_line+2, '   fire.Fire()\n')
 
     return lines2
-
-
-
 
 
 def read_and_normalize_file(file_path):
@@ -370,15 +383,16 @@ def read_and_normalize_file(file_path):
     new_all_lines.extend(new_cores)
     new_all_lines.extend(new_footers)
 
-    ss = "/n".join(new_all_lines)
-    return ss
+    # ss = "\n".join(new_all_lines)
+    return new_all_lines
 
 
 
 
 def read_and_normalize_file2(file_path, output_file):
-    ss = read_and_normalize_file(file_path)
-    new_all_lines = ss.split("/n")
+    new_all_lines = read_and_normalize_file(file_path)
+    # new_all_lines = ss.split("\n")
+    print(new_all_lines)
     with open(output_file, 'w+', encoding='utf-8') as f:
         f.writelines(new_all_lines)
 
@@ -387,7 +401,7 @@ def read_and_normalize_file2(file_path, output_file):
 def read_and_normalize_file3(file_path, output_file):
     ## Safe Modification
     batch_format_file(in_file= file_path, dirout= output_file, 
-                      format_list= [ read_and_normalize_file ])
+                    format_list= [ read_and_normalize_file ])
 
 
 
@@ -403,15 +417,17 @@ if 'check if .py compile':
                 text = f.read()
 
             ######## Apply formatting ###########################################
-            text_f = text
+            # text_f = text
+            text_f = []
             for fun_format in  format_list :
-            log(str(fun_format)) 
-            text_f = fun_format(text_f)
+                # log(str(fun_format)) 
+                text_f = fun_format(in_file)
 
 
             #####################################################################
             # get the base directory of source file for makedirs function
             file_path, file_name = os.path.split(in_file)
+            print(os.path.join(dirout, file_path))
             if not os.path.exists(os.path.join(dirout, file_path)):
                 os.makedirs(os.path.join(dirout, file_path))
             fpath2 = os.path.join(dirout, file_path, file_name)
@@ -419,19 +435,22 @@ if 'check if .py compile':
             ### Temp file for checks  ######################################### 
             ftmp =   os.path.join(dirout, file_path, "ztmp.py")
             with open(ftmp, "w") as f:
-                f.write(text_f)
+                f.writelines(text_f)
 
             #### Compile check
             isok  = os_file_compile_check(ftmp)
             if isok :
                 if os.path.isfile(fpath2):  os.remove(fpath2)
                 os.rename(ftmp, fpath2)
-                log(fpath2)
+                # log(fpath2)
+                print(fpath2)
             else :    
-                log('Cannot compile', fpath2)
+                # log('Cannot compile', fpath2)
+                print('Cannot compile', fpath2)
                 os.remove(ftmp)
         else:
-            log(f"No such file exists {in_file}, make sure your path is correct")
+            # log(f"No such file exists {in_file}, make sure your path is correct")
+            print(f"No such file exists {in_file}, make sure your path is correct")
 
 
     def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
@@ -457,25 +476,21 @@ if 'check if .py compile':
             ast.parse(source)
             return True
         except Exception as e:
-            if verbose >0 : 
+            if verbose > 0 : 
                 print(e)
                 traceback.print_exc() # Remove to silence any errros
             return False
 
 
 
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    read_and_normalize_file('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
-    read_and_normalize_file('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
-    read_and_normalize_file('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
-    read_and_normalize_file('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
+    read_and_normalize_file2('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
+    read_and_normalize_file2('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
+    read_and_normalize_file2('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
+    read_and_normalize_file2('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
 
+
+    read_and_normalize_file3('test_script/test_script_normalize_import.py', 'test_script/output')
+    read_and_normalize_file3('test_script/test_script_no_header.py', 'test_script/output')
+    read_and_normalize_file3('test_script/test_script_no_logger.py', 'test_script/output')
+    read_and_normalize_file3('test_script/test_script_no_core.py', 'test_script/output')
