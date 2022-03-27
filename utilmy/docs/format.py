@@ -121,7 +121,7 @@ def batch_format_file(in_file:str, dirout:str, format_list:list):
 
 
 
-def batch_format_dir(dirin:str, dirout:str, format_list:list):
+def batch_format_dir(dirin:str, dirout:str, format_list:list,):
     """function batch_format_dir
         
     """
@@ -129,7 +129,7 @@ def batch_format_dir(dirin:str, dirout:str, format_list:list):
     #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
 
     for f in tqdm.tqdm(src_files):
-        if os_file_haschanged(f, weeks=2):
+        if os_file_haschanged(f, weeks=100):
             try :
                batch_format_file(f, dirout, format_list)
             except Exception as e:

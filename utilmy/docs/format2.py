@@ -350,7 +350,7 @@ def normalize_footer(lines):
 
 
 
-def read_and_normalize_file(file_path, output_file):
+def read_and_normalize_file(file_path):
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
 
@@ -370,8 +370,107 @@ def read_and_normalize_file(file_path, output_file):
     new_all_lines.extend(new_cores)
     new_all_lines.extend(new_footers)
 
+    ss = "/n".join(new_all_lines)
+    return ss
+
+
+
+
+def read_and_normalize_file2(file_path, output_file):
+    ss = read_and_normalize_file(file_path)
+    new_all_lines = ss.split("/n")
     with open(output_file, 'w+', encoding='utf-8') as f:
         f.writelines(new_all_lines)
+
+
+
+def read_and_normalize_file3(file_path, output_file):
+    ## Safe Modification
+    batch_format_file(in_file= file_path, dirout= output_file, 
+                      format_list= [ read_and_normalize_file ])
+
+
+
+
+#############################################################################################
+if 'check if .py compile':
+    def batch_format_file(in_file:str, dirout:str, format_list:list):
+        """function batch_format_file with Compile check        
+        """
+        # if input is a file and make sure it exits
+        if os.path.isfile(in_file):
+            with open(in_file) as f:
+                text = f.read()
+
+            ######## Apply formatting ###########################################
+            text_f = text
+            for fun_format in  format_list :
+            log(str(fun_format)) 
+            text_f = fun_format(text_f)
+
+
+            #####################################################################
+            # get the base directory of source file for makedirs function
+            file_path, file_name = os.path.split(in_file)
+            if not os.path.exists(os.path.join(dirout, file_path)):
+                os.makedirs(os.path.join(dirout, file_path))
+            fpath2 = os.path.join(dirout, file_path, file_name)
+
+            ### Temp file for checks  ######################################### 
+            ftmp =   os.path.join(dirout, file_path, "ztmp.py")
+            with open(ftmp, "w") as f:
+                f.write(text_f)
+
+            #### Compile check
+            isok  = os_file_compile_check(ftmp)
+            if isok :
+                if os.path.isfile(fpath2):  os.remove(fpath2)
+                os.rename(ftmp, fpath2)
+                log(fpath2)
+            else :    
+                log('Cannot compile', fpath2)
+                os.remove(ftmp)
+        else:
+            log(f"No such file exists {in_file}, make sure your path is correct")
+
+
+    def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
+        """
+        """
+        flist   = glob_glob_python( dirin, "*.py",nfile= nfile)
+        res_dict = {}
+        for fi in flist :
+            res = os_file_compile_check(fi)
+            res_dict[fi] =  res 
+        
+        return res_dict
+
+
+    def os_file_compile_check(filename:str, verbose=1):
+        """  check if syntax error in the .py file
+
+        """
+        import ast, traceback
+        try : 
+            with open(filename, mode='r') as f:
+                source = f.read()
+            ast.parse(source)
+            return True
+        except Exception as e:
+            if verbose >0 : 
+                print(e)
+                traceback.print_exc() # Remove to silence any errros
+            return False
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
