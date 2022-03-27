@@ -4,6 +4,7 @@ HELP = """ utils for """
 
 
 import re
+import os
 from pprint import pprint
 
 
@@ -158,104 +159,108 @@ def extrac_block(lines):
             dd['footer'] = lineblock
             dd['footer_end_line'] = ii
             break
-    pprint(dd)
+    # pprint(dd)
 
     return dd
 
 
-<<<<<<< HEAD
-def normalize_header(headers):
-    pass
-def normalize_import(imports):
-    pass
-def normalize_logger(loggers):
-    pass
-def normalize_test(tests):
-    pass
-def normalize_core(cores):
-    pass
-def normalize_footer(footers):
-    pass
-=======
-def normalize_header(txt):
-   #### not need of regex, code easier to read 
-   lines = txt.split("\n")
+def normalize_header(file_name, lines):
+    """Nomarlize Header block
 
-   lines2 = []
-   if '# -*- coding: utf-8 -*-' not  in txt :
-       lines2.append('# -*- coding: utf-8 -*- ')
+    Args input is a array of lines.
+    """
+    #### not need of regex, code easier to read 
 
-   if 'MNAME' not  in txt :   ### MNAME = "utilmy.docs.format"
-       nmane =  ".".join( os.path.abspath(__file__).split("/")[-3:] )
-       lines2.append( f'MNAME="{mname}" ')
+    lines2 = []
+    if len(lines) >= 3:
+        # line 1
+        if '# -*- coding: utf-8 -*-' not  in lines[0] :
+            lines2.append('# -*- coding: utf-8 -*-\n')
 
-   if 'HELP' not  in txt :   ### HELP
-       lines2.append( f'HELP=" util" ')
+        # line 2
+        if 'MNAME' not in lines[1] :   ### MNAME = "utilmy.docs.format"
+            nmane =  ".".join( os.path.abspath(file_name).split("\\")[-4:] )[:-3]
+            lines2.append( f'MNAME = "{nmane}"\n')
 
-   ### Add previous line
-   lines2 = lines2 + lines
-   return "\n".join( lines2)    
+        if 'HELP' not in lines[2] :   ### HELP
+            lines2.append( f'HELP = "util"\n')
 
+    else:
+        lines2.append('# -*- coding: utf-8 -*-\n')
+        nmane =  ".".join( os.path.abspath(file_name).split("\\")[-4:] )[:-3]
+        lines2.append( f'MNAME = "{nmane}"\n')
+        lines2.append( f'HELP = "util"\n')
+
+    ### Add previous line
+    lines2.extend(lines)
+    # print(lines2)
+    return lines2
 
 
-def normalize_import(txt):
+def normalize_import(lines):
     """  merge all import in one line and append others
 
     """
-    lines = txt.split("\n")
-    
-    import_list = [] ; from_list = []
+    import_list = []
+    from_list = []
+    lines2 = []
     for line in lines :
-      if "import " in line :
-         if "from " in line : from_list.append(line)
-         else :               import_list.append(line)
+        if "import " in line :
+            if "from " in line : from_list.append(line)
+            else :               import_list.append(line)
 
-            
-    #### Merge all import in one line   ################################################
+    ### Merge all import in one line   ################################################
     llall = []
     for imp in import_list :
+        imp = imp[6:] # remove import
         ll    = [ t.strip() for t in  imp.split(",") if 'import' not in t ]
         llall = llall + ll
 
-    lall = sorted( lall )
-    lines2 = [[]]
+    lall = sorted( llall )
+
+    lines2 = []
+    ss = "import "
     for mi in lall:
-       ss =  ss + mi + ","
-       if len(ss) >  90 :
-          lines2 = lines2.append( ss[:-1] )  
-          ss = "import "
+        ss =  ss + mi + ", "
+        if len(ss) >  90 :
+            lines2.append( f"{ss[:-2]}\n" )  
+            ss = "import "
+    lines2.append(f"{ss[:-2]}\n")  
+
+    # lines2.extend(from_list)
+    # print(lines2)
 
     #### Remaining import 
     for ii, line in enumerate(lines):
-      if ii > 100 : break
-      if line.startswith("import ") : continue  ### Remove Old import
-      lines2.append(line)  
+        if ii > 100 : break
+        if line.startswith("import ") : continue  ### Remove Old import
+        lines2.append(line)  
 
     #### 
-    return '\n'.join(lines2)
+    # print(lines2)
+    return lines2
 
 
 
 
-def normalize_logger(txt):
-    return txt
+def normalize_logger(lines):
+    return lines
 
-def normalize_test(txt):
-    return txt
+def normalize_test(lines):
+    return lines
 
-def normalize_core(txt):
-    return txt
+def normalize_core(lines):
+    return lines
 
-def normalize_footer(txt):
-    return txt
->>>>>>> e385487a22b3d93a7e9c9b02e342dacd566dfe31
+def normalize_footer(lines):
+    return lines
 
 
 def read_and_normalize_file(file_path, output_file):
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
 
-    new_headers = normalize_header(info['header'])
+    new_headers = normalize_header(file_path, info['header'])
     new_imports = normalize_import(info['import'])
     new_loggers = normalize_logger(info['logger'])
     new_tests =   normalize_test(info['test'])
@@ -264,18 +269,20 @@ def read_and_normalize_file(file_path, output_file):
 
     # Create new data array then write to new file
     new_all_lines = []
-    # new_all_lines.extend(new_headers)
-    # new_all_lines.extend(new_imports)
-    # new_all_lines.extend(new_loggers)
-    # new_all_lines.extend(new_tests)
-    # new_all_lines.extend(new_cores)
-    # new_all_lines.extend(new_footers)
+    new_all_lines.extend(new_headers)
+    new_all_lines.extend(new_imports)
+    new_all_lines.extend(new_loggers)
+    new_all_lines.extend(new_tests)
+    new_all_lines.extend(new_cores)
+    new_all_lines.extend(new_footers)
 
     with open(output_file, 'w+', encoding='utf-8') as f:
         f.writelines(new_all_lines)
 
 
 if __name__ == '__main__':
-    read_and_normalize_file('test_script/test_script_no_core.py', 'test.py')
-    read_and_normalize_file('test_script/test_script_no_logger.py', 'test.py')
-    # extrac_block(lines)
+    # read_and_normalize_file('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
+    # read_and_normalize_file('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
+    # read_and_normalize_file('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
+    read_and_normalize_file('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
+
