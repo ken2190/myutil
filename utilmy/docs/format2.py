@@ -18,8 +18,12 @@ def log(*s) :
 
 #################################################################################################################
 def test1():
+    """ python utilmy/docs/format2.py  test1 
+    
+    """
     #### cd myutil
-    dirtest = "testdata/format/"
+    dirtest = "utilmy/docs/"
+
 
     format_file2(dirtest + '/test_script/test_script_no_header.py', dirtest + '/test_script/output/test_script_no_header.py')
     format_file2(dirtest + '/test_script/test_script_no_logger.py', dirtest + '/test_script/output/test_script_no_logger.py')
@@ -82,6 +86,7 @@ def format_file2(file_path, output_file):
     new_all_lines = format_file(file_path)
     # new_all_lines = ss.split("\n")
     print(str(new_all_lines)[:100] )
+    os.makedirs( os.path.dirname(output_file) , exist_ok=True)
     with open(output_file, 'w+', encoding='utf-8') as f:
         f.writelines(new_all_lines)
 
