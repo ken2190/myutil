@@ -308,6 +308,7 @@ def normalize_test(lines):
             '\n',
         ])
 
+    """  
     # check test2 function:
     is_exist_test2 = False
     for line in lines:
@@ -323,7 +324,9 @@ def normalize_test(lines):
             '\n',
             '\n',
         ])
+    """
 
+    ###### Eztend lines
     lines2.extend(lines)
     return lines2
 
@@ -331,7 +334,19 @@ def normalize_core(lines):
     return lines
 
 def normalize_footer(lines):
-    return lines
+
+    txt = "\n".join(lines)
+
+    if "if __name__" not in txt: lines2.append( 'if __name__ == "__main__":' )
+    if "import fire" not in txt:  lines2.append( '  import fire' )
+    if "import fire" not in txt:  lines2.append( '  fire.Fire()' )
+
+    lines2 = lines2 + lines
+
+    return lines2
+
+
+
 
 
 def read_and_normalize_file(file_path, output_file):
