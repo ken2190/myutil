@@ -2,37 +2,6 @@
 MNAME = "utilmy.docs.format"
 HELP = """ A simple python module to parse the code and format it based on some rules.
 
-can you open the chatbox on the right ?
-can you write here below ?
-
-Ok, let's write here
-
-Goal is
-
-read a .py file
-Identify Block of code :
-        header block,
-        import,
-        log block,
-        test block,
-        Core Block,
-        Bottom Block
-
-reformat each block, followinf rules
-Write back on disk
-Ok ?
-
-2) Block defintion are:
-
-
-
-
-
-ok, I can write here
-ok, but what is the block here
-
-
-
 Goal is to normalize all python files with similar structure.
 
 Some rules are
@@ -225,46 +194,26 @@ def codesource_extrac_block(txt)
 
     for ii,line in enumerate(lines) :
 
-<<<<<<< HEAD
-=======
-      ## Block Import
->>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'import ' in line and ii < 20 :
          dd.header = lineblock
          lineblock = []
 
-<<<<<<< HEAD
-=======
-      ### Block import
->>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if ('def ' in line or 'class ' in line  or 'from utilmy import log' in line ) and ii < 50 and not 'import' in dd:
          dd['import'] = lineblock
          lineblock = []
 
-<<<<<<< HEAD
 
-=======
-      ### Block Test
->>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if ('def test(' in line ) and ii < 50 and not 'logger' in dd :
           flag_test = True
           dd['logger'] = lineblock
 
 
-<<<<<<< HEAD
-=======
-      ### Block Core
->>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'def ' in line and 'def test' not in line and flag_test and ii >10 :
           ####  functions    
          dd['test'] = lineblock
          lineblock = []
 
 
-<<<<<<< HEAD
-=======
-      ### Block Footer
->>>>>>> 56c9ebb53666cedefc91a5863f0c4dcf8f41e0e7
       if 'if main ==  ' in line and  ii >10 :
          dd['core'] = lineblock
          lineblock = []
@@ -673,19 +622,12 @@ if __name__ == "__main__":
     test1()
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e385487a22b3d93a7e9c9b02e342dacd566dfe31
 
 
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e385487a22b3d93a7e9c9b02e342dacd566dfe31
 if 'zold':
 
     def zzbatch_format_file(in_file, dirout):

@@ -333,6 +333,7 @@ def normalize_test(lines):
 def normalize_core(lines):
     return lines
 
+
 def normalize_footer(lines):
 
     txt = "\n".join(lines)
