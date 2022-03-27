@@ -6,7 +6,10 @@ HELP = """ utils for
 
 
 """
-import datetime, gc, glob, numpy as np, os, pandas as pd, sys, time
+import os, sys, glob, time,gc, datetime, numpy as np, pandas as pd
+import types
+import abc
+import ccxt
 from typing import List, Optional, Tuple, Union
 from numpy import ndarray
 from box import Box
@@ -17,14 +20,19 @@ from box import Box
 
 
 #############################################################################################
+from utilmy import log, log2
 
+def help():
+    """function help"""
+    from utilmy import help_create
+    print( HELP + help_create(MNAME) )
+
+
+def log3():
+    """function help"""
+    pass
 
 #############################################################################################
-from utilmy import log, log2, help_create
-def help():
-   print( HELP + help_create(MNAME) )
-
-
 def test_all() -> None:
     """function test_all
 

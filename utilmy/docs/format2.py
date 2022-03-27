@@ -244,10 +244,88 @@ def normalize_import(lines):
 
 
 def normalize_logger(lines):
-    return lines
+    lines2 = []
+    if len(lines) >0:
+        if "from utilmy import log" not in lines[0]:
+            lines2.append('from utilmy import log, log2, help_create\n')
+    else:
+        lines2.append('from utilmy import log, log2, help_create\n')
+    # append all
+    lines2.extend(lines)
+
+    # check help function:
+    is_exist_help = False
+    for line in lines:
+        if line.startswith("def help"):
+            is_exist_help = True
+            break
+    
+    if not is_exist_help:
+        lines2.extend([
+            'def help():\n',
+            '   print( HELP + help_create(MNAME) )\n',
+            '\n',
+            '\n'
+        ])
+    # print(lines2)
+    return lines2
+
 
 def normalize_test(lines):
-    return lines
+    lines2 = []
+
+    # check test_all function:
+    is_exist_test_all = False
+    for line in lines:
+        if line.startswith("def test_all"):
+            is_exist_test_all = True
+            break
+    
+    if not is_exist_test_all:
+        lines2.extend([
+            'def test_all() -> None:\n',
+            '    """function test_all"""\n',
+            '    log(MNAME)\n',
+            '    test1()\n',
+            '    test2()\n',
+            '\n',
+            '\n',
+        ])
+
+    # check test1 function:
+    is_exist_test1 = False
+    for line in lines:
+        if line.startswith("def test1"):
+            is_exist_test1 = True
+            break
+    
+    if not is_exist_test1:
+        lines2.extend([
+            'def test1() -> None:\n',
+            '    """function test"""\n',
+            '    pass\n',
+            '\n',
+            '\n',
+        ])
+
+    # check test2 function:
+    is_exist_test2 = False
+    for line in lines:
+        if line.startswith("def test2"):
+            is_exist_test2 = True
+            break
+    
+    if not is_exist_test2:
+        lines2.extend([
+            'def test2() -> None:\n',
+            '    """function test"""\n',
+            '    pass\n',
+            '\n',
+            '\n',
+        ])
+
+    lines2.extend(lines)
+    return lines2
 
 def normalize_core(lines):
     return lines
@@ -281,8 +359,8 @@ def read_and_normalize_file(file_path, output_file):
 
 
 if __name__ == '__main__':
-    # read_and_normalize_file('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
-    # read_and_normalize_file('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
-    # read_and_normalize_file('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
+    read_and_normalize_file('test_script/test_script_no_header.py', 'test_script/output/test_script_no_header.py')
+    read_and_normalize_file('test_script/test_script_no_logger.py', 'test_script/output/test_script_no_logger.py')
+    read_and_normalize_file('test_script/test_script_no_core.py', 'test_script/output/test_script_no_core.py')
     read_and_normalize_file('test_script/test_script_normalize_import.py', 'test_script/output/test_script_normalize_import.py')
 
