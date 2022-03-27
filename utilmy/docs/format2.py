@@ -5,7 +5,6 @@ HELP = """ utils for re-formatting files using TEMPLATES
 
 
 """
-
 import re, os, sys, glob
 from pprint import pprint
 
@@ -39,7 +38,8 @@ def test1():
 
 
 
-def run_format_utilmy(nfile=10):
+##### Run Scripts ###############################################################################################
+def format_utilmy(nfile=10):
     dirin = os.getcwd() + "/utilmy/"
     direxclude ="*utilmy/z*"
 
@@ -56,8 +56,23 @@ def run_format_utilmy(nfile=10):
             log(e)   
 
 
+def format_file2(file_path, output_file):
+    new_all_lines = format_file(file_path)
+    # new_all_lines = ss.split("\n")
+    print(str(new_all_lines)[:100] )
+    os.makedirs( os.path.dirname(output_file) , exist_ok=True)
+    with open(output_file, 'w+', encoding='utf-8') as f:
+        f.writelines(new_all_lines)
 
-#################################################################################################################
+
+def format_file3(file_path, output_file):
+    ## Safe Modification
+    batch_format_file(in_file= file_path, dirout= output_file, 
+                    format_list= [ format_file ])
+
+
+
+###### Core formatter ###########################################################################################
 def format_file(file_path):
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
@@ -82,23 +97,6 @@ def format_file(file_path):
     return new_all_lines
 
 
-def format_file2(file_path, output_file):
-    new_all_lines = format_file(file_path)
-    # new_all_lines = ss.split("\n")
-    print(str(new_all_lines)[:100] )
-    os.makedirs( os.path.dirname(output_file) , exist_ok=True)
-    with open(output_file, 'w+', encoding='utf-8') as f:
-        f.writelines(new_all_lines)
-
-
-def format_file3(file_path, output_file):
-    ## Safe Modification
-    batch_format_file(in_file= file_path, dirout= output_file, 
-                    format_list= [ format_file ])
-
-
-
-#################################################################################################################
 def normalize_header(file_name, lines):
     """Nomarlize Header block
 
