@@ -100,7 +100,7 @@ jobs:
     - name: Auto generation of formatting code
       #vcontinue-on-error: true
       run:  |
-        python  utilmy/docs/format.py  format1  --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false
+        python  utilmy/docs/format2.py  format_utilmy --nfile 1000000
 
         git add -A || echo 'nothing'
         git commit -am "docstring" ||   echo 'nothing'
