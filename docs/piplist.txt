@@ -56,7 +56,7 @@ Jinja2==3.1.1
 joblib==1.0.1
 jsonpickle==2.1.0
 Keras-Preprocessing==1.1.2
-kiwisolver==1.4.0
+kiwisolver==1.4.1
 korean-lunar-calendar==0.2.1
 loguru==0.6.0
 MAPIE==0.3.2
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.1
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@94c2f263eb4ef8bc1985e2ec09160dd3753e85e3#egg=utilmy
+-e git+https://github.com/arita37/myutil@d04215dbf9f7ee00ef3a91fce0d938b695f612f4#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.0.3
