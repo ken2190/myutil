@@ -599,13 +599,13 @@ RuleEncoder.forward(self, x)
 utilmy/deeplearning/torch/sentences.py
 -------------------------functions----------------------
 dataset_download(dirout = '/content/sample_data/sent_tans/')
-dataset_fake(dirdata)
+dataset_fake(dirdata:str, nsample = 10)
 dataset_fake2(dirdata = '')
 help()
 load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, npool = 4)
 load_evaluator(path_or_df:Union[pd.DataFrame, str] = "", dname = 'sts', cc:dict = None)
 load_loss(model  = '', lossname  = 'cosine', cc:dict =  None)
-metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
+model_check_cos_sim(model  =  "model name or path or object", sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_load(path_or_name_or_object)
 model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
@@ -895,22 +895,22 @@ test_all()
 
 
 
-utilmy/docs/format.py
+utilmy/docs/format2.py
 -------------------------functions----------------------
-batch_format_dir(in_dir, out_dir)
-batch_format_file(in_file, out_dir)
-format_add_header(txt:str)
-format_add_logger(txt:str, )
-format_assignments(text)
-format_comments(text = "default", line_size = 90)
-format_header(text)
-format_imports(text)
-format_logs(text = "default", line_size = 90)
-help()
-run_format1()
+extrac_block(lines)
+format_file(file_path)
+format_file2(file_path, output_file)
+format_file3(file_path, output_file)
+format_utilmy(nfile = 10)
+get_file(file_path)
+log(*s)
+normalize_core(lines)
+normalize_footer(lines)
+normalize_header(file_name, lines)
+normalize_import(lines)
+normalize_logger(lines)
+normalize_test(lines)
 test1()
-test2()
-test_all()
 
 
 
@@ -936,6 +936,66 @@ os_path_norm(diroot)
 run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
 run_utilmy(nfile = 10000)
 run_utilmy_overwrite(nfile = 100000)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_core.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_header.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_help.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_logger.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_normalize_import.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
 test1()
 test2()
 test_all()
@@ -1008,7 +1068,7 @@ utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
 diskcache_image_check2()
-diskcache_image_createcache(dirin:str = None, dirout:str = None, xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
+diskcache_image_createcache(dirin:str = "", dirout:str = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
 diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
@@ -1016,10 +1076,11 @@ download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "",
 help()
 image_center_crop(img:npArrayLike, dim:Tuple[int, int])
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
+image_create_fake2(dirin:str = None)
 image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
 image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
-image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5, verbose = False)
 image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
@@ -1029,7 +1090,8 @@ image_resize(image : npArrayLike, width :Union[None, int]  = None, height :Union
 image_resize_mp(dirin:str = "", dirout :str  = "")
 image_resize_pad(img :npArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
 image_resize_ratio(image : npArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
-image_show_in_row(image_list:Union[dict, list] = None)
+image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
+image_show_in_row(image_list:Union[dict, list, None] = None)
 image_text_blank(in_dir :Union[str, bytes, os.PathLike], dirout :Union[str, bytes, os.PathLike], level = "*")
 npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 run_multiprocess(myfun, list_args, npool = 10, **kwargs)
@@ -1037,7 +1099,6 @@ test1()
 test2()
 test_all()
 test_diskcache()
-test_image_create_fake()
 
 
 
@@ -1116,19 +1177,19 @@ utilmy/nlp/torch/__init__.py
 utilmy/nlp/torch/sentences.py
 -------------------------functions----------------------
 dataset_download(dirout = '/content/sample_data/sent_tans/')
-dataset_fake(dirdata)
+dataset_fake(dirdata:str, fname = 'data_fake.parquet', nsample = 10)
 dataset_fake2(dirdata = '')
 help()
-load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, npool = 4)
+load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, istrain = True, npool = 4)
 load_evaluator(path_or_df:Union[pd.DataFrame, str] = "", dname = 'sts', cc:dict = None)
-load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
-metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
+load_loss(model  = '', lossname  = 'cosine', cc:dict =  None)
+model_check_cos_sim(model  =  "model name or path or object", sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
+model_encode(model  =  "model name or path or object", dirdata:Union[str, pd.DataFrame] = "data/*.parquet", coltext:str = 'sentence1', dirout:str = "embs/myfile.parquet", **kw)
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_load(path_or_name_or_object)
-model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
-model_save(model, path, reload = True)
+model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_save(model, path:str, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
-pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
 test1()
 test_all()
 
