@@ -74,6 +74,51 @@ def test1():
     """
     #  Run Various test suing strans_former,
     # Mostly Single sentence   ---> Classification
+
+    Examples
+    --------
+    os.environ['CUDA_VISIBLE_DEVICES']='2,3'
+  
+    cc = Box({})
+    cc.epoch = 3
+    cc.lr = 1E-5
+    cc.warmup = 10
+
+    cc.eval_steps  = 50
+    cc.batch_size=8
+
+    cc.mode = 'cpu/gpu'
+    cc.use_gpu = 0
+    cc.ncpu =5
+    cc.ngpu= 2
+
+    #### Data
+    cc.data_nclass = 5
+    cc.datasetname = 'sts5'
+
+
+    dirdata = 'ztmp/'
+    modelid = "distilbert-base-nli-mean-tokens"
+    
+    dataset_download(dirout= dirdata)
+    dataset_fake(dirdata)  ### Create fake version
+    
+    lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
+    
+    for lname in lloss :
+        log("\n\n\n ########### Classifier with Loss ", lname)
+        cc.lossname = lname
+        model_load_fit_sentence(modelname_or_path = modelid,
+                                taskname  = "classifier",
+                                lossname  = lname,
+
+                                datasetname= cc.datasetname,
+                                train_path= dirdata + f"/data_fake.parquet",
+                                val_path=   dirdata + f"/data_fake.parquet",
+                                eval_path = dirdata + f"/data_fake.parquet",
+                                metricname='cosinus',
+                                dirout= dirdata + f"/results/" + lname, cc=cc)
+  
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
