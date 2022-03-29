@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.util_onnx"
-HELP = """ utils for ONNX runtime Optimization
+MNAME = "utilmy.deeplearning.util_"
+HELP = """ utils for  runtime Optimization
 
 
 cd myutil
-python utilmy/deeplearning/util_onnx.py    test1
+python utilmy/deeplearning/util_.py    test1
 
 
 
-https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
+https://pytorch.org/tutorials/advanced/super_resolution_with_runtime.html
 
 
 
@@ -25,12 +25,12 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 try :
-    import onnxruntime
+    import runtime
     import torch.utils.model_zoo as model_zoo
-    import torch.onnx
-    import onnx
+    import torch.
+    import 
 except:
-    log("pip install onnxruntime onnx") ; 1/0 
+    log("pip install runtime ") ; 1/0 
 
 #############################################################################################
 from utilmy import log, log2
@@ -58,19 +58,19 @@ def test1() -> None:
 
 def test2():
     """
-    (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
+    (optional) Exporting a Model from PyTorch to  and Running it using  Runtime
     ========================================================================
     In this tutorial, we describe how to convert a model defined
-    in PyTorch into the ONNX format and then run it with ONNX Runtime.
+    in PyTorch into the  format and then run it with  Runtime.
 
-    ONNX Runtime has proved to considerably increase performance over
+     Runtime has proved to considerably increase performance over
     multiple models as explained `here
-    <https://cloudblogs.microsoft.com/opensource/2019/05/22/onnx-runtime-machine-learning-inferencing-0-4-release>`__
-    For this tutorial, you will need to install `ONNX <https://github.com/onnx/onnx>`__
-    and `ONNX Runtime <https://github.com/microsoft/onnxruntime>`__.
-    You can get binary builds of ONNX and ONNX Runtime with
-    ``pip install onnx onnxruntime``.
-    Note that ONNX Runtime is compatible with Python versions 3.5 to 3.7.
+    <https://cloudblogs.microsoft.com/opensource/2019/05/22/-runtime-machine-learning-inferencing-0-4-release>`__
+    For this tutorial, you will need to install ` <https://github.com//>`__
+    and ` Runtime <https://github.com/microsoft/runtime>`__.
+    You can get binary builds of  and  Runtime with
+    ``pip install  runtime``.
+    Note that  Runtime is compatible with Python versions 3.5 to 3.7.
     """
 
     # Some standard imports
@@ -79,7 +79,7 @@ def test2():
 
     from torch import nn
     import torch.utils.model_zoo as model_zoo
-    import torch.onnx
+    import torch.
 
 
     ######################################################################
@@ -164,22 +164,22 @@ def test2():
     ######################################################################
     # Exporting a model in PyTorch works via tracing or scripting. This
     # tutorial will use as an example a model exported by tracing.
-    # To export a model, we call the ``torch.onnx.export()`` function.
+    # To export a model, we call the ``torch..export()`` function.
     # This will execute the model, recording a trace of what operators
     # are used to compute the outputs.
     # Because ``export`` runs the model, we need to provide an input
     # tensor ``x``. The values in this can be random as long as it is the
     # right type and size.
-    # Note that the input size will be fixed in the exported ONNX graph for
+    # Note that the input size will be fixed in the exported  graph for
     # all the input's dimensions, unless specified as a dynamic axes.
     # In this example we export the model with an input of batch_size 1,
     # but then specify the first dimension as dynamic in the ``dynamic_axes``
-    # parameter in ``torch.onnx.export()``.
+    # parameter in ``torch..export()``.
     # The exported model will thus accept inputs of size [batch_size, 1, 224, 224]
     # where batch_size can be variable.
     #
     # To learn more details about PyTorch's export interface, check out the
-    # `torch.onnx documentation <https://pytorch.org/docs/master/onnx.html>`__.
+    # `torch. documentation <https://pytorch.org/docs/master/.html>`__.
     #
 
     # Input to the model
@@ -187,11 +187,11 @@ def test2():
     torch_out = torch_model(x)
 
     # Export the model
-    torch.onnx.export(torch_model,               # model being run
+    torch..export(torch_model,               # model being run
                       x,                         # model input (or a tuple for multiple inputs)
-                      "super_resolution.onnx",   # where to save the model (can be a file or file-like object)
+                      "super_resolution.",   # where to save the model (can be a file or file-like object)
                       export_params=True,        # store the trained parameter weights inside the model file
-                      opset_version=10,          # the ONNX version to export the model to
+                      opset_version=10,          # the  version to export the model to
                       do_constant_folding=True,  # whether to execute constant folding for optimization
                       input_names = ['input'],   # the model's input names
                       output_names = ['output'], # the model's output names
@@ -201,63 +201,63 @@ def test2():
     ######################################################################
     # We also computed ``torch_out``, the output after of the model,
     # which we will use to verify that the model we exported computes
-    # the same values when run in ONNX Runtime.
+    # the same values when run in  Runtime.
     #
-    # But before verifying the model's output with ONNX Runtime, we will check
-    # the ONNX model with ONNX's API.
-    # First, ``onnx.load("super_resolution.onnx")`` will load the saved model and
-    # will output a onnx.ModelProto structure (a top-level file/container format for bundling a ML model.
-    # For more information `onnx.proto documentation <https://github.com/onnx/onnx/blob/master/onnx/onnx.proto>`__.).
-    # Then, ``onnx.checker.check_model(onnx_model)`` will verify the model's structure
+    # But before verifying the model's output with  Runtime, we will check
+    # the  model with 's API.
+    # First, ``.load("super_resolution.")`` will load the saved model and
+    # will output a .ModelProto structure (a top-level file/container format for bundling a ML model.
+    # For more information `.proto documentation <https://github.com///blob/master//.proto>`__.).
+    # Then, ``.checker.check_model(_model)`` will verify the model's structure
     # and confirm that the model has a valid schema.
-    # The validity of the ONNX graph is verified by checking the model's
+    # The validity of the  graph is verified by checking the model's
     # version, the graph's structure, as well as the nodes and their inputs
     # and outputs.
     #
 
-    import onnx
+    import 
 
-    onnx_model = onnx.load("super_resolution.onnx")
-    onnx.checker.check_model(onnx_model)
+    _model = .load("super_resolution.")
+    .checker.check_model(_model)
 
 
     ######################################################################
-    # Now let's compute the output using ONNX Runtime's Python APIs.
+    # Now let's compute the output using  Runtime's Python APIs.
     # This part can normally be done in a separate process or on another
     # machine, but we will continue in the same process so that we can
-    # verify that ONNX Runtime and PyTorch are computing the same value
+    # verify that  Runtime and PyTorch are computing the same value
     # for the network.
     #
-    # In order to run the model with ONNX Runtime, we need to create an
+    # In order to run the model with  Runtime, we need to create an
     # inference session for the model with the chosen configuration
     # parameters (here we use the default config).
     # Once the session is created, we evaluate the model using the run() api.
     # The output of this call is a list containing the outputs of the model
-    # computed by ONNX Runtime.
+    # computed by  Runtime.
     #
 
-    import onnxruntime
+    import runtime
 
-    ort_session = onnxruntime.InferenceSession("super_resolution.onnx")
+    ort_session = runtime.InferenceSession("super_resolution.")
 
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-    # compute ONNX Runtime output prediction
+    # compute  Runtime output prediction
     ort_inputs = {ort_session.get_inputs()[0].name: to_numpy(x)}
     ort_outs = ort_session.run(None, ort_inputs)
 
-    # compare ONNX Runtime and PyTorch results
+    # compare  Runtime and PyTorch results
     np.testing.assert_allclose(to_numpy(torch_out), ort_outs[0], rtol=1e-03, atol=1e-05)
 
-    print("Exported model has been tested with ONNXRuntime, and the result looks good!")
+    print("Exported model has been tested with Runtime, and the result looks good!")
 
 
     ######################################################################
-    # We should see that the output of PyTorch and ONNX Runtime runs match
+    # We should see that the output of PyTorch and  Runtime runs match
     # numerically with the given precision (rtol=1e-03 and atol=1e-05).
     # As a side-note, if they do not match then there is an issue in the
-    # ONNX exporter, so please contact us in that case.
+    #  exporter, so please contact us in that case.
     #
 
     ######################################################################
@@ -302,7 +302,7 @@ def test2():
     ######################################################################
     # Now, as a next step, let's take the tensor representing the
     # greyscale resized cat image and run the super-resolution model in
-    # ONNX Runtime as explained previously.
+    #  Runtime as explained previously.
     #
 
     ort_inputs = {ort_session.get_inputs()[0].name: to_numpy(img_y)}
@@ -339,19 +339,19 @@ def test3():
 
     dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
     dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
-    dirout      = f"{dirtmp}/onnx_save.onnx"
-    onnx_pars = {}
+    dirout      = f"{dirtmp}/_save."
+    _pars = {}
     config_dir = ""
 
     x_numpy = None  ### need image
 
 
     isok = test_create_model_pytorch(dirsave=dir_model)
-    log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+    log('Convreting to ')
+    _convert(dir_model, dir_weights, dirout=dirout, _pars= _pars, config_dir= config_dir )
 
-    log('Checking ONNX')
-    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
+    log('Checking ')
+    _check_(dir_model, dir_weights, x_numpy=x_numpy )
 
 
 
@@ -360,17 +360,17 @@ def test4():
 
     dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
     dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
-    dirout      = f"{dirtmp}/onnx_save.onnx"
-    onnx_pars = {}
+    dirout      = f"{dirtmp}/_save."
+    _pars = {}
     config_dir = ""
 
 
     isok = test_create_model_pytorch(dirsave=dir_model)
-    log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+    log('Convreting to ')
+    _convert(dir_model, dir_weights, dirout=dirout, _pars= _pars, config_dir= config_dir )
 
-    log('Checking ONNX')
-    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
+    log('Checking ')
+    _check_(dir_model, dir_weights, x_numpy=x_numpy )
 
 
 
@@ -421,41 +421,41 @@ def test_create_model_pytorch(dirsave=None, model_name=""):
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert(
+def _convert(
     model_path:str, 
     dirout:str, 
     input_shape:tuple,
-    onnx_version:int=10, 
+    _version:int=10, 
     do_constant_folding:bool=True, 
     input_names=['input'], 
     output_names=['output'], 
     dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}):
-    """Core function to convert a pytorch model to onnx
+    """Core function to convert a pytorch model to 
 
     Args:
         model (str:str): model to be converted
-        dirout:str (str): directory to save the onnx model
-        input_shape (tuple): input shape to run model to export onnx model.
-        onnx_version (int, optional): onnx version to convert the model. Defaults to 10.
+        dirout:str (str): directory to save the  model
+        input_shape (tuple): input shape to run model to export  model.
+        _version (int, optional):  version to convert the model. Defaults to 10.
         do_constant_folding (bool, optional): whether to execute constant folding for optimization. Defaults to True.
         input_names (list, optional): input names of the model. Defaults to ['input'].
         output_names (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
     """
     filename = '.'.join(os.path.basena:strme(model_path).split('.')[:-1])
-    out_path = os.path.join(dirout:str, filename + '.onnx')
+    out_path = os.path.join(dirout:str, filename + '.')
 
     model = torch.load(model_path)
     model.eval()
 
     x = torch.rand(1, *input_shape, requires_grad=True)
     out = model(x)
-    torch.onnx.export(
+    torch..export(
         model, 
         x,
         out_path,
         export_params=export_params,
-        opset_version=onnx_version,
+        opset_version=_version,
         do_constant_folding=do_constant_folding,
         input_names=input_names,
         output_names=output_names,
@@ -466,7 +466,7 @@ def onnx_convert(
 
 
 
-def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
+def _load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
     """ wrapper to load Pytorch model + weights
        dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
        batch_size = 1    # just a random number
@@ -497,42 +497,42 @@ def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str
 
 
 
-def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
+def _load_(dir:str="super_resolution.",):
     """ wrapper to load model
     """  
-    import onnxruntime
-    ort_session = onnxruntime.InferenceSession(dironnx)
+    import runtime
+    ort_session = runtime.InferenceSession(dir)
     return ort_session
 
 
 
-def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirweights:str=None, x_numpy:Union[ndarray, list]=None):
-    """ Check ONNX :  Base check, Compare with Pytorch model values,
+def _check_(dir:str="super_resolution.", dirmodel:str=None, dirweights:str=None, x_numpy:Union[ndarray, list]=None):
+    """ Check  :  Base check, Compare with Pytorch model values,
     x_numpy: Input X numpy to check prediction values
     # TODO : list of numpy arrays to check
     """
-    import onnxruntime
-    log("check ONNX")
-    onnx_model = onnx.load(dironnx)
-    onnx.checker.check_model(onnx_model)
+    import runtime
+    log("check ")
+    _model = .load(dir)
+    .checker.check_model(_model)
 
     if dirmodel is not None :
         log("    # compute Pytorch output prediction")
-        torch_model = onnx_load_modelbase(dirmodel, dirweights, mode_inference=True)
+        torch_model = _load_modelbase(dirmodel, dirweights, mode_inference=True)
         x_torch = torch_model.predict(torch.from_numpy(x_numpy))
         log('pytorch values', to_numpy(x_torch) )
 
 
     if x_numpy is not None :
-        # compute the output using ONNX Runtime's Python APIs.
-        ort_session = onnxruntime.InferenceSession(dironnx)
+        # compute the output using  Runtime's Python APIs.
+        ort_session = runtime.InferenceSession(dir)
 
-        # compute ONNX Runtime output prediction
+        # compute  Runtime output prediction
         ort_inputs = {ort_session.get_inputs()[0].name: x_numpy }
         ort_outs   = ort_session.run(None, ort_inputs)
 
-        # compare ONNX Runtime and PyTorch results
-        log('onnx values', ort_outs)
+        # compare  Runtime and PyTorch results
+        log(' values', ort_outs)
 
 
 
