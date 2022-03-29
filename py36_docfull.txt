@@ -51,6 +51,7 @@ gensim==4.1.2
 nltk==3.6.3
 essential-generators==1.0
 sentence-transformers
+spacy
 
 
 ########################################################
