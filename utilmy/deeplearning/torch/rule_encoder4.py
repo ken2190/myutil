@@ -43,7 +43,7 @@ def help():
 #############################################################################################
 def test_all():
     log(MNAME)
-    # test1()
+    test1()
     test2_new()
 
 
@@ -223,8 +223,6 @@ def test1():
     model.load_weights('ztmp/model_x9.pt')
     inputs = torch.randn((1,9)).to(model.device)
     outputs = model.predict(inputs)
-    print(outputs)
-
 
 
 
@@ -318,7 +316,7 @@ def test2_new():
     ARG.data_encoder.DATASET.PATH = ARG.DATASET.PATH
     ARG.data_encoder.DATASET.URL = ARG.DATASET.URL
 
-    data_encoder = DataEncoder_Create(ARG )
+    data_encoder = DataEncoder_Create(ARG.data_encoder)
 
 
 
@@ -355,7 +353,7 @@ def test2_new():
     ARG.rule_encoder.DATASET = Box()
     ARG.rule_encoder.DATASET.PATH = ARG.DATASET.PATH
     ARG.rule_encoder.DATASET.URL = ARG.DATASET.URL
-    rule_encoder = RuleEncoder_Create(ARG )
+    rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
 
     
 
@@ -373,7 +371,7 @@ def test2_new():
     ARG.merge_encoder.dataset.colsy =  'solvey'
     
 
-    model = MergeEncoder_Create(ARG, rule_encoder, data_encoder)
+    model = MergeEncoder_Create(ARG, rule_encoder=rule_encoder, data_encoder=data_encoder)
 
 
     #### Run Model   ###################################################
@@ -433,8 +431,6 @@ def dataset_load_prepro(arg):
     seed= 42
     train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
     valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
-    # print(np.float32(train_X).shape)
-    # exit()
     return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
 
 
@@ -595,17 +591,30 @@ class MergeEncoder_Create(BaseModel):
     """
     """
     def __init__(self,arg, data_encoder=None, rule_encoder=None):
-        super(MergeEncoder_Create,self).__init__(arg)
-        
-        if rule_encoder is None:
-            self.rule_encoder = RuleEncoder_Create(self.arg)
-        else:
-            self.rule_encoder = rule_encoder
-        if data_encoder is None:
-            self.data_encoder = DataEncoder_Create(self.arg)
-        else: 
-            self.data_encoder = data_encoder
+        """_summary_
 
+        Args:
+            arg (_type_): _description_
+            data_encoder (_type_, optional): _description_. Defaults to None.
+            rule_encoder (_type_, optional): _description_. Defaults to None.
+            rule_encoder and data_encoder should got following attributes:
+
+                attributes:
+                    self.net : torch.nn.Module
+                method:
+                    self.build():
+                    self.create_model() :  return net
+                    
+
+
+                
+        
+        """
+        super(MergeEncoder_Create,self).__init__(arg)
+        self.rule_encoder = (rule_encoder)
+        self.data_encoder = (data_encoder)
+
+        
 
     def create_model(self,):
         super(MergeEncoder_Create,self).create_model()
@@ -617,14 +626,17 @@ class MergeEncoder_Create(BaseModel):
         class Modelmerge(torch.nn.Module):
             def __init__(self,rule_encoder,data_encoder,dims,merge,skip):
                 super(Modelmerge, self).__init__()
-                self.rule_encoder = rule_encoder.net
-                self.data_encoder = data_encoder.net
+                self.rule_encoder_net = copy.copy(rule_encoder.net)
+                self.data_encoder_net = copy.copy(data_encoder.net)
+                self.rule_encoder_net.load_state_dict(rule_encoder.net.state_dict())
+                self.data_encoder_net.load_state_dict(data_encoder.net.state_dict())
                 self.merge = merge
                 self.skip = skip
+                self.input_type = 'seq'
                 if merge == 'cat':
-                    self.input_dim_decision_block = self.rule_encoder.output_dim * 2
+                    self.input_dim_decision_block = self.rule_encoder_net.output_dim * 2
                 elif merge == 'add':
-                    self.input_dim_decision_block = self.rule_encoder.output_dim
+                    self.input_dim_decision_block = self.data_encoder_net.output_dim
 
                 # self.net = nn.Sequential()
                 self.net = []
@@ -642,9 +654,9 @@ class MergeEncoder_Create(BaseModel):
             # merge: cat or add
                 alpha = kwargs.get('alpha',0) # default only use rule_z
                 # scale = kwargs.get('scale',1)
-                rule_z = self.rule_encoder(x)
+                rule_z = self.rule_encoder_net(x)
                 
-                data_z = self.data_encoder(x)
+                data_z = self.data_encoder_net(x)
 
                 if self.merge == 'add':
                     z = alpha*rule_z + (1-alpha)*data_z
@@ -670,15 +682,12 @@ class MergeEncoder_Create(BaseModel):
     
     
 
+    # def train(self):
+    #     self.is_train =True
+    #     self.net.data_encoder.train()
+    #     self.net.rule_encoder.train()
+    #     self.net.train()
 
-        
-
-
-        
-
-        
-
-            
     def build(self):
         # super(MergeEncoder_Create,self).build()
         log("rule_encoder:")
@@ -687,13 +696,14 @@ class MergeEncoder_Create(BaseModel):
         self.data_encoder.build()
         log("MergeModel:")
         self.net = self.create_model().to(self.device)
-        self.loss_calc= self.create_loss().to(self.device)
+        self.loss_calc= self.create_loss()#.to(self.device)
         self.optimizer = torch.optim.Adam(self.net.parameters())
         
     def create_loss(self,):
         super(MergeEncoder_Create,self).create_loss()
         rule_loss_calc= self.rule_encoder.loss_calc
         data_loss_calc= self.data_encoder.loss_calc
+
         class MergeLoss(torch.nn.Module):
 
             def __init__(self,rule_loss_calc,data_loss_calc):
@@ -706,8 +716,8 @@ class MergeEncoder_Create(BaseModel):
                 rule_loss = self.rule_loss_calc(output,target.reshape(output.shape))
                 data_loss = self.data_loss_calc(output,target.reshape(output.shape))                
                 result = rule_loss * alpha * scale + data_loss * (1-alpha)
+                # result = rule_loss + data_loss
                 return result
-
         return MergeLoss(rule_loss_calc,data_loss_calc)
 
     def prepro_dataset(self,df=None):
@@ -839,18 +849,19 @@ class MergeEncoder_Create(BaseModel):
         for epoch in tqdm(range(1,EPOCHS+1)):
             self.train()
             loss_train = 0
-            with torch.autograd.set_detect_anomaly(True):
+            with torch.autograd.set_detect_anomaly(True): 
                 for inputs,targets in tqdm(train_loader,total=n_train, desc='training'):
                     if   self.arg.MODEL_INFO.TYPE.startswith('dataonly'):  alpha = 0.0
                     elif self.arg.MODEL_INFO.TYPE.startswith('ruleonly'):  alpha = 1.0
                     elif self.arg.MODEL_INFO.TYPE.startswith('ours'):      alpha = self.arg.rule_encoder.ALPHA_DIST.sample().item()
                     
-                    predict = self.predict(inputs,alpha=alpha)
-                    
+                    predict = self.net(inputs,alpha=alpha)
                     self.optimizer.zero_grad()
+                    # self.optimizer.step()
                     scale =1
                     loss = self.loss_calc(predict,targets,alpha=alpha,scale=scale)
-                    # loss.backward()
+                    # loss.grad
+                    loss.backward()
                     self.optimizer.step()
                     loss_train += loss * inputs.size(0)
                 loss_train /= len(train_loader.dataset) # mean on dataset
@@ -890,11 +901,14 @@ class RuleEncoder_Create(BaseModel):
     """
     def __init__(self, arg:dict):
         super(RuleEncoder_Create,self).__init__(arg)
-        self.rule_ind = arg.rule_encoder.RULE_IND
-        self.pert_coeff = arg.rule_encoder.PERT
+        # self.rule_ind = arg.rule_encoder.RULE_IND
+        # self.pert_coeff = arg.rule_encoder.PERT
+        self.rule_ind = arg.RULE_IND
+        self.pert_coeff = arg.PERT
     def create_model(self):
         super(RuleEncoder_Create,self).create_model()
-        dims = self.arg.rule_encoder.ARCHITECT
+        # dims = self.arg.rule_encoder.ARCHITECT
+        dims = self.arg.ARCHITECT
         rule_ind = self.rule_ind
         pert_coeff = self.pert_coeff
         def get_perturbed_input(input_tensor, pert_coeff):
@@ -940,10 +954,11 @@ class RuleEncoder_Create(BaseModel):
             
             def __init__(self):
                 super(LossRule,self).__init__()
-                self.relu = torch.nn.ReLU()
+                # self.relu = torch.nn.ReLU()
 
             def forward(self,output,target):
-                return torch.mean(self.relu(output-target))
+                # return torch.mean(self.relu(output-target))
+                return torch.mean(torch.nn.functional.relu(output-target))
 
         return LossRule()
 
@@ -977,8 +992,6 @@ class RuleEncoder_Create(BaseModel):
         seed= 42
         train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
         valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
-        # print(np.float32(train_X).shape)
-        # exit()
         return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
 
 
@@ -998,7 +1011,8 @@ class DataEncoder_Create(BaseModel):
 
     def create_model(self):
         super(DataEncoder_Create,self).create_model()
-        dims = self.arg.data_encoder.ARCHITECT
+        # dims = self.arg.data_encoder.ARCHITECT
+        dims = self.arg.ARCHITECT
         class DataEncoder(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
                 super(DataEncoder, self).__init__()
