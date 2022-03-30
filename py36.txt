@@ -37,8 +37,9 @@ wget
 psutil
 
 ########################################################
-#### utilmy.images
-opencv-python
+#### utilmy.imagesuu.
+#opencv-python
+opencv-python-headless 
 scikit-image
 
 
