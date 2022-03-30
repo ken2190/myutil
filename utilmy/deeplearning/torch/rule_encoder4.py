@@ -124,6 +124,7 @@ def test1():
 
         ### ARG.MODEL_RULE
         ARG.rule_encoder = Box()   #MODEL_RULE
+        ARG.rule_encoder.seed = 42
         ARG.rule_encoder.RULE = PARAMS.get('rule',None)
         ARG.rule_encoder.SCALE = PARAMS.get('scale',1.0)
         ARG.rule_encoder.PERT = PARAMS.get('pert',0.1)
@@ -148,7 +149,9 @@ def test1():
 
 
         ### ARG.MODEL_TASK
+        
         ARG.data_encoder = Box()   #MODEL_TASK
+        ARG.data_encoder.seed = 42
         ARG.data_encoder.NAME = ''
         ARG.data_encoder.ARCHITECT = [
             20,
@@ -185,12 +188,12 @@ def test1():
     """
 
 
-    ARG = Box({
-            'MODELA': {},
-            'MODELB': {},
-            'MODEL_MERGE': {},
+    # ARG = Box({
+    #         'MODELA': {},
+    #         'MODELB': {},
+    #         'MODEL_MERGE': {},
 
-        })
+    #     })
     ARG.MODEL_A = Box()
     ARG.MODEL_A.TRAINING_CONFIG = Box()
     ARG.MODEL_A.TRAINING_CONFIG.SEED = 42
@@ -210,6 +213,8 @@ def test1():
 
 
     ARG_copy = deepcopy(ARG)
+    # print(ARG_copy)
+    # exit()
     ARG_copy.rule_encoder.ARCHITECT = [9,100,16]
     ARG_copy.data_encoder.ARCHITECT = [9,100,16]
     ARG_copy.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
@@ -611,8 +616,14 @@ class MergeEncoder_Create(BaseModel):
         
         """
         super(MergeEncoder_Create,self).__init__(arg)
-        self.rule_encoder = (rule_encoder)
-        self.data_encoder = (data_encoder)
+        if data_encoder is None:
+            self.data_encoder = DataEncoder_Create(arg.data_encoder)
+        else:
+            self.data_encoder = (data_encoder)
+        if rule_encoder is None:
+            self.rule_encoder = RuleEncoder_Create(arg.rule_encoder)
+        else:
+            self.rule_encoder = (rule_encoder)
 
         
 
