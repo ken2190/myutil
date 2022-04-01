@@ -72,11 +72,7 @@ def test1():
         ARG = Box({
             'DATASET': {},
             'MODEL_INFO' : {},
-            'TRAINING_CONFIG' : {},
         })
-
-
-        
 
         MODEL_ZOO = {
             'dataonly': {'rule': 0.0},
@@ -94,24 +90,25 @@ def test1():
 
 
         ### ARG.DATASET
-        ARG.seed = 42
-        ARG.DATASET.PATH =  './cardio_train.csv'
-        ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
+        # ARG.seed = 42
+        # ARG.DATASET.PATH =  './cardio_train.csv'
+        # ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
 
 
 
         #ARG.TRAINING_CONFIG
-        ARG.TRAINING_CONFIG = Box()
-        ARG.TRAINING_CONFIG.SEED = 42
-        ARG.TRAINING_CONFIG.DEVICE = 'cpu'
-        ARG.TRAINING_CONFIG.BATCH_SIZE = 32
-        ARG.TRAINING_CONFIG.EPOCHS = 1
-        ARG.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
-        ARG.TRAINING_CONFIG.VALID_FREQ = 1
-        ARG.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
-        ARG.TRAINING_CONFIG.TRAIN_RATIO = 0.7
-        ARG.TRAINING_CONFIG.VAL_RATIO = 0.2
-        ARG.TRAINING_CONFIG.TEST_RATIO = 0.1
+        TRAINING_CONFIG = Box()
+        TRAINING_CONFIG.SEED = 42
+        TRAINING_CONFIG.DEVICE = 'cpu'
+        TRAINING_CONFIG.BATCH_SIZE = 32
+        TRAINING_CONFIG.EPOCHS = 1
+        TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
+        TRAINING_CONFIG.VALID_FREQ = 1
+        TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
+        TRAINING_CONFIG.TRAIN_RATIO = 0.7
+        TRAINING_CONFIG.VAL_RATIO = 0.2
+        TRAINING_CONFIG.TEST_RATIO = 0.1
+        TRAINING_CONFIG.EPOCHS = 2
 
         ### ARG.MODEL_INFO
 
@@ -159,17 +156,20 @@ def test1():
             16
         ]
 
-        ARG.merge_encoder = Box()
-        ARG.merge_encoder.NAME = ''
-        ARG.merge_encoder.SKIP = False
-        ARG.merge_encoder.MERGE = 'cat'
-        ARG.merge_encoder.ARCHITECT = {
+        ARG.merge_model = Box()
+        ARG.merge_model.NAME = ''
+        ARG.merge_model.seed = 42
+        ARG.merge_model.SKIP = False
+        ARG.merge_model.MERGE = 'cat'
+        ARG.merge_model.ARCHITECT = {
             'decoder': [
             32,  
             100,
             1
         ]
         }
+        ARG.merge_model.TRAINING_CONFIG = Box()
+        ARG.merge_model.TRAINING_CONFIG = TRAINING_CONFIG
 
     """
     load and process data from default dataset
@@ -196,7 +196,7 @@ def test1():
     ARG_copy = deepcopy(ARG)
     ARG_copy.rule_encoder.ARCHITECT = [9,100,16]
     ARG_copy.data_encoder.ARCHITECT = [9,100,16]
-    ARG_copy.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
+    ARG_copy.merge_model.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
     load_DataFrame = RuleEncoder_Create.load_DataFrame   
     prepro_dataset = RuleEncoder_Create.prepro_dataset
     model = MergeEncoder_Create(ARG_copy)
@@ -229,7 +229,6 @@ def test2_new():
     ARG = Box({
         'DATASET': {},
         'MODEL_INFO' : {},
-        'TRAINING_CONFIG' : {},
     })
 
 
@@ -254,9 +253,9 @@ def test2_new():
 
 
         ### ARG.DATASET
-        ARG.seed = 42
-        ARG.DATASET.PATH =  './cardio_train.csv'
-        ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
+        # ARG.seed = 42
+        # ARG.DATASET.PATH =  './cardio_train.csv'
+        # ARG.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
 
 
         ### ARG.MODEL_INFO
@@ -264,21 +263,22 @@ def test2_new():
         PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
 
 
-        #ARG.TRAINING_CONFIG
-        ARG.TRAINING_CONFIG = Box()
-        ARG.TRAINING_CONFIG.LR = PARAMS.get('lr',None)
-        ARG.TRAINING_CONFIG.SEED = 42
-        ARG.TRAINING_CONFIG.DEVICE = 'cpu'
-        ARG.TRAINING_CONFIG.BATCH_SIZE = 32
-        ARG.TRAINING_CONFIG.EPOCHS = 1
-        ARG.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
-        ARG.TRAINING_CONFIG.VALID_FREQ = 1
-        ARG.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
-        ARG.TRAINING_CONFIG.TRAIN_RATIO = 0.7
-        ARG.TRAINING_CONFIG.VAL_RATIO = 0.2
-        ARG.TRAINING_CONFIG.TEST_RATIO = 0.1
+        #TRAINING_CONFIG
+        TRAINING_CONFIG = Box()
+        TRAINING_CONFIG.LR = PARAMS.get('lr',None)
+        TRAINING_CONFIG.SEED = 42
+        TRAINING_CONFIG.DEVICE = 'cpu'
+        TRAINING_CONFIG.BATCH_SIZE = 32
+        TRAINING_CONFIG.EPOCHS = 1
+        TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
+        TRAINING_CONFIG.VALID_FREQ = 1
+        TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
+        TRAINING_CONFIG.TRAIN_RATIO = 0.7
+        TRAINING_CONFIG.VAL_RATIO = 0.2
+        TRAINING_CONFIG.TEST_RATIO = 0.1
+        TRAINING_CONFIG.EPOCHS = 2
 
-
+    
 
     # load_DataFrame = RuleEncoder_Create.load_DataFrame   
     prepro_dataset = RuleEncoder_Create.prepro_dataset
@@ -295,10 +295,10 @@ def test2_new():
     ARG.data_encoder.dataset = Box()
     ARG.data_encoder.dataset.dirin = "/"
     ARG.data_encoder.dataset.colsy =  'solvey'
-    ARG.data_encoder.seed = ARG.seed
+    ARG.data_encoder.seed = 42
     ARG.data_encoder.DATASET = Box()
-    ARG.data_encoder.DATASET.PATH = ARG.DATASET.PATH
-    ARG.data_encoder.DATASET.URL = ARG.DATASET.URL
+    ARG.data_encoder.DATASET.PATH = './cardio_train.csv'
+    ARG.data_encoder.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
 
     data_encoder = DataEncoder_Create(ARG.data_encoder)
 
@@ -333,24 +333,26 @@ def test2_new():
     ARG.rule_encoder.SRC_UNOK_RATIO = 0.7
     ARG.rule_encoder.TARGET_RULE_RATIO = 0.7
     ARG.rule_encoder.ARCHITECT = [9,100,16]
-    ARG.rule_encoder.seed = ARG.seed
+    ARG.rule_encoder.seed = 42
     rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
 
     
 
 
 
-    ### merge_encoder  #################################
-    ARG.merge_encoder = Box()
-    ARG.merge_encoder.NAME = ''
-    ARG.merge_encoder.SKIP = False
-    ARG.merge_encoder.MERGE = 'cat'
-    ARG.merge_encoder.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
+    ### merge_model  #################################
+    ARG.merge_model = Box()
+    ARG.merge_model.NAME = ''
+    ARG.merge_model.seed = 42
+    ARG.merge_model.SKIP = False
+    ARG.merge_model.MERGE = 'cat'
+    ARG.merge_model.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
 
-    ARG.merge_encoder.dataset = Box()
-    ARG.merge_encoder.dataset.dirin = "/"
-    ARG.merge_encoder.dataset.colsy =  'solvey'
-
+    ARG.merge_model.dataset = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.colsy =  'solvey'
+    ARG.merge_model.TRAINING_CONFIG = Box()
+    ARG.merge_model.TRAINING_CONFIG = TRAINING_CONFIG
     model = MergeEncoder_Create(ARG, rule_encoder=rule_encoder, data_encoder=data_encoder)
 
 
@@ -384,9 +386,14 @@ def dataset_load() -> pd.DataFrame:
 
 
 def dataset_load_prepro(arg):
-    train_ratio = arg.TRAINING_CONFIG.TRAIN_RATIO
-    test_ratio = self.arg.TRAINING_CONFIG.TEST_RATIO
-    val_ratio =   self.arg.TRAINING_CONFIG.TEST_RATIO
+    if hasattr(self.arg,'training_config'):
+        train_ratio = self.arg.TRAINING_CONFIG.TRAIN_RATIO
+        test_ratio = self.arg.TRAINING_CONFIG.TEST_RATIO
+        val_ratio =   self.arg.TRAINING_CONFIG.TEST_RATIO
+    else: 
+        train_ratio = self.arg.merge_model.TRAINING_CONFIG.TRAIN_RATIO
+        test_ratio = self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+        val_ratio =   self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
 
 
     ##########################################################
@@ -409,8 +416,8 @@ def dataset_load_prepro(arg):
     y = np.array([  1 if yi >0.5 else 0 for yi in y])
 
     seed= 42
-    train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
-    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+    train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
+    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
     return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
 
 
@@ -496,7 +503,7 @@ class BaseModel(object):
 
     def device_setup(self,arg):
         device = getattr(arg,'device','cpu')
-        seed   = arg.seed
+        seed   = arg.seed if hasattr(arg,'seed') else 42
         random.seed(seed)
         np.random.seed(seed)
         torch.manual_seed(seed)
@@ -605,10 +612,10 @@ class MergeEncoder_Create(BaseModel):
     def create_model(self,):
         super(MergeEncoder_Create,self).create_model()
         # merge = self.arg.merge
-        merge = getattr(self.arg.merge_encoder,'MERGE','add')
-        skip = getattr(self.arg.merge_encoder,'SKIP',False)
+        merge = getattr(self.arg.merge_model,'MERGE','add')
+        skip = getattr(self.arg.merge_model,'SKIP',False)
         
-        dims = self.arg.merge_encoder.ARCHITECT.decoder
+        dims = self.arg.merge_model.ARCHITECT.decoder
         class Modelmerge(torch.nn.Module):
             def __init__(self,rule_encoder,data_encoder,dims,merge,skip):
                 super(Modelmerge, self).__init__()
@@ -794,8 +801,16 @@ class MergeEncoder_Create(BaseModel):
 
         ##### Split   #########################################################################
         seed= 42
-        train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+        if hasattr(self.arg,'training_config'):
+            train_ratio = self.arg.TRAINING_CONFIG.TRAIN_RATIO
+            test_ratio = self.arg.TRAINING_CONFIG.TEST_RATIO
+            val_ratio =   self.arg.TRAINING_CONFIG.TEST_RATIO
+        else: 
+            train_ratio = self.arg.merge_model.TRAINING_CONFIG.TRAIN_RATIO
+            test_ratio = self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+            val_ratio =   self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+        train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
         
 
@@ -812,15 +827,19 @@ class MergeEncoder_Create(BaseModel):
            train_X, train_y, valid_X,  valid_y, test_X,  test_y = prepro_dataset(self,df)
         else:
             train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
+        if hasattr(self.arg,'TRINING_CONFIG'):
+            batch_size = self.arg.TRAINING_CONFIG.BATCH_SIZE
+        else:
+            batch_size = self.arg.merge_model.TRAINING_CONFIG.BATCH_SIZE
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
                                                                     valid_X,  valid_y,
                                                                     test_X,  test_y,
                                                                     device=self.device,
-                                                                    # batch_size=self.arg.TRAINING_CONFIG.BATCH_SIZE
-                                                                    batch_size=2)
-
-        EPOCHS = self.arg.TRAINING_CONFIG.EPOCHS
-        
+                                                                    batch_size=batch_size)
+        if hasattr(self.arg,'TRAINING_CONFIG'):
+            EPOCHS = self.arg.TRAINING_CONFIG.EPOCHS
+        else:
+            EPOCHS = self.arg.merge_model.TRAINING_CONFIG.EPOCHS
         n_train = len(train_loader)
         n_val = len(valid_loader)
         
@@ -855,9 +874,12 @@ class MergeEncoder_Create(BaseModel):
                     
                     loss_val += loss * inputs.size(0)
             loss_val /= len(valid_loader.dataset) # mean on dataset
-
+            if hasattr(self.arg,'TRAINING_CONFIG'):
+                path_save = self.arg.TRAINING_CONFIG.SAVE_FILENAME
+            else:
+                path_save = self.arg.merge_model.TRAINING_CONFIG.SAVE_FILENAME
             self.save_weight(
-                path = self.arg.TRAINING_CONFIG.SAVE_FILENAME,
+                path = path_save,
                 meta_data = {
                     'epoch' : epoch,
                     'loss_train': loss_train,
@@ -966,10 +988,17 @@ class RuleEncoder_Create(BaseModel):
 
         ### Binarize
         y = np.array([  1 if yi >0.5 else 0 for yi in y])
-
+        if hasattr(self.arg,'training_config'):
+            train_ratio = self.arg.TRAINING_CONFIG.TRAIN_RATIO
+            test_ratio = self.arg.TRAINING_CONFIG.TEST_RATIO
+            val_ratio =   self.arg.TRAINING_CONFIG.TEST_RATIO
+        else: 
+            train_ratio = self.arg.merge_model.TRAINING_CONFIG.TRAIN_RATIO
+            test_ratio = self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+            val_ratio =   self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
         seed= 42
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - self.arg.TRAINING_CONFIG.TRAIN_RATIO, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= self.arg.TRAINING_CONFIG.TEST_RATIO / (self.arg.TRAINING_CONFIG.TEST_RATIO + self.arg.TRAINING_CONFIG.VAL_RATIO), random_state=seed)
+        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
         return (np.float32(train_X), np.float32(train_y), np.float32(valid_X), np.float32(valid_y), np.float32(test_X), np.float32(test_y) )
 
 
