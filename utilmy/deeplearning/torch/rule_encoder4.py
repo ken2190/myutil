@@ -637,10 +637,16 @@ class MergeEncoder_Create(BaseModel):
         class Modelmerge(torch.nn.Module):
             def __init__(self,rule_encoder,data_encoder,dims,merge,skip):
                 super(Modelmerge, self).__init__()
+
+                #### rule encoder
                 self.rule_encoder_net = copy.copy(rule_encoder.net)
-                self.data_encoder_net = copy.copy(data_encoder.net)
                 self.rule_encoder_net.load_state_dict(rule_encoder.net.state_dict())
+
+                ###3 data encoder
+                self.data_encoder_net = copy.copy(data_encoder.net)
                 self.data_encoder_net.load_state_dict(data_encoder.net.state_dict())
+
+                ##### Merge
                 self.merge = merge
                 self.skip = skip
                 self.input_type = 'seq'
