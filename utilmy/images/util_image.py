@@ -68,6 +68,13 @@ def test2():
     img_list = image_prep(flist[0], xdim=30, ydim=30, mean=0.5, std=0.5,verbose=True )
     log('\n\nimage_prep', str(img_list)[:100])
 
+       
+    img_list = image_prep_many(flist[:3], image_prep_fun= image_prep,  xdim=30, ydim=30, mean=0.5, std=0.5,)
+    log('\n\nimage_pre_many', str(img_list)[:100])
+
+
+    image_prep_multiproc(dirimage_list=flist[:5], image_prep_fun= image_prep,  npool=2,)
+    log('\n\nimage_prep_multiproc',)
 
 
 
@@ -213,7 +220,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
 
     log("#### Load and Covnert  ##########################################################")
     log('Size Before', len(image_list))
-    images, labels = image_prep_multiproc(image_list, prepro_image_fun= prepro_image2b, npool=32 )
+    images, labels = image_prep_multiproc(image_list, image_prep_fun= prepro_image2b, npool=32 )
 
 
     log(str(images)[:500],  str(labels)[:500],  )
@@ -507,7 +514,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_prep_multiproc(image_list, prepro_image_fun=prepro_image3b)
+    images, labels = image_prep_multiproc(image_list, image_prep_fun=prepro_image3b)
     os_path_check(dirout, n=5)
 
 
@@ -532,13 +539,13 @@ def image_prep_many(image_paths:Sequence[str], image_prep_fun,
     return images
 
 
-def image_prep_multiproc(dirin_image:list, prepro_image_fun=None, npool=1):
+def image_prep_multiproc(dirimage_list:list, image_prep_fun=None, npool=1):
     """ Parallel processing for image preparation
     """
     from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
 
     pool = Pool(npool)
-    res  = pool.map(prepro_image_fun, dirin_image)
+    res  = pool.map(image_prep_fun, dirimage_list)
     pool.close() ;     pool.join()  ; pool = None
 
     print('len res', len(res))
