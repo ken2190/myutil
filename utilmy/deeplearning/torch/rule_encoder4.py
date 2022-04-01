@@ -188,33 +188,12 @@ def test1():
     """
 
 
-    # ARG = Box({
-    #         'MODELA': {},
-    #         'MODELB': {},
-    #         'MODEL_MERGE': {},
-
-    #     })
-    ARG.MODEL_A = Box()
-    ARG.MODEL_A.TRAINING_CONFIG = Box()
-    ARG.MODEL_A.TRAINING_CONFIG.SEED = 42
-    ARG.MODEL_A.TRAINING_CONFIG.DEVICE = 'cpu'
-    ARG.MODEL_A.TRAINING_CONFIG.BATCH_SIZE = 32
-    ARG.MODEL_A.TRAINING_CONFIG.EPOCHS = 1
-    ARG.MODEL_A.TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
-    ARG.MODEL_A.TRAINING_CONFIG.VALID_FREQ = 1
-    ARG.MODEL_A.TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
-    ARG.MODEL_A.TRAINING_CONFIG.TRAIN_RATIO = 0.7
-    ARG.MODEL_A.TRAINING_CONFIG.VAL_RATIO = 0.2
-    ARG.MODEL_A.TRAINING_CONFIG.TEST_RATIO = 0.1
-
     
 
 
 
 
     ARG_copy = deepcopy(ARG)
-    # print(ARG_copy)
-    # exit()
     ARG_copy.rule_encoder.ARCHITECT = [9,100,16]
     ARG_copy.data_encoder.ARCHITECT = [9,100,16]
     ARG_copy.TRAINING_CONFIG.SAVE_FILENAME = './model_x9.pt'
@@ -355,9 +334,6 @@ def test2_new():
     ARG.rule_encoder.TARGET_RULE_RATIO = 0.7
     ARG.rule_encoder.ARCHITECT = [9,100,16]
     ARG.rule_encoder.seed = ARG.seed
-    ARG.rule_encoder.DATASET = Box()
-    ARG.rule_encoder.DATASET.PATH = ARG.DATASET.PATH
-    ARG.rule_encoder.DATASET.URL = ARG.DATASET.URL
     rule_encoder = RuleEncoder_Create(ARG.rule_encoder )
 
     
@@ -374,7 +350,6 @@ def test2_new():
     ARG.merge_encoder.dataset = Box()
     ARG.merge_encoder.dataset.dirin = "/"
     ARG.merge_encoder.dataset.colsy =  'solvey'
-    
 
     model = MergeEncoder_Create(ARG, rule_encoder=rule_encoder, data_encoder=data_encoder)
 
@@ -542,14 +517,14 @@ class BaseModel(object):
             log(f"reading csv from {path}")
             self.df = pd.read_csv(path,delimiter=';')
             return self.df
-        if os.path.isfile(self.arg.DATASET.PATH):
-            log(f"reading csv from arg.DATASET.PATH :{self.arg.DATASET.PATH}")
-            self.df = pd.read_csv(self.arg.DATASET.PATH,delimiter=';')
+        if os.path.isfile(self.arg.dataset.path):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.dataset.path}")
+            self.df = pd.read_csv(self.arg.dataset.path,delimiter=';')
             return self.df
         else:
             import requests
             import io
-            r = requests.get(self.arg.DATASET.URL)
+            r = requests.get(self.arg.dataset.url)
             log(f"Reading csv from arg.DATASET.URL")
             if r.status_code ==200:
                 self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
@@ -684,20 +659,6 @@ class MergeEncoder_Create(BaseModel):
                 else:
                     return self.net(z)    # predict absolute values
         return Modelmerge(self.rule_encoder,self.data_encoder,dims,merge,skip)
-
-    def get_net(model_A) -> torch.nn.Module:
-        return model_A.net #return architect of Model
-    
-    def inference_model(model_A,x):
-        return model_A(x)
-    
-    
-
-    # def train(self):
-    #     self.is_train =True
-    #     self.net.data_encoder.train()
-    #     self.net.rule_encoder.train()
-    #     self.net.train()
 
     def build(self):
         # super(MergeEncoder_Create,self).build()
