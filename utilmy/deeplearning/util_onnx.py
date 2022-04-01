@@ -24,16 +24,17 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
+from utilmy import log, log2
+
 try :
     import onnxruntime
     import torch.utils.model_zoo as model_zoo
     import torch.onnx
     import onnx
 except:
-    log("pip install onnxruntime onnx") ; 1/0 
+    log("pip install onnxruntime onnx")
 
 #############################################################################################
-from utilmy import log, log2
 
 
 def help():
@@ -356,7 +357,7 @@ def test3():
 
 
 def test4():
-    dirmtp = "ztmp/"
+    dirtmp = "ztmp/"
 
     dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
     dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
@@ -422,19 +423,20 @@ def test_create_model_pytorch(dirsave=None, model_name=""):
 ########################################################################################################
 ############## Core Code ###############################################################################
 def onnx_convert(
-    model_path:str, 
-    dirout:str, 
-    input_shape:tuple,
-    onnx_version:int=10, 
-    do_constant_folding:bool=True, 
+    model_path, 
+    dirout, 
+    input_shape,
+    export_params=True,
+    onnx_version=10, 
+    do_constant_folding=True, 
     input_names=['input'], 
     output_names=['output'], 
     dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}):
     """Core function to convert a pytorch model to onnx
 
     Args:
-        model (str:str): model to be converted
-        dirout:str (str): directory to save the onnx model
+        model (str): model to be converted
+        dirout (str): directory to save the onnx model
         input_shape (tuple): input shape to run model to export onnx model.
         onnx_version (int, optional): onnx version to convert the model. Defaults to 10.
         do_constant_folding (bool, optional): whether to execute constant folding for optimization. Defaults to True.
@@ -442,8 +444,8 @@ def onnx_convert(
         output_names (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
     """
-    filename = '.'.join(os.path.basena:strme(model_path).split('.')[:-1])
-    out_path = os.path.join(dirout:str, filename + '.onnx')
+    filename = '.'.join(os.path.basename(model_path).split('.')[:-1])
+    out_path = os.path.join(dirout, filename + '.onnx')
     os.makedirs(dirout, exist_ok=True)
 
     model = torch.load(model_path)
@@ -543,8 +545,6 @@ if 'utils':
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-
-
     def load_function_uri(uri_name="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One
@@ -556,24 +556,26 @@ if 'utils':
         from pathlib import Path
         pkg = uri_name.split(":")
 
-        assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+        assert len(pkg) > 1, "Invalid uri_name, should be 'module_name:function_or_class'"
         package, name = pkg[0], pkg[1]
         
         try:
-            #### Import from package mlmodels sub-folder
+            # Import from package mlmodels sub-folder
             return  getattr(importlib.import_module(package), name)
 
         except Exception as e1:
             try:
-                ### Add Folder to Path and Load absoluate path module
+                # Add Folder to Path and Load absoluate path module
                 path_parent = str(Path(package).parent.parent.absolute())
                 sys.path.append(path_parent)
-                #log(path_parent)
 
-                #### import Absolute Path model_tf.1_lstm
-                model_name   = Path(package).stem  # remove .py
-                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
-                #log(package_name, model_name)
+                model_name = package.split('.py')[0]  # remove .py
+
+                if len(Path(package).parts) >= 2:
+                    package_name = str(Path(package).parts[-2]) + "." + model_name
+                else:
+                    package_name = model_name
+
                 return  getattr(importlib.import_module(package_name), name)
 
             except Exception as e2:

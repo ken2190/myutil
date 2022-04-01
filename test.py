@@ -178,13 +178,13 @@ def test_deeplearning_keras():
 
 #########################################################################################
 def test_deeplearning_torch():
-    from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
+    from utilmy.deeplearning.ttorch import  rule_encoder as m ;  m.test_all()
     # from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
 
 
 
 def test_deeplearning_torch_onnx():
-    from utilmy.deeplearning.torch import  util_onnx as m ;  m.test_all()
+    from utilmy.deeplearning.ttorch import  util_onnx as m ;  m.test_all()
 
 
 
