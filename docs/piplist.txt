@@ -11,7 +11,7 @@ cachetools==4.2.4
 certifi==2021.10.8
 charset-normalizer==2.0.12
 cheap-repr==0.5.1
-click==8.1.0
+click==8.1.2
 click-plugins==1.1.1
 cligj==0.7.2
 cloudpickle==2.0.0
@@ -75,7 +75,7 @@ networkx==2.6.3
 nltk==3.6.3
 numpy==1.18.5
 oauthlib==3.2.0
-opencv-python==4.5.5.64
+opencv-python-headless==4.5.5.64
 opt-einsum==3.3.0
 packaging==21.3
 pandas==1.2.1
@@ -87,7 +87,7 @@ phik==0.12.2
 pickleshare==0.7.5
 Pillow==9.0.1
 pmlb==1.0.1.post3
-polars==0.13.15
+polars==0.13.16
 pretty-html-table==0.9.15
 prompt-toolkit==3.0.28
 protobuf==3.19.4
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.1
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@392607d9e96ecea45a702e698d393ce586083625#egg=utilmy
+-e git+https://github.com/arita37/myutil@33c3554dd61ec49a2d412dfd252928284edda2fc#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.1.0
