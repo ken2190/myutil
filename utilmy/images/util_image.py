@@ -121,7 +121,7 @@ def test_diskcache():
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
             with  tempfile.TemporaryDirectory() as dircheck:
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
-                diskcache_image_check(
+                diskcache_image_dumpsample(
                     db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
                     dirout = dircheck,
                     tag = tag)
@@ -134,15 +134,10 @@ def test_diskcache():
 
 
 
-################################################################################################
-
-
 #################################################################################################
 #### images storage ###############################################################################
-#TODO dirin,dirout as paths
-#TODO typehints
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:Path_type="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -218,7 +213,7 @@ def diskcache_image_createcache(dirin:str="", dirout:str="", xdim0=256, ydim0=25
 
     log("#### Load and Covnert  ##########################################################")
     log('Size Before', len(image_list))
-    images, labels = image_preps_mp(image_list, prepro_image_fun= prepro_image2b, npool=32 )
+    images, labels = image_prep_multiproc(image_list, prepro_image_fun= prepro_image2b, npool=32 )
 
 
     log(str(images)[:500],  str(labels)[:500],  )
@@ -251,9 +246,30 @@ def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     log('Nimages', len(cache) )
     return cache
 
-#TODO: type hints for path
-def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="cache1"):
-    """function image_cache_check
+
+def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
+    """function image_cache_save
+    Args:
+        dirin_image ( str ) :
+        db_dir ( str ) :
+        tag:
+    Returns:
+
+    """
+    ##### Write some sample images  from cache #############################
+    import diskcache as dc
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+
+
+    log('### Check writing on disk  ###########################')
+    for img_path in dirin_image:
+        img = image_read(img_path)
+        cache[img_path] = img
+
+
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:str="tmp/", tag="cache1"):
+    """  dump some sample of diskcache images on disk 
     Args:
         db_dir ( str ) :
         dirout ( str ) :
@@ -278,38 +294,13 @@ def diskcache_image_check(db_dir:str="db_images.cache", dirout:str="tmp/", tag="
     log( dir_check )
 
 
-def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
-    """function image_cache_save
-    Args:
-        dirin_image ( str ) :
-        db_dir ( str ) :
-        tag:
-    Returns:
-
-    """
-    ##### Write some sample images  from cache #############################
-    import diskcache as dc
-    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
-    log('Nimages', len(cache) )
-
-
-    log('### Check writing on disk  ###########################')
-    for img_path in dirin_image:
-        img = image_read(img_path)
-        cache[img_path] = img
-
-#TODO: this is the same as `diskcache_image_check`
-# consider removing? ( or different purpose in mind?)
-def diskcache_image_getsample(db_dir :Path_type, dirout:Path_type):
-    """function image_save
-    Args:
-    Returns:
-
+def diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list):
+    """ dump some sample of diskcache images on disk 
     """
     # db_dir = "_70k_clean_nobg_256_256-100000.cache"
     import diskcache as dc
     cache   = dc.Cache(db_dir)
-    print('Nimages', len(cache) )
+    log('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
     dir_check = dirout
@@ -323,52 +314,7 @@ def diskcache_image_getsample(db_dir :Path_type, dirout:Path_type):
     log( dir_check )
 
 
-
-def diskcache_image_check2():
-    """     python prepro.py  image_check
-
-          image white color padded
-
-    """
-    # print( 'nf files', len(glob.glob("/data/workspaces/noelkevin01/img/data/fashion/train_nobg_256/*")) )
-    nmax = 100000
-    global xdim, ydim
-    xdim = 64
-    ydim = 64
-
-    log("### Load  ##################################################")
-    # fname    = f"/img_all{tag}.cache"
-    # fname    = f"/img_fashiondata_64_64-100000.cache"
-    # fname = "img_train_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-    fname = "img_train_a_40k_nobg_256_256-100000.cache"
-
-    log('loading', fname)
-
-    import diskcache as dc
-    db_dir = data_train + fname
-    cache = dc.Cache(db_dir)
-
-    lkey = list(cache)
-    print('Nimages', len(lkey))
-
-    ### key check:
-    # df = pd_read_file("/data/workspaces/noelkevin01/img/data/fashion/csv/styles_df.csv" )
-    # idlist = df['id']
-
-    log('### writing on disk  ######################################')
-    dir_check = data_train + "/zcheck/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache):
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        print(key)
-        key2 = key.split("/")[-1]
-        cv2.imwrite(dir_check + f"/{key2}", img)
-
-
-def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
+def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
     """function image_check_npz
     Args:
         path_npz:
@@ -491,7 +437,7 @@ def image_create_fake(
     return img_list
 
 
-def image_create_fake2(dirin:str=None):
+def image_create_fake2(dirin:Path_type=None):
     """ Fake images on disk /0/ img
 
     """
@@ -515,73 +461,18 @@ def image_create_fake2(dirin:str=None):
             # break
 
 
+
+
+
 #################################################################################################
-#### Transform in batches #######################################################################
-#TODO: does this already exist in the multiprocessing module,
-def run_multiprocess(myfun, list_args, npool=10, **kwargs):
-    """
-       res = run_multiprocess(prepro, image_paths, npool=10, )
-    """
-    from functools import partial
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-    pool = Pool(npool)
-    res  = pool.map( partial(myfun, **kwargs), list_args)
-    pool.close()
-    pool.join()
-    return res
-
-
-def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
-    xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
-    """ run image_prep on multiple images
-    """
-    #TODO: add tqdm for running metrics
-
-    images = []
-    for i in range(len(image_paths)):
-        if i > nmax : break
-        image =  image_prep(image_paths[i],
-        xdim =xdim, ydim =ydim,
-        mean  = mean,std  = std )
-        images.append(image)
-    return images
-
-
-#TODO is this redundant to `run_multiprocess`
-def image_preps_mp(dirin_image:list, prepro_image_fun=None, npool=1):
-    """ Parallel processing
-    """
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-
-    pool = Pool(npool)
-    res  = pool.map(prepro_image_fun, dirin_image)
-    pool.close() ;     pool.join()  ; pool = None
-
-    print('len res', len(res))
-    images, labels = [], []
-    for (x,y) in res :
-        if len(y)> 0 and len(x)> 0 :
-            images.append(x)
-            labels.append(y)
-
-    print('len images', len(images))
-    print(str(labels)[:60])
-    return images, labels
-
-
-#TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(dirin:str="", dirout :str =""):
-    """     python prepro.py  image_resize
-
-          image white color padded
-
+#### Transform custom ###########################################################################
+def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
+    """   image white color padded
     """
     import cv2, gc, diskcache
 
     in_dir = dirin
-    # dirout = dirout
-
+  
     nmax = 500000000
     global xdim, ydim
     xdim = 256
@@ -589,7 +480,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     padcolor = 0  ## 0 : black
 
     os.makedirs(dirout, exist_ok=True)
-    log('target folder', dirout);
+    log('target folder', dirout)
     time.sleep(5)
 
     def prepro_image3b(img_path):
@@ -616,8 +507,51 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image_fun=prepro_image3b)
+    images, labels = image_prep_multiproc(image_list, prepro_image_fun=prepro_image3b)
     os_path_check(dirout, n=5)
+
+
+
+
+
+
+
+#################################################################################################
+#### Transform in batches #######################################################################
+def image_prep_many(image_paths:Sequence[str], image_prep_fun,
+    nmax:int=10000000,
+    xdim :int=1, ydim :int=1, mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
+    """ run image_prep_fun on multiple images
+
+    """
+    images = []
+    for i in range(len(image_paths)):
+        if i > nmax : break
+        image =  image_prep_fun(image_paths[i],  xdim =xdim, ydim =ydim, mean  = mean,std  = std )
+        images.append(image)
+    return images
+
+
+def image_prep_multiproc(dirin_image:list, prepro_image_fun=None, npool=1):
+    """ Parallel processing for image preparation
+    """
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+
+    pool = Pool(npool)
+    res  = pool.map(prepro_image_fun, dirin_image)
+    pool.close() ;     pool.join()  ; pool = None
+
+    print('len res', len(res))
+    images, labels = [], []
+    for (x,y) in res :
+        if len(y)> 0 and len(x)> 0 :
+            images.append(x)
+            labels.append(y)
+
+    print('len images', len(images))
+    print(str(labels)[:60])
+    return images, labels
+
 
 
 
@@ -648,6 +582,25 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
     except Exception as e :
         if verbose: log(e)
         return [], ""
+
+
+def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
+    """Returns center cropped image
+    Args:
+    img: image to be center cropped
+    dim: dimensions (width, height) to be cropped
+    Returns:
+    crop_img: center cropped image
+    """
+    width, height = img.shape[1], img.shape[0]
+
+    # process crop width and height for max available dimension
+    crop_width = dim[0] if dim[0]<img.shape[1] else img.shape[1]
+    crop_height = dim[1] if dim[1]<img.shape[0] else img.shape[0]
+    mid_x, mid_y = int(width/2), int(height/2)
+    cw2, ch2 = int(crop_width/2), int(crop_height/2)
+    crop_img = img[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
+    return crop_img
 
 
 def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
@@ -683,26 +636,6 @@ def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_n
 
     # Return the resized image
     return cv2.resize(image, dim, interpolation=inter)
-
-
-############################################################################
-def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
-    """Returns center cropped image
-    Args:
-    img: image to be center cropped
-    dim: dimensions (width, height) to be cropped
-    Returns:
-    crop_img: center cropped image
-    """
-    width, height = img.shape[1], img.shape[0]
-
-    # process crop width and height for max available dimension
-    crop_width = dim[0] if dim[0]<img.shape[1] else img.shape[1]
-    crop_height = dim[1] if dim[1]<img.shape[0] else img.shape[0]
-    mid_x, mid_y = int(width/2), int(height/2)
-    cw2, ch2 = int(crop_width/2), int(crop_height/2)
-    crop_img = img[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
-    return crop_img
 
 
 def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none = None, inter=cv2.INTER_AREA):
@@ -1066,7 +999,6 @@ def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npa
 
 ##############################################################################################
 if 'utils':
-    #TODO: should be moved to another package?
     def os_path_check(path, n=5):
         """function os_path_check
         Args:
@@ -1078,6 +1010,19 @@ if 'utils':
         from utilmy import os_system
         print('top files', os_system( f"ls -U   '{path}' | head -{n}") )
         print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
+
+
+    def run_multiprocess(myfun, list_args, npool=10, **kwargs):
+        """ Run multiprocessing for myfun
+        res = run_multiprocess(prepro, image_paths, npool=10, )
+        """
+        from functools import partial
+        from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+        pool = Pool(npool)
+        res  = pool.map( partial(myfun, **kwargs), list_args)
+        pool.close()
+        pool.join()
+        return res
 
 
 
