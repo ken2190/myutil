@@ -300,7 +300,7 @@ def diskcache_image_save(dirin_image:str="myimages/", db_dir:str="tmp/", tag="ca
 
 #TODO: this is the same as `diskcache_image_check`
 # consider removing? ( or different purpose in mind?)
-def diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike]):
+def diskcache_image_getsample(db_dir :Path_type, dirout:Path_type):
     """function image_save
     Args:
     Returns:
@@ -650,7 +650,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         return [], ""
 
 
-def image_resize_ratio(image : npArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
+def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
         image:
@@ -705,7 +705,7 @@ def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
     return crop_img
 
 
-def image_resize(image : npArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
+def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none = None, inter=cv2.INTER_AREA):
     """Resizes a image and maintains aspect ratio.
     inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
     """
@@ -732,7 +732,7 @@ def image_resize(image : npArrayLike , width :Union[None,int] =None, height :Uni
     return cv2.resize(image, dim, interpolation=inter)
 
 
-def image_resize_pad(img :npArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
+def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None), padColor=0, pad :bool =True ):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
 
@@ -855,7 +855,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
     return crop
 
 
-def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", level:int=1):
+def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
     """ #### remove background
 
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
@@ -885,8 +885,8 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, 
             except : pass
 
 
-def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
-                     dirout:Union[str, bytes, os.PathLike]=f"", npool=30):
+def image_face_blank(in_dir:Path_type="", level = "/*",
+                     dirout:Path_type=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
@@ -934,7 +934,7 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
     pool.join()
 
 
-def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,bytes,os.PathLike], level="*"):
+def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
     """
         Not working well
         python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
