@@ -895,6 +895,25 @@ test_all()
 
 
 
+utilmy/docs/format2.py
+-------------------------functions----------------------
+extrac_block(lines)
+format_file(file_path)
+format_file2(file_path, output_file)
+format_file3(file_path, output_file)
+format_utilmy(nfile = 10)
+get_file(file_path)
+log(*s)
+normalize_core(lines)
+normalize_footer(lines)
+normalize_header(file_name, lines)
+normalize_import(lines)
+normalize_logger(lines)
+normalize_test(lines)
+test1()
+
+
+
 utilmy/docs/generate_doc.py
 -------------------------functions----------------------
 markdown_create_file(list_info, prefix = '')
@@ -917,6 +936,66 @@ os_path_norm(diroot)
 run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
 run_utilmy(nfile = 10000)
 run_utilmy_overwrite(nfile = 100000)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_core.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_header.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_help.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_logger.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_normalize_import.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
 test1()
 test2()
 test_all()
@@ -1105,7 +1184,7 @@ load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, istrai
 load_evaluator(path_or_df:Union[pd.DataFrame, str] = "", dname = 'sts', cc:dict = None)
 load_loss(model  = '', lossname  = 'cosine', cc:dict =  None)
 model_check_cos_sim(model  =  "model name or path or object", sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
-model_encode(model  =  "model name or path or object", dirdata:str = "data/*.parquet", coltext:str = 'sentence1', dirout:str = "embs/myfile.parquet", **kw)
+model_encode(model  =  "model name or path or object", dirdata:Union[str, pd.DataFrame] = "data/*.parquet", coltext:str = 'sentence1', dirout:str = "embs/myfile.parquet", **kw)
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_load(path_or_name_or_object)
 model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
