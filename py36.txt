@@ -38,7 +38,8 @@ psutil
 
 ########################################################
 #### utilmy.images
-opencv-python
+# opencv-python
+opencv-python-headless 
 scikit-image
 
 
