@@ -137,7 +137,7 @@ def test_diskcache():
 #################################################################################################
 #### images storage ###############################################################################
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:Path_type="", dirout:str="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -268,7 +268,7 @@ def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="
         cache[img_path] = img
 
 
-def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:str="tmp/", tag="cache1"):
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1"):
     """  dump some sample of diskcache images on disk 
     Args:
         db_dir ( str ) :
@@ -976,7 +976,7 @@ def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npa
                     shopname = simpleshop.a.text
                     break
 
-                for review in individual_item.find_all('a',class_='dui-rating-filter'):
+                for review in individual_item.find_all('a',class_='dui-rating-f ilter'):
                     count_review = review.text
 
                 if save == 0:
