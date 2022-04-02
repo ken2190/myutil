@@ -9,12 +9,10 @@ cloudpickle
 ########################################################
 flake8
 
-
 ########################################################
 #### utilmy.ppandas
 pyarrow
-polars 
-
+polars
 
 ########################################################
 #### utilmy.date
@@ -35,13 +33,6 @@ snoop
 #### utilmy.utils
 wget
 psutil
-
-########################################################
-#### utilmy.images
-# opencv-python
-opencv-python-headless 
-scikit-image
-
 
 ########################################################
 #### utilmy.text
@@ -82,7 +73,7 @@ stdlib_list
 
 
 ########################################################
-#### utilmy.db
+#### utilmy.keyvalue
 diskcache
 
 
@@ -121,15 +112,22 @@ mapie  ### Uncertainty est.
 #### utilmy.deeplearning
 faiss-cpu
 tensorflow-cpu==2.2.3
+
+
+
+
+########################################################
+### torch
 -f https://download.pytorch.org/whl/torch_stable.html 
 torch==1.7.0+cpu 
 # torch==1.7.1
 #-f https://download.pytorch.org/whl/torch_stable.html
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
-
-
-
-
+sentence-transformers
+transformers>=4.6.0,<5.0.0
+tokenizers>=0.10.3
+sentencepiece
+huggingface-hub  
 
 
 
