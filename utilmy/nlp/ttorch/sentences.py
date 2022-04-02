@@ -306,7 +306,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         return model
 
 
-def model_check_cos_sim(model = "model name or path or object", sentence1 = "sentence 1" , sentence2 = "sentence 2", ):
+def model_check_cos_sim(model, sentence1 = "sentence 1" , sentence2 = "sentence 2", ):
   """     ### function to compute cosinue similarity      
   """  
   log('model', model)
@@ -409,7 +409,7 @@ def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv'
     log( pd_read_file(dirout +"/*" ))
 
 
-def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None)->SentenceTransformer:
+def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None)->SentenceTransformer: 
     """model_setup_compute _summary_
      # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
     Args:
