@@ -135,9 +135,10 @@ def test1():
     log('\n\n########### model encode')
     df = model_encode( model= model,  dirdata=dirtmp +"/data_fake.parquet",
                            colid=None, coltext='sentence1', batch_size=32, 
+                           dirout=None,
               normalize_embeddings=True  #### sub encode params
               )  
-    log(df.head(3))
+    if df is not None : log(df.head(3))
 
 
 ###################################################################################################################        
@@ -211,6 +212,7 @@ def dataset_download(name='AllNLI.tsv.gz', dirout='/content/sample_data/sent_tan
 
     if os.path.isfile(dirouti):    
         log('Existing', dirouti)
+        return None
 
     os.makedirs(dirout, exist_ok=True)  
     util.http_get(url, dirouti)
@@ -321,7 +323,7 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 
 def model_encode(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
                 coltext:str='sentence1', colid=None,
-                dirout:str="embs/myfile.parquet",   **kw )->Dataframe_str :
+                dirout:str="embs/myfile.parquet", show=1,  **kw )->Dataframe_str :
     """   Sentence encoder  
     sentences        : the sentences to embed
     batch_size       : the batch size used for the computation
@@ -362,6 +364,7 @@ def model_encode(model = "model name or path or object", dirdata:Dataframe_str="
 
     embs_all = pd.DataFrame(embs_all )    
     log(embs_all.shape)
+    if show>0 : log(embs_all)
     if dirout is None :
         return embs_all
     else :
@@ -718,7 +721,7 @@ if 'utils':
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    fire.Fire()
-    ## test1()
+    # fire.Fire()
+    test1()
 
 
