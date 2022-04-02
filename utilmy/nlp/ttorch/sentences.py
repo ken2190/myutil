@@ -248,8 +248,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
     if taskname == 'classifier':
         df = pd_read_file(train_path)
         log(df.columns, df.shape)
-        ### Check colum used
-        assert len(df[cols]) > 1 , "missing columns"
+        assert len(df[cols]) > 1 , "missing columns"          ### Check colum used
 
         log(" metrics_cosine_similarity before training")  
         model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
@@ -276,12 +275,12 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         
         log('########## train')
         model.fit(train_objectives=[(train_dataloader, train_loss)],
-          evaluator = val_evaluator,
-          epochs    = cc.epoch,
+          evaluator        = val_evaluator,
+          epochs           = cc.epoch,
           evaluation_steps = cc.eval_steps,
           warmup_steps     = cc.warmup_steps,
           output_path      = dirout,
-          use_amp= cc.use_amp          #Set to True, if your GPU supports FP16 operations
+          use_amp          = cc.use_amp          #Set to True, if your GPU supports FP16 operations
           )
 
         log("\n******************< Eval similarity > ********************")
@@ -454,6 +453,160 @@ def model_save(model,path:str, reload=True):
         model1 = model_load(path)
         log(model1)
 
+
+
+
+###################################################################################################################  
+######## Custom Task ##############################################################################################
+def model_finetune_classifier(modelname_or_path='distilbert-base-nli-mean-tokens',
+                            taskname="classifier", lossname="cosinus",
+                            datasetname = 'sts',
+                            cols= ['sentence1', 'sentence2', 'label', 'score' ],
+
+                            train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
+
+                            metricname='cosinus',
+                            dirout ="mymodel_save/", nsample=100000,
+                            cc:dict= None):
+    """" Load pre-trained model and fine tune with specific dataset
+         cols= ['sentence1', 'sentence2', 'label', 'score' ],
+         task='classifier',  df[['sentence1', 'sentence2', 'label']]
+
+          # cc.epoch = 3
+          # cc.lr = 1E-5
+          # cc.warmup = 100
+          # cc.n_sample  = 1000
+          # cc.batch_size=16
+          # cc.mode = 'cpu/gpu'
+          # cc.ncpu =5
+          # cc.ngpu= 2
+    """
+    cc = Box(cc)   #### can use cc.epoch   cc.lr
+    cc.modelname   = modelname_or_path
+    cc.nsample     = nsample
+    cc.datasetname = datasetname
+
+    ##### load model form disk or from internet
+    model = model_load(modelname_or_path)
+    log('model loaded:', model)
+    
+    df = pd_read_file(train_path)
+    log(df.columns, df.shape)
+    assert len(df[cols]) > 1 , "missing columns"          ### Check colum used
+
+    log(" metrics_cosine_similarity before training")  
+    model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
+            
+    ##### dataloader train, evaluator
+    if 'data_nclass' not in cc :
+        cc.data_nclass = df['label'].nunique()
+    df = df.iloc[:nsample,:]
+    
+    train_dataloader = load_dataloader(train_path, datasetname, cc=cc, istrain=True)
+    val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
+
+    ##### Task Loss
+    train_loss       = load_loss(model, lossname,  cc= cc)        
+    
+    ##### Configure the training
+    cc.use_amp = cc.get('use_amp', False)
+    cc.warmup_steps = math.ceil(len(train_dataloader) * cc.epoch * 0.1) #10% of train data for warm-up.
+    log("Warmup-steps: {}".format(cc.warmup_steps))
+        
+    model = model_setup_compute(model, use_gpu=cc.get('use_gpu', 0)  , ngpu= cc.get('ngpu', 0) , ncpu= cc.get('ncpu', 1) )
+    
+    
+    log('########## train')
+    model.fit(train_objectives=[(train_dataloader, train_loss)],
+        evaluator        = val_evaluator,
+        epochs           = cc.epoch,
+        evaluation_steps = cc.eval_steps,
+        warmup_steps     = cc.warmup_steps,
+        output_path      = dirout,
+        use_amp          = cc.use_amp          #Set to True, if your GPU supports FP16 operations
+        )
+
+    log("\n******************< Eval similarity > ********************")
+    log(" cosine_similarity after training")
+    model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0],)
+    
+    log("### Save model  ")
+    model_save(model, dirout, reload=False)
+    model = model_load(dirout)
+
+    log('### Show eval metrics')
+    model_evaluate(model, dirdata=eval_path, dirout= dirout +"/eval/")
+    
+    log("\n******************< finish  > ********************")
+    return model
+
+
+
+def model_finetune_qanswer(modelname_or_path='distilbert-base-nli-mean-tokens',
+                            taskname="classifier", lossname="cosinus",
+                            datasetname = 'sts',
+                            cols= ['sentence1', 'sentence2', 'label', 'score' ],
+
+                            train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
+
+                            metricname='cosinus',
+                            dirout ="mymodel_save/", nsample=100000,
+                            cc:dict= None):
+    """" Load pre-trained model and fine tune with specific dataset
+         cols= ['sentence1', 'sentence2', 'label', 'score' ],
+         task='',  df[['sentence1', 'sentence2', 'label']]
+
+    """
+    cc = Box(cc)   #### can use cc.epoch   cc.lr
+    cc.modelname   = modelname_or_path
+    cc.nsample     = nsample
+    cc.datasetname = datasetname
+
+    ##### load model form disk or from internet
+    model = model_load(modelname_or_path)
+    log('model loaded:', model)
+    
+    df = pd_read_file(train_path)
+    log(df.columns, df.shape)
+    assert len(df[cols]) > 1 , "missing columns"          ### Check colum used
+
+    log(" metrics_cosine_similarity before training")  
+    model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
+            
+    ##### dataloader train, evaluator
+    if 'data_nclass' not in cc :
+        cc.data_nclass = df['label'].nunique()
+    df = df.iloc[:nsample,:]
+    
+    train_dataloader = load_dataloader(train_path, datasetname, cc=cc, istrain=True)
+    val_evaluator    = load_evaluator( eval_path,  datasetname, cc=cc)
+
+    ##### Task Loss fro QAnaser
+    #train_loss       = load_loss(model, lossname,  cc= cc)        
+    
+    ##### Configure the training
+    cc.use_amp = cc.get('use_amp', False)
+    cc.warmup_steps = math.ceil(len(train_dataloader) * cc.epoch * 0.1) #10% of train data for warm-up.
+    log("Warmup-steps: {}".format(cc.warmup_steps))
+        
+    model = model_setup_compute(model, use_gpu=cc.get('use_gpu', 0)  , ngpu= cc.get('ngpu', 0) , ncpu= cc.get('ncpu', 1) )
+    
+    
+    log('########## train')
+
+    log("\n******************< Eval similarity > ********************")
+    log(" cosine_similarity after training")
+    model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0],)
+    
+    log("### Save model  ")
+    model_save(model, dirout, reload=False)
+    model = model_load(dirout)
+
+    log('### Show eval metrics')
+    model_evaluate(model, dirdata=eval_path, dirout= dirout +"/eval/")
+    
+    log("\n******************< finish  > ********************")
+    return model
 
 
 
