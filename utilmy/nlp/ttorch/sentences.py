@@ -2,8 +2,7 @@
 MNAME="utilmy.deeplearning.torch.sentences"
 HELP="""sentence_tansformer wrapper
 
-cd deeplearning/torch/
-python sentences.py  test
+python  utilmy/nlp/ttorch/sentences.py  test1
 
 
 Original file is located at
@@ -38,6 +37,8 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+
+from utilmy.utilmy import glob_glob
 try :
     import sentence_transformers as st
     from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
@@ -54,6 +55,8 @@ from utilmy import pd_read_file, pd_to_file
 
 #############################################################################################
 from utilmy import Dict_none, Int_none,List_none, Path_type
+Dataframe_str = Union[str, pd.DataFrame, None]
+
 from utilmy import log, log2, help_create
 def help():
     print( HELP + help_create(MNAME) )
@@ -104,7 +107,7 @@ def test1():
     dirdata = 'ztmp/'
     modelid = "distilbert-base-nli-mean-tokens"
     
-    cols = ['sentence1', 'sentence2', 'label', 'score' ]
+    cols = ['sentence1', 'sentence2', 'label', 'score' ]  ### score can be NA
     dfcheck = dataset_fake(dirdata, fname='data_fake.parquet', nsample=10)  ### Create fake version
     assert len(dfcheck[ cols ]) > 1 , "missing columns"
     ## Score can be empty or [0,1]
@@ -127,6 +130,12 @@ def test1():
 
                                 dirout= dirdata + f"/results/" + lname, nsample=100, cc=cc)
     
+        log('model encode')
+        df = model_encode( model= model,  dirdata=dirdata +"/data_fake.parquet",
+                           colid=None, coltext='sentence1', batch_size=32, 
+              normalize_embeddings=True  #### sub encode params
+              )  
+        log(df.head(3))
 
 
 ###################################################################################################################        
@@ -201,82 +210,6 @@ def dataset_download(dirout='/content/sample_data/sent_tans/'):
 
 
 ###################################################################################################################        
-def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./',
-                   cc:dict= None, batch_size=16, name='sts-test'):
-
-    os.makedirs(dirout, exist_ok=True)
-    ### Evaluate Model
-    df = pd_read_file(dirdata)
-    log(df)
-
-    score_max = df['score'].max()
-    #df = pd.read_csv(dirdata, error_bad_lines=False)
-    test_samples = []
-    for i, row in df.iterrows():
-        # if row['split'] == 'test':
-        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
-        test_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
-
-    model= model_load(model)
-    test_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(test_samples, batch_size=batch_size, name=name)
-    test_evaluator(model, output_path=dirout)    
-    log( pd_read_file(dirout +"/*" ))
-
-
-def model_load(path_or_name_or_object):
-    #### Reload model or return the model itself
-    if isinstance(path_or_name_or_object, str) :
-       # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-       model = SentenceTransformer(path_or_name_or_object)
-       model.eval()    
-       return model
-    else :
-       return path_or_name_or_object
-
-
-def model_save(model,path:str, reload=True):
-    model.save( path)
-    log(path)
-    
-    if reload:
-        #### reload model  + model something   
-        model1 = model_load(path)
-        log(model1)
-
-
-def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None)->SentenceTransformer:
-    """model_setup_compute _summary_
-     # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
-    Args:
-        model: _description_
-        use_gpu: _description_. Defaults to 0.
-        ngpu: _description_. Defaults to 1.
-        ncpu: _description_. Defaults to 1.
-        cc: _description_. Defaults to None.
-    """
-    cc = Box(cc) if cc is not None else Box({})
-    if cc.get('use_gpu', 0) > 0 :        ### default is CPU
-        if torch.cuda.device_count() < 0 :
-            log('no gpu')
-            device = 'cpu'
-            torch.set_num_threads(ncpu)
-            log('cpu used:', ncpu, " / " ,torch.get_num_threads())
-            # model = nn.DataParallel(model)            
-        else :    
-            log("Let's use", torch.cuda.device_count(), "GPU")
-            device = torch.device("cuda:0")
-            model = DDP(model)        
-    else :
-            device = 'cpu'
-            torch.set_num_threads(ncpu)
-            log('cpu used:', ncpu, " / " ,torch.get_num_threads())
-            # model = nn.DataParallel(model)  ### Bug TOFix
-        
-    log('device', device)
-    model.to(device)
-    return model
-
-
 def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
                             taskname="classifier", lossname="cosinus",
                             datasetname = 'sts',
@@ -379,18 +312,17 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
   log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
 
 
-
-def model_encode(model = "model name or path or object", dirdata:Union[str, pd.DataFrame]="data/*.parquet", 
-                coltext:str='sentence1', 
-                dirout:str="embs/myfile.parquet",   **kw ):
+def model_encode(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
+                coltext:str='sentence1', colid=None,
+                dirout:str="embs/myfile.parquet",   **kw )->Dataframe_str :
     """   Sentence encoder  
-    sentences – the sentences to embed
-    batch_size – the batch size used for the computation
-    show_progress_bar – Output a progress bar when encode sentences
-    output_value – Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
-    convert_to_numpy – If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
-    convert_to_tensor – If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
-    device – Which torch.device to use for the computation
+    sentences        : the sentences to embed
+    batch_size       : the batch size used for the computation
+    show_progress_bar: Output a progress bar when encode sentences
+    output_value     : Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
+    convert_to_numpy : If true,                    the output is a list of numpy vectors. Else,                                                               it is a list of pytorch tensors.
+    convert_to_tensor: If true,                    you get one large tensor as return. Overwrites any setting from convert_to_numpy
+    device           : Which torch.device to use for the computation
 
     """  
     model = model_load(model)
@@ -399,19 +331,29 @@ def model_encode(model = "model name or path or object", dirdata:Union[str, pd.D
     if isinstance( dirdata, pd.DataFrame) :
         dfi      = dirdata[coltext].values
         embs_all = model.encode(dfi, convert_to_numpy=True, **kw)
+        embs_all = {'id': np.arange(0, len(embs_all)) ,  'emb': embs_all }
 
+    elif isinstance( dirdata, list) :
+        flist = dirdata 
     else :
-        flist = glob.glob(dirdata)
+        flist = glob_glob(dirdata)
         log('Nfiles', len(flist))
 
-        embs_all=[]
-        for fi in flist :
-            dfi = pd_read_file3(fi)  
-            dfi = dfi[coltext].values
-            embs = model.encode(dfi, convert_to_numpy=True, **kw)
-            embs_all.extend(embs)
+        embs_all={ 'id':[], 'emb':[]}
+        for ii, fi in enumerate(flist) :
+            try :
+                dfi  = pd_read_file3(fi)
+                ### Unique ID
+                idvals = int(ii*10**9) + np.arange(0, len(dfi))   if colid not in dfi.columns else  dfi[colid].values 
+                    
+                dfi  = dfi[coltext].values
+                embs = model.encode(dfi, convert_to_numpy=True, **kw)   ###list of numpy vectors
+                embs_all['emb'].extend(embs)
+                embs_all['id'].extend( idvals )
+            except Exception as e :
+                log(ii, fi, e)     
 
-    embs_all = pd.DataFrame(embs_all, columns= ['emb'])    
+    embs_all = pd.DataFrame(embs_all )    
     log(embs_all.shape)
     if dirout is None :
         return embs_all
@@ -419,8 +361,103 @@ def model_encode(model = "model name or path or object", dirdata:Union[str, pd.D
         pd_to_file(embs_all, dirout, show=1)   
 
 
+def model_encode_batch(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
+                coltext:str='sentence1', colid=None,
+                dirout:str="embs/myfile.parquet", nsplit=5, imin=0, imax=500,   **kw ):
+    """   Sentence encoder in parallel batch mode
+      file_{ii}.parquet  with ii= imin, imax
+
+    """  
+    flist = glob_glob(dirdata)
+    ### Filter files based on rule
+    flist2 = flist
+
+    model_encode(model = model, dirdata=flist2, 
+                coltext=coltext, colid=colid,
+                dirout=dirout, )
+
+
+def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./',
+                   cc:dict= None, batch_size=16, name='sts-test'):
+
+    os.makedirs(dirout, exist_ok=True)
+    ### Evaluate Model
+    df = pd_read_file(dirdata)
+    log(df)
+
+    score_max = df['score'].max()
+    #df = pd.read_csv(dirdata, error_bad_lines=False)
+    test_samples = []
+    for i, row in df.iterrows():
+        # if row['split'] == 'test':
+        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+        test_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+
+    model= model_load(model)
+    test_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(test_samples, batch_size=batch_size, name=name)
+    test_evaluator(model, output_path=dirout)    
+    log( pd_read_file(dirout +"/*" ))
+
+
+def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None)->SentenceTransformer:
+    """model_setup_compute _summary_
+     # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
+    Args:
+        model: _description_
+        use_gpu: _description_. Defaults to 0.
+        ngpu: _description_. Defaults to 1.
+        ncpu: _description_. Defaults to 1.
+        cc: _description_. Defaults to None.
+    """
+    cc = Box(cc) if cc is not None else Box({})
+    if cc.get('use_gpu', 0) > 0 :        ### default is CPU
+        if torch.cuda.device_count() < 0 :
+            log('no gpu')
+            device = 'cpu'
+            torch.set_num_threads(ncpu)
+            log('cpu used:', ncpu, " / " ,torch.get_num_threads())
+            # model = nn.DataParallel(model)            
+        else :    
+            log("Let's use", torch.cuda.device_count(), "GPU")
+            device = torch.device("cuda:0")
+            model = DDP(model)        
+    else :
+            device = 'cpu'
+            torch.set_num_threads(ncpu)
+            log('cpu used:', ncpu, " / " ,torch.get_num_threads())
+            # model = nn.DataParallel(model)  ### Bug TOFix
+        
+    log('device', device)
+    model.to(device)
+    return model
+
+
+def model_load(path_or_name_or_object):
+    #### Reload model or return the model itself
+    if isinstance(path_or_name_or_object, str) :
+       # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+       model = SentenceTransformer(path_or_name_or_object)
+       model.eval()    
+       return model
+    else :
+       return path_or_name_or_object
+
+
+def model_save(model,path:str, reload=True):
+    model.save( path)
+    log(path)
+    
+    if reload:
+        #### reload model  + model something   
+        model1 = model_load(path)
+        log(model1)
+
+
+
+
+
 ###################################################################################################################  
-def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
+def load_evaluator( path_or_df:Dataframe_str="", dname='sts',  cc:dict=None):
     """  Evaluator using df[['sentence1', 'sentence2', 'score']]
     """
     cc = Box(cc)
@@ -478,6 +515,7 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, istrai
 def load_loss(model ='', lossname ='cosine',  cc:dict= None):
     train_loss = None
     if lossname == 'MultpleNegativesRankingLoss':
+
       train_loss = losses.MultipleNegativesRankingLoss(model)
 
     elif lossname == 'softmax':
@@ -518,6 +556,7 @@ if 'utils':
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test1()
 
 
