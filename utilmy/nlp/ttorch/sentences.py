@@ -361,7 +361,6 @@ def model_encode(model = "model name or path or object", dirdata:Dataframe_str="
         pd_to_file(embs_all, dirout, show=1)   
 
 
-
 def model_encode_batch(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
                 coltext:str='sentence1', colid=None,
                 dirout:str="embs/myfile.parquet", nsplit=5, imin=0, imax=500,   **kw ):

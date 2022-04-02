@@ -154,7 +154,7 @@ testdata/ppandas/file.csv
 model.pt
 cardio_train.csv
 ztest/data_fake.parquet
-ztest/data_fake.parquet
-ztest/data_fake.parquet
 sendtoterminalplus.vsx
 /utilmy/docs/test_script/output
+**/ztmp/
+ztest/*
