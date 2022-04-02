@@ -72,7 +72,8 @@ def test_all() -> None:
 def test1():
     """ Run Various test suing sent trans_former,
         <> losses, <> tasks    # Mostly Single sentence   ---> Classification
-    python utilmy/nlp/torch/sentences.py test1
+
+    python utilmy/nlp/ttorch/sentences.py test1
 
 
     model.encode(self, sentences: Union[str, List[str]],
@@ -86,29 +87,29 @@ def test1():
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
-    cc = Box({})
-    cc.epoch = 3
-    cc.lr = 1E-5
+    cc        = Box({})
+    cc.epoch  = 3
+    cc.lr     = 1E-5
     cc.warmup = 10
 
-    cc.eval_steps  = 50
-    cc.batch_size=8
+    cc.eval_steps = 50
+    cc.batch_size = 8
 
-    cc.mode = 'cpu/gpu'
+    cc.mode    = 'cpu/gpu'
     cc.use_gpu = 0
-    cc.ncpu =5
-    cc.ngpu= 2
+    cc.ncpu    = 5
+    cc.ngpu    = 2
 
     #### Data
     cc.data_nclass = 5
     cc.datasetname = 'sts5'
 
 
-    dirdata = 'ztmp/'
+    dirtmp = 'ztmp/'
     modelid = "distilbert-base-nli-mean-tokens"
     
     cols = ['sentence1', 'sentence2', 'label', 'score' ]  ### score can be NA
-    dfcheck = dataset_fake(dirdata, fname='data_fake.parquet', nsample=10)  ### Create fake version
+    dfcheck = dataset_fake(dirtmp, fname='data_fake.parquet', nsample=10)  ### Create fake version
     assert len(dfcheck[ cols ]) > 1 , "missing columns"
     ## Score can be empty or [0,1]
     
@@ -118,20 +119,20 @@ def test1():
         log("\n\n\n ########### Classifier with Loss ", lname)
         cc.lossname = lname
         model = model_load_fit_sentence(modelname_or_path = modelid,
-                                taskname  = "classifier",
-                                lossname  = lname,
-                                metricname='cosinus',
+                                taskname   = "classifier",
+                                lossname   = lname,
+                                metricname = 'cosinus',
 
-                                cols = cols,
-                                datasetname= cc.datasetname,
-                                train_path= dirdata + f"/data_fake.parquet",
-                                val_path=   dirdata + f"/data_fake.parquet",
-                                eval_path = dirdata + f"/data_fake.parquet",
+                                cols        = cols,
+                                datasetname = cc.datasetname,
+                                train_path  = dirtmp + f"/data_fake.parquet",
+                                val_path    = dirtmp + f"/data_fake.parquet",
+                                eval_path   = dirtmp + f"/data_fake.parquet",
 
-                                dirout= dirdata + f"/results/" + lname, nsample=100, cc=cc)
+                                dirout= dirtmp + f"/model/" + lname, nsample=100, cc=cc)
     
         log('model encode')
-        df = model_encode( model= model,  dirdata=dirdata +"/data_fake.parquet",
+        df = model_encode( model= model,  dirdata=dirtmp +"/data_fake.parquet",
                            colid=None, coltext='sentence1', batch_size=32, 
               normalize_embeddings=True  #### sub encode params
               )  
