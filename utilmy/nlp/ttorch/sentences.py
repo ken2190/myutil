@@ -2,8 +2,7 @@
 MNAME="utilmy.deeplearning.torch.sentences"
 HELP="""sentence_tansformer wrapper
 
-cd deeplearning/torch/
-python sentences.py  test
+python  utilmy/nlp/ttorch/sentences.py  test1
 
 
 Original file is located at
@@ -38,6 +37,8 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 #vfrom tensorflow.keras.metrics import SparseCategoricalAccuracy
 from sklearn.metrics.pairwise import cosine_similarity,cosine_distances
+
+from utilmy.utilmy import glob_glob
 try :
     import sentence_transformers as st
     from sentence_transformers import SentenceTransformer, SentencesDataset, losses, util
@@ -381,16 +382,16 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 
 
 def model_encode(model = "model name or path or object", dirdata:Union[str, pd.DataFrame]="data/*.parquet", 
-                coltext:str='sentence1', 
+                coltext:str='sentence1', colid=None,
                 dirout:str="embs/myfile.parquet",   **kw ):
     """   Sentence encoder  
-    sentences – the sentences to embed
-    batch_size – the batch size used for the computation
-    show_progress_bar – Output a progress bar when encode sentences
-    output_value – Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
-    convert_to_numpy – If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
-    convert_to_tensor – If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
-    device – Which torch.device to use for the computation
+    sentences        : the sentences to embed
+    batch_size       : the batch size used for the computation
+    show_progress_bar: Output a progress bar when encode sentences
+    output_value     : Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
+    convert_to_numpy : If true,                    the output is a list of numpy vectors. Else,                                                               it is a list of pytorch tensors.
+    convert_to_tensor: If true,                    you get one large tensor as return. Overwrites any setting from convert_to_numpy
+    device           : Which torch.device to use for the computation
 
     """  
     model = model_load(model)
@@ -399,24 +400,82 @@ def model_encode(model = "model name or path or object", dirdata:Union[str, pd.D
     if isinstance( dirdata, pd.DataFrame) :
         dfi      = dirdata[coltext].values
         embs_all = model.encode(dfi, convert_to_numpy=True, **kw)
+        embs_all = {'id': np.arange(0, len(embs_all)) ,  'emb': embs_all }
 
     else :
         flist = glob.glob(dirdata)
         log('Nfiles', len(flist))
 
-        embs_all=[]
-        for fi in flist :
-            dfi = pd_read_file3(fi)  
-            dfi = dfi[coltext].values
-            embs = model.encode(dfi, convert_to_numpy=True, **kw)
-            embs_all.extend(embs)
+        embs_all={ 'id':[], 'emb':[]}
+        for ii, fi in enumerate(flist) :
+            try :
+                dfi  = pd_read_file3(fi)
+                ### Unique ID
+                idvals = int(ii*10**9) + np.arange(0, len(dfi))   if colid not in dfi.columns else  dfi[colid].values 
+                    
+                dfi  = dfi[coltext].values
+                embs = model.encode(dfi, convert_to_numpy=True, **kw)   ###list of numpy vectors
+                embs_all['emb'].extend(embs)
+                embs_all['id'].extend( idvals )
+            except Exception as e :
+                log(ii, fi, e)     
 
-    embs_all = pd.DataFrame(embs_all, columns= ['emb'])    
+    embs_all = pd.DataFrame(embs_all )    
     log(embs_all.shape)
     if dirout is None :
         return embs_all
     else :
         pd_to_file(embs_all, dirout, show=1)   
+
+
+
+
+def model_encode_batch(model = "model name or path or object", dirdata:Union[str, pd.DataFrame]="data/*.parquet", 
+                coltext:str='sentence1', colid=None,
+                dirout:str="embs/myfile.parquet", nsplit=5, imin=0, imax=500,   **kw ):
+    """   Sentence encoder in parallel batch mode
+      file_{ii}  with ii= imin, imax
+
+    """  
+
+    flist = glob_glob(dirdata, nmax=100)
+
+    model = model_load(model)
+    log('model', model)
+
+    if isinstance( dirdata, pd.DataFrame) :
+        dfi      = dirdata[coltext].values
+        embs_all = model.encode(dfi, convert_to_numpy=True, **kw)
+        embs_all = {'id': np.arange(0, len(embs_all)) ,  'emb': embs_all }
+
+    else :
+        flist = glob.glob(dirdata)
+        log('Nfiles', len(flist))
+
+        embs_all={ 'id':[], 'emb':[]}
+        for ii, fi in enumerate(flist) :
+            try :
+                dfi  = pd_read_file3(fi)
+                ### Unique ID
+                idvals = int(ii*10**9) + np.arange(0, len(dfi))   if colid not in dfi.columns else  dfi[colid].values 
+                    
+                dfi  = dfi[coltext].values
+                embs = model.encode(dfi, convert_to_numpy=True, **kw)   ###list of numpy vectors
+                embs_all['emb'].extend(embs)
+                embs_all['id'].extend( idvals )
+            except Exception as e :
+                log(ii, fi, e)     
+
+    embs_all = pd.DataFrame(embs_all )    
+    log(embs_all.shape)
+    if dirout is None :
+        return embs_all
+    else :
+        pd_to_file(embs_all, dirout, show=1)   
+
+
+
+
 
 
 ###################################################################################################################  
