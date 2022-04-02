@@ -130,6 +130,12 @@ def test1():
 
                                 dirout= dirdata + f"/results/" + lname, nsample=100, cc=cc)
     
+        log('model encode')
+        df = model_encode( model= model,  dirdata=dirdata +"/data_fake.parquet",
+                           colid=None, coltext='sentence1', batch_size=32, 
+              normalize_embeddings=True  #### sub encode params
+              )  
+        log(df.head(3))
 
 
 ###################################################################################################################        
@@ -308,7 +314,7 @@ def model_check_cos_sim(model = "model name or path or object", sentence1 = "sen
 
 def model_encode(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
                 coltext:str='sentence1', colid=None,
-                dirout:str="embs/myfile.parquet",   **kw ):
+                dirout:str="embs/myfile.parquet",   **kw )->Dataframe_str :
     """   Sentence encoder  
     sentences        : the sentences to embed
     batch_size       : the batch size used for the computation
@@ -510,6 +516,7 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, istrai
 def load_loss(model ='', lossname ='cosine',  cc:dict= None):
     train_loss = None
     if lossname == 'MultpleNegativesRankingLoss':
+
       train_loss = losses.MultipleNegativesRankingLoss(model)
 
     elif lossname == 'softmax':
@@ -550,6 +557,7 @@ if 'utils':
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test1()
 
 
