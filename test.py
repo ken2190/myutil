@@ -172,14 +172,14 @@ def test_tabular():
    
 #########################################################################################
 def test_deeplearning_keras():
-    from utilmy.deeplearning.keras import  util_similarity as m;  m.test_all()
+    from utilmy.deeplearning.kkeras import  util_similarity as m;  m.test_all()
 
 
 
 #########################################################################################
 def test_deeplearning_torch():
-    from utilmy.deeplearning.torch import  rule_encoder as m ;  m.test_all()
-    # from utilmy.deeplearning.torch import  sentences as m ;  m.test_all()
+    from utilmy.deeplearning.ttorch import  rule_encoder as m ;  m.test_all()
+    # from utilmy.deeplearning.ttorch import  sentences as m ;  m.test_all()
 
 
 #######################################################################################
