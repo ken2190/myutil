@@ -109,7 +109,7 @@ def test1():
     modelid = "distilbert-base-nli-mean-tokens"
     
     cols = ['sentence1', 'sentence2', 'label', 'score' ]  ### score can be NA
-    dfcheck = dataset_fake(dirtmp, fname='data_fake.parquet', nsample=10)  ### Create fake version
+    dfcheck = dataset_fake(name='AllNLI.tsv.gz', dirdata=dirtmp, fname='data_fake.parquet', nsample=10)  ### Create fake version
     assert len(dfcheck[ cols ]) > 1 , "missing columns"
     ## Score can be empty or [0,1]
     
@@ -141,21 +141,21 @@ def test1():
 
 
 ###################################################################################################################        
-def dataset_fake(dirdata:str, fname='data_fake.parquet', nsample=10):        
+def dataset_fake(name='AllNLI.tsv.gz', dirdata:str='', fname:str='data_fake.parquet', nsample=10):        
     """ Fake text data for tests
     """
-
-    dataset_download(dirout= dirdata)
-    nli_dataset_path = dirdata + '/AllNLI.tsv.gz'
-    sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
+    # sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
+    name='AllNLI.tsv.gz'
+    dataset_download(name=name, dirout= dirdata)
+    dataset_path = dirdata + '/' + name
 
     # Read the AllNLI.tsv.gz file and create the training dataset
-    df = pd_read_file3(nli_dataset_path, npool=1) 
+    df = pd_read_file3(dataset_path, npool=1) 
 
     df = df[df['split'] == 'train' ]
     
     # df = df.sample(frac=0.1)
-    df['score'] = np.random.random( len(df) )
+    df['score'] = np.random.random( len(df) )   #### only for Evaluation.
 
     df['label'] = pd.factorize(df['label'])[0]   ###into integer
     #df['label'] = 6.0  # np.random.randint(0, 3, len(df) )
@@ -198,17 +198,23 @@ def dataset_fake2(dirdata=''):
             train_samples.append(InputExample(texts=[random.choice(list(others['entailment'])), sent1, random.choice(list(others['contradiction']))]))
 
     
-def dataset_download(dirout='/content/sample_data/sent_tans/'):
+def dataset_download(name='AllNLI.tsv.gz', dirout='/content/sample_data/sent_tans/'):
     #### Check if dataset exsist. If not, download and extract  it    
-    nli_dataset_path = dirout + '/AllNLI.tsv.gz'
-    sts_dataset_path = dirout + '/stsbenchmark.tsv.gz'
-    os.makedirs(dirout, exist_ok=True)    
-    if not os.path.exists(nli_dataset_path):
-        util.http_get('https://sbert.net/datasets/AllNLI.tsv.gz', nli_dataset_path)
+    url = '' ; dirouti = dirout
+    if name == 'AllNLI.tsv.gz':
+        url     = 'https://sbert.net/datasets/AllNLI.tsv.gz'
+        dirouti = dirout + "/AllNLI.tsv.gz'"
 
-    if not os.path.exists(sts_dataset_path):
-        util.http_get('https://sbert.net/datasets/stsbenchmark.tsv.gz', sts_dataset_path)
-        
+    if name == 'stsbenchmark.tsv.gz':
+        url     = 'https://sbert.net/datasets/stsbenchmark.tsv.gz'
+        dirouti = dirout + "/stsbenchmark.tsv.gz"
+
+    if os.path.isfile(dirouti):    
+        log('Existing', dirouti)
+
+    os.makedirs(dirout, exist_ok=True)  
+    util.http_get(url, dirouti)
+
 
 
 ###################################################################################################################        
@@ -708,10 +714,11 @@ if 'utils':
 
 
 
+
 ##########################################################################################
 if __name__ == '__main__':
     import fire
-    # fire.Fire()
-    test1()
+    fire.Fire()
+    ## test1()
 
 
