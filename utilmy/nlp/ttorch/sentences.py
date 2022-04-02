@@ -131,12 +131,13 @@ def test1():
 
                                 dirout= dirtmp + f"/model/" + lname, nsample=100, cc=cc)
     
-        log('model encode')
-        df = model_encode( model= model,  dirdata=dirtmp +"/data_fake.parquet",
+
+    log('\n\n########### model encode')
+    df = model_encode( model= model,  dirdata=dirtmp +"/data_fake.parquet",
                            colid=None, coltext='sentence1', batch_size=32, 
               normalize_embeddings=True  #### sub encode params
               )  
-        log(df.head(3))
+    log(df.head(3))
 
 
 ###################################################################################################################        
@@ -513,14 +514,14 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, istrai
     return dataloader
 
 
-def load_loss(model ='', lossname ='cosine',  cc:dict= None):
+def load_loss(model, lossname ='cosine',  cc:dict= None):
     train_loss = None
     if lossname == 'MultpleNegativesRankingLoss':
 
       train_loss = losses.MultipleNegativesRankingLoss(model)
 
     elif lossname == 'softmax':
-      nclass     =  cc.get('data_nclass', -1)
+      nclass     =  cc.get('data_nclass', 1)
       train_loss = losses.SoftmaxLoss(model=model, sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
                                       num_labels=nclass )
 
