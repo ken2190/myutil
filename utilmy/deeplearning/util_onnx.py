@@ -57,7 +57,7 @@ def test1() -> None:
     d = Box({})
 
 
-def test10():
+def test_helper():
     """
     (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
     ========================================================================
@@ -355,78 +355,12 @@ def test3():
     onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
 
 
-
-def test4():
-    dirtmp = "ztmp/"
-
-    dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
-    dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
-    dirout      = f"{dirtmp}/onnx_save.onnx"
-    onnx_pars = {}
-    config_dir = ""
-
-
-    isok = test_create_model_pytorch(dirsave=dir_model)
-    log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
-
-    log('Checking ONNX')
-    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
-
-
-
-def test_create_model_pytorch(dirsave=None, model_name=""):
-    """   Create model classfor testing purpose
-
-    
-    """    
-    ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
-    class SuperResolutionNet(nn.Module):
-        def __init__(self, upscale_factor, inplace=False):
-            super(SuperResolutionNet, self).__init__()
-
-            self.relu = nn.ReLU(inplace=inplace)
-            self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
-            self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
-            self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
-            self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
-            self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
-
-            self._initialize_weights()
-
-        def forward(self, x):
-            x = self.relu(self.conv1(x))
-            x = self.relu(self.conv2(x))
-            x = self.relu(self.conv3(x))
-            x = self.pixel_shuffle(self.conv4(x))
-            return x
-
-        def _initialize_weights(self):
-            init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
-            init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
-            init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
-            init.orthogonal_(self.conv4.weight)    
-
-    """
-    ss = ss.replace("    ", "")  ### for indentation
-
-    if dirsave  is not None :
-        with open(dirsave, mode='w') as fp:
-            fp.write(ss)
-        return True    
-    else :
-        SuperResolutionNet =  None
-        eval(ss)        ## trick
-        return SuperResolutionNet  ## return the class
-
-
-
 def test_onnx_convert():
     import torch.nn as nn
     import torch.nn.init as init
 
     class SuperResolutionNet(nn.Module):
-        def __init__(self, upscale_factor, inplace=False):
+        def __init__(self, upscale_factor=3, inplace=False):
             super(SuperResolutionNet, self).__init__()
 
             self.relu = nn.ReLU(inplace=inplace)
@@ -457,6 +391,9 @@ def test_onnx_convert():
     checkpoint_url = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
 
     dirtmp = "ztmp/"
+
+
+    torch_model = "./testdata/ttorch/models.py:SuperResolutionNet"
 
     onnx_convert(torch_model,     input_shape=(1, 224, 224),
                 dirout              = dirtmp,
@@ -491,7 +428,7 @@ def onnx_convert(
     ):
     """Core function to convert a pytorch model to onnx
     Args            : 
-        torch_model                         : model object to load state dict
+        torch_model                         : model object to load state dict  OR path of the model .py definition
         checkpoint_path     (str)           : path to checkpoint file
         dirout              (str)           : directory to save the onnx model
         input_shape         (tuple)         : input shape to run model to export onnx model.
@@ -505,16 +442,26 @@ def onnx_convert(
     out_path = os.path.join(dirout, filename + '.onnx')
     os.makedirs(dirout, exist_ok=True)
 
+    if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
+        log('Loading model definition from file')
+        torch_model = load_function_uri(uri_name= torch_model)
+        torch_model = torch_model(upscale_factor=3) #### Class Instance
+        log('loaded', torch_model)
 
     if 'gpu' in device : #torch.cuda.is_available():
         map_location = None
     else:
         map_location=torch.device('cpu')
 
-    try :
-        torch_model.load_state_dict(model_zoo.load_url(checkpoint_path, map_location=map_location))
-    except:
-        torch_model.load_state_dict(checkpoint_path, map_location=map_location)
+    if 'http' in checkpoint_path :
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(checkpoint_path, map_location=map_location)
+    else :   
+       checkpoint = torch.load( checkpoint_path)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint['loss']}\t at epoch: {checkpoint['epoch']}" )
+       
+    torch_model.load_state_dict(state_dict=model_state)
 
     ## Evaluate
     torch_model.eval()
@@ -614,41 +561,102 @@ if 'utils':
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-    def load_function_uri(uri_name="path_norm"):
+
+
+    def load_function_uri(uri_name: str="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "preprocess.generic:pandasDataset"
+        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
         ###### External File processor :
         #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
         """
         import importlib, sys
         from pathlib import Path
-        pkg = uri_name.split(":")
+        if ":" in uri_name :
+            pkg = uri_name.split(":")
+            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+            package, name = pkg[0], pkg[1]
 
-        assert len(pkg) > 1, "Invalid uri_name, should be 'module_name:function_or_class'"
-        package, name = pkg[0], pkg[1]
+        else :
+            pkg = uri_name.split(".")
+            package = ".".join(pkg[:-1])      
+            name    = pkg[-1]   
+
         
         try:
-            # Import from package mlmodels sub-folder
+            #### Import from package mlmodels sub-folder
             return  getattr(importlib.import_module(package), name)
 
         except Exception as e1:
             try:
-                # Add Folder to Path and Load absoluate path module
+                ### Add Folder to Path and Load absoluate path module
                 path_parent = str(Path(package).parent.parent.absolute())
                 sys.path.append(path_parent)
+                #log(path_parent)
 
-                model_name = package.split('.py')[0]  # remove .py
-
-                if len(Path(package).parts) >= 2:
-                    package_name = str(Path(package).parts[-2]) + "." + model_name
-                else:
-                    package_name = model_name
-
+                #### import Absolute Path model_tf.1_lstm
+                model_name   = Path(package).stem  # remove .py
+                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
+                #log(package_name, model_name)
                 return  getattr(importlib.import_module(package_name), name)
 
             except Exception as e2:
                 raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
+
+
+    def test_load_function_uri():
+        uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
+        myclass = load_function_uri(uri_name)
+        log(myclass)
+
+    test_load_function_uri()
+
+
+    def test_create_model_pytorch(dirsave=None, model_name=""):
+        """   Create model classfor testing purpose
+
+        
+        """    
+        ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+        class SuperResolutionNet(nn.Module):
+            def __init__(self, upscale_factor, inplace=False):
+                super(SuperResolutionNet, self).__init__()
+
+                self.relu = nn.ReLU(inplace=inplace)
+                self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+                self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+                self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+                self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+                self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+                self._initialize_weights()
+
+            def forward(self, x):
+                x = self.relu(self.conv1(x))
+                x = self.relu(self.conv2(x))
+                x = self.relu(self.conv3(x))
+                x = self.pixel_shuffle(self.conv4(x))
+                return x
+
+            def _initialize_weights(self):
+                init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv4.weight)    
+
+        """
+        ss = ss.replace("    ", "")  ### for indentation
+
+        if dirsave  is not None :
+            with open(dirsave, mode='w') as fp:
+                fp.write(ss)
+            return True    
+        else :
+            SuperResolutionNet =  None
+            eval(ss)        ## trick
+            return SuperResolutionNet  ## return the class
+
 
 
 ###################################################################################################
