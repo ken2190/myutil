@@ -447,8 +447,8 @@ def onnx_convert(torch_model,
     os.makedirs(dirout, exist_ok=True)
 
     if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
-        torch_model = load_function_uri(uri_name= torch_model)
-        torch_model = torch_model(upscale_factor=3) #### Class Instance  Buggy
+        torch_class_name = load_function_uri(uri_name= torch_model)
+        torch_model      = torch_class_name() #### Class Instance  Buggy
         log('loaded from file ', torch_model)
 
 
