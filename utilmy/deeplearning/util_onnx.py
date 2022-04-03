@@ -393,27 +393,32 @@ def test_onnx_convert():
     dirtmp = "ztmp/"
 
 
-    torch_model = "./testdata/ttorch/models.py:SuperResolutionNet"
+    torch_model_test = "./testdata/ttorch/models.py:SuperResolutionNet"
+    
+    llist = [ SuperResolutionNet(upscale_factor=3), 
+              torch_model_test
+    ]
 
-    onnx_convert(torch_model,     input_shape=(1, 224, 224),
-                dirout              = dirtmp,
-                checkpoint_path     = checkpoint_url,
-                export_params       = True,
-                onnx_version        = 10,
-                do_constant_folding = True,
-                input_names         = ['input'],
-                output_names        = ['output'],
-                dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
-                device='cpu',
-    )
+    for modeli in llist :
+        log((str(modeli)))
+        onnx_convert(modeli,     input_shape=(1, 224, 224),
+                    dirout              = dirtmp,
+                    checkpoint_path     = checkpoint_url,
+                    export_params       = True,
+                    onnx_version        = 10,
+                    do_constant_folding = True,
+                    input_names         = ['input'],
+                    output_names        = ['output'],
+                    dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+                    device='cpu',
+        )
     
 
 
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert(
-    torch_model, 
+def onnx_convert(torch_model, 
     input_shape=(1, 224, 224),
     dirout='.', 
     checkpoint_path:str='./mymodel.pth',
@@ -443,10 +448,9 @@ def onnx_convert(
     os.makedirs(dirout, exist_ok=True)
 
     if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
-        log('Loading model definition from file')
         torch_model = load_function_uri(uri_name= torch_model)
-        torch_model = torch_model(upscale_factor=3) #### Class Instance
-        log('loaded', torch_model)
+        torch_model = torch_model(upscale_factor=3) #### Class Instance  Buggy
+        log('loaded from file ', torch_model)
 
     if 'gpu' in device : #torch.cuda.is_available():
         map_location = None
@@ -561,8 +565,6 @@ if 'utils':
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-
-
     def load_function_uri(uri_name: str="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One
@@ -609,8 +611,6 @@ if 'utils':
         uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
         myclass = load_function_uri(uri_name)
         log(myclass)
-
-    test_load_function_uri()
 
 
     def test_create_model_pytorch(dirsave=None, model_name=""):
