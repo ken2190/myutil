@@ -67,6 +67,8 @@ jobs:
       run:  |
         ls .
         pip install -r  py36_docfull.txt
+        pip install protobuf==3.16.0
+        pip install onnx
         #pip install -r install/requirements_fake.txt
 
 
