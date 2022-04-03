@@ -118,18 +118,18 @@ def test1():
     for lname in lloss :
         log("\n\n\n ########### Classifier with Loss ", lname)
         cc.lossname = lname
-        model = model_load_fit_sentence(modelname_or_path = modelid,
-                                taskname   = "classifier",
-                                lossname   = lname,
-                                metricname = 'cosinus',
+        model = model_finetune(modelname_or_path = modelid,
+                               taskname   = "classifier",
+                               lossname   = lname,
+                               metricname = 'cosinus',
 
-                                cols        = cols,
-                                datasetname = cc.datasetname,
-                                train_path  = dirtmp + f"/data_fake.parquet",
-                                val_path    = dirtmp + f"/data_fake.parquet",
-                                eval_path   = dirtmp + f"/data_fake.parquet",
+                               cols        = cols,
+                               datasetname = cc.datasetname,
+                               train_path  = dirtmp + f"/data_fake.parquet",
+                               val_path    = dirtmp + f"/data_fake.parquet",
+                               eval_path   = dirtmp + f"/data_fake.parquet",
 
-                                dirout= dirtmp + f"/model/" + lname, nsample=100, cc=cc)
+                               dirout= dirtmp + f"/model/" + lname, nsample=100, cc=cc)
     
 
     log('\n\n########### model encode')
@@ -220,16 +220,16 @@ def dataset_download(name='AllNLI.tsv.gz', dirout='/content/sample_data/sent_tan
 
 
 ###################################################################################################################        
-def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
-                            taskname="classifier", lossname="cosinus",
-                            datasetname = 'sts',
-                            cols= ['sentence1', 'sentence2', 'label', 'score' ],
+def model_finetune(modelname_or_path='distilbert-base-nli-mean-tokens',
+                   taskname="classifier", lossname="cosinus",
+                   datasetname = 'sts',
+                   cols= ['sentence1', 'sentence2', 'label', 'score' ],
 
-                            train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
+                   train_path="train/*.csv", val_path  ="val/*.csv", eval_path ="eval/*.csv",
 
-                            metricname='cosinus',
-                            dirout ="mymodel_save/", nsample=100000,
-                            cc:dict= None):
+                   metricname='cosinus',
+                   dirout ="mymodel_save/", nsample=100000,
+                   cc:dict= None):
     """" Load pre-trained model and fine tune with specific dataset
 
          cols= ['sentence1', 'sentence2', 'label', 'score' ],
