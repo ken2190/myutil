@@ -57,7 +57,7 @@ def test1() -> None:
     d = Box({})
 
 
-def test2():
+def test10():
     """
     (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
     ========================================================================
@@ -454,9 +454,22 @@ def test_onnx_convert():
     # Create the super-resolution model by using the above model definition.
     torch_model = SuperResolutionNet(upscale_factor=3)
 
-    model_url = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
+    checkpoint_url = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
 
-    onnx_convert(torch_model, checkpoint_path=model_url)
+    dirtmp = "ztmp/"
+
+    onnx_convert(torch_model,     input_shape=(1, 224, 224),
+                dirout              = dirtmp,
+                checkpoint_path     = checkpoint_url,
+                export_params       = True,
+                onnx_version        = 10,
+                do_constant_folding = True,
+                input_names         = ['input'],
+                output_names        = ['output'],
+                dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+                device='cpu',
+    )
+    
 
 
 
@@ -466,56 +479,62 @@ def onnx_convert(
     torch_model, 
     input_shape=(1, 224, 224),
     dirout='.', 
-    checkpoint_path=None,
+    checkpoint_path:str='./mymodel.pth',
     export_params=True,
     onnx_version=10, 
     do_constant_folding=True, 
     input_names=['input'], 
     output_names=['output'], 
-    dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}):
+    dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+    
+    device='cpu',
+    ):
     """Core function to convert a pytorch model to onnx
-
-    Args:
-        torch_model: model object to load state dict
-        checkpoint_path (str): path to checkpoint file
-        dirout (str): directory to save the onnx model
-        input_shape (tuple): input shape to run model to export onnx model.
-        onnx_version (int, optional): onnx version to convert the model. Defaults to 10.
+    Args            : 
+        torch_model                         : model object to load state dict
+        checkpoint_path     (str)           : path to checkpoint file
+        dirout              (str)           : directory to save the onnx model
+        input_shape         (tuple)         : input shape to run model to export onnx model.
+        onnx_version        (int, optional) : onnx version to convert the model. Defaults to 10.
         do_constant_folding (bool, optional): whether to execute constant folding for optimization. Defaults to True.
-        input_names (list, optional): input names of the model. Defaults to ['input'].
-        output_names (list, optional): output names of the model. Defaults to ['output'].
-        dynamic_axes (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
+        input_names         (list, optional): input names of the model. Defaults to ['input'].
+        output_names        (list, optional): output names of the model. Defaults to ['output'].
+        dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
     """
     filename = '.'.join(os.path.basename(checkpoint_path).split('.')[:-1])
     out_path = os.path.join(dirout, filename + '.onnx')
     os.makedirs(dirout, exist_ok=True)
 
-    if checkpoint_path is not None:
-        if torch.cuda.is_available():
-            map_location = None
-        else:
-            map_location=torch.device('cpu')
-        torch_model.load_state_dict(model_zoo.load_url(checkpoint_path, map_location=map_location))
+
+    if 'gpu' in device : #torch.cuda.is_available():
+        map_location = None
     else:
-        torch_model.load_state_dict(checkpoint_path)
+        map_location=torch.device('cpu')
 
+    try :
+        torch_model.load_state_dict(model_zoo.load_url(checkpoint_path, map_location=map_location))
+    except:
+        torch_model.load_state_dict(checkpoint_path, map_location=map_location)
+
+    ## Evaluate
     torch_model.eval()
-
     x = torch.rand(1, *input_shape, requires_grad=True)
     out = torch_model(x)
+
+    # log("### Export")
     torch.onnx.export(
         torch_model, 
         x,
         out_path,
-        export_params=export_params,
-        opset_version=onnx_version,
-        do_constant_folding=do_constant_folding,
-        input_names=input_names,
-        output_names=output_names,
-        dynamic_axes=dynamic_axes
+        export_params       = export_params,
+        opset_version       = onnx_version,
+        do_constant_folding = do_constant_folding,
+        input_names         = input_names,
+        output_names        = output_names,
+        dynamic_axes        = dynamic_axes
     )
 
-    log( glob.glob(out_path) )
+    log( 'Exported', glob.glob(out_path) )
 
 
 
@@ -635,6 +654,8 @@ if 'utils':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test_onnx_convert()
+
 
 
