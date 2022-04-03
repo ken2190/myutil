@@ -103,9 +103,9 @@ bootstrapped
 mmh3  
 imodels   ### rule generator
 mapie  ### Uncertainty est.
-
-
-
+###
+onnxruntime
+onnxt
 ###############################
 ## utilmy.recsys
 ## abracadabra
@@ -124,8 +124,9 @@ torch==1.7.0+cpu
 
 ### Create o=issues
 ## onnx
-runtime
-
+###runtime
+onnxruntime
+onnxt
 
 
 
