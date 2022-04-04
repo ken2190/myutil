@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 MNAME="utilmy.deeplearning.torch.sentences"
-HELP="""sentence_tansformer
+HELP="""sentence_tansformer wrapper
 
 cd deeplearning/torch/
 python sentences.py  test
 
 
 Original file is located at
-    https://colab.research.google.com/drive/13jklIi81IT8B3TrIOhWSLwk48Qf2Htmc
+https://colab.research.google.com/drive/1dPPD-2Vrn61v2uYZT1AXiujqqw7ZwzEA#scrollTo=TZCBsq36j4aH
+
 
 train Sentence Transformer with different Losses such as:**
 > Softmax Loss
@@ -91,6 +92,7 @@ def test1():
 
     #### Data
     cc.data_nclass = 5
+    cc.datasetname = 'sts5'
 
 
     dirdata = 'ztmp/'
@@ -102,10 +104,13 @@ def test1():
     lloss = [ 'cosine', 'triplethard',"softmax", 'MultpleNegativesRankingLoss' ]
     
     for lname in lloss :
-        log("Classifier with Loss ", lname)
+        log("\n\n\n ########### Classifier with Loss ", lname)
+        cc.lossname = lname
         model_load_fit_sentence(modelname_or_path = modelid,
                                 taskname  = "classifier",
                                 lossname  = lname,
+
+                                datasetname= cc.datasetname,
                                 train_path= dirdata + f"/data_fake.parquet",
                                 val_path=   dirdata + f"/data_fake.parquet",
                                 eval_path = dirdata + f"/data_fake.parquet",
@@ -115,25 +120,26 @@ def test1():
 
 
 ###################################################################################################################        
-def dataset_fake(dirdata):        
+def dataset_fake(dirdata:str, nsample=10):        
     nli_dataset_path = dirdata + '/AllNLI.tsv.gz'
     sts_dataset_path = dirdata + '/stsbenchmark.tsv.gz'
 
     # Read the AllNLI.tsv.gz file and create the training dataset
     df = pd_read_csv(nli_dataset_path, npool=1) 
+
+    df = df[df['split'] == 'train' ]
     
-    df = df.sample(frac=0.1)
+    # df = df.sample(frac=0.1)
     df['score'] = np.random.random( len(df) )
 
-    #df['label'] = pd.factorize(df['label'])[0]   ###into integer
-    df['label'] = np.random.randint(0,1, len(df) )
-    df['label'] = df['label'].astype('float')
+    df['label'] = pd.factorize(df['label'])[0]   ###into integer
+    #df['label'] = 6.0  # np.random.randint(0, 3, len(df) )
+    df['label'] = df['label'].astype('float')  ### needed for cosinus loss 
 
     log(df, df.columns, df.shape)
     dirout = dirdata +"/data_fake.parquet"
-    df.iloc[:50, :].to_parquet(dirout)
+    df.iloc[:nsample, :].to_parquet(dirout)
     return dirout
-
 
 
 def dataset_fake2(dirdata=''):
@@ -182,18 +188,24 @@ def dataset_download(dirout='/content/sample_data/sent_tans/'):
 ###################################################################################################################        
 def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv', dirout='./',
                    cc:dict= None, batch_size=16, name='sts-test'):
+
+    os.makedirs(dirout, exist_ok=True)
     ### Evaluate Model
-    df = pd.read_csv(dirdata, error_bad_lines=False)
+    df = pd_read_file(dirdata)
+    log(df)
+
+    score_max = df['score'].max()
+    #df = pd.read_csv(dirdata, error_bad_lines=False)
     test_samples = []
     for i, row in df.iterrows():
-        if row['split'] == 'test':
-            score = float(row['score']) / 5.0 #Normalize score to range 0 ... 1
-            test_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+        # if row['split'] == 'test':
+        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+        test_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
 
     model= model_load(model)
-
     test_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(test_samples, batch_size=batch_size, name=name)
-    test_evaluator(model, output_path=dirout)
+    test_evaluator(model, output_path=dirout)    
+    log( pd_read_file(dirout +"/*" ))
 
 
 def model_load(path_or_name_or_object):
@@ -216,7 +228,7 @@ def model_save(model,path, reload=True):
         log(model1)
 
 
-def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None):
+def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:dict=None)->SentenceTransformer:
     """model_setup_compute _summary_
      # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
     Args:
@@ -281,7 +293,7 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
         df = pd_read_file(train_path)
         log(df.columns, df.shape)
         log(" metrics_cosine_similarity before training")  
-        metrics_cosine_sim(df['sentence1'][0], df['sentence2'][0], model)
+        model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0])
         
         
         ##### dataloader train, evaluator
@@ -315,14 +327,14 @@ def model_load_fit_sentence(modelname_or_path='distilbert-base-nli-mean-tokens',
 
         log("\n******************< Eval similarity > ********************")
         log(" cosine_similarity after training")
-        metrics_cosine_sim(df['sentence1'][0], df['sentence2'][0])
+        model_check_cos_sim(model, df['sentence1'][0], df['sentence2'][0],)
         
         log("### Save the model  ")
         model_save(model, dirout, reload=True)
         model = model_load(dirout)
 
         log('### Show eval metrics')
-        model_evaluate(model, dirout)
+        model_evaluate(model, dirdata=eval_path, dirout= dirout)
         
         log("\n******************< finish  > ********************")
 
@@ -344,8 +356,6 @@ def pd_read_csv(path_or_df='./myfile.csv', npool=1,  **kw)->pd.DataFrame:
         
 def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dict=None):
     """  Evaluator using df[['sentence1', 'sentence2', 'score']]
-
-
     """
     cc = Box(cc)
 
@@ -356,14 +366,15 @@ def load_evaluator( path_or_df:Union[pd.DataFrame, str]="", dname='sts',  cc:dic
        df = pd_read_file(path_or_df)
 
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+    log('eval dataset', df)
 
     score_max = df['score'].max()
 
     dev_samples = []
     for i,row in df.iterrows():
-        if row['split'] == 'dev':
-            score = float(row['score']) / score_max #Normalize score to range 0 ... 1
-            dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
+        # if row['split'] == 'dev':
+        score = float(row['score']) / score_max #Normalize score to range 0 ... 1
+        dev_samples.append(InputExample(texts=[row['sentence1'], row['sentence2']], label=score))
 
     dev_evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, batch_size= cc.batch_size, name=dname)
     return dev_evaluator
@@ -373,30 +384,31 @@ def load_dataloader(path_or_df:str = "",  name:str='sts',  cc:dict= None, npool=
     """
       input data df[['sentence1', 'sentence2', 'label']]
           X, Y = check_paired_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
-    X, Y = check_pairwise_arrays(X, Y)
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
-    X = check_array(
-  File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
-    raise ValueError(
-ValueError: Expected 2D array, got 1D array instead:
-array=[].
-Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
-[myutil]$ 
-      
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 216, in check_paired_arrays
+            X, Y = check_pairwise_arrays(X, Y)
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/metrics/pairwise.py", line 156, in check_pairwise_arrays
+            X = check_array(
+        File "/workspace/.pip-modules/lib/python3.8/site-packages/sklearn/utils/validation.py", line 769, in check_array
+            raise ValueError(
+        ValueError: Expected 2D array, got 1D array instead:
+        array=[].
+        Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+        [myutil]$ 
+            
 
     """
     cc = Box(cc)
     df = pd_read_csv(path_or_df, npool=npool) 
     
     if 'nsample' in cc : df = df.iloc[:cc.nsample,:]
+    log('train dataset', df)
     
     train_samples = [] 
     for i,row in df.iterrows():
+      labeli =  float(row['label'] )   if 'cosine' in cc.get('lossname', '') else  int(row['label']) 
       train_samples.append( InputExample(texts=[row['sentence1'], row['sentence2']], 
-                            label= [ row['label'] ] ))
+                            label=   labeli  ))
 
-    log( train_samples) 
     train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=cc.batch_size)
     log('Nelements', len(train_dataloader))
     return train_dataloader
@@ -421,12 +433,31 @@ def load_loss(model ='', lossname ='cosine',  cc:dict= None):
     return train_loss
 
 
-def metrics_cosine_sim(sentence1 = "sentence 1" , sentence2 = "sentence 2", model_id = "model name or path or object"):
-  ### function to compute cosinue similarity      
-  model = model_load(model_id)
+def model_check_cos_sim(model = "model name or path or object", sentence1 = "sentence 1" , sentence2 = "sentence 2", ):
+  """  
+    sentences – the sentences to embed
 
+    batch_size – the batch size used for the computation
+
+    show_progress_bar – Output a progress bar when encode sentences
+
+    output_value – Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
+
+    convert_to_numpy – If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
+
+    convert_to_tensor – If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
+
+    device – Which torch.device to use for the computation
+
+
+  """  
+  ### function to compute cosinue similarity      
+  # model = model_load(model_id)
+  log('model', model)
   #Compute embedding for both lists
   embeddings1 = model.encode(sentence1, convert_to_tensor=True)
+  
+  # , convert_to_tensor=True)
   embeddings2 = model.encode(sentence2, convert_to_tensor=True)
 
   #Compute cosine-similarity
@@ -437,10 +468,8 @@ def metrics_cosine_sim(sentence1 = "sentence 1" , sentence2 = "sentence 2", mode
 
 
 
-
 ##########################################################################################
 if __name__ == '__main__':
     import fire
     fire.Fire()
-
-
+    # test1()

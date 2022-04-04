@@ -7,7 +7,7 @@ import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List,Any
 from box import Box
 
-import io, cv2,  matplotlib
+import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
 
@@ -39,8 +39,10 @@ def help():
 ##### TESTS  ####################################################################################
 def test_all():
     """function test_all        """
+    
     log(MNAME)
     test1()
+    test2()
     test_diskcache()
 
 
@@ -51,7 +53,30 @@ def test1():
 
 def test2():
     """function test"""
-    pass
+    dirimg = os.getcwd() + "/ztmp/images/"
+    image_create_fake(dirout=dirimg, nimages=1, imsize=(60,60), rgb_color = (255, 0, 0) )
+    flist = glob.glob(dirimg +"/*")
+
+    ##################################
+    for fi in flist:
+        log(fi)
+        img_np = image_read(fi)
+        image_save(img_np, dirfile=  fi.replace(".jpg", "_b.jpg"))
+    log('\n\nimage_read, image_save',  glob.glob(dirimg +"/*")[:5])
+
+    #################################
+    img_list = image_prep(flist[0], xdim=30, ydim=30, mean=0.5, std=0.5,verbose=True )
+    log('\n\nimage_prep', str(img_list)[:100])
+
+       
+    img_list = image_prep_many(flist[:3], image_prep_fun= image_prep,  xdim=30, ydim=30, mean=0.5, std=0.5,)
+    log('\n\nimage_pre_many', str(img_list)[:100])
+
+
+    image_prep_multiproc(dirimage_list=flist[:5], image_prep_fun= image_prep,  npool=2,)
+    log('\n\nimage_prep_multiproc',)
+
+
 
 def test_diskcache():
     import tempfile
@@ -60,7 +85,8 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-
+    import glob
+    
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -80,12 +106,12 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:
+    with  tempfile.TemporaryDirectory() as dirin:              
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:
+        with  tempfile.TemporaryDirectory() as dirout:              
             # print(dirout)
             n_images = len(images)
 
@@ -94,41 +120,47 @@ def test_diskcache():
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
                 skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
                 # break
-
+            
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:
+            with  tempfile.TemporaryDirectory() as dircheck:              
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
-                diskcache_image_check(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
-                    dirout = dircheck,
-                    tag = tag)
-
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
+            #===================================================================================
+            # diskcache_image_insert
+            with  tempfile.TemporaryDirectory() as next_dirin:              
+                for i,imname in enumerate(images):
+                    im = getattr(skimage.data,imname)()
+                    skimage.io.imsave(os.path.join(next_dirin,imname+'.png'),1 - im)
+                old_cache_len = len(cache)
+                diskcache_image_insert(glob.glob(os.path.join(next_dirin,'*')), db_dir=os.path.join(dirout,f"img_{tag}.cache"))
+                new_cache_len = len(cache)
+                assert new_cache_len == old_cache_len + len(images),f'cache len after diskcache_image_insert should reflect # of images inserted. expected {old_cache_len + len(images)} got {new_cache_len}'
+            #===================================================================================
+            # diskcache_image_dumpsample
+            with  tempfile.TemporaryDirectory() as dirdumpsample:              
+                n_images = 10
+                diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag, n_images=n_images)        
+                fnames = os.listdir(dirdumpsample)
+                assert len(fnames) <= n_images,f'more than {n_images} dumped'
+                # assert all([f in cache for f in fnames]), f'filenames {fnames} not found cache'
+                #TODO: any better test to verify one of the dumped files matches the cache contents?
 
 
-def test_image_create_fake():
-    dirout = os.getcwd() + "/ztmp/images/"
-    imsize=(300,300)
-    red = (255, 0, 0)
-    nimages = 1
-    image_create_fake(dirout=dirout, nimages=nimages, imsize=imsize, rgb_color = red)
 
-
-################################################################################################
 
 
 #################################################################################################
 #### images storage ###############################################################################
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", xdim0:int=256, ydim0:int=256, tag0:str= "", nmax:int=10000000, file_exclude:str="" ):
+def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -204,7 +236,7 @@ def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:
 
     log("#### Load and Covnert  ##########################################################")
     log('Size Before', len(image_list))
-    images, labels = image_preps_mp(image_list, prepro_image_fun= prepro_image2b, npool=32 )
+    images, labels = image_prep_multiproc(image_list, image_prep_fun= prepro_image2b, npool=32 )
 
 
     log(str(images)[:500],  str(labels)[:500],  )
@@ -226,7 +258,7 @@ def diskcache_image_createcache(dirin:Union[str, bytes, os.PathLike]="", dirout:
     return cache
 
 
-def diskcache_image_loadcache(db_dir:Union[str, bytes, os.PathLike]="db_images.cache"):
+def diskcache_image_loadcache(db_dir:str="db_images.cache"):
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -238,8 +270,29 @@ def diskcache_image_loadcache(db_dir:Union[str, bytes, os.PathLike]="db_images.c
     return cache
 
 
-def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache", dirout:Union[str, bytes, os.PathLike]="tmp/", tag="cache1"):
-    """function image_cache_check
+def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="cache1"):
+    """function image_cache_save
+    Args:
+        dirin_image ( str ) :
+        db_dir ( str ) :
+        tag:
+    Returns:
+
+    """
+    ##### Write some sample images  from cache #############################
+    import diskcache as dc
+    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
+    log('Nimages', len(cache) )
+
+
+    log('### Check writing on disk  ###########################')
+    for img_path in dirin_image:
+        img = image_read(img_path)
+        cache[img_path] = img
+
+
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1",n_images:int=10):
+    """  dump some sample of diskcache images on disk 
     Args:
         db_dir ( str ) :
         dirout ( str ) :
@@ -256,6 +309,26 @@ def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache
     dir_check = dirout + f"/{tag}/"
     os.makedirs(dir_check, exist_ok=True)
     for i, key in enumerate(cache) :
+        if i > n_images: break
+        img = cache[key]
+        img = img[:, :, ::-1]
+        key2 = key.split("/")[-1]
+        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
+    log( dir_check )
+
+
+def diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list):
+    """ dump some sample of diskcache images on disk 
+    """
+    # db_dir = "_70k_clean_nobg_256_256-100000.cache"
+    import diskcache as dc
+    cache   = dc.Cache(db_dir)
+    log('Nimages', len(cache) )
+
+    log('### writing on disk  ######################################')
+    dir_check = dirout
+    os.makedirs(dir_check, exist_ok=True)
+    for i, key in enumerate(img_list) :
         if i > 10: break
         img = cache[key]
         img = img[:, :, ::-1]
@@ -264,10 +337,8 @@ def diskcache_image_check(db_dir:Union[str, bytes, os.PathLike]="db_images.cache
     log( dir_check )
 
 
-
-
-def npz_image_check(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
-    """function npz_image_check
+def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
+    """function image_check_npz
     Args:
         path_npz:
         keys:
@@ -328,6 +399,15 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 image_load = image_read  ## alias
 
 
+def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg"):
+    """image_save 
+    Args:
+        img: _description_
+        fileout: 
+    """
+    os.makedirs(  os.path.dirname( os.path.abspath( dirfile    )),  exist_ok=True)
+    cv2.imwrite(dirfile, img)    
+
 
 #################################################################################################
 #### Images utils ###############################################################################
@@ -361,8 +441,7 @@ def image_create_fake(
     rgb_color = (255, 0, 0)):
     """ create fake image for testing
     """
-    import cv2
-    import numpy as np
+    import cv2, numpy as np
 
     width, height = imsize
     os.makedirs(dirout, exist_ok=True)
@@ -381,74 +460,42 @@ def image_create_fake(
     return img_list
 
 
+def image_create_fake2(dirin:Path_type=None):
+    """ Fake images on disk /0/ img
+
+    """
+    import tempfile, skimage
+    images = ('astronaut','binary_blobs', 'brick', 'colorwheel', 'camera', 'cat', 'checkerboard', 'clock', 'coffee', 'coins', 
+            #   'eagle', 'grass', 'gravel', 'horse', 'logo', 'page', 'text', 'rocket',
+          )
+
+    dirin = tempfile.TemporaryDirectory() if dirin is None else dirin
+    os.makedirs(dirin, exist_ok=True)
+    subdirs = ['1','2','3']
+    for d_ in subdirs:
+        os.mkdir(os.path.join(dirin,d_))
+        n_images = len(images)
+        for i,imname in enumerate(images):
+            im = getattr(skimage.data,imname)()
+            d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
+            dirouti = os.path.join(dirin,d_,imname+'.png')
+            log(dirouti)
+            skimage.io.imsave( dirouti,im)
+            # break
+
+
+
+
 
 #################################################################################################
-#### Transform in batches #######################################################################
-#TODO: does this already exist in the multiprocessing module,
-def run_multiprocess(myfun, list_args, npool=10, **kwargs):
-    """
-       res = run_multiprocess(prepro, image_paths, npool=10, )
-    """
-    from functools import partial
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-    pool = Pool(npool)
-    res  = pool.map( partial(myfun, **kwargs), list_args)
-    pool.close()
-    pool.join()
-    return res
-
-
-def image_prep_many(image_paths:Sequence[str], nmax:int=10000000,
-    xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
-    """ run image_prep on multiple images
-    """
-    #TODO: add tqdm for running metrics
-
-    images = []
-    for i in range(len(image_paths)):
-        if i > nmax : break
-        image =  image_prep(image_paths[i],
-        xdim =xdim, ydim =ydim,
-        mean  = mean,std  = std )
-        images.append(image)
-    return images
-
-
-#TODO is this redundant to `run_multiprocess`
-def image_preps_mp(dirin_image:list, prepro_image_fun=None, npool=1):
-    """ Parallel processing
-    """
-    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
-
-    pool = Pool(npool)
-    res  = pool.map(prepro_image_fun, dirin_image)
-    pool.close() ;     pool.join()  ; pool = None
-
-    print('len res', len(res))
-    images, labels = [], []
-    for (x,y) in res :
-        if len(y)> 0 and len(x)> 0 :
-            images.append(x)
-            labels.append(y)
-
-    print('len images', len(images))
-    print(str(labels)[:60])
-    return images, labels
-
-
-#TODO redundant to image_resize_pad? ( uses parallel processing...)
-def image_resize_mp(dirin:str="", dirout :str =""):
-    """     python prepro.py  image_resize
-
-          image white color padded
-
+#### Transform custom ###########################################################################
+def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
+    """   image white color padded
     """
     import cv2, gc, diskcache
 
     in_dir = dirin
-    # dirout = dirout
-
+  
     nmax = 500000000
     global xdim, ydim
     xdim = 256
@@ -456,7 +503,7 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     padcolor = 0  ## 0 : black
 
     os.makedirs(dirout, exist_ok=True)
-    log('target folder', dirout);
+    log('target folder', dirout)
     time.sleep(5)
 
     def prepro_image3b(img_path):
@@ -483,15 +530,58 @@ def image_resize_mp(dirin:str="", dirout :str =""):
     log('Size Before', len(image_list))
 
     log("#### Saving disk  #################################################################")
-    images, labels = image_preps_mp(image_list, prepro_image_fun=prepro_image3b)
+    images, labels = image_prep_multiproc(image_list, image_prep_fun=prepro_image3b)
     os_path_check(dirout, n=5)
+
+
+
+
+
+
+
+#################################################################################################
+#### Transform in batches #######################################################################
+def image_prep_many(image_paths:Sequence[str], image_prep_fun,
+    nmax:int=10000000,
+    xdim :int=1, ydim :int=1, mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
+    """ run image_prep_fun on multiple images
+
+    """
+    images = []
+    for i in range(len(image_paths)):
+        if i > nmax : break
+        image =  image_prep_fun(image_paths[i],  xdim =xdim, ydim =ydim, mean  = mean,std  = std )
+        images.append(image)
+    return images
+
+
+def image_prep_multiproc(dirimage_list:list, image_prep_fun=None, npool=1):
+    """ Parallel processing for image preparation
+    """
+    from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+
+    pool = Pool(npool)
+    res  = pool.map(image_prep_fun, dirimage_list)
+    pool.close() ;     pool.join()  ; pool = None
+
+    print('len res', len(res))
+    images, labels = [], []
+    for (x,y) in res :
+        if len(y)> 0 and len(x)> 0 :
+            images.append(x)
+            labels.append(y)
+
+    print('len images', len(images))
+    print(str(labels)[:60])
+    return images, labels
+
 
 
 
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5) -> Tuple[ npArrayLike ,str] :
+    mean :float = 0.5,std :float    = 0.5, verbose=False) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
@@ -507,16 +597,36 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
         image = image_center_crop(image, (xdim,ydim))
-        assert max(image) > 1, "image should be uint8, 0-255"
+        assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
         image = image.astype('float32')
         return image, image_path
-    except :
+    except Exception as e :
+        if verbose: log(e)
         return [], ""
 
 
-def image_resize_ratio(image : npArrayLike, width :Union[int,None] =None, height :Union[int,None] =None, inter :int =cv2.INTER_AREA):
+def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
+    """Returns center cropped image
+    Args:
+    img: image to be center cropped
+    dim: dimensions (width, height) to be cropped
+    Returns:
+    crop_img: center cropped image
+    """
+    width, height = img.shape[1], img.shape[0]
+
+    # process crop width and height for max available dimension
+    crop_width = dim[0] if dim[0]<img.shape[1] else img.shape[1]
+    crop_height = dim[1] if dim[1]<img.shape[0] else img.shape[0]
+    mid_x, mid_y = int(width/2), int(height/2)
+    cw2, ch2 = int(crop_width/2), int(crop_height/2)
+    crop_img = img[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
+    return crop_img
+
+
+def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
         image:
@@ -551,27 +661,7 @@ def image_resize_ratio(image : npArrayLike, width :Union[int,None] =None, height
     return cv2.resize(image, dim, interpolation=inter)
 
 
-############################################################################
-def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
-    """Returns center cropped image
-    Args:
-    img: image to be center cropped
-    dim: dimensions (width, height) to be cropped
-    Returns:
-    crop_img: center cropped image
-    """
-    width, height = img.shape[1], img.shape[0]
-
-    # process crop width and height for max available dimension
-    crop_width = dim[0] if dim[0]<img.shape[1] else img.shape[1]
-    crop_height = dim[1] if dim[1]<img.shape[0] else img.shape[0]
-    mid_x, mid_y = int(width/2), int(height/2)
-    cw2, ch2 = int(crop_width/2), int(crop_height/2)
-    crop_img = img[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
-    return crop_img
-
-
-def image_resize(image : npArrayLike , width :Union[None,int] =None, height :Union[None,int] = None, inter=cv2.INTER_AREA):
+def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none = None, inter=cv2.INTER_AREA):
     """Resizes a image and maintains aspect ratio.
     inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
     """
@@ -598,7 +688,7 @@ def image_resize(image : npArrayLike , width :Union[None,int] =None, height :Uni
     return cv2.resize(image, dim, interpolation=inter)
 
 
-def image_resize_pad(img :npArrayLike,size : Tuple[Union[None,int],Union[None,int]]=(None,None), padColor=0, pad :bool =True ):
+def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None), padColor=0, pad :bool =True ):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
 
@@ -721,7 +811,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
     return crop
 
 
-def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, bytes, os.PathLike]="", level:int=1):
+def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
     """ #### remove background
 
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
@@ -751,8 +841,8 @@ def image_remove_bg(in_dir:Union[str, bytes, os.PathLike]="", dirout:Union[str, 
             except : pass
 
 
-def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
-                     dirout:Union[str, bytes, os.PathLike]=f"", npool=30):
+def image_face_blank(in_dir:Path_type="", level = "/*",
+                     dirout:Path_type=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
@@ -800,7 +890,7 @@ def image_face_blank(in_dir:Union[str, bytes, os.PathLike]="", level = "/*",
     pool.join()
 
 
-def image_text_blank(in_dir :Union[str,bytes,os.PathLike], dirout :Union[str,bytes,os.PathLike], level="*"):
+def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
     """
         Not working well
         python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
@@ -909,7 +999,7 @@ def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npa
                     shopname = simpleshop.a.text
                     break
 
-                for review in individual_item.find_all('a',class_='dui-rating-filter'):
+                for review in individual_item.find_all('a',class_='dui-rating-f ilter'):
                     count_review = review.text
 
                 if save == 0:
@@ -932,7 +1022,6 @@ def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npa
 
 ##############################################################################################
 if 'utils':
-    #TODO: should be moved to another package?
     def os_path_check(path, n=5):
         """function os_path_check
         Args:
@@ -946,12 +1035,26 @@ if 'utils':
         print('nfiles', os_system( f"ls -1q  '{path}' | wc -l") )
 
 
+    def run_multiprocess(myfun, list_args, npool=10, **kwargs):
+        """ Run multiprocessing for myfun
+        res = run_multiprocess(prepro, image_paths, npool=10, )
+        """
+        from functools import partial
+        from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
+        pool = Pool(npool)
+        res  = pool.map( partial(myfun, **kwargs), list_args)
+        pool.close()
+        pool.join()
+        return res
+
+
 
 
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test2()
 
 
 

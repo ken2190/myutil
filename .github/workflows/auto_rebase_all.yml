@@ -50,18 +50,27 @@ jobs:
            # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
            export name='alex' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
            export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+           export name='tranchung' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
 
 
       - name: Create Auto PR  main to local
         run: |
            echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m "main into aniket"     || echo "failed"
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
-           export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "$name into main"  || echo "failed"
+           export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='tranchung'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
 
 
+      - name: Create Auto merge  main INTO local
+        run: |
+          bin/hub pr list -f %U%n
+          for prname in $(bin/hub pr list -f %U%n); do
+            if [[ $prname == *"main into"* ]]; then
+               echo 'Merging PR ' $prname && bin/hub merge $prname --no-ff && bin/hub push || echo "failed"
+            fi
+          done
 
-
-      # - name: Create Auto PR List      
+      # - name: Create Auto PR List       
       #   #env:
       #   #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
       #   run: |
