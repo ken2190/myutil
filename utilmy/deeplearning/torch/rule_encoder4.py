@@ -296,15 +296,7 @@ def test2_new():
     ARG.data_encoder.dataset.dirin = "/"
     ARG.data_encoder.dataset.colsy =  'solvey'
     ARG.data_encoder.seed = 42
-    ARG.data_encoder.DATASET = Box()
-    ARG.data_encoder.DATASET.PATH = './cardio_train.csv'
-    ARG.data_encoder.DATASET.URL = 'https://github.com/caravanuden/cardio/raw/master/cardio_train.csv'
-
     data_encoder = DataEncoder_Create(ARG.data_encoder)
-
-
-
-
 
     ### rule_encoder  #################################
     ARG.rule_encoder = Box()   #MODEL_RULE
