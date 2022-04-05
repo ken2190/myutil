@@ -298,6 +298,10 @@ def test2_new():
     ARG.data_encoder.seed = 42
     data_encoder = DataEncoder_Create(ARG.data_encoder)
 
+
+
+
+
     ### rule_encoder  #################################
     ARG.rule_encoder = Box()   #MODEL_RULE
 
