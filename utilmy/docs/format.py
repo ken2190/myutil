@@ -8,7 +8,7 @@ Some rules are
     rule 1 - change a line starting with 3 #'s into x #'s where x is 90 by default
             if no text was found else preserve text and fill the rest with #'s
     rule 2 - normalize log statements in the file
-    rule 3 - put all consecutive imports on one line
+    
     rule 4 - align assignment operators
 
 
@@ -28,44 +28,29 @@ python utilmy/docs/format.py  test1
 
 """
 import os,sys,time,gc, glob, numpy as np, pandas as pd,re, fire, tqdm, datetime
-from box import Box
-
-
-#### Types
 from typing import List, Optional, Tuple, Union
+from box import Box
 
 
 #############################################################################################
 from utilmy import log, log2
 def help():
-    """function help
-    Args:
-    Returns:
-        
-    """
-    from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    """function help """
+    #from utilmy import help_create
+    #print( HELP + help_create(MNAME) )
 
 
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all
-    Args:
-    Returns:
-        
-    """
+    """function test_all """
     log(MNAME)
     test1()
     test2()
 
 
 def test1():
-    """function test1
-    Args:
-    Returns:
-        
-    """
+    """function test1   """
     import utilmy
     dirin = os.path.dirname(  utilmy.__file__ )  ### Repo Root folder
     flist = glob_glob_python(dirin,nfile=1)
@@ -74,53 +59,28 @@ def test1():
 
 
 def test2() -> None:
-    """function test2
-    Args:
-    Returns:
-        
-    """
+    """function test2   """
     import utilmy
     dirin = os.path.dirname(utilmy.__file__)  ### Repo Root folder
-    dirout = os_makedirs('utilmy/docs/test/')[0] ### test dir
+    dirout = os.makedirs('utilmy/docs/test/')[0] ### test dir
     reformatter(dirin,dirout)
 
 
+
 #############################################################################################
-def run_format1():
-    """function run_format1
-    Args:
-    Returns:
-        
-    """
-    import argparse
-    p = argparse.ArgumentParser(description="")
-    p.add_argument("--dir_in", "-i", required='True',
-                   default="test/run_train.py",  help="Source file path or path to a directory")
-    p.add_argument("--dir_out", default="formatted",
-                   help="Name of output directory to store results")
-
-    args = p.parse_args()
-    #args = load_arguments()
-
-    _input = args.dir_in
-    out_dir = args.dir_out
-
-    if ".py" in _input:
-        if os_file_haschanged(_input):
-            batch_format_file(_input, out_dir)
-        else:
-            print(f"{_input} is not modified within one week")
-    else:
-        batch_format_dir(_input, out_dir)
+def batch_format_file2():
+     format_list= [      format_comments,
+         format_logs,
+         format_imports,
+         format_assignments
+     ]
+     in_file ="utilmy/utilmy.py"
+     dirout = "ztest/"
+     batch_format_file(in_file, dirout, format_list)
 
 
-
-def batch_format_file(in_file, out_dir):
+def batch_format_file(in_file:str, dirout:str, format_list:list):
     """function batch_format_file
-    Args:
-        in_file:   
-        out_dir:   
-    Returns:
         
     """
     # if input is a file and make sure it exits
@@ -128,79 +88,75 @@ def batch_format_file(in_file, out_dir):
         with open(in_file) as f:
             text = f.read()
 
+        ######## Apply formatting ###########################################
+        text_f = text
+        for fun_format in  format_list :
+           log(str(fun_format)) 
+           text_f = fun_format(text_f)
 
-        text_f = format_comments(text)
-        text_f = format_logs(text_f)
-        text_f = format_imports(text_f)
-        text_f = format_assignments(text_f)
 
-
+        #####################################################################
         # get the base directory of source file for makedirs function
         file_path, file_name = os.path.split(in_file)
-        if not os.path.exists(os.path.join(out_dir, file_path)):
-            os.makedirs(os.path.join(out_dir, file_path))
+        if not os.path.exists(os.path.join(dirout, file_path)):
+            os.makedirs(os.path.join(dirout, file_path))
+        fpath2 = os.path.join(dirout, file_path, file_name)
 
-        fpath2 = os.path.join(out_dir, file_path, file_name) 
-        ftmp =   file_path + "/ztmp.py"
+        ### Temp file for checks  ######################################### 
+        ftmp =   os.path.join(dirout, file_path, "ztmp.py")
         with open(ftmp, "w") as f:
             f.write(text_f)
 
         #### Compile check
         isok  = os_file_compile_check(ftmp)
         if isok :
-            os.remove(fpath2)
+            if os.path.isfile(fpath2):  os.remove(fpath2)
             os.rename(ftmp, fpath2)
+            log(fpath2)
         else :    
-            log('Cannot compile', in_file)
+            log('Cannot compile', fpath2)
             os.remove(ftmp)
-            err_list.append(fi)
-
     else:
-        print(f"No such file exists {in_file}, make sure your path is correct")
+        log(f"No such file exists {in_file}, make sure your path is correct")
 
 
-def batch_format_dir(in_dir, out_dir):
+
+def batch_format_dir(dirin:str, dirout:str, format_list:list):
     """function batch_format_dir
-    Args:
-        in_dir:   
-        out_dir:   
-    Returns:
         
     """
-    src_files = os_glob(in_dir)
+    src_files = os_glob(dirin)
     #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
 
     for f in tqdm.tqdm(src_files):
-        if os_file_haschanged(f):
-            batch_format_file(f, out_dir)
+        if os_file_haschanged(f, weeks=2):
+            try :
+               batch_format_file(f, dirout, format_list)
+            except Exception as e:
+               log(e)   
         else:
             print(f"{f} is not modified within one week")
 
 
 
-
-
 #############################################################################################
 if 'check if .py compile':
-    def os_file_compile_check_batch(dirin:str, nfile=10) -> None:
+    def os_file_compile_check_batch(dirin:str, nfile=10) -> dict:
         """
-        ### DO NOT use Command line  !!!!!!
-
-
-
         """
         flist   = glob_glob_python( dirin, "*.py",nfile= nfile)
-        results = []
+        res_dict = {}
         for fi in flist :
             res = os_file_compile_check(fi)
-            results.append(res)
-
-        #results = [os.system(f"python -m py_compile {i}") for i in flist]
-        results = ["Working" if x==0 else "Failed" for x in results]
-        return results
+            res_dict[fi] =  res 
+        
+        return res_dict
 
 
     def os_file_compile_check(filename:str, verbose=1):
+        """  check if syntax error in the .py file
+
+        """
         import ast, traceback
         try : 
             with open(filename, mode='r') as f:
@@ -215,7 +171,150 @@ if 'check if .py compile':
 
 
 
-##############################################################################################
+
+#############################################################################################
+########## Formatters #######################################################################
+def codesource_extrac_block(txt)
+    """ Split the code source into Code Blocks:
+       header
+       import
+       variable
+       logger
+       test
+       core
+
+       footer
+
+    """
+    dd = Box({})
+    lines = txt.split("/n")       
+    lineblock = []
+
+    flag_test= False
+
+    for ii,line in enumerate(lines) :
+
+      if 'import ' in line and ii < 20 :
+         dd.header = lineblock
+         lineblock = []
+
+      if ('def ' in line or 'class ' in line  or 'from utilmy import log' in line ) and ii < 50 and not 'import' in dd:
+         dd['import'] = lineblock
+         lineblock = []
+
+
+      if ('def test(' in line ) and ii < 50 and not 'logger' in dd :
+          flag_test = True
+          dd['logger'] = lineblock
+
+
+      if 'def ' in line and 'def test' not in line and flag_test and ii >10 :
+          ####  functions    
+         dd['test'] = lineblock
+         lineblock = []
+
+
+      if 'if main ==  ' in line and  ii >10 :
+         dd['core'] = lineblock
+         lineblock = []
+
+      lineblock.append(line)
+
+      dd['footer'] = lineblock
+        
+      return dd  
+
+
+        
+        
+def format_import_merge(text):
+    """  Put all import at start of the .py file
+         Remove the import at the top.
+         Keep the import inside the functions or inside the code (== ad hoc import         
+         return new lines
+    """
+    lines = text.split("\n")
+    dd = Box({})
+    
+    import_list = [] ; from_list = []
+    for line in lines :
+      if "import " in line :
+         if "from " in li : from_list.append(line)
+         else :             import_list.append(line)
+
+            
+    #### reformat import   ################################################
+    llall = []
+    for imp in import_list :
+        ll    = [ t.strip for t in  imp.split(",") if 'import' not in t ]
+        llall = llall + ll
+
+    lall = sorted( lall )
+    ssall = ""
+    for mi in lall:
+       ss =  ss + mi + ","
+       if len(ss) >  90 :
+          ssall = ssall + ss  + "/n"
+          ss = "import "
+
+    ### all imports         
+    ssall = ssall + ss  + "/n"
+
+
+    ####
+    lines2 = []
+    for ii, line in enumerate(lines):
+      if ii < 100 :
+        if line.startswith("import ") : continue  ### Remove Old import
+      lines2.append(line)  
+
+    ### Add new import
+    lines2 = sall + "\n" + lines2 
+
+    #### 
+    return '\n'.join(lines2)
+    
+    
+def format_add_helper_logger(txt):
+    lines = txt.split("/n")       
+    new ="""#############################################################################################
+    from utilmy import log, log2
+    def help():
+        ### helper shows list of all tests  
+        from utilmy import help_create
+        print( HELP + help_create(MNAME) )
+    """
+    new = new.replace( " " * 4, "")
+
+    doinsert = False
+    for line in lines :
+        if "def help()" in line :
+           doinsert = True
+
+    if doinsert :
+       format_insert_into_block(new, lines, block_id='2')          
+
+    
+def format_header(text):
+    """  Normalized header
+    """
+    lines = text.split("\n")
+    dd = Box({})
+
+    for line in lines:
+        if "MNAME=" in line :
+            dd['mname'] = False
+
+    if dd.mname :
+        msg = 'MNAME=" utilmy.  "'
+        lines = [msg] + lines 
+
+    if dd['help'] :
+        pass
+
+    return '\n'.join(lines)
+
+
 def format_comments(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 1 (see docs).
@@ -258,8 +357,7 @@ def format_logs(text="default", line_size=90):
 
 
 def format_imports(text):
-    """
-    Takes a string of text and formats it based on rule 3 (see docs).
+    """rule 3 - put all consecutive imports on one line
     """
     # rule to find consective imports
     regex4 = r"^import[\s\w]+?(?=from|^\s*$)"
@@ -332,7 +430,6 @@ def format_assignments(text):
     return '\n'.join(formated_text)
 
 
-
 #############################################################################################
 def format_add_logger(txt:str, ):
     """  adding log function import and replace all print( with log(
@@ -371,17 +468,62 @@ def format_add_header(txt:str):
         err_list.append(fi)
         
   
+def find_str(word, word_list):
+    for ii, wi in enumerate(word_list) :
+        if word in wi : return ii
+    return -1    
+
 
 
 
 
 #############################################################################################
 if 'utilties':
-    def os_glob(in_dir):
+    def load_function_uri(uri_name="path_norm"):
+        """ Load dynamically function from URI
+
+        ###### Pandas CSV case : Custom MLMODELS One
+        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
+        ###### External File processor :
+        #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+
+        """
+        
+        import importlib, sys
+        from pathlib import Path
+        pkg = uri_name.split(":")
+
+        assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+        package, name = pkg[0], pkg[1]
+        
+        try:
+            #### Import from package mlmodels sub-folder
+            return  getattr(importlib.import_module(package), name)
+
+        except Exception as e1:
+            try:
+                ### Add Folder to Path and Load absoluate path module
+                path_parent = str(Path(package).parent.parent.absolute())
+                sys.path.append(path_parent)
+                #log(path_parent)
+
+                #### import Absolute Path model_tf.1_lstm
+                model_name   = Path(package).stem  # remove .py
+                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
+                #log(package_name, model_name)
+                return  getattr(importlib.import_module(package_name), name)
+
+            except Exception as e2:
+                raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
+
+
+
+    def os_glob(dirin):
         """
         os_glob a given directory for all .py files and returns a list of source files.
         """
-        files = glob.glob(in_dir + "/**/*.py", recursive=True)
+        files = glob.glob(dirin + "/**/*.py", recursive=True)
         # remove .ipynb_checkpoints
         files = [s for s in files if ".ipynb_checkpoints" not in s]
         # print("os_glob files done ... ")
@@ -475,10 +617,77 @@ if 'utilties':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()  ### python utilmy/ZZZZZ/util_xxxx.py  test1
+    # fire.Fire()  ### python utilmy/ZZZZZ/util_xxxx.py  test1\
+
+    test1()
 
 
 
+
+
+
+
+
+if 'zold':
+
+    def zzbatch_format_file(in_file, dirout):
+        """function batch_format_file
+            
+        """
+        # if input is a file and make sure it exits
+        if os.path.isfile(in_file):
+            with open(in_file) as f:
+                text = f.read()
+            ###################################################################
+
+            text_f = format_comments(text)
+            text_f = format_logs(text_f)
+            text_f = format_imports(text_f)
+            text_f = format_assignments(text_f)
+
+
+
+
+            # get the base directory of source file for makedirs function
+            file_path, file_name = os.path.split(in_file)
+            if not os.path.exists(os.path.join(dirout, file_path)):
+                os.makedirs(os.path.join(dirout, file_path))
+            fpath2 = os.path.join(dirout, file_path, file_name)
+
+            ### Temp file for checks  ######################################### 
+            ftmp =   os.path.join(dirout, file_path, "ztmp.py")
+            with open(ftmp, "w") as f:
+                f.write(text_f)
+
+            #### Compile check
+            isok  = os_file_compile_check(ftmp)
+            if isok :
+                if os.path.isfile(fpath2):  os.remove(fpath2)
+                os.rename(ftmp, fpath2)
+                log(fpath2)
+            else :    
+                log('Cannot compile', in_file)
+                os.remove(ftmp)
+                err_list.append(fi)
+        else:
+            print(f"No such file exists {in_file}, make sure your path is correct")
+
+
+    def zzbatch_format_dir(dirin, dirout):
+        """function batch_format_dir
+            
+        """
+        src_files = os_glob(dirin)
+        #flist = glob_glob_python(dirin, suffix ="*.py", nfile=nfile, exclude="*zz*")
+
+        for f in tqdm.tqdm(src_files):
+            if os_file_haschanged(f, weeks=2):
+                try :
+                   batch_format_file(f, dirout)
+                except Exception as e:
+                   log(e)   
+            else:
+                print(f"{f} is not modified within one week")
 
 
 """

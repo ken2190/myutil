@@ -1,0 +1,31 @@
+fire
+python-box
+numpy
+pandas
+# imodels
+pyinstrument  ### code profile
+scipy
+loguru
+
+########################################################
+#### utilmy.utils
+psutil
+tqdm
+
+
+
+
+########################################################
+#### utilmy.docs
+stdlib_list
+
+
+########################################################
+#### utilmy.keyvalue
+diskcache
+
+
+########################################################
+#### utilmy.adatasets
+# scikit-learn
+

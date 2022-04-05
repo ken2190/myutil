@@ -7,26 +7,14 @@ HELP="""All related to distributed compute and atomic read/write
 import os, sys, socket, platform, time, gc,logging, random
 
 ###############################################################################################
-from utilmy.utilmy import log, log2
+from utilmy.utilmy import log, log2, help_create
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
-    """
-    from utilmy import help_create
-    ss  = help_create("utilmy.distributed", prefixs= [ 'test'])  #### Merge test code
-    ss += HELP
-    print(ss)
+    print(HELP + help_create("utilmy.distributed", prefixs= [ 'test']) )  #### Merge test code
 
 
 def log_mem(*s):
     """function log_mem
-    Args:
-        *s:   
-    Returns:
-        
     """
     try:
         # print(*s, "\n", flush=True)
@@ -40,6 +28,13 @@ def log_mem(*s):
 
 ################################################################################################
 # Test functions
+def test_all():
+    """function test_all """
+    test_functions()
+    test_funtions_thread()
+    test_index()
+
+
 def test_functions():
     """Check that list function is working.
     os_lock_releaseLock, os_lock_releaseLock, os_lock_execute
@@ -115,9 +110,10 @@ def test_index():
         print(f'Thread {number} END')
 
     # Create thread
-    for i in range(3):
+    for i in range(2):
         t = threading.Thread(target=thread_running, args=(i+1, ))
         t.start()
+        time.sleep(0.2)
 
 
 def test_tofilesafe():
@@ -130,15 +126,7 @@ def test_tofilesafe():
 
 
 
-def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
-    """
-    test_functions()
-    test_funtions_thread()
-    test_index()
+
 
 #########################################################################################################
 ####### Atomic File writing ##############################################################################
@@ -242,7 +230,7 @@ class IndexLock(object):
         Returns:
            
         """
-        return put(self, val)
+        return self.put( val)
 
 
     ######################################################################

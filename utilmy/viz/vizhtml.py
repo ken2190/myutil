@@ -28,7 +28,9 @@ from typing import List
 from tqdm import tqdm
 from box import Box
 from utilmy.viz.css import getcss
-from utilmy.viz.test_vizhtml import test1, test2, test3, test4, test_scatter_and_histogram_matplot, test_pd_plot_network, test_page, test_cssname, test_external_css, test_table, test_getdata, test_colimage_table, test_tseries_dateformat 
+from utilmy.viz.test_vizhtml import (test1, test2, test3, test4, test_scatter_and_histogram_matplot, test_pd_plot_network, 
+  test_page, test_cssname, test_external_css, test_table, test_getdata, test_colimage_table, test_tseries_dateformat 
+)
 
 try :
    import matplotlib.pyplot as plt
@@ -90,9 +92,13 @@ def test_all():
    test_tseries_dateformat()
    
 #####################################################################################
-def show(file, title='table',format: str='blue_light',dir_out='table.html', css_class=None, use_datatable=True, table_id=None,):
+def show(file_csv_parquet:str="myfile.parquet", title='table',format: str='blue_light',dir_out='table.html', css_class=None, use_datatable=True, table_id=None,):
+    """  Open HTML file with the parquet file data.
+
+
+    """
     from utilmy import pd_read_file
-    df = pd_read_file(file)
+    df = pd_read_file(file_csv_parquet)
     log(df)
     title = title + "<br>" + file
     doc = vi.htmlDoc(dir_out="", title=title, format=format, cfg={})
@@ -104,10 +110,18 @@ def show(file, title='table',format: str='blue_light',dir_out='table.html', css_
       
 def show_table_image(df, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
                      custom_css_class=None, use_datatable=False, table_id=None,):
-   
+    """ Show table images
+
+        Args:
+            df (df): Panda  dataframe .
+            title (str, optional): Title of the html file. Defaults to "".
+            colgroup (list, optional): List of the group which you want to add to table.
+            colimage (str, optional): List of the image row.
+
+    """                
     if isinstance(df, str) : ## path
        from utilmy import pd_read_file
-       df = pd_read_file(file)
+       df = pd_read_file(df)
 
     if colimage:
         colimage = [colimage] if isinstance(colimage, str) else colimage
@@ -142,9 +156,17 @@ class htmlDoc(object):
     def __init__(self, dir_out="", mode="", title: str = "", format: str = None, cfg: dict = None,
                  css_name: str = "default", css_file: str = None, jscript_file: str = None,
                  verbose=True, **kw):
-        """
-           Generate HTML page to display graph/Table.
-           Combine pages together.
+        """Generate HTML page to display graph/Table.
+        Combine pages together.
+
+        Args:
+            dir_out (str, optional): Nmae of the output directory. Defaults to "".
+            title (str, optional): Title of the html file. Defaults to "".
+            cfg (dict, optional): Graph title and image size in object. Defaults to None.
+            css_name (str, optional): Add prebuilt css to html page (default, a4, border, a3d, grey). Defaults to "default".
+            css_file (str, optional): path to extenal css file if any. Defaults to None.
+            jscript_file (str, optional): path to extenal css file if any. Defaults to None.
+
         """
         import mpld3
 
@@ -195,6 +217,11 @@ class htmlDoc(object):
     def br(self,    css: str='')  : self.html += "\n" + f"<br style='{css}'/>"
 
     def get_html(self)-> str:
+        """funtion to return html text created
+
+        Returns:
+            str: Return Html text
+        """
         full = self.head  + self.html + self.tail
         return full
 
@@ -203,6 +230,12 @@ class htmlDoc(object):
         print(full, flush=True)
 
     def save(self, dir_out=None):
+        """Save html file
+
+        Args:
+            dir_out (_type_, optional): Name of the output file. Defaults to None.
+        """ 
+
         self.dir_out = dir_out if dir_out is not None else self.dir_out
         self.dir_out = dir_out.replace("\\", "/")
         self.dir_out = os.getcwd() + "/" + self.dir_out if "/" not in self.dir_out[0] else self.dir_out
@@ -218,10 +251,20 @@ class htmlDoc(object):
             ### file:///D:/_devs/Python01/gitdev/myutil/utilmy/viz/test_viz_table.html   
 
     def add_css(self, css):
+
+        """Add custom to file
+        Args:
+            css (str): css str
+        """ 
         data = f"\n<style>\n{css}\n</style>\n"
         self.head += data
     
     def add_js(self,js):
+
+        """Add custom js to file
+        Args:
+            js (str): js str
+        """ 
         data = f"\n<script>\n{js}\n</script>\n"
         self.tail = data + self.tail
 
@@ -433,6 +476,15 @@ class htmlDoc(object):
 
     def pd_plot_network(self, df:pd.DataFrame, cola:    str='col_node1', colweight:str="weight",
                         colb: str='col_node2', coledge: str='col_edge'):
+        """Add graph to html page
+
+        Args:
+            df (pd.DataFrame): Panda dataframe
+            cola (str, optional): cola from df. Defaults to 'col_node1'.
+            colweight (str, optional): weigth of edges. Defaults to "weight".
+            colb (str, optional): colb from df. Defaults to 'col_node2'.
+        """ 
+
         head, body = pd_plot_network(df, cola=cola, colb=colb,colweight=colweight, coledge=coledge)
         self.html += "\n\n" + body
         self.head += "\n\n" + head 

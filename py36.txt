@@ -10,6 +10,11 @@ cloudpickle
 flake8
 
 
+########################################################
+#### utilmy.ppandas
+pyarrow
+polars 
+
 
 ########################################################
 #### utilmy.date
@@ -30,6 +35,13 @@ snoop
 #### utilmy.utils
 wget
 psutil
+
+########################################################
+#### utilmy.images
+# opencv-python
+opencv-python-headless 
+scikit-image
+
 
 ########################################################
 #### utilmy.text
@@ -70,7 +82,7 @@ stdlib_list
 
 
 ########################################################
-#### utilmy.keyvalue
+#### utilmy.db
 diskcache
 
 

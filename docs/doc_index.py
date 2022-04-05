@@ -73,7 +73,7 @@ date_is_holiday(array)
 date_now(fmt="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S %Z%z", add_days = 0, timezone = 'Asia/Tokyo')
 date_to_timezone(tdate, fmt="%Y%m%d-%H = "%Y%m%d-%H:%M", timezone = 'Asia/Tokyo')
 date_weekday_excel(x)
-date_weekmonth(d)
+date_weekmonth(date_value)
 date_weekmonth2(d)
 date_weekyear2(dt)
 date_weekyear_excel(x)
@@ -94,7 +94,7 @@ db_load_dict(df, colkey, colval, verbose = True)
 db_merge()
 db_size(db_dir =  None)
 diskcache_config(db_path = None, task = 'commit')
-diskcache_get(cache)
+diskcache_get(cache, key, defaultval = None)
 diskcache_getall(cache, limit = 1000000000)
 diskcache_getkeys(cache)
 diskcache_keycount(cache)
@@ -184,10 +184,16 @@ timer_decorator(func)
 utilmy/deeplearning/__init__.py
 
 
+utilmy/deeplearning/autoencoder/__init__.py
+
+
 utilmy/deeplearning/autoencoder/keras_ae.py
 
 
-utilmy/deeplearning/keras/loss_graph.py
+utilmy/deeplearning/kkeras/__init__.py
+
+
+utilmy/deeplearning/kkeras/loss_graph.py
 -------------------------functions----------------------
 create_fake_neighbor(x: ndarray, max_neighbors: int)
 create_graph_loss(max_neighbors = 2)
@@ -200,7 +206,7 @@ train_step(x, y, model, loss_fn, optimizer, nbr_features_layer = None, ### Graph
 
 
 
-utilmy/deeplearning/keras/loss_vq_vae2.py
+utilmy/deeplearning/kkeras/loss_vq_vae2.py
 -------------------------functions----------------------
 encoder_Base(latent_dim: int)
 get_vqvae_layer_hierarchical(latent_dim: int = 16, num_embeddings: int = 64)
@@ -221,7 +227,7 @@ VQ_VAE_Trainer_2.metrics(self)
 VQ_VAE_Trainer_2.train_step(self, x: Tensor)
 
 
-utilmy/deeplearning/keras/train_graph_loss.py
+utilmy/deeplearning/kkeras/train_graph_loss.py
 -------------------------functions----------------------
 cal_loss_macro_soft_f1(y, y_hat)
 log(*s)
@@ -259,7 +265,7 @@ StepDecay.__call__(self, epoch)
 StepDecay.__init__(self, init_lr = 0.01, factor = 0.25, drop_every = 10)
 
 
-utilmy/deeplearning/keras/train_template.py
+utilmy/deeplearning/kkeras/train_template.py
 -------------------------functions----------------------
 label_get_data()
 param_set()
@@ -270,66 +276,7 @@ validation_step(x, model, y_label_list = None)
 
 
 
-utilmy/deeplearning/keras/train_vqvae_loss.py
--------------------------functions----------------------
-apply_func(s, values)
-build_model(input_shape, num_classes)
-build_model_2(input_shape, num_classes)
-clf_loss_crossentropy(y_true, y_pred)
-custom_loss(y_true, y_pred)
-custom_loss(y_true, y_pred)
-decoder_base(latent_dim, shape)
-encoder_base(input_shape, latent_dim)
-make_decoder()
-make_encoder(n_outputs = 1)
-make_vqvae_classifier(class_dict)
-make_vqvae_decoder(input_shape, latent_dim)
-make_vqvae_encoder(input_shape, latent_dim)
-metric_accuracy(y_val, y_pred_head, class_dict)
-perceptual_loss_function(x, x_recon, z_mean, z_logsigma, kl_weight = 0.00005, y_label_heads = None, y_pred_heads = None, clf_loss_fn = None)
-plot_grid(images, title = '')
-print_log(*s)
-train_step(x, model, train_variance, y_label_list = None)
-train_step(x, model, train_variance, y_label_list = None)
-validation_step(x, model, train_variance)
-validation_step(x, model, train_variance)
-visualize_imgs(img_list, path, tag, y_labels, n_sample = None)
-
--------------------------methods----------------------
-CustomDataGenerator0.__getitem__(self, idx)
-CustomDataGenerator0.__init__(self, x, y, batch_size = 32, augmentations = None)
-CustomDataGenerator0.__len__(self)
-CustomDataGenerator.__getitem__(self, idx)
-CustomDataGenerator.__getitem__(self, idx)
-CustomDataGenerator.__init__(self, image_dir, label_path, class_dict, split = 'train', batch_size = 8, transforms = None)
-CustomDataGenerator.__init__(self, image_dir, label_path, class_dict, split = 'train', batch_size = 8, transforms = None)
-CustomDataGenerator.__len__(self)
-CustomDataGenerator.__len__(self)
-CustomDataGenerator.on_epoch_end(self)
-CustomDataGenerator.on_epoch_end(self)
-LearningRateDecay.plot(self, epochs, title = "Learning Rate Schedule")
-PolynomialDecay.__call__(self, epoch)
-PolynomialDecay.__init__(self, max_epochs = 100, init_lr = 0.01, power = 1.0)
-Quantizer.__init__(self, number_of_embeddings, embedding_dimensions, beta = 0.25, **kwargs)
-Quantizer.call(self, x)
-Quantizer.get_code_indices(self, flattened_inputs)
-SprinklesTransform.__init__(self, num_holes = 100, side_length = 10, always_apply = False, p = 1.0)
-SprinklesTransform.apply(self, image, **params)
-StepDecay.__call__(self, epoch)
-StepDecay.__init__(self, init_lr = 0.01, factor = 0.25, drop_every = 10)
-VQ_VAE.__init__(self, latent_dim, class_dict, num_embeddings = 64, image_size = 64)
-VQ_VAE.__init__(self, latent_dim, class_dict, num_embeddings = 64, image_size = 64)
-VQ_VAE.call(self, x, training = True, mask = None)
-VQ_VAE.call(self, x, training = True, mask = None)
-VQ_VAE.decode(self, encoder_A_outputs, encoder_B_outputs, apply_sigmoid = False)
-VQ_VAE.decode(self, encoder_A_outputs, encoder_B_outputs, apply_sigmoid = False)
-VQ_VAE.encode(self, x)
-VQ_VAE.encode(self, x)
-VQ_VAE.reparameterize(self, z_mean, z_logsigma)
-VQ_VAE.reparameterize(self, z_mean, z_logsigma)
-
-
-utilmy/deeplearning/keras/util_dataloader_img.py
+utilmy/deeplearning/kkeras/util_dataloader_img.py
 -------------------------functions----------------------
 help()
 test()
@@ -352,30 +299,36 @@ Transform_sprinkle.__init__(self, num_holes: int = 30, side_length: int = 5, alw
 Transform_sprinkle.apply(self, image: ndarray, **params)
 
 
-utilmy/deeplearning/keras/util_dataloader_tab.py
+utilmy/deeplearning/kkeras/util_dataloader_tab.py
 -------------------------functions----------------------
 ModelCustom2()
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 default_collate_fn(samples)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
+help()
+import_data_tch(name = "", mode = "train", node_id = 0, data_folder_root = "")
 init(*kw, **kwargs)
 input_template_feed_keras(Xtrain, cols_type_received, cols_ref, **kw)
 load_info(path = "")
 load_model(path = "")
 log(*s)
 log2(*s)
+pd_to_tf_features(Xtrain:pd.DataFrame, cols_type_received, cols_ref, **kw)
+pd_to_tf_input_layer(df:pd.DataFrame, cols_cat_dict:    dict, cols_catstr_dict: dict, cols_num_dict:dict, is_sparse = True, **kw)
 predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
 test(config = '')
+test2()
 test_helper(model_pars, data_pars, compute_pars)
 tf_data_create_sparse(cols_type_received:dict =  {'cols_sparse' : ['col1', 'col2'], 'cols_num'    : ['cola', 'colb']}, cols_ref:list =   [ 'col_sparse', 'col_num'  ], Xtrain:pd.DataFrame = None, **kw)
 tf_data_file_to_dataset(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
 tf_data_pandas_to_dataset(training_df: pd.DataFrame, colsX: str, coly: str)
+tf_dataset(dataset_pars)
 
 -------------------------methods----------------------
 DataGenerator.__getitem__(self, index)
@@ -385,12 +338,15 @@ DataGenerator.on_epoch_end(self)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 
 
-utilmy/deeplearning/keras/util_debug.py
+utilmy/deeplearning/kkeras/util_debug.py
 -------------------------functions----------------------
 image_compare_modelpred(file_path, model_path, target_size)
 keras_check_layer(mlayer, )
 test_all()
 test_classactivation()
+test_dataset_classifier_mnist_tfdataset(batch = 32)
+tf_gpu_check()
+utils_plot_keras_training(training)
 
 -------------------------methods----------------------
 GradCAM.__init__(self, model, classIdx, layerName = None)
@@ -399,11 +355,11 @@ GradCAM.find_target_layer(self)
 GradCAM.overlay_heatmap(self, heatmap, image, alpha = 0.5, colormap = cv2.COLORMAP_JET)
 
 
-utilmy/deeplearning/keras/util_layers.py
+utilmy/deeplearning/kkeras/util_layers.py
 -------------------------functions----------------------
 dataloader_get_mnist()
 help()
-make_classifier(label_name_ncount:dict = None, layers_dim: List[int] = [128, 1024], tag: str = '1', latent_dim: int = 512)
+make_classifier(class_dict, latent_dim = 10)
 make_classifier_2(latent_dim, class_dict)
 make_classifier_multihead(label_name_ncount:dict = None, layers_dim: List[int] = [128, 1024], tag: str = '1', latent_dim: int = 512)
 make_decoder(xdim, ydim, latent_dim)
@@ -429,7 +385,7 @@ ResBlock.__init__(self, filters: List[int], kernels: List[int])
 ResBlock.call(self, input_tensor, training = False)
 
 
-utilmy/deeplearning/keras/util_loss.py
+utilmy/deeplearning/kkeras/util_loss.py
 -------------------------functions----------------------
 learning_rate_schedule(mode = "step", epoch = 1, cc = None)
 loss_clf_macro_soft_f1(y, y_hat)
@@ -446,7 +402,7 @@ StepDecay.__call__(self, epoch)
 StepDecay.__init__(self, init_lr = 0.01, factor = 0.25, drop_every = 5)
 
 
-utilmy/deeplearning/keras/util_models.py
+utilmy/deeplearning/kkeras/util_models.py
 -------------------------functions----------------------
 make_classifier(class_dict, latent_dim = 10)
 make_classifier_2(latent_dim, class_dict)
@@ -464,7 +420,7 @@ DFC_VAE.encode(self, x)
 DFC_VAE.reparameterize(self, z_mean, z_logsigma)
 
 
-utilmy/deeplearning/keras/util_similarity.py
+utilmy/deeplearning/kkeras/util_similarity.py
 -------------------------functions----------------------
 __cast_left_and_right_to_tensors(left: EagerTensor, right: EagerTensor)
 __get_rows_counts(left: EagerTensor, right: EagerTensor)
@@ -479,7 +435,7 @@ tf_cdist_euclidean(left: Iterable[float], right: Iterable[float])
 
 
 
-utilmy/deeplearning/keras/util_train.py
+utilmy/deeplearning/kkeras/util_train.py
 -------------------------functions----------------------
 check_valid_image(img_list, path = "", tag = "", y_labels = "", n_sample = 3, renorm = True)
 clean_duplicates(ll)
@@ -502,7 +458,7 @@ train_stop(counter, patience)
 
 
 
-utilmy/deeplearning/keras/zz_util_dataloader_img_old.py
+utilmy/deeplearning/kkeras/zz_util_dataloader_img_old.py
 -------------------------functions----------------------
 _byte_feature(value)
 _float_feature(value)
@@ -534,10 +490,10 @@ SprinklesTransform.__init__(self, num_holes: int = 30, side_length: int = 5, alw
 SprinklesTransform.apply(self, image, **params)
 
 
-utilmy/deeplearning/torch/__init__.py
+utilmy/deeplearning/ttorch/__init__.py
 
 
-utilmy/deeplearning/torch/graphnlp.py
+utilmy/deeplearning/ttorch/graphnlp.py
 -------------------------functions----------------------
 dataset_download(dirout = '/content/sample_data/sent_tans/')
 dataset_fake(dirdata)
@@ -556,7 +512,10 @@ test()
 
 
 
-utilmy/deeplearning/torch/images/base.py
+utilmy/deeplearning/ttorch/images/__init__.py
+
+
+utilmy/deeplearning/ttorch/images/base.py
 -------------------------methods----------------------
 BaseHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss', loss_weight = 1.0), multi_class = False, label_smooth_eps = 0.0)
 BaseHead.forward(self, x)
@@ -564,21 +523,68 @@ BaseHead.init_weights(self)
 BaseHead.loss(self, cls_score, labels, **kwargs)
 
 
-utilmy/deeplearning/torch/images/i3d.py
+utilmy/deeplearning/ttorch/images/i3d.py
 -------------------------methods----------------------
 I3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, **kwargs)
 I3DHead.forward(self, x)
 I3DHead.init_weights(self)
 
 
-utilmy/deeplearning/torch/images/x3d.py
+utilmy/deeplearning/ttorch/images/x3d.py
 -------------------------methods----------------------
 X3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, fc1_bias = False)
 X3DHead.forward(self, x)
 X3DHead.init_weights(self)
 
 
-utilmy/deeplearning/torch/rule_encoder.py
+utilmy/deeplearning/ttorch/model_ensemble.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+help()
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
+model_build(arg:dict, mode = 'train')
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+test()
+test_all()
+
+-------------------------methods----------------------
+DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+DataEncoder.forward(self, x)
+NaiveModel.__init__(self)
+NaiveModel.forward(self, x, alpha = 0.0)
+Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
+Net.forward(self, x, alpha = 0.0)
+Net.get_z(self, x, alpha = 0.0)
+RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+RuleEncoder.forward(self, x)
+
+
+utilmy/deeplearning/ttorch/models/__init__.py
+
+
+utilmy/deeplearning/ttorch/models/sentences_model.py
+-------------------------functions----------------------
+evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
+fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+fit2(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
+get_dataset(data_pars = None, **kw)
+get_dataset2(data_pars = None, model = None, **kw)
+get_params(param_pars, **kw)
+load(load_pars = None)
+predict(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+predict2(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
+reset_model()
+save(model, session = None, save_pars = None)
+test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
+
+-------------------------methods----------------------
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
+
+
+utilmy/deeplearning/ttorch/rule_encoder.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
 dataset_load_cardio(arg)
@@ -590,7 +596,7 @@ get_correct_results(out, label_Y)
 get_metrics(y_true, y_pred, y_score)
 get_perturbed_input(input_tensor, pert_coeff)
 help()
-loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg, )
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
 loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
 loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
 model_build(arg:dict, mode = 'train')
@@ -615,7 +621,43 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
-utilmy/deeplearning/torch/rule_encoder2.py
+utilmy/deeplearning/ttorch/util_torch.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+get_metrics(y_true, y_pred, y_score)
+help()
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+test2()
+test_all()
+test_dataset_classification_fake(nrows = 500)
+
+-------------------------methods----------------------
+model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
+model_dummy.forward(self, x)
+
+
+utilmy/deeplearning/ttorch/zkeras_torch_sentence.py
+-------------------------functions----------------------
+build_model()
+create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
+log(*s)
+metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
+model_load(path)
+model_save(path)
+sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
+test()
+
+-------------------------methods----------------------
+ReRanker.__init__(self)
+ReRanker.call(self, inputs, **kwargs)
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/deeplearning/ttorch/zrule_encoder2.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
 dataset_load(arg, mode = 'eval')
@@ -667,78 +709,13 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
-utilmy/deeplearning/torch/sentence2.py
--------------------------functions----------------------
-evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
-fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
-fit2(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
-get_dataset(data_pars = None, **kw)
-get_dataset2(data_pars = None, model = None, **kw)
-get_params(param_pars, **kw)
-load(load_pars = None)
-predict(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
-predict2(model, session = None, data_pars = None, out_pars = None, compute_pars = None, **kw)
-reset_model()
-save(model, session = None, save_pars = None)
-test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
-
--------------------------methods----------------------
-Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
-
-
-utilmy/deeplearning/torch/sentences.py
--------------------------functions----------------------
-dataset_download(dirout = '/content/sample_data/sent_tans/')
-dataset_fake(dirdata)
-dataset_fake2(dirdata = '')
-load_dataloader(name = 'sts', path_or_df  =  "", cc:dict =  None, npool = 4)
-load_evaluator(name = 'sts', path_or_df = "", dname = 'sts', cc:dict = None)
-load_loss(model  = '', lossname  = 'cosinus', cc:dict =  None)
-log(*s)
-metrics_cosine_sim(sentence1  =  "sentence 1", sentence2  =  "sentence 2", model_id  =  "model name or path or object")
-model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
-model_load(path_or_name_or_object)
-model_save(model, path, reload = True)
-model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
-pd_read(path_or_df = './myfile.csv', npool = 1, **kw)
-sentrans_train(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
-test()
-
-
-
-utilmy/deeplearning/torch/util_train.py
-
-
-utilmy/deeplearning/torch/zkeras_torch_sentence.py
--------------------------functions----------------------
-build_model()
-create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
-log(*s)
-metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
-model_load(path)
-model_save(path)
-sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
-test()
-
--------------------------methods----------------------
-ReRanker.__init__(self)
-ReRanker.call(self, inputs, **kwargs)
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
-
-
 utilmy/deeplearning/util_dl.py
 -------------------------functions----------------------
-create_train_npz()
-create_train_parquet()
-data_mnist_get_train_test(batch = 32)
-down_page(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 gpu_available()
 gpu_usage()
-model_deletes(dry = 0)
+help()
 tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
 test_all()
-tf_check()
 
 
 
@@ -751,21 +728,17 @@ embedding_table_comparison(embeddings_1:list, embeddings_2:list, labels_1:list, 
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
 faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
 faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
-np_matrix_to_str(m, map_dict)
-np_matrix_to_str2(m, map_dict)
-np_matrix_to_str_sim(m)
-np_str_to_array(vv, l2_norm = True, mdim  =  200)
-np_str_to_array(vv, l2_norm = True, mdim  =  200)
-sim_score2(path = "")
-simscore_cosinus_calc(embs, words)
-test()
+help()
+sim_scores_faiss(path = "")
+sim_scores_sklearn(embs, words)
+test1()
+test_all()
 topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
 topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
-unzip(in_dir, out_dir)
 viz_run(dirin = "in/model.vec", dirout = "ztmp/", nmax = 100)
 
 -------------------------methods----------------------
@@ -778,9 +751,25 @@ vizEmbedding.draw_hiearchy(self)
 vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
 
 
+utilmy/deeplearning/util_onnx.py
+-------------------------functions----------------------
+help()
+onnx_check_onnx(dironnx:str = "super_resolution.onnx", dirmodel:str = None, dirweights:str = None, x_numpy:Union[ndarray, list] = None)
+onnx_convert(torch_model, 1, 224, 224), dirout               =  '.', checkpoint_path      =  './mymodel.pth', export_params        =  True, onnx_version         =  10, do_constant_folding  =  True, input_names          =  ['input'], output_names         =  ['output'], dynamic_axes        = {'input'  =  {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}, device               =  'cpu', )
+onnx_load_modelbase(dirmodel:str = "myClassmodel.py:MyNNClass", dirweight:str = "", mode_inference = True, verbose = 1)
+onnx_load_onnx(dironnx:str = "super_resolution.onnx", )
+test1()
+test3()
+test_all()
+test_helper()
+test_onnx_convert()
+
+
+
 utilmy/deeplearning/util_yolo.py
 -------------------------functions----------------------
 convert_to_yolov5(info_dict:Dict, names:Dict, output:str)
+help()
 test_all()
 test_convert_to_yolov5()
 test_yolov5_from_xml()
@@ -795,13 +784,13 @@ convert_txt_to_vector_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**
 data_add_onehot(dfref, img_dir, labels_col)
 folder_size()
 gzip()
-np_matrix_to_str(m, map_dict)
+np_matrix_to_str(m)
 np_matrix_to_str2(m, map_dict)
 np_matrix_to_str_sim(m)
 np_str_to_array(vv, l2_norm = True, mdim  =  200)
 predict(name = None)
 test()
-topk()
+topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
@@ -839,7 +828,6 @@ IndexLock.get(self, **kw)
 IndexLock.put(self, val:list = None)
 IndexLock.read(self, )
 IndexLock.save_filter(self, val:list = None)
-IndexLock.save_isok(self, flist:list)
 toFile.__init__(self, fpath)
 toFile.write(self, msg)
 
@@ -871,13 +859,13 @@ _get_words(row)
 _remmove_commemt_line(line)
 _remove_empty_line(line)
 _validate_file(file_path)
-export_call_graph(repo_link: str, out_path:str = None)
+export_call_graph(in_path:str = None, out_path:str = None)
 export_call_graph_url(repo_link: str, out_path:str = None)
 export_stats_perfile(in_path:str = None, out_path:str = None)
-export_stats_perrepo(in_path:str = None, out_path:str = None, repo_name:str = None)
+export_stats_perrepo(in_path:str = None, out_path:str = None, repo_name:str = None, type:str = 'csv')
 export_stats_perrepo_txt(in_path:str = None, out_path:str = None, repo_name:str = None)
 export_stats_pertype(in_path:str = None, type:str = None, out_path:str = None)
-export_stats_repolink(repo_link: str, out_path:str = None)
+export_stats_repolink(repo_link: str, out_path:str = None, type:str = 'csv')
 export_stats_repolink_txt(repo_link: str, out_path:str = None)
 get_file_stats(file_path)
 get_list_class_info(file_path)
@@ -893,6 +881,7 @@ get_list_method_info(file_path)
 get_list_method_stats(file_path)
 get_list_variable_global(file_path)
 get_stats(df:pd.DataFrame, file_path:str)
+log(*s)
 test_example()
 write_to_file(uri, type, list_functions, list_classes, list_imported, dict_functions, list_class_as, out_path)
 
@@ -900,35 +889,31 @@ write_to_file(uri, type, list_functions, list_classes, list_imported, dict_funct
 
 utilmy/docs/docstring.py
 -------------------------functions----------------------
-automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str)
-docstring(repo_dir: Path, dirout:str, overwrite_script: bool  =  False, test: bool  =  True)
-docstring_from_type_hints(repo_dir: Path, dirout:str, overwrite_script: bool  =  False, test: bool  =  True)
-indent(string: str)
-main()
-
-
-
-utilmy/docs/docstring2.py
--------------------------functions----------------------
-automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str)
-docstring_from_type_hints(repo_dir: Path, overwrite_script: bool  =  False, test: bool  =  True)
-indent(string: str)
-main()
-
-
-
-utilmy/docs/format.py
--------------------------functions----------------------
-find_str(lines, word)
-format_add_header(dirin:str = "./")
-format_add_logger(dirin:str, dirout:str, nfile = 1000)
+docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+generate_docstring(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
 help()
-os_file_compile_check(dirin:str, nfile = 10)
-os_file_compile_check_batch(dirin:str, nfile = 10)
-test1()
-test2()
+run_all(mode = 'overwrite')
+test1(mode = 'test')
 test_all()
-to_file(lines, fpath)
+
+
+
+utilmy/docs/format2.py
+-------------------------functions----------------------
+extrac_block(lines)
+format_file(file_path)
+format_file2(file_path, output_file)
+format_file3(file_path, output_file)
+format_utilmy(nfile = 10)
+get_file(file_path)
+log(*s)
+normalize_core(lines)
+normalize_footer(lines)
+normalize_header(file_name, lines)
+normalize_import(lines)
+normalize_logger(lines)
+normalize_test(lines)
+test1()
 
 
 
@@ -940,7 +925,7 @@ markdown_createall(dfi, prefix = "")
 run_markdown(repo_stat_file, output = 'docs/doc_main.md', prefix="https = "https://github.com/user/repo/tree/a")
 run_table(repo_stat_file, output = 'docs/doc_table.md', prefix="https = "https://github.com/user/repo/tree/a")
 table_all_row(list_rows)
-table_create(uri, name, type, start_line, list_funtions, prefix)
+table_create(dfi, prefix)
 table_create_row(uri, name, type, start_line, list_funtions, prefix)
 test()
 
@@ -952,15 +937,75 @@ glob_glob_python(dirin, suffix  = "*.py", nfile = 7, exclude = "")
 help()
 os_path_norm(diroot)
 run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
-run_utilmy(nfile = 100)
-run_utilmy2(nfile = 100)
+run_utilmy(nfile = 10000)
+run_utilmy_overwrite(nfile = 100000)
 test1()
 test2()
 test_all()
 
 
 
-utilmy/docs/templates/util_xxx.py
+utilmy/docs/test_script/test_script_no_core.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_header.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_help.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_no_logger.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/test_script_normalize_import.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/util_template.py
 -------------------------functions----------------------
 help()
 test1()
@@ -969,18 +1014,39 @@ test_all()
 
 
 
-utilmy/docs/test.py
+utilmy/docs/zold_cli_format.py
 -------------------------functions----------------------
-calculateBuyPrice(enter, profit)
-calculateSellPrice(enter, profit)
-get_list_price()
-list_buy_price(start, bottom, delta)
-list_sell_price(start, top, delta)
-log(data)
-trading_down()
-trading_up()
-update_price()
+format_assignments(text)
+format_comments(text = "default", line_size = 90)
+format_dir(in_dir, out_dir)
+format_file(in_file, out_dir)
+format_imports(text)
+format_logs(text = "default", line_size = 90)
+load_arguments()
+main()
+mod_period(in_file)
+os_glob(in_dir)
 
+
+
+utilmy/docs/zold_docstring2.py
+-------------------------functions----------------------
+automate_mkdocs_from_docstring(mkdocs_dir: Union[str, Path], mkgendocs_f: str, repo_dir: Path, match_string: str)
+docstring_from_type_hints(repo_dir: Path, overwrite_script: bool  =  False, test: bool  =  True)
+indent(string: str)
+main()
+
+
+
+utilmy/docs/zold_docstring3.py
+-------------------------functions----------------------
+custom_generate_docstring(repo_dir: str, dirout: str, overwrite_script: bool  =  False, test: bool  =  True)
+help_get_docstring(func)
+main()
+
+
+
+utilmy/excel/__init__.py
 
 
 utilmy/excel/xlvba.py
@@ -998,37 +1064,42 @@ utilmy/graph.py
 utilmy/iio.py
 
 
+utilmy/images/__init__.py
+
+
 utilmy/images/util_image.py
 -------------------------functions----------------------
+diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = "cache1")
+diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list)
+diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
+diskcache_image_loadcache(db_dir:str = "db_images.cache")
+download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
-image_cache_check(db_path:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
-image_cache_create()
-image_cache_save(image_path_list:str = "db_images.cache", db_dir:str = "tmp/", tag = "cache1")
-image_center_crop(img, dim)
-image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
-image_check_npz(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
-image_face_blank(in_dir = "", level  =  "/*", out_dir = f"", npool = 30)
-image_merge(image_list, n_dim, padding_size, max_height, total_width)
+image_center_crop(img:npArrayLike, dim:Tuple[int, int])
+image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
+image_create_fake2(dirin:Path_type = None)
+image_custom_resize_mp(dirin:Path_type = "", dirout :str  = "")
+image_face_blank(in_dir:Path_type = "", level  =  "/*", dirout:Path_type = f"", npool = 30)
+image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
 image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
+image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5, verbose = False)
+image_prep_many(image_paths:Sequence[str], image_prep_fun, nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+image_prep_multiproc(dirimage_list:list, image_prep_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
-image_remove_bg(in_dir = "", out_dir = "", level = 1)
-image_remove_extra_padding(img, inverse = False, removedot = True)
-image_resize(image, width = None, height = None, inter = cv2.INTER_AREA)
-image_resize2(image, width = None, height = None, inter = cv2.INTER_AREA)
-image_resize_pad(img, size = (256, 256)
-image_resize_ratio(image, width = None, height = None, inter = cv2.INTER_AREA)
-image_save()
-image_show_in_row(image_list:dict = None)
-image_text_blank(in_dir, out_dir, level = "/*")
-os_path_check(path, n = 5)
-prep_image(image_paths, nmax = 10000000)
-prep_images(image_paths, nmax = 10000000)
-prep_images2(image_paths, nmax = 10000000)
-prep_images_multi(image_path_list:list, prepro_image_fun = None, npool = 1)
-run_multiprocess(myfun, list_args, npool = 10, **kwargs)
-test()
+image_remove_bg(in_dir:Path_type = "", dirout:Path_type = "", level:int = 1)
+image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
+image_resize(image : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
+image_resize_pad(img :npArrayLike, size : Tuple[Int_none, Int_none] = (None, None)
+image_resize_ratio(image : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
+image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
+image_show_in_row(image_list:Union[dict, list, None] = None)
+image_text_blank(in_dir :Path_type, dirout :Path_type, level = "*")
+npz_image_dumpsample(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
+test1()
+test2()
 test_all()
-test_image_create_fake(dirout = None, nimages = 1, )
+test_diskcache()
 
 
 
@@ -1048,7 +1119,7 @@ LoggingStreamHandler.handle(self)
 
 utilmy/logs/util_log.py
 -------------------------functions----------------------
-log(log_config_path: str  =  None, log_template: str  =  "default", **kwargs)
+log(*s)
 log2(*s)
 log3(*s)
 logc(*s)
@@ -1077,61 +1148,54 @@ writelog(m = "", f = None)
 
 
 
-utilmy/nlp/optim_rank.py
+utilmy/nlp/__init__.py
+
+
+utilmy/nlp/kkeras/__init__.py
+
+
+utilmy/nlp/kkeras/sentences.py
 -------------------------functions----------------------
-cost_fitness(rank_score)
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
-rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
-test()
+embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
+get_embed(model_emb, word)
+help()
+model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
+model_get_embed(model)
+model_load(model_path)
 test1()
-
-
-
-utilmy/nlp/rank_fusion.py
--------------------------functions----------------------
-comb(rank_list, fusion_function, params)
-file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
-get_fusion_alg(text)
-norm_minmax(ranks, lowest, highest)
-norm_zscore(ranks, lowest, highest)
-parse_svmlight_rank(filepath)
-parse_svmlight_score(filepath)
-parse_trec(filepath, idIsFilename = False)
-print_comb(ranks, max_k, outstream, rank_name)
-sort_by_score_and_id(elem1, elem2)
+test2()
+test3()
+test_all()
 
 -------------------------methods----------------------
-prettyfloat.__repr__(self)
-prettyfloat.__str__(self)
-prettyint.__repr__(self)
-prettyint.__str__(self)
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
 
 
-utilmy/nlp/rank_fusion_functions.py
+utilmy/nlp/ttorch/__init__.py
+
+
+utilmy/nlp/ttorch/sentences.py
 -------------------------functions----------------------
-compareCondor(item1, item2)
-condor(doc_id_scores)
-expn_isr(result_list, params)
-expn_rrf(result_list, params)
-isr(result_list, params)
-log_isr(result_list, params)
-logn_isr(result_list, params)
-logn_rrf(result_list, params)
-max(result_list, params)
-min(result_list, params)
-mnz(result_list, params)
-rr(result_list, params)
-rrf(result_list, params)
-sum(result_list, params)
-votes(result_list, params)
+dataset_download(name = 'AllNLI.tsv.gz', dirout = '/content/sample_data/sent_tans/')
+dataset_fake(name = 'AllNLI.tsv.gz', dirdata:str = '', fname:str = 'data_fake.parquet', nsample = 10)
+dataset_fake2(dirdata = '')
+help()
+load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, istrain = True, npool = 4)
+load_evaluator(path_or_df:Dataframe_str = "", dname = 'sts', cc:dict = None)
+load_loss(model, lossname  = 'cosine', cc:dict =  None)
+model_check_cos_sim(model, sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
+model_encode(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", show = 1, **kw)
+model_encode_batch(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", nsplit = 5, imin = 0, imax = 500, **kw)
+model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
+model_finetune(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_finetune_classifier(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_load(path_or_name_or_object)
+model_save(model, path:str, reload = True)
+model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+test1()
+test_all()
 
 
 
@@ -1167,145 +1231,134 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 
 
 
+utilmy/nlp/util_embedding.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+test_text_get_embedding()
+test_text_sentence_extraction()
+
+
+
+utilmy/nlp/util_explain.py
+-------------------------functions----------------------
+explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
+explainer_lime(model, y_train, txt_instance, top = 10)
+explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
+explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
+help()
+test1()
+test2()
+test_all()
+
+
+
 utilmy/nlp/util_gensim.py
 -------------------------functions----------------------
+bigram_generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
 bigram_get_list(ranid, mode = 'name, proba')
 bigram_get_seq3(ranid, itemtag, lname, pnorm)
 bigram_load_convert(path)
+bigram_write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
 bigram_write_seq(rr = 0, dirin = None, dirout = None, tag = "")
-ccount_get_sample(lname, lproba = None, pnorm = None, k = 5)
 embedding_load_parquet(dirin = "df.parquet", nmax = 500)
 embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
 embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
-generate_random_bigrams(n_words = 100, word_length = 4, bigrams_length = 5000)
 gensim_model_check(model_path)
 gensim_model_load(dirin, modeltype = 'fastext', **kw)
 gensim_model_train_save(model_or_path = None, dirinput = 'lee_background.cor', dirout = "./modelout/model", epochs = 1, pars: dict  =  None, **kw)
 help()
-np_intersec(va, vb)
-np_str_to_array(vv, l2_norm = True, mdim = 200)
 test_all()
 test_gensim1()
 text_generate_random_sentences(dirout = None, n_sentences = 5, )
 text_preprocess(sentence, lemmatizer, stop_words)
-write_random_sentences_from_bigrams_to_file(dirout, n_sentences = 14000)
+
+
+
+utilmy/nlp/util_ner.py
+-------------------------functions----------------------
+help()
+ner_features(lst_dics_tuples, tag)
+ner_freq_spacy_tag(tags, top = 30, figsize = (10, 5)
+ner_spacy_add_tag_features(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
+ner_spacy_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
+ner_spacy_retrain(train_data, output_dir, model = "blank", n_iter = 100)
+ner_spacy_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
+test1()
+test2()
+test_all()
 
 
 
 utilmy/nlp/util_nlp.py
 -------------------------functions----------------------
-add_detect_lang(data, column)
-add_encode_variable(dtf, column)
-add_ner_spacy(data, column, ner = None, lst_tag_filter = None, grams_join = "_", create_features = True)
-add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
-add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
-add_text_length(data, column)
-add_word_freq(data, column, lst_words, freq = "count")
-bart(corpus, ratio = 0.2)
-create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
-create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
-display_string_matching(a, b, both = True, sentences = True, titles = [])
-dtf_partitioning(dtf, y, test_size = 0.3, shuffle = False)
-embedding_bert(x, tokenizer = None, nlp = None, log = False)
-embedding_w2v(x, nlp = None, value_na = 0)
-evaluate_multi_classif(y_test, predicted, predicted_prob, figsize = (15, 5)
-evaluate_summary(y_test, predicted)
-explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors = [], top = 5, figsize = (5, 3)
-explainer_lime(model, y_train, txt_instance, top = 10)
-explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top = 10)
-explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level = False, top = 5, figsize = (20, 10)
-features_selection(X, y, X_names, top = None, print_top = 10)
-fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
-fit_bow(corpus, vectorizer = None, vocabulary = None)
-fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
-fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
-fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
-fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
-fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
-get_similar_words(lst_words, top, nlp = None)
-ner_displacy(txt, ner = None, lst_tag_filter = None, title = None, serve = False)
-plot_distributions(dtf, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
-plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
-plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
-plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
-predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
-predict_similarity_classif(X, dic_y)
-retrain_ner_spacy(train_data, output_dir, model = "blank", n_iter = 100)
-sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
-tags_freq(tags, top = 30, figsize = (10, 5)
-text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
-textrank(corpus, ratio = 0.2)
-tokenize_bert(corpus, tokenizer = None, maxlen = None)
-utils_bert_embedding(txt, tokenizer, nlp, log = False)
-utils_cosine_sim(a, b, nlp = None)
-utils_lst_count(lst, top = None)
-utils_ner_features(lst_dics_tuples, tag)
-utils_ner_text(txt, ner = None, lst_tag_filter = None, grams_join = "_")
-utils_plot_keras_training(training)
-utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
-utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
-utils_string_matching(a, lst_b, threshold = None, top = None)
-vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
-vocabulary_embeddings(dic_vocabulary, nlp = None)
-word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
-word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
-
-
-
-utilmy/nlp/util_rank.py
--------------------------functions----------------------
-rank_adjust(ll1, ll2, kk =  1)
-rank_biased_overlap(list1, list2, p = 0.9)
-rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
-rbo_find_p()
-
--------------------------methods----------------------
-RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
-RankingSimilarity._bound_range(self, value: float)
-RankingSimilarity.assert_p(self, p: float)
-RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
-RankingSimilarity.rbo_ext(self, p = 0.98)
-RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
-
-
-utilmy/nlp/util_rankmerge.py
--------------------------functions----------------------
-log(*s)
-rank_adjust2(ll1, ll2, kk =  1)
-rank_eval(rank_true, dfmerged, nrank = 100)
-rank_fillna(df)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_generatefake(ncorrect = 30, nsize = 100)
-rank_merge(ll1, ll2)
-rank_merge_v2(list1, list2, nrank)
-rank_merge_v3(list1, list2, maxrank = 100)
-rank_merge_v4(ll1, ll2)
-rank_merge_v5(ll1, ll2, kk =  1)
-rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
-test()
-test()
-test()
-test1()
-test_rankadjust2(df1, df2)
-
-
-
-utilmy/nlp/util_sentence.py
--------------------------functions----------------------
-embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
-get_embed(model_emb, word)
+bagwords_features_selection(X, y, X_names, top = None, print_top = 10)
+bagwords_fit_bow(corpus, vectorizer = None, vocabulary = None)
+bagwords_fit_ml_classif(X_train, y_train, X_test, vectorizer = None, classifier = None)
+bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix = "")
 help()
-model_finetune_classifier(model_path, df, n_labels = 3, lrate = 1e-5)
-model_get_embed(model)
-model_load(model_path)
+seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model = None, build_encoder_decoder = True, epochs = 100, batch_size = 64)
+seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens = ("<START>", "<END>")
+string_matching_cossim(a, lst_b, threshold = None, top = None)
+string_matching_display(a, b, both = True, sentences = True, titles = [])
+string_vlookup(lst_left, lst_right, threshold = 0.7, top = 1)
+summary_bart(corpus, ratio = 0.2)
+summary_evaluate_summary(y_test, predicted)
+summary_textrank(corpus, ratio = 0.2)
 test1()
-test2()
-test3()
+test_all()
+text_add_detect_lang(data, column)
+text_add_preprocessed_text(data, column, lst_regex = None, punkt = False, lower = False, slang = False, lst_stopwords = None, stemm = False, lemm = False, remove_na = True)
+text_add_sentiment(data, column, algo = "vader", sentiment_range = (-1, 1)
+text_add_text_length(data, column)
+text_add_word_freq(data, column, lst_words, freq = "count")
+text_cluster_cosine_sim(a, b, nlp = None)
+text_cluster_predict_similarity_classif(X, dic_y)
+text_create_stopwords(lst_langs = ["english"], lst_add_words = [], lst_keep_words = [])
+text_plot_distributions(df, x, max_cat = 20, top = None, y = None, bins = None, figsize = (10, 5)
+text_plot_wordcloud(corpus, max_words = 150, max_font_size = 35, figsize = (10, 10)
+text_utils_preprocess_text(txt, lst_regex = None, punkt = True, lower = True, slang = True, lst_stopwords = None, stemm = False, lemm = True)
+text_word_freq(corpus, ngrams = [1, 2, 3], top = 10, figsize = (10, 7)
+topic_fit_lda(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_topics = 3, figsize = (10, 7)
+topic_get_similar_words(lst_words, top, nlp = None)
+topic_plot_w2v_cluster(dic_words = None, nlp = None, plot_type = "2d", annotate = True, figsize = (10, 5)
+topic_word_clustering(corpus, nlp = None, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], n_clusters = 3)
+word2vec_create_ngrams_detectors(corpus, grams_join = " ", lst_common_terms = [], min_count = 5, top = 10, figsize = (10, 7)
+word2vec_embedding_w2v(x, nlp = None, value_na = 0)
+word2vec_fit_dl_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, weights = None, epochs = 100, batch_size = 256)
+word2vec_fit_w2v(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], min_count = 1, size = 300, window = 20, sg = 1, epochs = 100)
+word2vec_plot_w2v(lst_words = None, nlp = None, plot_type = "2d", top = 20, annotate = True, figsize = (10, 5)
+word2vec_text2seq(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [], fitted_tokenizer = None, top = None, oov = None, maxlen = None)
+word2vec_utils_preprocess_ngrams(corpus, ngrams = 1, grams_join = " ", lst_ngrams_detectors = [])
+word2vec_vocabulary_embeddings(dic_vocabulary, nlp = None)
+
+
+
+utilmy/nlp/util_topk.py
+-------------------------functions----------------------
+embedding_load_parquet(dirin = "df.parquet", nmax = 500)
+embedding_model_to_parquet(model_vector_path = "model.vec", nmax = 500)
+embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout);dirout);4)if is_linevalid_fun is None = Nonedirout);dirout);4)if is_linevalid_fun is None:  #### Validate linew):)
+faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type = "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10 ** 7, nfile=1000if faiss_index is None = 1000if faiss_index is None:)
+help()
+test1()
 test_all()
 
--------------------------methods----------------------
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/nlp/util_transformers.py
+-------------------------functions----------------------
+embedding_bert(x, tokenizer = None, nlp = None, log = False)
+fit_bert_classif(X_train, y_train, X_test, encode_y = False, dic_y_mapping = None, model = None, epochs = 100, batch_size = 64)
+help()
+test1()
+test2()
+test_all()
+tokenize_bert(corpus, tokenizer = None, maxlen = None)
+utils_bert_embedding(txt, tokenizer, nlp, log = False)
+
 
 
 utilmy/nnumpy.py
@@ -1366,7 +1419,7 @@ os_removedirs(path, verbose = False)
 os_search_content(srch_pattern = None, mode = "str", dir1 = "", file_pattern = "*.*", dirlevel = 1)
 os_sizeof(o, ids, hint = " deep_getsizeof(df_pd, set()
 os_sleep_cpu(cpu_min = 30, sleep = 10, interval = 5, msg =  "", verbose = True)
-os_system(ll, logfile = None, sleep_sec = 10)
+os_system(cmd, doprint = False)
 os_system_list(ll, logfile = None, sleep_sec = 10)
 os_to_file(txt = "", filename = "ztmp.txt", mode = 'a')
 os_variable_check(ll, globs = None, do_terminate = True)
@@ -1398,46 +1451,24 @@ toFileSafe.w(self, msg)
 toFileSafe.write(self, msg)
 
 
+utilmy/optim/__init__.py
+
+
 utilmy/optim/gp.py
 -------------------------functions----------------------
-NodesToProcess(G)
-cost(G)
-decode(G)
-is_valid(G)
-random_solution()
-random_walker(G, h)
-search()
-sigint_handler(signal, frame)
+run()
 
 
 
 utilmy/optim/gp_dcgp.py
 -------------------------functions----------------------
-get_correlm(eqn)
-get_cost(ex)
-get_random_solution()
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
-rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
-search()
+run4()
 
 
 
 utilmy/optim/gp_formulae.py
 -------------------------functions----------------------
-NodesToProcess(G)
-decode(G)
-get_correlm(eqn)
-get_cost(G)
-is_valid(G)
-log(*s)
-random_solution()
-random_walker(G, h)
-rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
-rank_merge_v5(ll1:list, ll2:list, eqn:str, kk =  1)
-rank_score(eqn:str, rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
-search()
-sigint_handler(signal, frame)
+run1()
 
 
 
@@ -1469,14 +1500,15 @@ multiproc_tochunk(flist, npool = 2)
 multithread_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
 multithread_run_list(**kwargs)
 pd_apply_parallel(df, fun_apply = None, npool = 5, verbose = True)
-pd_groupby_parallel(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
+pd_groupby_parallel(df, colsgroup = None, fun_apply = None, n_pool = 4, npool = None)
 pd_groupby_parallel2(df, colsgroup = None, fun_apply = None, npool: int  =  1, **kw, )
 pd_random(nrows = 1000, ncols =  5)
 pd_read_file(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
 pd_read_file2(path_glob = "*.pkl", ignore_index = True, cols = None, verbose = False, nrows = -1, nfile = 1000000, concat_sort = True, n_pool = 1, npool = None, drop_duplicates = None, col_filter:str = None, col_filter_vals:list = None, dtype_reduce = None, fun_apply = None, use_ext = None, **kw)
 test0()
+test_all()
 test_fun_run(list_vars, const = 1, const2 = 1)
-test_fun_sum(group, name = None)
+test_fun_sum(df_group, name = None)
 test_fun_sum2(list_vars, const = 1, const2 = 1)
 test_fun_sum_inv(group, name = None)
 test_pdreadfile()
@@ -1576,7 +1608,7 @@ log(*s, n = 0, m = 1)
 log_pd(df, *s, n = 0, m = 1)
 logs(*s)
 nlp_get_stopwords()
-pd_coltext(df, col, stopwords =  None, pars = None)
+pd_coltext(df, col, pars = {})
 pd_coltext_clean(df, col, stopwords =  None, pars = None)
 pd_coltext_universal_google(df, col, pars = {})
 pd_coltext_wordfreq(df, col, stopwords, ntoken = 100)
@@ -1628,7 +1660,7 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
-load(name, path)
+load(file_name)
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -1666,7 +1698,7 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
-save(df, name, path = None)
+save(obj, path)
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -1730,7 +1762,7 @@ hit_rate_at_k(y_preds, y_true, k = 3)
 hit_rate_at_k_nep(y_preds, y_true, k = 3)
 intra_list_similarity(y_preds: List[list], feature_df: pd.DataFrame)
 mean_average_precision(y, labels, assume_unique = True)
-metrics_calc(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
+metrics_calc(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', methods = [''], nsample = -1, nfile = 1, featuredf:pd.DataFrame = None, popdict:dict = None, topk = 5, **kw)
 metrics_calc_batch(dirin:Union[str, pd.DataFrame], dirout:str = None, colid = 'userid', colrec = 'reclist', coltrue = 'purchaselist', colinfo = 'genrelist', colts = 'datetime', method = [''], nsample = -1, nfile = 1, **kw)
 mrr_at_k(y_preds, y_true, k = 3)
 mrr_at_k_nep(y_preds, y_true, k = 3)
@@ -1738,7 +1770,7 @@ ndcg_at_k(y, labels, k = 10, assume_unique = True)
 novelty(y_preds: List[list], pop: dict, u: int, n: int)
 personalization(y_preds: List[list])
 popularity_bias_at_k(y_preds, x_train, k = 3)
-precision_at(y_preds, y_true, k = 3)
+precision_at(y, labels, k = 10, assume_unique = True)
 precision_at_k(y_preds, y_true, k = 3)
 recall_at_k(y_preds, y_true, k = 3)
 recall_average_at_k_mean(actual: List[list], y_preds: List[list], k = 10)
@@ -1913,6 +1945,114 @@ TSSegmentPolicy.recommend_to_users_batch(self, batch_users, n_recos = 12, l_init
 TSSegmentPolicy.update_policy(self, user_ids, recos, rewards, l_init  =  3)
 
 
+utilmy/recsys/ranking/__init__.py
+
+
+utilmy/recsys/ranking/optim_rank.py
+-------------------------functions----------------------
+cost_fitness(rank_score)
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge_v5(ll1:list, ll2:list, kk =  1, rank_score = None)
+rank_score0(rank1:list, rank2:list, adjust = 1.0, kk = 1.0)
+test()
+test1()
+
+
+
+utilmy/recsys/ranking/rank_fusion.py
+-------------------------functions----------------------
+comb(rank_list, fusion_function, params)
+file_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+folder_merge(base_path, norm, merge_function, params, max_k, rank_name, output)
+get_fusion_alg(text)
+norm_minmax(ranks, lowest, highest)
+norm_zscore(ranks, lowest, highest)
+parse_svmlight_rank(filepath)
+parse_svmlight_score(filepath)
+parse_trec(filepath, idIsFilename = False)
+print_comb(ranks, max_k, outstream, rank_name)
+sort_by_score_and_id(elem1, elem2)
+
+-------------------------methods----------------------
+prettyfloat.__repr__(self)
+prettyfloat.__str__(self)
+prettyint.__repr__(self)
+prettyint.__str__(self)
+
+
+utilmy/recsys/ranking/rank_fusion_functions.py
+-------------------------functions----------------------
+compareCondor(item1, item2)
+condor(doc_id_scores)
+expn_isr(result_list, params)
+expn_rrf(result_list, params)
+isr(result_list, params)
+log_isr(result_list, params)
+logn_isr(result_list, params)
+logn_rrf(result_list, params)
+max(result_list, params)
+min(result_list, params)
+mnz(result_list, params)
+rr(result_list, params)
+rrf(result_list, params)
+sum(result_list, params)
+votes(result_list, params)
+
+
+
+utilmy/recsys/ranking/util_rank.py
+-------------------------functions----------------------
+rank_adjust(ll1, ll2, kk =  1)
+rank_biased_overlap(list1, list2, p = 0.9)
+rank_topk_kendall(a:list, b:list, topk = 5, p = 0)
+rbo_find_p()
+
+-------------------------methods----------------------
+RankingSimilarity.__init__(self, S: Union[List, np.ndarray], T: Union[List, np.ndarray], verbose = False)
+RankingSimilarity._bound_range(self, value: float)
+RankingSimilarity.assert_p(self, p: float)
+RankingSimilarity.rbo(self, k: Optional[float]  =  None, p: float  =  1.0, ext: bool  =  False)
+RankingSimilarity.rbo_ext(self, p = 0.98)
+RankingSimilarity.top_weightness(self, p: Optional[float]  =  None, d: Optional[int]  =  None)
+
+
+utilmy/recsys/ranking/util_rankmerge.py
+-------------------------functions----------------------
+log(*s)
+rank_adjust2(ll1, ll2, kk =  1)
+rank_eval(rank_true, dfmerged, nrank = 100)
+rank_fillna(df)
+rank_generate_fake(dict_full, list_overlap, nsize = 100, ncorrect = 20)
+rank_generatefake(ncorrect = 30, nsize = 100)
+rank_merge(df, method = 'borda')
+rank_merge_v2(list1, list2, nrank)
+rank_merge_v3(list1, list2, maxrank = 100)
+rank_merge_v4(ll1, ll2)
+rank_merge_v5(ll1, ll2, kk =  1)
+rank_score(rank1, rank2, adjust = 1.0, kk = 1.0)
+test()
+test()
+test()
+test1()
+test_rankadjust2(df1, df2)
+
+
+
+utilmy/recsys/util_ltr.py
+-------------------------functions----------------------
+help()
+test_all()
+test_lambdarank()
+test_metrics()
+
+
+
 utilmy/recsys/util_rec.py
 -------------------------functions----------------------
 _get_stratified_tr_mask(u, i, train_size, random_state)
@@ -1932,6 +2072,15 @@ BaseCrossValidator._iter_train_mask()
 BaseCrossValidator.get_n_splits(self)
 BaseCrossValidator.split(self, X)
 BootstrapCV._iter_train_mask(self, u, i, r)
+
+
+utilmy/recsys/util_sequencepattern.py
+-------------------------functions----------------------
+help()
+pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
+test1()
+test_all()
+
 
 
 utilmy/recsys/vectors.py
@@ -2333,7 +2482,7 @@ _dataset(x, y = None, batch_size = 128, num_epochs = 1, shuffle = False, seed = 
 build_optimizer(name, lr = 0.001, **kwargs)
 evaluation_log_hook(estimator, logger, true_df, y_col, eval_df, every_n_iter = 10000, model_dir = None, batch_size = 256, eval_fns = None, **eval_kwargs)
 export_model(model, train_input_fn, eval_input_fn, tf_feat_cols, base_dir)
-pandas_input_fn(df, feat_name_type)
+pandas_input_fn(df, y_col = None, batch_size = 128, num_epochs = 1, shuffle = False, seed = None)
 pandas_input_fn_for_saved_model(df, feat_name_type)
 
 -------------------------methods----------------------
@@ -2432,6 +2581,9 @@ utilmy/recsys/zrecs/tools/generate_conda_file.py
 
 
 utilmy/recsys/zrecs/tools/generate_requirements_txt.py
+
+
+utilmy/spark/__init__.py
 
 
 utilmy/spark/conda/script.py
@@ -2535,8 +2687,8 @@ utilmy/spark/src/util_spark.py
 utilmy/spark/src/utils.py
 -------------------------functions----------------------
 config_load(config_path:str)
-log()
-log()
+log(*s)
+log(*s)
 log2(*s)
 log3(*s)
 log_sample(*s)
@@ -2559,7 +2711,7 @@ spark_session(config: dict)
 
 utilmy/spark/tests/test_common.py
 -------------------------functions----------------------
-assert_equal_spark_df(expected_sorted_df: DataFrame, actual_sorted_df: DataFrame, df_name: str)
+assert_equal_spark_df(expected_df: DataFrame, actual_df: DataFrame, df_name: str)
 assert_equal_spark_df_schema(expected_schema: [tuple], actual_schema: [tuple], df_name: str)
 assert_equal_spark_df_sorted(expected_sorted_df: DataFrame, actual_sorted_df: DataFrame, df_name: str)
 
@@ -2579,7 +2731,7 @@ test_table_user_log_run(spark_session: SparkSession, config: dict)
 
 utilmy/spark/tests/test_table_user_session_log.py
 -------------------------functions----------------------
-test_table_user_session_log(spark_session: SparkSession)
+test_table_user_session_log(spark_session: SparkSession, config: dict)
 test_table_user_session_log_run(spark_session: SparkSession)
 test_table_usersession_log_stats(spark_session: SparkSession, config: dict)
 
@@ -2587,7 +2739,7 @@ test_table_usersession_log_stats(spark_session: SparkSession, config: dict)
 
 utilmy/spark/tests/test_table_user_session_stats.py
 -------------------------functions----------------------
-test_table_user_session_stats(spark_session: SparkSession)
+test_table_user_session_stats(spark_session: SparkSession, config: dict)
 test_table_user_session_stats_ip(spark_session: SparkSession, config: dict)
 test_table_user_session_stats_run(spark_session: SparkSession)
 
@@ -2819,14 +2971,34 @@ test_heteroscedacity(y, y_pred, pred_value_only = 1)
 test_hypothesis(df_obs, df_ref, method = '', **kw)
 test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(df, column, test_type)
+test_normality(error, distribution = "norm", test_size_limit = 5000)
 test_normality2(df, column, test_type)
 test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
 
-utilmy/tabular.py
+utilmy/tabular/__init__.py
+
+
+utilmy/tabular/sparse/test_data.py
+-------------------------functions----------------------
+pandas_to_csr(Xdf, ydf, hashsize = 5000)
+
+
+
+utilmy/tabular/sparse/test_model1.py
+-------------------------methods----------------------
+EASE.__init__(self)
+EASE._get_users_and_items(self, df)
+EASE.fit(self, df, lambda_: float  =  0.5, implicit = True)
+EASE.predict(self, train, users, items, k)
+
+
+utilmy/tabular/sparse/test_model2.py
+
+
+utilmy/tabular/tabular.py
 -------------------------functions----------------------
 estimator_boostrap_bayes(err, alpha = 0.05, )
 estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
@@ -2855,31 +3027,34 @@ test_heteroscedacity(y, y_pred, pred_value_only = 1)
 test_hypothesis(df_obs, df_ref, method = '', **kw)
 test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(df, column, test_type)
+test_normality(error, distribution = "norm", test_size_limit = 5000)
 test_normality2(df, column, test_type)
 test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
 
-utilmy/tabular/__init__.py
-
-
-utilmy/tabular/sparse/test_data.py
+utilmy/tabular/util_activelearning.py
 -------------------------functions----------------------
-pandas_to_csr(Xdf, ydf, hashsize = 5000)
+generate_train_samples(model, Xtrain, ytrain, Xnew, ynew)
+help()
+load_function_uri(uri_name = "path_norm")
+model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
+model_extract_rules(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor])
+model_fit(name:str = 'imodels.SLIMRegressor', model_pars:dict = None, data_pars:dict = None, do_eval: bool = True, **kw)
+model_info(path = "")
+model_load(path: str = "")
+model_predict(model, predict_pars:dict)
+model_save(model, path: Optional[str] = None, info: None = None)
+model_viz_classification_preds(probs:np.ndarray, y_test:list)
+plot_samples(X_pool, X_training)
+test1()
+test2()
+test_all()
+test_data_classifier_diabetes()
+test_data_regression_boston()
+test_imodels()
 
-
-
-utilmy/tabular/sparse/test_model1.py
--------------------------methods----------------------
-EASE.__init__(self)
-EASE._get_users_and_items(self, df)
-EASE.fit(self, df, lambda_: float  =  0.5, implicit = True)
-EASE.predict(self, train, users, items, k)
-
-
-utilmy/tabular/sparse/test_model2.py
 
 
 utilmy/tabular/util_drift.py
@@ -2897,14 +3072,14 @@ test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
+test_anova(df: DataFrame, col1: str, col2: str)
+test_heteroscedacity(y: Series, y_pred: ndarray, pred_value_only: int = 1)
+test_hypothesis(df_obs: DataFrame, df_ref: DataFrame, method: str = '', **kw)
 test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
-test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(df, column, test_type)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
+test_mutualinfo(error: Series, Xtest: DataFrame, colname: Optional[str] = None, bins: int = 5)
+test_normality(error: Series, distribution: str = "norm", test_size_limit: int = 5000)
+test_normality2(df: DataFrame, column: str, test_type: str)
+test_plot_qqplot(df: DataFrame, col_name: str)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
@@ -2930,6 +3105,66 @@ test_imodels()
 
 
 
+utilmy/tabular/util_lightgbm.py
+-------------------------functions----------------------
+binary_error(y_true, y_pred)
+constant_metric(y_true, y_pred)
+custom_asymmetric_obj(y_true, y_pred)
+custom_dummy_obj(y_true, y_pred)
+decreasing_metric(y_true, y_pred)
+help()
+logregobj(y_true, y_pred)
+mse(y_true, y_pred)
+multi_error(y_true, y_pred)
+multi_logloss(y_true, y_pred)
+objective_ls(y_true, y_pred)
+test_actual_number_of_trees()
+test_binary()
+test_binary_classification_with_custom_objective()
+test_check_is_fitted()
+test_class_weight()
+test_classifier_chain()
+test_clone_and_property()
+test_continue_training_with_model()
+test_dart()
+test_eval_at_aliases()
+test_evaluate_train_set()
+test_feature_importances_single_leaf()
+test_feature_importances_type()
+test_first_metric_only()
+test_grid_search()
+test_inf_handle()
+test_joblib()
+test_lambdarank()
+test_metrics()
+test_multiclass()
+test_multiclass_custom_objective()
+test_multioutput_classifier()
+test_multioutput_regressor()
+test_multiple_eval_metrics()
+test_nan_handle()
+test_non_serializable_objects_in_callbacks(tmp_path)
+test_objective_aliases(custom_objective)
+test_pandas_categorical()
+test_pandas_sparse()
+test_predict()
+test_predict_with_params_from_init()
+test_random_search()
+test_random_state_object()
+test_regression()
+test_regression_with_custom_objective()
+test_regressor_chain()
+test_sklearn_integration(estimator, check)
+test_stacking_classifier()
+test_stacking_regressor()
+test_training_succeeds_when_data_is_dataframe_and_label_is_column_array(task)
+test_xendcg()
+
+-------------------------methods----------------------
+UnpicklableCallback.__call__(self, env)
+UnpicklableCallback.__reduce__(self)
+
+
 utilmy/tabular/util_sampling.py
 -------------------------functions----------------------
 reservoir_sampling(src, nsample, temp_fac = 1.5, rs = None)
@@ -2940,11 +3175,8 @@ test()
 utilmy/tabular/util_sparse.py
 -------------------------functions----------------------
 help()
-help()
 is_float(x)
 is_int(x)
-log(*s, **kw)
-log2(*s, **kw)
 pd_historylist_to_csr(df:pd.DataFrame, colslist:list = None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/")
 test1()
 test_all()
@@ -2957,14 +3189,14 @@ to_int(x)
 utilmy/tabular/util_uncertainty.py
 -------------------------functions----------------------
 help()
-load_function_uri(uri_name = "path_norm")
+load_function_uri(uri_name: str = "path_norm")
 model_eval2(clf, Xval, yval, dirout = "")
-model_evaluate(model, data_pars:dict, predict_pars:dict)
-model_fit(name  =  'mapie.regression.MapieRegressor', model = None, mapie_pars:dict = None, predict_pars:dict = None, data_pars:dict = None, do_prefit = False, do_eval = True, test_size = 0.3)
-model_load(path = "")
+model_evaluate(model: Union[MapieClassifier, MapieRegressor], data_pars:dict, predict_pars:dict)
+model_fit(name: str  =  'mapie.regression.MapieRegressor', model: Optional[Union[RandomForestClassifier, DecisionTreeClassifier, LinearRegression]] = None, mapie_pars:dict = None, predict_pars:dict = None, data_pars:dict = None, do_prefit: bool = False, do_eval: bool = True, test_size: float = 0.3)
+model_load(path: str = "")
 model_predict(model, X_test, predict_pars:dict = None, interval = True)
-model_save(model, path = None, info = None)
-model_viz_classification_preds(preds, y_test)
+model_save(model: Union[MapieClassifier, MapieRegressor], path: Optional[str] = None, info: None = None)
+model_viz_classification_preds(preds: ndarray, y_test: ndarray)
 test1()
 test2()
 test5()
@@ -3176,13 +3408,26 @@ utilmy/tools/__init__.py
 utilmy/tools/cli_code/cli_code/__init__.py
 
 
-utilmy/tools/cli_code/cli_code/cli_conda_merge.py
+utilmy/tools/cli_code/cli_code/cli_doc_auto/__init__.py
+
+
+utilmy/tools/cli_code/cli_code/cli_doc_auto/main.py
+-------------------------functions----------------------
+get_arguments()
+main()
+
+
+
+utilmy/tools/cli_code/setup.py
+
+
+utilmy/tools/cli_conda_merge.py
 -------------------------functions----------------------
 dump(output_yaml)
 getPipRequirementsContent(dependencies, versions = True, priorityVersions = True)
 getPriorityList()
 main()
-merge(args)
+merge(yaml1, yaml2)
 merge_channels(channels_list)
 merge_envs(args)
 merge_pips(pips)
@@ -3204,7 +3449,7 @@ DAG.topological_sort(self)
 DAG.validate(self)
 
 
-utilmy/tools/cli_code/cli_code/cli_convert_ipynb.py
+utilmy/tools/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
 convert2python(source_files, data_file, out_dir)
@@ -3214,17 +3459,7 @@ scan(data_file)
 
 
 
-utilmy/tools/cli_code/cli_code/cli_doc_auto/__init__.py
-
-
-utilmy/tools/cli_code/cli_code/cli_doc_auto/main.py
--------------------------functions----------------------
-get_arguments()
-main()
-
-
-
-utilmy/tools/cli_code/cli_code/cli_docs.py
+utilmy/tools/cli_docs.py
 -------------------------functions----------------------
 code_parse_line(li, pattern_type = "import/import_externa")
 conda_path_get(subfolder="package/F = "package/F:/")
@@ -3274,12 +3509,12 @@ Module.get_functions(self)
 Module.get_mlattr(self, full_name)
 Module.get_module_isbuiltin(self)
 Module.get_module_version(self)
-Module.get_submodule(self)
+Module.get_submodule(self, attr)
 Module.get_submodules(self)
 Module.is_imported(self, submodule_name)
 
 
-utilmy/tools/cli_code/cli_code/cli_download.py
+utilmy/tools/cli_download.py
 -------------------------functions----------------------
 get_arguments()
 main()
@@ -3295,7 +3530,7 @@ Downloader.download(self, filepath = '')
 Downloader.get_filename(self, headers)
 
 
-utilmy/tools/cli_code/cli_code/cli_env_autoinstall.py
+utilmy/tools/cli_env_autoinstall.py
 -------------------------functions----------------------
 conda_env_exits(conda_env)
 create_env(folder_input, conda_env, python_version = '3.6', packages = 'numpy')
@@ -3310,22 +3545,7 @@ scan(data_file)
 
 
 
-utilmy/tools/cli_code/cli_code/cli_format.py
--------------------------functions----------------------
-format_assignments(text)
-format_comments(text = "default", line_size = 90)
-format_dir(in_dir, out_dir)
-format_file(in_file, out_dir)
-format_imports(text)
-format_logs(text = "default", line_size = 90)
-load_arguments()
-main()
-mod_period(in_file)
-os_glob(in_dir)
-
-
-
-utilmy/tools/cli_code/cli_code/cli_github_search.py
+utilmy/tools/cli_github_search.py
 -------------------------functions----------------------
 get_arguments()
 main()
@@ -3333,12 +3553,12 @@ search_github(args, start_time)
 
 
 
-utilmy/tools/cli_code/cli_code/cli_json.py
+utilmy/tools/cli_json.py
 -------------------------functions----------------------
 dict_update(fields_list, d, value)
 json_codesource_to_json(fpath)
 json_csv_to_json(file_csv = "", out_path = "dataset/")
-json_norm(x)
+json_norm(ddict)
 json_norm_val(x)
 json_parse(ddict)
 json_to_object(ddict)
@@ -3361,7 +3581,7 @@ to_namespace.__init__(self, adict)
 to_namespace.get(self, key)
 
 
-utilmy/tools/cli_code/cli_code/cli_module_parser.py
+utilmy/tools/cli_module_parser.py
 -------------------------functions----------------------
 _onerror_reraise(e)
 _walk(*args, include_hidden = None, **kwargs)
@@ -3389,7 +3609,7 @@ ASTAnalyzer.visit_Lambda(self, node)
 ASTAnalyzer.visit_Name(self, node)
 
 
-utilmy/tools/cli_code/cli_code/cli_repo_check.py
+utilmy/tools/cli_repo_check.py
 -------------------------functions----------------------
 get_logger()
 get_os()
@@ -3402,91 +3622,6 @@ repo_check_root_files(folder, conda_env)
 repo_generate_signature(folder)
 scan_dir(folder)
 
-
-
-utilmy/tools/cli_code/cli_code/util_cli.py
--------------------------functions----------------------
-_os_file_search_fast(fname, texts = None, mode = "regex/str")
-os_file_getname(path)
-os_file_getpath(path)
-os_file_gettext(file1)
-os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
-os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
-os_file_replace(source_file_path, pattern, substring)
-os_file_replacestring1(find_str, rep_str, file_path)
-os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
-
-
-
-utilmy/tools/cli_code/setup.py
-
-
-utilmy/tools/cli_code/test/cli_convert_ipynb.py
--------------------------functions----------------------
-check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
-load_arguments()
-main()
-scan(data_file)
-
-
-
-utilmy/tools/cli_code/test/run_train.py
--------------------------functions----------------------
-log(*s, n = 0, m = 0)
-map_model(model_name)
-model_dict_load(model_dict, config_path, config_name, verbose = True)
-run_model_check(path_output, scoring)
-run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode = "run_preprocess", model_dict = None, return_mode = 'file')
-save_features(df, name, path)
-train(model_dict, dfX, cols_family, post_process_fun)
-
-
-
-utilmy/tools/cli_code/test/test/run_train.py
--------------------------functions----------------------
-log(*s, n = 0, m = 0)
-map_model(model_name)
-model_dict_load(model_dict, config_path, config_name, verbose = True)
-run_model_check(path_output, scoring)
-run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode  =  "run_preprocess", model_dict =  None, return_mode =  'file')
-save_features(df, name, path)
-train(model_dict, dfX, cols_family, post_process_fun)
-
-
-
-utilmy/tools/cli_code/test/ztest/ast_analyzer_test.py
--------------------------methods----------------------
-TestFileFinder.test_corner_cases(self)
-TestFileFinder.test_file_finder(self)
-
-
-utilmy/tools/cli_code/test/ztest/file_finder_test.py
--------------------------methods----------------------
-TestFileFinder.test_corner_cases(self)
-TestFileFinder.test_findVariablesInDir(self)
-TestFileFinder.test_findVariablesInFile(self)
-
-
-utilmy/tools/cli_code/test/ztest/output_test.py
--------------------------methods----------------------
-TestOutput.test_corner_cases(self)
-TestOutput.test_output(self)
-
-
-utilmy/tools/cli_code/test/ztest/run_batch.py
-
-
-utilmy/tools/cli_code/test/ztest/ztest_batch.py
-
-
-utilmy/tools/cli_code/test/ztest/ztest_import.py
-
-
-utilmy/tools/cli_code/test/ztest/ztest_runall.py
-
-
-utilmy/tools/cli_code/test/ztest/ztest_util.py
 
 
 utilmy/tools/codeparser_project_graph/project_graph/__init__.py
@@ -3543,6 +3678,94 @@ test_toplvl()
 
 
 
+utilmy/tools/test/cli_convert_ipynb.py
+-------------------------functions----------------------
+check(file_list, dump = False)
+convert2python(source_files, data_file, out_dir)
+load_arguments()
+main()
+scan(data_file)
+
+
+
+utilmy/tools/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode = "run_preprocess", model_dict = None, return_mode = 'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/test/test/run_train.py
+-------------------------functions----------------------
+log(*s, n = 0, m = 0)
+map_model(model_name)
+model_dict_load(model_dict, config_path, config_name, verbose = True)
+run_model_check(path_output, scoring)
+run_train(config_name, config_path = "source/config_model.py", n_sample = 5000, mode  =  "run_preprocess", model_dict =  None, return_mode =  'file')
+save_features(df, name, path)
+train(model_dict, dfX, cols_family, post_process_fun)
+
+
+
+utilmy/tools/test/ztest/ast_analyzer_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_file_finder(self)
+
+
+utilmy/tools/test/ztest/file_finder_test.py
+-------------------------methods----------------------
+TestFileFinder.test_corner_cases(self)
+TestFileFinder.test_findVariablesInDir(self)
+TestFileFinder.test_findVariablesInFile(self)
+
+
+utilmy/tools/test/ztest/ok/ztest_import.py
+
+
+utilmy/tools/test/ztest/output_test.py
+-------------------------methods----------------------
+TestOutput.test_corner_cases(self)
+TestOutput.test_output(self)
+
+
+utilmy/tools/test/ztest/run_batch.py
+
+
+utilmy/tools/test/ztest/ztest_batch.py
+
+
+utilmy/tools/test/ztest/ztest_import.py
+
+
+utilmy/tools/test/ztest/ztest_runall.py
+
+
+utilmy/tools/test/ztest/ztest_util.py
+
+
+utilmy/tools/util_cli.py
+-------------------------functions----------------------
+_os_file_search_fast(fname, texts = None, mode = "regex/str")
+os_file_getname(path)
+os_file_getpath(path)
+os_file_gettext(file1)
+os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
+os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
+os_file_replace(source_file_path, pattern, substring)
+os_file_replacestring1(find_str, rep_str, file_path)
+os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
+
+
+
+utilmy/tseries/__init__.py
+
+
 utilmy/tseries/util_tseries.py
 
 
@@ -3578,9 +3801,16 @@ IndexLock.get(self, **kw)
 IndexLock.put(self, val:list = None)
 IndexLock.read(self, )
 IndexLock.save_filter(self, val:list = None)
-IndexLock.save_isok(self, flist:list)
 toFile.__init__(self, fpath)
 toFile.write(self, msg)
+
+
+utilmy/util_colab.py
+-------------------------functions----------------------
+help()
+test1()
+test_all()
+
 
 
 utilmy/util_conda.py
@@ -3588,8 +3818,6 @@ utilmy/util_conda.py
 help()
 pip_auto_install()
 
--------------------------methods----------------------
-PipFinder.find_spec(cls, name, path, target = None)
 
 
 utilmy/util_cpu.py
@@ -3653,6 +3881,7 @@ user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
 
 utilmy/util_download.py
 -------------------------functions----------------------
+download_page_image(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 download_with_progress(url, destination)
 get_cache_directory()
 
@@ -3686,14 +3915,19 @@ get_loggers(mode = 'print', n_loggers = 2, verbose_level = None)
 get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
-glob_glob(dirin = "**/*.py", nfile = 1000, recursive = False, **kw)
+glob_glob(dirin:Union[str, list] = "**/*.py", nfile = 1000, direxclude:Union[str, list] = "", exclude:Union[str, list] = "", recursive = True, silent = False, show = 0, **kw)
+help()
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
 help_get_docstring(func)
 help_get_funargs(func)
+help_info(fun_name:str = "os.system", doprint = True)
 help_signature(f)
 import_function(fun_name = None, module_name = None, fuzzy_match = False)
 load(to_file = "")
+log(*s, **kw)
+log2(*s, **kw)
+log3(*s, **kw)
 pd_generate_data(ncols = 7, nrows = 100)
 pd_getdata(verbose = True)
 pd_random(ncols = 7, nrows = 100)
@@ -3788,12 +4022,38 @@ pd_plot_density_d3(df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plo
 pd_plot_network(df:pd.DataFrame, cola: str = 'col_node1', colb: str = 'col_node2', coledge: str = 'col_edge', colweight: str = "weight", html_code:bool  =  True)
 pd_plot_scatter_get_data(df0:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, nmax: int = 20000, **kw)
 pd_plot_scatter_matplot(df:pd.DataFrame, colx: str = None, coly: str = None, collabel: str = None, colclass1: str = None, colclass2: str = None, cfg: dict  =  {}, mode = 'd3', save_path: str = '', verbose = True, **kw)
+show_table_image(df, colgroup =  None, colimage  =  None, title = None, format: str = 'blue_light', dir_out = 'print_table_image.html', custom_css_class = None, use_datatable = False, table_id = None, )
 to_float(x)
 zz_css_get_template(css_name:str =  "A4_size")
 zz_pd_plot_histogram_highcharts_old(df, col, figsize = None, title = None, cfg:dict = {}, mode = 'd3', save_img = '')
 zz_test_get_random_data(n = 100)
 
 -------------------------methods----------------------
+htmlDoc.__init__(self, dir_out = "", mode = "", title: str  =  "", format: str  =  None, cfg: dict  =  None, css_name: str  =  "default", css_file: str  =  None, jscript_file: str  =  None, verbose = True, **kw)
+htmlDoc.add_css(self, css)
+htmlDoc.add_js(self, js)
+htmlDoc.br(self, css: str = '')
+htmlDoc.div(self, x, css: str = '')
+htmlDoc.get_html(self)
+htmlDoc.h1(self, x, css: str = '')
+htmlDoc.h2(self, x, css: str = '')
+htmlDoc.h3(self, x, css: str = '')
+htmlDoc.h4(self, x, css: str = '')
+htmlDoc.hidden(self, x, css: str = '')
+htmlDoc.hr(self, css: str = '')
+htmlDoc.images_dir(self, dir_input = "*.png", title: str = "", verbose:bool  = False)
+htmlDoc.open_browser(self)
+htmlDoc.p(self, x, css: str = '')
+htmlDoc.pd_plot_network(self, df:pd.DataFrame, cola:    str = 'col_node1', colweight:str = "weight", colb: str = 'col_node2', coledge: str = 'col_edge')
+htmlDoc.plot_density(self, df: pd.DataFrame, colx, coly, radius = 9, title: str  =  'Plot Density', 460, 460), xlabel: str  =  'x-axis', ylabel: str  =  'y-axis', color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_histogram(self, df:pd.DataFrame, col, title: str = '', xlabel: str = None, ylabel: str = None, 14, 7), colormap:str  =  'RdYlBu', nsample = 10000, binWidth = None, color:str = '#7CB5EC', nbin = 10, q5 = 0.005, q95 = 0.95, cfg: dict  =  {}, mode: str = 'matplot', save_img = "", **kw)
+htmlDoc.plot_parallel(self, df: pd.DataFrame, col = [], title: str  =  '', 460, 460), color: str  =  '#69b3a2', cfg: dict  =  {}, mode: str  =  'd3', **kw)
+htmlDoc.plot_scatter(self, df:pd.DataFrame, colx, coly, collabel = None, colclass1 = None, colclass2 = None, colclass3 = None, title: str = '', 14, 7), nsample: int = 10000, cfg: dict  =  {}, mode: str = 'matplot', save_img = '', **kw)
+htmlDoc.print(self)
+htmlDoc.save(self, dir_out = None)
+htmlDoc.sep(self, css: str = '')
+htmlDoc.table(self, df:pd.DataFrame, format: str = 'blue_light', custom_css_class = None, colimage  =  None, use_datatable = False, table_id = None, **kw)
+htmlDoc.tag(self, x)
 mpld3_TopToolbar.__init__(self)
 
 
@@ -3861,14 +4121,6 @@ process_url(url_data, idx, list_len, path_pdf = "", path_txt = "")
 
 
 
-utilmy/webscraper/scrape_batch.py
--------------------------functions----------------------
-download_page()
-extract_to_pandas(html, table_id = None)
-test_extract_to_pandas()
-
-
-
 utilmy/webscraper/test/Scraper_INSTAGRAM.py
 -------------------------functions----------------------
 make_soup(url)
@@ -3907,9 +4159,6 @@ web_sendurl(url1)
 
 
 
-utilmy/zml/__init__.py
-
-
 utilmy/zml/core_deploy.py
 -------------------------functions----------------------
 load_arguments()
@@ -3919,7 +4168,7 @@ load_arguments()
 utilmy/zml/core_run.py
 -------------------------functions----------------------
 check(config='outlier_predict.py = 'outlier_predict.py::titanic_lightgbm')
-data_profile(config = '')
+data_profile(path_data = "NO PATH", path_output = "NO PATH@", n_sample =  5000)
 data_profile2(config = '')
 deploy()
 get_config_path(config = '')
@@ -4262,7 +4511,7 @@ featurestore_meta_update(featnames, filename, colcat)
 pd_col_tocat(df, nan_cols, colcat)
 pd_merge(df_list, cols_join)
 pd_ts_tsfresh(df, input_raw_path, dir_out, features_group_name, auxiliary_csv_path, drop_cols, index_cols, merge_cols_mapping, cat_cols  =  None, id_cols  =  None, dep_col  =  None, coldate  =  None, max_rows  =  10)
-pd_tsfresh_m5data(df_sales, dir_out, features_group_name, drop_cols, df_calendar, index_cols, merge_cols_mapping, id_cols)
+pd_tsfresh_m5data(df)
 pd_tsfresh_m5data_sales(df_sales, dir_out, features_group_name, drop_cols, df_calendar, index_cols, merge_cols_mapping, id_cols)
 run_train(input_path  = "data/input/tseries/tseries_m5/raw", out_path = data_path, do_generate_raw = True, do_generate_feature = True, do_train = False, max_rows  =  10)
 train(input_path, n_experiments  =  3, colid  =  None, coly  =  None)
@@ -4551,14 +4800,14 @@ utilmy/zml/source/models/akeras/Autokeras.py
 evaluate(model, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
-get_dataset(data_pars)
+get_dataset(data_pars = None)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
 get_params(param_pars = None, **kw)
 load(load_pars, config_mode = "test")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None, config_mode = "test")
-test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+test()
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -4851,7 +5100,7 @@ fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_xy_dataset(data_sample = None)
 get_xy_fd(use_neg = False, hash_flag = False, use_session = False)
-get_xy_random(X, y, cols_family = {})
+get_xy_random()
 get_xy_random2(X, y, cols_family = {})
 init(*kw, **kwargs)
 load_info(path = "")
@@ -4904,7 +5153,7 @@ tf_FeatureColumns.__init__(self, dataframe = None)
 tf_FeatureColumns.bucketized_columns(self, columnsBoundaries)
 tf_FeatureColumns.categorical_columns(self, indicator_column_names, colcat_nunique = None, output = False)
 tf_FeatureColumns.crossed_feature_columns(self, columns_crossed, nameOfLayer, bucket_size = 10)
-tf_FeatureColumns.data_to_tensorflow(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, test_split = 0.2, colnum = [], colcat = [])
+tf_FeatureColumns.data_to_tensorflow(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, colnum = [], colcat:list = [])
 tf_FeatureColumns.data_to_tensorflow_split(self, df, target, model = 'sparse', shuffle_train = False, shuffle_test = False, shuffle_val = False, batch_size = 32, test_split = 0.2, colnum = [], colcat = [])
 tf_FeatureColumns.df_to_dataset(self, dataframe, target, shuffle = True, batch_size = 32)
 tf_FeatureColumns.df_to_dataset_dense(self, dataframe, target, shuffle = True, batch_size = 32)
@@ -4921,7 +5170,7 @@ utilmy/zml/source/models/keras_widedeep_dense.py
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 evaluate(Xy_pred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(Xtrain, cols_type_received, cols_ref, **kw)
@@ -4978,7 +5227,7 @@ model_class_loader(m_name = 'BayesianRegression', class_list:list = None)
 predict(Xpred = None, data_pars = {}, compute_pars = None, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
-test(nrows = 500)
+test(nrows = 1000)
 test_dataset_regress_fake(nrows = 500)
 y_norm(y, inverse = True, mode = 'boxcox')
 
@@ -4992,7 +5241,7 @@ utilmy/zml/source/models/model_encoder.py
 -------------------------functions----------------------
 decode(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 fit(data_pars: dict = None, compute_pars: dict = None, out_pars: dict = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref, split = False)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split = False)
 init(*kw, **kwargs)
 init(*kw, **kwargs)
@@ -5011,7 +5260,7 @@ predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 reset()
 save(path = None, info = None)
-test(nrows = 500)
+test()
 test_dataset_classi_fake(nrows = 500)
 test_helper(model_pars, data_pars, compute_pars)
 transform(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
@@ -5035,7 +5284,7 @@ gef_is_continuous(data)
 gef_normalize_data(data, maxv, minv)
 gef_standardize_data(data, mean, std)
 german(data)
-get_data(data_pars = None, task_type = "train", **kw)
+get_data(name)
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_dummies(data)
 init(*kw, **kwargs)
@@ -5112,7 +5361,7 @@ ShabadooException.__str__(self)
 utilmy/zml/source/models/model_outlier.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, ytrain = None, data_pars = None, )
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_split_for_model_pandastuple(Xtrain, ytrain = None, data_pars = None, )
 init(*kw, **kwargs)
@@ -5133,7 +5382,7 @@ utilmy/zml/source/models/model_sampler.py
 -------------------------functions----------------------
 eval(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars: dict = None, compute_pars: dict = None, out_pars: dict = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref, split = False)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5160,10 +5409,10 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zml/source/models/model_sklearn.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, ytrain = None, data_pars = None, )
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_split_for_model_pandastuple(Xtrain, ytrain = None, data_pars = None, )
-get_params(deep = False)
+get_params(param_pars = {}, **kw)
 get_params_sklearn(deep = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5198,7 +5447,7 @@ predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 predict_forward(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
-test(nrows = 10000, coly = None, coldate = None, colcat = None)
+test()
 test2(nrows = 1000, file_path = None, coly = None, coldate = None, colcat = None)
 test_dataset_tseries(nrows = 10000, coly = None, coldate = None, colcat = None)
 time_train_test_split(df, test_size  =  0.4, cols = None, coltime  = "time_key", sort = True, minsize = 5, n_sample = 5, verbose = False)
@@ -5241,7 +5490,7 @@ benchmark(config = '', dmin = 5, dmax = 6)
 decode(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, index  =  0, **kw)
 encode(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, model_class = 'VAEMDN', **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, model_class = 'VAEMDN', **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_label(encoder, x_train, dummy_train, class_num = 5, batch_size = 256)
 init(*kw, **kwargs)
@@ -5254,7 +5503,7 @@ predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, model_
 reset()
 sampling(args)
 save(path = None, info = None)
-test(n_rows = 100)
+test()
 test2(n_sample           =  1000)
 test3(n_sample  =  1000)
 test4()
@@ -5281,7 +5530,7 @@ os_makedirs(dir_or_file)
 predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
-test(nrows = 500)
+test(config = '')
 test_dataset_classi_fake(nrows = 500)
 test_helper(model_pars, data_pars, compute_pars)
 
@@ -5364,7 +5613,7 @@ os_makedirs(dir_or_file)
 predict(Xpred = None, data_pars = None, compute_pars = {}, out_pars = {}, **kw)
 reset()
 save(path = None, info = None)
-test(nrows = 1000)
+test(n_sample           =  1000)
 test_dataset_goodbooks(nrows = 1000)
 test_helper(model_pars, data_pars, compute_pars)
 train_test_split2(df, coly)
@@ -5432,7 +5681,7 @@ RVAE.save(self)
 utilmy/zml/source/models/torch_tabular.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref = None)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref = None)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5472,7 +5721,7 @@ ModelCustom2()
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
 Modelsparse2()
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 get_dataset_tuple_keras(pattern, batch_size, mode = tf.estimator.ModeKeys.TRAIN, truncate = None)
@@ -5499,7 +5748,7 @@ eval(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset2(data_pars = None, task_type = "train", **kw)
-get_params(deep = False)
+get_params(param_pars = {}, **kw)
 get_params_sklearn(deep = False)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5520,7 +5769,7 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zml/source/models/ztmp2/model_vaem.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_dataset()seed  =  3000"./data/bank/bankmarketing_train.csv")bank_raw.info())label_column="y")matrix1, ["job"])matrix1, ["marital"])matrix1, ["education"])matrix1, ["default"])matrix1, ["housing"])matrix1, ["loan"])matrix1, ["contact"])matrix1, ["month"])matrix1, ["day_of_week"])matrix1, ["poutcome"])matrix1, ["y"])(matrix1.values).astype(float))[0, :]max_Data  =  0.7min_Data = 0.3[0, 1, 2, 3, 4, 5, 6, 7])[8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])[8, 9])np.in1d(list_flt, list_discrete).nonzero()[0])list_cat)list_flt)>0 and len(list_cat)>0)
@@ -5550,7 +5799,7 @@ log(*s)
 log2(*s)
 p_vae_active_learning(Data_train_comp, Data_train, mask_train, Data_test, mask_test_comp, mask_test, cat_dims, dim_flt, dic_var_type, args, list_discrete, records_d, estimation_method = 1)
 reset()
-save(model, output_dir)
+save(path = '', info = None)
 save_model2(model, output_dir)
 train_p_vae(stage, x_train, Data_train, mask_train, epochs, latent_dim, cat_dims, dim_flt, batch_size, p, K, iteration, list_discrete, records_d, args)
 
@@ -5573,7 +5822,7 @@ log(*s)
 log2(*s)
 p_vae_active_learning(Data_train_compressed, Data_train, mask_train, Data_test, mask_test_compressed, mask_test, cat_dims, dim_flt, dic_var_type, args, list_discrete, records_d, estimation_method = 1)
 reset()
-save(model, output_dir)
+save(path = '', info = None)
 save_model2(model, output_dir)
 train_p_vae(stage, x_train, Data_train, mask_train, epochs, latent_dim, cat_dims, dim_flt, batch_size, p, K, iteration, list_discrete, records_d, args)
 
@@ -5587,7 +5836,7 @@ Model.fit(self,filePath, categories,cat_cols,num_cols,discrete_cols,targetCol,ns
 utilmy/zml/source/models/ztmp2/torch_rvae2.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_info(path = "")
@@ -5672,7 +5921,7 @@ log(*s, n = 0, m = 1)
 log_pd(df, *s, n = 0, m = 1)
 logs(*s)
 nlp_get_stopwords()
-pd_coltext(df, col, stopwords =  None, pars = None)
+pd_coltext(df, col, pars = {})
 pd_coltext_clean(df, col, stopwords =  None, pars = None)
 pd_coltext_universal_google(df, col, pars = {})
 pd_coltext_wordfreq(df, col, stopwords, ntoken = 100)
@@ -5850,7 +6099,7 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
-load(name, path)
+load(file_name)
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -5888,7 +6137,7 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
-save(df, name, path = None)
+save(obj, path)
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -5919,7 +6168,7 @@ logger_setup(logger_name = None, log_file = None, formatter = FORMATTER_1, isrot
 logger_setup2(name = __name__, level = None)
 os_make_dirs(filename)
 printlog(s = "", s1 = "", s2 = "", s3 = "", s4 = "", s5 = "", s6 = "", s7 = "", s8 = "", s9 = "", s10 = "", app_id = "", logfile = None, iswritelog = True, )
-save(variable_list, folder, globals_main = None)
+save(obj, filename = "/folder1/keyname", isabsolutpath = 0)
 save_all(variable_list, folder, globals_main = None)
 sk_tree_get_ifthen(tree, feature_names, target_names, spacer_base = " ")
 writelog(m = "", f = None)
@@ -5955,34 +6204,10 @@ fun_get_segmentlimit(x, l1)
 model_logistic_score(clf, df1, cols, coltarget, outype = "score")
 np_drop_duplicates(l1)
 pd_num_segment_limit(df, col_score = "scoress", coldefault = "y", ntotal_default = 491, def_list = None, nblock = 20.0)
-split_train(X, y, split_ratio = 0.8)
+split_train(df1, ntrain = 10000, ntest = 100000, colused = None, coltarget = None)
 split_train2(df1, ntrain = 10000, ntest = 100000, colused = None, coltarget = None, nratio = 0.4)
 split_train_test(X, y, split_ratio = 0.8)
 ztest()
-
-
-
-utilmy/zml/source/utils/util_csv.py
--------------------------functions----------------------
-csv_analysis()
-csv_bigcompute()
-csv_col_get_dict_categoryfreq(dircsv, filepattern = "*.csv", category_cols = [], maxline = -1, fileencoding = "utf-8")
-csv_col_schema_toexcel(dircsv = "", filepattern = "*.csv", outfile = ".xlsx", returntable = 1, maxrow = 5000000, maxcol_pertable = 90, maxstrlen = "U80", )
-csv_dtypes_getdict(df = None, csvfile = None)
-csv_fast_processing()
-csv_pivotable(dircsv = "", filepattern = "*.csv", fileh5 = ".h5", leftX = "col0", topY = "col2", centerZ = "coli", mapreduce = "sum", chunksize = 500000, tablename = "df", )
-csv_row_mapreduce(dircsv = "", outfile = "", type_mapreduce = "sum", nrow = 1000000, chunk = 5000000)
-csv_row_reduce_line(fromfile, tofile, condfilter, catval_tokeep, header = True, maxline = -1)
-csv_row_reduce_line_manual(file_category, file_transact, file_reduced)
-db_getdata()
-db_meta_add("", []), schema = None, df_table_uri = None, df_table_columns = None)
-db_meta_find(ALLDB, query = "", filter_db = [], filter_table = [], filter_column = [])
-db_sql()
-isnull(x)
-str_to_unicode(x, encoding = "utf-8")
-xl_get_rowcol(ws, i0, j0, imax, jmax)
-xl_setstyle(file1)
-xl_val(ws, colj, rowi)
 
 
 
@@ -6029,43 +6254,6 @@ r_precision(r)
 
 
 
-utilmy/zml/source/utils/util_model.py
--------------------------functions----------------------
-import_(abs_module_path, class_name = None)
-model_catboost_classifier(Xtrain, Ytrain, Xcolname = None, pars={"learning_rate" = {"learning_rate": 0.1, "iterations": 1000, "random_seed": 0, "loss_function": "MultiClass", }, isprint = 0, )
-model_lightgbm_kfold(df, colname = None, num_folds = 2, stratified = False, colexclude = None, debug = False)
-pd_dim_reduction(df, colname, colprefix = "colsvd", method = "svd", dimpca = 2, model_pretrain = None, return_val = "dataframe,param", )
-sk_cluster(Xmat, method = "kmode", ), kwds={"metric" = {"metric": "euclidean", "min_cluster_size": 150, "min_samples": 3}, isprint = 1, preprocess={"norm" = {"norm": False}, )
-sk_error(ypred, ytrue, method = "r2", sample_weight = None, multioutput = None)
-sk_feature_concept_shift(df)
-sk_feature_covariate_shift(dftrain, dftest, colname, nsample = 10000)
-sk_feature_evaluation(clf, df, kbest = 30, colname_best = None, dfy = None)
-sk_feature_impt(clf, colname, model_type = "logistic")
-sk_feature_prior_shift()
-sk_feature_selection(clf, method = "f_classif", colname = None, kbest = 50, Xtrain = None, ytrain = None)
-sk_metric_roc_auc(y_test, ytest_pred, ytest_proba)
-sk_metric_roc_auc_multiclass(n_classes = 3, y_test = None, y_test_pred = None, y_predict_proba = None)
-sk_metric_roc_optimal_cutoff(ytest, ytest_proba)
-sk_metrics_eval(clf, Xtest, ytest, cv = 1, metrics = ["f1_macro", "accuracy", "precision_macro", "recall_macro"])
-sk_model_ensemble_weight(model_list, acclevel, maxlevel = 0.88)
-sk_model_eval(clf, istrain = 1, Xtrain = None, ytrain = None, Xval = None, yval = None)
-sk_model_eval_classification(clf, istrain = 1, Xtrain = None, ytrain = None, Xtest = None, ytest = None)
-sk_model_eval_classification_cv(clf, X, y, test_size = 0.5, ncv = 1, method = "random")
-sk_model_eval_regression(clf, istrain = 1, Xtrain = None, ytrain = None, Xval = None, yval = None)
-sk_model_votingpredict(estimators, voting, ww, X_test)
-sk_params_search_best(clf, X, y, 0, 1, 5)}, method = "gridsearch", param_search={"scorename" = {"scorename": "r2", "cv": 5, "population_size": 5, "generations_number": 3}, )
-sk_score_get(name = "r2")
-sk_showconfusion(Y, Ypred, isprint = True)
-sk_showmetrics(y_test, ytest_pred, ytest_proba, target_names = ["0", "1"], return_stat = 0)
-
--------------------------methods----------------------
-dict2.__init__(self, d)
-model_template1.__init__(self, alpha = 0.5, low_y_cut = -0.09, high_y_cut = 0.09, ww0 = 0.95)
-model_template1.fit(self, X, Y = None)
-model_template1.predict(self, X, y = None, ymedian = None)
-model_template1.score(self, X, Ytrue = None, ymedian = None)
-
-
 utilmy/zml/source/utils/util_optim.py
 -------------------------functions----------------------
 create_model_name(save_folder, model_name)
@@ -6082,52 +6270,6 @@ utilmy/zml/source/utils/util_pipeline.py
 -------------------------functions----------------------
 pd_grid_search(full_pipeline, X, y)
 pd_pipeline(bin_cols, text_col, X, y)
-
-
-
-utilmy/zml/source/utils/util_plot.py
--------------------------functions----------------------
-pd_colnum_tocat_stat(input_data, feature, target_col, bins, cuts = 0)
-pd_stat_distribution_trend_correlation(grouped, grouped_test, feature, target_col)
-plot_XY(xx, yy, zcolor = None, tsize = None, labels = None, title = "", xlabel = "", ylabel = "", zcolor_label = "", 8, 6), dpi = 75, savefile = "", color_dot = "Blues", doreturn = 0, )
-plot_XY_plotly(xx, yy, towhere = "url")
-plot_XY_seaborn(X, Y, Zcolor = None)
-plot_Y(Yval, typeplot = ".b", tsize = None, labels = None, title = "", xlabel = "", ylabel = "", zcolor_label = "", 8, 6), dpi = 75, savefile = "", color_dot = "Blues", doreturn = 0, )
-plot_cluster_2D(X_2dim, target_class, target_names)
-plot_cluster_hiearchy(Xmat_dist, p = 30, truncate_mode = None, color_threshold = None, get_leaves = True, orientation = "top", labels = None, count_sort = False, distance_sort = False, show_leaf_counts = True, do_plot = 1, no_labels = False, leaf_font_size = None, leaf_rotation = None, leaf_label_func = None, show_contracted = False, link_color_func = None, ax = None, above_threshold_color = "b", annotate_above = 0, )
-plot_cluster_pca(Xmat, Xcluster_label = None, metric = "euclidean", dimpca = 2, whiten = True, isprecompute = False, savefile = "", doreturn = 1, )
-plot_cluster_tsne(Xmat, Xcluster_label = None, metric = "euclidean", perplexity = 50, ncomponent = 2, savefile = "", isprecompute = False, returnval = True, )
-plot_col_correl_matrix(df, cols, annot = True, size = 30)
-plot_col_correl_target(df, cols, coltarget, nb_to_show = 10, ascending = False)
-plot_col_distribution(df, col_include = None, col_exclude = None, pars={"binsize" = {"binsize": 20})
-plot_col_univariate(input_data, feature, target_col, trend_correlation = None)
-plot_cols_with_NaNs(df, nb_to_show)
-plot_distance_heatmap(Xmat_dist, Xcolname)
-plot_distribution_density(Xsample, kernel = "gaussian", N = 10, bandwith = 1 / 10.0)
-plot_pair(df, Xcolname = None, Ycoltarget = None)
-plot_plotly()
-plot_univariate_histogram(feature, data, target_col, bins = 10, data_test = 0)
-plot_univariate_plots(data, target_col, features_list = 0, bins = 10, data_test = 0)
-plotbar(df, colname, figsize = (20, 10)
-plotxy(12, 10), title = "feature importance", savefile = "myfile.png")
-
-
-
-utilmy/zml/source/utils/util_sql.py
--------------------------functions----------------------
-sql_create_dbengine(type1 = "", dbname = "", login = "", password = "", url = "localhost", port = 5432)
-sql_delete_table(name, dbengine)
-sql_get_dbschema(dburl="sqlite = "sqlite:///aapackage/store/yahoo.db", dbengine = None, isprint = 0)
-sql_insert_csv(csvfile, dbtable, dbengine, col_drop = [])
-sql_insert_csv2(csvfile = "", dbtable = "", columns = [], dbengine = None, nrows = 10000)
-sql_insert_df(df, dbtable, dbengine, col_drop = ["id"], verbose = 1)
-sql_insert_excel(file1 = ".xls", dbengine = None, dbtype = "")
-sql_mysql_insert_excel()
-sql_pivotable(dbcon, ss = "select  ")
-sql_postgres_create_table(mytable = "", database = "", username = "", password = "")
-sql_postgres_pivot()
-sql_postgres_query_to_csv(sqlr = "SELECT ticker,shortratio,sector1_id, FROM stockfundamental", csv_out = "")
-sql_query(sqlr = "SELECT ticker,shortratio,sector1_id, FROM stockfundamental", dbengine = None, output = "df", dburl="sqlite = "sqlite:///aaserialize/store/finviz.db", )
 
 
 
@@ -6275,7 +6417,7 @@ utilmy/zml/ztemplate.py
 -------------------------functions----------------------
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
-get_dataset(Xtrain, cols_type_received, cols_ref)
+get_dataset(data_pars = None, task_type = "train", **kw)
 get_dataset_tuple(Xtrain, cols_type_received, cols_ref)
 init(*kw, **kwargs)
 load_model(path = "")
@@ -6307,9 +6449,6 @@ os_VS_start(self, version)
 os_compileVSsolution(dir1, flags1 = "", type1 = "devenv", compilerdir = "")
 set_rc_version(rcfile, target_version)
 
-
-
-utilmy/zzarchive/__init__.py
 
 
 utilmy/zzarchive/alldata.py
@@ -6347,96 +6486,6 @@ year(s)
 
 
 
-utilmy/zzarchive/datanalysis.py
--------------------------functions----------------------
-col_feature_importance(Xcol, Ytarget)
-col_pair_correl(Xcol, Ytarget)
-col_pair_interaction(Xcol, Ytarget)
-col_study_getcategorydict_freq(catedict)
-col_study_summary(Xmat = [0.0, 0.0], Xcolname = ['col1', 'col2'], Xcolselect = [9, 9], isprint = 0)
-csv_analysis()
-csv_bigcompute()
-csv_col_get_dict_categoryfreq(dircsv, filepattern = "*.csv", category_cols = [], maxline = -1, fileencoding = "utf-8")
-csv_col_schema_toexcel(dircsv = "", filepattern = '*.csv', outfile = '.xlsx', returntable = 1, maxrow = 5000000, maxcol_pertable = 90, maxstrlen = 'U80')
-csv_dtypes_getdict(df = None, csvfile = None)
-csv_fast_processing()
-csv_pivotable(dircsv = "", filepattern = '*.csv', fileh5 = '.h5', leftX = 'col0', topY = 'col2', centerZ = 'coli', mapreduce = 'sum', chunksize =  500000, tablename = 'df')
-csv_row_mapreduce(dircsv = "", outfile = "", type_mapreduce = 'sum', nrow = 1000000, chunk =  5000000)
-csv_row_reduce_line(fromfile, tofile, condfilter, catval_tokeep, header = True, maxline = -1)
-csv_row_reduce_line_manual(file_category, file_transact, file_reduced)
-db_getdata()
-db_meta_add(metadb, dbname, new_table = ('', [])
-db_meta_find(ALLDB, query = '', filter_db = [], filter_table = [], filter_column = [])
-db_sql()
-isnull(x)
-optim_is_pareto_efficient(Xmat_cost, epsilon =  0.01, ret_boolean = 1)
-pd_checkpoint()
-pd_col_pair_plot(dfX, Xcolname_selectlist = None, dfY = None, Ycolname = None)
-pd_col_study_distribution_show(df, col_include = None, col_exclude = None, pars={'binsize' = {'binsize':20})
-pd_describe(df)
-pd_filter_column(df_client_product, filter_val = [], iscol = 1)
-pd_missing_show()
-pd_stack_dflist(df_list)
-pd_validation_struct()
-plot_XY(xx, yy, zcolor = None, tsize = None, labels = None, title = '', xlabel = '', ylabel = '', zcolor_label = '', figsize = (8, 6)
-plot_XY_plotly(xx, yy, towhere = 'url')
-plot_XY_seaborn(X, Y, Zcolor = None)
-plot_Y(Yval, typeplot = '.b', tsize = None, labels = None, title = '', xlabel = '', ylabel = '', zcolor_label = '', figsize = (8, 6)
-plot_cluster_2D(X_2dim, target_class, target_names)
-plot_cluster_hiearchy(Xmat_dist, p = 30, truncate_mode = None, color_threshold = None, get_leaves = True, orientation = 'top', labels = None, count_sort = False, distance_sort = False, show_leaf_counts = True, do_plot = 1, no_labels = False, leaf_font_size = None, leaf_rotation = None, leaf_label_func = None, show_contracted = False, link_color_func = None, ax = None, above_threshold_color = 'b', annotate_above = 0)
-plot_cluster_pca(Xmat, Xcluster_label = None, metric = 'euclidean', dimpca = 2, whiten = True, isprecompute = False, savefile = '', doreturn = 1)
-plot_cluster_tsne(Xmat, Xcluster_label = None, metric = 'euclidean', perplexity = 50, ncomponent = 2, savefile = '', isprecompute = False, returnval = True)
-plot_col_pair(dfX, Xcolname_selectlist = None, dfY = None, Ycolname = None)
-plot_distance_heatmap(Xmat_dist, Xcolname)
-plot_distribution_density(Xsample, kernel = 'gaussian', N = 10, bandwith = 1 / 10.0)
-sk_catboost_classifier(Xtrain, Ytrain, Xcolname = None, pars= {"learning_rate" =  {"learning_rate":0.1, "iterations":1000, "random_seed":0, "loss_function": "MultiClass" }, isprint = 0)
-sk_catboost_regressor()
-sk_cluster(Xmat, metric = 'jaccard')
-sk_cluster_algo_custom(Xmat, algorithm, args, kwds, returnval = 1)
-sk_cluster_distance_pair(Xmat, metric = 'jaccard')
-sk_correl_rank(correl = [[1, 0], [0, 1]])
-sk_distribution_kernel_bestbandwidth(kde)
-sk_distribution_kernel_sample(kde = None, n = 1)
-sk_error_r2(Ypred, y_true, sample_weight = None, multioutput = None)
-sk_error_rmse(Ypred, Ytrue)
-sk_feature_importance(clfrf, feature_name)
-sk_gen_ensemble_weight(vv, acclevel, maxlevel = 0.88)
-sk_model_auto_tpot(Xmat, y, outfolder = 'aaserialize/', model_type = 'regressor/classifier', train_size = 0.5, generation = 1, population_size = 5, verbosity = 2)
-sk_optim_de(obj_fun, bounds, maxiter = 1, name1 = '', solver1 = None, isreset = 1, popsize = 15)
-sk_params_search_best(Xmat, Ytarget, model1, param_grid={'alpha' = {'alpha':  np.linspace(0, 1, 5) }, method = 'gridsearch', param_search= {'scoretype' =  {'scoretype':'r2', 'cv':5, 'population_size':5, 'generations_number':3 })
-sk_showconfusion(clfrf, X_train, Y_train, isprint = True)
-sk_tree(Xtrain, Ytrain, nbtree, maxdepth, isprint1 = 1, njobs = 1)
-sk_tree_get_ifthen(tree, feature_names, target_names, spacer_base = " ")
-sk_votingpredict(estimators, voting, ww, X_test)
-str_to_unicode(x, encoding = 'utf-8')
-tf_transform_catlabel_toint(Xmat)
-tf_transform_pca(Xmat, dimpca = 2, whiten = True)
-xl_get_rowcol(ws, i0, j0, imax, jmax)
-xl_getschema(dirxl = "", filepattern = '*.xlsx', dirlevel = 1, outfile = '.xlsx')
-xl_setstyle(file1)
-xl_val(ws, colj, rowi)
-
--------------------------methods----------------------
-sk_model_template1.__init__(self, alpha = 0.5, low_y_cut = -0.09, high_y_cut = 0.09, ww0 = 0.95)
-sk_model_template1.fit(self, X, Y = None)
-sk_model_template1.predict(self, X, y = None, ymedian = None)
-sk_model_template1.score(self, X, Ytrue = None, ymedian = None)
-sk_stateRule.__init__(self, state, trigger, colname = [])
-sk_stateRule.addrule(self, rulefun, name = '', desc = '')
-sk_stateRule.eval(self, idrule, t, ktrig = 0)
-sk_stateRule.help()
-
-
-utilmy/zzarchive/excel.py
--------------------------functions----------------------
-add_one(data)
-double_sum(x, y)
-get_workbook_name()
-matrix_mult(x, y)
-npdot()
-
-
-
 utilmy/zzarchive/fast.py
 -------------------------functions----------------------
 _compute_overlaps(u, v)
@@ -6450,7 +6499,7 @@ distance_jaccard_X(X)
 drawdown_calc_fast(price)
 fastStrptime(val, format)
 hour(s)
-log_exp_sum2(a, b)
+log_exp_sum2()
 mean(x)
 month(s)
 norm(vec)
@@ -6556,15 +6605,15 @@ np_find_maxpos(values)
 np_find_maxpos_2nd(numbers)
 np_find_minpos(values)
 np_findfirst(item, vec)
-np_findlocalmax(v, trig)
+np_findlocalmax(v)
 np_findlocalmax2(v, trig)
-np_findlocalmin(v, trig)
+np_findlocalmin(v)
 np_findlocalmin2(v, trig)
 np_interpolate_nan(y)
 np_ma(vv, n)
 np_memory_array_adress(x)
 np_remove_zeros(vv, axis1 = 1)
-np_sort(arr, colid, asc = True)
+np_sort(vv)
 np_sortbycol(arr, colid, asc = True)
 np_sortbycolumn(arr, colid, asc = True)
 np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
@@ -6617,7 +6666,7 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
-integratenp(its, nchunk)
+integratenp(its)
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -6652,7 +6701,7 @@ correl_fast(xn, y, nx)
 correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
-date_align(array1, dateref)
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
 date_alignfromdateref(array1, dateref)
 date_earningquater(t1)
 date_extract_dailyopenclosetime(spdateref1, market = 'us')
@@ -6678,11 +6727,11 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
-folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
-get(close, timelag)
+get(dataset, **kwargs)
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -6797,7 +6846,7 @@ correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
 date_add_bdays(from_date, add_days)
-date_align(array1, dateref)
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -6840,11 +6889,11 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
-folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
-get(close, timelag)
+get(dataset, **kwargs)
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -6992,93 +7041,6 @@ year(s)
 
 
 
-utilmy/zzarchive/py2to3/datanalysis.py
--------------------------functions----------------------
-col_feature_importance(Xcol, Ytarget)
-col_pair_correl(Xcol, Ytarget)
-col_pair_interaction(Xcol, Ytarget)
-col_pair_plot(dfX, Xcolname_selectlist = None, dfY = None, Ycolname = None)
-col_study_distribution_show(df, col_include = None, col_exclude = None, pars={'binsize' = {'binsize':20})
-col_study_getcategorydict_freq(catedict)
-col_study_summary(Xmat = [0.0, 0.0], Xcolname = ['col1', 'col2'], Xcolselect = [9, 9], isprint = 0)
-csv_analysis()
-csv_bigcompute()
-csv_col_get_dict_categoryfreq(dircsv, filepattern = "*.csv", category_cols = [], maxline = -1, fileencoding = "utf-8")
-csv_col_schema_toexcel(dircsv = "", filepattern = '*.csv', outfile = '.xlsx', returntable = 1, maxrow = 5000000, maxcol_pertable = 90, maxstrlen = 'U80')
-csv_dtypes_getdict(df = None, csvfile = None)
-csv_fast_processing()
-csv_pivotable(dircsv = "", filepattern = '*.csv', fileh5 = '.h5', leftX = 'col0', topY = 'col2', centerZ = 'coli', mapreduce = 'sum', chunksize =  500000, tablename = 'df')
-csv_row_mapreduce(dircsv = "", outfile = "", type_mapreduce = 'sum', chunk =  5000000)
-csv_row_reduce_line(fromfile, tofile, condfilter, catval_tokeep, maxline = -1)
-csv_row_reduce_line_manual(file_category, file_transact, file_reduced)
-db_getdata()
-db_meta_add(metadb, dbname, new_table = ('', [])
-db_meta_find(ALLDB, query = '', filter_db = [], filter_table = [], filter_column = [])
-db_sql()
-isnull(x)
-optim_is_pareto_efficient(Xmat_cost, epsilon =  0.01, ret_boolean = 1)
-pd_checkpoint()
-pd_filter_column(df_client_product, filter_val = [], iscol = 1)
-pd_missing_show()
-pd_stack_dflist(df_list)
-pd_validation_struct()
-plot_XY(xx, yy, zcolor = None, tsize = None, labels = None, title = '', xlabel = '', ylabel = '', zcolor_label = '', figsize = (8, 6)
-plot_XY_plotly(xx, yy, towhere = 'url')
-plot_XY_seaborn(X, Y, Zcolor = None)
-plot_Y(Yval, typeplot = '.b', tsize = None, labels = None, title = '', xlabel = '', ylabel = '', zcolor_label = '', figsize = (8, 6)
-plot_cluster_2D(X_2dim, target_class, target_names)
-plot_cluster_hiearchy(Xmat_dist, p = 30, truncate_mode = None, color_threshold = None, get_leaves = True, orientation = 'top', labels = None, count_sort = False, distance_sort = False, show_leaf_counts = True, no_plot = False, no_labels = False, leaf_font_size = None, leaf_rotation = None, leaf_label_func = None, show_contracted = False, link_color_func = None, ax = None, above_threshold_color = 'b')
-plot_cluster_pca(Xmat, Xcluster_label = None, metric = 'euclidean', dimpca = 2, whiten = True, isprecompute = False, savefile = '', doreturn = 1)
-plot_cluster_tsne(Xmat, Xcluster_label = None, metric = 'euclidean', perplexity = 50, ncomponent = 2, savefile = '', isprecompute = False, returnval = True)
-plot_col_pair(dfX, Xcolname_selectlist = None, dfY = None, Ycolname = None)
-plot_distance_heatmap(Xmat_dist, Xcolname)
-plot_distribution_density(Xsample, kernel = 'gaussian', N = 10, bandwith = 1 / 10.0)
-sk_cluster(Xmat, metric = 'jaccard')
-sk_cluster_algo_custom(Xmat, algorithm, args, kwds, returnval = 1)
-sk_cluster_distance_pair(Xmat, metric = 'jaccard')
-sk_correl_rank(correl = [[1, 0], [0, 1]])
-sk_distribution_kernel_bestbandwidth(kde)
-sk_distribution_kernel_sample(kde = None, n = 1)
-sk_error_r2(Ypred, y_true, sample_weight = None, multioutput = None)
-sk_error_rmse(Ypred, Ytrue)
-sk_feature_importance(clfrf, feature_name)
-sk_gen_ensemble_weight(vv, acclevel, maxlevel = 0.88)
-sk_model_auto_tpot(Xmat, y, outfolder = 'aaserialize/', model_type = 'regressor/classifier', train_size = 0.5, generation = 1, population_size = 5, verbosity = 2)
-sk_optim_de(obj_fun, bounds, maxiter = 1, name1 = '', solver1 = None, isreset = 1, popsize = 15)
-sk_params_search_best(Xmat, Ytarget, model1, param_grid={'alpha' = {'alpha':  np.linspace(0, 1, 5) }, method = 'gridsearch', param_search= {'scoretype' =  {'scoretype':'r2', 'cv':5, 'population_size':5, 'generations_number':3 })
-sk_showconfusion(clfrf, X_train, Y_train, isprint = True)
-sk_tree(Xtrain, Ytrain, nbtree, maxdepth, isprint1 = 1, njobs = 1)
-sk_tree_get_ifthen(tree, feature_names, target_names, spacer_base = " ")
-sk_votingpredict(estimators, voting, ww, X_test)
-str_to_unicode(x, encoding = 'utf-8')
-tf_transform_catlabel_toint(Xmat)
-tf_transform_pca(Xmat, dimpca = 2, whiten = True)
-xl_get_rowcol(ws, i0, j0, imax, jmax)
-xl_getschema(dirxl = "", filepattern = '*.xlsx', dirlevel = 1, outfile = '.xlsx')
-xl_setstyle(file1)
-xl_val(ws, colj, rowi)
-
--------------------------methods----------------------
-sk_model_template1.__init__(self, alpha = 0.5, low_y_cut = -0.09, high_y_cut = 0.09, ww0 = 0.95)
-sk_model_template1.fit(self, X, Y = None)
-sk_model_template1.predict(self, X, y = None, ymedian = None)
-sk_model_template1.score(self, X, Ytrue = None, ymedian = None)
-sk_stateRule.__init__(self, state, trigger, colname = [])
-sk_stateRule.addrule(self, rulefun, name = '', desc = '')
-sk_stateRule.eval(self, idrule, t, ktrig = 0)
-sk_stateRule.help()
-
-
-utilmy/zzarchive/py2to3/excel.py
--------------------------functions----------------------
-add_one(data)
-double_sum(x, y)
-get_workbook_name()
-matrix_mult(x, y)
-npdot()
-
-
-
 utilmy/zzarchive/py2to3/fast.py
 -------------------------functions----------------------
 _compute_overlaps(u, v)
@@ -7092,7 +7054,7 @@ distance_jaccard_X(X)
 drawdown_calc_fast(price)
 fastStrptime(val, format)
 hour(s)
-log_exp_sum2(a, b)
+log_exp_sum2()
 mean(x)
 month(s)
 norm(vec)
@@ -7198,15 +7160,15 @@ np_find_maxpos(values)
 np_find_maxpos_2nd(numbers)
 np_find_minpos(values)
 np_findfirst(item, vec)
-np_findlocalmax(v, trig)
+np_findlocalmax(v)
 np_findlocalmax2(v, trig)
-np_findlocalmin(v, trig)
+np_findlocalmin(v)
 np_findlocalmin2(v, trig)
 np_interpolate_nan(y)
 np_ma(vv, n)
 np_memory_array_adress(x)
 np_remove_zeros(vv, axis1 = 1)
-np_sort(arr, colid, asc = True)
+np_sort(vv)
 np_sortbycol(arr, colid, asc = True)
 np_sortbycolumn(arr, colid, asc = True)
 np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
@@ -7259,7 +7221,7 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
-integratenp(its, nchunk)
+integratenp(its)
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -7287,7 +7249,7 @@ correl_fast(xn, y, nx)
 correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
-date_align(array1, dateref)
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
 date_alignfromdateref(array1, dateref)
 date_earningquater(t1)
 date_extract_dailyopenclosetime(spdateref1, market = 'us')
@@ -7313,11 +7275,11 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
-folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
-get(close, timelag)
+get(dataset, **kwargs)
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -7432,7 +7394,7 @@ correl_reducebytrigger(correl2, trigger)
 correlation_mat(Xmat, type1 = "robust", type2 = "correl")
 data_jpsector()
 date_add_bdays(from_date, add_days)
-date_align(array1, dateref)
+date_align(quotes, dateref = None, datestart = 19550101, type1 = "close")
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -7475,11 +7437,11 @@ folio_longshort_unitfixed(long1, short1, nn = [1, -1], costpa = 0.0, tlag = 1, i
 folio_lowcorrelation(sym01, nstock, periodlist, dateref, close1, kbenchmark, badlist, costbppa = 0.02, showgraph = True)
 folio_perfreport_schedule(sym, dateref, close, wwind, t0, scheduleperiod = "1monthend")
 folio_riskpa(ret, targetvol = 0.1, volrange = 90, cap = 1.0)
-folio_volta(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
+folio_volta(bsk, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, isweight = 0, voltable = [], volschedule = [], tlag = 0)
 folio_volta2(bsk, riskind, par, targetvol = 0.11, volrange =  90, cap = 1.5, floor = 0.0, costbp = 0.0005)
 folio_voltarget(bsk, targetvol = 0.11, volrange =  90, expocap = 1.5)
 generate_sepvertical(asset1, tt, tmax, start = None, datebar = None)
-get(close, timelag)
+get(dataset, **kwargs)
 getdiff_fromquotes(close, timelag)
 getlogret_fromquotes(close, timelag = 1)
 getprice_fromret(ret, normprice = 100)
@@ -7662,273 +7624,6 @@ df_to_geojson(df, col_properties, lat = 'latitude', lon = 'longitude')
 
 
 
-utilmy/zzarchive/py3/util.py
--------------------------functions----------------------
-a_autoreload()
-a_cleanmemory()
-a_get_platform()
-a_info_conda_jupyter()
-a_isanaconda()
-a_module_codesample(module_str = 'pandas')
-a_module_doc(module_str = 'pandas')
-a_module_generatedoc(module_str = "pandas", fileout = '')
-a_run_ipython(cmd1)
-a_start_log(id1 = '', folder = 'aaserialize/log/')
-aa_unicode_ascii_utf8_issue()
-aws_accesskey_get(access = '', key = '')
-aws_conn_create(region = "ap-northeast-2", access = '', key = '')
-aws_conn_do(action = '', region = "ap-northeast-2")
-aws_conn_getallregions(conn = None)
-aws_conn_getinfo(conn)
-aws_ec2_allocate_elastic_ip(instance_id, region = "ap-northeast-2")
-aws_ec2_create_con(contype = 'sftp/ssh', host = 'ip', port = 22, username = 'ubuntu', keyfilepath = '', password = '', keyfiletype = 'RSA', isprint = 1)
-aws_ec2_python_script(script_path, args1, host)
-aws_s3_file_read(filepath, isbinary = 1)
-aws_s3_folder_printtall(bucket_name = 'zdisk')
-aws_s3_getbucketconn(s3dir)
-aws_s3_getfrom_s3(froms3dir = 'task01/', todir = '', bucket_name = 'zdisk')
-aws_s3_puto_s3(fromdir_file = 'dir/file.zip', todir = 'bucket/folder1/folder2')
-aws_s3_url_split(url)
-date_add_bday(from_date, add_days)
-date_add_bdays(from_date, add_days)
-date_allinfo()
-date_convert(t1, fromtype, totype)
-date_diffinbday(intd2, intd1)
-date_diffinday(intdate1, intdate2)
-date_diffinyear(startdate, enddate)
-date_finddateid(date1, dateref)
-date_gencalendar(start = '2010-01-01', end = '2010-01-15', country = 'us')
-date_generatedatetime(start = "20100101", nbday = 10, end = "")
-date_getspecificdate(datelist, datetype1 = "yearend", outputype1 = "intdate", includelastdate = True, includefirstdate = False, )
-date_holiday()
-date_now(i = 0)
-date_nowtime(type1 = 'str', format1= "%Y-%m-%d %H =  "%Y-%m-%d %H:%M:%S:%f")
-date_remove_bdays(from_date, add_days)
-date_tofloat(dt)
-dateint_todatetime(datelist1)
-datenumpy_todatetime(tt, islocaltime = True)
-datestring_todatetime(datelist1, format1 =  "%Y%m%d")
-datestring_toint(datelist1)
-datetime_toint(datelist1)
-datetime_tonumpydate(t, islocaltime = True)
-datetime_tostring(datelist1)
-find(xstring, list_string)
-find_fuzzy(xstring, list_string)
-findhigher(x, vec)
-findlower(x, vec)
-findnone(vec)
-finds(itemlist, vec)
-findx(item, vec)
-gc_map_dict_to_bq_schema(source_dict, schema, dest_dict)
-googledrive_get()
-googledrive_list()
-googledrive_put()
-isexist(a)
-isfloat(x)
-isint(x)
-load(folder = '/folder1/keyname', isabsolutpath = 0)
-max_kpos(arr, kth)
-min_kpos(arr, kth)
-np_acf(data)
-np_addcolumn(arr, nbcol)
-np_addrow(arr, nbrow)
-np_and1(x, y, x3 = None, x4 = None, x5 = None, x6 = None, x7 = None, x8 = None)
-np_cleanmatrix(m)
-np_comoment(xx, yy, nsample, kx, ky)
-np_dict_tolist(dd, withkey = 0)
-np_dict_tostr_key(dd)
-np_dict_tostr_val(dd)
-np_dictordered_create()
-np_enumerate2(vec_1d)
-np_find(item, vec)
-np_find_maxpos(values)
-np_find_maxpos_2nd(numbers)
-np_find_minpos(values)
-np_findfirst(item, vec)
-np_findlocalmax(v, trig)
-np_findlocalmax2(v, trig)
-np_findlocalmin(v, trig)
-np_findlocalmin2(v, trig)
-np_int_tostr(i)
-np_interpolate_nan(y)
-np_list_flatten(seq)
-np_list_tofreqdict(l1, wweight = [])
-np_list_unique(seq)
-np_ma(vv, n)
-np_memory_array_adress(x)
-np_mergelist(x0, x1)
-np_minimize(fun_obj, x0 = [0.0], argext = (0, 0)
-np_minimizeDE(fun_obj, bounds, name1, solver = None)
-np_nan_helper(y)
-np_numexpr_tohdfs(filename, expr, i0 = 0, imax = 1000, fileout='E = 'E:\_data\_QUASI_SOBOL_gaussian_xx3.h5')
-np_numexpr_vec_calc(filename, expr, i0 = 0, imax = 1000, fileout='E = 'E:\_data\_QUASI_SOBOL_gaussian_xx3.h5')
-np_pivotable_create(table, left, top, value)
-np_pivottable_count(mylist)
-np_remove_NA_INF_2d(X)
-np_remove_zeros(vv, axis1 = 1)
-np_removelist(x0, xremove = [])
-np_sort(arr, colid, asc = 1)
-np_sort(arr, colid, asc = 1)
-np_sortbycol(arr, colid, asc = True)
-np_sortbycolumn(arr, colid, asc = True)
-np_sortcol(arr, colid, asc = 1)
-np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
-np_torecarray(arr, colname)
-np_transform2d_int_1d(m2d, onlyhalf = False)
-np_uniquerows(a)
-obj_getclass_of_method(meth)
-obj_getclass_property(pfi)
-os_config_getfile(file1)
-os_config_setfile(dict_params, outfile, mode1 = 'w+')
-os_csv_process(file1)
-os_extracttext_allfile(nfile, dir1, pattern1 = "*.html", htmltag = 'p', deepness = 2)
-os_file_exist(file1)
-os_file_getname(path)
-os_file_getpath(path)
-os_file_gettext(file1)
-os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
-os_file_mergeall(nfile, dir1, pattern1, deepness = 2)
-os_file_read(file1)
-os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
-os_file_replacestring1(findStr, repStr, filePath)
-os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
-os_file_size(file1)
-os_folder_copy(src, dst, symlinks = False, pattern1 = "*.py", fun_file_toignore = None)
-os_folder_create(directory)
-os_folder_robocopy(from_folder = '', to_folder = '', my_log='H = 'H:/robocopy_log.txt')
-os_gui_popup_show(txt)
-os_path_append(p1, p2 = None, p3 = None, p4 = None)
-os_path_change(path1)
-os_path_current()
-os_path_norm(pth)
-os_print_tofile(vv, file1, mode1 = 'a')
-os_process_2()
-os_process_run(cmd_list = ['program', 'arg1', 'arg2'], capture_output = False)
-os_processify_fun(func)
-os_split_dir_file(dirfile)
-os_zipextractall(filezip_or_dir = "folder1/*.zip", tofolderextract = 'zdisk/test', isprint = 1)
-pd_addcol(df1, name1 = 'new')
-pd_applyfun_col(df, newcol, ff, use_colname = "all/[colname]")
-pd_array_todataframe(array, colname = None, index1 = None, dotranspose = False)
-pd_cleanquote(q)
-pd_create_colmapdict_nametoint(df)
-pd_createdf(array1, col1 = None, idx1 = None)
-pd_csv_randomread(filename, nsample = 10000, filemaxline = -1, dtype = None)
-pd_dataframe_toarray(df)
-pd_date_intersection(qlist)
-pd_df_todict(df, colkey = 'table', excludekey = [''], onlyfirstelt =  True)
-pd_dtypes(df, columns = [], targetype = 'category')
-pd_dtypes_totype2(df, columns = [], targetype = 'category')
-pd_dtypes_type1_totype2(df, fromtype = str, targetype = str)
-pd_extract_col_idx_val(df)
-pd_extract_col_uniquevalue_tocsv(df, colname = '', csvfile = '')
-pd_find(df, regex_pattern = '*', col_restrict = [], isnumeric = False, doreturnposition = False)
-pd_h5_addtable(df, tablename, dbfile='F = 'F:\temp_pandas.h5')
-pd_h5_cleanbeforesave(df)
-pd_h5_dumpinfo(dbfile='E = 'E:\_data\stock\intraday_google.h5')
-pd_h5_fromcsv_tohdfs(dircsv = 'dir1/dir2/', filepattern = '*.csv', tofilehdfs = 'file1.h5', tablename = 'df', col_category = [], dtype0 = None, encoding = 'utf-8', chunksize =  2000000, mode = 'a', format = 'table', complib = None)
-pd_h5_load(filenameh5='E = 'E:/_data/_data_outlier.h5', table_id = 'data', exportype = "pandas", rowstart = -1, rowend = -1, cols = [])
-pd_h5_save(df, filenameh5='E = 'E:/_data/_data_outlier.h5', key = 'data')
-pd_h5_tableinfo(filenameh5, table)
-pd_info(df, doreturn = 1)
-pd_info_memsize(df, memusage = 0)
-pd_insertcol(df, colname, vec)
-pd_insertdatecol(df_insider, format1="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S:%f")
-pd_insertrow(df, rowval, index1 = None, isreset = 1)
-pd_is_categorical(z)
-pd_np_toh5file(numpyarr, fileout = "file.h5", table1 = 'data')
-pd_removecol(df1, name1)
-pd_removerow(df, row_list_index = [23, 45])
-pd_replacevalues(df, matrix)
-pd_resetindex(df)
-pd_selectrow(df, **conditions)
-pd_split_col_idx_val(df)
-pd_splitdf_inlist(df, colid, type1 = "dict")
-pd_str_encoding_change(df, cols, fromenc = 'iso-8859-1', toenc = 'utf-8')
-pd_str_isascii(x)
-pd_str_unicode_tostr(df, targetype = str)
-plot_XY(xx, yy, zcolor = None, tsize = None, title1 = '', xlabel = '', ylabel = '', figsize = (8, 6)
-plot_heatmap(frame, ax = None, cmap = None, vmin = None, vmax = None, interpolation = 'nearest')
-print_topdf()
-py_importfromfile(modulename, dir1)
-py_load_obj(folder = '/folder1/keyname', isabsolutpath = 0, encoding1 = 'utf-8')
-py_memorysize(o, ids, hint = " deep_getsizeof(df_pd, set()
-py_save_obj(obj1, keyname)
-py_save_obj_dill(obj1, keyname)
-read_funding_data(path)
-read_funding_data(path)
-read_funding_data(path)
-save(obj, folder = '/folder1/keyname', isabsolutpath = 0)
-save_test(folder = '/folder1/keyname', isabsolutpath = 0)
-session_guispyder_load(filename)
-session_guispyder_save(filename)
-session_load(name = 'test_20160815')
-session_load_function(name = 'test_20160815')
-session_save(name = 'test')
-session_save_function(name = 'test')
-session_spyder_showall()
-sql_create_dbengine(type1 = '', dbname = '', login = '', password = '', url = 'localhost', port = 5432)
-sql_delete_table(name, dbengine)
-sql_get_dbschema(dburl='sqlite = 'sqlite:///aapackage/store/yahoo.db', dbengine = None, isprint = 0)
-sql_getdate()
-sql_insert_csv(csvfile, dbtable, dbengine, col_drop = [])
-sql_insert_csv2(csvfile = '', dbtable = '', columns = [], dbengine = None, nrows =  10000)
-sql_insert_df(df, dbtable, dbengine, col_drop = ['id'], verbose = 1)
-sql_insert_excel(file1 = '.xls', dbengine = None, dbtype = '')
-sql_mysql_insert_excel()
-sql_pivotable(dbcon, ss = 'select  ')
-sql_postgres_create_table(mytable = '', database = '', username = '', password = '')
-sql_postgres_pivot()
-sql_postgres_query_to_csv(sqlr = 'SELECT ticker,shortratio,sector1_id, FROM stockfundamental', csv_out = '')
-sql_query(sqlr = 'SELECT ticker,shortratio,sector1_id, FROM stockfundamental', dbengine = None, output = 'df', dburl='sqlite = 'sqlite:///aaserialize/store/finviz.db')
-str_empty_string_array(x, y = 1)
-str_empty_string_array_numpy(nx, ny = 1)
-str_is_az09char(x)
-str_is_azchar(x)
-str_isfloat(value)
-str_make_unicode(input, errors = 'replace')
-str_match_fuzzy(xstring, list_string)
-str_parse_stringcalendar(cal)
-str_reindent(s, numSpaces)
-str_split2(delimiters, string, maxsplit = 0)
-str_split_pattern(sep2, ll, maxsplit = 0)
-str_to_unicode(x, encoding = 'utf-8')
-str_to_utf8(x)
-web_getjson_fromurl(url)
-web_getlink_fromurl(url)
-web_getrawhtml(url1)
-web_gettext_fromhtml(file1, htmltag = 'p')
-web_gettext_fromurl(url, htmltag = 'p')
-web_importio_todataframe(apiurl1, isurl = 1)
-web_restapi_toresp(apiurl1)
-web_send_email(FROM, recipient, subject, body, login1 = "mizenjapan@gmail.com", pss1 = "sophieelise237", server1 = "smtp.gmail.com", port1 = 465)
-web_send_email_tls(FROM, recipient, subject, body, login1 = "mizenjapan@gmail.com", pss1 = "sophieelise237", server1 = "smtp.gmail.com", port1 = 465)
-web_sendurl(url1)
-z_key_splitinto_dir_name(keyname)
-ztest_processify()
-
--------------------------methods----------------------
-FundingRecord.__str__(self)
-FundingRecord.parse(klass, row)
-aws_ec2_ssh.__init__(self, hostname, username = 'ubuntu', key_file = None, password = None)
-aws_ec2_ssh._help_ssh(self)
-aws_ec2_ssh.cmd2(self, cmd1)
-aws_ec2_ssh.command(self, cmd)
-aws_ec2_ssh.command_list(self, cmdlist)
-aws_ec2_ssh.get(self, remotefile, localfile)
-aws_ec2_ssh.get_all(self, remotepath, localpath)
-aws_ec2_ssh.jupyter_kill(self)
-aws_ec2_ssh.jupyter_start(self)
-aws_ec2_ssh.listdir(self, remotedir)
-aws_ec2_ssh.put(self, localfile, remotefile)
-aws_ec2_ssh.put_all(self, localpath, remotepath)
-aws_ec2_ssh.python_script(self, script_path, args1)
-aws_ec2_ssh.sftp_walk(self, remotepath)
-aws_ec2_ssh.write_command(self, text, remotefile)
-testclass.__init__(self, x)
-testclass.z_autotest(self)
-
-
 utilmy/zzarchive/report.py
 -------------------------functions----------------------
 map_show()
@@ -7962,7 +7657,7 @@ getmodule_doc(module1, fileout = '')
 utilmy/zzarchive/storage/aapackage_gen/codeanalysis.py
 -------------------------functions----------------------
 dedent()
-describe(obj)
+describe(module)
 describe2(module)
 describe_builtin(obj)
 describe_builtin2(obj, name1)
@@ -8099,7 +7794,7 @@ payoffeuro1(st)
 utilmy/zzarchive/storage/codeanalysis.py
 -------------------------functions----------------------
 dedent()
-describe(obj)
+describe(module)
 describe2(module, type1 = 0)
 describe_builtin(obj)
 describe_builtin2(obj, name1)
@@ -8125,7 +7820,7 @@ CRR_option_value(S0, K, T, r, vol, otype, M = 4)
 N(d)
 brownian_logret(mu, vol, timegrid)
 brownian_process(s0, vol, timegrid)
-bs(S0, K, t, T, r, d, vol)
+bs(S0, K, t, T, r, d, vol, cp)
 bsbinarycall(S0, K, t, T, r, d, vol)
 bscall(S0, K, t, T, r, d, vol)
 bsdelta(St, K, t, T, r, d, vol, cp1)
@@ -8174,7 +7869,7 @@ logret_to_price(s0, log_ret)
 logret_to_ret(log_returns)
 multibrownian_logret(mu, vol, corrmatrix, timegrid)
 multigbm_logret(mu, vol, corrmatrix, timegrid)
-multigbm_process(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
+multigbm_process(s0, mu, vol, corrmatrix, timegrid)
 multigbm_processfast(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
 multigbm_processfast2(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
 multigbm_processfast3(s0, voldt, drift, upper_cholesky, nbasset, n, kk)
@@ -8201,16 +7896,6 @@ log_p(msg, file = "")
 logfile(msg, file)
 save_prediction(file, prediction)
 save_weights(file, tuple_weights)
-
-
-
-utilmy/zzarchive/storage/excel.py
--------------------------functions----------------------
-add_one(data)
-double_sum(x, y)
-get_workbook_name()
-matrix_mult(x, y)
-npdot()
 
 
 
@@ -8251,7 +7936,7 @@ func(val, lock)
 init2(d)
 init_global1(l, r)
 integratene(its)
-integratenp(its, nchunk)
+integratenp(its)
 integratenp2(its, nchunk)
 list_append(count, id, out_list)
 merge(d2)
@@ -8261,30 +7946,6 @@ ne_sin(x)
 np_sin(value)
 parzen_estimation(x_samples, point_x, h)
 res_shared2()
-
-
-
-utilmy/zzarchive/storage/panda_util.py
--------------------------functions----------------------
-array_toexcel(vv, wk, r1)subset = 'rownum', take_last=True)level=0))a) = True)level=0))a):)
-csv_topanda(filein1, filename, tablen = 'data', lineterminator=",")
-database_topanda()
-df_topanda(vv, filenameh5, colname = 'data')
-excel_topanda(filein, fileout)
-excel_topandas(filein, fileout)
-folder_topanda()
-getrandom_tonumpy(filename, nbdim, nbsample, tablen = 'data')
-load_frompanda(filenameh5, colname = "data")
-numexpr_topanda(filename, i0 = 0, imax = 1000, expr, fileout='E = 'E:\_data\_QUASI_SOBOL_gaussian_xx3.h5')
-numpy_topanda(vv, fileout = "", colname = "data")
-panda_todabatase()
-panda_toexcel()
-panda_tofolder()
-panda_tonumpy(filename, nsize, tablen = 'data')
-remove_zeros()
-sort_array()
-sqlquery_topanda()
-unique_rows(a)
 
 
 
@@ -8309,7 +7970,7 @@ correlation_mat(matx, type1 = "robust", type2 = "correl")
 data_jpsector()
 dataframe_toarray(df)
 date_add_bdays(from_date, add_days)
-date_align(array1, dateref)
+date_align(quotes, dateref = None, type1 = "close")
 date_alignfromdateref(array1, dateref)
 date_as_float(dt)
 date_diffindays(intdate1, intdate2)
@@ -8522,7 +8183,7 @@ utilmy/zzarchive/storage/symbolicmath.py
 EEvarbrownian(ff1d)
 EEvarbrownian2d(ff)
 N(x)
-bs(s0, K, t, T, r, d, vol)
+bs(s0, K, t, T, r, d, vol, cp)
 bsbinarycall(s0, K, t, T, r, d, vol)
 bscall(s0, K, t, T, r, d, vol)
 bsdelta(St, K, t, T, r, d, vol, cp1)
@@ -8544,7 +8205,7 @@ d2xf(St, K, t, T, r, d, vol)
 dN(x)
 decomposecorrel(m1)
 diffn(ff, x0, kk)
-dnn(x, y, p)
+dnn(x)
 dnn2(x, y, p)
 factorpoly(pp)
 lagrangian2d(ll)
@@ -8584,7 +8245,7 @@ ROC(df, n)
 RSI(df, n = 14)
 RWI(df, nn, nATR)
 STDDEV(df, n)
-STO(df)
+STO(df, n)
 STOK(df)
 TRIX(df, n)
 TSI(df, r, s)
@@ -8592,7 +8253,7 @@ ULTOSC(df)
 Vortex(df, n)
 date_earningquater(t1)
 date_option_expiry(date)
-distance(df, tk, tkname)
+distance(df, ind)
 distance_day(df, tk, tkname)
 findhigher(item, vec)
 findlower(item, vec)
@@ -8610,19 +8271,6 @@ np_sortbycolumn(arr, colid, asc = True)
 optionexpiry_dist(df)
 qearning_dist(df)
 supportmaxmin1(df1)
-
-
-
-utilmy/zzarchive/storage/testmulti.py
--------------------------functions----------------------
-mc01()
-mc02()
-multiprocess(processes, samples, x, widths)
-random_tree(Data)
-random_tree(Data)
-serial(samples, x, widths)
-test01()
-test01()
 
 
 
@@ -8660,231 +8308,6 @@ zipp(params, tparams)
 
 
 
-utilmy/zzarchive/util.py
--------------------------functions----------------------
-a_autoreload()
-a_cleanmemory()
-a_info_conda_jupyter()
-a_isanaconda()
-a_module_codesample(module_str = 'pandas')
-a_module_doc(module_str = 'pandas')
-a_module_generatedoc(module_str = "pandas", fileout = '')
-a_run_ipython(cmd1)
-a_start_log(id1 = '', folder = 'aaserialize/log/')
-aa_unicode_ascii_utf8_issue()
-date_add_bday(from_date, add_days)
-date_add_bdays(from_date, add_days)
-date_allinfo()
-date_convert(t1, fromtype, totype)
-date_diffinbday(intd2, intd1)
-date_diffinday(intdate1, intdate2)
-date_diffinyear(startdate, enddate)
-date_finddateid(date1, dateref)
-date_gencalendar(start = '2010-01-01', end = '2010-01-15', country = 'us')
-date_generatedatetime(start = "20100101", nbday = 10, end = "")
-date_getspecificdate(datelist, datetype1 = "yearend", outputype1 = "intdate", includelastdate = True, includefirstdate = False, )
-date_holiday()
-date_now(i = 0)
-date_nowtime(type1 = 'str', format1= "%Y-%m-%d %H =  "%Y-%m-%d %H:%M:%S:%f")
-date_remove_bdays(from_date, add_days)
-date_tofloat(dt)
-dateint_todatetime(datelist1)
-datenumpy_todatetime(tt, islocaltime = True)
-datestring_todatetime(datelist1, format1 =  "%Y%m%d")
-datestring_toint(datelist1)
-datetime_toint(datelist1)
-datetime_tonumpydate(t, islocaltime = True)
-datetime_tostring(datelist1)
-find(item, vec)
-findhigher(x, vec)
-findlower(x, vec)
-findnone(vec)
-finds(itemlist, vec)
-findx(item, vec)
-googledrive_get()
-googledrive_list()
-googledrive_put()
-isexist(a)
-isfloat(x)
-isint(x)
-load(folder = '/folder1/keyname', isabsolutpath = 0)
-max_kpos(arr, kth)
-min_kpos(arr, kth)
-np_acf(data)
-np_addcolumn(arr, nbcol)
-np_addrow(arr, nbrow)
-np_and1(x, y, x3 = None, x4 = None, x5 = None, x6 = None, x7 = None, x8 = None)
-np_cleanmatrix(m)
-np_comoment(xx, yy, nsample, kx, ky)
-np_dict_tolist(dd, withkey = 0)
-np_dict_tostr_key(dd)
-np_dict_tostr_val(dd)
-np_dictordered_create()
-np_enumerate2(vec_1d)
-np_find(item, vec)
-np_find_maxpos(values)
-np_find_maxpos_2nd(numbers)
-np_find_minpos(values)
-np_findfirst(item, vec)
-np_findlocalmax(v, trig)
-np_findlocalmax2(v, trig)
-np_findlocalmin(v, trig)
-np_findlocalmin2(v, trig)
-np_int_tostr(i)
-np_interpolate_nan(y)
-np_list_flatten(seq)
-np_list_tofreqdict(l1, wweight = [])
-np_list_unique(seq)
-np_ma(vv, n)
-np_map_dict_to_bq_schema(source_dict, schema, dest_dict)
-np_memory_array_adress(x)
-np_mergelist(x0, x1)
-np_minimize(fun_obj, x0 = [0.0], argext = (0, 0)
-np_minimizeDE(fun_obj, bounds, name1, maxiter = 10, popsize = 5, solver = None)
-np_nan_helper(y)
-np_numexpr_tohdfs(filename, expr, i0 = 0, imax = 1000, fileout='E = 'E:\_data\_QUASI_SOBOL_gaussian_xx3.h5')
-np_numexpr_vec_calc(filename, expr, i0 = 0, imax = 1000, fileout='E = 'E:\_data\_QUASI_SOBOL_gaussian_xx3.h5')
-np_pivotable_create(table, left, top, value)
-np_pivottable_count(mylist)
-np_remove_NA_INF_2d(X)
-np_remove_zeros(vv, axis1 = 1)
-np_removelist(x0, xremove = [])
-np_sort(arr, colid, asc = 1)
-np_sort(arr, colid, asc = 1)
-np_sortbycol(arr, colid, asc = True)
-np_sortbycolumn(arr, colid, asc = True)
-np_sortcol(arr, colid, asc = 1)
-np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
-np_torecarray(arr, colname)
-np_transform2d_int_1d(m2d, onlyhalf = False)
-np_uniquerows(a)
-obj_getclass_of_method(meth)
-obj_getclass_property(pfi)
-os_config_getfile(file1)
-os_config_setfile(dict_params, outfile, mode1 = 'w+')
-os_csv_process(file1)
-os_file_are_same_file_types(paths)
-os_file_exist(file1)
-os_file_extracttext(output_file, dir1, pattern1 = "*.html", htmltag = 'p', deepness = 2)
-os_file_get_file_extension(file_path)
-os_file_get_path_from_stream(maybe_stream)
-os_file_getname(path)
-os_file_getpath(path)
-os_file_gettext(file1)
-os_file_isame(file1, file2)
-os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
-os_file_mergeall(nfile, dir1, pattern1, deepness = 2)
-os_file_norm_paths(paths, marker = '*')
-os_file_normpath(path)
-os_file_read(file1)
-os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
-os_file_replace(source_file_path, pattern, substring)
-os_file_replacestring1(findStr, repStr, filePath)
-os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
-os_file_size(file1)
-os_file_try_to_get_extension(path_or_strm)
-os_folder_copy(src, dst, symlinks = False, pattern1 = "*.py", fun_file_toignore = None)
-os_folder_create(directory)
-os_folder_is_path(path_or_stream)
-os_folder_robocopy(from_folder = '', to_folder = '', my_log='H = 'H:/robocopy_log.txt')
-os_gui_popup_show(txt)
-os_path_append(p1, p2 = None, p3 = None, p4 = None)
-os_path_change(path1)
-os_path_current()
-os_path_norm(pth)
-os_print_tofile(vv, file1, mode1 = 'a')
-os_process_2()
-os_process_run(cmd_list = ['program', 'arg1', 'arg2'], capture_output = False)
-os_processify_fun(func)
-os_split_dir_file(dirfile)
-os_wait_cpu(priority = 300, cpu_min = 50)
-os_zipextractall(filezip_or_dir = "folder1/*.zip", tofolderextract = 'zdisk/test', isprint = 1)
-pd_applyfun_col(df, newcol, ff, use_colname = "all/[colname]")
-pd_array_todataframe(array, colname = None, index1 = None, dotranspose = False)
-pd_col_addfrom_dfmap(df, dfmap, colkey, colval, df_colused, df_colnew, exceptval = -1, inplace =  True)
-pd_create_colmapdict_nametoint(df)
-pd_createdf(array1, col1 = None, idx1 = None)
-pd_csv_randomread(filename, nsample = 10000, filemaxline = -1, dtype = None)
-pd_dataframe_toarray(df)
-pd_date_intersection(qlist)
-pd_df_todict(df1, colkey = 'table', excludekey = [''], onlyfirstelt =  True)
-pd_df_todict2(df1, colkey = 'table', excludekey = [''], onlyfirstelt =  True)
-pd_dtypes(df, columns = [], targetype = 'category')
-pd_dtypes_totype2(df, columns = [], targetype = 'category')
-pd_dtypes_type1_totype2(df, fromtype = str, targetype = str)
-pd_extract_col_idx_val(df)
-pd_extract_col_uniquevalue_tocsv(df, colname = '', csvfile = '')
-pd_find(df, regex_pattern = '*', col_restrict = [], isnumeric = False, doreturnposition = False)
-pd_h5_addtable(df, tablename, dbfile='F = 'F:\temp_pandas.h5')
-pd_h5_cleanbeforesave(df)
-pd_h5_dumpinfo(dbfile='E = 'E:\_data\stock\intraday_google.h5')
-pd_h5_fromcsv_tohdfs(dircsv = 'dir1/dir2/', filepattern = '*.csv', tofilehdfs = 'file1.h5', tablename = 'df', col_category = [], dtype0 = None, encoding = 'utf-8', chunksize =  2000000, mode = 'a', format = 'table', complib = None)
-pd_h5_load(filenameh5='E = 'E:/_data/_data_outlier.h5', table_id = 'data', exportype = "pandas", rowstart = -1, rowend = -1, cols = [])
-pd_h5_save(df, filenameh5='E = 'E:/_data/_data_outlier.h5', key = 'data')
-pd_h5_tableinfo(filenameh5, table)
-pd_info(df, doreturn = 1)
-pd_info_memsize(df, memusage = 0)
-pd_insertdatecol(df_insider, format1="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S:%f")
-pd_insertrow(df, rowval, index1 = None, isreset = 1)
-pd_is_categorical(z)
-pd_np_toh5file(numpyarr, fileout = "file.h5", table1 = 'data')
-pd_removecol(df1, name1)
-pd_removerow(df, row_list_index = [23, 45])
-pd_replacevalues(df, matrix)
-pd_resetindex(df)
-pd_row_findlast(df, colid = 0, emptyrowid = None)
-pd_row_select(df, **conditions)
-pd_split_col_idx_val(df)
-pd_splitdf_inlist(df, colid, type1 = "dict")
-pd_str_encoding_change(df, cols, fromenc = 'iso-8859-1', toenc = 'utf-8')
-pd_str_isascii(x)
-pd_str_unicode_tostr(df, targetype = str)
-plot_XY(xx, yy, zcolor = None, tsize = None, title1 = '', xlabel = '', ylabel = '', figsize = (8, 6)
-plot_heatmap(frame, ax = None, cmap = None, vmin = None, vmax = None, interpolation = 'nearest')
-print_topdf()
-py_exception_print()
-py_importfromfile(modulename, dir1)
-py_load_obj(folder = '/folder1/keyname', isabsolutpath = 0, encoding1 = 'utf-8')
-py_log_write(LOGFILE, prefix)
-py_memorysize(o, ids, hint = " deep_getsizeof(df_pd, set()
-py_save_obj(obj1, keyname = '', otherfolder = 0)
-py_save_obj_dill(obj1, keyname = '', otherfolder = 0)
-read_funding_data(path)
-read_funding_data(path)
-read_funding_data(path)
-save(obj, folder = '/folder1/keyname', isabsolutpath = 0)
-save_test(folder = '/folder1/keyname', isabsolutpath = 0)
-session_guispyder_load(filename)
-session_guispyder_save(filename)
-session_load(name = 'test_20160815')
-session_load_function(name = 'test_20160815')
-session_save(name = 'test')
-session_save_function(name = 'test')
-session_spyder_showall()
-sql_getdate()
-str_empty_string_array(x, y = 1)
-str_empty_string_array_numpy(nx, ny = 1)
-str_is_az09char(x)
-str_is_azchar(x)
-str_isfloat(value)
-str_make_unicode(input, errors = 'replace')
-str_match_fuzzy(xstring, list_string)
-str_parse_stringcalendar(cal)
-str_reindent(s, numSpaces)
-str_split2(delimiters, string, maxsplit = 0)
-str_split_pattern(sep2, ll, maxsplit = 0)
-str_to_unicode(x, encoding = 'utf-8')
-str_to_utf8(x)
-z_key_splitinto_dir_name(keyname)
-ztest_processify()
-
--------------------------methods----------------------
-FundingRecord.__str__(self)
-FundingRecord.parse(klass, row)
-testclass.__init__(self, x)
-testclass.z_autotest(self)
-
-
 utilmy/zzarchive/util_aws.py
 -------------------------functions----------------------
 aws_accesskey_get(access = '', key = '')
@@ -8897,7 +8320,7 @@ aws_ec2_allocate_elastic_ip(con, instance_id = "", elastic_ip = '', region = "ap
 aws_ec2_cmd_ssh(cmdlist =   ["ls " ], host = 'ip', doreturn = 0, ssh = None, username = 'ubuntu', keyfilepath = '')
 aws_ec2_create_con(contype = 'sftp/ssh', host = 'ip', port = 22, username = 'ubuntu', keyfilepath = '', password = '', keyfiletype = 'RSA', isprint = 1)
 aws_ec2_get_id(ipadress = '', instance_id = '')
-aws_ec2_get_instanceid(con, ip_address)
+aws_ec2_get_instanceid()
 aws_ec2_printinfo(instance = None, ipadress = "", instance_id = "")
 aws_ec2_python_script(script_path, args1, host)
 aws_ec2_res_start(con, region, key_name, ami_id, inst_type = "cx2.2", min_count  = 1, max_count  = 1, pars= {"security_group" =  {"security_group": [""], "disk_size": 25, "disk_type": "ssd", "volume_type": "gp2"})
@@ -9032,205 +8455,6 @@ df_to_geojson(df, col_properties, lat = 'latitude', lon = 'longitude')
 
 
 
-utilmy/zzarchive/zzarchive/zutil.py
--------------------------functions----------------------
-_os_file_search_fast(fname, texts = None, mode = "regex/str")
-a_cleanmemory()
-a_help()
-a_info_conda_jupyter()
-a_run_cmd(cmd1)
-a_run_ipython(cmd1)
-a_start_log(id1 = "", folder = "aaserialize/log/")
-aa_unicode_ascii_utf8_issue()
-date_add_bday(from_date, add_days)
-date_add_bdays(from_date, add_days)
-date_allinfo()
-date_diffinbday(intd2, intd1)
-date_diffinday(intdate1, intdate2)
-date_finddateid(date1, dateref)
-date_gencalendar(start = "2010-01-01", end = "2010-01-15", country = "us")
-date_generatedatetime(start = "20100101", nbday = 10, end = "")
-date_holiday()
-date_now(i = 0)
-date_nowtime(type1 = "str", format1="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S:%f")
-date_remove_bdays(from_date, add_days)
-dateint_todatetime(datelist1)
-datenumpy_todatetime(tt, islocaltime = True)
-datestring_todatetime(datelist1, format1 = "%Y%m%d")
-datestring_toint(datelist1)
-datetime_toint(datelist1)
-datetime_tonumpydate(t, islocaltime = True)
-datetime_tostring(datelist1)
-find(xstring, list_string)
-find_fuzzy(xstring, list_string)
-findhigher(x, vec)
-findlower(x, vec)
-findnone(vec)
-finds(itemlist, vec)
-findx(item, vec)
-isanaconda()
-isfloat(x)
-isint(x)
-load(folder = "/folder1/keyname", isabsolutpath = 0)
-np_addcolumn(arr, nbcol)
-np_addrow(arr, nbrow)
-np_and1(x, y, x3 = None, x4 = None, x5 = None, x6 = None, x7 = None, x8 = None)
-np_cleanmatrix(m)
-np_dict_tolist(dd, withkey = 0)
-np_dict_tostr_key(dd)
-np_dict_tostr_val(dd)
-np_dictordered_create()
-np_enumerate2(vec_1d)
-np_find(item, vec)
-np_find_maxpos(values)
-np_find_maxpos_2nd(numbers)
-np_find_minpos(values)
-np_findfirst(item, vec)
-np_findlocalmax(v, trig)
-np_findlocalmax2(v, trig)
-np_findlocalmin(v, trig)
-np_findlocalmin2(v, trig)
-np_int_tostr(i)
-np_interpolate_nan(y)
-np_list_flatten(seq)
-np_list_tofreqdict(l1, wweight = None)
-np_list_unique(seq)
-np_ma(vv, n)
-np_max_kpos(arr, kth)
-np_memory_array_adress(x)
-np_mergelist(x0, x1)
-np_min_kpos(arr, kth)
-np_minimize(fun_obj, x0 = None, argext = (0, 0)
-np_minimize_de(fun_obj, bounds, name1, maxiter = 10, popsize = 5, solver = None)
-np_nan_helper(y)
-np_numexpr_vec_calc()
-np_pivotable_create(table, left, top, value)
-np_pivottable_count(mylist)
-np_remove_na_inf_2d(x)
-np_remove_zeros(vv, axis1 = 1)
-np_removelist(x0, xremove = None)
-np_sort(arr, colid, asc = 1)
-np_sortbycol(arr, colid, asc = True)
-np_sortbycolumn(arr, colid, asc = True)
-np_sortcol(arr, colid, asc = 1)
-np_stack(v1, v2 = None, v3 = None, v4 = None, v5 = None)
-np_torecarray(arr, colname)
-np_transform2d_int_1d(m2d, onlyhalf = False)
-np_uniquerows(a)
-os_config_getfile(file1)
-os_config_setfile(dict_params, outfile, mode1 = "w+")
-os_csv_process(file1)
-os_file_are_same_file_types(paths)
-os_file_exist(file1)
-os_file_extracttext(output_file, dir1, pattern1 = "*.html", htmltag = "p", deepness = 2)
-os_file_get_extension(file_path)
-os_file_get_path_from_stream(maybe_stream)
-os_file_getname(path)
-os_file_getpath(path)
-os_file_gettext(file1)
-os_file_isame(file1, file2)
-os_file_listall(dir1, pattern = "*.*", dirlevel = 1, onlyfolder = 0)
-os_file_mergeall(nfile, dir1, pattern1, deepness = 2)
-os_file_norm_paths(paths, marker = "*")
-os_file_normpath(path)
-os_file_read(file1)
-os_file_rename(some_dir, pattern = "*.*", pattern2 = "", dirlevel = 1)
-os_file_replace(source_file_path, pattern, substring)
-os_file_replacestring1(find_str, rep_str, file_path)
-os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel = 1)
-os_file_search_content(srch_pattern = None, mode = "str", dir1 = "", file_pattern = "*.*", dirlevel = 1)
-os_file_size(file1)
-os_file_try_to_get_extension(path_or_strm)
-os_folder_copy(src, dst, symlinks = False, pattern1 = "*.py", fun_file_toignore = None)
-os_folder_create(directory)
-os_folder_is_path(path_or_stream)
-os_folder_robocopy(from_folder = "", to_folder = "", my_log="H = "H:/robocopy_log.txt")
-os_gui_popup_show(txt)
-os_path_append(p1, p2 = None, p3 = None, p4 = None)
-os_path_change(path1)
-os_path_current()
-os_path_norm(pth)
-os_platform()
-os_print_tofile(vv, file1, mode1 = "a")
-os_process_2()
-os_process_run(cmd_list, capture_output = False)
-os_split_dir_file(dirfile)
-os_wait_cpu(priority = 300, cpu_min = 50)
-os_zip_checkintegrity(filezip1)
-os_zipextractall(filezip_or_dir = "folder1/*.zip", tofolderextract = "zdisk/test", isprint = 1)
-os_zipfile(folderin, folderzipname, iscompress = True)
-os_zipfolder(dir_tozip = "/zdisks3/output", zipname = "/zdisk3/output.zip", dir_prefix = True, iscompress=Trueimport shutil_ = iscompressdir_tozip = dir_tozip if dir_tozip[-1] != "/" else dir_tozip[ = Trueimport shutil_ = iscompressdir_tozip = dir_tozip if dir_tozip[-1] != "/" else dir_tozip[:-1]if dir_prefix:)
-pd_applyfun_col(df, newcol, ff, use_colname = "all/[colname]")
-pd_array_todataframe(array, colname = None, index1 = None, dotranspose = False)
-pd_col_addfrom_dfmap(df, dfmap, colkey, colval, df_colused, df_colnew, exceptval = -1, inplace = Truedfmap, colkey = colkey, colval=colval)rowi) = colval)rowi):)
-pd_create_colmapdict_nametoint(df)
-pd_createdf(array1, col1 = None, idx1 = None)
-pd_csv_randomread(filename, nsample = 10000, filemaxline = -1, dtype = None)
-pd_dataframe_toarray(df)
-pd_date_intersection(qlist)
-pd_df_todict(df, colkey = "table", excludekey = ("", )
-pd_df_todict2(df, colkey = "table", excludekey = ("", )
-pd_dtypes(df, columns = ()
-pd_dtypes_totype2(df, columns = ()
-pd_dtypes_type1_totype2(df, fromtype = str, targetype = str)
-pd_extract_col_idx_val(df)
-pd_extract_col_uniquevalue_tocsv(df, colname = "", csvfile = "")
-pd_find(df, regex_pattern = "*", col_restrict = None, isnumeric = False, doreturnposition = False)
-pd_h5_addtable(df, tablename, dbfile="F = "F:\temp_pandas.h5")
-pd_h5_cleanbeforesave(df)
-pd_h5_dumpinfo(dbfile=r"E = r"E:\_data\stock\intraday_google.h5")
-pd_h5_fromcsv_tohdfs(dircsv = "dir1/dir2/", filepattern = "*.csv", tofilehdfs = "file1.h5", tablename = "df", ), dtype0 = None, encoding = "utf-8", chunksize = 2000000, mode = "a", form = "table", complib = None, )
-pd_h5_load(filenameh5="E = "E:/_data/_data_outlier.h5", table_id = "data", exportype = "pandas", rowstart = -1, rowend = -1, ), )
-pd_h5_save(df, filenameh5="E = "E:/_data/_data_outlier.h5", key = "data")
-pd_h5_tableinfo(filenameh5, table)
-pd_info(df, doreturn = 1)
-pd_info_memsize(df, memusage = 0)
-pd_insertdatecol(df, col, format1="%Y-%m-%d %H = "%Y-%m-%d %H:%M:%S:%f")
-pd_insertrow(df, rowval, index1 = None, isreset = 1)
-pd_is_categorical(z)
-pd_np_toh5file(numpyarr, fileout = "file.h5", table1 = "data")
-pd_removecol(df1, name1)
-pd_removerow(df, row_list_index = (23, 45)
-pd_replacevalues(df, matrix)
-pd_resetindex(df)
-pd_row_findlast(df, colid = 0, emptyrowid = None)
-pd_row_select(df, **conditions)
-pd_split_col_idx_val(df)
-pd_splitdf_inlist(df, colid, type1 = "dict")
-pd_str_encoding_change(df, cols, fromenc = "iso-8859-1", toenc = "utf-8")
-pd_str_isascii(x)
-pd_str_unicode_tostr(df, targetype = str)
-pd_toexcel(df, outfile = "file.xlsx", sheet_name = "sheet1", append = 1, returnfile = 1)
-pd_toexcel_many(outfile = "file1.xlsx", df1 = None, df2 = None, df3 = None, df4 = None, df5 = None, df6 = Nonedf1, outfile, sheet_name="df1")if df2 is not None = "df1")if df2 is not None:)
-print_object_tofile(vv, txt, file1="d = "d:/regression_output.py")
-print_progressbar(iteration, total, prefix = "", suffix = "", decimals = 1, bar_length = 100)
-py_autoreload()
-py_importfromfile(modulename, dir1)
-py_load_obj(folder = "/folder1/keyname", isabsolutpath = 0, encoding1 = "utf-8")
-py_memorysize(o, ids, hint = " deep_getsizeof(df_pd, set()
-py_save_obj(obj1, keyname = "", otherfolder = 0)
-py_save_obj_dill(obj1, keyname = "", otherfolder = 0)
-save(obj, folder = "/folder1/keyname", isabsolutpath = 0)
-save_test(folder = "/folder1/keyname", isabsolutpath = 0)
-session_load_function(name = "test_20160815")
-session_save_function(name = "test")
-str_empty_string_array(x, y = 1)
-str_empty_string_array_numpy(nx, ny = 1)
-str_is_az09char(x)
-str_is_azchar(x)
-str_isfloat(value)
-str_make_unicode(input_str, errors = "replace")
-str_match_fuzzy(xstring, list_string)
-str_parse_stringcalendar(cal)
-str_reindent(s, num_spaces)
-str_split2(delimiters, string, maxsplit = 0)
-str_split_pattern(sep2, ll, maxsplit = 0)
-str_to_unicode(x, encoding = "utf-8")
-str_to_utf8(x)
-z_key_splitinto_dir_name(keyname)
-
-
-
 utilmy/zzarchive/zzarchive/zutil_features.py
 -------------------------functions----------------------
 col_extractname(col_onehot)
@@ -9240,7 +8464,7 @@ feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats = 8, scoring = 'neg
 feature_selection_multicolinear(df, threshold = 1.0)
 fetch_dataset(url_dataset, path_target = None, file_target = None)
 fetch_spark_koalas(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
-load(name, path)
+load(file_name)
 load_dataset(path_data_x, path_data_y = '', colid = "jobId", n_sample = -1)
 load_features(name, path)
 load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
@@ -9278,7 +8502,7 @@ pd_stat_pandas_profile(df, savefile = "report.html", title = "Pandas Profile")
 pd_stat_shift_changes(df, target_col, features_list = 0, bins = 10, df_test = 0)
 pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
-save(df, name, path = None)
+save(obj, path)
 save_features(df, name, path = None)
 save_list(path, name_list, glob)
 test_get_classification_data(name = None)
@@ -9334,7 +8558,7 @@ git_pieces_from_vcs(tag_prefix, root, verbose, run_command = run_command)
 git_versions_from_keywords(keywords, tag_prefix, verbose)
 plus_or_dot(pieces)
 register_vcs_handler(vcs, method)
-render(pieces)
+render(pieces, style)
 render_git_describe(pieces)
 render_git_describe_long(pieces)
 render_pep440(pieces)
@@ -9362,33 +8586,12 @@ utilmy/zzml/mlmodels/data.py
 download_dtopbox(data_pars)
 download_googledrive(file_list, **kw)
 get_dataset(data_pars)
-import_data(name = "", mode = "train", node_id = 0, data_folder_root = "")
+import_data()
 import_data_dask(**kw)
 import_data_fromfile(**kw)
 import_data_tch(name = "", mode = "train", node_id = 0, data_folder_root = "")
 tf_dataset(dataset_pars)
 
-
-
-utilmy/zzml/mlmodels/dataloader.py
--------------------------functions----------------------
-_check_output_shape(self, inter_output, shape, max_len)
-_validate_data_info(self, data_info)
-batch_generator(iterable, n = 1)
-cli_load_arguments(config_file = None)
-get_dataset_type(x)
-image_dir_load(path)
-main()
-pickle_dump(t, **kwargs)
-pickle_load()
-split_xy_from_dict(out, **kwargs)
-test_dataloader(path = 'dataset/json/refactor/')
-test_json_list(data_pars_list)
-test_run_model()
-test_single(arg)
-
--------------------------methods----------------------
-DataLoader.__init__(self, data_pars)
 
 
 utilmy/zzml/mlmodels/dataloader_test.py
@@ -9526,7 +8729,7 @@ plot_predict(item_metrics, out_pars = None)
 plot_prob_forecasts(ypred, out_pars = None)
 predict(model, sess = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
 save(model, path)
-test(data_path = "dataset/", choice = "", config_mode = "test")
+test()
 test_single(data_path = "dataset/", choice = "", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9545,7 +8748,7 @@ plot_predict(item_metrics, out_pars = None)
 plot_prob_forecasts(ypred, out_pars = None)
 predict(model, sess = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
 save(model, path)
-test(data_path = "dataset/", choice = "", config_mode = "test")
+test()
 test_single(data_path = "dataset/", choice = "", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9599,14 +8802,14 @@ utilmy/zzml/mlmodels/model_keras/Autokeras.py
 evaluate(model, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
-get_dataset(data_pars)
+get_dataset(data_pars = None)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
 get_params(param_pars = None, **kw)
 load(load_pars, config_mode = "test")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None, config_mode = "test")
-test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+test()
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9715,7 +8918,7 @@ metrics(ypred, model, session = None, model_pars = None, data_pars = None, compu
 os_package_root_path(filepath, sublevel = 0, path_add = "")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 save(model = None, session = None, save_pars = {})
-test(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
+test(data_path = "dataset/")
 test2(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
 
 -------------------------methods----------------------
@@ -9727,7 +8930,7 @@ utilmy/zzml/mlmodels/model_keras/old/Autokeras.py
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
-get_dataset(data_pars)
+get_dataset(data_pars = None)
 get_dataset_auto_mpg(data_pars)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
@@ -9735,7 +8938,7 @@ get_params(param_pars = None, **kw)
 load(load_pars)
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None)
-test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+test()
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -9911,7 +9114,7 @@ metrics(ypred, model, session = None, model_pars = None, data_pars = None, compu
 os_package_root_path(filepath, sublevel = 0, path_add = "")
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 save(model = None, session = None, save_pars = {})
-test(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
+test(data_path = "dataset/")
 test2(data_path = "dataset/", out_path = "keras/keras.png", reset = True)
 
 -------------------------methods----------------------
@@ -9923,7 +9126,7 @@ utilmy/zzml/mlmodels/model_keras/todo/Autokeras.py
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 fit(model, data_pars = None, compute_pars = None, out_pars = None, **kwargs)
 get_config_file()
-get_dataset(data_pars)
+get_dataset(data_pars = None)
 get_dataset_auto_mpg(data_pars)
 get_dataset_imbd(data_pars)
 get_dataset_titanic(data_pars)
@@ -9931,7 +9134,7 @@ get_params(param_pars = None, **kw)
 load(load_pars)
 predict(model, session = None, data_pars = None, compute_pars = None, out_pars = None)
 save(model, session = None, save_pars = None)
-test(data_path = "dataset/", pars_choice = "json", config_mode = "test")
+test()
 test_single(data_path = "dataset/", pars_choice = "json", config_mode = "test")
 
 -------------------------methods----------------------
@@ -10205,13 +9408,13 @@ fit(model, data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit_simple(net, optimiser, data_generator, on_save_callback, device, data_pars, out_pars, max_grad_steps = 500, )
 get_dataset(data_pars)
 get_params(param_pars, **kw)
-load(model, optimiser, CHECKPOINT_NAME = "nbeats-fiting-checkpoint.th")
+load(load_pars)
 load_checkpoint(model, optimiser, CHECKPOINT_NAME = "nbeats-fiting-checkpoint.th")
 plot(net, x, target, backcast_length, forecast_length, grad_step, out_path = "./")
 plot_model(net, x, target, grad_step, data_pars, disable_plot = False)
 plot_predict(x_test, y_test, p, data_pars, compute_pars, out_pars)
 predict(model, sess, data_pars = None, compute_pars = None, out_pars = None, **kw)
-save(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
+save(model, session, save_pars)
 save_checkpoint(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
 test(data_path = "dataset/milk.csv")
 
@@ -10250,13 +9453,13 @@ fit_simple(net, optimiser, data_generator, on_save_callback, device, data_pars, 
 get_data(data_pars)
 get_dataset(**kw)
 get_params(param_pars, **kw)
-load(model, optimiser, CHECKPOINT_NAME = 'nbeats-fiting-checkpoint.th')
+load(load_pars)
 load_checkpoint(model, optimiser, CHECKPOINT_NAME = 'nbeats-fiting-checkpoint.th')
 plot(net, x, target, backcast_length, forecast_length, grad_step, out_path = "./")
 plot_model(net, x, target, grad_step, data_pars, disable_plot = False)
 plot_predict(x_test, y_test, p, data_pars, compute_pars, out_pars)
 predict(model, data_pars = None, compute_pars = None, out_pars = None, **kw)
-save(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
+save(model, session, save_pars)
 save_checkpoint(model, optimiser, grad_step, CHECKPOINT_NAME = "mycheckpoint")
 test(choice = "json", data_path = "nbeats.json", config_mode = "test")
 
@@ -10349,7 +9552,7 @@ get_dataset(task, tokenizer, evaluate = False)
 get_eval_report(labels, preds)
 get_mismatched(labels, preds)
 get_params(param_pars = {}, **kw)
-load(task, tokenizer, evaluate = False)
+load(load_pars = {})
 load_and_cache_examples(task, tokenizer, evaluate = False)
 metrics(task_name, preds, labels)
 reset_model()
@@ -11298,7 +10501,7 @@ module_load_full(model_uri = "", model_pars = None, data_pars = None, compute_pa
 predict(module, data_pars = None, compute_pars = None, out_pars = None, **kwarg)
 predict_cli(arg)
 save(module, save_pars, **kwarg)
-test(folder = None)
+test(modelname)
 test_all(folder = None)
 test_api(model_uri = "model_xxxx/yyyy.py", param_pars = None)
 test_cli(arg)
@@ -11482,7 +10685,7 @@ preprocess_timeseries_m5b()
 save_to_file(path, data)
 test_gluonts()
 test_gluonts2()
-time_train_test_split(df, **kw)
+time_train_test_split(data_pars)
 time_train_test_split2(df, **kw)
 tofloat(x)
 
@@ -11581,7 +10784,7 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 utilmy/zzml/mlmodels/template/zarchive/gluonts_model.py
 -------------------------functions----------------------
 get_params(choice = 0, data_path = "dataset/", **kw)
-test(data_path = "dataset/", out_path = "GLUON/gluon.png", reset = True)
+test(data_path = "dataset/")
 test2(data_path = "dataset/", out_path = "GLUON/gluon.png", reset = True)
 
 -------------------------methods----------------------
@@ -11623,7 +10826,7 @@ get_recursive_files(folderPath, ext = '/*model*/*.py')
 get_recursive_files2(folderPath, ext)
 get_recursive_files3(folderPath, ext)
 json_norm(ddict)
-load(args, config_file, config_mode, verbose = 0)
+load(load_pars)
 load_callable_from_dict(function_dict, return_other_keys = False)
 load_callable_from_uri(uri)
 load_config(args, config_file, config_mode, verbose = 0)
@@ -11712,7 +10915,7 @@ season_remove(x)
 season_remove(x)
 to_json_highcharts(df, cols, coldate, fpath, verbose = False)
 train_split_time(df, test_period  =  40, cols = None, coltime  = "time_key", minsize = 5)
-unit_fun(price)
+unit_fun(ii, t, u0, x0, x)
 unit_fun01(price)
 unit_fun01(price)
 unit_fun02(ii = 6990003, t = 0, price = 0, verbose = False)
@@ -11839,7 +11042,7 @@ utilmy/zzml/versioneer.py
 do_setup()
 do_vcs_install(manifest_in, versionfile_source, ipy)
 get_cmdclass()
-get_config(root)
+get_config()
 get_config_from_root(root)
 get_keywords()
 get_root()
@@ -11857,8 +11060,8 @@ plus_or_dot(pieces)
 plus_or_dot(pieces)
 register_vcs_handler(vcs, method)
 register_vcs_handler(vcs, method)
-render(pieces)
-render(pieces)
+render(pieces, style)
+render(pieces, style)
 render_git_describe(pieces)
 render_git_describe(pieces)
 render_git_describe_long(pieces)

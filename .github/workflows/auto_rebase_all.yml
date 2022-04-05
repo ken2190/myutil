@@ -2,6 +2,10 @@ name: Auto Rebase Branches - main schedule
 
 
 on:
+  workflow_dispatch:
+    inputs:  
+
+
   schedule:
     - cron:  '0 13 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'   
@@ -13,7 +17,9 @@ on:
 
 env:
     ROOT_BRANCH_NAME: main
-    BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: adev01
+    GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
     ### Remove :  lets7512,andrescass,
 
 
@@ -27,31 +33,58 @@ jobs:
         with:
             token: ${{ secrets.WORKFLOW_TOKEN }}
 
-      #### No desctructive add main and local and push ALL
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          echo "Fetching latest..."
-          git fetch origin
-          git checkout ${{ env.ROOT_BRANCH_NAME }}
-          echo "Beginning merge...."
-          IFS=","
-          for branch in $BRANCHES_TO_REBASE; do
-            { 
-              echo ""
-              echo "##################"
-              git checkout $branch
-              git pull --allow-unrelated-histories 
-              git merge $ROOT_BRANCH_NAME --no-edit || { git add -u . && git commit --no-edit ;}
-              git push
-              echo "Merge SUCCEEDED for branch $branch"
+      - name: Create Auto PR- donwload hub      
+        #env:
+        #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+        run: |
+           curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+           git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+           git config --global hub.protocol ssh
+           # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
 
-            } || {
-              echo "Merge FAILED for branch $branch"
 
-            }
+      - name: Create Auto PR  local to main
+        run: |
+           echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
+           echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
+           # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+           export name='alex' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+           # export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+           export name='tranchung' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
 
+
+      - name: Create Auto PR  main to local
+        run: |
+           echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m "main into aniket"     || echo "failed"
+           echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
+           # export name='img-nlp-hasija' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='tranchung'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+
+
+      - name: Create Auto merge  main INTO local
+        run: |
+          bin/hub pr list -f %U%n
+          for prname in $(bin/hub pr list -f %U%n); do
+            if [[ $prname == *"main into"* ]]; then
+               echo 'Merging PR ' $prname && bin/hub merge $prname --no-ff && bin/hub push || echo "failed"
+            fi
           done
+
+      # - name: Create Auto PR List       
+      #   #env:
+      #   #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+      #   run: |
+      #      curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+      #      git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+      #      git config --global hub.protocol ssh
+      #      for branch in $BRANCHES_TO_REBASE; do
+      #       {            
+      #         bin/hub pull-request --base arita37:main    --head arita37:autopr  -m "PR into main"  || echo "failed"
+      #       }   
+
+
+
+
 
 
 

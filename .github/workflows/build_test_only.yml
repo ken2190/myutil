@@ -1,23 +1,28 @@
-name: Test only
+name: AA_Test only
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
+  workflow_dispatch:
+    inputs:  
+
+    
   push:
-    branches-ignore:
-      - main
-      - 'z*'
-      - zauto_rebase_all
-      - zdocstring
-      - zttypehint
-      - zformat
+    branches:
+     test1111  
+  #   branches-ignore:
+  #     - main
+  #     - 'z*'
+  #     - zauto_rebase_all
+  #     - zdocstring
+  #     - zttypehint
+  #     - zformat
       
 
-  pull_request:
-    branches-ignore:
-      - main
+  #pull_request:
+  #  branches-ignore:
+  #    - main
+  #    - ztmp*
 
 jobs:
   build:
@@ -97,8 +102,8 @@ jobs:
     - name: test_docs_cli 
       run: python test.py test_docs_cli
     
-    - name: test_text
-      run: python test.py test_text
+    - name: test_nlp
+      run: python test.py test_nlp
 
     - name: test_distributed
       run: python test.py test_distributed

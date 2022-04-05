@@ -1,0 +1,164 @@
+name: zbackup Auto Rebase Branches - main schedule
+
+
+on:
+  workflow_dispatch:
+    inputs:  
+
+
+#  schedule:
+#    - cron:  '0 13 * * *'      #### 60mins
+    #    - cron:  '*/10 * * * *'   
+
+#  push:
+#    branches:
+#    - zrebase_all
+
+
+env:
+    ROOT_BRANCH_NAME: main
+    #BRANCHES_TO_REBASE: aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+    BRANCHES_TO_REBASE: adev01
+    GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}  
+    ### Remove :  lets7512,andrescass,
+
+
+jobs:
+  Rebase-All:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Rebasing branches ${{ env.BRANCHES_TO_REBASE }} with ${{ env.ROOT_BRANCH_NAME }}"
+      - name: Checking out repository code into workspace...
+        uses: actions/checkout@v3
+        with:
+            token: ${{ secrets.WORKFLOW_TOKEN }}
+
+      #### No desctructive add main and local and push ALL
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          echo "Fetching latest..."
+          git fetch origin
+          git checkout ${{ env.ROOT_BRANCH_NAME }}
+          git pull
+          echo "Beginning merge...."
+          IFS=","
+          for branch in $BRANCHES_TO_REBASE; do
+            { 
+              echo ""
+              echo "########  $branch  "
+              git checkout $branch
+              # git pull --allow-unrelated-histories 
+              # git merge $ROOT_BRANCH_NAME  --allow-unrelated-histories
+              git merge $ROOT_BRANCH_NAME --no-edit  --allow-unrelated-histories --no-ff  -m '${ROOT_BRANCH_NAME into}  ${branch} ' || { git add -u . && git commit --no-edit ;}
+              ##              
+              ### it destroyed the github action files, create more issues...
+              ### git push -f
+              echo "Merge SUCCEEDED for branch $branch"
+            } || {
+              echo "Merge FAILED for branch $branch"
+            }
+          done
+      # - name: Create Auto PR
+      #   uses: devops-infra/action-pull-request@v0.4.2
+      #   with:
+      #     github_token: ${{ secrets.WORKFLOW_TOKEN }}
+      #     source_branch: development
+      #     target_branch: master
+      #     title: My pull request
+      - name: Create Auto PR      
+        #env:
+        #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+        run: |
+           curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+           git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+           git config --global hub.protocol ssh
+           # aniket,alex,tranchung,adev01,zdocs_y23487teg65f6,dhamani,bishwa-bk,anhdang
+           echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
+           echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
+           echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+
+
+
+      # - name: Create Auto PR List      
+      #   #env:
+      #   #   GITHUB_TOKEN: ${{  secrets.WORKFLOW_TOKEN  }}                  
+      #   run: |
+      #      curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+      #      git config --local user.email "noelkev0@gmail.com" &&  git config --local user.name "arita37"
+      #      git config --global hub.protocol ssh
+      #      for branch in $BRANCHES_TO_REBASE; do
+      #       {            
+      #         bin/hub pull-request --base arita37:main    --head arita37:autopr  -m "PR into main"  || echo "failed"
+      #       }   
+
+
+
+
+
+
+
+
+
+  ####3 rebase All branches except some branch
+  # Rebase-All:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "Merging  branches ${{ env.BRANCHES_TO_REBASE }} with ${{ env.ROOT_BRANCH_NAME }}"
+  #     - name: Checking out repository code into workspace...
+  #       uses: actions/checkout@v3
+  #     - name: Begin merge process...
+  #       run: |
+  #         git config user.name github-actions
+  #         git config user.email github-actions@github.com
+  #         echo "Fetching latest..."
+  #         git fetch origin
+  #         git checkout ${{ env.ROOT_BRANCH_NAME }}
+  #         echo "Beginning merge...."
+  #         for branch in $(git for-each-ref --format='%(refname:lstrip=-1)' refs/remotes/origin/); do
+  #           if grep -q "$branch" <<< "${{ env.BRANCH_NG }}"
+  #           then
+  #             echo "SKIPPING $branch"
+  #           else
+  #             echo "Working on branch $branch"
+  #             git checkout $branch
+  #             git pull
+  #             git merge ${{ env.ROOT_BRANCH_NAME }} --no-edit || { git add -u . && git commit --no-edit ;}
+  #             git push
+  #             echo "Merge SUCCEEDED for branch $branch"
+  #           fi
+  #         done
+
+
+
+
+      #########  Rebase version : create MANY conflicts
+      # - run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      # - run: echo "Fetching latest..."
+      # - run: git fetch origin
+      # - run: git checkout ${{ env.ROOT_BRANCH_NAME }}
+      # - run: git pull --rebase
+      # - run: echo "Beginning rebase...."
+      # - run: |
+      #     IFS=","
+      #     for branch in $BRANCHES_TO_REBASE; do
+      #       { git checkout $branch  && \
+      #         git pull && \
+      #         git rebase $ROOT_BRANCH_NAME && \
+      #         git push --force-with-lease && \
+      #         echo "Rebase SUCCEEDED for branch $branch" ;} \
+              
+      #       || { echo "Rebase FAILED for branch $branch" && git rebase --abort ; }
+            
+      #     done
+
+
+
+#### Iterate All branches  
+#branches=()
+#eval "$(git for-each-ref --shell --format='branches+=(%(refname))' refs/heads/)"
+#for branch in "${branches[@]}"; do
+#    # …
+#done

@@ -7,14 +7,32 @@ HELP= """
 import os, sys, time, datetime,inspect, json, yaml, gc, random
 from box import Box
 
-####################################################################
+
+#### Typing ######################################################################################
+## https://www.pythonsheets.com/notes/python-typing.html
+### from utilmy import (  )
+from typing import List, Optional, Tuple, Union, Dict, Any
+Dict_none = Union[dict, None]
+List_none = Union[list, None]
+Int_none  = Union[None,int]
+Path_type = Union[str, bytes, os.PathLike]
+
+try:
+    import numpy.typing
+    npArrayLike = numpy.typing.ArrayLike
+except ImportError:
+    npArrayLike = Any
+
+
+
+
+
+
+
+###################################################################################################
 global verbose
 def get_verbosity(verbose:int=None):
     """function get_verbosity
-    Args:
-        verbose ( int ) :   
-    Returns:
-        
     """
     if verbose is None :
         verbose = os.environ.get('utilmy-verbose', 3)
@@ -245,14 +263,46 @@ def import_function(fun_name=None, module_name=None, fuzzy_match=False):
         raise Exception( msg )  
 
 
-def glob_glob(dirin="**/*.py", nfile=1000, recursive=False, **kw):
-    """  **/*.py   any sub-directories
+def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str, list]="",  exclude:Union[str, list]="",  
+              recursive=True, silent=False, show=0, **kw):
+    """  List of files.
+       dirin:      **/*.py   any sub-directories or list of sub-directories
+       direxclude: **/*.py   any sub-directories or list of sub-directories
 
     """
     import glob
-    flist  = sorted( glob.glob(dirin , recursive= recursive, **kw ))
+    ### Inside
+    dirin = [dirin] if isinstance(dirin, str) else dirin
+    flist = []
+    for fi in dirin :
+       flist  =  flist + glob.glob(fi , recursive= recursive, **kw )
+    flist = list(set(flist))
+
+
+    ### Outside
+    direxclude = exclude if len(exclude) > 3 else direxclude  ### Alias only
+    direxclude = [direxclude] if isinstance(dirin, str) else direxclude
+    exclud = []
+    for fi in direxclude :
+       exclud =  exclud + glob.glob(fi , recursive= recursive, **kw )
+    exclud = list(set(exclud))
+
+    flist  = [fi for fi in flist if  fi not in exclud ]
+    flist  = sorted(flist)
+
+    #### Filter by modified time
+    import datetime 
+    def os_file_modified_time(filename):
+        t = os.path.getmtime(filename)
+        return  datetime.datetime.fromtimestamp(t, tz=datetime.timezone.utc)     
+    fdates = [ os_file_modified_time(fi)  for fi in flist ]
+
+
+    ####  Details
     flist  = flist[:nfile]
-    log('Nfile: ', len(flist), str(flist)[:100])
+
+    if show>0 : log('Nfile: ', len(flist), str(flist)[:100])
+    if show>1 : log(flist)
     return flist
 
 
