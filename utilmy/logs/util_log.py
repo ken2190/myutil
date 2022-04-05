@@ -20,6 +20,8 @@ from pathlib import Path
 
 import yaml
 from loguru import logger
+from loguru._logger import Logger
+from typing import Optional
 
 #####################################################################################
 root = Path(__file__).resolve().parent
@@ -31,7 +33,7 @@ LOG_TEMPLATE = "debug0"
 
 
 #####################################################################################
-def logger_setup(log_config_path: str = None, log_template: str = "default", **kwargs):
+def logger_setup(log_config_path: str = None, log_template: str = "default", **kwargs) -> Logger:
     """ Generic Logging setup
       Overide logging using loguru setup
       1) Custom config from log_config_path .yaml file

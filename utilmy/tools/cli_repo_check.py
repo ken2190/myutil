@@ -32,7 +32,7 @@ import logging
 # import inspect
 
 
-def get_logger():
+def get_logger() -> Logger:
     """
     Instantiate a logger for this module
     """

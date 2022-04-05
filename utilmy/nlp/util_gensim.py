@@ -4,7 +4,7 @@ HELP = """
    Gensim model
 """
 import os, sys, itertools, time, pandas as pd, numpy as np, pickle, gc, re, random, glob
-from typing import Callable, Tuple, Union
+from typing import Any, List, Optional, Callable, Tuple, Union
 from box import Box
 
 from utilmy import pd_read_file, pd_to_file, os_makedirs
@@ -16,6 +16,8 @@ import nltk, essential_generators, faiss
 
 #################################################################################################
 from utilmy import log, log2, help_create
+from gensim.models.fasttext import FastText
+from nltk.stem.wordnet import WordNetLemmatizer
 
 
 def help():
@@ -23,11 +25,11 @@ def help():
 
 
 #################################################################################################
-def test_all():
+def test_all() -> None:
    test_gensim1()
 
 
-def test_gensim1():
+def test_gensim1() -> None:
     log("test_gensim")
     dir0 = os.getcwd()  
     pars = Box({})
@@ -188,7 +190,7 @@ def bigram_write_random_sentences_from_bigrams_to_file(dirout, n_sentences=14000
             
             
 #################################################################################################
-def gensim_model_load(dirin,  modeltype='fastext', **kw):
+def gensim_model_load(dirin: str,  modeltype: str='fastext', **kw) -> FastText:
     """
     Loads the FastText model from the given path
 
@@ -204,8 +206,9 @@ def gensim_model_load(dirin,  modeltype='fastext', **kw):
     return loaded_model
 
 
-def gensim_model_train_save(model_or_path=None, dirinput='lee_background.cor', dirout="./modelout/model",
-                            epochs=1, pars: dict = None, **kw):
+def gensim_model_train_save(model_or_path: Optional[Union[str, FastText]]=None, dirinput: str='lee_background.cor', dirout: str="./modelout/model",
+                            epochs: int=1, pars: dict = None, **kw
+) -> None:
     """ Trains the Fast text model and saves the model
       classgensim.models.fasttext.FastText(sentences=None, corpus_file=None, sg=0, hs=0, vector_size=100,
       alpha=0.025, window=5, min_count=5, max_vocab_size=None, word_ngrams=1, sample=0.001,
@@ -290,7 +293,7 @@ def gensim_model_check(model_path):
     print(model.wv.most_similar(model.wv.index_to_key[0]))
 
 
-def text_preprocess(sentence, lemmatizer, stop_words):
+def text_preprocess(sentence: str, lemmatizer: WordNetLemmatizer, stop_words: List[Any]) -> str:
     """ Preprocessing Function
     :param sentence: sentence to preprocess
     :param lemmatizer: the class which lemmatizes the words
@@ -305,7 +308,7 @@ def text_preprocess(sentence, lemmatizer, stop_words):
     return ' '.join(sentence)
 
 
-def text_generate_random_sentences( dirout=None, n_sentences=5,):
+def text_generate_random_sentences( dirout: Optional[str]=None, n_sentences: int=5,) -> None:
     """
     Generates Random sentences and Preprocesses them
 

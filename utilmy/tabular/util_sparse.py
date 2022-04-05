@@ -13,6 +13,9 @@ from scipy.sparse import coo_matrix, csr_matrix, lil_matrix
 
 ###################################################################################
 from utilmy import log, log2
+from pandas.core.frame import DataFrame
+from scipy.sparse.csr import csr_matrix
+from typing import List, Optional, Tuple, Type
 
 def help():
     from utilmy import help_create
@@ -22,17 +25,17 @@ def help():
 
 
 ###################################################################################
-def test_all():
+def test_all() -> None:
     test1()
  
 
-def test1():
+def test1() -> None:
     xdf, nExpectedOnes, genreColNames = test_create_fake_df()
     X = pd_historylist_to_csr(xdf, colslist=genreColNames)
     print('Sparse matrix verified')    
 
 
-def test_create_fake_df():
+def test_create_fake_df() -> Tuple[DataFrame, int, List[str]]:
     """ Creates a fake dataframe:
         :return: xdf: pd.DataFrame
             userid: int
@@ -63,8 +66,8 @@ def test_create_fake_df():
 
 
 ###################################################################################################
-def pd_historylist_to_csr(df:pd.DataFrame, colslist:list=None, hashSize:int=5000, dtype=np.float32, max_rec_perlist:int=5,
-                            min_rec_perlist:int=0, sep_genre=",", sep_subgenre="/"):
+def pd_historylist_to_csr(df:pd.DataFrame, colslist:list=None, hashSize:int=5000, dtype: Type[float32]=np.float32, max_rec_perlist:int=5,
+                            min_rec_perlist:int=0, sep_genre: str=",", sep_subgenre: str="/") -> csr_matrix:
     """ Creates Sparse matrix of dimensions:
 
             Single value  max=i+1, min=i

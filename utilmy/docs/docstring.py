@@ -36,7 +36,7 @@ def help():
 
 
 ##########################################################################################################
-def test_all():
+def test_all() -> None:
     """function test_all
     Args:
     Returns:
@@ -45,7 +45,7 @@ def test_all():
     test1()
 
 
-def test1(mode='test'):
+def test1(mode: str='test') -> None:
     """function test1
     Args:
         mode:   
@@ -305,7 +305,7 @@ def docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str,Path],
 
 
 
-def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
+def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True) -> None:
     """  Generate docstring
         dirin (< nothing >): textual directory to search for Python functions in
         overwrite_script (< wrong variable type>): enables automatic overwriting of Python scripts in dirin

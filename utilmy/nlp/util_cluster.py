@@ -4,12 +4,15 @@ https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 https://pypi.org/project/pysie/#description
 """
 import os,sys,  pandas as pd, numpy as np
-from typing import List
+from typing import Tuple, List
 
 ########################################################################
 from utilmy import log, log2
+from datasketch.lsh import MinHashLSH
+from datasketch.minhash import MinHash
+from pandas.core.frame import DataFrame
 
-def log(*s):
+def log(*s) -> None:
     """function log
     Args:
         *s:   
@@ -33,7 +36,7 @@ def help():
 
 
 ########################################################################
-def test_all():
+def test_all() -> None:
     """function test_all
     Args:
     Returns:
@@ -123,7 +126,7 @@ def test():
   print("match using editdistance is",matched.shape[0])
 
 
-def test_lsh():
+def test_lsh() -> None:
     """function test_lsh
     Args:
     Returns:
@@ -143,7 +146,7 @@ def test_lsh():
 
 
 #############################################################################
-def pd_text_hash_create_lsh(df, col, sep=" ", threshold=0.7, num_perm=10, npool=1, chunk = 20000):
+def pd_text_hash_create_lsh(df: DataFrame, col: str, sep: str=" ", threshold: float=0.7, num_perm: int=10, npool: int=1, chunk: int = 20000) -> Tuple[List[MinHash], MinHashLSH]:
     '''
     For each of the entry create a hash function
     '''
@@ -191,7 +194,7 @@ def pd_text_hash_create_lsh(df, col, sep=" ", threshold=0.7, num_perm=10, npool=
     return hash_lines, lsh
 
 
-def pd_text_getcluster(df:pd.DataFrame, col:str='col', threshold=0.5, num_perm:int=5, npool=1, chunk = 100000):
+def pd_text_getcluster(df:pd.DataFrame, col:str='col', threshold: float=0.5, num_perm:int=5, npool: int=1, chunk: int = 100000) -> DataFrame:
     '''
     For each of the hash function find a cluster and assign unique id to the dataframe cluster_id
     '''
@@ -230,7 +233,7 @@ def pd_text_getcluster(df:pd.DataFrame, col:str='col', threshold=0.5, num_perm:i
     return df
 
 
-def pd_text_similarity(df: pd.DataFrame, cols=[], algo='') -> pd.DataFrame:
+def pd_text_similarity(df: pd.DataFrame, cols: List[str]=[], algo: str='') -> pd.DataFrame:
     '''
         Return similarities between two columns with 
         python's SequenceMatcher algorithm

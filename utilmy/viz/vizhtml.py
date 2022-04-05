@@ -22,9 +22,13 @@ https://datatables.net/
 https://www.highcharts.com/docs/getting-started/how-to-set-options
 
 """
+from matplotlib.figure import Figure
+from numpy import float64, ndarray
+from pandas.core.frame import DataFrame
+
 import os, sys, random, numpy as np, pandas as pd, fire, time
 from datetime import datetime
-from typing import List
+from typing import Any, Optional, Tuple, Union, List
 from tqdm import tqdm
 from box import Box
 from utilmy.viz.css import getcss
@@ -45,7 +49,7 @@ except :
    
    
 ############################################################################################
-def log(*s):
+def log(*s) -> None:
     print(*s, flush=True)
 
 
@@ -74,7 +78,7 @@ def help():
       
     
       
-def test_all():
+def test_all() -> None:
    from utilmy.viz import vizhtml as vi
    log("Visualization ")
    log(" from utilmy.viz import vizhtml as vi     ")
@@ -108,8 +112,8 @@ def show(file_csv_parquet:str="myfile.parquet", title='table',format: str='blue_
     doc.open_browser()
       
       
-def show_table_image(df, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
-                     custom_css_class=None, use_datatable=False, table_id=None,):
+def show_table_image(df: DataFrame, colgroup: Optional[str]= None, colimage: Optional[str] = None,title: Optional[str]=None,format: str='blue_light',dir_out: str='print_table_image.html', 
+                     custom_css_class: None=None, use_datatable: bool=False, table_id: None=None,) -> None:
     """ Show table images
 
         Args:
@@ -153,9 +157,10 @@ def show_table_image(df, colgroup= None, colimage = None,title=None,format: str=
 #####################################################################################
 #### HTML doc ########################################################################
 class htmlDoc(object):
-    def __init__(self, dir_out="", mode="", title: str = "", format: str = None, cfg: dict = None,
+    def __init__(self, dir_out: str="", mode: str="", title: str = "", format: str = None, cfg: dict = None,
                  css_name: str = "default", css_file: str = None, jscript_file: str = None,
-                 verbose=True, **kw):
+                 verbose: bool=True, **kw
+    ) -> None:
         """Generate HTML page to display graph/Table.
         Combine pages together.
 
@@ -205,16 +210,16 @@ class htmlDoc(object):
           self.html = self.html + '\n <page size="A4">'
           self.tail = "</page> \n" + self.tail
 
-    def tag(self, x):  self.html += "\n" + x
-    def h1(self,  x,css: str='')  : self.html += "\n" + f"<h1 style='{css}'>{x}</h1>"
-    def h2(self,  x,css: str='')  : self.html += "\n" + f"<h2 style='{css}'>{x}</h2>"
-    def h3(self,  x,css: str='')  : self.html += "\n" + f"<h3 style='{css}'>{x}</h3>"
-    def h4(self,  x,css: str='')  : self.html += "\n" + f"<h4 style='{css}'>{x}</h4>"
+    def tag(self, x: str) -> None:  self.html += "\n" + x
+    def h1(self,  x: str,css: str='') -> None  : self.html += "\n" + f"<h1 style='{css}'>{x}</h1>"
+    def h2(self,  x: str,css: str='') -> None  : self.html += "\n" + f"<h2 style='{css}'>{x}</h2>"
+    def h3(self,  x: str,css: str='') -> None  : self.html += "\n" + f"<h3 style='{css}'>{x}</h3>"
+    def h4(self,  x: str,css: str='') -> None  : self.html += "\n" + f"<h4 style='{css}'>{x}</h4>"
     def p(self,   x,css: str='')  : self.html += "\n" + f"<p style='{css}'>{x}</p>"
     def div(self, x,css: str='')  : self.html += "\n" + f"<div style='{css}'>{x}</div>"
-    def hr(self,    css: str='')  : self.html += "\n" + f"<hr style='{css}'/>"
-    def sep(self,   css: str='')  : self.html += "\n" + f"<hr style='{css}'/>"
-    def br(self,    css: str='')  : self.html += "\n" + f"<br style='{css}'/>"
+    def hr(self,    css: str='') -> None  : self.html += "\n" + f"<hr style='{css}'/>"
+    def sep(self,   css: str='') -> None  : self.html += "\n" + f"<hr style='{css}'/>"
+    def br(self,    css: str='') -> None  : self.html += "\n" + f"<br style='{css}'/>"
 
     def get_html(self)-> str:
         """funtion to return html text created
@@ -229,7 +234,7 @@ class htmlDoc(object):
         full = self.head  + self.html + self.tail
         print(full, flush=True)
 
-    def save(self, dir_out=None):
+    def save(self, dir_out: Optional[str]=None) -> None:
         """Save html file
 
         Args:
@@ -245,12 +250,12 @@ class htmlDoc(object):
         with open(self.dir_out, mode='w') as fp:
             fp.write(full)
 
-    def open_browser(self):
+    def open_browser(self) -> None:
         if os.name == 'nt':
             os.system(f'start chrome "file:///{self.dir_out}" ')
             ### file:///D:/_devs/Python01/gitdev/myutil/utilmy/viz/test_viz_table.html   
 
-    def add_css(self, css):
+    def add_css(self, css: str) -> None:
 
         """Add custom to file
         Args:
@@ -287,7 +292,8 @@ class htmlDoc(object):
         self.add_js(js)
 
 
-    def table(self, df:pd.DataFrame, format: str='blue_light', custom_css_class=None,colimage = None, use_datatable=False, table_id=None, **kw):
+    def table(self, df:pd.DataFrame, format: str='blue_light', custom_css_class: Optional[str]=None,colimage: Optional[str] = None, use_datatable: bool=False, table_id: Optional[str]=None, **kw
+    ) -> None:
         """ Show Pandas in HTML and interactive
         ## show table in HTML : https://pypi.org/project/pretty-html-table/
         Args:
@@ -332,13 +338,14 @@ class htmlDoc(object):
         self.html += "\n\n" + html_code
 
 
-    def plot_tseries(self, df:pd.DataFrame, coldate, coly1: list, coly2=[],
-                     title: str="", xlabel=None, y1label=None,  y2label=None,                      
-                     figsize: tuple=(14,7),  plot_type="", spacing=0.1,
+    def plot_tseries(self, df:pd.DataFrame, coldate: str, coly1: list, coly2: List[Union[str, Any]]=[],
+                     title: str="", xlabel: Optional[str]=None, y1label: Optional[str]=None,  y2label: None=None,                      
+                     figsize: tuple=(14,7),  plot_type: str="", spacing: float=0.1,
 
-                     date_format=None, nsample: int= 10000,
+                     date_format: Optional[str]=None, nsample: int= 10000,
                      
-                     cfg: dict = {}, mode: str='highcharts', save_img="",  **kw):
+                     cfg: dict = {}, mode: str='highcharts', save_img: str="",  **kw
+    ) -> None:
         """Create html time series chart.
         Args:
             df:         pd Dataframe
@@ -369,12 +376,13 @@ class htmlDoc(object):
         self.html += "\n\n" + html_code
 
 
-    def plot_histogram(self, df:pd.DataFrame, col,
+    def plot_histogram(self, df:pd.DataFrame, col: str,
                        title: str='', xlabel: str=None, ylabel: str=None,
                        figsize: tuple=(14,7), colormap:str = 'RdYlBu', 
-                       nsample=10000,binWidth=None,color:str='#7CB5EC',
-                       nbin=10, q5=0.005, q95=0.95,cfg: dict = {}, 
-                       mode: str='matplot', save_img="",  **kw):
+                       nsample: int=10000,binWidth: Optional[int]=None,color:str='#7CB5EC',
+                       nbin: int=10, q5: float=0.005, q95: float=0.95,cfg: dict = {}, 
+                       mode: str='matplot', save_img: Union[str, bool]="",  **kw
+    ) -> None:
         """Create html histogram chart.
         Args:
             df:         pd Dataframe
@@ -401,12 +409,13 @@ class htmlDoc(object):
         self.html += "\n\n" + html_code
 
 
-    def plot_scatter(self, df:pd.DataFrame, colx, coly,
-                     collabel=None, colclass1=None, colclass2=None, colclass3=None,                     
+    def plot_scatter(self, df:pd.DataFrame, colx: str, coly: str,
+                     collabel: Optional[str]=None, colclass1: Optional[str]=None, colclass2: Optional[str]=None, colclass3: Optional[str]=None,                     
                      title: str='',                      
                      figsize: tuple=(14,7), 
                      nsample: int=10000,
-                     cfg: dict = {}, mode: str='matplot', save_img='', **kw):
+                     cfg: dict = {}, mode: str='matplot', save_img: str='', **kw
+    ) -> None:
         """Create html scatter chart.
         Args:
             df:         pd Dataframe
@@ -475,7 +484,7 @@ class htmlDoc(object):
 
 
     def pd_plot_network(self, df:pd.DataFrame, cola:    str='col_node1', colweight:str="weight",
-                        colb: str='col_node2', coledge: str='col_edge'):
+                        colb: str='col_node2', coledge: str='col_edge') -> None:
         """Add graph to html page
 
         Args:
@@ -525,7 +534,7 @@ class mpld3_TopToolbar(mpld3.plugins.PluginBase):
       this.fig.toolbar.draw = function() {}
     }
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.dict_ = {"type": "toptoolbar"}
 
 
@@ -538,7 +547,8 @@ def mlpd3_add_tooltip(fig, points, labels):
 
 
 def pd_plot_scatter_get_data(df0:pd.DataFrame,colx: str=None, coly: str=None, collabel: str=None,
-                            colclass1: str=None, colclass2: str=None, nmax: int=20000, **kw):
+                            colclass1: str=None, colclass2: str=None, nmax: int=20000, **kw
+) -> Tuple[ndarray, ndarray, List[str], List[int], List[float64], List[Any]]:
     # import copy
     nmax = min(nmax, len(df0))
     df   = df0.sample(nmax)
@@ -584,7 +594,8 @@ def pd_plot_scatter_get_data(df0:pd.DataFrame,colx: str=None, coly: str=None, co
 
 def pd_plot_scatter_matplot(df:pd.DataFrame, colx: str=None, coly: str=None, collabel: str=None,
                             colclass1: str=None, colclass2: str=None,
-                            cfg: dict = {}, mode='d3', save_path: str='', verbose=True,  **kw)-> str:
+                            cfg: dict = {}, mode: str='d3', save_path: str='', verbose: bool=True,  **kw
+)-> str:
     
     cc           = Box(cfg)
     cc.figsize   = cc.get('figsize', (25, 15))  # Dict type default values
@@ -888,8 +899,9 @@ def pd_plot_parallel_d3(df: pd.DataFrame,
     return html_code
 
 
-def pd_plot_histogram_matplot(df:pd.DataFrame, col: str='' ,colormap:str='RdYlBu', title: str='', nbin=20.0, q5=0.005, q95=0.995, nsample=-1,
-                              save_img: str="",xlabel: str=None,ylabel: str=None, verbose=True, **kw):
+def pd_plot_histogram_matplot(df:pd.DataFrame, col: str='' ,colormap:str='RdYlBu', title: str='', nbin: int=20.0, q5: float=0.005, q95: float=0.995, nsample: int=-1,
+                              save_img: str="",xlabel: str=None,ylabel: str=None, verbose: bool=True, **kw
+) -> Figure:
     """
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -1027,8 +1039,9 @@ def pd_plot_highcharts(df):
 
 
 def pd_plot_scatter_highcharts(df0:pd.DataFrame, colx:str=None, coly:str=None, collabel: str=None,
-                               colclass1: str=None, colclass2: str=None, colclass3: str=None, nsample=10000,
-                               cfg:dict={}, mode='d3', save_img='', verbose=True, **kw)-> str:
+                               colclass1: str=None, colclass2: str=None, colclass3: str=None, nsample: int=10000,
+                               cfg:dict={}, mode: str='d3', save_img: str='', verbose: bool=True, **kw
+)-> str:
     """ Plot Highcharts X=Y Scatter
     from utilmy.viz import vizhtml
     vizhtml.pd_plot_scatter_highcharts(df, colx:str=None, coly:str=None, collabel=None,
@@ -1109,12 +1122,13 @@ def pd_plot_scatter_highcharts(df0:pd.DataFrame, colx:str=None, coly:str=None, c
     return html_code
 
 
-def pd_plot_tseries_highcharts(df0,
-                              coldate:str=None, date_format = None,
+def pd_plot_tseries_highcharts(df0: DataFrame,
+                              coldate:str=None, date_format: Optional[str] = None,
                               coly1:list =[],     coly2:list =[],
                               figsize:tuple =  None, title:str=None,
                               xlabel:str=None,  y1label:str=None, y2label:str=None,
-                              cfg:dict={}, mode='d3', save_img="", verbose=True, **kw)-> str:
+                              cfg:dict={}, mode: str='d3', save_img: str="", verbose: bool=True, **kw
+)-> str:
     '''
         function to return highchart json cord for time_series.
         input parameter
@@ -1199,10 +1213,11 @@ def pd_plot_tseries_highcharts(df0,
 
 
 def pd_plot_histogram_highcharts(df:pd.DataFrame, colname:str=None,
-                              binsNumber=None, binWidth=None,color:str='#7CB5EC',
+                              binsNumber: Optional[int]=None, binWidth: Optional[int]=None,color:str='#7CB5EC',
                               title:str="", xaxis_label:str= "x-axis", yaxis_label:str="y-axis",
-                              cfg:dict={}, mode='d3', save_img="",
-                              show=False, verbose=True, **kw):
+                              cfg:dict={}, mode: str='d3', save_img: Union[str, bool]="",
+                              show: bool=False, verbose: bool=True, **kw
+) -> str:
 
     ''' function to return highchart json code for histogram.
         input parameter
@@ -1299,7 +1314,7 @@ def html_show_chart_highchart(html_code, verbose=True):
 
 
 
-def html_show(html_code, verbose=True):
+def html_show(html_code: str, verbose: bool=True) -> None:
     # Function to display HTML
     from IPython.core.display import display, HTML
     display(HTML( html_code))
@@ -1382,7 +1397,7 @@ def colormap_get_names():
 ############################################################################################################################
 def pd_plot_network(df:pd.DataFrame, cola: str='col_node1', 
                     colb: str='col_node2', coledge: str='col_edge',
-                    colweight: str="weight",html_code:bool = True):
+                    colweight: str="weight",html_code:bool = True) -> Tuple[str, str]:
     """
         https://pyviz.org/tools.html
     """
@@ -1564,7 +1579,7 @@ def help_get_codesource(func):
     return ''.join( lines[lines_to_skip+1:] )
 
 
-def to_float(x):
+def to_float(x: Union[float64, int, str]) -> Union[int, float]:
   try: return float(x)
   except : return 0
 

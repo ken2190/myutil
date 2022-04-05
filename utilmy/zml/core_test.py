@@ -15,6 +15,7 @@ from pathlib import Path
 import numpy as np
 import json
 from time import sleep
+from typing import Dict
 
 
 ####################################################################################################
@@ -23,7 +24,7 @@ from time import sleep
 
 
 ####################################################################################################
-def os_bash(cmd):
+def os_bash(cmd: str) -> str:
   """function os_bash
   Args:
       cmd:   
@@ -40,7 +41,7 @@ def os_bash(cmd):
 
 
 
-def log_separator(space=140):
+def log_separator(space: int=140) -> None:
    """function log_separator
    Args:
        space:   
@@ -50,7 +51,7 @@ def log_separator(space=140):
    print("\n" * 5, "*" * space, flush=True )
 
 
-def log_info_repo(arg=None):
+def log_info_repo(arg: None=None) -> Dict[str, str]:
    """
       Grab Github Variables
       https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
@@ -502,7 +503,7 @@ def test_json_all(arg):
             os.system(cmd)
 
 
-def test_all(arg=None):
+def test_all(arg: None=None):
     log_info_repo(arg)
     from time import sleep
     # log("os.getcwd", os.getcwd())

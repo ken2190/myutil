@@ -24,6 +24,8 @@ os.environ["MONKEYTYPE_TRACE_MODULES"] = 'utilmy,site-packages'
 ###################################################################################
 from utilmy import log, log2, os_makedirs
 import utilmy
+from typing import Any, List, Optional
+
 def help():
     """function help
     Args:
@@ -35,7 +37,7 @@ def help():
 
 
 ####################################################################################
-def test_all():
+def test_all() -> None:
   """function test_all
   Args:
   Returns:
@@ -44,7 +46,7 @@ def test_all():
   test1()
 
 
-def test1():
+def test1() -> None:
   """function test1
   Args:
   Returns:
@@ -126,7 +128,7 @@ def test2():
 
 
 
-def os_path_norm(diroot):
+def os_path_norm(diroot: str) -> str:
     """function os_path_norm
     Args:
         diroot:   
@@ -138,7 +140,7 @@ def os_path_norm(diroot):
 
 
 
-def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
+def glob_glob_python(dirin: str, suffix: str ="*.py", nfile: int=7, exclude: str="") -> List[Any]:
     """function glob_glob_python
     Args:
         dirin:   
@@ -157,7 +159,7 @@ def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
     return flist
 
 
-def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10, exclude="" ):
+def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode: str="stub", nfile: int=10, exclude: str="" ) -> None:
     """Generate type hints for files
           Args:
               dirin (str): _description_
@@ -259,7 +261,7 @@ def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10
 
 
 if 'utilties':
-    def os_path_norm(diroot:str):
+    def os_path_norm(diroot:str) -> str:
         """os_path_norm 
         Args:
             diroot:
@@ -270,7 +272,7 @@ if 'utilties':
         return diroot + "/" if diroot[-1] != "/" else  diroot
 
 
-    def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
+    def glob_glob_python(dirin: str, suffix: str ="*.py", nfile: int=7, exclude: str="") -> List[Any]:
         """glob_glob_python 
         Args:
             dirin: _description_

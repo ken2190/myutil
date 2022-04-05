@@ -26,7 +26,7 @@ https://rexmex.readthedocs.io/en/latest/modules/root.html#module-rexmex.metrics.
 
 """
 import os, sys, random, numpy as np, pandas as pd, fire, time, itertools, collections, warnings
-from typing import Union,TypeVar, List, Tuple
+from typing import Dict, Optional, Union,TypeVar, List, Tuple
 from tqdm import tqdm
 from box import Box
 import scipy.stats as scs
@@ -45,6 +45,8 @@ from sklearn.metrics import precision_recall_curve, roc_curve
 
 ##################################################################################################
 from utilmy import log, log2
+from pandas.core.frame import DataFrame
+
 def help():
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
@@ -52,10 +54,10 @@ def help():
 
 #################################################################################################
 
-def test_all():
+def test_all() -> None:
     test_metrics()
 
-def test_metrics():
+def test_metrics() -> None:
     df, popdict, feature_df = test_get_testdata()
     result = metrics_calc(df,
              methods=['personalization','catalog_coverage','intra_list_similarity',
@@ -75,7 +77,7 @@ def test_metrics():
     assert np.isclose(result['recommender_recall'], 0.75, rtol=1e-1)
 
    
-def test_get_testdata():
+def test_get_testdata() -> Tuple[DataFrame, Dict[int, int], DataFrame]:
 
     df = pd.DataFrame({
         'user_id': [1,2,3,4],
@@ -121,18 +123,19 @@ def metrics_calc_batch(dirin:Union[str, pd.DataFrame], dirout:str=None,
 
 def metrics_calc(dirin:Union[str, pd.DataFrame], 
                  dirout:str=None, 
-                 colid='userid',  
-                 colrec='reclist', 
-                 coltrue='purchaselist',  
-                 colinfo='genrelist',  
-                 colts='datetime', 
-                 methods=[''], 
-                 nsample=-1, 
-                 nfile=1,
+                 colid: str='userid',  
+                 colrec: str='reclist', 
+                 coltrue: str='purchaselist',  
+                 colinfo: str='genrelist',  
+                 colts: str='datetime', 
+                 methods: List[str]=[''], 
+                 nsample: int=-1, 
+                 nfile: int=1,
                  featuredf:pd.DataFrame=None,
                  popdict:dict=None,
-                 topk=5,
-                 **kw):
+                 topk: int=5,
+                 **kw
+) -> DataFrame:
     
     from utilmy import pd_read_file, pd_to_file
 
@@ -300,7 +303,7 @@ def _single_list_similarity(y_preds: list, feature_df: pd.DataFrame, u: int) -> 
     ils_single_user = np.mean(similarity[upper_right])
     return ils_single_user
 
-def recall_avg_at_k(actual: list, y_preds: list, k=10) -> int:
+def recall_avg_at_k(actual: list, y_preds: list, k: int=10) -> int:
     """
     Computes the average recall at k.
     Parameters
@@ -332,7 +335,7 @@ def recall_avg_at_k(actual: list, y_preds: list, k=10) -> int:
 
     return score / len(actual)
 
-def recall_average_at_k_mean(actual: List[list], y_preds: List[list], k=10) -> int:
+def recall_average_at_k_mean(actual: List[list], y_preds: List[list], k: int=10) -> int:
     """
     Computes the mean average recall at k.
     Parameters

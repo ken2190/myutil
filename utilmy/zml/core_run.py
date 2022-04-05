@@ -17,7 +17,7 @@ import warnings, copy, os, sys
 warnings.filterwarnings('ignore')
 
 ####################################################################################
-def log(*s):
+def log(*s) -> None:
   print(*s)
 
 

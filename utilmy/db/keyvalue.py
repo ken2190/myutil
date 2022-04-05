@@ -36,6 +36,9 @@ from utilmy.utilmy import   pd_read_file, pd_to_file
 
 #####################################################################################    
 from utilmy.utilmy import log, log2
+from diskcache.core import Cache
+from pandas.core.frame import DataFrame
+from typing import Any, Dict, List, Optional, Union
 
 def help():
     from utilmy import help_create
@@ -48,10 +51,10 @@ def help():
 
 
 #####################################################################################
-def pd_random(nrows=1000, ncols= 5):
+def pd_random(nrows: int=1000, ncols: int= 5) -> DataFrame:
     return pd.DataFrame( np.random.randint(0, 10, size= (nrows, ncols)),  columns= [ str(i) for i in range(ncols) ]   )
 
-def test_all():
+def test_all() -> None:
     """    
     """    
     n = 10**4
@@ -431,7 +434,7 @@ def db_load_dict(df, colkey, colval, verbose=True):
 
 ########################################################################################################
 ########DiskCache Utilities ############################################################################
-def diskcache_load( db_path_or_object="", size_limit=100000000000, verbose=True ):    
+def diskcache_load( db_path_or_object: Union[str, Cache]="", size_limit: int=100000000000, verbose: Union[int, bool]=True ) -> Cache:    
     """ val = cache[mykey]
     """
     import diskcache as dc
@@ -478,8 +481,8 @@ def diskcache_save(df, colkey, colvalue, db_path="./dbcache.db", size_limit=1000
     return cache
 
 
-def diskcache_save2(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
-                    sqlmode= 'fast', verbose=True):    
+def diskcache_save2(df: DataFrame, colkey: str, colvalue: str, db_path: str="./dbcache.db", size_limit: int=100000000000, timeout: int=10, shards: int=1, npool: int=10,
+                    sqlmode: str= 'fast', verbose: bool=True) -> None:    
     """ Create dict type on disk, < 100 Gb
        shards>1 : disk spaced is BLOCKED in advance, so high usage       
        Issue, uses too much of DISK
@@ -533,7 +536,7 @@ def diskcache_save2(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100
        diskcache_config(db_path, task='fast')   
 
     
-def diskcache_getkeys(cache):
+def diskcache_getkeys(cache: Cache) -> List[Union[str, Any]]:
     cache = diskcache_load( cache, size_limit=100000000000, verbose=False )
 
     v = cache._sql('SELECT key FROM Cache').fetchall()
@@ -548,13 +551,13 @@ def diskcache_keycount(cache):
     return v
 
 
-def diskcache_getall(cache, limit=1000000000):
+def diskcache_getall(cache: Cache, limit: int=1000000000) -> Dict[str, str]:
     cache = diskcache_load( cache, size_limit=100000000000, verbose=False )  
     v = cache._sql( f'SELECT key,value FROM Cache LIMIT {limit}').fetchall()
     v = { t[0]: t[1] for t in v }
     return v
 
-def diskcache_get(cache, key, defaultval=None):
+def diskcache_get(cache: Cache, key: int, defaultval: None=None) -> str:
     ss = f'SELECT value FROM Cache WHERE key="{key}" LIMIT 1'
     v  = cache._sql( ss ).fetchall()    
     if len(v) > 0 :
@@ -563,7 +566,7 @@ def diskcache_get(cache, key, defaultval=None):
 
 
 
-def diskcache_config(db_path=None, task='commit'):
+def diskcache_config(db_path: Optional[str]=None, task: str='commit') -> None:
     """ .open "//e"    python prepro.py diskcache_config 
     https://sqlite.org/wal.html
     

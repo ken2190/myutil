@@ -4,7 +4,7 @@ HELP=""" utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
-from typing import Union,Tuple,Sequence,List,Any
+from typing import Callable, Optional, Union,Tuple,Sequence,List,Any
 from box import Box
 
 import io, cv2,  matplotlib, tempfile, skimage
@@ -27,6 +27,8 @@ except ImportError:
 from utilmy import Dict_none, Int_none,List_none, Path_type
 from utilmy import pd_read_file
 from utilmy import log, log2
+from diskcache.core import Cache
+from numpy import ndarray
 
 def help():
     """function help        """
@@ -37,7 +39,7 @@ def help():
 
 #################################################################################################
 ##### TESTS  ####################################################################################
-def test_all():
+def test_all() -> None:
     """function test_all        """
     
     log(MNAME)
@@ -46,12 +48,12 @@ def test_all():
     test_diskcache()
 
 
-def test1():
+def test1() -> None:
     """function test"""
     pass
 
 
-def test2():
+def test2() -> None:
     """function test"""
     dirimg = os.getcwd() + "/ztmp/images/"
     image_create_fake(dirout=dirimg, nimages=1, imsize=(60,60), rgb_color = (255, 0, 0) )
@@ -78,7 +80,7 @@ def test2():
 
 
 
-def test_diskcache():
+def test_diskcache() -> None:
     import tempfile
     import skimage
     import numpy as np
@@ -144,7 +146,7 @@ def test_diskcache():
 #################################################################################################
 #### images storage ###############################################################################
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
-def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
+def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0: int=256, ydim0: int=256, tag0: str= "", nmax: int=10000000, file_exclude: str="" ) -> Cache:
     """function image_cache_create diskcache backend to Store and Read images very very fast/
     Args:
     Returns:
@@ -242,7 +244,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
     return cache
 
 
-def diskcache_image_loadcache(db_dir:str="db_images.cache"):
+def diskcache_image_loadcache(db_dir:str="db_images.cache") -> Cache:
     """function image_cache_check
     Args:
         db_dir ( str ) :
@@ -275,7 +277,7 @@ def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="
         cache[img_path] = img
 
 
-def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1"):
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag: str="cache1") -> None:
     """  dump some sample of diskcache images on disk 
     Args:
         db_dir ( str ) :
@@ -353,7 +355,7 @@ def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3,
 
 ###################################################################################################
 #### Images readers ###############################################################################
-def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
+def image_read(filepath_or_buffer: Union[str, io.BytesIO]) -> ndarray:
     """
     Read a file into an image object
     Args:
@@ -383,7 +385,7 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
 image_load = image_read  ## alias
 
 
-def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg"):
+def image_save(img:npArrayLike, dirfile:str="/myimage.jpeg") -> None:
     """image_save 
     Args:
         img: _description_
@@ -419,10 +421,10 @@ def image_show_in_row(image_list:Union[dict,list, None]=None):
 
 
 def image_create_fake(
-    dirout=os.getcwd() + "/ztmp/images/",
-    nimages=1,
-    imsize=(300,300),
-    rgb_color = (255, 0, 0)):
+    dirout: str=os.getcwd() + "/ztmp/images/",
+    nimages: int=1,
+    imsize: Tuple[int, int]=(300,300),
+    rgb_color: Tuple[int, int, int] = (255, 0, 0)) -> List[Any]:
     """ create fake image for testing
     """
     import cv2, numpy as np
@@ -525,7 +527,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
 
 #################################################################################################
 #### Transform in batches #######################################################################
-def image_prep_many(image_paths:Sequence[str], image_prep_fun,
+def image_prep_many(image_paths:Sequence[str], image_prep_fun: Callable,
     nmax:int=10000000,
     xdim :int=1, ydim :int=1, mean :float = 0.5,std :float    = 0.5)->List[ npArrayLike ]:
     """ run image_prep_fun on multiple images
@@ -539,7 +541,7 @@ def image_prep_many(image_paths:Sequence[str], image_prep_fun,
     return images
 
 
-def image_prep_multiproc(dirimage_list:list, image_prep_fun=None, npool=1):
+def image_prep_multiproc(dirimage_list:list, image_prep_fun: Optional[Callable]=None, npool: int=1) -> Union[Tuple[List[ndarray], List[str]], Tuple[List[Any], List[Any]]]:
     """ Parallel processing for image preparation
     """
     from multiprocessing.dummy import Pool    #### use threads for I/O bound tasks
@@ -565,7 +567,7 @@ def image_prep_multiproc(dirimage_list:list, image_prep_fun=None, npool=1):
 #################################################################################################
 #### Transform individual #######################################################################
 def image_prep(image_path:str, xdim :int=1, ydim :int=1,
-    mean :float = 0.5,std :float    = 0.5, verbose=False) -> Tuple[ npArrayLike ,str] :
+    mean :float = 0.5,std :float    = 0.5, verbose: bool=False) -> Tuple[ npArrayLike ,str] :
     """ resizes, crops and centers an image according to provided mean and std
     Args:
         image_path ( str ) :
@@ -591,7 +593,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         return [], ""
 
 
-def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
+def image_center_crop(img:npArrayLike, dim:Tuple[int,int]) -> ndarray:
     """Returns center cropped image
     Args:
     img: image to be center cropped
@@ -672,7 +674,7 @@ def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none =
     return cv2.resize(image, dim, interpolation=inter)
 
 
-def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None), padColor=0, pad :bool =True ):
+def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None), padColor: int=0, pad :bool =True ) -> ndarray:
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
 

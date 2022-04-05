@@ -15,7 +15,7 @@ def log(*s, n=0, m=1, **kw):
     ### Implement Logging
     print(sjump, sspace, s, sspace, flush=True, **kw)
 
-def log2(*s, **kw):
+def log2(*s, **kw) -> None:
     if verbosity >=2 : print(*s, flush=True, **kw)
 
 def log3(*s, **kw):
