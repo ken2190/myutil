@@ -353,6 +353,45 @@ def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3,
 
 ###################################################################################################
 #### Images readers ###############################################################################
+def image_read2(dirin:Union[str, list], **kw):
+    """  Read a file into an image object
+    Args:
+        dirin: The path to the file, a URL, or any object
+            with a `read` method (such as `io.BytesIO`)
+    """
+    import tifffile
+    image = None
+    image_list = [] 
+
+    def image_single(filepath_or_buffer)
+        if filepath_or_buffer.endswith(".tif") or filepath_or_buffer.endswith(".tiff"):
+            image = tifffile.imread(filepath_or_buffer)
+        else:
+            image = cv2.imread(filepath_or_buffer)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return image 
+
+    if isinstance(dirin, np.ndarray):
+        return [filepath_or_buffer]
+
+    if hasattr(dirin, "read"):
+        image = np.asarray(bytearray(filepath_or_buffer.read()), dtype=np.uint8)
+        image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+        return [image]
+
+    elif isinstance(dirin, list):        
+        for fi in dirin :
+            image_list.append(image_single(fi))
+
+    elif isinstance(dirin, str):
+        flist = sorted( glob.glob(dirin) )
+        for fi in flist :
+            image_list.append(image_single(fi))
+
+    return image_list
+
+
+
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     """
     Read a file into an image object
