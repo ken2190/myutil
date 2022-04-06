@@ -263,7 +263,8 @@ def import_function(fun_name=None, module_name=None, fuzzy_match=False):
         raise Exception( msg )  
 
 
-def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str, list]="",  exclude:Union[str, list]="",  recursive=True, silent=False, show=0, **kw):
+def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str, list]="",  exclude:Union[str, list]="",  
+              recursive=True, silent=False, show=0, **kw):
     """  List of files.
        dirin:      **/*.py   any sub-directories or list of sub-directories
        direxclude: **/*.py   any sub-directories or list of sub-directories
@@ -300,8 +301,8 @@ def glob_glob(dirin:Union[str, list]="**/*.py", nfile=1000, direxclude:Union[str
     ####  Details
     flist  = flist[:nfile]
 
-    if not slient : log('Nfile: ', len(flist), str(flist)[:100])
-    if show>0 : log(flist)
+    if show>0 : log('Nfile: ', len(flist), str(flist)[:100])
+    if show>1 : log(flist)
     return flist
 
 

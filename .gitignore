@@ -165,3 +165,5 @@ sendtoterminalplus.vsx
 /**/*.zip
 *.csv
 *.vsx
+*.onnx
+/**/*.onnx
