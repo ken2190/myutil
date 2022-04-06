@@ -431,7 +431,7 @@ def onnx_convert(torch_model,
     device              = 'cpu',
     ):
     """Core function to convert a pytorch model to onnx
-    Args            : 
+    Args: 
         torch_model                         : model object to load state dict  OR path of the model .py definition
         checkpoint_path     (str)           : path to checkpoint file
         dirout              (str)           : directory to save the onnx model
@@ -441,6 +441,8 @@ def onnx_convert(torch_model,
         input_names         (list, optional): input names of the model. Defaults to ['input'].
         output_names        (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
+    
+    Returns: None    
     """
     filename = '.'.join(os.path.basename(checkpoint_path).split('.')[:-1])
     out_path = os.path.join(dirout, filename + '.onnx')
