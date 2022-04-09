@@ -55,6 +55,10 @@ Details:
 https://packagegalaxy.com/python/utilmy
 
 
+Docs/Support:
+https://groups.google.com/g/utilmy
+
+
 Hash:
 {githash}
 
