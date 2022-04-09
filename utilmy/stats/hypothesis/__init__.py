@@ -1,4 +1,4 @@
-from hypothetical import aov, \
+from utilmy.stats.hypothesis import aov, \
     contingency, \
     critical, \
     descriptive, \
