@@ -1,6 +1,6 @@
 import os
 import pytest
-from hypothetical import posthoc
+from utilmy.stats.hypothesis import posthoc
 from numpy.testing import *
 import pandas as pd
 

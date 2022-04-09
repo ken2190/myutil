@@ -168,3 +168,10 @@ def test_manova_oneway():
     assert_almost_equal(wilk["Wilks Lambda p-value"], 0.001210290803741243)
 
     assert_almost_equal(hotelling["Hotellings T^2 Statistic"], 2.921368304265692)
+
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire()
+
+
