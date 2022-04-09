@@ -1,5 +1,5 @@
 import pytest
-from hypothetical import fa
+from utilmy.stats.hypothesis import fa
 from numpy.testing import *
 import pandas as pd
 

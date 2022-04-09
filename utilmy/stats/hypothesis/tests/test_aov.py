@@ -1,4 +1,4 @@
-import pytest
+
 from utilmy.stats.hypothesis.aov import AnovaOneWay, ManovaOneWay
 import numpy as np
 from numpy.testing import *
@@ -76,96 +76,102 @@ def multivariate_test_data():
     return d
 
 
-class TestAnovaOneWay():
-    data = test_data()
+data = test_data()
 
-    def test_anova_oneway(self):
-        """ TestAnovaOneWay:test_anova_oneway
-        Args:
-        Returns:
-           
-        """
-        anov = AnovaOneWay(self.data['weight'],
-                           group=self.data['group'])
+def test_anova_oneway():
+    """ TestAnovaOneWay:test_anova_oneway
+    Args:
+    Returns:
 
-        result = anov.test_summary
+    """
+    anov = AnovaOneWay(data['weight'],
+                       group=data['group'])
 
-        assert_almost_equal(result['F-statistic'], 4.846087862380137)
-        assert_almost_equal(result['Group DoF'], 2)
-        assert_almost_equal(result['Group Mean Squares'], 1.8831700000000007)
-        assert_almost_equal(result['Group Sum of Squares'], 3.7663400000000014)
+    result = anov.test_summary
 
-        assert_almost_equal(result['p-value'], 0.01590995832562292)
-        assert_almost_equal(result['Residual DoF'], 27)
-        assert_almost_equal(result['Residual Mean Squares'], 0.38859592592592596)
-        assert_almost_equal(result['Residual Sum of Squares'], 10.492090000000001)
+    assert_almost_equal(result['F-statistic'], 4.846087862380137)
+    assert_almost_equal(result['Group DoF'], 2)
+    assert_almost_equal(result['Group Mean Squares'], 1.8831700000000007)
+    assert_almost_equal(result['Group Sum of Squares'], 3.7663400000000014)
 
-        del self.data['Unnamed: 0']
+    assert_almost_equal(result['p-value'], 0.01590995832562292)
+    assert_almost_equal(result['Residual DoF'], 27)
+    assert_almost_equal(result['Residual Mean Squares'], 0.38859592592592596)
+    assert_almost_equal(result['Residual Sum of Squares'], 10.492090000000001)
 
-        ctrl = self.data[self.data['group'] == 'ctrl']['weight'].reset_index()
-        del ctrl['index']
-        ctrl.rename(columns={'weight': 'ctrl'}, inplace=True)
+    del data['Unnamed: 0']
 
-        trt1 = self.data[self.data['group'] == 'trt1']['weight'].reset_index()
+    ctrl = data[data['group'] == 'ctrl']['weight'].reset_index()
+    del ctrl['index']
+    ctrl.rename(columns={'weight': 'ctrl'}, inplace=True)
 
-        del trt1['index']
-        trt1.rename(columns={'weight': 'trt1'}, inplace=True)
+    trt1 = data[data['group'] == 'trt1']['weight'].reset_index()
 
-        trt2 = self.data[self.data['group'] == 'trt2']['weight'].reset_index()
+    del trt1['index']
+    trt1.rename(columns={'weight': 'trt1'}, inplace=True)
 
-        del trt2['index']
-        trt2.rename(columns={'weight': 'trt2'}, inplace=True)
+    trt2 = data[data['group'] == 'trt2']['weight'].reset_index()
 
-        anov2 = AnovaOneWay(ctrl, trt1, trt2)
+    del trt2['index']
+    trt2.rename(columns={'weight': 'trt2'}, inplace=True)
 
-        result2 = anov2.test_summary
+    anov2 = AnovaOneWay(ctrl, trt1, trt2)
 
-        assert_almost_equal(result2['F-statistic'], 4.846087862380138)
-        assert_almost_equal(result2['Group DoF'], 2)
-        assert_almost_equal(result2['Group Mean Squares'], 1.8831700000000007)
-        assert_almost_equal(result2['Group Sum of Squares'], 3.766340000000002)
+    result2 = anov2.test_summary
 
-        assert_almost_equal(result2['p-value'], 0.01590995832562281)
-        assert_almost_equal(result2['Residual DoF'], 27)
-        assert_almost_equal(result2['Residual Mean Squares'], 0.38859592592592596)
-        assert_almost_equal(result2['Residual Sum of Squares'], 10.492090000000001)
+    assert_almost_equal(result2['F-statistic'], 4.846087862380138)
+    assert_almost_equal(result2['Group DoF'], 2)
+    assert_almost_equal(result2['Group Mean Squares'], 1.8831700000000007)
+    assert_almost_equal(result2['Group Sum of Squares'], 3.766340000000002)
+
+    assert_almost_equal(result2['p-value'], 0.01590995832562281)
+    assert_almost_equal(result2['Residual DoF'], 27)
+    assert_almost_equal(result2['Residual Mean Squares'], 0.38859592592592596)
+    assert_almost_equal(result2['Residual Sum of Squares'], 10.492090000000001)
 
 
-class TestManovaOneWay(object):
-    data = multivariate_test_data()
 
-    def test_manova_oneway(self):
-        """ TestManovaOneWay:test_manova_oneway
-        Args:
-        Returns:
-           
-        """
-        dat_shape = self.data.shape
-        manov = ManovaOneWay(self.data[:, 1],
-                             self.data[:, 2],
-                             self.data[:, 3],
-                             self.data[:, 4],
-                             group=self.data[:, 0])
+data = multivariate_test_data()
 
-        result = manov.test_summary
+def test_manova_oneway():
+    """ TestManovaOneWay:test_manova_oneway
+    Args:
+    Returns:
 
-        assert result['degrees of freedom']['Denominator Degrees of Freedom'] == dat_shape[0] - dat_shape[1] - 1
-        assert result['degrees of freedom']['Numerator Degrees of Freedom'] == dat_shape[1]
-        assert result['Analysis Performed'] == 'One-Way MANOVA'
+    """
+    dat_shape = data.shape
+    manov = ManovaOneWay(data[:, 1],
+                         data[:, 2],
+                         data[:, 3],
+                         data[:, 4],
+                         group=data[:, 0])
 
-        pillai = result['Pillai Statistic']
-        roy = result['Roys Statistic']
-        wilk = result['Wilks Lambda']
-        hotelling = result['Hotellings T^2']
+    result = manov.test_summary
 
-        assert_almost_equal(pillai['Pillai Statistic'], 1.3054724154813995)
-        assert_almost_equal(pillai['Pillai F-value'], 4.069718325783225)
-        assert_almost_equal(pillai['Pillai p-value'], 0.004209350934305522)
+    assert result['degrees of freedom']['Denominator Degrees of Freedom'] == dat_shape[0] - dat_shape[1] - 1
+    assert result['degrees of freedom']['Numerator Degrees of Freedom'] == dat_shape[1]
+    assert result['Analysis Performed'] == 'One-Way MANOVA'
 
-        assert_almost_equal(roy['Roys Statistic'], 1.87567111989616)
+    pillai = result['Pillai Statistic']
+    roy = result['Roys Statistic']
+    wilk = result['Wilks Lambda']
+    hotelling = result['Hotellings T^2']
 
-        assert_almost_equal(wilk["Wilks Lambda F-value"], 4.936888039729538)
-        assert_almost_equal(wilk["Wilks Lambda"], 0.15400766733804414)
-        assert_almost_equal(wilk["Wilks Lambda p-value"], 0.001210290803741243)
+    assert_almost_equal(pillai['Pillai Statistic'], 1.3054724154813995)
+    assert_almost_equal(pillai['Pillai F-value'], 4.069718325783225)
+    assert_almost_equal(pillai['Pillai p-value'], 0.004209350934305522)
 
-        assert_almost_equal(hotelling["Hotellings T^2 Statistic"], 2.921368304265692)
+    assert_almost_equal(roy['Roys Statistic'], 1.87567111989616)
+
+    assert_almost_equal(wilk["Wilks Lambda F-value"], 4.936888039729538)
+    assert_almost_equal(wilk["Wilks Lambda"], 0.15400766733804414)
+    assert_almost_equal(wilk["Wilks Lambda p-value"], 0.001210290803741243)
+
+    assert_almost_equal(hotelling["Hotellings T^2 Statistic"], 2.921368304265692)
+
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire()
+
+
