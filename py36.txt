@@ -110,7 +110,9 @@ mmh3
 imodels   ### rule generator
 mapie  ### Uncertainty est.
 
-
+### stats
+numpy-indexed
+pytest
 
 ###############################
 ## utilmy.recsys
