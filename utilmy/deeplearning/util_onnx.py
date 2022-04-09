@@ -419,20 +419,19 @@ def test_onnx_convert():
 ########################################################################################################
 ############## Core Code ###############################################################################
 def onnx_convert(torch_model, 
-    input_shape=(1, 224, 224),
-    dirout='.', 
-    checkpoint_path:str='./mymodel.pth',
-    export_params=True,
-    onnx_version=10, 
-    do_constant_folding=True, 
-    input_names=['input'], 
-    output_names=['output'], 
-    dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
-    
-    device='cpu',
+    input_shape         = (1, 224, 224),
+    dirout              = '.',
+    checkpoint_path     = './mymodel.pth',
+    export_params       = True,
+    onnx_version        = 10,
+    do_constant_folding = True,
+    input_names         = ['input'],
+    output_names        = ['output'],
+    dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+    device              = 'cpu',
     ):
     """Core function to convert a pytorch model to onnx
-    Args            : 
+    Args: 
         torch_model                         : model object to load state dict  OR path of the model .py definition
         checkpoint_path     (str)           : path to checkpoint file
         dirout              (str)           : directory to save the onnx model
@@ -442,22 +441,22 @@ def onnx_convert(torch_model,
         input_names         (list, optional): input names of the model. Defaults to ['input'].
         output_names        (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
+    
+    Returns: None    
     """
     filename = '.'.join(os.path.basename(checkpoint_path).split('.')[:-1])
     out_path = os.path.join(dirout, filename + '.onnx')
     os.makedirs(dirout, exist_ok=True)
 
     if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
-        torch_model = load_function_uri(uri_name= torch_model)
-        torch_model = torch_model(upscale_factor=3) #### Class Instance  Buggy
+        torch_class_name = load_function_uri(uri_name= torch_model)
+        torch_model      = torch_class_name() #### Class Instance  Buggy
         log('loaded from file ', torch_model)
 
-    if 'gpu' in device : #torch.cuda.is_available():
-        map_location = None
-    else:
-        map_location=torch.device('cpu')
 
     if 'http' in checkpoint_path :
+       #torch.cuda.is_available():
+       map_location = None if 'gpu' in device else  torch.device('cpu')
        import torch.utils.model_zoo as model_zoo
        model_state = model_zoo.load_url(checkpoint_path, map_location=map_location)
     else :   
@@ -469,7 +468,7 @@ def onnx_convert(torch_model,
 
     ## Evaluate
     torch_model.eval()
-    x = torch.rand(1, *input_shape, requires_grad=True)
+    x   = torch.rand(1, *input_shape, requires_grad=True)
     out = torch_model(x)
 
     # log("### Export")
