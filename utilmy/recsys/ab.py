@@ -41,13 +41,13 @@ import scipy.stats as scs
 import matplotlib.pyplot as plt
 
 
-### from utilmy.stats.hypothetical import 
+### from utilmy.stats.hypothesis import
 
 try :
   import abra
 except :
    from utilmy.utilmy import sys_install
-   pkg = "  abracadabra   hypothetical  "
+   pkg = "  abracadabra   hypothesis  "
    print('Installing pip install ' + pkg) ; time.time(7)
    # sys_install(cmd= f"pip install {pkg}  --upgrade-strategy only-if-needed")
    1/0  ### exit Gracefully !

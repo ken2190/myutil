@@ -480,10 +480,10 @@ def test_hypothesis(df_obs, df_ref, method='', **kw):
 
     """
     try:
-       from hypothetical.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
+       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
             table_margins, expected_frequencies )
     except :
-       print(' pip install hypothetical ')
+       print(' pip install hypothesis ')
 
     if method == 'chisquare' :
         c = ChiSquareContingency(df_obs, df_ref)
