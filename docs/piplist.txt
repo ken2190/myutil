@@ -5,7 +5,7 @@ astunparse==1.6.3
 attrs==21.4.0
 backcall==0.2.0
 backports.zoneinfo==0.2.1
-beautifulsoup4==4.11.0
+beautifulsoup4==4.11.1
 bootstrapped==0.0.2
 cachetools==4.2.4
 certifi==2021.10.8
@@ -30,7 +30,7 @@ faiss-cpu==1.7.2
 Fiona==1.8.21
 fire==0.4.0
 flake8==4.0.1
-fonttools==4.31.2
+fonttools==4.32.0
 future==0.18.2
 gast==0.3.3
 gensim==4.1.2
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.2
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@fd66351c838979f0e8c6e9fe74bef01f64b15968#egg=utilmy
+-e git+https://github.com/arita37/myutil@37e1d05fb71efe4ff8b8fc37e67bc11199375fb6#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.1.1
