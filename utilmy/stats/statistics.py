@@ -1,13 +1,7 @@
 # coding=utf-8
-HELP="""
-
-
-https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
-
+HELP="""  Hypothesis testing easy
+  
 https://github.com/pranab/beymani
-
-
-https://pkghosh.wordpress.com/2020/12/24/concept-drift-detection-techniques-with-python-implementation-for-supervised-machine-learning-models/
 
 
 
@@ -22,6 +16,11 @@ import os, sys, pandas as pd, numpy as np
 from utilmy.utilmy import pd_generate_data
 from utilmy.prepro.util_feature import  pd_colnum_tocat, pd_colnum_tocat_stat
 
+# conduct multiple comparisons
+from tqdm import tqdm
+from typing import List
+from scipy import stats
+
 
 #################################################################################################
 from utilmy.utilmy import log, log2
@@ -33,7 +32,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create("utilmy.tabular") )
+    print( HELP + help_create("utilmy.stats.statistics") )
 
     
 #################################################################################################
@@ -181,7 +180,6 @@ def test_all():
     test_np_utils()
 
 
-
 def test0():
     """function test0
     Args:
@@ -196,6 +194,7 @@ def test0():
     NameError: name 'pd_colnum_tocat' is not defined
     test_mutualinfo(df["0"],df[["1","2","3"]],colname="test")
     '''
+
 
 def test1():
     """function test1
@@ -235,43 +234,9 @@ def test3():
     np_conv_to_one_col(arr)
 
 
-def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
-    """
-    print(s)
-
 
 #############################################################################
 #############################################################################
-def y_adjuster_log(y_true, y_pred_log, error_func, **kwargs):
-    """
-       Adjustment of log, exp transfrmation for yt= y + error
-       https://www.inovex.de/de/blog/honey-i-shrunk-the-target-variable/
-       
-       log(y) = u =sigma**2
-    
-    """
-    import scipy as sp
-
-    def cost_func(delta):
-        return error_func(np.exp(delta + y_pred_log), y_true)
-
-    res = sp.optimize.minimize(cost_func, 0., **kwargs)
-    if res.success:
-        return res.x
-    else:
-        raise RuntimeError(f"Finding correction term failed!\n{res}")
-
-
-# conduct multiple comparisons
-from tqdm import tqdm
-from typing import List
-from scipy import stats
-
 def test_multiple_comparisons(data: pd.DataFrame, label='y', adjuster=True) -> List[float]:
     """Run multiple t tests.
        p_values = multiple_comparisons(data)
@@ -318,7 +283,6 @@ def test_multiple_comparisons(data: pd.DataFrame, label='y', adjuster=True) -> L
 
 
 
-    
 def test_anova(df, col1, col2):
     """
     ANOVA test two categorical features
@@ -393,6 +357,7 @@ def test_normality2(df, column, test_type):
                 print(sl,' : ',cv,' ',column,' looks normal (fail to reject H0)')
             else:
                 print(sl,' : ',cv,' ',column,' does not looks normal (fail to reject H0)')
+
 
 
 def test_plot_qqplot(df, col_name):
@@ -549,6 +514,9 @@ def estimator_bootstrap(err, custom_stat=None, alpha=0.05, n_iter=10000):
 
 
 
+
+####################################################################################################
+####### Utils ######################################################################################
 def np_col_extractname(col_onehot):
     """
     Column extraction from onehot name
@@ -609,4 +577,8 @@ def np_conv_to_one_col(np_array, sep_char="_"):
     return np_array_[:,None]
 
 
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire()
 
