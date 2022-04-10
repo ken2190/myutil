@@ -197,7 +197,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
-            image = util_image.image_center_crop(image, (245, 245))
+            image = util_image.image_prep_centercrop(image, (245, 245))
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
@@ -658,7 +658,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         # print(image_path)
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
-        image = image_center_crop(image, (xdim,ydim))
+        image = image_prep_centercrop(image, (xdim, ydim))
         assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
@@ -669,7 +669,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         return [], ""
 
 
-def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
+def image_prep_centercrop(img:npArrayLike, dim:Tuple[int, int]):
     """Returns center cropped image
     Args:
     img: image to be center cropped
@@ -797,7 +797,7 @@ def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None
      return scaled_img
 
 
-def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
+def image_prep_addpadding(paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
     """
     Args:
         paddings_number:  4
@@ -873,7 +873,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
     return crop
 
 
-def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
+def image_remove_background(in_dir:Path_type= "", dirout:Path_type= "", level:int=1):
     """ #### remove background
 
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
@@ -903,8 +903,8 @@ def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
             except : pass
 
 
-def image_face_blank(in_dir:Path_type="", level = "/*",
-                     dirout:Path_type=f"", npool=30):
+def image_remove_humanface(in_dir:Path_type= "", level ="/*",
+                           dirout:Path_type=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
@@ -952,7 +952,7 @@ def image_face_blank(in_dir:Path_type="", level = "/*",
     pool.join()
 
 
-def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
+def image_remove_text(in_dir :Path_type, dirout :Path_type, level="*"):
     """
         Not working well
         python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
