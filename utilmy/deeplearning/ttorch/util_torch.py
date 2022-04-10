@@ -348,6 +348,71 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log()
 
 
+###############################################################################################
+class SmeLU(nn.Module):
+    """
+    This class implements the Smooth ReLU (SmeLU) activation function proposed in:
+    https://arxiv.org/pdf/2202.06499.pdf
+
+
+    Example :
+        def main() -> None:
+            # Init figures
+            fig, ax = plt.subplots(1, 1)
+            fig_grad, ax_grad = plt.subplots(1, 1)
+            # Iterate over some beta values
+            for beta in [0.5, 1., 2., 3., 4.]:
+                # Init SemLU
+                smelu: SmeLU = SmeLU(beta=beta)
+                # Make input
+                input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
+                # Get activations
+                output: torch.Tensor = smelu(input)
+                # Compute gradients
+                output.sum().backward()
+                # Plot activation and gradients
+                ax.plot(input.detach(), output.detach(), label=str(beta))
+                ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))
+            # Show legend, title and grid
+            ax.legend()
+            ax_grad.legend()
+            ax.set_title("SemLU")
+            ax_grad.set_title("SemLU gradient")
+            ax.grid()
+            ax_grad.grid()
+            # Show plots
+            plt.show()
+
+    """
+
+    def __init__(self, beta: float = 2.) -> None:
+        """
+        Constructor method.
+        :param beta (float): Beta value if the SmeLU activation function. Default 2.
+        """
+        # Call super constructor
+        super(SmeLU, self).__init__()
+        # Check beta
+        assert beta >= 0., f"Beta must be equal or larger than zero. beta={beta} given."
+        # Save parameter
+        self.beta: float = beta
+
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass.
+        :param input (torch.Tensor): Tensor of any shape
+        :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
+        """
+        output: torch.Tensor = torch.where(input >= self.beta, input,
+                                           torch.tensor([0.], device=input.device, dtype=input.dtype))
+        output: torch.Tensor = torch.where(torch.abs(input) <= self.beta,
+                                           ((input + self.beta) ** 2) / (4. * self.beta), output)
+        return output
+
+
+
+
+
 
 #####################################################################################################################
 def get_metrics(y_true, y_pred, y_score):
