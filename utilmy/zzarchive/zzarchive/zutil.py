@@ -1424,7 +1424,7 @@ if __name__ == "__main__":
     )
 
 
-def pd_toexcel(df:pd.DataFrame, outfile="file.xlsx", sheet_name="sheet1", append=1, returnfile=1):
+def pd_toexcel(df, outfile="file.xlsx", sheet_name="sheet1", append=1, returnfile=1):
     """
 # Create a Pandas Excel writer using XlsxWriter as the engine.
 writer = pd.ExcelWriter('test.xlsx', engine='xlsxwriter')
@@ -2256,7 +2256,7 @@ def np_pivotable_create(table, left, top, value):
 # PANDA UTIL
 
 
-def pd_info(df:pd.DataFrame, doreturn=1):
+def pd_info(df, doreturn=1):
     df.info()
     dtype0 = df.dtypes.to_dict()
     for i in df.columns:
@@ -2265,21 +2265,21 @@ def pd_info(df:pd.DataFrame, doreturn=1):
         return dtype0
 
 
-def pd_info_memsize(df:pd.DataFrame, memusage=0):
+def pd_info_memsize(df, memusage=0):
     df.info(memory_usage="deep")
     pd_info(df)
     if memusage == 1:
         return df.memory_usage().sum()
 
 
-def pd_row_findlast(df:pd.DataFrame, colid=0, emptyrowid=None):
+def pd_row_findlast(df, colid=0, emptyrowid=None):
     for ii, rr in df.iterrows():
         if rr[colid] is emptyrowid:
             return ii
 
 
 # selection
-def pd_row_select(df:pd.DataFrame, **conditions):
+def pd_row_select(df, **conditions):
     """Select rows from a df according to conditions
     pdselect(data, a=2, b__lt=3) __gt __ge __lte  __in  __not_in
     will select all rows where 'a' is 2 and 'b' is less than 3
@@ -2374,7 +2374,7 @@ def pd_extract_col_idx_val(df):
     return df.columns.values, df.index.values, df.values
 
 
-def pd_extract_col_uniquevalue_tocsv(df:pd.DataFrame, colname="", csvfile=""):
+def pd_extract_col_uniquevalue_tocsv(df, colname="", csvfile=""):
     """ Write one column into a file   """
     a = df[colname].unique()
     a = np.array(a)
@@ -2386,7 +2386,7 @@ def pd_split_col_idx_val(df):
     return df.columns.values, df.index.values, df.values
 
 
-def pd_splitdf_inlist(df:pd.DataFrame, colid, type1="dict"):
+def pd_splitdf_inlist(df, colid, type1="dict"):
     """ Split df into dictionnary of dict/list """
     unique_names = df.sym.unique()
     if type1 == "dict":
@@ -2402,7 +2402,7 @@ def pd_splitdf_inlist(df:pd.DataFrame, colid, type1="dict"):
         return l1
 
 
-def pd_find(df:pd.DataFrame, regex_pattern="*", col_restrict=None, isnumeric=False, doreturnposition=False):
+def pd_find(df, regex_pattern="*", col_restrict=None, isnumeric=False, doreturnposition=False):
     """ Find string / numeric values inside df columns, return position where found
      col_restrict : restrict to these columns """
     if col_restrict is None:
@@ -2457,19 +2457,19 @@ def pd_find(df:pd.DataFrame, regex_pattern="*", col_restrict=None, isnumeric=Fal
 
 # dtypes
 """
-def pd_dtypes_tocategory(df:pd.DataFrame, columns=[], targetype='category'):
+def pd_dtypes_tocategory(df, columns=[], targetype='category'):
    for col in columns : df[col]= df[col].astype(targetype)
    return df
 """
 
 
-def pd_dtypes_totype2(df:pd.DataFrame, columns=(), targetype="category"):
+def pd_dtypes_totype2(df, columns=(), targetype="category"):
     for col in columns:
         df[col] = df[col].astype(targetype)
     return df
 
 
-def pd_dtypes(df:pd.DataFrame, returnasdict=0):
+def pd_dtypes(df, returnasdict=0):
     from collections import OrderedDict
 
     dtype0 = OrderedDict(df.dtypes.apply(lambda x: x.name))
@@ -2489,7 +2489,7 @@ def pd_dtypes(df:pd.DataFrame, returnasdict=0):
     )
 
 
-def pd_df_todict2(df:pd.DataFrame, colkey="table", excludekey=("",), onlyfirstelt=True):
+def pd_df_todict2(df, colkey="table", excludekey=("",), onlyfirstelt=True):
     df = df.drop_duplicates(colkey).reset_index(level=0, drop=True)
     dict0 = {}
     for i in range(0, len(df)):
@@ -2504,7 +2504,7 @@ def pd_df_todict2(df:pd.DataFrame, colkey="table", excludekey=("",), onlyfirstel
     return dict0
 
 
-def pd_df_todict(df:pd.DataFrame, colkey="machine_code", colval="adress"):
+def pd_df_todict(df, colkey="machine_code", colval="adress"):
     dict0 = {}
     for ii, row in df.iterrows():
         try:
@@ -2575,7 +2575,7 @@ def pd_dtypes_getblaze(df1) :
 
 
 # Apply / Transform df
-def pd_applyfun_col(df:pd.DataFrame, newcol, ff, use_colname="all/[colname]"):
+def pd_applyfun_col(df, newcol, ff, use_colname="all/[colname]"):
     """ use all Columns to compute values """
     if use_colname == "all/[colname]":
         df[newcol] = ff(df.values)
@@ -2615,14 +2615,14 @@ def pd_is_categorical(z):
         return False
 
 
-def pd_str_encoding_change(df:pd.DataFrame, cols, fromenc="iso-8859-1", toenc="utf-8"):
+def pd_str_encoding_change(df, cols, fromenc="iso-8859-1", toenc="utf-8"):
     #  Western European: 'cp1252'
     for col in cols:
         df[col] = df[col].str.decode(fromenc).str.encode(toenc)
     return df
 
 
-def pd_str_unicode_tostr(df:pd.DataFrame, targetype=str):
+def pd_str_unicode_tostr(df, targetype=str):
     """
  https://www.azavea.com/blog/2014/03/24/solving-unicode-problems-in-python-2-7/
  Nearly every Unicode problem can be solved by the proper application of these tools;
@@ -2647,10 +2647,10 @@ u'Hi, my name is Josxe9.'
  """
     _ = targetype
 
-    return pd_dtypes_type1_totype2(df:pd.DataFrame, fromtype=str, targetype=str)
+    return pd_dtypes_type1_totype2(df, fromtype=str, targetype=str)
 
 
-def pd_dtypes_type1_totype2(df:pd.DataFrame, fromtype=str, targetype=str):
+def pd_dtypes_type1_totype2(df, fromtype=str, targetype=str):
     for ii in df.columns:
         if isinstance(df[ii].values[0], fromtype):
             df[ii] = df[ii].astype(targetype)
@@ -2663,12 +2663,12 @@ def pd_resetindex(df):
     return df
 
 
-def pd_insertdatecol(df:pd.DataFrame, col, format1="%Y-%m-%d %H:%M:%S:%f"):
+def pd_insertdatecol(df, col, format1="%Y-%m-%d %H:%M:%S:%f"):
     df[col] = df[col].apply(lambda x: date_nowtime(x, format1=format1))
     return df
 
 
-def pd_replacevalues(df:pd.DataFrame, matrix):
+def pd_replacevalues(df, matrix):
     """ Matrix replaces df.values  """
     imax, jmax = np.shape(matrix)
     colname = df.columns.values
@@ -2678,7 +2678,7 @@ def pd_replacevalues(df:pd.DataFrame, matrix):
     return df
 
 
-def pd_removerow(df:pd.DataFrame, row_list_index=(23, 45)):
+def pd_removerow(df, row_list_index=(23, 45)):
     return df.drop(row_list_index)
 
 
@@ -2686,7 +2686,7 @@ def pd_removecol(df1, name1):
     return df1.drop(name1, axis=1)
 
 
-def pd_insertrow(df:pd.DataFrame, rowval, index1=None, isreset=1):
+def pd_insertrow(df, rowval, index1=None, isreset=1):
     _ = isreset
 
     df2 = pd_array_todataframe(rowval, df.columns.values, index1)
@@ -2700,7 +2700,7 @@ def pd_h5_cleanbeforesave(df):
     """Clean Column type before Saving in HDFS: Unicode, Datetime  """
     # Unicode String :
     df = pd_resetindex(df)  # Reset Index 0 to 100000
-    df = pd_str_unicode_tostr(df:pd.DataFrame, targetype=str)
+    df = pd_str_unicode_tostr(df, targetype=str)
 
     """
    for col in  ['date'] :
@@ -2713,7 +2713,7 @@ def pd_h5_cleanbeforesave(df):
     return df
 
 
-def pd_h5_addtable(df:pd.DataFrame, tablename, dbfile="F:\temp_pandas.h5"):
+def pd_h5_addtable(df, tablename, dbfile="F:\temp_pandas.h5"):
     store = pd.HDFStore(dbfile)
     if find(tablename, list(store.keys())) > 0:
         # tablename=tablename + '_1';
@@ -2750,7 +2750,7 @@ def pd_h5_dumpinfo(dbfile=r"E:\_data\stock\intraday_google.h5"):
     return np.array(extract), errsym
 
 
-def pd_h5_save(df:pd.DataFrame, filenameh5="E:/_data/_data_outlier.h5", key="data"):
+def pd_h5_save(df, filenameh5="E:/_data/_data_outlier.h5", key="data"):
     """ File is release after saving it"""
     store = pd.HDFStore(filenameh5)
     store.append(key, df)

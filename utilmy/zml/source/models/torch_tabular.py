@@ -367,7 +367,7 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 
 ####################################################################################################
 ############ Test  #################################################################################
-def train_test_split2(df:pd.DataFrame, coly):
+def train_test_split2(df, coly):
     """function train_test_split2
     Args:
         df:   
@@ -394,7 +394,7 @@ def test(n_sample = 100):
     from adatasets import test_data_classifier_covtype
     df, p                = test_data_classifier_covtype(nrows=n_sample)
     colnum, colcat, coly = p['colnum'], p['colcat'],p['coly']
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes = train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes = train_test_split2(df, coly)
     # df, colnum, colcat, coly = test_dataset_covtype()
 
     #### Matching Big dict  ##################################################
@@ -559,7 +559,7 @@ def test3(n_sample = 100):
     from adatasets import test_data_classifier_covtype
     df, p                = test_data_classifier_covtype(nrows=n_sample)
     colnum, colcat, coly = p['colnum'], p['colcat'],p['coly']
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes = train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes = train_test_split2(df, coly)
 
     #### Matching Big dict  ##################################################
     cols_input_type_1 = []
@@ -737,7 +737,7 @@ def test2(nrows=10000):
     df = pd.read_csv(datafile, header=None, names=feature_columns, nrows= nrows)
 
     df.head()
-    train, test = train_test_split(df:pd.DataFrame, random_state=42)
+    train, test = train_test_split(df, random_state=42)
     train, val  = train_test_split(train, random_state=42)
     num_classes = len(set(train[target_name].values.ravel()))
 

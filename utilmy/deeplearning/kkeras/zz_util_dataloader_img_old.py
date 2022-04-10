@@ -176,7 +176,7 @@ def get_data_sample(batch_size, x_train, labels_val, labels_col):   #name change
     return x, y_label_list 
 
 
-def pd_get_onehot_dict(df:pd.DataFrame, labels_col:list, dfref=None, ) :       #name changed
+def pd_get_onehot_dict(df, labels_col:list, dfref=None, ) :       #name changed
     """
     Args:
         df (DataFrame): Actual DataFrame
@@ -191,7 +191,7 @@ def pd_get_onehot_dict(df:pd.DataFrame, labels_col:list, dfref=None, ) :       #
     labels_val = {}
     labels_cnt = {}
     for ci in labels_col:
-      dfi_1hot  = pd.get_dummies(df:pd.DataFrame, columns=[ci])  ### OneHot
+      dfi_1hot  = pd.get_dummies(df, columns=[ci])  ### OneHot
       dfi_1hot  = dfi_1hot[[ t for t in dfi_1hot.columns if ci in t   ]].values  ## remove no OneHot
       labels_val[ci] = dfi_1hot 
       labels_cnt[ci] = df[ci].nunique()
@@ -225,7 +225,7 @@ def pd_merge_imgdir_onehotfeat(dfref, img_dir="*.jpg", labels_col = []) :   #nam
 
     # labels_col = [  'gender', 'masterCategory', 'subCategory', 'articleType' ]
     for ci in labels_col :
-      dfi_1hot           = pd.get_dummies(df:pd.DataFrame, columns=[ci])  ### OneHot
+      dfi_1hot           = pd.get_dummies(df, columns=[ci])  ### OneHot
       dfi_1hot           = dfi_1hot[[ t for t in dfi_1hot.columns if ci in t   ]]  ## keep only OneHot
       df[ci + "_onehot"] = dfi_1hot.apply( lambda x : ','.join([   str(t) for t in x  ]), axis=1)
       #####  0,0,1,0 format   log(dfi_1hot)

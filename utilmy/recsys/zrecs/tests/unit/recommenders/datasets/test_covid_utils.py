@@ -57,7 +57,7 @@ def test_remove_duplicates(df):
     Returns:
         
     """
-    output = remove_duplicates(df:pd.DataFrame, cols=["cord_uid", "doi", "title", "license", "url"])
+    output = remove_duplicates(df, cols=["cord_uid", "doi", "title", "license", "url"])
     assert True not in output.duplicated(["cord_uid"]).values
 
 
@@ -68,7 +68,7 @@ def test_remove_nan(df):
     Returns:
         
     """
-    output = remove_nan(df:pd.DataFrame, cols=["cord_uid", "doi", "title", "license", "url"])
+    output = remove_nan(df, cols=["cord_uid", "doi", "title", "license", "url"])
     assert np.nan not in output["cord_uid"].values
 
 
@@ -122,6 +122,6 @@ def test_get_public_domain_text(df):
         "recommenders.datasets.covid_utils.retrieve_text",
         side_effect=mock_retrieve_text,
     ):
-        full = get_public_domain_text(df:pd.DataFrame, container_name="test")
+        full = get_public_domain_text(df, container_name="test")
 
     assert all(full["full_text"] == ["full text"] * 5)

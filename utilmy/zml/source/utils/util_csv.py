@@ -558,7 +558,7 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         DBname, db_schema, db_table_uri, db_table_columns(dict_table->colum_list),
    """
 
-    def pd_df_todict(df:pd.DataFrame, colkey="table", firstelt=True):
+    def pd_df_todict(df, colkey="table", firstelt=True):
         df1 = df.drop_duplicates(colkey).reset_index(level=0, drop=True)
         dict0 = {}
         for i in range(len(df)):

@@ -257,7 +257,7 @@ def get_custom_label_data():
 
 
 #### Filter label values  #######################################
-def pd_category_filter(df:pd.DataFrame, category_map):
+def pd_category_filter(df, category_map):
     """ Filter label values"""
     def cat_filter(s, values):
         if s.lower() in values:

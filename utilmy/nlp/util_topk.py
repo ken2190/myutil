@@ -96,7 +96,7 @@ def embedding_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
                 df = pd.DataFrame({'id': words, 'emb': embs})
                 log(df.shape, ntot)
                 if i < 2: log(df)
-                pd_to_file(df:pd.DataFrame, dirout + f"/df_emb_{kk}.parquet", show=0)
+                pd_to_file(df, dirout + f"/df_emb_{kk}.parquet", show=0)
                 ntot += len(df)
                 words, embs = [], []
 
@@ -104,7 +104,7 @@ def embedding_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
     df = pd.DataFrame({'id': words, 'emb': embs})
     ntot += len(df)
     dirout2 = dirout + f"/df_emb_{kk}.parquet"
-    pd_to_file(df:pd.DataFrame, dirout2, show=1)
+    pd_to_file(df, dirout2, show=1)
     log('ntotal', ntot, dirout2)
     return os.path.dirname(dirout2)
 
@@ -126,7 +126,7 @@ def embedding_load_parquet(dirin="df.parquet", nmax=500):
 
     df = df[df['emb'].apply(lambda x: len(x) > 10)]  ### Filter small vector
     log(df.head(5).T, df.columns, df.shape)
-    log(df:pd.DataFrame, df.dtypes)
+    log(df, df.dtypes)
 
     ###########################################################################
     ###### Split embed numpy array, id_map list,  #############################
@@ -253,7 +253,7 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
     faiss_index.nprobe = 12  # Runtime param. The number of cells that are visited for search.
 
     ########################################################################
-    if isinstance(df:pd.DataFrame, list):  ### Multi processing part
+    if isinstance(df, list):  ### Multi processing part
         if len(df) < 1: return 1
         flist = df[0]
         root = os.path.abspath(os.path.dirname(flist[0] + "/../../"))  ### bug in multipro

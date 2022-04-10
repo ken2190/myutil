@@ -94,7 +94,7 @@ def pa_read_file(path=  'folder_parquet/',
     return dfall
 
 
-def pa_write_file(df:pd.DataFrame, path=  'folder_parquet/',
+def pa_write_file(df, path=  'folder_parquet/',
                  cols=None,n_rows=1000, partition_cols=None, overwrite=True, verbose=1, filesystem = 'hdfs' ) :
     """ Pandas to HDFS
       pyarrow.parquet.write_table(table, where, row_group_size=None, version='1.0',
@@ -183,7 +183,7 @@ def params_check(pars, check_list, name=""):
         raise Exception(ss)
 
 
-def save_features(df:pd.DataFrame, name, path=None):
+def save_features(df, name, path=None):
     """ Save dataframe on disk
     :param df:
     :param name:
@@ -192,7 +192,7 @@ def save_features(df:pd.DataFrame, name, path=None):
     """
     if path is not None :
        os.makedirs( f"{path}/{name}" , exist_ok=True)
-       if isinstance(df:pd.DataFrame, pd.Series):
+       if isinstance(df, pd.Series):
            df0=df.to_frame()
        else:
            df0=df
@@ -690,7 +690,7 @@ def feature_importance_perm(clf, Xtrain, ytrain, cols, n_repeats=8, scoring='neg
     return dfmetrics, result
 
 
-def feature_selection_multicolinear(df:pd.DataFrame, threshold=1.0):
+def feature_selection_multicolinear(df, threshold=1.0):
     from scipy.stats import spearmanr
     from scipy.cluster import hierarchy
     from collections import defaultdict
@@ -708,7 +708,7 @@ def feature_selection_multicolinear(df:pd.DataFrame, threshold=1.0):
     return [cols[i] for i in selected_features]
 
 
-def feature_correlation_cat(df:pd.DataFrame, colused):
+def feature_correlation_cat(df, colused):
     from scipy.stats import spearmanr
     from scipy.cluster import hierarchy
     from matplotlib import pyplot as plt
@@ -731,7 +731,7 @@ def feature_correlation_cat(df:pd.DataFrame, colused):
 
 ####################################################################################################
 ####################################################################################################
-def pd_feature_generate_cross(df:pd.DataFrame, cols, cols_cross_input=None, pct_threshold=0.2, m_combination=2):
+def pd_feature_generate_cross(df, cols, cols_cross_input=None, pct_threshold=0.2, m_combination=2):
     """
        Generate Xi.Xj features and filter based on stats threshold
     """
@@ -809,7 +809,7 @@ def pd_col_to_onehot(dfref, colname=None, colonehot=None, return_val="dataframe,
         return df[colnew]
 
 
-def pd_colcat_mergecol(df:pd.DataFrame, col_list, x0, colid="easy_id"):
+def pd_colcat_mergecol(df, col_list, x0, colid="easy_id"):
     """
        Merge category onehot column
     :param df:
@@ -833,7 +833,7 @@ def pd_colcat_mergecol(df:pd.DataFrame, col_list, x0, colid="easy_id"):
     return dfz
 
 
-def pd_colcat_tonum(df:pd.DataFrame, colcat="all", drop_single_label=False, drop_fact_dict=True):
+def pd_colcat_tonum(df, colcat="all", drop_single_label=False, drop_fact_dict=True):
     """
     Encoding a data-set with mixed data (numerical and categorical) to a numerical-only data-set,
     using the following logic:
@@ -858,7 +858,7 @@ def pd_colcat_tonum(df:pd.DataFrame, colcat="all", drop_single_label=False, drop
         If True, the return value will be the encoded DataFrame alone. If False, it will be a tuple of
         the DataFrame and the dictionary of the binary factorization (originating from pd.factorize)
     """
-    # df = convert(df:pd.DataFrame, "dataframe")
+    # df = convert(df, "dataframe")
     if colcat is None:
         return df
     elif colcat == "all":
@@ -885,7 +885,7 @@ def pd_colcat_tonum(df:pd.DataFrame, colcat="all", drop_single_label=False, drop
         return df_out, binary_columns_dict
 
 
-def pd_colcat_mapping(df:pd.DataFrame, colname):
+def pd_colcat_mapping(df, colname):
     """
        map category to integers
     :param df:
@@ -1081,7 +1081,7 @@ def pd_colnum_normalize(df0, colname, pars, suffix="_norm", return_val='datafram
     return df, colnum_norm
 
 
-def pd_col_merge_onehot(df:pd.DataFrame, colname):
+def pd_col_merge_onehot(df, colname):
     """
       Merge columns into single (hotn
     :param df:
@@ -1098,7 +1098,7 @@ def pd_col_merge_onehot(df:pd.DataFrame, colname):
     return dd
 
 
-def pd_col_to_num(df:pd.DataFrame, colname=None, default=np.nan):
+def pd_col_to_num(df, colname=None, default=np.nan):
     def to_float(x):
         try:
             return float(x)
@@ -1111,7 +1111,7 @@ def pd_col_to_num(df:pd.DataFrame, colname=None, default=np.nan):
     return df
 
 
-def pd_col_filter(df:pd.DataFrame, filter_val=None, iscol=1):
+def pd_col_filter(df, filter_val=None, iscol=1):
     """
    # Remove Columns where Index Value is not in the filter_value
    # filter1= X_client['client_id'].values
@@ -1176,7 +1176,7 @@ def pd_col_fillna(
         return df
 
 
-def pd_pipeline_apply(df:pd.DataFrame, pipeline):
+def pd_pipeline_apply(df, pipeline):
     """
       pipe_preprocess_colnum = [
       (pd_col_to_num, {"val": "?", })
@@ -1200,7 +1200,7 @@ def pd_pipeline_apply(df:pd.DataFrame, pipeline):
     return dfi
 
 
-def pd_stat_correl_pair(df:pd.DataFrame, coltarget=None, colname=None):
+def pd_stat_correl_pair(df, coltarget=None, colname=None):
     """
       Genearte correletion between the column and target column
       df represents the dataframe comprising the column and colname comprising the target column
@@ -1221,7 +1221,7 @@ def pd_stat_correl_pair(df:pd.DataFrame, coltarget=None, colname=None):
     return df_correl
 
 
-def pd_stat_pandas_profile(df:pd.DataFrame, savefile="report.html", title="Pandas Profile"):
+def pd_stat_pandas_profile(df, savefile="report.html", title="Pandas Profile"):
     """ Describe the tables
         #Pandas-Profiling 2.0.0
         df.profile_report()
@@ -1234,7 +1234,7 @@ def pd_stat_pandas_profile(df:pd.DataFrame, savefile="report.html", title="Panda
     return colexclude
 
 
-def pd_stat_distribution_colnum(df:pd.DataFrame, nrows=2000, verbose=False):
+def pd_stat_distribution_colnum(df, nrows=2000, verbose=False):
     """ Stats the tables
     """
     df = df.sample(n=nrows)
@@ -1274,7 +1274,7 @@ def pd_stat_distribution_colnum(df:pd.DataFrame, nrows=2000, verbose=False):
     return dfdes
 
 
-def pd_stat_histogram(df:pd.DataFrame, bins=50, coltarget="diff"):
+def pd_stat_histogram(df, bins=50, coltarget="diff"):
     """
     :param df:
     :param bins:
@@ -1337,7 +1337,7 @@ def col_remove(cols, colsremove, mode="exact"):
 
 
 ####################################################################################################
-def pd_colnum_tocat_stat(df:pd.DataFrame, feature, target_col, bins, cuts=0):
+def pd_colnum_tocat_stat(df, feature, target_col, bins, cuts=0):
     """
     Bins continuous features into equal sample size buckets and returns the target mean in each bucket. Separates out
     nulls into another bucket.
@@ -1406,7 +1406,7 @@ def pd_colnum_tocat_stat(df:pd.DataFrame, feature, target_col, bins, cuts=0):
         return (df_grouped)
 
 
-def pd_stat_shift_trend_changes(df:pd.DataFrame, feature, target_col, threshold=0.03):
+def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
     """
     Calculates number of times the trend of feature wrt target changed direction.
     :param df: df_grouped dataset
@@ -1430,7 +1430,7 @@ def pd_stat_shift_trend_changes(df:pd.DataFrame, feature, target_col, threshold=
     return (tot_trend_changes)
 
 
-def pd_stat_shift_trend_correlation(df:pd.DataFrame, df_test, colname, target_col):
+def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
     """
     Calculates correlation between train and test trend of colname wrt target.
     :param df: train df data
@@ -1461,7 +1461,7 @@ def pd_stat_shift_trend_correlation(df:pd.DataFrame, df_test, colname, target_co
     return (trend_correlation)
 
 
-def pd_stat_shift_changes(df:pd.DataFrame, target_col, features_list=0, bins=10, df_test=0):
+def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
     """
     Calculates trend changes and correlation between train/test for list of features
     :param df: dfframe containing features and target columns

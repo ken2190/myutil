@@ -13,11 +13,11 @@ This PyTorch implementation is much faster than the original Numpy version.
 
 ## To use:
 ### Implicit interactions: 
-1. `te_implicit = TorchEASE(df:pd.DataFrame, user_col="user", item_col="item")`
+1. `te_implicit = TorchEASE(df, user_col="user", item_col="item")`
 2. `te_implicit.fit()`
 3. `predictions = te_implicity.predict_all(predict_df)`
 ### Explicit interactions (UNTESTED):
-1. `te_explicit = TorchEASE(df:pd.DataFrame, user_col="user", item_col="item", score_col="rating")`
+1. `te_explicit = TorchEASE(df, user_col="user", item_col="item", score_col="rating")`
 2. `te_explicit.fit()`
 3. `predictions = te_explicit.predict_all(predict_df)`
 

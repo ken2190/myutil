@@ -119,7 +119,7 @@ class FavoritaFormatter(data_formatters.base.GenericDataFormatter):
     self.set_scalers(train, set_real=True)
 
     # Use all data for label encoding  to handle labels not present in training.
-    self.set_scalers(df:pd.DataFrame, set_real=False)
+    self.set_scalers(df, set_real=False)
 
     # Filter out identifiers not present in training (i.e. cold-started items).
     def filter_ids(frame):

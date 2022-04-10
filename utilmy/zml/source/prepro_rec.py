@@ -27,7 +27,7 @@ if tf.__version__ >= '2.0.0':
 
 
 ##################################################################################################
-def _preprocess_criteo(df:pd.DataFrame, **kw):
+def _preprocess_criteo(df, **kw):
     """function _preprocess_criteo
     Args:
         df:   
@@ -65,12 +65,12 @@ def _preprocess_criteo(df:pd.DataFrame, **kw):
 
     linear_cols = fixlen_cols
     dnn_cols = fixlen_cols
-    train, test = train_test_split(df:pd.DataFrame, test_size=kw['test_size'])
+    train, test = train_test_split(df, test_size=kw['test_size'])
 
     return df, linear_cols, dnn_cols, train, test, target, test[target].values
 
 
-def _preprocess_movielens(df:pd.DataFrame, **kw):
+def _preprocess_movielens(df, **kw):
     """function _preprocess_movielens
     Args:
         df:   
@@ -92,7 +92,7 @@ def _preprocess_movielens(df:pd.DataFrame, **kw):
         fixlen_cols = [SparseFeat(feat, df[feat].nunique(), embedding_dim=4) for feat in sparse_col]
         linear_cols = fixlen_cols
         dnn_cols = fixlen_cols
-        train, test = train_test_split(df:pd.DataFrame, test_size=0.2)
+        train, test = train_test_split(df, test_size=0.2)
         ytrue = test[target].values
     else:
         ytrue = df[target].values

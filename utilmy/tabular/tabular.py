@@ -97,19 +97,19 @@ def test_all():
             pd_stat_shift_trend_correlation,pd_stat_shift_changes
         from utilmy.prepro.util_feature import pd_colnum_tocat_stat
 
-        pd_train_test_split_time(df:pd.DataFrame, coltime="block")
+        pd_train_test_split_time(df, coltime="block")
         pd_to_scipy_sparse_matrix(df)
         '''TODO: git test failling here
         this bug is caused due to typecasting mismatch in the function.
         However, even typecasting the arrays manually in the function is not solving
         the problem.
         '''
-        # log(pd_stat_correl_pair(df:pd.DataFrame,coltarget=["fertilizer"],colname=["yield"]))
+        # log(pd_stat_correl_pair(df,coltarget=["fertilizer"],colname=["yield"]))
         
-        pd_stat_pandas_profile(df:pd.DataFrame,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
-        pd_stat_distribution_colnum(df:pd.DataFrame, nrows=len(df))
-        pd_stat_histogram(df:pd.DataFrame, bins=50, coltarget="yield")
-        _,df_grouped = pd_colnum_tocat_stat(df:pd.DataFrame,"density","block",10)
+        pd_stat_pandas_profile(df,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
+        pd_stat_distribution_colnum(df, nrows=len(df))
+        pd_stat_histogram(df, bins=50, coltarget="yield")
+        _,df_grouped = pd_colnum_tocat_stat(df,"density","block",10)
         pd_stat_shift_trend_changes(df_grouped,"density","block")
 
         _, X_train_grouped =  pd_colnum_tocat_stat(X_train,"yield","block",10)
@@ -118,7 +118,7 @@ def test_all():
 
         '''TODO: TypeError: pd_colnum_tocat_stat() got an unexpected keyword argument 'colname',
         This function needs complete rewrite there are many bugs and logical errors.
-        pd_stat_shift_changes(df:pd.DataFrame,"yield", features_list=["density","block"])
+        pd_stat_shift_changes(df,"yield", features_list=["density","block"])
         '''
 
     def test_drift_detect():
@@ -183,9 +183,9 @@ def test_all():
 
 def test0():
     df = pd_generate_data(7, 100)
-    test_anova(df:pd.DataFrame, 'cat1', 'cat2')
-    test_normality2(df:pd.DataFrame, '0', "Shapiro")
-    test_plot_qqplot(df:pd.DataFrame, '1')
+    test_anova(df, 'cat1', 'cat2')
+    test_normality2(df, '0', "Shapiro")
+    test_plot_qqplot(df, '1')
     '''TODO: import needed
     NameError: name 'pd_colnum_tocat' is not defined
     test_mutualinfo(df["0"],df[["1","2","3"]],colname="test")
@@ -210,19 +210,19 @@ def test1():
     '''TODO: need to check this one
     estimator_bootstrap(y_pred, custom_stat=custom_stat(y_pred))
     '''
-    pd_train_test_split_time(df:pd.DataFrame, coltime="block")
+    pd_train_test_split_time(df, coltime="block")
     pd_to_scipy_sparse_matrix(df)
     '''TODO: git test failling here'''
-    #log(pd_stat_correl_pair(df:pd.DataFrame,coltarget=["fertilizer"],colname=["yield"]))
+    #log(pd_stat_correl_pair(df,coltarget=["fertilizer"],colname=["yield"]))
 
-    # pd_stat_pandas_profile(df:pd.DataFrame,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
+    # pd_stat_pandas_profile(df,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
 
-    pd_stat_distribution_colnum(df:pd.DataFrame, nrows=len(df))
+    pd_stat_distribution_colnum(df, nrows=len(df))
     '''TODO: KeyError: 'freqall
-    pd_stat_histogram(df:pd.DataFrame, bins=50, coltarget="yield")
+    pd_stat_histogram(df, bins=50, coltarget="yield")
     '''
     ''' TODO: error KeyError: 'colname_mean' , why we appending '_mean' on colname 
-    pd_stat_shift_trend_changes(df:pd.DataFrame,"density","block")
+    pd_stat_shift_trend_changes(df,"density","block")
     '''
     X_train["yield"] =  X_train["yield"].astype('category')
     X_test["yield"] =  X_test["yield"].astype('category')
@@ -230,7 +230,7 @@ def test1():
     pd_stat_shift_trend_correlation(X_train, X_test,"yield","block")
     '''
     '''TODO: TypeError: pd_colnum_tocat_stat() got an unexpected keyword argument 'colname'
-    pd_stat_shift_changes(df:pd.DataFrame,"yield", features_list=["density","block"])
+    pd_stat_shift_changes(df,"yield", features_list=["density","block"])
     '''
 
 
@@ -319,7 +319,7 @@ def test_multiple_comparisons(data: pd.DataFrame, label='y', adjuster=True) -> L
 
 
     
-def test_anova(df:pd.DataFrame, col1, col2):
+def test_anova(df, col1, col2):
     """
     ANOVA test two categorical features
     Input dfframe, 1st feature and 2nd feature
@@ -348,7 +348,7 @@ def test_anova(df:pd.DataFrame, col1, col2):
 
 
 
-def test_normality2(df:pd.DataFrame, column, test_type):
+def test_normality2(df, column, test_type):
     """
     Function to check Normal Distribution of a Feature by 3 methods
     Input dfframe, feature name, and a test type
@@ -395,7 +395,7 @@ def test_normality2(df:pd.DataFrame, column, test_type):
                 print(sl,' : ',cv,' ',column,' does not looks normal (fail to reject H0)')
 
 
-def test_plot_qqplot(df:pd.DataFrame, col_name):
+def test_plot_qqplot(df, col_name):
     """
     Function to plot boxplot, histplot and qqplot for numerical feature analyze
     """
@@ -526,7 +526,7 @@ def estimator_bootstrap(err, custom_stat=None, alpha=0.05, n_iter=10000):
 
 
 #############################################################################################################
-def pd_train_test_split_time(df:pd.DataFrame, test_period = 40, cols=None , coltime ="time_key", sort=True, minsize=5,
+def pd_train_test_split_time(df, test_period = 40, cols=None , coltime ="time_key", sort=True, minsize=5,
                      n_sample=5,  verbose=False) :
    cols = list(df.columns) if cols is None else cols
    if sort :
@@ -556,7 +556,7 @@ def pd_to_scipy_sparse_matrix(df):
     return arr.tocsr()
 
 
-def pd_stat_correl_pair(df:pd.DataFrame, coltarget=None, colname=None):
+def pd_stat_correl_pair(df, coltarget=None, colname=None):
     """
       Genearte correletion between the column and target column
       df represents the dataframe comprising the column and colname comprising the target column
@@ -578,7 +578,7 @@ def pd_stat_correl_pair(df:pd.DataFrame, coltarget=None, colname=None):
     return df_correl
 
 
-def pd_stat_pandas_profile(df:pd.DataFrame, savefile="report.html", title="Pandas Profile"):
+def pd_stat_pandas_profile(df, savefile="report.html", title="Pandas Profile"):
     """ Describe the tables
         #Pandas-Profiling 2.0.0
         df.profile_report()
@@ -591,7 +591,7 @@ def pd_stat_pandas_profile(df:pd.DataFrame, savefile="report.html", title="Panda
     return colexclude
 
 
-def pd_stat_distribution_colnum(df:pd.DataFrame, nrows=2000, verbose=False):
+def pd_stat_distribution_colnum(df, nrows=2000, verbose=False):
     """ Stats the tables
     """
     df = df.sample(n=nrows)
@@ -631,7 +631,7 @@ def pd_stat_distribution_colnum(df:pd.DataFrame, nrows=2000, verbose=False):
     return dfdes
 
 
-def pd_stat_histogram(df:pd.DataFrame, bins=50, coltarget="diff"):
+def pd_stat_histogram(df, bins=50, coltarget="diff"):
     """
     :param df:
     :param bins:
@@ -695,7 +695,7 @@ def np_list_remove(cols, colsremove, mode="exact"):
 
 
 ####################################################################################################
-def pd_stat_shift_trend_changes(df:pd.DataFrame, feature, target_col, threshold=0.03):
+def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
     """
     Calculates number of times the trend of feature wrt target changed direction.
     :param df: df_grouped dataset
@@ -719,7 +719,7 @@ def pd_stat_shift_trend_changes(df:pd.DataFrame, feature, target_col, threshold=
     return (tot_trend_changes)
 
 
-def pd_stat_shift_trend_correlation(df:pd.DataFrame, df_test, colname, target_col):
+def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
     """
     Calculates correlation between train and test trend of colname wrt target.
     :param df: train df data
@@ -752,7 +752,7 @@ def pd_stat_shift_trend_correlation(df:pd.DataFrame, df_test, colname, target_co
     return (trend_correlation)
 
 
-def pd_stat_shift_changes(df:pd.DataFrame, target_col, features_list=0, bins=10, df_test=0):
+def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
     """
     Calculates trend changes and correlation between train/test for list of features
     :param df: dfframe containing features and target columns

@@ -76,7 +76,7 @@ async def post_model(data: BodyOne):
 
     #### Convert as Json Data as DF and preprocess ####
     df               = pd.DataFrame(json_data, index=[0])
-    dfX, cols_family = preprocess(df:pd.DataFrame, path_pipeline, preprocess_pars=pars)
+    dfX, cols_family = preprocess(df, path_pipeline, preprocess_pars=pars)
     ypred, yprob     = predict(model_class, path_model, dfX, cols_family)
 
     pred_vector      = {"pred": ypred.tolist()[0]}
@@ -89,7 +89,7 @@ async def post_model(data: BodyBatch):
     json_data        = jsonable_encoder(data)
 
     df               = pd.DataFrame(json_data["Batch"])
-    dfX, cols_family = preprocess(df:pd.DataFrame, path_pipeline, preprocess_pars=pars)
+    dfX, cols_family = preprocess(df, path_pipeline, preprocess_pars=pars)
     ypred, yproba    = predict(model_class, path_model, dfX, cols_family)
     return {"pred": ypred.tolist()}
 

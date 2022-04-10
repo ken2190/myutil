@@ -43,7 +43,7 @@ class Model:
 
 
 ##################################################################################################
-def _preprocess_XXXX(df:pd.DataFrame, **kw):
+def _preprocess_XXXX(df, **kw):
     return df, linear_cols, dnn_cols, train, test, target
 
 
@@ -60,7 +60,7 @@ def get_dataset(**kw):
         df = pd.read_csv(data_path)
 
     if data_type == "xxxx":
-        df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df:pd.DataFrame, **kw)
+        df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df, **kw)
         
     else:  ## Already define
 

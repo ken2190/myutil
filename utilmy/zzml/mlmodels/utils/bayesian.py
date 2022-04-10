@@ -65,7 +65,7 @@ def X_transform(dfXy, colsX) :
   return pd_to_onehot(dfXy[colsX] , colsX) 
     
 
-def pd_filter(df:pd.DataFrame, filter_dict=None ) :    
+def pd_filter(df, filter_dict=None ) :    
   for key,val in filter_dict.items() :
       df =   df[  (df[key] == val) ]       
   return df
@@ -91,7 +91,7 @@ df2['date'] = 2018
 df = pd.concat((df, df1, df2 ))
 
 
-pd_to_file(df:pd.DataFrame,dir_price  + "/itemid_elastic_3Y.parquet" )
+pd_to_file(df,dir_price  + "/itemid_elastic_3Y.parquet" )
 dfref =df 
 
 
@@ -843,7 +843,7 @@ def season_remove(x) :
   return xp  
 
 
-def get_l2_item(df:pd.DataFrame, item_id) :
+def get_l2_item(df, item_id) :
   vitem = list(df[ df.l2_genre_id == df[df.item_id == item_id ]['l2_genre_id'].values[0]]['item_id'].unique())
   print(len(vitem))
   return vitem
@@ -917,7 +917,7 @@ for ii in vitem :
        item_dd[ii]['time_key']    = dfi['time_key'].values   
        item_dd[ii]['l2_genre_id'] = dfi['l2_genre_id'].values[0]
        item_dd[ii]['l1_genre_id'] = dfi['l1_genre_id'].values[0]
-       item_dd[ii]['l2_items']    = get_l2_item(df:pd.DataFrame, ii)
+       item_dd[ii]['l2_items']    = get_l2_item(df, ii)
     
        item_dd[ii]['prices']     = dfi['price_median'].values
        item_dd[ii]['units']      = dfi['units_sum'].values
@@ -2196,7 +2196,7 @@ dfe = dfXy = pd.read_pickle( root +"/model/itemid/16-RandomForestRegressor_prod_
 
 
 
-def train_split_time(df:pd.DataFrame, test_period = 40, cols=None , coltime ="time_key", minsize=5) :  
+def train_split_time(df, test_period = 40, cols=None , coltime ="time_key", minsize=5) :  
    cols = list(df.columns) if cols is None else cols 
    if coltime is not None : df   = df.sort_values(   coltime  , ascending=1 ) 
    #imax = len(df) - test_period   
@@ -2364,7 +2364,7 @@ glob.
 
 
 
-def generate_X_item(df:pd.DataFrame, prefix_col ="" ):
+def generate_X_item(df, prefix_col ="" ):
     from offline.util import is_holiday
     keyref  =  ['time_key', "item_id" ]
     coldate =  'order_date'    
@@ -2400,7 +2400,7 @@ def generate_X_item(df:pd.DataFrame, prefix_col ="" ):
 
 
 
-def to_json_highcharts(df:pd.DataFrame, cols, coldate, fpath,  verbose=False):
+def to_json_highcharts(df, cols, coldate, fpath,  verbose=False):
     import os, pandas as pd
     dd = {'meta' : {},  'data' : {} }
     for x in cols :
@@ -2431,7 +2431,7 @@ for fname in flist :
     df['datex'] = [ to_timekey(t) for t in df['time_key'].values ]
         
     cols   = ui_get_column_name_list()   ### units_g0, units_go_pred    
-    myjson = to_json_highcharts(df:pd.DataFrame, cols, 'datex',  verbose=False)
+    myjson = to_json_highcharts(df, cols, 'datex',  verbose=False)
 
     ### Send to the UI
 
@@ -2802,7 +2802,7 @@ df = dfX0[ colsX ]
 
 x ="weekday"
 
-def pd_to_onehot(df:pd.DataFrame, colnames, map_dict=None, verbose=1) :
+def pd_to_onehot(df, colnames, map_dict=None, verbose=1) :
  # df = df[colnames]   
  
  for x in colnames :
@@ -3037,7 +3037,7 @@ df = pd_read_file( dir_price + "/elastic_all_20200715.parquet" )
 df =df[ df.shop_id.isin([16,17])]
 
 
-pd_to_file(df:pd.DataFrame, dir_price + "/elastic_all_20200715_shop_1617.csv" )
+pd_to_file(df, dir_price + "/elastic_all_20200715_shop_1617.csv" )
 
 
 
@@ -3078,7 +3078,7 @@ df3 = pd.concat(( df1, df2))
 df = df.join(df3.set_index(keyref), on= keyref, how='left' )
 
 
-pd_to_file(df:pd.DataFrame, dir_meta  + "/meta_price_pred.parquet" )
+pd_to_file(df, dir_meta  + "/meta_price_pred.parquet" )
 
 from zlocal import dir_meta
 
@@ -3096,10 +3096,10 @@ Index(['elastic_6m_itemid', 'elastic_6m_itemid_shopid', 'elastic_6m_l2genre',
        'units_1d_min', 'units_1d_std', 'units_1d_sum', 'out_order_id_g0',
        'out_order_id_g0_diff', 'out_r1'],
 
-dfa = pd_filter(df:pd.DataFrame, "out_r1<0.3,units_1d_min>1,price_median_nunique>1" )
+dfa = pd_filter(df, "out_r1<0.3,units_1d_min>1,price_median_nunique>1" )
 
 
-dfa = pd_filter(df:pd.DataFrame, "out_r1<0.4")
+dfa = pd_filter(df, "out_r1<0.4")
 
 
 
@@ -3573,7 +3573,7 @@ for ii, x in enumerate(keys_select) :
    
    tag = "_".join([ str(t) for t in x ])
    
-   dfi = pd_filter(df:pd.DataFrame, filter_dict = {colkey[i]: x[i] for i in range(4 )} )
+   dfi = pd_filter(df, filter_dict = {colkey[i]: x[i] for i in range(4 )} )
    dfi['units'].hist(); plt.savefig( price_dir + f"/img/hist_units_{tag}.png"); plt.close()
    dfi['price'].hist(); plt.savefig( price_dir + f"/img/hist_price_{tag}.png"); plt.close()
    dfi[['price',  'units' ]].plot.scatter(x='price', y='units')

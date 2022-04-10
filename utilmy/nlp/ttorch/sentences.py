@@ -162,7 +162,7 @@ def dataset_fake(name='AllNLI.tsv.gz', dirdata:str='', fname:str='data_fake.parq
     #df['label'] = 6.0  # np.random.randint(0, 3, len(df) )
     df['label'] = df['label'].astype('float')  ### needed for cosinus loss 
 
-    log(df:pd.DataFrame, df.columns, df.shape)
+    log(df, df.columns, df.shape)
     dirout = dirdata +"/" + fname
     df = df.iloc[:nsample, :]
     df.to_parquet(dirout)

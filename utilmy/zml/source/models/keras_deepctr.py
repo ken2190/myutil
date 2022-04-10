@@ -707,7 +707,7 @@ def get_xy_dataset(data_sample=None):
         feature_names   = get_feature_names(linear_feat_col + dnn_feat_col)
 
     # 3.generate input data for model
-    train_full, test  = train_test_split(df:pd.DataFrame, random_state=2021, stratify=df[target])
+    train_full, test  = train_test_split(df, random_state=2021, stratify=df[target])
     train, val        = train_test_split(train_full, random_state=2021, stratify=train_full[target])
 
     train_model_input = {name:train[name] for name in feature_names}

@@ -31,7 +31,7 @@ tesla.head()
 # In[3]:
 
 
-def df_shift(df:pd.DataFrame, lag=0, start=1, skip=1, rejected_columns=[]):
+def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
     """function df_shift
     Args:
         df:   

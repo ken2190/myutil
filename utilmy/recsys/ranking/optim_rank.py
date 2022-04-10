@@ -250,11 +250,11 @@ def test():
       rank_true = list(dict_full)
 
       #### Algo merged
-      borda     = rank_merge(df:pd.DataFrame, method='borda')
-      dowdall   = rank_merge(df:pd.DataFrame, method='dowdall')
-      mc4_rank  = rank_merge(df:pd.DataFrame, method='mc4')
+      borda     = rank_merge(df, method='borda')
+      dowdall   = rank_merge(df, method='dowdall')
+      mc4_rank  = rank_merge(df, method='mc4')
       custom    = rank_merge_v2(rank1, rank2, 100)
-      avg       = rank_merge(df:pd.DataFrame, method='average')
+      avg       = rank_merge(df, method='average')
       df2 = pd.DataFrame([borda, dowdall, avg, mc4_rank, custom, rank1, rank2],
                          index = ['borda', 'dowdall', 'average', 'MC4', 'algo v2', 'rank1', 'rank2'])
       df2 = df2.transpose()

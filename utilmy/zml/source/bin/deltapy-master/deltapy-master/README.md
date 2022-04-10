@@ -64,8 +64,8 @@ df_out = transform.fft_feat(df.copy(), ["Close"]); df_out.head()
 df_out = transform.harmonicradar_cw(df.copy(), ["Close"],0.3,0.2); df_out.head()
 df_out = transform.saw(df.copy(),["Close","Open"]); df_out.head()
 df_out = transform.modify(df.copy(),["Close"]); df_out.head()
-df_out = transform.multiple_rolling(df:pd.DataFrame, columns=["Close"]); df_out.head()
-df_out = transform.multiple_lags(df:pd.DataFrame, start=1, end=3, columns=["Close"]); df_out.head()
+df_out = transform.multiple_rolling(df, columns=["Close"]); df_out.head()
+df_out = transform.multiple_lags(df, start=1, end=3, columns=["Close"]); df_out.head()
 df_out  = transform.prophet_feat(df.copy().reset_index(),["Close","Open"],"Date", "D"); df_out.head()
 ```
 **Interaction**
@@ -286,12 +286,12 @@ Scaling according to the interquartile range, making it robust to outliers.
 
 
 ```python
-def robust_scaler(df:pd.DataFrame, drop=None,quantile_range=(25, 75) ):
+def robust_scaler(df, drop=None,quantile_range=(25, 75) ):
     if drop:
       keep = df[drop]
       df = df.drop(drop, axis=1)
-    center = np.median(df:pd.DataFrame, axis=0)
-    quantiles = np.percentile(df:pd.DataFrame, quantile_range, axis=0)
+    center = np.median(df, axis=0)
+    quantiles = np.percentile(df, quantile_range, axis=0)
     scale = quantiles[1] - quantiles[0]
     df = (df - center) / scale
     if drop:
@@ -311,12 +311,12 @@ Standardize features by removing the mean and scaling to unit variance
 
 
 ```python
-def standard_scaler(df:pd.DataFrame,drop ):
+def standard_scaler(df,drop ):
     if drop:
       keep = df[drop]
       df = df.drop(drop, axis=1)
-    mean = np.mean(df:pd.DataFrame, axis=0)
-    scale = np.std(df:pd.DataFrame, axis=0)
+    mean = np.mean(df, axis=0)
+    scale = np.std(df, axis=0)
     df = (df - mean) / scale  
     if drop:
       df = pd.concat((keep,df),axis=1)
@@ -411,7 +411,7 @@ def windsorization(data,col,para,strategy='both'):
         data_copy.loc[data_copy[col]<para[1],col] = para[1]  
     return data_copy
 
-_, para = transform.outlier_detect(df:pd.DataFrame, "Close")
+_, para = transform.outlier_detect(df, "Close")
 df_out = transform.windsorization(df.copy(),"Close",para,strategy='both'); df_out.head()
 
 ```
@@ -425,7 +425,7 @@ Operations here are treated like traditional transformations. It is the replacem
 
 
 ```python
-def operations(df:pd.DataFrame,features):
+def operations(df,features):
   df_new = df[features]
   df_new = df_new - df_new.min()
 
@@ -479,7 +479,7 @@ def initial_seasonal_components(series, slen):
         seasonals[i] = sum_of_vals_over_avg/n_seasons
     return seasonals
 
-def triple_exponential_smoothing(df:pd.DataFrame,cols, slen, alpha, beta, gamma, n_preds):
+def triple_exponential_smoothing(df,cols, slen, alpha, beta, gamma, n_preds):
     for col in cols:
       result = []
       seasonals = initial_seasonal_components(df[col], slen)
@@ -517,7 +517,7 @@ The base trend takes historical information into account and established moving 
 ```python
 import statsmodels.api as sm
 
-def naive_dec(df:pd.DataFrame, columns, freq=2):
+def naive_dec(df, columns, freq=2):
   for col in columns:
     decomposition = sm.tsa.seasonal_decompose(df[col], model='additive', freq = freq, two_sided=False)
     df[col+"_NDDT" ] = decomposition.trend
@@ -542,7 +542,7 @@ The Baxter-King filter is intended to explicitly deal with the periodicity of th
 ```python
 import statsmodels.api as sm
 
-def bkb(df:pd.DataFrame, cols):
+def bkb(df, cols):
   for col in cols:
     df[col+"_BPF"] = sm.tsa.filters.bkfilter(df[[col]].values, 2, 10, len(df)-1)
   return df
@@ -563,7 +563,7 @@ def butter_lowpass(cutoff, fs=20, order=5):
     b, a = signal.butter(order, normal_cutoff, btype='low', analog=False)
     return b, a
     
-def butter_lowpass_filter(df:pd.DataFrame,cols, cutoff, fs=20, order=5):
+def butter_lowpass_filter(df,cols, cutoff, fs=20, order=5):
     b, a = butter_lowpass(cutoff, fs, order=order)
     for col in cols:
       df[col+"_BUTTER"] = signal.lfilter(b, a, df[col])
@@ -581,7 +581,7 @@ The Hilbert transform is a time-domain to time-domain transformation which shift
 from scipy import signal
 import numpy as np
 
-def instantaneous_phases(df:pd.DataFrame,cols):
+def instantaneous_phases(df,cols):
     for col in cols:
       df[col+"_HILLB"] = np.unwrap(np.angle(signal.hilbert(df[col], axis=0)), axis=0)
     return df
@@ -600,7 +600,7 @@ The Kalman filter is better suited for estimating things that change over time. 
 ```python
 from pykalman import UnscentedKalmanFilter
 
-def kalman_feat(df:pd.DataFrame, cols):
+def kalman_feat(df, cols):
   for col in cols:
     ukf = UnscentedKalmanFilter(lambda x, w: x + np.sin(w), lambda x, v: x + v, observation_covariance=0.1)
     (filtered_state_means, filtered_state_covariances) = ukf.filter(df[col])
@@ -623,7 +623,7 @@ This returns an array of sample frequencies and the power spectrum of x, or the 
 
 ```python
 from scipy import signal
-def perd_feat(df:pd.DataFrame, cols):
+def perd_feat(df, cols):
   for col in cols:
     sig = signal.periodogram(df[col],fs=1, return_onesided=False)
     df[col+"_FREQ"] = sig[0]
@@ -640,7 +640,7 @@ The FFT, or fast fourier transform is an algorithm that essentially uses convolu
 
 
 ```python
-def fft_feat(df:pd.DataFrame, cols):
+def fft_feat(df, cols):
   for col in cols:
     fft_df = np.fft.fft(np.asarray(df[col].tolist()))
     fft_df = pd.DataFrame({'fft':fft_df})
@@ -660,7 +660,7 @@ The waveform of a signal is the shape of its graph as a function of time.
 
 ```python
 from scipy import signal
-def harmonicradar_cw(df:pd.DataFrame, cols, fs,fc):
+def harmonicradar_cw(df, cols, fs,fc):
     for col in cols:
       ttxt = f'CW: {fc} Hz'
       #%% input
@@ -684,7 +684,7 @@ Return a periodic sawtooth or triangle waveform.
 
 
 ```python
-def saw(df:pd.DataFrame, cols):
+def saw(df, cols):
   for col in cols:
     df[col+" SAW"] = signal.sawtooth(df[col])
   return df
@@ -701,7 +701,7 @@ A range of modification usually applied ot images, these values would have to be
 
 ```python
 from tsaug import *
-def modify(df:pd.DataFrame, cols):
+def modify(df, cols):
   for col in cols:
     series = df[col].values
     df[col+"_magnify"], _ = magnify(series, series)
@@ -732,7 +732,7 @@ Features that are calculated on a rolling basis over fixed window size.
 
 
 ```python
-def multiple_rolling(df:pd.DataFrame, windows = [1,2], functions=["mean","std"], columns=None):
+def multiple_rolling(df, windows = [1,2], functions=["mean","std"], columns=None):
   windows = [1+a for a in windows]
   if not columns:
     columns = df.columns.to_list()
@@ -748,7 +748,7 @@ def multiple_rolling(df:pd.DataFrame, windows = [1,2], functions=["mean","std"],
 
   return  df_out                      # 3. Concatenate dataframes
 
-df_out = transform.multiple_rolling(df:pd.DataFrame, columns=["Close"]); df_out.head()
+df_out = transform.multiple_rolling(df, columns=["Close"]); df_out.head()
 ```
 
 #### **(12) Lagging**
@@ -759,7 +759,7 @@ Lagged values from existing features.
 
 
 ```python
-def multiple_lags(df:pd.DataFrame, start=1, end=3,columns=None):
+def multiple_lags(df, start=1, end=3,columns=None):
   if not columns:
     columns = df.columns.to_list()
   lags = range(start, end+1)  # Just two lags for demonstration.
@@ -771,7 +771,7 @@ def multiple_lags(df:pd.DataFrame, start=1, end=3,columns=None):
   })
   return df
 
-df_out = transform.multiple_lags(df:pd.DataFrame, start=1, end=3, columns=["Close"]); df_out.head()
+df_out = transform.multiple_lags(df, start=1, end=3, columns=["Close"]); df_out.head()
 ```
 
 #### **(13) Forecast Model**
@@ -789,12 +789,12 @@ You can apply additive models to your training data but also interactive models 
 ```python
 from fbprophet import Prophet
 
-def prophet_feat(df:pd.DataFrame, cols,date, freq,train_size=150):
+def prophet_feat(df, cols,date, freq,train_size=150):
   def prophet_dataframe(df): 
     df.columns = ['ds','y']
     return df
 
-  def original_dataframe(df:pd.DataFrame, freq, name):
+  def original_dataframe(df, freq, name):
     prophet_pred = pd.DataFrame({"Date" : df['ds'], name : df["yhat"]})
     prophet_pred = prophet_pred.set_index("Date")
     #prophet_pred.index.freq = pd.tseries.frequencies.to_offset(freq)
@@ -833,7 +833,7 @@ import numpy as np
 from scipy import linalg
 import math
 
-def lowess(df:pd.DataFrame, cols, y, f=2. / 3., iter=3):
+def lowess(df, cols, y, f=2. / 3., iter=3):
     for col in cols:
       n = len(df[col])
       r = int(ceil(f * n))
@@ -870,7 +870,7 @@ Autoregression is a time series model that uses observations from previous time 
 ```python
 from statsmodels.tsa.ar_model import AR
 from timeit import default_timer as timer
-def autoregression(df:pd.DataFrame, drop=None, settings={"autoreg_lag":4}):
+def autoregression(df, drop=None, settings={"autoreg_lag":4}):
 
     autoreg_lag = settings["autoreg_lag"]
     if drop:
@@ -907,7 +907,7 @@ Looking at interaction between different features. Here the methods employed are
 
 
 ```python
-def muldiv(df:pd.DataFrame, feature_list):
+def muldiv(df, feature_list):
   for feat in feature_list:
     for feat_two in feature_list:
       if feat==feat_two:
@@ -933,7 +933,7 @@ The first method that will be applies here is a supersived discretiser. Discreti
 ```python
 from sklearn.tree import DecisionTreeRegressor
 
-def decision_tree_disc(df:pd.DataFrame, cols, depth=4 ):
+def decision_tree_disc(df, cols, depth=4 ):
   for col in cols:
     df[col +"_m1"] = df[col].shift(1)
     df = df.iloc[1:,:]
@@ -958,7 +958,7 @@ In statistics, quantile normalization is a technique for making two distribution
 import numpy as np
 import pandas as pd
 
-def quantile_normalize(df:pd.DataFrame, drop):
+def quantile_normalize(df, drop):
 
     if drop:
       keep = df[drop]
@@ -1020,7 +1020,7 @@ Technical indicators are heuristic or mathematical calculations based on the pri
 import ta
 
 def tech(df):
-  return ta.add_all_ta_features(df:pd.DataFrame, open="Open", high="High", low="Low", close="Close", volume="Volume")
+  return ta.add_all_ta_features(df, open="Open", high="High", low="Low", close="Close", volume="Volume")
   
 df_out = interact.tech(df.copy()); df_out.head()
 ```
@@ -1043,7 +1043,7 @@ df.head()
 ```python
 from gplearn.genetic import SymbolicTransformer
 
-def genetic_feat(df:pd.DataFrame, num_gen=20, num_comp=10):
+def genetic_feat(df, num_gen=20, num_comp=10):
   function_set = ['add', 'sub', 'mul', 'div',
                   'sqrt', 'log', 'abs', 'neg', 'inv','tan']
 
@@ -1078,7 +1078,7 @@ Principal component analysis (PCA) is a statistical procedure that uses an ortho
 
 
 ```python
-def pca_feature(df:pd.DataFrame, memory_issues=False,mem_iss_component=False,variance_or_components=0.80,n_components=5 ,drop_cols=None, non_linear=True):
+def pca_feature(df, memory_issues=False,mem_iss_component=False,variance_or_components=0.80,n_components=5 ,drop_cols=None, non_linear=True):
     
   if non_linear:
     pca = KernelPCA(n_components = n_components, kernel='rbf', fit_inverse_transform=True, random_state = 33, remove_zero_eig= True)
@@ -1118,7 +1118,7 @@ Canonical-correlation analysis (CCA) is a way of inferring information from cros
 ```python
 from sklearn.cross_decomposition import CCA
 
-def cross_lag(df:pd.DataFrame, drop=None, lags=1, components=4 ):
+def cross_lag(df, drop=None, lags=1, components=4 ):
 
   if drop:
     keep = df[drop]
@@ -1156,7 +1156,7 @@ Computes the additive chi-squared kernel between observations in X and Y The chi
 ```python
 from sklearn.kernel_approximation import AdditiveChi2Sampler
 
-def a_chi(df:pd.DataFrame, drop=None, lags=1, sample_steps=2 ):
+def a_chi(df, drop=None, lags=1, sample_steps=2 ):
 
   if drop:
     keep = df[drop]
@@ -1196,7 +1196,7 @@ from sklearn.preprocessing import minmax_scale
 import tensorflow as tf
 import numpy as np
 
-def encoder_dataset(df:pd.DataFrame, drop=None, dimesions=20):
+def encoder_dataset(df, drop=None, dimesions=20):
 
   if drop:
     train_scaled = minmax_scale(df.drop(drop,axis=1).values, axis = 0)
@@ -1248,7 +1248,7 @@ Locally Linear Embedding is a method of non-linear dimensionality reduction. It 
 ```python
 from sklearn.manifold import LocallyLinearEmbedding
 
-def lle_feat(df:pd.DataFrame, drop=None, components=4):
+def lle_feat(df, drop=None, components=4):
 
   if drop:
     keep = df[drop]
@@ -1279,7 +1279,7 @@ Feature agglomerative uses clustering to group together features that look very 
 import numpy as np
 from sklearn import datasets, cluster
 
-def feature_agg(df:pd.DataFrame, drop=None, components=4):
+def feature_agg(df, drop=None, components=4):
 
   if drop:
     keep = df[drop]
@@ -1312,7 +1312,7 @@ Unsupervised learner for implementing neighbor searches.
 ```python
 from sklearn.neighbors import NearestNeighbors
 
-def neigh_feat(df:pd.DataFrame, drop, neighbors=6):
+def neigh_feat(df, drop, neighbors=6):
   
   if drop:
     keep = df[drop]
@@ -2749,7 +2749,7 @@ from ctgan import CTGANSynthesizer
 
 #discrete_columns = [""]
 ctgan = CTGANSynthesizer()
-ctgan.fit(df:pd.DataFrame,epochs=10) #15
+ctgan.fit(df,epochs=10) #15
 ```
 
 Random Benchmark
@@ -3279,7 +3279,7 @@ Like in this step, after (1), (2), (3), (4) and (5), you can often circle back t
 import numpy as np
 from sklearn import datasets, cluster
 
-def feature_agg(df:pd.DataFrame, drop, components):
+def feature_agg(df, drop, components):
   components = min(df.shape[1]-1,components)
   agglo = cluster.FeatureAgglomeration(n_clusters=components,)
   df = df.drop(drop,axis=1)

@@ -20,7 +20,7 @@ OPTIMIZERS = dict(
 )
 
 
-def pandas_input_fn_for_saved_model(df:pd.DataFrame, feat_name_type):
+def pandas_input_fn_for_saved_model(df, feat_name_type):
     """Pandas input function for TensorFlow SavedModel.
 
     Args:

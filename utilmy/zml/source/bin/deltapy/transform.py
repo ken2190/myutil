@@ -19,36 +19,36 @@ def infer_seasonality(train,index=0): ##skip the first one, normally
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def robust_scaler(df:pd.DataFrame, drop=None,quantile_range=(25, 75) ):
+def robust_scaler(df, drop=None,quantile_range=(25, 75) ):
     if drop:
       keep = df[drop]
       df = df.drop(drop, axis=1)
-    center = np.median(df:pd.DataFrame, axis=0)
-    quantiles = np.percentile(df:pd.DataFrame, quantile_range, axis=0)
+    center = np.median(df, axis=0)
+    quantiles = np.percentile(df, quantile_range, axis=0)
     scale = quantiles[1] - quantiles[0]
     df = (df - center) / scale
     if drop:
       df = pd.concat((keep,df),axis=1)
     return df
 
-# df = robust_scaler(df:pd.DataFrame, drop=["Close_1"])
+# df = robust_scaler(df, drop=["Close_1"])
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def standard_scaler(df:pd.DataFrame,drop ):
+def standard_scaler(df,drop ):
     if drop:
       keep = df[drop]
       df = df.drop(drop, axis=1)
-    mean = np.mean(df:pd.DataFrame, axis=0)
-    scale = np.std(df:pd.DataFrame, axis=0)
+    mean = np.mean(df, axis=0)
+    scale = np.std(df, axis=0)
     df = (df - mean) / scale  
     if drop:
       df = pd.concat((keep,df),axis=1)
     return df
 
 
-# df = standard_scaler(df:pd.DataFrame, drop=["Close"])
+# df = standard_scaler(df, drop=["Close"])           
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -116,13 +116,13 @@ def windsorization(data,col,para,strategy='both'):
         data_copy.loc[data_copy[col]<para[1],col] = para[1]  
     return data_copy
 
-# _, para = outlier_detect(df:pd.DataFrame, "Close")
-# df = windsorization(df:pd.DataFrame,"Close",para,strategy='both')
+# _, para = outlier_detect(df, "Close")
+# df = windsorization(df,"Close",para,strategy='both')
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def operations(df:pd.DataFrame,features):
+def operations(df,features):
   df_new = df[features]
   df_new = df_new - df_new.min()
 
@@ -142,7 +142,7 @@ def operations(df:pd.DataFrame,features):
 
   return df
 
-# df = operations(df:pd.DataFrame,["Close"])
+# df = operations(df,["Close"])
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -168,7 +168,7 @@ def initial_seasonal_components(series, slen):
         seasonals[i] = sum_of_vals_over_avg/n_seasons
     return seasonals
 
-def triple_exponential_smoothing(df:pd.DataFrame,cols, slen, alpha, beta, gamma, n_preds):
+def triple_exponential_smoothing(df,cols, slen, alpha, beta, gamma, n_preds):
     for col in cols:
       result = []
       seasonals = initial_seasonal_components(df[col], slen)
@@ -197,7 +197,7 @@ def triple_exponential_smoothing(df:pd.DataFrame,cols, slen, alpha, beta, gamma,
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def naive_dec(df:pd.DataFrame, columns, freq=2):
+def naive_dec(df, columns, freq=2):
   for col in columns:
     decomposition = sm.tsa.seasonal_decompose(df[col], model='additive', freq = freq, two_sided=False)
     df[col+"_NDDT" ] = decomposition.trend
@@ -210,7 +210,7 @@ def naive_dec(df:pd.DataFrame, columns, freq=2):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def bkb(df:pd.DataFrame, cols):
+def bkb(df, cols):
   for col in cols:
     df[col+"_BPF"] = sm.tsa.filters.bkfilter(df[[col]].values, 2, 10, len(df)-1)
   return df
@@ -226,7 +226,7 @@ def butter_lowpass(cutoff, fs=20, order=5):
     b, a = signal.butter(order, normal_cutoff, btype='low', analog=False)
     return b, a
     
-def butter_lowpass_filter(df:pd.DataFrame,cols, cutoff, fs=20, order=5):
+def butter_lowpass_filter(df,cols, cutoff, fs=20, order=5):
     b, a = butter_lowpass(cutoff, fs, order=order)
     for col in cols:
       df[col+"_BUTTER"] = signal.lfilter(b, a, df[col])
@@ -238,7 +238,7 @@ def butter_lowpass_filter(df:pd.DataFrame,cols, cutoff, fs=20, order=5):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def instantaneous_phases(df:pd.DataFrame,cols):
+def instantaneous_phases(df,cols):
     for col in cols:
       df[col+"_HILLB"] = np.unwrap(np.angle(signal.hilbert(df[col], axis=0)), axis=0)
     return df
@@ -248,7 +248,7 @@ def instantaneous_phases(df:pd.DataFrame,cols):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def kalman_feat(df:pd.DataFrame, cols):
+def kalman_feat(df, cols):
   for col in cols:
     ukf = UnscentedKalmanFilter(lambda x, w: x + np.sin(w), lambda x, v: x + v, observation_covariance=0.1)
     (filtered_state_means, filtered_state_covariances) = ukf.filter(df[col])
@@ -262,7 +262,7 @@ def kalman_feat(df:pd.DataFrame, cols):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def perd_feat(df:pd.DataFrame, cols):
+def perd_feat(df, cols):
   for col in cols:
     sig = signal.periodogram(df[col],fs=1, return_onesided=False)
     df[col+"_FREQ"] = sig[0]
@@ -274,7 +274,7 @@ def perd_feat(df:pd.DataFrame, cols):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def fft_feat(df:pd.DataFrame, cols):
+def fft_feat(df, cols):
   for col in cols:
     fft_df = np.fft.fft(np.asarray(df[col].tolist()))
     fft_df = pd.DataFrame({'fft':fft_df})
@@ -288,7 +288,7 @@ def fft_feat(df:pd.DataFrame, cols):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def harmonicradar_cw(df:pd.DataFrame, cols, fs,fc):
+def harmonicradar_cw(df, cols, fs,fc):
     for col in cols:
       ttxt = f'CW: {fc} Hz'
       #%% input
@@ -308,7 +308,7 @@ def harmonicradar_cw(df:pd.DataFrame, cols, fs,fc):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def saw(df:pd.DataFrame, cols):
+def saw(df, cols):
     for col in cols:
       df[col+" SAW"] = signal.sawtooth(df[col])
     return df
@@ -318,7 +318,7 @@ def saw(df:pd.DataFrame, cols):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def modify(df:pd.DataFrame, cols):
+def modify(df, cols):
   for col in cols:
     series = df[col].values
     df[col+"_magnify"], _ = magnify(series, series)
@@ -342,7 +342,7 @@ def modify(df:pd.DataFrame, cols):
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def multiple_rolling(df:pd.DataFrame, windows = [1,2], functions=["mean","std"], columns=None):
+def multiple_rolling(df, windows = [1,2], functions=["mean","std"], columns=None):
   windows = [1+a for a in windows]
   if not columns:
     columns = df.columns.to_list()
@@ -358,12 +358,12 @@ def multiple_rolling(df:pd.DataFrame, windows = [1,2], functions=["mean","std"],
 
   return  df_out                      # 3. Concatenate dataframes
 
-# df = multiple_rolling(df:pd.DataFrame, columns=["Close"]);
+# df = multiple_rolling(df, columns=["Close"]);
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def multiple_lags(df:pd.DataFrame, start=1, end=3,columns=None):
+def multiple_lags(df, start=1, end=3,columns=None):
   if not columns:
     columns = df.columns.to_list()
   lags = range(start, end+1)  # Just two lags for demonstration.
@@ -375,18 +375,18 @@ def multiple_lags(df:pd.DataFrame, start=1, end=3,columns=None):
   })
   return df
 
-# df = multiple_lags(df:pd.DataFrame, start=1, end=3, columns=["Close"])
+# df = multiple_lags(df, start=1, end=3, columns=["Close"])
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def prophet_feat(df:pd.DataFrame, cols,date, freq,train_size=150):
+def prophet_feat(df, cols,date, freq,train_size=150):
   def prophet_dataframe(df): 
     df.columns = ['ds','y']
     return df
 
-  def original_dataframe(df:pd.DataFrame, freq, name):
+  def original_dataframe(df, freq, name):
     prophet_pred = pd.DataFrame({"Date" : df['ds'], name : df["yhat"]})
     prophet_pred = prophet_pred.set_index("Date")
     #prophet_pred.index.freq = pd.tseries.frequencies.to_offset(freq)

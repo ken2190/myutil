@@ -131,7 +131,7 @@ class cTimeInfo:
         self.checkDateAndSignalTypesForNewDataset(df);
         # new row
         lLastRow = df.tail(1).copy();
-        lLastRow[self.mTime] = self.nextTime(df:pd.DataFrame, 1);
+        lLastRow[self.mTime] = self.nextTime(df, 1);
         lLastRow[self.mSignal] = np.nan;
         # print(lLastRow.columns ,  df.columns)
         assert(str(lLastRow.columns) == str(df.columns))

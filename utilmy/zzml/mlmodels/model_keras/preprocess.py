@@ -75,7 +75,7 @@ def log(*s, n=0, m=1):
 
 
 ##################################################################################################
-def _preprocess_criteo(df:pd.DataFrame, **kw):
+def _preprocess_criteo(df, **kw):
     """function _preprocess_criteo
     Args:
         df:   
@@ -113,12 +113,12 @@ def _preprocess_criteo(df:pd.DataFrame, **kw):
                                                                 for feat in dense_col]
     linear_cols = fixlen_cols
     dnn_cols = fixlen_cols
-    train, test = train_test_split(df:pd.DataFrame, test_size=kw['test_size'])
+    train, test = train_test_split(df, test_size=kw['test_size'])
 
     return df, linear_cols, dnn_cols, train, test, target
 
 
-def _preprocess_movielens(df:pd.DataFrame, **kw):
+def _preprocess_movielens(df, **kw):
     """function _preprocess_movielens
     Args:
         df:   
@@ -139,7 +139,7 @@ def _preprocess_movielens(df:pd.DataFrame, **kw):
         fixlen_cols = [SparseFeat(feat, df[feat].nunique(), embedding_dim=4) for feat in sparse_col]
         linear_cols = fixlen_cols
         dnn_cols = fixlen_cols
-        train, test = train_test_split(df:pd.DataFrame, test_size=0.2)
+        train, test = train_test_split(df, test_size=0.2)
 
     else:
         hash_feature = kw.get('hash_feature', False)
@@ -217,7 +217,7 @@ def _preprocess_movielens(df:pd.DataFrame, **kw):
 
 
 
-def _preprocess_none(df:pd.DataFrame, **kw):
+def _preprocess_none(df, **kw):
         """function _preprocess_none
         Args:
             df:   
@@ -227,7 +227,7 @@ def _preprocess_none(df:pd.DataFrame, **kw):
         """
         linear_cols = kw['linear_cols']
         dnn_cols = kw['dnn_cols']
-        train, test = train_test_split(df:pd.DataFrame, test_size=kw['test_size'])
+        train, test = train_test_split(df, test_size=kw['test_size'])
         target = kw['target_col']
 
         return df, linear_cols, dnn_cols, train, test, target
@@ -276,13 +276,13 @@ def test(data_path="dataset/", pars_choice=0):
 
     log("#### Loading dataset   #############################################")
     df = get_dataset(**kw)
-    df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df:pd.DataFrame, **kw)
+    df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df, **kw)
 
 
-    df, linear_cols, dnn_cols, train, test, target = _preprocess_movielens(df:pd.DataFrame, **kw)
+    df, linear_cols, dnn_cols, train, test, target = _preprocess_movielens(df, **kw)
 
 
-    df, linear_cols, dnn_cols, train, test, target = _preprocess_none(df:pd.DataFrame, **kw)
+    df, linear_cols, dnn_cols, train, test, target = _preprocess_none(df, **kw)
 
 
 

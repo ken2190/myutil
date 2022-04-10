@@ -15,10 +15,10 @@ doc = vi.htmlDoc(title='Stock Market Analysis',css_name = "border")
 
 doc.h2('Stock Market Analysis')
 doc.h4('Stock Data plot')
-doc.table(df:pd.DataFrame, use_datatable=True, table_id="test", custom_css_class='intro')
+doc.table(df, use_datatable=True, table_id="test", custom_css_class='intro')
 doc.hr()
 doc.h4('Stock tseries graph') 
-doc.plot_tseries(df:pd.DataFrame,coldate='Date', date_format= '%m/%d/%Y', coly1=['Open', 'High', 'Low', 'Close'], coly2=['Turnover (Lacs)'],
+doc.plot_tseries(df,coldate='Date', date_format= '%m/%d/%Y', coly1=['Open', 'High', 'Low', 'Close'], coly2=['Turnover (Lacs)'],
                   title = "Stock",cfg={},mode='highcharts'
                  )
 doc.hr()
@@ -32,9 +32,9 @@ doc = vi.htmlDoc(title='Graph Component')
 # dataset for garph
 df = pd.DataFrame({ 'from':['A', 'B', 'C','A'], 'to':['D', 'A', 'E','C'], 'weight':[1, 2, 1,5]})
 doc.h4('Graph Data plot')
-doc.table(df:pd.DataFrame, use_datatable=True, table_id="test",
+doc.table(df, use_datatable=True, table_id="test", 
     custom_css_class='intro')
-doc.pd_plot_network(df:pd.DataFrame, cola='from', colb='to',
+doc.pd_plot_network(df, cola='from', colb='to', 
     coledge='col_edge',colweight="weight")
 
 doc.save('graphplot.html')

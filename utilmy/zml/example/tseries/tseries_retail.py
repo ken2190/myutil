@@ -17,7 +17,7 @@ from source.prepro_tseries import *
 
 ########################################################################################################################
 ########################################################################################################################
-def pd_col_tocat(df:pd.DataFrame, nan_cols, colcat):
+def pd_col_tocat(df, nan_cols, colcat):
     nan_features = nan_cols
     for feature in nan_features:
         df[feature].fillna('unknown', inplace = True)
@@ -372,7 +372,7 @@ def train(model, pars={} ) :
         dftest = featurestore_get_feature_fromcolname(path, cols_cat + cols_num, 'test')
 
         X_train = X_transform( df, cols_num, cols_cat, pars) # select sri
-        y_train  = y_transform(df:pd.DataFrame, coly)
+        y_train  = y_transform(df, coly)
 
         X_test = X_transform( dftest, cols_num, cols_cat, pars) # select variables
         y_test  = y_transform(dftest, coly)

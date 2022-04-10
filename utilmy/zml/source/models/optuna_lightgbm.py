@@ -368,7 +368,7 @@ def test(config=''):
     ##### Dict update
     m['model_pars']['model_pars'] = {  }
     train_df = df[colnum + colcat]
-    train_df, test_df = train_test_split(df:pd.DataFrame, test_size=0.2)
+    train_df, test_df = train_test_split(df, test_size=0.2)
     # test_df, val_df = train_test_split(val_df, test_size=0.5)
 
     m['data_pars']['train']     = {

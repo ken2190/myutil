@@ -37,7 +37,7 @@ def add_patched_legend(ax , names):
         patched_names = patched_names + [ patched_name ]
     ax.legend(patched_names)
 
-def decomp_plot(df:pd.DataFrame, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
+def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
     """function decomp_plot
     Args:
         df:   
@@ -85,7 +85,7 @@ def decomp_plot(df:pd.DataFrame, time, signal, estimator, residue, name = None, 
         fig.savefig(name + '_decomp_output.' + format)
         plt.close(fig)
 
-def decomp_plot_as_png_base64(df:pd.DataFrame, time, signal, estimator, residue, name = None, max_length = 1000) :
+def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000) :
     """function decomp_plot_as_png_base64
     Args:
         df:   
@@ -132,7 +132,7 @@ def decomp_plot_as_png_base64(df:pd.DataFrame, time, signal, estimator, residue,
     return figdata_png.decode('utf8')
     
 
-def prediction_interval_plot(df:pd.DataFrame, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000) :
+def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000) :
     """function prediction_interval_plot
     Args:
         df:   
@@ -191,7 +191,7 @@ def prediction_interval_plot(df:pd.DataFrame, time, signal, estimator, lower, up
         plt.close(fig)
     
 
-def prediction_interval_plot_as_png_base64(df:pd.DataFrame, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
+def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
     """function prediction_interval_plot_as_png_base64
     Args:
         df:   

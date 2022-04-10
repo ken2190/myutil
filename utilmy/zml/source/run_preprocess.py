@@ -49,7 +49,7 @@ log(root)
 
 
 ####################################################################################################
-def log_pd(df:pd.DataFrame, *s, n=0, m=1):
+def log_pd(df, *s, n=0, m=1):
     """function log_pd
     Args:
         df:   
@@ -67,12 +67,12 @@ def log_pd(df:pd.DataFrame, *s, n=0, m=1):
 ####################################################################################################
 from util_feature import  save, load_function_uri, load_dataset
 
-def save_features(df:pd.DataFrame, name, path=None):
+def save_features(df, name, path=None):
     """ Save dataframe on disk
     """
     if path is not None :
        os.makedirs( f"{path}/{name}" , exist_ok=True)
-       if isinstance(df:pd.DataFrame, pd.Series):
+       if isinstance(df, pd.Series):
            df0=df.to_frame()
        else:
            df0=df
@@ -194,7 +194,7 @@ def preprocess(path_train_X="", path_train_y="", path_pipeline_export="", cols_g
         log("#####  Filter  #########################################################################")
         pipe_i       = pipe_filter[ 0 ]
         pipe_fun     = load_function_uri(pipe_i['uri'])
-        df, col_pars = pipe_fun(df:pd.DataFrame, list(df.columns), pars=pipe_i.get('pars', {}))
+        df, col_pars = pipe_fun(df, list(df.columns), pars=pipe_i.get('pars', {}))
 
 
     if len(pipe_list_y) > 0 :
@@ -204,7 +204,7 @@ def preprocess(path_train_X="", path_train_y="", path_pipeline_export="", cols_g
         pars                         = pipe_i.get('pars', {})
         pars['path_features_store']  = path_features_store
         pars['path_pipeline_export'] = path_pipeline_export
-        df, col_pars                 = pipe_fun(df:pd.DataFrame, cols_group['coly'], pars=pars)   ### coly can remove rows
+        df, col_pars                 = pipe_fun(df, cols_group['coly'], pars=pars)   ### coly can remove rows
         log3("----------dfy----------\n", df)
 
     ### save dfy  #####################################################
@@ -284,7 +284,7 @@ def preprocess(path_train_X="", path_train_y="", path_pipeline_export="", cols_g
 
 
 
-def preprocess_inference(df:pd.DataFrame, path_pipeline="data/pipeline/pipe_01/", preprocess_pars={}, cols_group=None):
+def preprocess_inference(df, path_pipeline="data/pipeline/pipe_01/", preprocess_pars={}, cols_group=None):
     """
        At Inference time, load model, params and preprocess data.
        Not saving the data, only output final dataframe
@@ -327,7 +327,7 @@ def preprocess_inference(df:pd.DataFrame, path_pipeline="data/pipeline/pipe_01/"
         log("#####  Filter  #######################################################################")
         pipe_i       = pipe_filter[ 0 ]
         pipe_fun     = load_function_uri(pipe_i['uri'])
-        df, col_pars = pipe_fun(df:pd.DataFrame, list(df.columns), pars=pipe_i.get('pars', {}))
+        df, col_pars = pipe_fun(df, list(df.columns), pars=pipe_i.get('pars', {}))
 
 
     #####  Processors  #############################################################################

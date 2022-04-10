@@ -122,7 +122,7 @@ class DataLoader:
         qids = df.qid.unique()
         np.random.shuffle(qids)
         for qid in qids:
-            x_i, y_i, x_j, y_j = self.generate_query_pairs(df:pd.DataFrame, qid)
+            x_i, y_i, x_j, y_j = self.generate_query_pairs(df, qid)
             if x_i_buf is None:
                 x_i_buf, y_i_buf, x_j_buf, y_j_buf = x_i, y_i, x_j, y_j
             else:

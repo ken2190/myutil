@@ -57,7 +57,7 @@ def test_all():
 
 def test_metrics():
     df, popdict, feature_df = test_get_testdata()
-    result = metrics_calc(df:pd.DataFrame,
+    result = metrics_calc(df,
              methods=['personalization','catalog_coverage','intra_list_similarity',
                       'recall_average_at_k_mean','novelty','recommender_precision','recommender_recall'],
              featuredf=feature_df,

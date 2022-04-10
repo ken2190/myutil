@@ -1219,38 +1219,38 @@ def volhistorolling_fromprice(price, volrange):
 def rsk_calc_all_TA(df='panda_dataframe') :
   '''Add All TA RMI, RSI To the '''
  #try :
-  df= ta.MA(df:pd.DataFrame,200); df= ta.MA(df:pd.DataFrame, 50);  df= ta.MA(df:pd.DataFrame, 20);   df= ta.MA(df:pd.DataFrame, 5);   df= ta.MA(df:pd.DataFrame, 3)
-  df= ta.distance(df:pd.DataFrame, "MA_200");   df= ta.distance(df:pd.DataFrame, "MA_50");    df= ta.distance(df:pd.DataFrame, "MA_20");    df= ta.distance(df:pd.DataFrame, "MA_5") ;     df= ta.distance(df:pd.DataFrame, "MA_3");
+  df= ta.MA(df,200); df= ta.MA(df, 50);  df= ta.MA(df, 20);   df= ta.MA(df, 5);   df= ta.MA(df, 3)
+  df= ta.distance(df, "MA_200");   df= ta.distance(df, "MA_50");    df= ta.distance(df, "MA_20");    df= ta.distance(df, "MA_5") ;     df= ta.distance(df, "MA_3");
 
-  df= ta.RET(df:pd.DataFrame, 1);  df= ta.RET(df:pd.DataFrame, 2);   df= ta.RET(df:pd.DataFrame, 3);  df= ta.RET(df:pd.DataFrame, 5);  df= ta.RET(df:pd.DataFrame, 20); df= ta.RET(df:pd.DataFrame, 60)
+  df= ta.RET(df, 1);  df= ta.RET(df, 2);   df= ta.RET(df, 3);  df= ta.RET(df, 5);  df= ta.RET(df, 20); df= ta.RET(df, 60)
 
-  df= ta.RMI(df:pd.DataFrame, 14,10);  df= ta.RMI(df:pd.DataFrame, 7,5)
-  df= ta.STDDEV(df:pd.DataFrame, 60);  df= ta.STDDEV(df:pd.DataFrame, 120)
+  df= ta.RMI(df, 14,10);  df= ta.RMI(df, 7,5)
+  df= ta.STDDEV(df, 60);  df= ta.STDDEV(df, 120)  
  
-  df= ta.nbday_low(df:pd.DataFrame,252);    df= ta.nbday_high(df:pd.DataFrame,252)
-  df= ta.RSI(df:pd.DataFrame,14);
+  df= ta.nbday_low(df,252);    df= ta.nbday_high(df,252)   
+  df= ta.RSI(df,14);  
   
   df= ta.qearning_dist(df)  ;  df= ta.optionexpiry_dist(df)
   
   '''     
-  df= ta.MACD(df:pd.DataFrame, 12, 26)
-  df= ta.CCI(df:pd.DataFrame, 14)
-  df= ta.STO(df:pd.DataFrame, 14 )  #Stochastic 
-  df= ta.ADX(df:pd.DataFrame, 14, 3)  #ADX
+  df= ta.MACD(df, 12, 26)
+  df= ta.CCI(df, 14)
+  df= ta.STO(df, 14 )  #Stochastic 
+  df= ta.ADX(df, 14, 3)  #ADX
 
   df= ta.PPSR(df)
-  df= ta.Vortex(df:pd.DataFrame, 14)
-  df= ta.TSI(df:pd.DataFrame, 20, 5)
-  df= ta.ACCDIST(df:pd.DataFrame, 20)
+  df= ta.Vortex(df, 14)
+  df= ta.TSI(df, 20, 5)
+  df= ta.ACCDIST(df, 20)
   df= ta.Chaikin(df)
-  df= ta. MFI(df:pd.DataFrame, 7)
-  df= ta.OBV(df:pd.DataFrame, 5)
-  df= ta.FORCE(df:pd.DataFrame,10)
-  df= ta.EOM(df:pd.DataFrame, 14)
-  df= ta.COPP(df:pd.DataFrame, 14)
-  df= ta.KELCH(df:pd.DataFrame, 14)
+  df= ta. MFI(df, 7)
+  df= ta.OBV(df, 5)
+  df= ta.FORCE(df,10)
+  df= ta.EOM(df, 14)
+  df= ta.COPP(df, 14)
+  df= ta.KELCH(df, 14)
   df= ta.ULTOSC(df)
-  df= ta.DONCH(df:pd.DataFrame, 14)
+  df= ta.DONCH(df, 14)
  #except: pass 
   '''
   return df
@@ -4267,7 +4267,7 @@ def imp_quandl_quotes(symbols, start="20150101", end="20160101", source="google"
      else : 
        if source=="google" : df= qd.get("GOOG/"+symbol, trim_start=dd1, authtoken='dffTSNJ4JHbRE1Csd7zZ')
        if source=="yahoo" :  df= qd.get("YAHOO/"+symbol, trim_start=dd1, authtoken='dffTSNJ4JHbRE1Csd7zZ')
-       df= util.pd_addcol(df:pd.DataFrame, 'date')
+       df= util.pd_addcol(df, 'date')
        df.date= datetime_todate(df.index.values)
 
      quotes.append(df)
@@ -4673,7 +4673,7 @@ def imp_csv_toext(file1='SPY.csv', outputfile='.h5', fromzone='Japan', tozone='U
    df.date= [ parser.parse(x) for x in  df.date]
 
    #if util.find('symbol', df.columns.values) < 0 :
-     #df= util.pd_addcol(df:pd.DataFrame, 'symbol')
+     #df= util.pd_addcol(df, 'symbol')
      #df['symbol']= sym
 
    type1= outputfile[outputfile.find('.'):]
@@ -4682,7 +4682,7 @@ def imp_csv_toext(file1='SPY.csv', outputfile='.h5', fromzone='Japan', tozone='U
      # df.columns = [  x.lower() for x in df.columns.values ]
      # df.columns = ['date', 'symbol','open','high','low','close','volume']
      df.drop(df.columns[dropcol], axis=1, inplace=True)
-     df= util.pd_addcol(df:pd.DataFrame, 'symbol');  df['symbol']= dfname
+     df= util.pd_addcol(df, 'symbol');  df['symbol']= dfname
      df.columns = ['date', 'open','high','low','close','volume', 'symbol']
      return df[cols]
 
@@ -4699,7 +4699,7 @@ def imp_csv_toext(file1='SPY.csv', outputfile='.h5', fromzone='Japan', tozone='U
       df.drop(df.columns[[0]], axis=1, inplace=True)
       print filenameh5
       if util.find('symbol', df.columns.values) < 0 :
-         df= util.pd_addcol(df:pd.DataFrame, 'symbol'); df['symbol']= dfname
+         df= util.pd_addcol(df, 'symbol'); df['symbol']= dfname
       store = pd.HDFStore(outputfile); store.append(dfname, df);  store.close()
 
 
@@ -4829,7 +4829,7 @@ def imp_pd_merge(df1, df2) :
 def imp_pd_checkquote(quotes) :
    for c in quotes: print np.shape(c), c['date'].values[0], c['date'].values[-1]
 
-def imp_pd_getclose(df:pd.DataFrame, datefilter=None):
+def imp_pd_getclose(df, datefilter=None):
  if datefilter is  not None :
     df= df[df['date'].isin(datefilter)]   #Only date in the range
  df= df.sort('date')
@@ -4886,7 +4886,7 @@ def imp_pd_fxinversetoprice(q):
    dfprice[kid]= qprice.T
  return dfprice
 
-def imp_pd_filterbydate(df:pd.DataFrame, dtref=None, start='2016-06-06 00:00:00', end='2016-06-14 00:00:00', freq='0d0h05min', timezone='Japan'):
+def imp_pd_filterbydate(df, dtref=None, start='2016-06-06 00:00:00', end='2016-06-14 00:00:00', freq='0d0h05min', timezone='Japan'):
  ''' df: DateSeries or TimeSeries of Quotes   '''
 
  if type(df) in {pd.core.frame.DataFrame} :  #Data frame version
@@ -5684,7 +5684,7 @@ def imp_csv_toext(file1, filenameh5, dfname='sym1', fromzone='Japan', tozone='UT
 
 
   df.drop(df.columns[[0]], axis=1, inplace=True)
-  df= util.pd_addcol(df:pd.DataFrame, 'symbol')
+  df= util.pd_addcol(df, 'symbol')
   df['symbol']= dfname
 
   print filenameh5
@@ -5702,7 +5702,7 @@ def imp_csv_toext(file1, filenameh5, dropcol=[], type1='csv', hasheader=True, df
    df = pd.read_csv(file1, sep=',',header=0)
 
    df.drop(df.columns[dropcol], axis=1, inplace=True)
-   df= util.pd_addcol(df:pd.DataFrame, 'symbol');  df['symbol']= dfname
+   df= util.pd_addcol(df, 'symbol');  df['symbol']= dfname
    df.columns = ['date', 'open','high','low','close','volume', 'symbol' ]
 
    if type1=='csv' :

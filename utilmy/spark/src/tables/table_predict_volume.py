@@ -61,7 +61,7 @@ def run(spark:SparkSession, config_path: str='config.yaml'):
     @F.pandas_udf(result_schema, F.PandasUDFType.GROUPED_MAP)
     def fun_tseries_predict(groupkeys, df):
        global conf_model    
-       return model_predict(df:pd.DataFrame, conf_model, verbose=True)
+       return model_predict(df, conf_model, verbose=True)
 
 
     volume_sessionDF_pred = (volume_sessionDF.select('ds', 'y', cols_groupby )
@@ -129,7 +129,7 @@ def model_train(df:object, conf_model:dict, verbose:bool=True):
 
     Returns: None, model is saved on disk
     """
-    if isinstance(df:pd.DataFrame, pyspark.sql.DataFrame):
+    if isinstance(df, pyspark.sql.DataFrame):
       #### Temporary solution due to simple model, collect is expensive operations
       df = df.toPandas()
 

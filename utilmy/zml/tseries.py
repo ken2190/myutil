@@ -180,11 +180,11 @@ def pd_dsa2_custom(df: pd.DataFrame, col: list=None, pars: dict=None):
         #df        = df.set_index(coldate)
 
         #### time features
-        dfi, coli = pd_ts_date(df:pd.DataFrame, cols=[coldate], pars={'col_add': ['day', 'month', 'year', 'weekday']})
+        dfi, coli = pd_ts_date(df, cols=[coldate], pars={'col_add': ['day', 'month', 'year', 'weekday']})
         df_new    = dfi
 
         #### Rolling features
-        dfi, coli = pd_ts_rolling(df:pd.DataFrame,  cols= ['date', 'item', 'store', 'sales'],
+        dfi, coli = pd_ts_rolling(df,  cols= ['date', 'item', 'store', 'sales'],
                                   pars= {'col_groupby' : ['store','item'],
                                          'col_stat'    : 'sales',
                                          'lag_list'    : [7, 30]})

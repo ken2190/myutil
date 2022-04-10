@@ -349,7 +349,7 @@ def test_lightgcn_component_definition(deeprec_config_path):
     yaml_file = os.path.join(deeprec_config_path, "lightgcn.yaml")
 
     df = movielens.load_pandas_df(size="100k")
-    train, test = python_stratified_split(df:pd.DataFrame, ratio=0.75)
+    train, test = python_stratified_split(df, ratio=0.75)
 
     data = ImplicitCF(train=train, test=test)
 

@@ -262,7 +262,7 @@ def supportmaxmin1(df1) :
 
 
 #RETURN
-def RET(df:pd.DataFrame,n):
+def RET(df,n):
     n=n+1
     M = df['close'].diff(n - 1)  
     N = df['close'].shift(n - 1)  
@@ -295,7 +295,7 @@ def optionexpiry_dist(df):
   return df
   
 
-def nbtime_reachtop(df:pd.DataFrame,n, trigger=0.005):
+def nbtime_reachtop(df,n, trigger=0.005):
   '''nb of days from 1 year low '''
   close= df['close'].values
   nnbreach= np.zeros(len(close))
@@ -309,7 +309,7 @@ def nbtime_reachtop(df:pd.DataFrame,n, trigger=0.005):
   return df
   
   
-def nbday_high(df:pd.DataFrame, n):
+def nbday_high(df, n):
   '''nb of days from 1 year low '''
   close= df['close'].values
   ndaylow= np.zeros(len(close)); distlow=np.zeros(len(close))
@@ -325,7 +325,7 @@ def nbday_high(df:pd.DataFrame, n):
   return df
 
 
-def distance_day(df:pd.DataFrame, tk, tkname):
+def distance_day(df, tk, tkname):
  tk= datetime.date(tk)
  date1= df['date'].values
  dist= np.zeros(len(date1)); 
@@ -336,32 +336,32 @@ def distance_day(df:pd.DataFrame, tk, tkname):
  return df
 
 
-def distance(df:pd.DataFrame, ind) :
+def distance(df, ind) :
   df2= pd.Series(100*(df['close'] / df[ind] -1),  name = ind + '_dist' )
   df = df.join(df2)  
   return df
 
 
 #Moving Average  
-def MA(df:pd.DataFrame, n):  
+def MA(df, n):  
     MA = pd.Series(pd.rolling_mean(df['close'], n), name = 'MA_' + str(n))  
     df = df.join(MA)  
     return df
 
 #Exponential Moving Average  
-def EMA(df:pd.DataFrame, n):  
+def EMA(df, n):  
     EMA = pd.Series(pd.ewma(df['close'], span = n, min_periods = n - 1), name = 'EMA_' + str(n))  
     df = df.join(EMA)  
     return df
 
 #Momentum  
-def MOM(df:pd.DataFrame, n):  
+def MOM(df, n):  
     M = pd.Series(df['close'].diff(n), name = 'Momentum_' + str(n))  
     df = df.join(M)  
     return df
 
 #Rate of Change  
-def ROC(df:pd.DataFrame, n):  
+def ROC(df, n):  
     M = df['close'].diff(n - 1)  
     N = df['close'].shift(n - 1)  
     ROC = pd.Series(M / N, name = 'ROC_' + str(n))  
@@ -369,7 +369,7 @@ def ROC(df:pd.DataFrame, n):
     return df
 
 #Average True Range  
-def ATR(df:pd.DataFrame, n):  
+def ATR(df, n):  
     i = 0  
     TR_l = [0]  
     while i < df.index[-1]:  
@@ -382,7 +382,7 @@ def ATR(df:pd.DataFrame, n):
     return df
 
 #Bollinger Bands  
-def BBANDS(df:pd.DataFrame, n):  
+def BBANDS(df, n):  
     MA = pd.Series(pd.rolling_mean(df['close'], n))  
     MSD = pd.Series(pd.rolling_std(df['close'], n))  
     b1 = 4 * MSD / MA  
@@ -415,14 +415,14 @@ def STOK(df):
     return df
 
 #Stochastic oscillator %D  
-def STO(df:pd.DataFrame, n):  
+def STO(df, n):  
     SOk = pd.Series((df['close'] - df['low']) / (df['high'] - df['low']), name = 'SO%k')  
     SOd = pd.Series(pd.ewma(SOk, span = n, min_periods = n - 1), name = 'SO%d_' + str(n))  
     df = df.join(SOd)  
     return df
 
 #Trix  
-def TRIX(df:pd.DataFrame, n):  
+def TRIX(df, n):  
     EX1 = pd.ewma(df['close'], span = n, min_periods = n - 1)  
     EX2 = pd.ewma(EX1, span = n, min_periods = n - 1)  
     EX3 = pd.ewma(EX2, span = n, min_periods = n - 1)  
@@ -437,7 +437,7 @@ def TRIX(df:pd.DataFrame, n):
     return df
 
 #Average Directional Movement Index  
-def ADX(df:pd.DataFrame, n, n_ADX):  
+def ADX(df, n, n_ADX):  
     i = 0  
     UpI = []  
     DoI = []  
@@ -470,7 +470,7 @@ def ADX(df:pd.DataFrame, n, n_ADX):
     return df
 
 #MACD, MACD Signal and MACD difference  
-def MACD(df:pd.DataFrame, n_fast, n_slow):  
+def MACD(df, n_fast, n_slow):  
     EMAfast = pd.Series(pd.ewma(df['close'], span = n_fast, min_periods = n_slow - 1))  
     EMAslow = pd.Series(pd.ewma(df['close'], span = n_slow, min_periods = n_slow - 1))  
     MACD = pd.Series(EMAfast - EMAslow, name = 'MACD_' + str(n_fast) + '_' + str(n_slow))  
@@ -492,7 +492,7 @@ def MassI(df):
     return df
 
 #Vortex Indicator: http://www.vortexindicator.com/VFX_VORTEX.PDF  
-def Vortex(df:pd.DataFrame, n):  
+def Vortex(df, n):  
     i = 0  
     TR = [0]  
     while i < df.index[-1]:  
@@ -510,7 +510,7 @@ def Vortex(df:pd.DataFrame, n):
     return df
 
 #KST Oscillator  
-def KST(df:pd.DataFrame, r1, r2, r3, r4, n1, n2, n3, n4):  
+def KST(df, r1, r2, r3, r4, n1, n2, n3, n4):  
     M = df['close'].diff(r1 - 1)  
     N = df['close'].shift(r1 - 1)  
     ROC1 = M / N  
@@ -528,7 +528,7 @@ def KST(df:pd.DataFrame, r1, r2, r3, r4, n1, n2, n3, n4):
     return df
 
 #Relative Strength Index  
-def RSI(df:pd.DataFrame, n=14):  
+def RSI(df, n=14):  
   # If the RSI rises above 30, buy signal, RSI falls under 70, a sell signal occurs.
     i = 0  
     UpI = [0]  
@@ -555,7 +555,7 @@ def RSI(df:pd.DataFrame, n=14):
 
 
 #Relative Momentum Index 
-def RMI(df:pd.DataFrame, n=14, m=10):  
+def RMI(df, n=14, m=10):  
     #http://www.csidata.com/?page_id=797  , FinVIZ RMI 10
     i = m  
     UpI = list(np.zeros(m))  # Switch by m values
@@ -585,7 +585,7 @@ def RMI(df:pd.DataFrame, n=14, m=10):
 
 
 #True Strength Index  
-def TSI(df:pd.DataFrame, r, s):  
+def TSI(df, r, s):  
     M = pd.Series(df['close'].diff(1))  
     aM = abs(M)  
     EMA1 = pd.Series(pd.ewma(M, span = r, min_periods = r - 1))  
@@ -597,7 +597,7 @@ def TSI(df:pd.DataFrame, r, s):
     return df
 
 #Accumulation/Distribution  
-def ACCDIST(df:pd.DataFrame, n):  
+def ACCDIST(df, n):  
     ad = (2 * df['close'] - df['high'] - df['low']) / (df['high'] - df['low']) * df['volume']  
     M = ad.diff(n - 1)  
     N = ad.shift(n - 1)  
@@ -614,7 +614,7 @@ def Chaikin(df):
     return df
 
 #Money Flow Index and Ratio  
-def MFI(df:pd.DataFrame, n):  
+def MFI(df, n):  
     PP = (df['high'] + df['low'] + df['close']) / 3  
     i = 0  
     PosMF = [0]  
@@ -632,7 +632,7 @@ def MFI(df:pd.DataFrame, n):
     return df
 
 #On-balance Volume  
-def OBV(df:pd.DataFrame, n):  
+def OBV(df, n):  
     i = 0  
     OBV = [0]  
     while i < df.index[-1]:  
@@ -649,27 +649,27 @@ def OBV(df:pd.DataFrame, n):
     return df
 
 #Force Index  
-def FORCE(df:pd.DataFrame, n):  
+def FORCE(df, n):  
     F = pd.Series(df['close'].diff(n) * df['volume'].diff(n), name = 'Force_' + str(n))  
     df = df.join(F)  
     return df
 
 #Ease of Movement  
-def EOM(df:pd.DataFrame, n):  
+def EOM(df, n):  
     EoM = (df['high'].diff(1) + df['low'].diff(1)) * (df['high'] - df['low']) / (2 * df['volume'])  
     Eom_ma = pd.Series(pd.rolling_mean(EoM, n), name = 'EoM_' + str(n))  
     df = df.join(Eom_ma)  
     return df
 
 #Commodity Channel Index  
-def CCI(df:pd.DataFrame, n):  
+def CCI(df, n):  
     PP = (df['high'] + df['low'] + df['close']) / 3  
     CCI = pd.Series((PP - pd.rolling_mean(PP, n)) / pd.rolling_std(PP, n), name = 'CCI_' + str(n))  
     df = df.join(CCI)  
     return df
 
 #Coppock Curve  
-def COPP(df:pd.DataFrame, n):  
+def COPP(df, n):  
     M = df['close'].diff(int(n * 11 / 10) - 1)  
     N = df['close'].shift(int(n * 11 / 10) - 1)  
     ROC1 = M / N  
@@ -681,7 +681,7 @@ def COPP(df:pd.DataFrame, n):
     return df
 
 #Keltner Channel  
-def KELCH(df:pd.DataFrame, n):  
+def KELCH(df, n):  
     KelChM = pd.Series(pd.rolling_mean((df['high'] + df['low'] + df['close']) / 3, n), name = 'KelChM_' + str(n))  
     KelChU = pd.Series(pd.rolling_mean((4 * df['high'] - 2 * df['low'] + df['close']) / 3, n), name = 'KelChU_' + str(n))  
     KelChD = pd.Series(pd.rolling_mean((-2 * df['high'] + 4 * df['low'] + df['close']) / 3, n), name = 'KelChD_' + str(n))  
@@ -706,7 +706,7 @@ def ULTOSC(df):
     return df
 
 #Donchian Channel  
-def DONCH(df:pd.DataFrame, n):  
+def DONCH(df, n):  
     i = 0  
     DC_l = []  
     while i < n - 1:  
@@ -723,12 +723,12 @@ def DONCH(df:pd.DataFrame, n):
     return df
 
 #Standard Deviation  
-def STDDEV(df:pd.DataFrame, n):  
+def STDDEV(df, n):  
     df = df.join(pd.Series(pd.rolling_std(df['close'], n), name = 'STD_' + str(n)))  
     return df  
 
 
-def RWI(df:pd.DataFrame,nn ,nATR) :
+def RWI(df,nn ,nATR) :
  return 0
  ''' 
  First we compute RWI for maxima:
@@ -742,7 +742,7 @@ def RWI(df:pd.DataFrame,nn ,nATR) :
 
 
 
-def nbday_low(df:pd.DataFrame, n):
+def nbday_low(df, n):
   '''nb of days from 1 year low '''
   close= df['close'].values
   ndaylow= np.zeros(len(close)); distlow=np.zeros(len(close))
@@ -758,7 +758,7 @@ def nbday_low(df:pd.DataFrame, n):
   return df
 
 
-def nbday_high(df:pd.DataFrame, n):
+def nbday_high(df, n):
   '''nb of days from 1 year low '''
   close= df['close'].values
   ndaylow= np.zeros(len(close)); distlow=np.zeros(len(close))

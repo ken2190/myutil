@@ -203,10 +203,10 @@ ________________________________________________________________________________
 Depend on type of dataset, we could separate function with datatype as below example
 ```python    
     if data_type == "criteo":
-        df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df:pd.DataFrame, **kw)
+        df, linear_cols, dnn_cols, train, test, target = _preprocess_criteo(df, **kw)
 
     elif data_type == "movie_len":
-        df, linear_cols, dnn_cols, train, test, target = _preprocess_movielens(df:pd.DataFrame, **kw)
+        df, linear_cols, dnn_cols, train, test, target = _preprocess_movielens(df, **kw)
 ```
 - Call fit/predict with initialized model and dataset
 ```python

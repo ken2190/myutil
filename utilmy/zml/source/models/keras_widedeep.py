@@ -399,7 +399,7 @@ class tf_FeatureColumns:
             df[c] =  df[c].astype(str)
 
         if test_split is not None :
-            train_df,test_df = train_test_split(df:pd.DataFrame,test_size=test_split)
+            train_df,test_df = train_test_split(df,test_size=test_split)
             train_df,val_df  = train_test_split(train_df,test_size=0.1)
             log('Files Splitted')
             self.train,self.val,self.test = train_df,val_df,test_df
@@ -412,7 +412,7 @@ class tf_FeatureColumns:
             df[c] =  df[c].astype(str)
 
         if test_split is not None :
-            train_df,test_df = train_test_split(df:pd.DataFrame,test_size=test_split)
+            train_df,test_df = train_test_split(df,test_size=test_split)
             train_df,val_df  = train_test_split(train_df,test_size=0.1)
             log('Files Splitted')
             self.train,self.val,self.test = train_df,val_df,test_df
@@ -630,9 +630,9 @@ def test(config='',     n_sample = 100):
     log("##### Sparse Tests  ############################################### ")
     prepare = tf_FeatureColumns()
     model_type = 'sparse'
-    # train_df, test_df, val_df = prepare.data_to_tensorflow_split(df:pd.DataFrame, model=model_type, target='y',
+    # train_df, test_df, val_df = prepare.data_to_tensorflow_split(df, model=model_type, target='y',
     #                             colcat=colcat, colnum=colnum)
-    train_df, test_df, val_df = prepare.split_sparse_data(df:pd.DataFrame, colcat=colcat, colnum=colnum)
+    train_df, test_df, val_df = prepare.split_sparse_data(df, colcat=colcat, colnum=colnum)
 
     ### Unique values
     colcat_unique = {  col: list(df[col].unique())  for col in colcat }
@@ -688,7 +688,7 @@ def test(config='',     n_sample = 100):
     log("##### Dense Tests  ##################################################")
     model_type = 'dense'
     prepare = tf_FeatureColumns()
-    train_df, train_label, test_df, test_label, val_df, val_label, df_shape = prepare.data_to_tensorflow(df:pd.DataFrame, model=model_type,
+    train_df, train_label, test_df, test_label, val_df, val_label, df_shape = prepare.data_to_tensorflow(df, model=model_type,
                                                                                                          target='y',
                                                                                                          colcat=colcat,
                                                                                                          colnum=colnum)
@@ -715,7 +715,7 @@ def test2(config=''):
 
     #### For pipeline data feed ###############################################################################
     prepare = tf_FeatureColumns()
-    train_df,test_df,val_df = prepare.data_to_tensorflow(df:pd.DataFrame, target='y')
+    train_df,test_df,val_df = prepare.data_to_tensorflow(df, target='y')
 
     #### To plug into Model   ##################################################################################
     prepare = tf_FeatureColumns()

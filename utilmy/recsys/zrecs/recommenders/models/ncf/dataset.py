@@ -122,8 +122,8 @@ class Dataset(object):
             return None
 
         # Map user_idx and item_idx
-        df = pd.merge(df:pd.DataFrame, self.user_idx, on=self.col_user, how="left")
-        df = pd.merge(df:pd.DataFrame, self.item_idx, on=self.col_item, how="left")
+        df = pd.merge(df, self.user_idx, on=self.col_user, how="left")
+        df = pd.merge(df, self.item_idx, on=self.col_item, how="left")
 
         # If binary feedback, set rating as 1.0 or 0.0
         if binary:

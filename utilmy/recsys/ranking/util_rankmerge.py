@@ -88,11 +88,11 @@ def test():
       rank_true = list(dict_full)
 
       #### Algo merged
-      borda     = rank_merge(df:pd.DataFrame, method='borda')
-      dowdall   = rank_merge(df:pd.DataFrame, method='dowdall')
-      mc4_rank  = rank_merge(df:pd.DataFrame, method='mc4')
+      borda     = rank_merge(df, method='borda')
+      dowdall   = rank_merge(df, method='dowdall')
+      mc4_rank  = rank_merge(df, method='mc4')
       custom    = rank_merge_v2(rank1, rank2, 100)
-      avg       = rank_merge(df:pd.DataFrame, method='average')
+      avg       = rank_merge(df, method='average')
       df2 = pd.DataFrame([borda, dowdall, avg, mc4_rank, custom, rank1, rank2],
                          index = ['borda', 'dowdall', 'average', 'MC4', 'algo v2', 'rank1', 'rank2'])
       df2 = df2.transpose()
@@ -118,14 +118,14 @@ def test_rankadjust2(df1, df2):
     for i in range(0, 20000):
       vv = (i,  ",".join( [str(t) for t in  np.arange(1000, 1100, 1)  ] ) )
       df.append(vv)
-    df1 =pd.DataFrame(df:pd.DataFrame, columns = ['id', 'list1'])  
+    df1 =pd.DataFrame(df, columns = ['id', 'list1'])  
      
      
     df = []
     for i in range(0, 20000):
       vv = (i,   ",".join( [str(t) for t in  np.arange(3000, 1000, -1)  ]) )
       df.append(vv)
-    df2 =pd.DataFrame(df:pd.DataFrame, columns = ['id', 'list2'])  
+    df2 =pd.DataFrame(df, columns = ['id', 'list2'])  
  
 
     df1 = df1.merge(df2, on = 'id', how='left')
@@ -360,7 +360,7 @@ def rank_merge_v5(ll1, ll2, kk= 1):
     
 ############################################################################################
 ############ Algo 2#########################################################################
-def rank_merge(df:pd.DataFrame, method='borda'):
+def rank_merge(df, method='borda'):
     """
       Returns a list of merged ranks for each item in the dataframe
 
@@ -403,7 +403,7 @@ def rank_merge(df:pd.DataFrame, method='borda'):
       return res
 
     elif method == 'mc4':
-      aggregated_ranks = mc4_aggregator(df:pd.DataFrame, header_row = 0, index_col = 0) 
+      aggregated_ranks = mc4_aggregator(df, header_row = 0, index_col = 0) 
       return list(aggregated_ranks.values())
     return rank
 
@@ -454,14 +454,14 @@ df = []
 for i in range(0, 20000):
   vv = (i,  ",".join( [str(t) for t in  np.arange(1000, 2000, 1)  ] ) )
   df.append(vv)
-df1 =pd.DataFrame(df:pd.DataFrame, columns = ['id', 'list1'])
+df1 =pd.DataFrame(df, columns = ['id', 'list1'])
  
  
 df = []
 for i in range(0, 20000):
   vv = (i,   ",".join( [str(t) for t in  np.arange(2000, 1500, -1)  ]) )
   df.append(vv)
-df2 =pd.DataFrame(df:pd.DataFrame, columns = ['id', 'list2'])
+df2 =pd.DataFrame(df, columns = ['id', 'list2'])
  
 df1 = df1.merge(df2, on = 'id', how='left')
  

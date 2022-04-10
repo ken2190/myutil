@@ -103,12 +103,12 @@ def show(file_csv_parquet:str="myfile.parquet", title='table',format: str='blue_
     title = title + "<br>" + file
     doc = vi.htmlDoc(dir_out="", title=title, format=format, cfg={})
     doc.h1(title) 
-    doc.table(df:pd.DataFrame, use_datatable=use_datatable, table_id=table_id, custom_css_class=css_class)
+    doc.table(df, use_datatable=use_datatable, table_id=table_id, custom_css_class=css_class)
     doc.save(dir_out)
     doc.open_browser()
       
       
-def show_table_image(df:pd.DataFrame, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
+def show_table_image(df, colgroup= None, colimage = None,title=None,format: str='blue_light',dir_out='print_table_image.html', 
                      custom_css_class=None, use_datatable=False, table_id=None,):
     """ Show table images
 
@@ -119,7 +119,7 @@ def show_table_image(df:pd.DataFrame, colgroup= None, colimage = None,title=None
             colimage (str, optional): List of the image row.
 
     """                
-    if isinstance(df:pd.DataFrame, str) : ## path
+    if isinstance(df, str) : ## path
        from utilmy import pd_read_file
        df = pd_read_file(df)
 
@@ -140,7 +140,7 @@ def show_table_image(df:pd.DataFrame, colgroup= None, colimage = None,title=None
 
     doc = htmlDoc(title=title, format='myxxxx',css_name='default', cfg={})
     if title: doc.h1(title) 
-    doc.table(df:pd.DataFrame, use_datatable=use_datatable, table_id=table_id, custom_css_class=custom_css_class)
+    doc.table(df, use_datatable=use_datatable, table_id=table_id, custom_css_class=custom_css_class)
     doc.html = doc.html.replace('&lt;','<')
     doc.html = doc.html.replace('&gt;','>')
     doc.html = doc.html.replace('width: auto"></td>','width: auto">&nbsp;</td>')
@@ -302,7 +302,7 @@ class htmlDoc(object):
                df[ci] = df[ci].map('<img src="{}" width="50px" height="50px">'.format)
                
         import pretty_html_table
-        html_code = pretty_html_table.build_table(df:pd.DataFrame, format)
+        html_code = pretty_html_table.build_table(df, format)
         table_id  = random.randint(9999,999999) if table_id is None else table_id  #### Unique ID
 
         # add custom CSS class
@@ -349,7 +349,7 @@ class htmlDoc(object):
         """
         html_code = ''
         if mode == 'matplot':
-            fig       = pd_plot_tseries_matplot(df:pd.DataFrame, coldate, coly1=coly1, coly2=coly2,
+            fig       = pd_plot_tseries_matplot(df, coldate, coly1=coly1, coly2=coly2,
                                                    date_format=date_format,
 
                                                    title=title, xlabel=xlabel, y1label=y1label, y2label=y2label,
@@ -359,7 +359,7 @@ class htmlDoc(object):
             html_code = mpld3.fig_to_html(fig)
 
         elif mode == 'highcharts':
-            html_code = pd_plot_tseries_highcharts(df:pd.DataFrame, coldate, coly1=coly1, coly2=coly2,
+            html_code = pd_plot_tseries_highcharts(df, coldate, coly1=coly1, coly2=coly2,
                                                    date_format=date_format,
 
                                                    title=title, xlabel=xlabel, y1label=y1label, y2label=y2label,
@@ -384,7 +384,7 @@ class htmlDoc(object):
         """
         html_code = ''
         if mode == 'matplot':
-            fig       = pd_plot_histogram_matplot(df:pd.DataFrame, col,
+            fig       = pd_plot_histogram_matplot(df, col,
                                                   title=title, xlabel= xlabel, ylabel=ylabel,
                                                   colormap=colormap, nsample=nsample,
                                                   nbin=nbin, q5=q5, q95=q95,
@@ -393,7 +393,7 @@ class htmlDoc(object):
 
         elif mode == 'highcharts':
             cfg['figsize'] = figsize
-            html_code = pd_plot_histogram_highcharts(df:pd.DataFrame, col,
+            html_code = pd_plot_histogram_highcharts(df, col,
                                                      title=title, xaxis_label=xlabel, yaxis_label=ylabel,
                                                      colormap=colormap, nsample=nsample,
                                                      binsNumber=nbin,binWidth=binWidth,color=color,
@@ -417,14 +417,14 @@ class htmlDoc(object):
         """
         html_code = ''
         if mode == 'matplot':
-            html_code = pd_plot_scatter_matplot(df:pd.DataFrame, colx=colx, coly=coly,
+            html_code = pd_plot_scatter_matplot(df, colx=colx, coly=coly,
                                                 collabel=collabel,
                                                 colclass1=colclass1, colclass2=colclass2, colclass3=colclass3,
                                                 nsample=nsample,
                                                 cfg=cfg, mode=mode, save_img=save_img, verbose= self.verbose )
 
         elif mode == 'highcharts':
-            html_code = pd_plot_scatter_highcharts(df:pd.DataFrame, colx= colx, coly=coly,
+            html_code = pd_plot_scatter_highcharts(df, colx= colx, coly=coly,
                                                    collabel=collabel,
                                                    colclass1=colclass1, colclass2=colclass2, colclass3=colclass3,
                                                    nsample=nsample,
@@ -447,7 +447,7 @@ class htmlDoc(object):
       
         html_code = ''
         if mode == 'd3':
-            html_code = pd_plot_density_d3(df:pd.DataFrame, colx, coly, radius, title, figsize, xlabel, ylabel, color, cfg)
+            html_code = pd_plot_density_d3(df, colx, coly, radius, title, figsize, xlabel, ylabel, color, cfg)
         self.html += "\n\n" + html_code 
       
     def plot_parallel(self, df: pd.DataFrame, col=[],
@@ -464,7 +464,7 @@ class htmlDoc(object):
 
       html_code = ''
       if mode == 'd3':
-         html_code = pd_plot_parallel_d3(df:pd.DataFrame, col, title, figsize, color, cfg)
+         html_code = pd_plot_parallel_d3(df, col, title, figsize, color, cfg)
       self.html += "\n\n" + html_code  
 
       
@@ -485,7 +485,7 @@ class htmlDoc(object):
             colb (str, optional): colb from df. Defaults to 'col_node2'.
         """ 
 
-        head, body = pd_plot_network(df:pd.DataFrame, cola=cola, colb=colb,colweight=colweight, coledge=coledge)
+        head, body = pd_plot_network(df, cola=cola, colb=colb,colweight=colweight, coledge=coledge)
         self.html += "\n\n" + body
         self.head += "\n\n" + head 
 
@@ -591,7 +591,7 @@ def pd_plot_scatter_matplot(df:pd.DataFrame, colx: str=None, coly: str=None, col
     cc.title     = cc.get('title', 'scatter title' )
 
     #######################################################################################
-    xx, yy, label_list, color_list, size_list, ptype_list = pd_plot_scatter_get_data(df:pd.DataFrame,colx, coly, collabel,
+    xx, yy, label_list, color_list, size_list, ptype_list = pd_plot_scatter_get_data(df,colx, coly, collabel,
                                                             colclass1, colclass2)
 
     # set up plot
@@ -1006,13 +1006,13 @@ def mpld3_server_start():
 def pd_plot_highcharts(df):
     """
     # Basic line plot
-   chart = serialize(df:pd.DataFrame, render_to="my-chart", title="My Chart")
+   chart = serialize(df, render_to="my-chart", title="My Chart")
    # Basic column plot
-   chart = serialize(df:pd.DataFrame, render_to="my-chart", title="Test", kind="bar")
+   chart = serialize(df, render_to="my-chart", title="Test", kind="bar")
    # Plot C on secondary axis
-   chart = serialize(df:pd.DataFrame, render_to="my-chart", title="Test", secondary_y = ["C"])
+   chart = serialize(df, render_to="my-chart", title="Test", secondary_y = ["C"])
    # Plot on a 1000x700 div
-   chart = serialize(df:pd.DataFrame, render_to="my-chart", title="Test", figsize = (1000, 700))
+   chart = serialize(df, render_to="my-chart", title="Test", figsize = (1000, 700))
     """
     import pandas_highcharts
     data = pandas_highcharts.serialize(
@@ -1031,7 +1031,7 @@ def pd_plot_scatter_highcharts(df0:pd.DataFrame, colx:str=None, coly:str=None, c
                                cfg:dict={}, mode='d3', save_img='', verbose=True, **kw)-> str:
     """ Plot Highcharts X=Y Scatter
     from utilmy.viz import vizhtml
-    vizhtml.pd_plot_scatter_highcharts(df:pd.DataFrame, colx:str=None, coly:str=None, collabel=None,
+    vizhtml.pd_plot_scatter_highcharts(df, colx:str=None, coly:str=None, collabel=None,
                                colclass1=None, colclass2=None, colclass3=None, nsample=10000,
                                cfg:dict={}, mode='d3', save_img=False,  verbose=True )
     """
@@ -1217,7 +1217,7 @@ def pd_plot_histogram_highcharts(df:pd.DataFrame, colname:str=None,
         date_format : %m for moth , %d for day and %Y for Year.
 
         df        = data['housing.csv']
-        html_code = pd_plot_histogram_hcharts(df:pd.DataFrame,colname="median_income",xaxis_label= "x-axis",yaxis_label="y-axis",cfg={}, mode='d3', save_img=False)
+        html_code = pd_plot_histogram_hcharts(df,colname="median_income",xaxis_label= "x-axis",yaxis_label="y-axis",cfg={}, mode='d3', save_img=False)
         # highcharts_show_chart(html_code)
     '''
     cc = Box(cfg)
@@ -1460,7 +1460,7 @@ def pd_plot_network(df:pd.DataFrame, cola: str='col_node1',
             head = extract_text('head',content)
             body = extract_text('body',content)
             return head, body
-    networkx_graph = convert_to_networkx(df:pd.DataFrame, cola, colb, colweight=colweight)
+    networkx_graph = convert_to_networkx(df, cola, colb, colweight=colweight)
     head, body = draw_graph(networkx_graph, notebook=False, output_filename='graph.html',
                show_buttons=True, only_physics_buttons=False,html_code = True)
     return head, body
@@ -1645,7 +1645,7 @@ def zz_test_get_random_data(n=100):
 
 
 
-def zz_pd_plot_histogram_highcharts_old(df:pd.DataFrame, col, figsize=None,
+def zz_pd_plot_histogram_highcharts_old(df, col, figsize=None,
                                  title=None,
                                  cfg:dict={}, mode='d3', save_img=''):
     from box import Box

@@ -140,7 +140,7 @@ def test_to_vw_file(model, df):
         
     """
     expected = ["1 0|user 1 |item 8", "5 1|user 3 |item 7", "3 2|user 2 |item 7"]
-    model.to_vw_file(df:pd.DataFrame, train=True)
+    model.to_vw_file(df, train=True)
     with open(model.train_file, "r") as f:
         assert f.read().splitlines() == expected
     del model

@@ -448,7 +448,7 @@ def sort_array(vv):  return vv[np.lexsort(np.transpose(vv)[::-1])]  #Sort the ar
 
 #------------------Pivot Table from dataframe---------------------------------
 #http://pbpython.com/pandas-pivot-table-explained.html
-table = pd.pivot_table(df:pd.DataFrame,index=["Manager","Status"],   #Pivot agregation
+table = pd.pivot_table(df,index=["Manager","Status"],   #Pivot agregation
                columns=["Product"],  #1 more layer
                values=["Quantity","Price"],  #Value to agregate
                aggfunc={"Quantity":len,"Price":[np.sum,np.mean,len]},fill_value=0)

@@ -57,7 +57,7 @@ def config_default():
   
   
     
-def pd_to_spark_hive_format(df:pd.DataFrame, dirout):
+def pd_to_spark_hive_format(df, dirout):
   """
      To export into Spark/Hive format, Issue with pyarrow.
   

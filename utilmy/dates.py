@@ -36,7 +36,7 @@ def test_all():
     df['Gender'] = random_genders(10)
     df['Birthdate'] = random_dates(start=pd.to_datetime('1940-01-01'), end=pd.to_datetime('2008-01-01'), size=10)
     # TODO:
-    #pd_date_split(df:pd.DataFrame,coldate="Birthdate")
+    #pd_date_split(df,coldate="Birthdate")
 
 def random_dates(start, end, size):
     """function random_dates
@@ -68,7 +68,7 @@ def random_genders(size, p=None):
 
 ####################################################################################################
 ##### Utilities for date  ##########################################################################
-def pd_date_split(df:pd.DataFrame, coldate =  'time_key', prefix_col ="",sep="/" ,verbose=False ):
+def pd_date_split(df, coldate =  'time_key', prefix_col ="",sep="/" ,verbose=False ):
     """function pd_date_split
     Args:
         df:   

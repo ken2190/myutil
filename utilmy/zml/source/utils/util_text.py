@@ -104,7 +104,7 @@ def coltext_stopwords(text, stopwords=None, sep=" "):
     return " ".join(tokens)
 
 
-def pd_coltext_fillna(df:pd.DataFrame, colname, val=""):
+def pd_coltext_fillna(df, colname, val=""):
     return df[colname].fillna(val)
 
 
@@ -138,7 +138,7 @@ def pd_coltext_clean_advanced(dfref, colname, fromword, toword):
     return df
 
 
-def pd_coltext_wordfreq(df:pd.DataFrame, coltext, sep=" "):
+def pd_coltext_wordfreq(df, coltext, sep=" "):
     """
     :param df:
     :param coltext:  text where word frequency should be extracted
@@ -177,7 +177,7 @@ def pd_coltext_encoder(df):
     pass
 
 
-def pd_coltext_countvect(df:pd.DataFrame, coltext, word_tokeep=None, word_minfreq=1, return_val="dataframe,param"):
+def pd_coltext_countvect(df, coltext, word_tokeep=None, word_minfreq=1, return_val="dataframe,param"):
     """
     Function that adds count of a given column for words in a text corpus.
     Arguments:
@@ -224,7 +224,7 @@ def pd_coltext_countvect(df:pd.DataFrame, coltext, word_tokeep=None, word_minfre
         return df_vector
 
 
-def pd_coltext_tdidf(df:pd.DataFrame, coltext, word_tokeep=None, word_minfreq=1, return_val="dataframe,param"):
+def pd_coltext_tdidf(df, coltext, word_tokeep=None, word_minfreq=1, return_val="dataframe,param"):
     """
     Function that adds tf-idf of a given column for words in a text corpus.
     Arguments:
@@ -277,7 +277,7 @@ def pd_coltext_tdidf(df:pd.DataFrame, coltext, word_tokeep=None, word_minfreq=1,
 def pd_coltext_minhash(dfref, colname, n_component=2, model_pretrain_dict=None,
                        return_val="dataframe,param"):
     """
-    dfhash, colcat_hash_param = pd_colcat_minhash(df:pd.DataFrame, colcat, n_component=[2] * len(colcat),
+    dfhash, colcat_hash_param = pd_colcat_minhash(df, colcat, n_component=[2] * len(colcat),
                                               return_val="dataframe,param")
     :param dfref:
     :param colname:
@@ -316,7 +316,7 @@ def pd_coltext_minhash(dfref, colname, n_component=2, model_pretrain_dict=None,
         return dfall
 
 
-def pd_coltext_hashing(df:pd.DataFrame, coltext, n_features=20):
+def pd_coltext_hashing(df, coltext, n_features=20):
     """
     Function that adds Hash a given column for words in a text corpus.
     Arguments:
@@ -338,7 +338,7 @@ def pd_coltext_hashing(df:pd.DataFrame, coltext, n_features=20):
     return df_vector
 
 
-def pd_coltext_tdidf_multi(df:pd.DataFrame, coltext, coltext_freq, ntoken=100, word_tokeep_dict=None, stopwords=None,
+def pd_coltext_tdidf_multi(df, coltext, coltext_freq, ntoken=100, word_tokeep_dict=None, stopwords=None,
                            return_val="dataframe,param",):
     dftext_tdidf = {}
     word_tokeep_dict_new = {}

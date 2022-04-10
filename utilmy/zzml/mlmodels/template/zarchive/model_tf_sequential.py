@@ -176,7 +176,7 @@ def metrics(model, sess=None, data_pars=None, out_pars=None):
 def predict(model, sess, data_pars=None, out_pars=None, compute_pars=None,
             get_hidden_state=False, init_value=None):
   df = get_dataset(data_pars)
-  print(df:pd.DataFrame, flush=True)
+  print(df, flush=True)
   
   #############################################################
   if init_value is None:

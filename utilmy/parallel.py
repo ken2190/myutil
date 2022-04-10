@@ -90,21 +90,21 @@ def test0():
     log(df1, time.time() - t0)
 
     t0 = time.time()
-    df2 = pd_groupby_parallel(df:pd.DataFrame, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )
+    df2 = pd_groupby_parallel(df, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )
     df2 = df2.sort_values( list(df2.columns))
     log( 'pd_groupby_parallel: ' , df1.equals(df2), df2, time.time() - t0)
 
 
     log("\n\n###########  pd_groupby_parallel2  ###########################################")
     t0 = time.time()
-    df2 = pd_groupby_parallel2(df:pd.DataFrame, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )
+    df2 = pd_groupby_parallel2(df, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )
     df2 = df2.sort_values( list(df2.columns))
     log( 'pd_groupby_parallel3 : ' , df1.equals(df2), df2, time.time() - t0)
 
 
     log("\n\n###########  pd_groupby_parallel3  : Buggy one #################################")
     t0 = time.time()
-    # df2 = pd_groupby_parallel3(df:pd.DataFrame, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )   ### Failed due to groupby part
+    # df2 = pd_groupby_parallel3(df, colsgroup, fun_apply= test_fun_sum_inv, npool=4 )   ### Failed due to groupby part
     df2 = df2.sort_values( list(df2.columns))
     log( 'pd_groupby_parallel2 : ' , df1.equals(df2), df2, time.time() - t0)
 
@@ -114,7 +114,7 @@ def test0():
     df1 = df.copy()  ; df2 = df.copy()
 
     df1['s1'] = df.apply( lambda x : test_sum(x), axis=1)
-    df2['s1'] = pd_apply_parallel(df:pd.DataFrame, fun_apply= test_sum, npool=7 )   ### Failed due to groupby part
+    df2['s1'] = pd_apply_parallel(df, fun_apply= test_sum, npool=7 )   ### Failed due to groupby part
     df2 = df2.sort_index() ; df1 = df1.sort_index()
     log( 'pd_groupby_parallel2 : ' ,  df1, df2,)
     assert df1.equals(df2), 'unequal pd_apply_parallel'
@@ -408,7 +408,7 @@ def pd_read_file2(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=Fals
 
 
 ############################################################################################################
-def pd_groupby_parallel2(df:pd.DataFrame, colsgroup=None, fun_apply=None,
+def pd_groupby_parallel2(df, colsgroup=None, fun_apply=None,
                         npool: int = 1, **kw,
                         )->pd.DataFrame:
     """Performs a Pandas groupby operation in parallel.
@@ -439,7 +439,7 @@ def pd_groupby_parallel2(df:pd.DataFrame, colsgroup=None, fun_apply=None,
     return pd.concat(got)
 
 
-def pd_groupby_parallel(df:pd.DataFrame, colsgroup=None, fun_apply=None, n_pool=4, npool=None)->pd.DataFrame:
+def pd_groupby_parallel(df, colsgroup=None, fun_apply=None, n_pool=4, npool=None)->pd.DataFrame:
     """
     Use of multi-thread on group by apply when order is not important
     """
@@ -464,7 +464,7 @@ def pd_groupby_parallel(df:pd.DataFrame, colsgroup=None, fun_apply=None, n_pool=
     return df_out
 
 
-def pd_apply_parallel(df:pd.DataFrame, fun_apply=None, npool=5, verbose=True )->pd.DataFrame:
+def pd_apply_parallel(df, fun_apply=None, npool=5, verbose=True )->pd.DataFrame:
     """ Pandas parallel apply
     """
     import pandas as pd, numpy as np, time, gc
@@ -853,7 +853,7 @@ def zz_pd_read_file3(path_glob="*.pkl", ignore_index=True,  cols=None,  nrows=-1
 
 
 
-def zz_pd_groupby_parallel5(df:pd.DataFrame, colsgroup=None, fun_apply=None, npool=5, verbose=False, **kw ):
+def zz_pd_groupby_parallel5(df, colsgroup=None, fun_apply=None, npool=5, verbose=False, **kw ):
     """ Pandas parallel groupby apply
     """
     import pandas as pd, numpy as np, time, gc
@@ -970,12 +970,12 @@ def ztest2():
     # f   = pickle.loads(s)
     df  = pd.DataFrame({'A': [0, 1], 'B': [100, 200]})
 
-    res = pd_groupby_parallel2(df:pd.DataFrame,['A'], addition )
+    res = pd_groupby_parallel2(df,['A'], addition )
     log(res)
 
 
     log("pd_apply_parallel")
-    res = pd_apply_parallel(df:pd.DataFrame,['A'], addition)
+    res = pd_apply_parallel(df,['A'], addition)
     log(res)
 
 

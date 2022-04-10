@@ -59,8 +59,8 @@ def test1():
     """
     fetch_dataset("https://github.com/arita37/mnist_png/raw/master/mnist_png.tar.gz",path_target="./testdata/tmp/test")
     df = pd.read_csv("./testdata/tmp/test/crop.data.csv")
-    pd_train_test_split(df:pd.DataFrame,  coly="block")
-    pd_train_test_split2(df:pd.DataFrame, coly="block")
+    pd_train_test_split(df,  coly="block")
+    pd_train_test_split2(df, coly="block")
 
 
 
@@ -419,7 +419,7 @@ if 'utils':
             return full_filename
 
 
-    def pd_train_test_split(df:pd.DataFrame, coly=None):
+    def pd_train_test_split(df, coly=None):
         from sklearn.model_selection import train_test_split
         X,y = df.drop(coly,axis=1), df[[coly]]
         X_train_full, X_test, y_train_full, y_test = train_test_split(X, y, test_size=0.05, random_state=2021)
@@ -427,7 +427,7 @@ if 'utils':
         return X_train, X_valid, y_train, y_valid, X_test, y_test
 
 
-    def pd_train_test_split2(df:pd.DataFrame, coly):
+    def pd_train_test_split2(df, coly):
         from sklearn.model_selection import train_test_split
         log2(df.dtypes)
         X,y = df.drop(coly,  axis=1), df[coly]

@@ -299,7 +299,7 @@ def test_model_lightgcn(deeprec_resource_path, deeprec_config_path):
     item_file = os.path.join(data_path, r"item_embeddings.csv")
 
     df = movielens.load_pandas_df(size="100k")
-    train, test = python_stratified_split(df:pd.DataFrame, ratio=0.75)
+    train, test = python_stratified_split(df, ratio=0.75)
 
     data = ImplicitCF(train=train, test=test)
 

@@ -72,7 +72,7 @@ def log4_pd(name, df, *s):
     if verbosity >= 4: 
        print("\n",name, df.head(3),  df.shape, df.reset_index().dtypes )
 
-def _pd_colnum(df:pd.DataFrame, col, pars):
+def _pd_colnum(df, col, pars):
     """function _pd_colnum
     Args:
         df:   
@@ -86,7 +86,7 @@ def _pd_colnum(df:pd.DataFrame, col, pars):
         df[x] = df[x].astype("float32")
     return df
 
-def _pd_colnum_fill_na_median(df:pd.DataFrame, col, pars):
+def _pd_colnum_fill_na_median(df, col, pars):
     """function _pd_colnum_fill_na_median
     Args:
         df:   
@@ -158,7 +158,7 @@ def pd_col_atemplate(df: pd.DataFrame, col: list=None, pars: dict=None):
 
     #### Do something #################################################################
     if prepro is None :   ###  Training time
-        def prepro(df:pd.DataFrame, pars:dict): return df    ### model
+        def prepro(df, pars:dict): return df    ### model
         pars_prepro = {}   ### new params
 
 
@@ -265,7 +265,7 @@ def pd_colnum_normalize(df: pd.DataFrame, col: list=None, pars: dict=None):
     if  'path_pipeline' in pars :   #### Load existing column list
          pars  = load( pars['path_pipeline']  +f'/{prefix}_pars.pkl')
 
-    dfnum_norm, colnum_norm = pd_normalize_fun(df:pd.DataFrame, colname=colnum,  pars=pars, suffix = "_norm",
+    dfnum_norm, colnum_norm = pd_normalize_fun(df, colname=colnum,  pars=pars, suffix = "_norm",
                                                return_val="dataframe,param")
     log3('dfnum_norm',    dfnum_norm.head(4), colnum_norm)
     log3('dfnum_norn NA', dfnum_norm.isna().sum() )
@@ -354,7 +354,7 @@ def pd_colnum_quantile_norm(df: pd.DataFrame, col: list=None, pars: dict=None):
 
   ##### Export ##############################################################################
   if 'path_features_store' in pars and 'path_pipeline_export' in pars:
-      save_features(df:pd.DataFrame,  prefix, pars['path_features_store'])
+      save_features(df,  prefix, pars['path_features_store'])
       save(colnew,     pars['path_pipeline_export']  + f"/{prefix}.pkl" )
       save(pars_new,   pars['path_pipeline_export']  + f"/{prefix}_pars.pkl" )
       save(model,      pars['path_pipeline_export']  + f"/{prefix}_model.pkl" )
@@ -382,7 +382,7 @@ def pd_colnum_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
     colnum = col
 
     log2("### colnum Map numerics to Category bin  ###########################################")
-    dfnum_bin, colnum_binmap = pd_colnum_tocat(df:pd.DataFrame, colname=colnum, colexclude=None, colbinmap=colnum_binmap,
+    dfnum_bin, colnum_binmap = pd_colnum_tocat(df, colname=colnum, colexclude=None, colbinmap=colnum_binmap,
                                                bins=10, suffix="_bin", method="uniform",
                                                return_val="dataframe,param")
     log3(colnum_binmap)
@@ -417,7 +417,7 @@ def pd_colnum_binto_onehot(df: pd.DataFrame, col: list=None, pars: dict=None):
     Returns:
         
     """
-    assert isinstance(col, list) and isinstance(df:pd.DataFrame, pd.DataFrame)
+    assert isinstance(col, list) and isinstance(df, pd.DataFrame)
 
     dfnum_bin     = df[col]
     colnum_bin    = col
@@ -509,7 +509,7 @@ def pd_colcat_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
                                                             suffix="_int")
     colcat_bin = list(dfcat_bin.columns)
     ##### Colcat processing   ################################################################
-    colcat_map = util_feature.pd_colcat_mapping(df:pd.DataFrame, colcat)
+    colcat_map = util_feature.pd_colcat_mapping(df, colcat)
     log2(df[colcat].dtypes, colcat_map)
 
 

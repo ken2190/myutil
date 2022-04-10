@@ -80,13 +80,13 @@ def test2():
 
 ###################################################################################################
 ###### Pandas #####################################################################################
-def pd_schema_enforce(df:pd.DataFrame, int_default:int=0, dtype_dict:dict=None):
+def pd_schema_enforce(df, int_default:int=0, dtype_dict:dict=None):
         """   dtype0= {'brand': 'int64',
                  'category': 'int64',
                  'chain': 'int64',
               }
         """
-        if isinstance(df:pd.DataFrame, str):
+        if isinstance(df, str):
             df = pd_read_file(df)
 
 
@@ -108,7 +108,7 @@ def pd_schema_enforce(df:pd.DataFrame, int_default:int=0, dtype_dict:dict=None):
 
     
 
-def pd_to_mapdict(df:pd.DataFrame, colkey='ranid', colval='item_tag', naval='0', colkey_type='str', colval_type='str', npool=5, nrows=900900900, verbose=True):
+def pd_to_mapdict(df, colkey='ranid', colval='item_tag', naval='0', colkey_type='str', colval_type='str', npool=5, nrows=900900900, verbose=True):
     """function pd_to_mapdict
     Args:
         df:   
@@ -124,7 +124,7 @@ def pd_to_mapdict(df:pd.DataFrame, colkey='ranid', colval='item_tag', naval='0',
         
     """
     ### load Pandas into key-val dict, for apply-map
-    if isinstance(df:pd.DataFrame, str):
+    if isinstance(df, str):
        dirin = df
        log('loading', dirin)
        flist = glob.glob( dirin ) 
@@ -161,7 +161,7 @@ def pd_to_hiveparquet(dirin, dirout="/ztmp_hive_parquet/df.parquet", verbose=Fal
     for fi in flist :
         df = fp.ParquetFile(flist )
         df = df.to_pandas()
-        if verbose: log(df:pd.DataFrame, df.dtypes)                
+        if verbose: log(df, df.dtypes)                
         dirouti = dirout + "/" + fi.split("/")[-1]    
         fp.write(dirouti, df, fixed_text=None, compression='SNAPPY', file_scheme='hive')       
     return df.iloc[:10, :]
@@ -194,7 +194,7 @@ def pd_merge(df1, df2, on=None, colkeep=None):
   return df1.join( df2[ cols   ].set_index(on), on=on, how='left', rsuffix="2")
 
 
-def pd_plot_multi(df:pd.DataFrame, plot_type=None, cols_axe1:list=[], cols_axe2:list=[],figsize=(8,4), spacing=0.1, **kwargs):
+def pd_plot_multi(df, plot_type=None, cols_axe1:list=[], cols_axe2:list=[],figsize=(8,4), spacing=0.1, **kwargs):
     """function pd_plot_multi
     Args:
         df:   
@@ -293,7 +293,7 @@ def pd_plot_histogram(dfi, path_save=None, nbin=20.0, q5=0.005, q95=0.995, nsamp
         plt.close()
 
 
-def pd_filter(df:pd.DataFrame, filter_dict="shop_id=11, l1_genre_id>600, l2_genre_id<80311," , verbose=False) :
+def pd_filter(df, filter_dict="shop_id=11, l1_genre_id>600, l2_genre_id<80311," , verbose=False) :
     """
      dfi = pd_filter2(dfa, "shop_id=11, l1_genre_id>600, l2_genre_id<80311," )
      dfi2 = pd_filter(dfa, {"shop_id" : 11} )
@@ -305,7 +305,7 @@ def pd_filter(df:pd.DataFrame, filter_dict="shop_id=11, l1_genre_id>600, l2_genr
           df =   df[  (df[key] == val) ]
        return df
 
-    # pd_filter(df:pd.DataFrame,  ss="shop_id=11, l1_genre_id>600, l2_genre_id<80311," )
+    # pd_filter(df,  ss="shop_id=11, l1_genre_id>600, l2_genre_id<80311," )
     ss = filter_dict.split(",")
     def x_convert(col, x):
       x_type = str( dict(df.dtypes)[col] )
@@ -331,7 +331,7 @@ def pd_filter(df:pd.DataFrame, filter_dict="shop_id=11, l1_genre_id>600, l2_genr
     return df
 
 
-def pd_to_file(df:pd.DataFrame, filei,  check=0, verbose=True, show='shape',   **kw):
+def pd_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
   """function pd_to_file
   Args:
       df:   
@@ -370,7 +370,7 @@ def pd_to_file(df:pd.DataFrame, filei,  check=0, verbose=True, show='shape',   *
   gc.collect()
 
 
-def pd_sample_strat(df:pd.DataFrame, col, n):
+def pd_sample_strat(df, col, n):
   """function pd_sample_strat
   Args:
       df:   
@@ -408,7 +408,7 @@ def pd_cartesian(df1, df2) :
   return df3
 
 
-def pd_col_bins(df:pd.DataFrame, col, nbins=5):
+def pd_col_bins(df, col, nbins=5):
   """function pd_col_bins
   Args:
       df:   
@@ -436,7 +436,7 @@ def pd_dtype_reduce(dfm, int0 ='int32', float0 = 'float32') :
     return dfm
 
 
-def pd_dtype_count_unique(df:pd.DataFrame, col_continuous=[]):
+def pd_dtype_count_unique(df, col_continuous=[]):
     """Learns the number of categories in each variable and standardizes the data.
         ----------
         data: pd.DataFrame
@@ -475,12 +475,12 @@ def pd_dtype_count_unique(df:pd.DataFrame, col_continuous=[]):
     return ncat
 
 
-def pd_dtype_to_category(df:pd.DataFrame, col_exclude, treshold=0.5):
+def pd_dtype_to_category(df, col_exclude, treshold=0.5):
   """
     Convert string to category
   """
   import pandas as pd
-  if isinstance(df:pd.DataFrame, pd.DataFrame):
+  if isinstance(df, pd.DataFrame):
     for col in df.select_dtypes(include=['object']):
         if col not in col_exclude :
             num_unique_values = len(df[col].unique())
@@ -494,7 +494,7 @@ def pd_dtype_to_category(df:pd.DataFrame, col_exclude, treshold=0.5):
     print("Not dataframe")
 
 
-def pd_dtype_getcontinuous(df:pd.DataFrame, cols_exclude:list=[], nsample=-1) :
+def pd_dtype_getcontinuous(df, cols_exclude:list=[], nsample=-1) :
     """function pd_dtype_getcontinuous
     Args:
         df:   
@@ -518,7 +518,7 @@ def pd_dtype_getcontinuous(df:pd.DataFrame, cols_exclude:list=[], nsample=-1) :
     return clist
 
 
-def pd_del(df:pd.DataFrame, cols:list):
+def pd_del(df, cols:list):
     """function pd_del
     Args:
         df:   
@@ -534,7 +534,7 @@ def pd_del(df:pd.DataFrame, cols:list):
     return df
 
 
-def pd_add_noise(df:pd.DataFrame, level=0.05, cols_exclude:list=[]) :
+def pd_add_noise(df, level=0.05, cols_exclude:list=[]) :
     """function pd_add_noise
     Args:
         df:   
@@ -545,7 +545,7 @@ def pd_add_noise(df:pd.DataFrame, level=0.05, cols_exclude:list=[]) :
     """
     import numpy as np, pandas as pd
     df2 = pd.DataFrame()
-    colsnum = pd_dtype_getcontinuous(df:pd.DataFrame, cols_exclude)
+    colsnum = pd_dtype_getcontinuous(df, cols_exclude)
     for ci in df.columns :
         if ci in colsnum :
            print(f'adding noise {ci}')
@@ -556,7 +556,7 @@ def pd_add_noise(df:pd.DataFrame, level=0.05, cols_exclude:list=[]) :
     return df2
 
 
-def pd_cols_unique_count(df:pd.DataFrame, cols_exclude:list=[], nsample=-1) :
+def pd_cols_unique_count(df, cols_exclude:list=[], nsample=-1) :
     """function pd_cols_unique_count
     Args:
         df:   
@@ -582,7 +582,7 @@ def pd_cols_unique_count(df:pd.DataFrame, cols_exclude:list=[], nsample=-1) :
     return clist
 
 
-def pd_show(df:pd.DataFrame, nrows=100, reader='notepad.exe', **kw):
+def pd_show(df, nrows=100, reader='notepad.exe', **kw):
     """ Show from Dataframe
     """
     import pandas as pd

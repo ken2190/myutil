@@ -192,7 +192,7 @@ def pd_num_correl_associations(
     kwargs : any key-value pairs
         Arguments to be passed to used function and methods
     """
-    # df = convert(df:pd.DataFrame, "dataframe")
+    # df = convert(df, "dataframe")
     col = df.columns
     if colcat is None:
         colcat = list()
@@ -251,7 +251,7 @@ def pd_num_correl_associations(
 
 
 
-def stat_hypothesis_test_permutation(df:pd.DataFrame, variable, classes, repetitions):
+def stat_hypothesis_test_permutation(df, variable, classes, repetitions):
 
     """Test whether two numerical samples
     come from the same underlying distribution,

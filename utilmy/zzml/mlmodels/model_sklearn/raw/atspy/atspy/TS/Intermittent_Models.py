@@ -92,7 +92,7 @@ class cCroston_Model(tsar.cAbstractAR):
             lPerfs = {}
             lForecastColumnName = 'forecast'
             for alpha in np.arange(0.05 , 1.0, 0.05):
-                forecast_df = self.compute_forecast(df:pd.DataFrame, alpha, method, 1)
+                forecast_df = self.compute_forecast(df, alpha, method, 1)
                 lPerf = tsperf.cPerf();
                 lPerf.computeCriterion(forecast_df[self.mCycleResidueName] ,  forecast_df[lForecastColumnName] ,
                                        self.mOptions.mCrostonOptions.mAlphaCriterion,
@@ -113,7 +113,7 @@ class cCroston_Model(tsar.cAbstractAR):
         """
         alpha =  self.mAlpha
         method = self.mOptions.mCrostonOptions.mMethod
-        df = self.compute_forecast(df:pd.DataFrame, alpha , method , horizon_index)
+        df = self.compute_forecast(df, alpha , method , horizon_index)
         return df
 
     def compute_forecast(self, df, alpha, method, horizon_index = 1):
@@ -205,7 +205,7 @@ class cCroston_Model(tsar.cAbstractAR):
            
         """
         series = self.mCycleResidueName;
-        pred = self.croston(df:pd.DataFrame, horizon_index)
+        pred = self.croston(df, horizon_index)
         df[self.mOutName] = pred['forecast'];
         target = df[series].values
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        

@@ -505,7 +505,7 @@ def pd_df_expand(x):
     return y.stack()
 
 
-def pd_df_format(df:pd.DataFrame, index, filter=True):
+def pd_df_format(df, index, filter=True):
     """function pd_df_format
     Args:
         df:   
@@ -568,7 +568,7 @@ def module_signature_write(module_name, outputfile="", return_df=0, isdebug=0):
 #    return data
 
 
-def obj_arg_filter_apply_1(df:pd.DataFrame, filter_list=None):
+def obj_arg_filter_apply_1(df, filter_list=None):
     """  Apply Sequential Filtering to the frame of argument
     :param df: Signature Datframe
     :param filter_list:    ('sort_ascending', 1)  we can add very easily new filter

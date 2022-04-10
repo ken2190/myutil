@@ -59,7 +59,7 @@ def test_create_fake_df():
     df['genreCol1'] = genreList
     df['genreCol2'] = genreList
     
-    return (df:pd.DataFrame, nExpectedOnes, ['genreCol1', 'genreCol2'])
+    return (df, nExpectedOnes, ['genreCol1', 'genreCol2'])
 
 
 ###################################################################################################

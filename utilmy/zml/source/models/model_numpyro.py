@@ -31,7 +31,7 @@ class Model(Normal):
 df = pd.DataFrame(dict(x=[1, 2, 2, 3, 4, 5], y=[1, 2, 3, 4, 3, 5]))
 
 
-model = Model().fit(df:pd.DataFrame, rng_key=RNG_KEY)
+model = Model().fit(df, rng_key=RNG_KEY)
 # sample: 100%|██████████| 1500/1500 [00:04<00:00, 308.01it/s, 7 steps of size 4.17e-01. acc. prob=0.89]
 
 model.predict(df)
@@ -39,10 +39,10 @@ model.predict(df)
 
 
 Credible Intervals
-Use model.predict(df:pd.DataFrame, ci=True) to obtain a credible interval around the model's prediction.
+Use model.predict(df, ci=True) to obtain a credible interval around the model's prediction. 
 This interval accounts for error estimating the model's coefficients but does not account for the error around the model's point estimate (PRs welcome ya'll!).
 
-model.predict(df:pd.DataFrame, ci=True)
+model.predict(df, ci=True)
 
 
 

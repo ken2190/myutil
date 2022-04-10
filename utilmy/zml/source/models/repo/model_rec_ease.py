@@ -357,7 +357,7 @@ def get_dataset2(data_pars=None, task_type="train", **kw):
 ####################################################################################################
 ############ Test  #################################################################################
 
-def train_test_split2(df:pd.DataFrame, coly):
+def train_test_split2(df, coly):
     """function train_test_split2
     Args:
         df:   

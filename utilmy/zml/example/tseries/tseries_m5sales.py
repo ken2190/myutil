@@ -17,7 +17,7 @@ from source.preprocessors_tseries import *
 
 ########################################################################################################################
 ########################################################################################################################
-def pd_col_tocat(df:pd.DataFrame, nan_cols, colcat):
+def pd_col_tocat(df, nan_cols, colcat):
     nan_features = nan_cols
     for feature in nan_features:
         df[feature].fillna('unknown', inplace = True)
@@ -249,7 +249,7 @@ def pd_tsfresh_m5data_sales(df_sales, dir_out, features_group_name, drop_cols, d
 
 def pd_tsfresh_m5data(df):
     df = df[['snap_CA', 'snap_TX', 'snap_WI', 'sell_price', 'item_id', 'date', 'store_id', 'id']]
-    df = roll_time_series(df:pd.DataFrame, column_id="item_id", column_sort="date")
+    df = roll_time_series(df, column_id="item_id", column_sort="date")
     existing_cols = df.columns.tolist()
     y = df['demand']
     X_cols = [x for x in existing_cols if not x == "demand"]
@@ -276,7 +276,7 @@ def pd_tsfresh_m5data(df):
 
 
 
-def pd_ts_tsfresh(df:pd.DataFrame, input_raw_path, dir_out, features_group_name, auxiliary_csv_path, drop_cols, index_cols, merge_cols_mapping, cat_cols = None, id_cols = None, dep_col = None, coldate = None, max_rows = 10):
+def pd_ts_tsfresh(df, input_raw_path, dir_out, features_group_name, auxiliary_csv_path, drop_cols, index_cols, merge_cols_mapping, cat_cols = None, id_cols = None, dep_col = None, coldate = None, max_rows = 10):
     # df is taken as an argument to make it work in the existing pipeline of saving features in meta_csv
     df_sales_val              = pd.read_csv(input_raw_path)
     df_calendar               = pd.read_csv(auxiliary_csv_path)
@@ -453,7 +453,7 @@ def train(model, pars={} ) :
         dftest = featurestore_get_feature_fromcolname(path, cols_cat + cols_num, 'test')
 
         X_train = X_transform( df, cols_num, cols_cat, pars) # select sri
-        y_train  = y_transform(df:pd.DataFrame, coly)
+        y_train  = y_transform(df, coly)
 
         X_test = X_transform( dftest, cols_num, cols_cat, pars) # select variables
         y_test  = y_transform(dftest, coly)

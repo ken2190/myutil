@@ -19,7 +19,7 @@ def model_perf_plots(df):
     Returns:
         object: matplotlib axes
     """
-    g = sns.FacetGrid(df:pd.DataFrame, col="metric", hue="stage", col_wrap=2, sharey=False)
+    g = sns.FacetGrid(df, col="metric", hue="stage", col_wrap=2, sharey=False)
     g = g.map(sns.scatterplot, "epoch", "value").add_legend()
 
 

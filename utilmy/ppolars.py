@@ -76,7 +76,7 @@ def test_create_parquet():
 
 ###################################################################################################
 ###### Polars #####################################################################################
-def pl_split(df:pd.DataFrame,  col='colstr', sep=",",  colnew="colstr_split", ):
+def pl_split(df,  col='colstr', sep=",",  colnew="colstr_split", ):
     """
       dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
       df['new1'] = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
@@ -87,7 +87,7 @@ def pl_split(df:pd.DataFrame,  col='colstr', sep=",",  colnew="colstr_split", ):
 
 
 
-def pl_groupby_join(df:pd.DataFrame,  colgroup="colgroup", col='colstr', sep=",",   ):
+def pl_groupby_join(df,  colgroup="colgroup", col='colstr', sep=",",   ):
     """
       dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
       df['new1']  = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
@@ -105,7 +105,7 @@ def pl_groupby_join(df:pd.DataFrame,  colgroup="colgroup", col='colstr', sep=","
 
 
 
-def pl_to_file(df:pd.DataFrame, filei,  check=0, verbose=True, show='shape',   **kw):
+def pl_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
   import os, gc
   from pathlib import Path
   parent = Path(filei).parent
@@ -142,7 +142,7 @@ def pd_cartesian(df1, df2) :
   return df3
 
 
-def pd_col_bins(df:pd.DataFrame, col, nbins=5):
+def pd_col_bins(df, col, nbins=5):
   ### Shortcuts for easy bin of numerical values
   import pandas as pd, numpy as np
   assert nbins < 256, 'nbins< 255'
@@ -152,7 +152,7 @@ def pd_col_bins(df:pd.DataFrame, col, nbins=5):
 
 
 
-def pd_del(df:pd.DataFrame, cols:list):
+def pd_del(df, cols:list):
     ### Delete columns without errors
     for col in cols :
         try:

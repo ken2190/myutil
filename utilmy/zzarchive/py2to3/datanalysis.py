@@ -580,9 +580,9 @@ reduce(lambda x, y: x.add(y, fill_value=0),
    pivot0= None
    for df in store.select(tablename, chunksize=chunksize) :
       if pivot0 is None :
-         pivot0= pd.DataFrame.pivot_table(df:pd.DataFrame, values=centerZ, index=[leftX],  columns=[topY], aggfunc= np.sum,      fill_value=0)
+         pivot0= pd.DataFrame.pivot_table(df, values=centerZ, index=[leftX],  columns=[topY], aggfunc= np.sum,      fill_value=0)
       else :
-         pivot_i= pd.DataFrame.pivot_table(df:pd.DataFrame, values=centerZ, index=[leftX],  columns=[topY], aggfunc= np.sum,      fill_value=0)
+         pivot_i= pd.DataFrame.pivot_table(df, values=centerZ, index=[leftX],  columns=[topY], aggfunc= np.sum,      fill_value=0)
          pivot0=  pd.concat([pivot0, pivot_i]).groupby(level=0).sum()
 
  if mapreduce== 'count' :
@@ -612,7 +612,7 @@ ALL_DB['japancoupon']['df_table_uri']= df_schema_dictionnary
 ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         DBname, db_schema, db_table_uri, db_table_columns(dict_table->colum_list),
    '''
-   def pd_df_todict(df:pd.DataFrame, colkey='table', firstelt= True) :
+   def pd_df_todict(df, colkey='table', firstelt= True) :
       df1= df.drop_duplicates(colkey).reset_index(level=0, drop=True)
       dict0 = {}
       for i in xrange(len(df)):
@@ -691,7 +691,7 @@ def col_feature_importance(Xcol, Ytarget) :
    ''' random forest for column importance '''
    pass
 
-def col_study_distribution_show(df:pd.DataFrame, col_include=None, col_exclude=None, pars={'binsize':20}):
+def col_study_distribution_show(df, col_include=None, col_exclude=None, pars={'binsize':20}):
  '''  Perfom Full Study of the pandas columns'''
  if col_include is not None :
     features = [feature for feature in df.columns.values if  feature in col_include]

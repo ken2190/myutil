@@ -283,7 +283,7 @@ def test_dataset_tseries(nrows=10000, coly=None, coldate=None, colcat=None):
 
 
 
-def time_train_test_split(df:pd.DataFrame, test_size = 0.4, cols=None , coltime ="time_key", sort=True, minsize=5,
+def time_train_test_split(df, test_size = 0.4, cols=None , coltime ="time_key", sort=True, minsize=5,
                      n_sample=5,
                      verbose=False) :
    cols = list(df.columns) if cols is None else cols

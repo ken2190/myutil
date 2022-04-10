@@ -9,7 +9,7 @@ from gplearn.genetic import SymbolicTransformer
 from scipy import linalg
 import math
 
-def lowess(df:pd.DataFrame, cols, y, f=2. / 3., iter=3):
+def lowess(df, cols, y, f=2. / 3., iter=3):
     """function lowess
     Args:
         df:   
@@ -51,7 +51,7 @@ def lowess(df:pd.DataFrame, cols, y, f=2. / 3., iter=3):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def autoregression(df:pd.DataFrame, drop=None, settings={"autoreg_lag":4}):
+def autoregression(df, drop=None, settings={"autoreg_lag":4}):
     """
     This function calculates the autoregression for each channel.
     :param x: the input signal. Its size is (number of channels, samples).
@@ -87,7 +87,7 @@ def autoregression(df:pd.DataFrame, drop=None, settings={"autoreg_lag":4}):
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def muldiv(df:pd.DataFrame, feature_list):
+def muldiv(df, feature_list):
   """function muldiv
   Args:
       df:   
@@ -105,11 +105,11 @@ def muldiv(df:pd.DataFrame, feature_list):
 
   return df
 
-# df = muldiv(df:pd.DataFrame, ["Close","Open"]) 
+# df = muldiv(df, ["Close","Open"]) 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def decision_tree_disc(df:pd.DataFrame, cols, depth=4 ):
+def decision_tree_disc(df, cols, depth=4 ):
   """function decision_tree_disc
   Args:
       df:   
@@ -126,11 +126,11 @@ def decision_tree_disc(df:pd.DataFrame, cols, depth=4 ):
     df[col+"_Disc"] = tree_model.predict(df[col +"_m1"].to_frame())
   return df
 
-# df_out = decision_tree_disc(df:pd.DataFrame, ["Close"]); df_out.head()
+# df_out = decision_tree_disc(df, ["Close"]); df_out.head()
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def quantile_normalize(df:pd.DataFrame, drop):
+def quantile_normalize(df, drop):
     """function quantile_normalize
     Args:
         df:   
@@ -196,7 +196,7 @@ def tech(df):
       Returns:
           
       """
-      return ta.add_all_ta_features(df:pd.DataFrame, open="Open", high="High", low="Low", close="Close", volume="Volume")
+      return ta.add_all_ta_features(df, open="Open", high="High", low="Low", close="Close", volume="Volume")
   
 # df = tech(df)
 
@@ -204,7 +204,7 @@ def tech(df):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def genetic_feat(df:pd.DataFrame, num_gen=20, num_comp=10):
+def genetic_feat(df, num_gen=20, num_comp=10):
   """function genetic_feat
   Args:
       df:   

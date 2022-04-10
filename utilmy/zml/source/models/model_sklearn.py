@@ -253,7 +253,7 @@ def test(n_sample          = 1000):
     from adatasets import test_data_classifier_fake, pd_train_test_split2
     df, d = test_data_classifier_fake(nrows= n_sample)
     colnum, colcat, coly = d['colnum'], d['colcat'], d['coly']
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df, coly)
 
     cols_input_type_1 = []
     #### Matching Big dict  ##################################################

@@ -138,7 +138,7 @@ def test():
     df = dataset_load_cardio(arg)
 
     #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df:pd.DataFrame, arg)
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
     arg.input_dim = train_X.shape[1]
 
 
@@ -447,7 +447,7 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
     """
     ### Create dataloader
     df = dataset_load1(arg)
-    train_X, test_X, train_y, test_y, valid_X, valid_y = dataset_preprocess1(df:pd.DataFrame, arg)
+    train_X, test_X, train_y, test_y, valid_X, valid_y = dataset_preprocess1(df, arg)
 
 
 

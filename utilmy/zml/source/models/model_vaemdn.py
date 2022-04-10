@@ -726,7 +726,7 @@ def test2(n_sample          = 1000):
     df, d=     test_data_classifier_fake(n_sample)
     colnum, colcat, coly = d['colnum'], d['colcat'], d['coly']
     # df, colnum, colcat, coly = test_dataset_classi_fake(nrows= n_sample)
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df, coly)
 
     #### Matching Big dict  ##################################################
     def post_process_fun(y): return int(y)
@@ -802,10 +802,10 @@ def test3(n_sample = 1000):
     df, d=     test_data_classifier_petfinder(n_sample)
     colnum, colcat, coly = d['colnum'], d['colcat'], d['coly']
     # df, colnum, colcat, coly = test_dataset_classi_fake(nrows= n_sample)
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df, coly)
 
     #df, colnum, colcat, coly,colyembed = test_dataset_petfinder(nrows= n_sample)
-    #X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df:pd.DataFrame, coly)
+    #X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df, coly)
 
     #### Matching Big dict  ##################################################
     def post_process_fun(y): return int(y)
@@ -1058,7 +1058,7 @@ def test_dataset_petfinder(nrows=1000):
     return df, colnum, colcat, coly, colembed
 
 
-def train_test_split2(df:pd.DataFrame, coly):
+def train_test_split2(df, coly):
     # log3(df.dtypes)
     y = df[coly] ### If clonassificati
     X = df.drop(coly,  axis=1)

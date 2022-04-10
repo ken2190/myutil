@@ -186,7 +186,7 @@ def make_rand_sparse_dataset(
     df = pd.DataFrame(data=all_train_data)
 
     # Split data
-    train_df, val_df = train_test_split(df:pd.DataFrame, test_size=0.1, shuffle=True)
+    train_df, val_df = train_test_split(df, test_size=0.1, shuffle=True)
     val_df, test_df = train_test_split(val_df, test_size=0.5)
 
 
@@ -363,7 +363,7 @@ def test_helper(model_pars, data_pars, compute_pars):
 #     return df, colnum, colcat, coly
 
 
-# def train_test_split2(df:pd.DataFrame, coly):
+# def train_test_split2(df, coly):
 #     log3(df.dtypes)
 #     y = df[coly] ### If clonassificati
 #     X = df.drop(coly,  axis=1)
@@ -422,7 +422,7 @@ if __name__ == "__main__":
 #     return df, colnum, colcat, coly
 
 
-# def train_test_split2(df:pd.DataFrame, coly):
+# def train_test_split2(df, coly):
 #     log3(df.dtypes)
 #     y = df[coly] ### If clonassificati
 #     X = df.drop(coly,  axis=1)

@@ -101,7 +101,7 @@ def df_clean(model, df):
     Returns:
         
     """
-    return model.clean_dataframe(df:pd.DataFrame, ["abstract", "full_text"], new_col_name=CLEAN_COL)
+    return model.clean_dataframe(df, ["abstract", "full_text"], new_col_name=CLEAN_COL)
 
 
 def test_tokenize_text(model, df_clean):

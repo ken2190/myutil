@@ -500,12 +500,12 @@ def test2(n_sample = 1000):
         
     """
     #df, colnum, colcat, coly = test_dataset_classi_fake(nrows= n_sample)
-    #X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df:pd.DataFrame, coly)
+    #X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df, coly)
 
     from adatasets import test_data_classifier_fake, pd_train_test_split2
     df, d = test_data_classifier_fake(n_sample)
     colnum, colcat, coly = d['colnum'], d['colcat'], d['coly']
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df:pd.DataFrame, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = pd_train_test_split2(df, coly)
 
     #### Matching Big dict  ##################################################
     def post_process_fun(y): return int(y)
@@ -632,7 +632,7 @@ def test_dataset_classi_fake(nrows=500):
     return df, colnum, colcat, coly
 
 
-def train_test_split2(df:pd.DataFrame, coly):
+def train_test_split2(df, coly):
     from sklearn.model_selection import train_test_split
     log3(df.dtypes)
     y = df[coly] ### If clonassificati
@@ -705,7 +705,7 @@ def zz_pd_sample_imblearn(df=None, col=None, pars=None):
     return df2, col_pars
 
 
-def zz_pd_augmentation_sdv(df:pd.DataFrame, col=None, pars={})  :
+def zz_pd_augmentation_sdv(df, col=None, pars={})  :
     '''
     Using SDV Variation Autoencoders, the function augments more data into the dataset
     params:
@@ -860,7 +860,7 @@ def zz_test():
     
     
 """
-def pd_generic_transform(df:pd.DataFrame, col=None, pars={}, model=None)  :
+def pd_generic_transform(df, col=None, pars={}, model=None)  :
  
      Transform or Samples using  model.fit()   model.sample()  or model.transform()
     params:

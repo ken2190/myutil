@@ -407,14 +407,14 @@ class DataLoader_img(tf.keras.utils.Sequence):
 
 ##########################################################################################
 if 'utils':
-    def pd_sample_equal(df:pd.DataFrame, col, nsampl=100):
+    def pd_sample_equal(df, col, nsampl=100):
         ### Stratified under-sampling, using the least frequent from category col
         n2  = min(nsample, df[col].value_counts().min())
         df_ = df.groupby(col).apply(lambda x: x.sample(n = n2, replace=True))
         df_.index = df_.index.droplevel(0)
         return df_
 
-    def pd_cols_unique_count(df:pd.DataFrame, cols_exclude:list=[], nsample=-1) :
+    def pd_cols_unique_count(df, cols_exclude:list=[], nsample=-1) :
         ### Return cadinat=lity
         clist = {}
         for ci in df.columns :
@@ -432,7 +432,7 @@ if 'utils':
         return clist
 
 
-    def pd_label_normalize_freq(df:pd.DataFrame, cols:list)  -> pd.DataFrame :
+    def pd_label_normalize_freq(df, cols:list)  -> pd.DataFrame :
         """
             Resample each class
 
@@ -474,7 +474,7 @@ if 'utils':
         return x, y_label_list
 
 
-    def pd_get_onehot_dict(df:pd.DataFrame, labels_col: list, dfref=None, category_dict=None):  # name changed
+    def pd_get_onehot_dict(df, labels_col: list, dfref=None, category_dict=None):  # name changed
         """
         Args:
             df (DataFrame): Actual DataFrame
@@ -495,7 +495,7 @@ if 'utils':
         labels_val = {}
         labels_cnt = {}
         for ci in labels_col:
-            dfi_1hot = pd.get_dummies(df:pd.DataFrame, columns=[ci])  ### OneHot
+            dfi_1hot = pd.get_dummies(df, columns=[ci])  ### OneHot
             dfi_1hot = dfi_1hot[[t for t in dfi_1hot.columns if ci in t]].values  ## remove no OneHot
             labels_val[ci] = dfi_1hot
             labels_cnt[ci] = df[ci].nunique()
@@ -529,7 +529,7 @@ if 'utils':
 
         # labels_col = [  'gender', 'masterCategory', 'subCategory', 'articleType' ]
         for ci in labels_col:
-            dfi_1hot = pd.get_dummies(df:pd.DataFrame, columns=[ci])  ### OneHot
+            dfi_1hot = pd.get_dummies(df, columns=[ci])  ### OneHot
             dfi_1hot = dfi_1hot[[t for t in dfi_1hot.columns if ci in t]]  ## keep only OneHot
             df[ci + "_onehot"] = dfi_1hot.apply(lambda x: ','.join([str(t) for t in x]), axis=1)
             #####  0,0,1,0 format   log(dfi_1hot)

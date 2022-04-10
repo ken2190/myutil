@@ -37,7 +37,7 @@ SUPERVISED_MODELS = ['SMOTE', 'SMOTEENN', 'SMOTETomek', 'NearMiss']
 
 
 
-def save_features(df:pd.DataFrame, name, path):
+def save_features(df, name, path):
     if path is not None :
        os.makedirs( f"{path}/{name}", exist_ok=True)
        df.to_parquet( f"{path}/{name}/features.parquet")
@@ -355,7 +355,7 @@ def run_transform(config_name, config_path, n_sample=1,
     else:
         df               = load_dataset(path_data, None, colid, n_sample= n_sample)
 
-    dfX, cols            = preprocess(df:pd.DataFrame, path_pipeline, preprocess_pars=pars)
+    dfX, cols            = preprocess(df, path_pipeline, preprocess_pars=pars)
     coly = cols["coly"]  
 
 

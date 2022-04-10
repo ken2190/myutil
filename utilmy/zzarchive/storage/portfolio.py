@@ -1198,38 +1198,38 @@ def volhisto_fromprice(price,t, volrange, axis=0):
 def rsk_calc_all_TA(df='panda_dataframe') :
   '''Add All TA RMI, RSI To the '''
  #try :
-  df= pf.ta.MA(df:pd.DataFrame,200); df= pf.ta.MA(df:pd.DataFrame, 50);  df= pf.ta.MA(df:pd.DataFrame, 20);   df= pf.ta.MA(df:pd.DataFrame, 5);   df= pf.ta.MA(df:pd.DataFrame, 3)
-  df= pf.ta.distance(df:pd.DataFrame, "MA_200");   df= pf.ta.distance(df:pd.DataFrame, "MA_50");    df= pf.ta.distance(df:pd.DataFrame, "MA_20");    df= pf.ta.distance(df:pd.DataFrame, "MA_5") ;     df= pf.ta.distance(df:pd.DataFrame, "MA_3");
+  df= pf.ta.MA(df,200); df= pf.ta.MA(df, 50);  df= pf.ta.MA(df, 20);   df= pf.ta.MA(df, 5);   df= pf.ta.MA(df, 3)
+  df= pf.ta.distance(df, "MA_200");   df= pf.ta.distance(df, "MA_50");    df= pf.ta.distance(df, "MA_20");    df= pf.ta.distance(df, "MA_5") ;     df= pf.ta.distance(df, "MA_3");
 
-  df= pf.ta.RET(df:pd.DataFrame, 1);  df= pf.ta.RET(df:pd.DataFrame, 2);   df= pf.ta.RET(df:pd.DataFrame, 3);  df= pf.ta.RET(df:pd.DataFrame, 5);  df= pf.ta.RET(df:pd.DataFrame, 20); df= pf.ta.RET(df:pd.DataFrame, 60)
+  df= pf.ta.RET(df, 1);  df= pf.ta.RET(df, 2);   df= pf.ta.RET(df, 3);  df= pf.ta.RET(df, 5);  df= pf.ta.RET(df, 20); df= pf.ta.RET(df, 60)
 
-  df= pf.ta.RMI(df:pd.DataFrame, 14,10);  df= pf.ta.RMI(df:pd.DataFrame, 7,5)
-  df= pf.ta.STDDEV(df:pd.DataFrame, 60);  df= pf.ta.STDDEV(df:pd.DataFrame, 120)
+  df= pf.ta.RMI(df, 14,10);  df= pf.ta.RMI(df, 7,5)
+  df= pf.ta.STDDEV(df, 60);  df= pf.ta.STDDEV(df, 120)  
  
-  df= pf.ta.nbday_low(df:pd.DataFrame,252);    df= pf.ta.nbday_high(df:pd.DataFrame,252)
-  df= pf.ta.RSI(df:pd.DataFrame,14);
+  df= pf.ta.nbday_low(df,252);    df= pf.ta.nbday_high(df,252)   
+  df= pf.ta.RSI(df,14);  
   
   df= pf.ta.qearning_dist(df)  ;  df= pf.ta.optionexpiry_dist(df)
   
   '''     
-  df= pf.ta.MACD(df:pd.DataFrame, 12, 26)
-  df= pf.ta.CCI(df:pd.DataFrame, 14)
-  df= pf.ta.STO(df:pd.DataFrame, 14 )  #Stochastic 
-  df= pf.ta.ADX(df:pd.DataFrame, 14, 3)  #ADX
+  df= pf.ta.MACD(df, 12, 26)
+  df= pf.ta.CCI(df, 14)
+  df= pf.ta.STO(df, 14 )  #Stochastic 
+  df= pf.ta.ADX(df, 14, 3)  #ADX
 
   df= pf.ta.PPSR(df)
-  df= pf.ta.Vortex(df:pd.DataFrame, 14)
-  df= pf.ta.TSI(df:pd.DataFrame, 20, 5)
-  df= pf.ta.ACCDIST(df:pd.DataFrame, 20)
+  df= pf.ta.Vortex(df, 14)
+  df= pf.ta.TSI(df, 20, 5)
+  df= pf.ta.ACCDIST(df, 20)
   df= pf.ta.Chaikin(df)
-  df= pf.ta. MFI(df:pd.DataFrame, 7)
-  df= pf.ta.OBV(df:pd.DataFrame, 5)
-  df= pf.ta.FORCE(df:pd.DataFrame,10)
-  df= pf.ta.EOM(df:pd.DataFrame, 14)
-  df= pf.ta.COPP(df:pd.DataFrame, 14)
-  df= pf.ta.KELCH(df:pd.DataFrame, 14)
+  df= pf.ta. MFI(df, 7)
+  df= pf.ta.OBV(df, 5)
+  df= pf.ta.FORCE(df,10)
+  df= pf.ta.EOM(df, 14)
+  df= pf.ta.COPP(df, 14)
+  df= pf.ta.KELCH(df, 14)
   df= pf.ta.ULTOSC(df)
-  df= pf.ta.DONCH(df:pd.DataFrame, 14)
+  df= pf.ta.DONCH(df, 14)
  #except: pass 
   '''
   return df
@@ -3606,7 +3606,7 @@ def imp_googleQuoteList(symbols, date1, date2, inter=23400, tframe=2000, dircsv=
 
 
 ##################################################################################### 
-def pd_filterbydate(df:pd.DataFrame, dtref=None, start='2016-06-06 00:00:00', end='2016-06-14 00:00:00', freq='0d0h05min', timezone='Japan'):
+def pd_filterbydate(df, dtref=None, start='2016-06-06 00:00:00', end='2016-06-14 00:00:00', freq='0d0h05min', timezone='Japan'):
  ''' df: DateSeries or TimeSeries of Quotes   '''
  
  if type(df) in {pd.core.frame.DataFrame} :  #Data frame version
@@ -3888,7 +3888,7 @@ tozone='Japan', fillna=True, interpo=True):
 '''
 
 
-def imp_panda_cleanquotes(df:pd.DataFrame, datefilter):
+def imp_panda_cleanquotes(df, datefilter):
  df= df[df['date'].isin(datefilter)]   #Only date in the range
  df= df.sort('date')
  close= df.interpolate(); close= close.fillna(method='backfill')  #Interpolate

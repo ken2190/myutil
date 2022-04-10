@@ -193,7 +193,7 @@ def test3():
     df, arg = mm.dataset_load(arg)
 
     #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = mm.dataset_preprocess(df:pd.DataFrame,  arg)
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = mm.dataset_preprocess(df,  arg)
     arg.input_dim = train_X.shape[1]
 
     #### Create dataloader
@@ -225,12 +225,12 @@ def dataset_load(arg, mode='eval'):
 
   df = pd.read_csv(arg.datapath,delimiter=';')
   df = df.iloc[:500, :]
-  log(df:pd.DataFrame, df.columns, df.shape)
+  log(df, df.columns, df.shape)
 
   return df, arg
 
 
-def dataset_preprocess(df:pd.DataFrame, arg):
+def dataset_preprocess(df, arg):
     coly = 'cardio'
     y     = df[coly]
     X_raw = df.drop([coly], axis=1)
@@ -918,7 +918,7 @@ def test():
     df = dataset_load_cardio(arg)
 
     #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df:pd.DataFrame, arg)
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
     arg.input_dim = train_X.shape[1]
 
 
@@ -948,7 +948,7 @@ def dataset_load_cardio(arg):
 
   df = pd.read_csv(arg.datapath,delimiter=';')
   df = df.iloc[:500, :]
-  log(df:pd.DataFrame, df.columns, df.shape)
+  log(df, df.columns, df.shape)
 
   # y = df[coly]
   # X_raw = df.drop([coly], axis=1)
@@ -956,7 +956,7 @@ def dataset_load_cardio(arg):
   return df
 
 
-def dataset_preprocess_cardio(df:pd.DataFrame, arg):
+def dataset_preprocess_cardio(df, arg):
     coly = 'cardio'
     y     = df[coly]
     X_raw = df.drop([coly], axis=1)
@@ -1136,7 +1136,7 @@ def test2():
     df = dataset_load_covtype(arg)
 
     #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_covtype(df:pd.DataFrame, arg)
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_covtype(df, arg)
     arg.input_dim = train_X.shape[1]
 
 
@@ -1169,7 +1169,7 @@ def dataset_load_covtype(arg)->pd.DataFrame:
   return df
 
 
-def dataset_preprocess_covtype(df:pd.DataFrame, arg):
+def dataset_preprocess_covtype(df, arg):
   coly  = 'Slope'  # df.columns[-1]
   y_raw = df[coly]
   X_raw = df.drop([coly], axis=1)

@@ -32,7 +32,7 @@ def log(*s, n=0, m=0):
     print(sjump, sspace, s, sspace, flush=True)
 
 
-def save_features(df:pd.DataFrame, name, path):
+def save_features(df, name, path):
     """function save_features
     Args:
         df:   

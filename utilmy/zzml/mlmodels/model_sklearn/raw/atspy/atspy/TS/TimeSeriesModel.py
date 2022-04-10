@@ -251,7 +251,7 @@ class cTimeSeriesModel:
            
         """
         N0 = df.shape[0];
-        df1 = self.forecastOneStepAhead(df:pd.DataFrame, 1)
+        df1 = self.forecastOneStepAhead(df, 1)
         lForecastColumnName = str(self.mOriginalSignal) + "_Forecast";
         for h in range(0 , iHorizon - 1):
             # print(df1.info());
@@ -281,7 +281,7 @@ class cTimeSeriesModel:
         # print(df.head())
         # print(df1.head())
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
-            df1 = self.addPredictionIntervals(df:pd.DataFrame, df1, iHorizon);
+            df1 = self.addPredictionIntervals(df, df1, iHorizon);
         if(self.mTimeInfo.mOptions.mForecastRectifier is not None):
             df1 = self.applyForecastRectifier(df1)
         return df1
@@ -338,7 +338,7 @@ class cTimeSeriesModel:
         """
         lPrefix = self.mSignal + "_";
         lTime = self.mTimeInfo.mNormalizedTimeColumn;            
-        tsplot.decomp_plot(df:pd.DataFrame,
+        tsplot.decomp_plot(df,
                            lTime, lPrefix + 'Signal',
                            lPrefix + 'Forecast' , lPrefix + 'Residue');
 
@@ -393,17 +393,17 @@ class cTimeSeriesModel:
         lPrefix = self.mSignal + "_";
         lPrefix2 = str(self.mOriginalSignal) + "_";
         if(name is not None):
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend" , format=format);
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle" , format=format);
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR" , format=format);
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast" , format=format);
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast" , format=format);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = name + "_trend" , format=format);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = name + "_cycle" , format=format);
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = name + "_AR" , format=format);
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue', name = name + "_transformed_forecast" , format=format);
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = name + "_forecast" , format=format);
         else:
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue');
-            tsplot.decomp_plot(df:pd.DataFrame, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue');
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue');
+            tsplot.decomp_plot(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue');
+            tsplot.decomp_plot(df, lTime, self.mSignal, lPrefix + 'TransformedForecast' , lPrefix + 'TransformedResidue');
+            tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
         
     def standardPlots(self, name = None, format = 'png'):
         """ cTimeSeriesModel:standardPlots
@@ -443,10 +443,10 @@ class cTimeSeriesModel:
         lSignalColumn = self.mOriginalSignal;
         lPrefix = self.mSignal + "_";
         lPrefix2 = str(self.mOriginalSignal) + "_";
-        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df:pd.DataFrame, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
-        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df:pd.DataFrame, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
-        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df:pd.DataFrame, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
-        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df:pd.DataFrame, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast");
+        lDict["Trend"] = tsplot.decomp_plot_as_png_base64(df, lTime, self.mSignal, lPrefix + 'Trend' , lPrefix + 'Trend_residue', name = "trend");
+        lDict["Cycle"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Trend_residue' , lPrefix + 'Cycle', lPrefix + 'Cycle_residue', name = "cycle");
+        lDict["AR"] = tsplot.decomp_plot_as_png_base64(df, lTime, lPrefix + 'Cycle_residue' , lPrefix + 'AR' , lPrefix + 'AR_residue', name = "AR");
+        lDict["Forecast"] = tsplot.decomp_plot_as_png_base64(df, lTime, lSignalColumn, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue', name = "forecast");
 
         lInput = self.mModelFrame[[self.mTime, self.mOriginalSignal]];
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);

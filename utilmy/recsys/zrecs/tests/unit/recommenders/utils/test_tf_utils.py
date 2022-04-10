@@ -90,7 +90,7 @@ def test_pandas_input_fn(pd_df):
                 assert v.shape[1] == len(df[k][0])
 
     # check dataset with shuffles
-    dataset = pandas_input_fn(df:pd.DataFrame, shuffle=True, seed=SEED)()
+    dataset = pandas_input_fn(df, shuffle=True, seed=SEED)()
     batch = dataset.make_one_shot_iterator().get_next()
     with tf.Session() as sess:
         features = sess.run(batch)
@@ -107,7 +107,7 @@ def test_pandas_input_fn(pd_df):
                 assert v.shape[1] == len(df[k][0])
 
     # check dataset w/ label
-    dataset_with_label = pandas_input_fn(df:pd.DataFrame, y_col=DEFAULT_RATING_COL)()
+    dataset_with_label = pandas_input_fn(df, y_col=DEFAULT_RATING_COL)()
     batch = dataset_with_label.make_one_shot_iterator().get_next()
     with tf.Session() as sess:
         features, label = sess.run(batch)
