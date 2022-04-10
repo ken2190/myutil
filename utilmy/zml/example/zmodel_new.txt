@@ -1583,7 +1583,7 @@ of root transformation categories, allowing user to pass custom functions for th
 purpose. Passed functions should follow format:
 
 ```
-def evalcat(df, column, randomseed, eval_ratio, numbercategoryheuristic, powertransform, labels = False):
+def evalcat(df:pd.DataFrame, column, randomseed, eval_ratio, numbercategoryheuristic, powertransform, labels = False):
   """
   #user defined function that takes as input a dataframe df and column id string column
   #evaluates the contents of cells and classifies the column for root category of
@@ -7116,7 +7116,7 @@ def postprocess_mnm3_class(mdf_test, column, postprocess_dict, columnkey, params
 #function incorporating similar data structures but passing only a single dataframe.
 
 #Such as:
-def process_mnm8_class(df, column, category, postprocess_dict, params = {}):
+def process_mnm8_class(df:pd.DataFrame, column, category, postprocess_dict, params = {}):
 
   #etc
 

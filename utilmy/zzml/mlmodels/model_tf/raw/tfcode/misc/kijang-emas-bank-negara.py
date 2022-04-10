@@ -139,7 +139,7 @@ df.head()
 # In[10]:
 
 
-def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
+def df_shift(df:pd.DataFrame, lag=0, start=1, skip=1, rejected_columns=[]):
     """function df_shift
     Args:
         df:   
@@ -177,7 +177,7 @@ def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
 # In[11]:
 
 
-df_crosscorrelated = df_shift(df, lag=12, start=4, skip=2, rejected_columns=["timestamp"])
+df_crosscorrelated = df_shift(df:pd.DataFrame, lag=12, start=4, skip=2, rejected_columns=["timestamp"])
 df_crosscorrelated["ma7"] = df_crosscorrelated["selling"].rolling(7).mean()
 df_crosscorrelated["ma14"] = df_crosscorrelated["selling"].rolling(14).mean()
 df_crosscorrelated["ma21"] = df_crosscorrelated["selling"].rolling(21).mean()

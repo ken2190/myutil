@@ -304,7 +304,7 @@ class cLag1Trend(cAbstractTrend):
     def transformDataset(self, df):
         target = df[self.mSignal].values
         df[self.mOutName] = df[self.mSignal].shift(1);
-        self.replaceFirstMissingValue(df, self.mOutName);
+        self.replaceFirstMissingValue(df:pd.DataFrame, self.mOutName);
         df[self.mOutName + '_residue'] = target - df[self.mOutName].values        
         return df;
 

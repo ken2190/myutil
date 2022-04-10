@@ -1615,7 +1615,7 @@ def pd_createdf(val1, col1=None, idx1=None ) :
    
 
 
-def pd_insertcolumn(df, colname,  vec):
+def pd_insertcolumn(df:pd.DataFrame, colname,  vec):
  ''' Vec and Colname must be aligned '''
  ncol= len(df.columns.values)
  sh= np.shape(vec)
@@ -1629,7 +1629,7 @@ def pd_insertcolumn(df, colname,  vec):
  return df
 
 
-def pd_insertrows(df, rowval, index1=None):
+def pd_insertrows(df:pd.DataFrame, rowval, index1=None):
  sh= np.shape(rowval)
  istart= df.index.values[-1]+1
  if index1 == None : index1= np.arange(istart, istart + sh[0]) 
@@ -1642,7 +1642,7 @@ def pd_insertrows(df, rowval, index1=None):
  return df
 
 
-def pd_replacevalues(df,  matrix):
+def pd_replacevalues(df:pd.DataFrame,  matrix):
  ''' Matrix replaces df.values  '''
  imax, jmax= np.shape(vec)
  colname= df.columns.values
@@ -1652,7 +1652,7 @@ def pd_replacevalues(df,  matrix):
  return df
  
 
-def pd_storeadddf(df, dfname, dbfile='F:\temp_pandas.h5') :
+def pd_storeadddf(df:pd.DataFrame, dfname, dbfile='F:\temp_pandas.h5') :
   store = pd.HDFStore(dbfile)
   if find(dfname, store.keys()) > 0 :
      dfname= dfname + '_1'    
@@ -1674,7 +1674,7 @@ def pd_storedumpinfo(dbfile='E:\_data\stock\intraday_google.h5'):
   return np.array(extract), errsym
 
   
-def pd_remove_row(df, row_list_index=[23,45]) : 
+def pd_remove_row(df:pd.DataFrame, row_list_index=[23,45]) :
  return df.drop(row_list_index)
 
 def pd_extract_col_idx_val(df):

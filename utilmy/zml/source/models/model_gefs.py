@@ -451,7 +451,7 @@ def test_helper(model_pars, data_pars, compute_pars):
 
 
 ####################################################################################################
-def pd_colcat_get_catcount(df, colcat, coly, continuous_ids=None):
+def pd_colcat_get_catcount(df:pd.DataFrame, colcat, coly, continuous_ids=None):
     """  Learns the number of categories in each variable and standardizes the df.
         ncat: numpy m The number of categories of each variable. One if the variable is continuous.
     """

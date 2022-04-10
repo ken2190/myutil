@@ -114,8 +114,8 @@ class ImplicitCF(object):
         if df is None:
             return None
 
-        df = pd.merge(df, self.user_idx, on=self.col_user, how="left")
-        df = pd.merge(df, self.item_idx, on=self.col_item, how="left")
+        df = pd.merge(df:pd.DataFrame, self.user_idx, on=self.col_user, how="left")
+        df = pd.merge(df:pd.DataFrame, self.item_idx, on=self.col_item, how="left")
 
         df = df[df[self.col_rating] > 0]
 

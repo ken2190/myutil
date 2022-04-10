@@ -257,7 +257,7 @@ def sql_insert_excel(file1=".xls", dbengine=None, dbtype=""):
     dbengine.close()
 
 
-def sql_insert_df(df, dbtable, dbengine, col_drop=["id"], verbose=1):
+def sql_insert_df(df:pd.DataFrame, dbtable, dbengine, col_drop=["id"], verbose=1):
     for c in df.columns:  # Remove columns
         if c in col_drop:
             df = df.drop(c, axis=1)

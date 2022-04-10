@@ -10,7 +10,7 @@ import pandas as pd
 import tensorflow as tf
 
 
-def pca_feature(df, memory_issues=False,mem_iss_component=False,variance_or_components=0.80,n_components=5 ,drop_cols=None, non_linear=True):
+def pca_feature(df:pd.DataFrame, memory_issues=False,mem_iss_component=False,variance_or_components=0.80,n_components=5 ,drop_cols=None, non_linear=True):
   """function pca_feature
   Args:
       df:   
@@ -52,7 +52,7 @@ def pca_feature(df, memory_issues=False,mem_iss_component=False,variance_or_comp
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def cross_lag(df, drop=None, lags=1, components=4 ):
+def cross_lag(df:pd.DataFrame, drop=None, lags=1, components=4 ):
   """function cross_lag
   Args:
       df:   
@@ -89,7 +89,7 @@ def cross_lag(df, drop=None, lags=1, components=4 ):
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def a_chi(df, drop=None, lags=1, sample_steps=2 ):
+def a_chi(df:pd.DataFrame, drop=None, lags=1, sample_steps=2 ):
   """function a_chi
   Args:
       df:   
@@ -126,7 +126,7 @@ def a_chi(df, drop=None, lags=1, sample_steps=2 ):
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def encoder_dataset(df, drop=None, dimesions=20):
+def encoder_dataset(df:pd.DataFrame, drop=None, dimesions=20):
   """function encoder_dataset
   Args:
       df:   
@@ -166,12 +166,12 @@ def encoder_dataset(df, drop=None, dimesions=20):
 
   return encoded_train
 
-# df_out = encoder_dataset(df, ["Close_1"], 15)
+# df_out = encoder_dataset(df:pd.DataFrame, ["Close_1"], 15)
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lle_feat(df, drop=None, components=4):
+def lle_feat(df:pd.DataFrame, drop=None, components=4):
   """function lle_feat
   Args:
       df:   
@@ -193,11 +193,11 @@ def lle_feat(df, drop=None, components=4):
     df = pd.concat((keep,df),axis=1)
   return df
 
-# df_out = lle_feat(df,["Close_1"],4)
+# df_out = lle_feat(df:pd.DataFrame,["Close_1"],4)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def feature_agg(df, drop=None, components=4):
+def feature_agg(df:pd.DataFrame, drop=None, components=4):
   """function feature_agg
   Args:
       df:   
@@ -228,7 +228,7 @@ def feature_agg(df, drop=None, components=4):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-def neigh_feat(df, drop, neighbors=6):
+def neigh_feat(df:pd.DataFrame, drop, neighbors=6):
   """function neigh_feat
   Args:
       df:   
@@ -256,4 +256,4 @@ def neigh_feat(df, drop, neighbors=6):
 
   return df
 
-# df_out = neigh_feat(df,["Close_1"],4 )
+# df_out = neigh_feat(df:pd.DataFrame,["Close_1"],4 )

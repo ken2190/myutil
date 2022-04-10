@@ -83,7 +83,7 @@ class Model:
 
 
 ##################################################################################################
-def _preprocess_XXXX(df, **kw):
+def _preprocess_XXXX(df:pd.DataFrame, **kw):
     """function _preprocess_XXXX
     Args:
         df:   

@@ -195,7 +195,7 @@ def run_predict(config_name, config_path, n_sample=-1,
     from run_preprocess import preprocess_inference   as preprocess
     colid            = load(f'{path_pipeline}/colid.pkl')
     df               = load_dataset(path_data, path_data_y=None, colid=colid, n_sample=n_sample)
-    dfX, cols        = preprocess(df, path_pipeline, preprocess_pars=pars)
+    dfX, cols        = preprocess(df:pd.DataFrame, path_pipeline, preprocess_pars=pars)
 
 
     log("#### Extract column names  ######################################################")

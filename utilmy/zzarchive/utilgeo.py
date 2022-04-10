@@ -21,7 +21,7 @@ import arrow
 #####################################################################################
 
 
-def df_to_geojson(df, col_properties, lat='latitude', lon='longitude'):
+def df_to_geojson(df:pd.DataFrame, col_properties, lat='latitude', lon='longitude'):
     """function df_to_geojson
     Args:
         df:   

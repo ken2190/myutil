@@ -210,7 +210,7 @@ def gluonts_dataframe(df):
     freq =freq )
   return df
 
-def nbeats_dataframe(df, forecast_length, in_sample,device, train_portion=0.75):
+def nbeats_dataframe(df:pd.DataFrame, forecast_length, in_sample,device, train_portion=0.75):
 
   backcast_length = 1 * forecast_length
 
@@ -252,7 +252,7 @@ def nbeats_dataframe(df, forecast_length, in_sample,device, train_portion=0.75):
     return x_train, y_train, net, norm_constant
 
 
-def train_test_split(df, train_proportion=0.75):
+def train_test_split(df:pd.DataFrame, train_proportion=0.75):
 
   size = int(df['Target'].shape[0]*train_proportion); print(size)
   train, test = tts(df['Target'], train_size=size,shuffle=False, stratify=None)
@@ -269,7 +269,7 @@ def prophet_dataframe(df):
   df_pr.columns = ['ds','y']
   return df_pr
 
-# def original_dataframe(df, freq):
+# def original_dataframe(df:pd.DataFrame, freq):
 #   prophet_pred = pd.Series(df["yhat"].values, index =df['ds']) 
 #   prophet_pred = prophet_pred.rename("Target")
 #   prophet_pred.index.name = 'Date'
@@ -279,7 +279,7 @@ def prophet_dataframe(df):
 #   print(prophet_pred.shape)
 #   return prophet_pred
 
-def original_dataframe(df, freq):
+def original_dataframe(df:pd.DataFrame, freq):
   prophet_pred = pd.DataFrame({"Date" : df['ds'], "Target" : df["yhat"]})
   prophet_pred = prophet_pred.set_index("Date")
   #prophet_pred.index.freq = pd.tseries.frequencies.to_offset(freq)
@@ -568,7 +568,7 @@ def ensemble_performance(forecasts):
   return pd.DataFrame.from_dict(dict_perf)
 
 
-def time_feature(df,perd):
+def time_feature(df:pd.DataFrame,perd):
   if perd in ["MS","M","BM","BMS"]:
     df["month"] = df.index.month
   elif perd in ["BH","H"]:
@@ -696,7 +696,7 @@ def ensemble_tsfresh(forecast_in,forecast_out,season, perd):
 
 
   df = forecast_in.iloc[season-1:,:].copy()
-  df = time_feature(df,perd)
+  df = time_feature(df:pd.DataFrame,perd)
   df["mean"] = df.drop(["Target"],axis=1).mean(axis=1)
 
   df_new = pd.concat((df.reset_index(),extracted_n_selected.iloc[:,-cols:].reset_index(drop=True)),axis=1)

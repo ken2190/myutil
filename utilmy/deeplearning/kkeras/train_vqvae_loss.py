@@ -1800,7 +1800,7 @@ if cc.data_type == 'npz' :
     df       = pd.DataFrame(data['train_label'], columns=['uri'])    
     # log5(df)
     df['id'] = df['uri'].apply(lambda x : int(x.split("/")[-1].split(".")[0])    ) 
-    labels_val, cc.labels_cnt  = data_to_y_onehot_list(df, dfref, labels_col)     
+    labels_val, cc.labels_cnt  = data_to_y_onehot_list(df:pd.DataFrame, dfref, labels_col)     
     y_train  = [ labels_val[ci][:, :]  for ci in labels_col  ]  ### list of oneHot (kbatch, nlabels)
     log5(y_train)
     
@@ -1810,7 +1810,7 @@ if cc.data_type == 'npz' :
     df = df.iloc[i_test, :]
     
     df['id']       = df['uri'].apply(lambda x : int(x.split("/")[-1].split(".")[0])    )    
-    labels_val, _  = data_to_y_onehot_list(df, dfref, labels_col)         
+    labels_val, _  = data_to_y_onehot_list(df:pd.DataFrame, dfref, labels_col)         
     y_test         = [ labels_val[ci][:, :]  for ci in labels_col  ]  #### list of oneHot (kbatch, nlabels)
     log5(y_test)    
     
@@ -1842,7 +1842,7 @@ elif cc.data_type == 'parquet' :
     
     # i_train =
     
-    labels_val, cc.labels_cnt  = data_to_y_onehot_list(df, dfref, labels_col)     
+    labels_val, cc.labels_cnt  = data_to_y_onehot_list(df:pd.DataFrame, dfref, labels_col)     
     y_train  = [ labels_val[ci][:, :]  for ci in labels_col  ]  #### list of oneHot (kbatch, nlabels)
     log5(y_train)
     
@@ -1852,7 +1852,7 @@ elif cc.data_type == 'parquet' :
     df = df.iloc[i_test, :]
     
     df['id']       = df['uri'].apply(lambda x : int(x.split("/")[-1].split(".")[0])    )    
-    labels_val, _  = data_to_y_onehot_list(df, dfref, labels_col)         
+    labels_val, _  = data_to_y_onehot_list(df:pd.DataFrame, dfref, labels_col)         
     y_test         = [ labels_val[ci][:, :]  for ci in labels_col  ]  #### list of oneHot (kbatch, nlabels)
     log5(y_test)    
     

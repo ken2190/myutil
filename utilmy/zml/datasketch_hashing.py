@@ -11,7 +11,7 @@ warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 '''
 For each of the entry create a hash function
 '''
-def create_hash(df, column_name, threshold, num_perm):
+def create_hash(df:pd.DataFrame, column_name, threshold, num_perm):
     """function create_hash
     Args:
         df:   
@@ -46,7 +46,7 @@ def create_hash(df, column_name, threshold, num_perm):
 For each of the hash function find a cluster and assign unique id to the dataframe cluster_id
 '''
 
-def find_clusters(df, column_name, threshold, num_perm):
+def find_clusters(df:pd.DataFrame, column_name, threshold, num_perm):
     """function find_clusters
     Args:
         df:   
@@ -61,7 +61,7 @@ def find_clusters(df, column_name, threshold, num_perm):
     all_cluster_ids = []
     
     #REturn from hash list
-    hash_lines, lsh = create_hash(df, column_name=column_name, threshold = threshold, num_perm = num_perm)
+    hash_lines, lsh = create_hash(df:pd.DataFrame, column_name=column_name, threshold = threshold, num_perm = num_perm)
 
     #For each local hash find the cluster ids and assign to the dataframe and return dataframe
     cluster_count = 1

@@ -674,7 +674,7 @@ def get_list_method_stats(file_path):
     list_info = get_list_method_info(file_path)
     if (len(list_info)):
         df = pd.DataFrame.from_records(list_info)
-        return get_stats(df, file_path)
+        return get_stats(df:pd.DataFrame, file_path)
     else:
         return None
 
@@ -705,7 +705,7 @@ def get_list_class_stats(file_path):
     list_info = get_list_class_info(file_path)
     if (len(list_info)):
         df = pd.DataFrame.from_records(list_info)
-        return get_stats(df, file_path)
+        return get_stats(df:pd.DataFrame, file_path)
     else:
         return None
 
@@ -744,7 +744,7 @@ def get_list_function_stats(file_path):
 
     if (len(list_info)):
         df = pd.DataFrame.from_records(list_info)
-        return get_stats(df, file_path)
+        return get_stats(df:pd.DataFrame, file_path)
 
     else:
         return None

@@ -68,7 +68,7 @@ def test1():
 ###############################################################################
 #                  TEXT ANALYSIS                                              #
 ###############################################################################
-def text_plot_distributions(df, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
+def text_plot_distributions(df:pd.DataFrame, x, max_cat=20, top=None, y=None, bins=None, figsize=(10,5)):
     '''
     Plot univariate and bivariate distributions.
     '''
@@ -1314,11 +1314,11 @@ def summary_bart(corpus, ratio=0.2):
 
 if 'utils':
 
-    def pd_train_test_split(df, y, test_size=0.3, shuffle=False):
+    def pd_train_test_split(df:pd.DataFrame, y, test_size=0.3, shuffle=False):
         '''
         Split the dataframe into train / test
         '''
-        dtf_train, dtf_test = model_selection.train_test_split(df, test_size=test_size, shuffle=shuffle)
+        dtf_train, dtf_test = model_selection.train_test_split(df:pd.DataFrame, test_size=test_size, shuffle=shuffle)
         print("X_train shape:", dtf_train.drop(y, axis=1).shape, "| X_test shape:", dtf_test.drop(y, axis=1).shape)
         print("y:")
         for i in dtf_train["y"].value_counts(normalize=True).index:
@@ -1329,7 +1329,7 @@ if 'utils':
 
 
 
-    def pd_colstring_encode(df, column):
+    def pd_colstring_encode(df:pd.DataFrame, column):
         '''
         Transform an array of strings into an array of int.
         '''

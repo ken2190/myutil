@@ -192,7 +192,7 @@ plt.show()
 # In[33]:
 
 
-def df_shift(df, lag=0, rejected_columns=[]):
+def df_shift(df:pd.DataFrame, lag=0, rejected_columns=[]):
     """function df_shift
     Args:
         df:   
@@ -226,7 +226,7 @@ def df_shift(df, lag=0, rejected_columns=[]):
 # In[34]:
 
 
-df_new = df_shift(df, 2)
+df_new = df_shift(df:pd.DataFrame, 2)
 df_new.shape
 
 

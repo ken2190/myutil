@@ -59,7 +59,7 @@ def daytime(d):
   else :        return 4     # Night
 
 
-def pd_date_splitall(df, coldate='purchased_at') :
+def pd_date_splitall(df:pd.DataFrame, coldate='purchased_at') :
    df= copy.deepcopy(df)
    df['year']=  df[coldate].apply(year)   
    df['month']= df[coldate].apply(month)   

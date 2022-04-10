@@ -64,7 +64,7 @@ def kruskal(x, y):
     h = 12.0 / (totaln * (totaln + 1)) * ssbn - 3 * (totaln + 1)
     df = 1
     h /= ties
-    return h, chdtrc(df, h)
+    return h, chdtrc(df:pd.DataFrame, h)
 
 
 @njit

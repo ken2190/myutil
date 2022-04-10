@@ -47,7 +47,7 @@ def test1(verbose=False):
     # test create table
     df = test_getdata()['titanic.csv']
     doc.h1(" Table test ")
-    doc.table(df, use_datatable=True, table_id="test", custom_css_class='intro')
+    doc.table(df:pd.DataFrame, use_datatable=True, table_id="test", custom_css_class='intro')
     if verbose: doc.print()
     doc.save(dir_out="testdata/test_viz_table.html")
     doc.open_browser()  # Open myfile.html
@@ -164,7 +164,7 @@ def test4(verbose=False):
     # plot network
     doc.h1(" plot network test ")
     df = pd.DataFrame({ 'from':['A', 'B', 'C','A'], 'to':['D', 'A', 'E','C'], 'weight':[1, 2, 1,5]})
-    doc.pd_plot_network(df, cola='from', colb='to', coledge='col_edge',colweight="weight")
+    doc.pd_plot_network(df:pd.DataFrame, cola='from', colb='to', coledge='col_edge',colweight="weight")
 
     doc.save('test4.html')
     doc.open_browser()
@@ -194,7 +194,7 @@ def test_scatter_and_histogram_matplot(verbose=False):
 
 def test_pd_plot_network(verbose=False):
   df = pd.DataFrame({ 'from':['A', 'B', 'C','A'], 'to':['D', 'A', 'E','C'], 'weight':[1, 2, 1,5]})
-  html_code = vi.pd_plot_network(df, cola='from', colb='to', coledge='col_edge',colweight="weight")
+  html_code = vi.pd_plot_network(df:pd.DataFrame, cola='from', colb='to', coledge='col_edge',colweight="weight")
   if verbose: print(html_code)
 
 def test_cssname(verbose=False,css_name="a4"):
@@ -239,7 +239,7 @@ def test_table():
    url = 'https://raw.githubusercontent.com/AlexAdvent/high_charts/main/table_data.csv'
    df = pd.read_csv(url)
    vi.log( df.head() )
-   vi.show_table_image(df, colimage='image_url', colgroup='name', title='test_table')
+   vi.show_table_image(df:pd.DataFrame, colimage='image_url', colgroup='name', title='test_table')
    
 def test_page():
     # get data
@@ -298,7 +298,7 @@ def test_page():
 
     # network
     df = pd.DataFrame({ 'from':['A', 'B', 'C','A'], 'to':['D', 'A', 'E','C'], 'weight':[1, 2, 1,5]})
-    doc.pd_plot_network(df, cola='from', colb='to', coledge='col_edge',colweight="weight")
+    doc.pd_plot_network(df:pd.DataFrame, cola='from', colb='to', coledge='col_edge',colweight="weight")
     
     vi.html_show(doc.get_html())
     doc.save('test_page.html')
@@ -308,9 +308,9 @@ def test_colimage_table():
   url = 'https://raw.githubusercontent.com/AlexAdvent/high_charts/main/table_data.csv'
   df = pd.read_csv(url)
   doc.h1(" Table without colimage")
-  doc.table(df, use_datatable=False, table_id="test", custom_css_class='intro')
+  doc.table(df:pd.DataFrame, use_datatable=False, table_id="test", custom_css_class='intro')
   doc.h1(" Table with colimage")
-  doc.table(df, use_datatable=False, table_id="testwithcolimage", custom_css_class='intro', colimage='image_url')
+  doc.table(df:pd.DataFrame, use_datatable=False, table_id="testwithcolimage", custom_css_class='intro', colimage='image_url')
   doc.save(dir_out="testdata/test_viz_table.html")
   doc.open_browser()  # Open myfile.html   
   

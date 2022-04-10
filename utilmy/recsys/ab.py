@@ -26,7 +26,7 @@ plot_ab(ax, N_A, N_B, bcr, d_hat, sig_level=0.05, show_power=False
 zplot(ax, area=0.95, two_tailed=True, align_right=False)
 abplot_CI_bars(N, X, sig_level=0.05, dmin=None)
 funnel_CI_plot(A, B, sig_level=0.05)
-ab_getstat(df,treatment_col,measure_col,attribute_cols,control_label,variation_label,inference_method,hypothesis,alpha,experiment_name)
+ab_getstat(df:pd.DataFrame,treatment_col,measure_col,attribute_cols,control_label,variation_label,inference_method,hypothesis,alpha,experiment_name)
 
 
 https://pypi.org/project/abracadabra/
@@ -350,7 +350,7 @@ def test_all():
 
 
 ################################################################################################################
-def ab_getstat(df,
+def ab_getstat(df:pd.DataFrame,
                treatment_col='treatment',
                measure_col='metric',
                attribute_cols='attrib',
@@ -416,7 +416,7 @@ def ab_getstat(df,
         if len(hypothesis)>1:
             inference_method = inference_method*len(hypothesis)
 
-    if isinstance(df, str):
+    if isinstance(df:pd.DataFrame, str):
       from utilmy import pd_read_file
       df = pd_read_file(df)   #### 
       log(df.shape, df.columns)

@@ -65,7 +65,7 @@ The output is saved in multiple tabs in a new Excel file.
 def xl_create_pivot(infile, index_list=["Manager", "Rep", "Product"], value_list=["Price", "Quantity"]):
    ''' Read in the Excel file, create a pivot table and return it as a DataFrame '''
    df=pd.read_excel(infile)
-   table=pd.pivot_table(df, index=index_list, values=value_list, aggfunc=[np.sum, np.mean], fill_value=0)
+   table=pd.pivot_table(df:pd.DataFrame, index=index_list, values=value_list, aggfunc=[np.sum, np.mean], fill_value=0)
    return table
 
 
@@ -100,7 +100,7 @@ def xl_create_pdf() :
    from weasyprint import HTML
 
    df=pd.read_excel(args.infile.name)
-   sales_report=create_pivot(df, args.infile.name)
+   sales_report=create_pivot(df:pd.DataFrame, args.infile.name)
 
    # Get some national summary to include as well
    manager_df=[]
@@ -111,7 +111,7 @@ def xl_create_pdf() :
    # We can specify any directory for the loader but for this example, use current director
    env=Environment(loader=FileSystemLoader('.'))
    template=env.get_template("myreport.html")
-   template_vars={"title": "National Sales Funnel Report", "CPU": get_summary_stats(df, "CPU"), "Software": get_summary_stats(df, "Software"), "national_pivot_table": sales_report.to_html(), "Manager_Detail": manager_df}
+   template_vars={"title": "National Sales Funnel Report", "CPU": get_summary_stats(df:pd.DataFrame, "CPU"), "Software": get_summary_stats(df:pd.DataFrame, "Software"), "national_pivot_table": sales_report.to_html(), "Manager_Detail": manager_df}
    # Render our file and create the PDF using our css style file
    html_out=template.render(template_vars)
    HTML(string=html_out).write_pdf(args.outfile.name, stylesheets=["style.css"])

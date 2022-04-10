@@ -275,7 +275,7 @@ class Entity(object):
         df,info = path.getpathdetail()
 
         merged = self.dataframe[[self.index]+features].rename({self.index:info['lastindex']},axis=1).\
-        merge(df,left_on=info['lastindex'],right_on=info['lastindex'],how=how)
+        merge(df:pd.DataFrame,left_on=info['lastindex'],right_on=info['lastindex'],how=how)
 
         return merged, info
 

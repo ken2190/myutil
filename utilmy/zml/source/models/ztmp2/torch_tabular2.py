@@ -587,7 +587,7 @@ def test2(nrows=10000):
     target_name =  coly
 
     df.head()
-    train, test = train_test_split(df, random_state=42)
+    train, test = train_test_split(df:pd.DataFrame, random_state=42)
     train, val  = train_test_split(train, random_state=42)
     num_classes = len(set(train[target_name].values.ravel()))
 

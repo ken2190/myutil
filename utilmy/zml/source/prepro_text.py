@@ -49,7 +49,7 @@ def logs(*s):
         print(*s, flush=True)
 
 
-def log_pd(df, *s, n=0, m=1):
+def log_pd(df:pd.DataFrame, *s, n=0, m=1):
     """function log_pd
     Args:
         df:   
@@ -108,7 +108,7 @@ def pd_coltext_clean( df, col, stopwords= None , pars=None):
 
 
 
-def pd_coltext_wordfreq(df, col, stopwords, ntoken=100):
+def pd_coltext_wordfreq(df:pd.DataFrame, col, stopwords, ntoken=100):
     """
     :param df:
     :param coltext:  text where word frequency should be extracted
@@ -146,7 +146,7 @@ def nlp_get_stopwords():
     return stopwords
 
 
-def pd_coltext(df, col, pars={}):
+def pd_coltext(df:pd.DataFrame, col, pars={}):
     """
     df : Datframe
     col : list of columns
@@ -165,7 +165,7 @@ def pd_coltext(df, col, pars={}):
 
     #### Process  ####################################################################
     stopwords           = nlp_get_stopwords()
-    dftext              = pd_coltext_clean(df, col, stopwords= stopwords , pars=pars)
+    dftext              = pd_coltext_clean(df:pd.DataFrame, col, stopwords= stopwords , pars=pars)
     dftext_svd_list_all = None
     dftext_tdidf_all    = None
 
@@ -178,7 +178,7 @@ def pd_coltext(df, col, pars={}):
 
             else:
                 ### If it is not, create a bag of word
-                coltext_freq, word_tokeep = pd_coltext_wordfreq(df, col_, stopwords, ntoken=100)  ## nb of words to keep
+                coltext_freq, word_tokeep = pd_coltext_wordfreq(df:pd.DataFrame, col_, stopwords, ntoken=100)  ## nb of words to keep
                 word_tokeep_dict_all[col_] = word_tokeep  ## save the bag of wrod for `col_` in a dict
 
             dftext_tdidf_dict, word_tokeep_dict = util_text.pd_coltext_tdidf(dftext, coltext=col_, word_minfreq= word_minfreq,
@@ -216,7 +216,7 @@ def pd_coltext(df, col, pars={}):
     return dftext_svd_list_all, col_pars
 
 
-def pd_coltext_universal_google(df, col, pars={}):
+def pd_coltext_universal_google(df:pd.DataFrame, col, pars={}):
     """
      # Universal sentence encoding from Tensorflow
        Text ---> Vectors

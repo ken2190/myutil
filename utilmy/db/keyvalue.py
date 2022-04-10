@@ -62,14 +62,14 @@ def test_all():
     
     log('##### multithread insert  commit ##################################')    
     t0 = time.time()
-    diskcache_save2(df, colkey='0', colvalue='1', db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
+    diskcache_save2(df:pd.DataFrame, colkey='0', colvalue='1', db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
                     sqlmode= 'fast', verbose=True)    
     log(n, time.time()-t0)
     diskcache_config(db_path="./dbcache.db", task='fast')
     
     log('##### multithread insert commit  ##################################')    
     t0 = time.time()
-    diskcache_save2(df, colkey='0', colvalue='1', db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
+    diskcache_save2(df:pd.DataFrame, colkey='0', colvalue='1', db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
                     sqlmode= 'commit', verbose=True)    
     log(n, time.time()-t0)
 
@@ -409,13 +409,13 @@ def db_create_dict_pandas(df=None, cols=None, colsu=None):   ####  python prepro
         df['siid'] = df.apply(lambda x : f"{int(x['shop_id'])}_{int(x['item_id'])}"  , axis=1)
         del df['shop_id'] ; del df['item_id']
         
-        pd_to_file(df, dirout + f"/df_map_{tag}_{kk}.parquet", show=1 )    
+        pd_to_file(df:pd.DataFrame, dirout + f"/df_map_{tag}_{kk}.parquet", show=1 )
         kk = kk + 1
 
         
-def db_load_dict(df, colkey, colval, verbose=True):
+def db_load_dict(df:pd.DataFrame, colkey, colval, verbose=True):
     ### load Pandas dataframe and convert into dict   colkey --> colval
-    if isinstance(df, str):
+    if isinstance(df:pd.DataFrame, str):
        dirin = df
        log('loading', df)
        df = pd_read_file(dirin, cols= [colkey, colval ], n_pool=3, verbose=True)
@@ -445,7 +445,7 @@ def diskcache_load( db_path_or_object="", size_limit=100000000000, verbose=True 
 
 
 
-def diskcache_save(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, 
+def diskcache_save(df:pd.DataFrame, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1,
                    tbreak=1,  ## Break during insert to prevent big WAL file                   
                    **kw):    
     """ Create dict type on disk, < 100 Gb
@@ -478,7 +478,7 @@ def diskcache_save(df, colkey, colvalue, db_path="./dbcache.db", size_limit=1000
     return cache
 
 
-def diskcache_save2(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
+def diskcache_save2(df:pd.DataFrame, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1, npool=10,
                     sqlmode= 'fast', verbose=True):    
     """ Create dict type on disk, < 100 Gb
        shards>1 : disk spaced is BLOCKED in advance, so high usage       

@@ -76,50 +76,50 @@ config_default   = 'config1'          ### name of function which contains data c
 """
 Features to be tested.
         #### Category, Numerical
-        source/prepro.py::pd_col_genetic_transform(df,col, pars)
+        source/prepro.py::pd_col_genetic_transform(df:pd.DataFrame,col, pars)
         
-        source/prepro.py::pd_colcat_bin(df,col, pars)
-        source/prepro.py::pd_colcat_encoder_generic(df,col, pars)
-        source/prepro.py::pd_colcat_minhash(df,col, pars)
-        source/prepro.py::pd_colcat_to_onehot(df,col, pars)
+        source/prepro.py::pd_colcat_bin(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colcat_encoder_generic(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colcat_minhash(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colcat_to_onehot(df:pd.DataFrame,col, pars)
         
-        source/prepro.py::pd_colcross(df,col, pars)
-        source/prepro.py::pd_coldate(df,col, pars)
+        source/prepro.py::pd_colcross(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_coldate(df:pd.DataFrame,col, pars)
         
-        source/prepro.py::pd_colnum(df,col, pars)
-        source/prepro.py::pd_colnum_bin(df,col, pars)
-        source/prepro.py::pd_colnum_binto_onehot(df,col, pars)
-        source/prepro.py::pd_colnum_normalize(df,col, pars)
-        source/prepro.py::pd_colnum_quantile_norm(df,col, pars)
+        source/prepro.py::pd_colnum(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colnum_bin(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colnum_binto_onehot(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colnum_normalize(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_colnum_quantile_norm(df:pd.DataFrame,col, pars)
 
         
         #### Text        
-        source/prepro_text.py::pd_coltext(df,col, pars)
-        source/prepro_text.py::pd_coltext_clean(df,col, pars)
-        source/prepro_text.py::pd_coltext_universal_google(df,col, pars)
-        source/prepro_text.py::pd_coltext_wordfreq(df,col, pars)
+        source/prepro_text.py::pd_coltext(df:pd.DataFrame,col, pars)
+        source/prepro_text.py::pd_coltext_clean(df:pd.DataFrame,col, pars)
+        source/prepro_text.py::pd_coltext_universal_google(df:pd.DataFrame,col, pars)
+        source/prepro_text.py::pd_coltext_wordfreq(df:pd.DataFrame,col, pars)
         
         
         #### Target label encoding
-        source/prepro.py::pd_coly(df,col, pars)
+        source/prepro.py::pd_coly(df:pd.DataFrame,col, pars)
         
-        source/prepro.py::pd_filter_rows(df,col, pars)
-        source/prepro.py::pd_coly_clean(df,col, pars)
+        source/prepro.py::pd_filter_rows(df:pd.DataFrame,col, pars)
+        source/prepro.py::pd_coly_clean(df:pd.DataFrame,col, pars)
 
 
         #### Time Series 
-        source/prepro_tseries.py::pd_ts_autoregressive(df,col, pars)
-        source/prepro_tseries.py::pd_ts_basic(df,col, pars)
-        source/prepro_tseries.py::pd_ts_date(df,col, pars)
+        source/prepro_tseries.py::pd_ts_autoregressive(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_basic(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_date(df:pd.DataFrame,col, pars)
         
-        source/prepro_tseries.py::pd_ts_detrend(df,col, pars)
-        source/prepro_tseries.py::pd_ts_generic(df,col, pars)
-        source/prepro_tseries.py::pd_ts_groupby(df,col, pars)
-        source/prepro_tseries.py::pd_ts_identity(df,col, pars)
-        source/prepro_tseries.py::pd_ts_lag(df,col, pars)
-        source/prepro_tseries.py::pd_ts_onehot(df,col, pars)
-        source/prepro_tseries.py::pd_ts_rolling(df,col, pars)
-        source/prepro_tseries.py::pd_ts_template(df,col, pars)
+        source/prepro_tseries.py::pd_ts_detrend(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_generic(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_groupby(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_identity(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_lag(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_onehot(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_rolling(df:pd.DataFrame,col, pars)
+        source/prepro_tseries.py::pd_ts_template(df:pd.DataFrame,col, pars)
 
 """
 
@@ -496,7 +496,7 @@ def pd_col_amyfun(df: pd.DataFrame, col: list=None, pars: dict=None):
     #### Do something #################################################################
     if prepro is None :   ###  Training time
         dfy, coly  = pars['dfy'], pars['coly']
-        def prepro(df, a=0): return df    ### model
+        def prepro(df:pd.DataFrame, a=0): return df    ### model
         pars['pars_prepro'] = {'a': 5}   ### new params
 
     else :  ### predict time

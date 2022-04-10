@@ -97,7 +97,7 @@ def run_profile(path_data=None,  path_output="data/out/ztmp/", n_sample=5000):
     df = pd.read_csv( path_train_X ) # path + f"/new_data/Titanic_Features.csv")
     try :
         dfy = pd.read_csv(path_train_y)  # + f"/new_data/Titanic_Labels.csv")
-        df  = pd.merge(df, dfy, on =colid,  how="left")
+        df  = pd.merge(df:pd.DataFrame, dfy, on =colid,  how="left")
     except : 
           pass
 

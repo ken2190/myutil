@@ -62,7 +62,7 @@ def user_item_pairs(
     return users_items
 
 
-def filter_by(df, filter_by_df, filter_by_cols):
+def filter_by(df:pd.DataFrame, filter_by_df, filter_by_cols):
     """From the input DataFrame `df`, remove the records whose target column `filter_by_cols` values are
     exist in the filter-by DataFrame `filter_by_df`.
 
@@ -255,7 +255,7 @@ class LibffmConverter:
         Return:
             pandas.DataFrame: Output libffm format dataframe.
         """
-        return self.fit(df, col_rating=col_rating).transform(df)
+        return self.fit(df:pd.DataFrame, col_rating=col_rating).transform(df)
 
     def get_params(self):
         """Get parameters (attributes) of the libffm converter
@@ -361,7 +361,7 @@ def negative_feedback_sampler(
     )
 
 
-def has_columns(df, columns):
+def has_columns(df:pd.DataFrame, columns):
     """Check if DataFrame has necessary columns
 
     Args:

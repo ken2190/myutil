@@ -52,7 +52,7 @@ log(root)
 from util_feature import   load, save_list, load_function_uri, save
 from run_preprocess import  preprocess, preprocess_load
 
-def save_features(df, name, path):
+def save_features(df:pd.DataFrame, name, path):
     """function save_features
     Args:
         df:   

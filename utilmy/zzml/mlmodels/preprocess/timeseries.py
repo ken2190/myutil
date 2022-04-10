@@ -103,7 +103,7 @@ def gluonts_to_pandas(ds):
 
 
 
-def pandas_to_gluonts(df, pars=None) :
+def pandas_to_gluonts(df:pd.DataFrame, pars=None) :
     """
        df.index : Should timestamp
        start date : part of index
@@ -221,7 +221,7 @@ def test_gluonts():
              "cols_cat" : [],
              "cols_num" : []
             }    
-    gts = pandas_to_gluonts(df, pars=pars) 
+    gts = pandas_to_gluonts(df:pd.DataFrame, pars=pars)
     print(gluonts_to_pandas( gts ) )    
     #for t in gts :
     #   print( to_pandas(t)[:10] )
@@ -236,7 +236,7 @@ def test_gluonts():
              "cols_cat" : [],
              "cols_num" : []
             }    
-    gts = pandas_to_gluonts(df, pars=pars) 
+    gts = pandas_to_gluonts(df:pd.DataFrame, pars=pars)
     print(gluonts_to_pandas( gts ) )    
 
 
@@ -589,7 +589,7 @@ def pd_load(path) :
 
 
 
-def pd_interpolate(df, cols, pars={"method": "linear", "limit_area": "inside"  }):
+def pd_interpolate(df:pd.DataFrame, cols, pars={"method": "linear", "limit_area": "inside"  }):
     """
         Series.interpolate(self, method='linear', axis=0, limit=None, inplace=False, limit_direction='forward', limit_area=None, downcast=None, **kwargs)[source]¶
         Please note that only method='linear' is supported for DataFrame/Series with a MultiIndex.
@@ -626,7 +626,7 @@ def pd_interpolate(df, cols, pars={"method": "linear", "limit_area": "inside"  }
 
 
 
-def pd_clean_v1(df, cols=None,  pars=None) :
+def pd_clean_v1(df:pd.DataFrame, cols=None,  pars=None) :
   """function pd_clean_v1
   Args:
       df:   
@@ -665,7 +665,7 @@ def pd_reshape(test, features, target, pred_len, m_feat) :
 
 
 
-def pd_clean(df, cols=None, pars=None ):
+def pd_clean(df:pd.DataFrame, cols=None, pars=None ):
   """function pd_clean
   Args:
       df:   

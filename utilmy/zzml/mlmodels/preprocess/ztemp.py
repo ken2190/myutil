@@ -241,7 +241,7 @@ def pandas_dataset() :
     class DataFrameDataset(Dataset):
         def __init__(self, df: pd.DataFrame,
                      fields: Dict[str, Field], filter_pred=None):
-            examples = DataFrameExampleSet(df, fields)
+            examples = DataFrameExampleSet(df:pd.DataFrame, fields)
             super().__init__(examples, fields, filter_pred=filter_pred)
 
 

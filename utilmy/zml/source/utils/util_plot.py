@@ -232,7 +232,7 @@ def plot_col_univariate(input_data, feature, target_col, trend_correlation=None)
 
 
 
-def plotbar(df, colname, figsize=(20, 10), title="feature importance", savefile="myfile.png"):
+def plotbar(df:pd.DataFrame, colname, figsize=(20, 10), title="feature importance", savefile="myfile.png"):
     plt.figure(figsize=(20, 10))
     sns.barplot(x=colname[0], y=colname[1], data=df[colname])
     plt.title(title)
@@ -260,7 +260,7 @@ def plotxy(
     plt.savefig(savefile)
 
 
-def plot_col_distribution(df, col_include=None, col_exclude=None, pars={"binsize": 20}):
+def plot_col_distribution(df:pd.DataFrame, col_include=None, col_exclude=None, pars={"binsize": 20}):
     """  Retrives all the information of the column
     :param df:
     :param col_include:
@@ -302,7 +302,7 @@ def plot_col_distribution(df, col_include=None, col_exclude=None, pars={"binsize
         plt.show()
 
 
-def plot_pair(df, Xcolname=None, Ycoltarget=None):
+def plot_pair(df:pd.DataFrame, Xcolname=None, Ycoltarget=None):
     """
     :param df:
     :param Xcolname:
@@ -736,7 +736,7 @@ def plot_XY_seaborn(X, Y, Zcolor=None):
 ######################################
 
 
-def plot_cols_with_NaNs(df, nb_to_show):
+def plot_cols_with_NaNs(df:pd.DataFrame, nb_to_show):
     """
     Function to plot highest missing value columns
     Arguments:
@@ -750,7 +750,7 @@ def plot_cols_with_NaNs(df, nb_to_show):
     )
 
 
-def plot_col_correl_matrix(df, cols, annot=True, size=30):
+def plot_col_correl_matrix(df:pd.DataFrame, cols, annot=True, size=30):
     """
     Function to plot correlation matrix
     Arguments:
@@ -766,7 +766,7 @@ def plot_col_correl_matrix(df, cols, annot=True, size=30):
     )
 
 
-def plot_col_correl_target(df, cols, coltarget, nb_to_show=10, ascending=False):
+def plot_col_correl_target(df:pd.DataFrame, cols, coltarget, nb_to_show=10, ascending=False):
     """
     Function to plot correlated columns to target
     Arguments:

@@ -305,7 +305,7 @@ if 'diskcache' :
         return cache
 
 
-    def diskcache_save(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1,
+    def diskcache_save(df:pd.DataFrame, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=10, shards=1,
                        tbreak=1,  ## Break during insert to prevent big WAL file
                        **kw):
         """ Create dict type on disk, < 100 Gb
@@ -336,7 +336,7 @@ if 'diskcache' :
         return cache
 
 
-    def diskcache_save2(df, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=20, shards=1, npool=10,
+    def diskcache_save2(df:pd.DataFrame, colkey, colvalue, db_path="./dbcache.db", size_limit=100000000000, timeout=20, shards=1, npool=10,
                         sqlmode= 'fast', ttl=None, verbose=True):
         """ Create dict type on disk, < 100 Gb, shards>1 : disk spaced is BLOCKED in advance, so high usage
            Issue, uses too much of DISK
@@ -467,10 +467,10 @@ if 'diskcache' :
 
         df = pd_read_file2(flist, cols=cols, drop_duplicates=cols)
         df = df.drop_duplicates()
-        df = pd_add_siid(df, delete=True)
+        df = pd_add_siid(df:pd.DataFrame, delete=True)
         df = df[['siid']]
         df['genre_id'] = 0
-        diskcache_save2(df,db_path=  db[cache] , colkey= colkey, colvalue= colg,  npool=4, verbose=False , ttl = 1000 )
+        diskcache_save2(df:pd.DataFrame,db_path=  db[cache] , colkey= colkey, colvalue= colg,  npool=4, verbose=False , ttl = 1000 )
 
 
 
@@ -656,7 +656,7 @@ if 'easyid' :
         for fpath in fpath_list  :
             log(fpath, npool)
             df = pd_read_file(fpath, n_pool=npool, cols=cols, nrows=nrows, verbose=False)         ## 300 mio click
-            # log(df, df.dtypes)
+            # log(df:pd.DataFrame, df.dtypes)
             df['easy_id'] = df['easy_id'].astype('int64')
 
 
@@ -671,7 +671,7 @@ if 'easyid' :
 
 
             log('df shape', df.shape)
-            df = pd_easyid_flatten_siid(df, get_siid_list)
+            df = pd_easyid_flatten_siid(df:pd.DataFrame, get_siid_list)
             log('N easy_id',  len(df) )
 
 
@@ -691,7 +691,7 @@ if 'easyid' :
             log(df)
             #### Insert missing ones
             if len(df) > 0 :
-              diskcache_save(df, colkey='easy_id', colvalue='siid_list', db_path=db_path)
+              diskcache_save(df:pd.DataFrame, colkey='easy_id', colvalue='siid_list', db_path=db_path)
 
 
     def easyid_get_histo(easyid, version="") :
@@ -751,7 +751,7 @@ if 'utils' :
         return v
 
 
-    def pd_easyid_flatten_siid(df, fun_flatten_siid, colgroup = 'easy_id', colist='siid_list'):
+    def pd_easyid_flatten_siid(df:pd.DataFrame, fun_flatten_siid, colgroup = 'easy_id', colist='siid_list'):
         ### easyid --->  siid_list
         import gc
         df = df[ -df[colgroup].isna() ]
@@ -815,7 +815,7 @@ if 'utils' :
            try :
              log(fi)
              df    = pd.read_parquet(fi)
-             print(df, df.columns)
+             print(df:pd.DataFrame, df.columns)
            except: pass
 
 
@@ -856,7 +856,7 @@ if 'utils' :
        def fun1(dfi):
             return  dfi['c'].sum()  + dfi['d'].sum()
 
-       dfg = pd_apply_parallel(df, colsgroup=None, fun_apply=fun1, npool=5)
+       dfg = pd_apply_parallel(df:pd.DataFrame, colsgroup=None, fun_apply=fun1, npool=5)
        log(df)
        log(dfg)
 
@@ -886,7 +886,7 @@ if 'word2vec' :
     def c():
         dir_in =  "/a/adigcb201/ipsvols03/ndata/cpa/input/ichiba_clk_202102_202108_itemtagb2_202106_08/000000_0.parquet"
         df = pd.read_parquet(dir_in  )
-        log(df, df.dtypes)
+        log(df:pd.DataFrame, df.dtypes)
         log(df.easy_id.nunique() , )
 
 
@@ -1211,7 +1211,7 @@ if 'word2vec' :
                   kk = kk + 1
                   df = pd.DataFrame({ 'id' : words, 'emb' : embs }  )
                   log(df.shape)
-                  pd_to_file(df, dirout + f"/df_emb_{kk}.parquet", show=0)
+                  pd_to_file(df:pd.DataFrame, dirout + f"/df_emb_{kk}.parquet", show=0)
                   ntot += len(df)
                   words, embs = [], []
 
@@ -1219,7 +1219,7 @@ if 'word2vec' :
         df    = pd.DataFrame({ 'id' : words, 'emb' : embs }  )
         ntot += len(df)
         dirout2 = dirout + f"/df_emb_{kk}.parquet"
-        pd_to_file(df, dirout2, show=1 )
+        pd_to_file(df:pd.DataFrame, dirout2, show=1 )
         log('ntotal', ntot )
         return os.path.dirname(dirout2)
 
@@ -1352,7 +1352,7 @@ if 'word2vec' :
        faiss_index.nprobe = 12  # Runtime param. The number of cells that are visited for search.
 
        ########################################################################
-       if isinstance(df, list):    ### Multi processing part
+       if isinstance(df:pd.DataFrame, list):    ### Multi processing part
             if len(df) < 1 : return 1
             flist = df[0]
             root     = os.path.abspath( os.path.dirname( flist[0] + "/../../") )  ### bug in multipro
@@ -1501,7 +1501,7 @@ if 'word2vec' :
         df = dirin
 
         #### vran, siid, item_tag_vran
-        if isinstance(df, list):    ### Multi processing part
+        if isinstance(df:pd.DataFrame, list):    ### Multi processing part
             flist = df[0]
             root     = os.path.abspath( os.path.dirname( flist[0] + "/../../") )  ### bug in ultipro
             dirin    = root +  "/topk/"
@@ -1569,7 +1569,7 @@ if 'word2vec' :
             df['id_list'] = df['id_list'].apply(lambda x: to_siid(x))
 
             log(df[['id', 'id_list'  ]])
-            pd_to_file(df, fouti , show=1 )
+            pd_to_file(df:pd.DataFrame, fouti , show=1 )
 
             if i == 0 :
                pd_to_file(df.iloc[:50, :], fouti.replace(".parquet", ".csv") , show=0 )
@@ -1726,7 +1726,7 @@ if 'utils0':
             return True
         return False
 
-    def pd_del(df, cols):
+    def pd_del(df:pd.DataFrame, cols):
         for ci in cols :
             if ci in df.columns : del df[ci]
         return df
@@ -1740,12 +1740,12 @@ if 'utils0':
        def fun1(dfi):
             return  dfi['c'].sum()  + dfi['d'].sum()
 
-       dfg = pd_apply_parallel(df, colsgroup=None, fun_apply=fun1, npool=5)
+       dfg = pd_apply_parallel(df:pd.DataFrame, colsgroup=None, fun_apply=fun1, npool=5)
        log(df)
        log(dfg)
 
 
-    def pd_apply_parallel(df, colsgroup=None, fun_apply=None, npool=5):
+    def pd_apply_parallel(df:pd.DataFrame, colsgroup=None, fun_apply=None, npool=5):
         """ Pandas parallel apply
 
         """
@@ -1834,7 +1834,7 @@ if 'utils daily' :
         log("\n\n###### ", date_now_jp("%Y%m%d-%H:%M:%S"), *s )
 
 
-    def pd_add_siid(df, delete=False):
+    def pd_add_siid(df:pd.DataFrame, delete=False):
        if 'siid' not in df.columns :
          df['siid'] = df.apply(lambda x : siid(x), axis=1)
          if delete :
@@ -2256,7 +2256,7 @@ if 'daily_check':
 
 
 if 'imaster':
-    def pd_add_itemaster(df, cols_cass=None):
+    def pd_add_itemaster(df:pd.DataFrame, cols_cass=None):
         """  "ran_cd", "price", "tags", "genre_path", "item_type", "item_status", "mobile_flg", # "shop_id", "image_url", "item_name", # "item_id",
             "tax_flg", "postage_flg", "item_url", "shop_name", "shop_url", "genre_name_path", "rate", "detail_sell_type", "catalog_id",
             "item_number", "adult_flg", "yamiichi_flg", "genre_id", "review_num", "review_avg", # "time_stamp",
@@ -2280,7 +2280,7 @@ if 'imaster':
         return df
 
 
-    def pd_add_itemaster_dict(df, cols=None, cass_query=None, update_cache=False):
+    def pd_add_itemaster_dict(df:pd.DataFrame, cols=None, cass_query=None, update_cache=False):
         """  "ran_cd", "price", "tags", "genre_path", "item_type", "item_status", "mobile_flg", # "shop_id", "image_url", "item_name", # "item_id",
           "tax_flg", "postage_flg", "item_url", "shop_name", "shop_url", "genre_name_path", "rate", "detail_sell_type", "catalog_id",
           "item_number", "adult_flg", "yamiichi_flg", "genre_id", "review_num", "review_avg", # "time_stamp",
@@ -2293,7 +2293,7 @@ if 'imaster':
         if cols is None:
             cols = ['item_name',   'price', 'shop_name',  "genre_name_path", "review_num", "review_avg",   'image_url', 'genre_path'  ]
 
-        if isinstance(df, pd.DataFrame) :
+        if isinstance(df:pd.DataFrame, pd.DataFrame) :
             if 'siid' not in df.columns :  df['siid'] = df.apply( lambda x : siid(x), axis=1)
             df = df['siid'].values
 
@@ -2467,7 +2467,7 @@ if 'embed':
         df['item_text'] = df.apply(lambda x : item_merge_field(x), axis=1)
 
         log(  df[[ 'item_text'  ]], df.columns)
-        pd_to_file(df, dirout + f"/item_text_emb1_{t0}.parquet" , show=0)
+        pd_to_file(df:pd.DataFrame, dirout + f"/item_text_emb1_{t0}.parquet" , show=0)
 
 
     def item_add_vector(modelin=None, dirin=None, dirout=None):   ### py item_add_vector
@@ -2486,7 +2486,7 @@ if 'embed':
 
 
         df = pd_read_file( flist ,  cols = cols, nrows=500500500 )
-        log(df, df.columns)
+        log(df:pd.DataFrame, df.columns)
         df = df.drop_duplicates([ 'shop_id', 'item_id' ])
 
         ### Normalize item_text
@@ -2495,7 +2495,7 @@ if 'embed':
         df['item_emb']  = text_tovec_batch(model, df['item_text'].values )
 
         log(  df[[ 'item_id', 'item_emb'  ]])
-        pd_to_file(df, dirout + f"/item_text_emb1_{t0}.parquet" , show=0)
+        pd_to_file(df:pd.DataFrame, dirout + f"/item_text_emb1_{t0}.parquet" , show=0)
 
 
     def item_add_text_vector(modelin=None, dirin=None, dirout=None, nrows=500500500, nfile=1000, today=None,
@@ -2536,10 +2536,10 @@ if 'embed':
             if len(df) < 1 :
                 log('Empty df', fi, df ) ; continue
 
-            log(df, df.columns)
+            log(df:pd.DataFrame, df.columns)
             df['siid'] = df.apply(lambda x : siid(x), axis=1)
             if remove_exist :
-                df         = pd_cass_remove_exist(df, prefix = model0.pref)  ### Cass remove existing one
+                df         = pd_cass_remove_exist(df:pd.DataFrame, prefix = model0.pref)  ### Cass remove existing one
 
             if len(df) < 1 : continue
 
@@ -2548,11 +2548,11 @@ if 'embed':
             df['item_emb']  = text_tovec_batch(model, df['item_text'].values )   ###TF_flow model
 
             log(  df[[ 'item_id', 'item_emb'  ]])
-            pd_to_file(df, dirouti , show=0)
+            pd_to_file(df:pd.DataFrame, dirouti , show=0)
 
             ### Update Cass
             df = df[[ 'siid', 'item_emb' ]]
-            cass_update(df, table=model0.table, prefix= model0.pref, colkey="siid", colval="item_emb")
+            cass_update(df:pd.DataFrame, table=model0.table, prefix= model0.pref, colkey="siid", colval="item_emb")
 
 
     def item_vector_tocass(dirin=None, table=None):   ### py item_vector_tocass
@@ -2574,7 +2574,7 @@ if 'embed':
 
         # df = df.iloc[:10, :]
         log(df)
-        cass_update(df, table=model0.table, prefix= model0.pref, colkey="siid", colval="item_emb")
+        cass_update(df:pd.DataFrame, table=model0.table, prefix= model0.pref, colkey="siid", colval="item_emb")
 
 
     def text_faiss_create_index_check() :   ### py text_faiss_create_index
@@ -2595,9 +2595,9 @@ if 'embed':
         return index
 
 
-    def db_load_dict(df, colkey='ranid', colval='item_tag', naval='0', colkey_type='str', colval_type='str', npool=5, nrows=900900900, verbose=True):
+    def db_load_dict(df:pd.DataFrame, colkey='ranid', colval='item_tag', naval='0', colkey_type='str', colval_type='str', npool=5, nrows=900900900, verbose=True):
         ### load Pandas into dict
-        if isinstance(df, str):
+        if isinstance(df:pd.DataFrame, str):
            dirin = df
            log('loading', dirin)
            flist = glob_glob( dirin , 1000)
@@ -2628,7 +2628,7 @@ if 'cassandra':
         from db.cass_queries import CassQueries
         return CassQueries(cass_config)
 
-    def cass_update(df, table, prefix="m001", colkey="siid", colval="siid_emb", ttl=100*86400):  ## 240days
+    def cass_update(df:pd.DataFrame, table, prefix="m001", colkey="siid", colval="siid_emb", ttl=100*86400):  ## 240days
        ### Very Slow to insert (!)
        log("Start cass insert", table, colkey, colval)
        df = df[[colkey, colval]].drop_duplicates(colkey)
@@ -2645,7 +2645,7 @@ if 'cassandra':
             isok = cass_query.ndata_item_upsert( cdata, ttl_sec= ttl, consistency = 'one', istest=False)
             cdata = {}
 
-    def pd_cass_get_vect(df, prefix="m001", tablename="ndata.item_model" )  :
+    def pd_cass_get_vect(df:pd.DataFrame, prefix="m001", tablename="ndata.item_model" )  :
         """    siids = [  'm001_197550_10255674', 'm001_222208_1009782' ]
         """
         log('getting itemaster`')
@@ -2654,7 +2654,7 @@ if 'cassandra':
 
         npref = len(prefix)+1
         cols2 =  ['item_emb',  ]
-        if not isinstance(df, pd.DataFrame):
+        if not isinstance(df:pd.DataFrame, pd.DataFrame):
             df = pd_read_file(df)
 
         if 'siid' not in df : df['siid'] = df.apply( lambda x : siid(x), axis=1)
@@ -2669,13 +2669,13 @@ if 'cassandra':
         log( 'Query Res:', len(siids), str(siids)[:100] )
         return siids
 
-    def pd_cass_get_vect2(df, prefix="m001", tablename="ndata.item_model", ivect=None, update_cache=False )  :
+    def pd_cass_get_vect2(df:pd.DataFrame, prefix="m001", tablename="ndata.item_model", ivect=None, update_cache=False )  :
         """    siids = [  'm001_197550_10255674', 'm001_222208_1009782' ]
         """
         log('getting ', tablename)
         ivect = ivector(use_dict=False) if ivect is None else ivect
 
-        if not isinstance(df, pd.DataFrame): df = pd_read_file(df)
+        if not isinstance(df:pd.DataFrame, pd.DataFrame): df = pd_read_file(df)
 
         if 'siid' not in df : df['siid'] = df.apply( lambda x : siid(x), axis=1)
         siids  = set( df['siid'].values[:] )
@@ -2720,7 +2720,7 @@ if 'cassandra':
        return vres
 
 
-    def pd_cass_remove_exist(df, prefix="m001") :
+    def pd_cass_remove_exist(df:pd.DataFrame, prefix="m001") :
         ### df = pd.DataFrame( ['197550_10255674', '222208_10097827', '213663_10107856', 'aa'], columns= [ 'siid' ] )
         if 'siid' not in df.columns:
            df['siid'] = df.apply(lambda x : siid(x), axis=1)
@@ -2746,8 +2746,8 @@ if 'cassandra':
             log( e, x )
 
 
-    def db_insert(df, colkey, colvalue, db_path) :
-        diskcache_save(df, colkey, colvalue, db_path=db_path, )
+    def db_insert(df:pd.DataFrame, colkey, colvalue, db_path) :
+        diskcache_save(df:pd.DataFrame, colkey, colvalue, db_path=db_path, )
 
     def db_get_topk(x, mode):
         return db_siid_topk.get(x, "")
@@ -2759,7 +2759,7 @@ if 'user_hist':
         ### Load histo data
         df = pd_read_file(fi, cols=None)  ###
         log('#### Loaded user histo: ', df.shape, )
-        df = pd_add_siid(df, delete=True)
+        df = pd_add_siid(df:pd.DataFrame, delete=True)
 
         ### can have mutiple   easyid, siid  pairs (historical)
         if only_last_siid > 0 :
@@ -2862,7 +2862,7 @@ if 'user_emb':
             log('Full size', df.shape, df.easy_id.nunique() )
             # df = df.iloc[:500, :]
 
-            df     = pd_add_siid(df, delete=True)
+            df     = pd_add_siid(df:pd.DataFrame, delete=True)
             dd_emb = iv.get_multi(df['siid'].unique() ,  use_dict=False, update_cache= update_cache)
             if len(dd_emb) < 1:  log('\n\n Error no emb retrieved') ; continue
 
@@ -2883,7 +2883,7 @@ if 'user_emb':
               dfp = pd_read_file(  dir_cpa3 + f"/hdfs/daily_useremb/emb/{tk2}*/*_{bk}_*.parquet" )
               df  = pd.concat((dfp, df)) ; del dfp
             df  = df.drop_duplicates('easy_id', keep='last')
-            pd_to_file(df, dirout + f"/user_emb_{bk}_{len(df)}.parquet")
+            pd_to_file(df:pd.DataFrame, dirout + f"/user_emb_{bk}_{len(df)}.parquet")
 
 
             # log('Nusers',  df.shape)
@@ -2990,7 +2990,7 @@ if 'user_emb':
                         cass_query=cass_query, ttl=86400*100)  ## 240days
                         
 
-    def cass_update2(df, table, prefix="m001", colkey="siid", colval="siid_emb", cass_query=None, ttl=21086400, kbatch=10):  ## 240days
+    def cass_update2(df:pd.DataFrame, table, prefix="m001", colkey="siid", colval="siid_emb", cass_query=None, ttl=21086400, kbatch=10):  ## 240days
        ### Very Slow to insert (!)
        log("Start cass insert", table, colkey, colval)
        df = df[[colkey, colval]].drop_duplicates(colkey)
@@ -3100,7 +3100,7 @@ if 'user_emb':
         return easyids
 
 
-    def pd_easyid_topk_useremb(df, uservect=None, faiss_index=None, faiss_map_idx=None, use_dict=False, topk=1000) :
+    def pd_easyid_topk_useremb(df:pd.DataFrame, uservect=None, faiss_index=None, faiss_map_idx=None, use_dict=False, topk=1000) :
         log('###### Embedding Rec ')
         if len(df) < 1: return pd.DataFrame([], columns=['easy_id', 'topk_user'])
         if faiss_index is None :
@@ -3200,10 +3200,10 @@ if 'user_emb':
         return dfe
 
     
-    def pd_useremb_add(df, dfe=None):
+    def pd_useremb_add(df:pd.DataFrame, dfe=None):
         if dfe is not None:  #### Add User Embedding  user_emb
             df = df.merge(dfe, on='easy_id', how='left')
-            log(df, type(df['user_emb'].values[0]), 'no-NA user emb: ', len(df[-df.user_emb.isna()]))
+            log(df:pd.DataFrame, type(df['user_emb'].values[0]), 'no-NA user emb: ', len(df[-df.user_emb.isna()]))
             df['user_emb'] = df['user_emb'].fillna('0')  ### user with NO embeddings
             df['user_emb'] = df['user_emb'].apply( lambda vi: np.array([float(x) for x in vi.split(",")], dtype='float32'))
         return df
@@ -3505,7 +3505,7 @@ if 'rec_genre':
         log(dirin, df)
         ##### siid --> Imaster Infos
         df['imaster'] = df.apply(lambda x: {'genre_path': x['genre_id_path'], 'image_url': x['item_image_url']}, axis=1)
-        diskcache_save2(df, db_path=db['db_imaster'], colkey='siid', colvalue='imaster', npool=5, verbose=False,
+        diskcache_save2(df:pd.DataFrame, db_path=db['db_imaster'], colkey='siid', colvalue='imaster', npool=5, verbose=False,
                         ttl=86400 * 10)
 
     def recgenre_init_proba():
@@ -3764,25 +3764,25 @@ if 'rec_genre':
                 dfe = pd_add_easyid_bk(dfe) ; log(dfe.bk.mean() )  ; del dfe['bk']
                 if uemb > 0 and dfe is not None:
                     # df = df.iloc[:1000, :]
-                    df = pd_useremb_add(df, dfe)
+                    df = pd_useremb_add(df:pd.DataFrame, dfe)
 
                 #### 'ng_siid' column, need the bucket bk to match !!!!!!!!
-                df = pd_add_ng_easysiid(df, bk=bk)  ####
+                df = pd_add_ng_easysiid(df:pd.DataFrame, bk=bk)  ####
 
                 log('\n###### Genre pur Rec: eaysid --> genre --> list of siid, intra, brw, pur ')
-                df = create_rec_topgenre(df,  ngenre=6, topk=30)
+                df = create_rec_topgenre(df:pd.DataFrame,  ngenre=6, topk=30)
 
                 if 'ng_siid'  in df.columns:  del df['ng_siid']
                 if 'user_emb' in df.columns:  del df['user_emb']
 
-                df = pd_topk_count(df, [ 'topk_genre',   ])
+                df = pd_topk_count(df:pd.DataFrame, [ 'topk_genre',   ])
                 ################################################################################
 
                 df = df[df['topk_genre'].str.len() > 8 ]
                 log('  Cleaned topk', df.shape)
                 log(df[list(df.columns)[-2:]], df.columns)
                 ## ['easy_id', 'siid',  'top_genre',  'topk_genre','topk_genre_n''],
-                pd_to_file(df, dirouti  + f"_{len(df)}.parquet", show=0)
+                pd_to_file(df:pd.DataFrame, dirouti  + f"_{len(df)}.parquet", show=0)
         log("############## Finished ", ii2,  ddt(t00) )
 
 
@@ -3812,7 +3812,7 @@ if 'rec_item_emb':
 
         log(df.shape, df.columns)
         df['bk'] = df['item_id'] % 500
-        df       = pd_add_siid(df, delete=True)
+        df       = pd_add_siid(df:pd.DataFrame, delete=True)
 
         for bi in df['bk'].unique():
             dfi = df[df.bk == bi ]
@@ -3898,10 +3898,10 @@ if 'rec_item_emb':
                 df = df[[ 'shop_id', 'item_id', 'genre_id'  ]].drop_duplicates(cols0, keep='last')
             # if 'ts' in df.columns : df = df.sort_values('ts', ascending=0)
             # df = df.groupby('easy_id').tail(3)
-            df = pd_add_siid(df, delete=True)
+            df = pd_add_siid(df:pd.DataFrame, delete=True)
             log('unique siids', df.shape)
 
-            pd_item_topk_update(df, faiss_index=faiss_index, faiss_map_idx=faiss_map_idx, ivect=ivect, dgenre=dgenre,
+            pd_item_topk_update(df:pd.DataFrame, faiss_index=faiss_index, faiss_map_idx=faiss_map_idx, ivect=ivect, dgenre=dgenre,
                                 overwrite= overwrite, npool=1 )
             fj =[]
             now(ii)
@@ -3930,7 +3930,7 @@ if 'rec_item_emb':
         return ss[:-1]
 
 
-    def pd_item_topk_update(df, faiss_index=None, faiss_map_idx=None, ivect=None, dgenre=None, overwrite=True, npool=1, append=False ):
+    def pd_item_topk_update(df:pd.DataFrame, faiss_index=None, faiss_map_idx=None, ivect=None, dgenre=None, overwrite=True, npool=1, append=False ):
         ####  siid, genreid
         # if 'siid' not in df.columns : df['siid'] = df.apply(lambda x : siid(x) , axis=1)
 
@@ -3941,7 +3941,7 @@ if 'rec_item_emb':
         if not overwrite :
             df = df[ -df['siid'].apply(lambda x : x in db_item_toprank)] ; log('Unique 2', df.shape)
 
-        df2 = pd_cass_get_vect2(df, prefix= model0.pref, tablename="ndata.item_model", ivect=ivect )
+        df2 = pd_cass_get_vect2(df:pd.DataFrame, prefix= model0.pref, tablename="ndata.item_model", ivect=ivect )
         df2 = faiss_topk3(df = df2,   colid='siid', colemb='item_emb', topk= 80, npool=1, nrows=10**9, nfile=1000,
                           faiss_index=faiss_index, map_idx_dict= faiss_map_idx   )
         df2 = df2[[ 'siid', 'siid_list' ]]
@@ -3966,7 +3966,7 @@ if 'rec_item_emb':
             df['topk'] = df.apply(lambda x:  fun_append(x['topk'] , db_item_toprank.get(x['siid'], "" ) )  , axis=1)
 
         npool = 1
-        diskcache_save2(df, colkey='siid', colvalue='topk', db_path= db.db_item_toprank, npool= npool, ttl= 86400*3, verbose=False )
+        diskcache_save2(df:pd.DataFrame, colkey='siid', colvalue='topk', db_path= db.db_item_toprank, npool= npool, ttl= 86400*3, verbose=False )
 
 
     def faiss_topk3(df=None,  colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000, faiss_pars={},
@@ -4004,7 +4004,7 @@ if 'rec_item_emb':
 
 
     #### During Prediction  ###############################################
-    def create_rec_topemb3(df, faiss_index=None, faiss_map_idx=None, ivect=None, maxrec=30, dfe=None):
+    def create_rec_topemb3(df:pd.DataFrame, faiss_index=None, faiss_map_idx=None, ivect=None, maxrec=30, dfe=None):
         """  siids --> Topk for each (siid, genreid) --> topk, merge.
 
         """
@@ -4024,7 +4024,7 @@ if 'rec_item_emb':
             return ss[:-1]
 
         ### df = df.drop_duplicates(['easy_id', 'genre_id'], keep='last')
-        df = pd_add_siid(df, delete=True)
+        df = pd_add_siid(df:pd.DataFrame, delete=True)
         ### Most revent at Bottom, end of list --->  on Top of list by reverse
         df         = df.groupby('easy_id').apply(lambda dfi : dfi['siid'].values[::-1] ).reset_index()
         df.columns = ['easy_id', 'siids']
@@ -4032,7 +4032,7 @@ if 'rec_item_emb':
 
         if dfe is not None:  #### Add User Embedding  user_emb
            df             = df.merge(dfe, on='easy_id', how='left')
-           log(df,  type(df['user_emb'].values[0]) , 'no-NA user emb: ', len(df[-df.user_emb.isna() ]) )
+           log(df:pd.DataFrame,  type(df['user_emb'].values[0]) , 'no-NA user emb: ', len(df[-df.user_emb.isna() ]) )
            df['user_emb'] = df['user_emb'].fillna('0')   ### user with NO embeddings
            df['user_emb'] = df['user_emb'].apply(lambda vi:  np.array([ float(x) for x in vi.split(",")] ,  dtype='float32') )
 
@@ -4052,7 +4052,7 @@ if 'ng_list':
     def easyid_bk(easy_id):   ### Same than Neil  df = pd_easyid_bucket(df
         return  mmh3.hash(str(easy_id),signed=False) % 500
 
-    def pd_add_ng_easysiid(df,bk):  ###merge with ng easy_id siid list
+    def pd_add_ng_easysiid(df:pd.DataFrame,bk):  ###merge with ng easy_id siid list
         ### in combine  ngs =  set(x['ng_siid'].split(","))
         # tk  = get_timekey()
         dfn           = pd_read_file( dir_ngsiid2 + f"/*_{bk}.parquet" )
@@ -4067,7 +4067,7 @@ if 'ng_list':
 
         return df
 
-    def pd_add_ng_easysiid_intra(df,bk):  ###merge with ng easy_id siid list
+    def pd_add_ng_easysiid_intra(df:pd.DataFrame,bk):  ###merge with ng easy_id siid list
         ### in combine  ngs =  set(x['ng_siid'].split(","))
         tk = get_timekey()
         t0 = date_now_jp()
@@ -4167,8 +4167,8 @@ if 'daily_batch':
                 filei = []
                 df    = df.drop_duplicates([ 'shop_id', 'item_id'])
                 log(df)
-                df         = pd_add_siid(df, delete=True)
-                pd_to_file(df, dirout + f"/map_siid_ranid/ranid_{tk}.parquet")
+                df         = pd_add_siid(df:pd.DataFrame, delete=True)
+                pd_to_file(df:pd.DataFrame, dirout + f"/map_siid_ranid/ranid_{tk}.parquet")
 
                 keysi      = set(df['siid'].values)
                 df         = df[ -df['siid'].isin(keys2) ]
@@ -4177,7 +4177,7 @@ if 'daily_batch':
                 # df    = df[[ 'siid', 'ran_id' ]]
                 log(df.shape)
 
-                # diskcache_save2(df,  'siid', 'ran_id',  db_path= db_path, npool=1, sqlmode='fast', ttl= 86400 * 30, verbose=False )
+                # diskcache_save2(df:pd.DataFrame,  'siid', 'ran_id',  db_path= db_path, npool=1, sqlmode='fast', ttl= 86400 * 30, verbose=False )
                 keys2 = keys2.union(keysi)  ### Prevent Duplicates keys
                 log(dir_in, len(keys2))
 
@@ -4568,7 +4568,7 @@ if 'daily_afternoon':
             df         = df.groupby('easy_id').apply( lambda x : ",".join(  x['genre_id'][:6] )  + ";" ).reset_index()
             df.columns = [ 'easy_id', 'top_genre']
             log(df.shape, df)
-            diskcache_save2(df, db_path  = db[dbname] , colkey='easy_id',  colvalue = 'top_genre',  npool=2, verbose=False )
+            diskcache_save2(df:pd.DataFrame, db_path  = db[dbname] , colkey='easy_id',  colvalue = 'top_genre',  npool=2, verbose=False )
             flist = [] ; jj = 0
 
 
@@ -4628,7 +4628,7 @@ if 'daily_afternoon':
 
         df = df.sort_values('n_pur', ascending=0)
 
-        if use_cache: pd_to_file(df, dir1, show=0 )
+        if use_cache: pd_to_file(df:pd.DataFrame, dir1, show=0 )
         return df
 
 
@@ -4656,7 +4656,7 @@ if 'daily_afternoon':
           df[ci] = df[ci].astype('int64')
         df = df.sort_values('n_clk', ascending=0)
 
-        if use_cache: pd_to_file(df, dir1, show=0 )
+        if use_cache: pd_to_file(df:pd.DataFrame, dir1, show=0 )
         return df
 
 
@@ -4678,7 +4678,7 @@ if 'daily_afternoon':
                df  = pd.concat((df, dfi))
                df  = df.drop_duplicates(cols)
             # n = len(df)
-            pd_to_file(df, dirout + f"/item_merge_latest.parquet", show=1)
+            pd_to_file(df:pd.DataFrame, dirout + f"/item_merge_latest.parquet", show=1)
             return 1
 
         if mode == 'daily':
@@ -4690,21 +4690,21 @@ if 'daily_afternoon':
                 flist   = glob_glob(dirin + f"/*/*{tk}*.parquet")
                 df = pd_read_file2(flist, cols=cols, drop_duplicates=cols, n_pool=20)
                 df = df.drop_duplicates(cols)
-                pd_to_file(df, dirouti, show=1)
+                pd_to_file(df:pd.DataFrame, dirouti, show=1)
 
 
         if mode == 'pur':
             dirout =  dir_cpa3   + "/hdfs/items_pur/"
             dirin  =  dir_pydata + f"/pur_ran_v15/*/*{tk}*.parquet"
             df  = pd_groupby_pur(dirin, use_cache=False)
-            pd_to_file(df, dirout + f'/itempur_{tk}.parquet', show=1)
+            pd_to_file(df:pd.DataFrame, dirout + f'/itempur_{tk}.parquet', show=1)
 
 
         if mode == 'brw':
             dirout =  dir_cpa3   + "/hdfs/items_brw/"
             dirin  =  dir_pydata + f"/brw_ran_v15/*/*{tk}*.parquet"
             df  = pd_groupby_clk(dirin, use_cache=False)
-            pd_to_file(df, dirout + f'/itembrw_{tk}.parquet', show=1)
+            pd_to_file(df:pd.DataFrame, dirout + f'/itembrw_{tk}.parquet', show=1)
 
 
     def daily_eod_user_histfull(bmin=0, bmax=500, tag='brw', add_days=0, past= -1, mode='', split=0):   ###
@@ -4844,7 +4844,7 @@ if 'daily_afternoon':
         df = df.sort_values('bk')
 
         dirout = dir_cpa3 + f"/hdfs/daily_user_list/user_list_{today1}_{t0}_{len(df)}.parquet"
-        pd_to_file(df, dirout , show=1 )
+        pd_to_file(df:pd.DataFrame, dirout , show=1 )
 
 
     def pd_load_hist_intra(df0=None, add_days=0, tag='intra,clk', bmin=0, bmax=500):
@@ -5242,7 +5242,7 @@ if 'daily_rec_topk':
         genres = set(dfn['genre_name_path'].values).difference(  set(df['genre_name_path'].values )  )
         log('New genres with NA scores:', len(genres))
         df    = pd.concat((df, dfn[dfn['genre_name_path'].isin(genres)] ))   ### Only add new genres
-        pd_to_file(df, fi[0], show=1)
+        pd_to_file(df:pd.DataFrame, fi[0], show=1)
 
 
 
@@ -5612,7 +5612,7 @@ if 'daily_genre_score':
 
          df['genre_id'] = df['genre_id_path'].apply(lambda x: to_int( str(x).split("/")[-1] ) )
          colg = 'genre_id'   ### string
-         log(df, dirin)
+         log(df:pd.DataFrame, dirin)
 
          log("#### Scores per siid  ################################################")
          dir2 = dir_cpa3 + f"/ca_check/daily/item/ca_items2_{today}/score/clk*.parquet"  #### Use Real time
@@ -5644,10 +5644,10 @@ if 'daily_genre_score':
          df           = df.merge(df2[ ['siid'] + [t for t in df2.columns if t not in df.columns]   ], on=['siid' ], how='left', suffixes=(None,"_2") )
          df['score2'] = df['score2'].fillna(0.0)
          df           = df.sort_values( ['score2'], ascending=[0]).drop_duplicates('siid', keep='first')
-         pd_to_file(df, dirout, show=1)
+         pd_to_file(df:pd.DataFrame, dirout, show=1)
 
          ### Remove No GMS siid
-         df = df[df['score2'] > 0.05 ]  ;  log(df, df.columns)
+         df = df[df['score2'] > 0.05 ]  ;  log(df:pd.DataFrame, df.columns)
 
 
          log("######### genre ---> list of top siid  (daily), USING score2(bid) #######################################")
@@ -5666,12 +5666,12 @@ if 'daily_genre_score':
 
 
          log("#########  Update mapping siid --> genreid   ##########################")        
-         diskcache_save2(df,db_path=  db['db_ca_siid_genre'] , colkey= 'siid', colvalue= colg,  npool=5, verbose=False , ttl = 186400 )
+         diskcache_save2(df:pd.DataFrame,db_path=  db['db_ca_siid_genre'] , colkey= 'siid', colvalue= colg,  npool=5, verbose=False , ttl = 186400 )
 
 
          ##### siid --> Imaster Infos
          df['imaster'] = df.apply(lambda x : {'genre_path': x['genre_id_path'],   'image_url': x['item_image_url'] }, axis=1)
-         diskcache_save2(df, db_path=  db['db_imaster'] , colkey= 'siid', colvalue= 'imaster',  npool=5, verbose=False )
+         diskcache_save2(df:pd.DataFrame, db_path=  db['db_imaster'] , colkey= 'siid', colvalue= 'imaster',  npool=5, verbose=False )
 
             
     def daily_top_popular_update(df=None, colscore_sort='score'):
@@ -5709,7 +5709,7 @@ if 'daily_genre_score':
          df = df.drop_duplicates(cols)
          df['siid'] = df.apply(lambda x: siid(x), axis=1)
          del df['item_id'] ; del df['shop_id']
-         diskcache_save2(df,db_path=  db['db_ca_siid_genre'] , colkey= 'siid', colvalue= colg,  npool=5, ttl= 86400 * 20 , verbose=False )
+         diskcache_save2(df:pd.DataFrame,db_path=  db['db_ca_siid_genre'] , colkey= 'siid', colvalue= colg,  npool=5, ttl= 86400 * 20 , verbose=False )
 
         
     #################    
@@ -5854,20 +5854,20 @@ if 'intraday, easyid topk':
             log('unique', df.shape)
 
             df = df.sort_values('ts', ascending=1)
-            df = pd_easyid_get_topk_intra(df, faiss_index=faiss_index, faiss_map_idx=map_idx_dict, ivect=ivect )
+            df = pd_easyid_get_topk_intra(df:pd.DataFrame, faiss_index=faiss_index, faiss_map_idx=map_idx_dict, ivect=ivect )
 
             to_file( f"{dirouti}, easyid NA emb, " + str(  len( df[ df['topk'].str.len() < 200 ] ) ),  dirout +"/stats.py", mode='a'  )
 
             colsc = [ ci for ci in df.columns if "_n" in ci]
             log(df[ colsc ])
             log(df[ colsc ].mean() )
-            pd_to_file(df, dirouti , show=0 )
+            pd_to_file(df:pd.DataFrame, dirouti , show=0 )
             ii = ii + 1
         log('finished, nfiles:', ii)
 
 
 
-    def pd_easyid_get_topk2(df, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, bk=0,dfe=None,  **kw):
+    def pd_easyid_get_topk2(df:pd.DataFrame, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, bk=0,dfe=None,  **kw):
         today1   = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)  if today1 is None else today1
         today    = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)
         # today1   = "20211031"
@@ -5879,30 +5879,30 @@ if 'intraday, easyid topk':
 
 
         log('####### Embedding Rec ')
-        df = create_rec_topemb3(df, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, maxrec=60, dfe=dfe)
+        df = create_rec_topemb3(df:pd.DataFrame, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, maxrec=60, dfe=dfe)
         df = df.rename(columns={'topk': 'topk_emb'})
 
 
         log('\n###### Genre pur Rec: eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='pur',   ngenre=6, topk=5 )    ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='pur',   ngenre=6, topk=5 )    ### Diversity
 
         log('\n###### Genre brw Rec: eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='brw',   ngenre=6, topk=5 )    ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='brw',   ngenre=6, topk=5 )    ### Diversity
 
         log('\n###### Genre Intra Rec : eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='intra', ngenre=6, topk=5 )    ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='intra', ngenre=6, topk=5 )    ### Diversity
 
 
         log("###### Merge, add on topk list   ")
         #### 'ng_siid' column, need the bucket bk to match !!!!!!!!
-        df = pd_add_ng_easysiid(df, bk=bk)  ####
+        df = pd_add_ng_easysiid(df:pd.DataFrame, bk=bk)  ####
 
         #df['topk'] = df.apply(lambda x : pd_siid_combine3( x['topk_emb'], x['topk_brw'], x['topk_pur'], x['topk_intra'],   n1=4,   )   , axis=1  )
         df['topk'] = df.apply(lambda x : pd_siid_combine3( x['topk_emb'], x['topk_brw'], x['topk_pur'], x['topk_intra'],
                                                            ngs= x['ng_siid']  if 'ng_siid' in x else set(),
                                                            n1=5,  nmax=50 )   , axis=1  )
 
-        df = create_rec_addon(df, topop= None, maxrec=40 )
+        df = create_rec_addon(df:pd.DataFrame, topop= None, maxrec=40 )
         if 'ng_siid' in df.columns :  del df['ng_siid']
 
         df = pd_topk_count( df, [ 'topk',  'topk_emb', 'topk_intra',  'topk_pur', 'topk_brw'  ] )
@@ -5911,7 +5911,7 @@ if 'intraday, easyid topk':
         return df
 
 
-    def pd_easyid_get_topk(df, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, bk=0,dfe=None,  **kw):
+    def pd_easyid_get_topk(df:pd.DataFrame, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, bk=0,dfe=None,  **kw):
         today1   = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)  if today1 is None else today1
         today    = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)
         # today1   = "20211031"
@@ -5923,17 +5923,17 @@ if 'intraday, easyid topk':
 
 
         log('######## Embedding Rec ')
-        df = create_rec_topemb3(df, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, maxrec=45, dfe=dfe)
+        df = create_rec_topemb3(df:pd.DataFrame, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, maxrec=45, dfe=dfe)
         df = df.rename(columns={'topk': 'topk_emb'})
 
 
         log('\n###### Genre pur Rec: eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, ngenre=5, topk=40)  ### topk_genre, topk_genre_n
+        df = create_rec_topgenre(df:pd.DataFrame, ngenre=5, topk=40)  ### topk_genre, topk_genre_n
 
 
         log("###### Merge, add on topk list   ")
         #### 'ng_siid' column, need the bucket bk to match !!!!!!!!
-        df = pd_add_ng_easysiid(df, bk=bk)  ####
+        df = pd_add_ng_easysiid(df:pd.DataFrame, bk=bk)  ####
         global ok_global ;  ok_global = ok_get_global_siid(add_days=0)  if ok_global is None else ok_global
 
         df['topk'] = df.apply(lambda x : pd_siid_combine5( x['topk_emb'], x['topk_genre'],
@@ -5941,9 +5941,9 @@ if 'intraday, easyid topk':
                                                            ok_global = ok_global,
                                                            n1=8,  nmax=45 )   , axis=1  )
 
-        df = create_rec_addon(df, topop= None, maxrec=40 )
+        df = create_rec_addon(df:pd.DataFrame, topop= None, maxrec=40 )
 
-        df = pd_del(df, cols=['ng_siid', 'user_emb'])
+        df = pd_del(df:pd.DataFrame, cols=['ng_siid', 'user_emb'])
 
         df = pd_topk_count( df, [ 'topk',  'topk_emb', 'topk_genre',    ] )
         log(df.shape)
@@ -5951,7 +5951,7 @@ if 'intraday, easyid topk':
         return df
 
 
-    def pd_easyid_get_topk_intra2(df, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, dfe=None, **kw):
+    def pd_easyid_get_topk_intra2(df:pd.DataFrame, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, dfe=None, **kw):
         today1   = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)  if today1 is None else today1
         today    = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)
         # today1   = "20211031"
@@ -5965,30 +5965,30 @@ if 'intraday, easyid topk':
 
 
         log('\n###### Embed Rec:  siid --> list of topk ')
-        #df = create_rec_topemb2(df, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect)
-        df = create_rec_topemb3(df, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, dfe=dfe)
+        #df = create_rec_topemb2(df:pd.DataFrame, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect)
+        df = create_rec_topemb3(df:pd.DataFrame, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, dfe=dfe)
         df = df.rename(columns={'topk': 'topk_emb'})
 
         #### 'ng_siid' column, need the bucket bk to match : cannot in real time
-        # df = pd_add_ng_easysiid(df, bk=bk)  ####
+        # df = pd_add_ng_easysiid(df:pd.DataFrame, bk=bk)  ####
 
         log('\n###### Genre Intra rec : eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='intra', ngenre=6, topk=4 )   ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='intra', ngenre=6, topk=4 )   ### Diversity
 
         log('\n###### Genre pur Rec:    eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='pur',   ngenre=6, topk=4 )     ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='pur',   ngenre=6, topk=4 )     ### Diversity
 
         log('\n###### Genre brw Rec:    eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, topgenre='brw',   ngenre=6, topk=4 )     ### Diversity
+        df = create_rec_topgenre(df:pd.DataFrame, topgenre='brw',   ngenre=6, topk=4 )     ### Diversity
 
         log("###### Merge, add on topk list   ")
         #df['topk'] = df.apply(lambda x : pd_siid_combine3( x['topk_emb'], x['topk_brw'], x['topk_pur'], x['topk_intra']   )  , axis=1  )
-        df = pd_add_ng_easysiid_intra(df, bk=None)  ####  NG siid through real time parsing
+        df = pd_add_ng_easysiid_intra(df:pd.DataFrame, bk=None)  ####  NG siid through real time parsing
 
         df['topk'] = df.apply(lambda x : pd_siid_combine3( x['topk_emb'], "" , "",  "",
                                                            ngs= x['ng_siid']  if 'ng_siid' in x else "",
                                                            )  , axis=1  )
-        # df = create_rec_addon(df, topop= None)
+        # df = create_rec_addon(df:pd.DataFrame, topop= None)
         if 'ng_siid' in df.columns :  del df['ng_siid']
 
 
@@ -5998,7 +5998,7 @@ if 'intraday, easyid topk':
         return df
 
 
-    def pd_easyid_get_topk_intra(df, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, dfe=None, **kw):
+    def pd_easyid_get_topk_intra(df:pd.DataFrame, topk=50, cass_query=None, today1=None, faiss_index=None, faiss_map_idx=None, ivect=None, dfe=None, **kw):
         today1   = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)  if today1 is None else today1
         today    = date_now_jp("%Y%m%d", timezone='utc', add_days= 0)
         # today1   = "20211031"
@@ -6011,15 +6011,15 @@ if 'intraday, easyid topk':
 
 
         log('\n###### Embed Rec:  siid --> list of topk ')
-        df = create_rec_topemb3(df, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, dfe=dfe, maxrec=35,)
+        df = create_rec_topemb3(df:pd.DataFrame, faiss_index= faiss_index, faiss_map_idx= faiss_map_idx, ivect=ivect, dfe=dfe, maxrec=35,)
         df = df.rename(columns={'topk': 'topk_emb'})
 
         #### Addd 'ng_siid', 'useremb' column, need the bucket bk to match : cannot in real time
-        df   = pd_add_easy_allinfo_intra(df, bk=None)  ####  NG siid through real time parsing
+        df   = pd_add_easy_allinfo_intra(df:pd.DataFrame, bk=None)  ####  NG siid through real time parsing
         df = df[df['user_emb'].str.len() > 7 ]  ; log('Correct with user_emb', df.shape)
 
         log('\n###### Genre pur Rec: eaysid --> genre --> list of siid ')
-        df = create_rec_topgenre(df, ngenre=5, topk=35)  ### topk_genre, topk_genre_n
+        df = create_rec_topgenre(df:pd.DataFrame, ngenre=5, topk=35)  ### topk_genre, topk_genre_n
 
 
         log("###### Merge, add on topk list   ")
@@ -6031,15 +6031,15 @@ if 'intraday, easyid topk':
                                                            ok_global = ok_global,
                                                            n1=9,  nmax=35 )   , axis=1  )
 
-        df = create_rec_addon(df, topop= None, maxrec=35,)
+        df = create_rec_addon(df:pd.DataFrame, topop= None, maxrec=35,)
 
-        df = pd_del(df, ['ng_siid', 'user_emb'])
+        df = pd_del(df:pd.DataFrame, ['ng_siid', 'user_emb'])
         df = pd_topk_count( df, [ 'topk',  'topk_emb', 'topk_genre',    ] )
         log( df.shape )
         return df
 
 
-    def pd_add_easy_allinfo_intra(df,bk):  ###merge with ng easy_id siid list , useremb
+    def pd_add_easy_allinfo_intra(df:pd.DataFrame,bk):  ###merge with ng easy_id siid list , useremb
         ### in combine  ngs =  set(x['ng_siid'].split(","))
         tk = get_timekey()
         t0 = date_now_jp()
@@ -6086,7 +6086,7 @@ if 'intraday, easyid topk':
 
 
     ########################################################
-    def create_rec_addon(df, topop=None, maxrec=40, ngs=None):
+    def create_rec_addon(df:pd.DataFrame, topop=None, maxrec=40, ngs=None):
         """ Add Missing topk
         """
         topop = rec_topopular()
@@ -6115,7 +6115,7 @@ if 'intraday, easyid topk':
 
 
     ########################################################
-    def create_rec_topemb2(df, faiss_index=None, faiss_map_idx=None, ivect=None):
+    def create_rec_topemb2(df:pd.DataFrame, faiss_index=None, faiss_map_idx=None, ivect=None):
         """ siids --> genre for siids --> Topk for each (siid, genreid) --> topk, merge.
 
         """
@@ -6152,7 +6152,7 @@ if 'intraday, easyid topk':
         return df
 
 
-    def create_rec_topemb(df, faiss_index=None, faiss_map_idx=None, ivect=None):
+    def create_rec_topemb(df:pd.DataFrame, faiss_index=None, faiss_map_idx=None, ivect=None):
         """
           siids --> genre for siids --> Topk for each (siid, genreid) --> topk, merge.
           siid --> topk from embedding,
@@ -6163,7 +6163,7 @@ if 'intraday, easyid topk':
             dirindex    = glob_glob(dir_ca + f"/daily/item_vec/ca_items_{today1}/faiss/*.index" , 1)[0]
             faiss_index = dirindex  ;  log(dirindex)
 
-        df2 = pd_cass_get_vect2(df, prefix= model0.pref, tablename="ndata.item_model", ivect=ivect )
+        df2 = pd_cass_get_vect2(df:pd.DataFrame, prefix= model0.pref, tablename="ndata.item_model", ivect=ivect )
         df2 = faiss_topk2(df = df2,   colid='siid', colemb='item_emb', topk= 40, npool=1, nrows=10**9, nfile=1000,
                           faiss_index=faiss_index, map_idx_dict= faiss_map_idx   )
         df2 = df2[[ 'siid', 'siid_list' ]]
@@ -6499,7 +6499,7 @@ if 'combine, clean topk list':
         if len(ss) < 8: return ""
         return ss[:-1]
 
-    def pd_topk_count(df, cols):
+    def pd_topk_count(df:pd.DataFrame, cols):
         for ci in cols :
            df[ ci + '_n'] = df[ci].apply(lambda x : len(x.split(",") ) )
         return df
@@ -6680,7 +6680,7 @@ if 'daily_eval':
             df = df[ df.genre_dist > 20.0 ]
             del df['topk']
 
-            pd_to_file(df, dirout , show=1)
+            pd_to_file(df:pd.DataFrame, dirout , show=1)
         log("all finished")
 
 
@@ -6713,11 +6713,11 @@ if 'daily_eval':
         df['item_emb']  = text_tovec_batch(model, df['item_text'].values )
         df = df[[ 'siid', 'item_emb' ]]
         log(df)
-        cass_update(df, table=model0['table'], prefix= model0['pref'], colkey="siid", colval="item_emb")
+        cass_update(df:pd.DataFrame, table=model0['table'], prefix= model0['pref'], colkey="siid", colval="item_emb")
 
 
     ##########################################################################
-    def pd_couch_load(df, tk, iscouch=True ):   ### tk-1
+    def pd_couch_load(df:pd.DataFrame, tk, iscouch=True ):   ### tk-1
       if iscouch :
          dircouch = dir_cpa3 + f"/res/couch/rec/{tk}/*.parquet"
          log( dircouch )
@@ -6729,7 +6729,7 @@ if 'daily_eval':
       else: df['rec'] = ""
       return df
 
-    def pd_hist_load(df, dirhist, dirhist2="", col=None, remove_missing=False):
+    def pd_hist_load(df:pd.DataFrame, dirhist, dirhist2="", col=None, remove_missing=False):
       col= 'hist' if col is None else col
       log(dirhist)
       leasy = list(df.easy_id.unique() )
@@ -6757,7 +6757,7 @@ if 'daily_eval':
 
       if remove_missing:
          df = df[ -(df['hist'].str.len() < 10*2) ]  ### Remove missing history
-      log(df, df.columns, df.shape )
+      log(df:pd.DataFrame, df.columns, df.shape )
       return df
 
     def imaster_get_data(dfa1, today):
@@ -6882,23 +6882,23 @@ if 'daily_eval':
             df = pd_read_file( flist, n_pool=20, nfile= nfile )  ;  log(df)
             df = df.drop_duplicates('easy_id', keep='last')
             df = df.iloc[:nmax,:]
-            df = pd_del(df, ['user_emb'])
+            df = pd_del(df:pd.DataFrame, ['user_emb'])
             df = df.rename(columns= {'rec' : 'topk', 'topk_user': 'topk'})  ### Ab test results --topk
             if  'genre' in tag : df = df.rename(columns={'topk_genre': 'topk' })
-            log(df, df.columns )
+            log(df:pd.DataFrame, df.columns )
 
             log("#### Filter only logic", logic11 )
             if  logic11 != "" and 'logic_hash' in df.columns :  df= df[df.logic_hash == logic11 ]
             log(df.shape)
 
             log("#### Couch load  #################################################")
-            df = pd_couch_load(df, tk, iscouch=iscouch )   ### tk-1
+            df = pd_couch_load(df:pd.DataFrame, tk, iscouch=iscouch )   ### tk-1
 
             log("#### Histo load  ################################################")
-            df = pd_hist_load(df, dirhist, dirhist2, col='hist', remove_missing=True)
+            df = pd_hist_load(df:pd.DataFrame, dirhist, dirhist2, col='hist', remove_missing=True)
 
             log("#### Purchase load  #############################################")
-            df = pd_hist_load(df, dirpur, col='hist_pur')
+            df = pd_hist_load(df:pd.DataFrame, dirpur, col='hist_pur')
 
             ##### Clean  ###############################################################
             dfa = df.iloc[:nmax2, :]    ; del df
@@ -7067,7 +7067,7 @@ if 'daily_eval':
 
 
     ##########################################################################
-    def pd_remove(df, cols):
+    def pd_remove(df:pd.DataFrame, cols):
         cols2 = [ ci for ci in df.columns if ci not in cols ]
         return df[cols2]
 
@@ -7136,7 +7136,7 @@ if 'daily_eval':
             df['easy_id'] = df['easy_id'].astype('int')
             df = df.sort_values(['easy_id', 'ts'])
 
-            df = pd_easyid_flatten_siid(df, get_siid_list)
+            df = pd_easyid_flatten_siid(df:pd.DataFrame, get_siid_list)
             log('N easy_id',  len(df) )
             # log(df)
 
@@ -7153,7 +7153,7 @@ if 'daily_eval':
 
             #### Insert missing ones
             if len(df) > 0 :
-              diskcache_save(df, colkey='easy_id', colvalue='siid_list', db_path=db_path)
+              diskcache_save(df:pd.DataFrame, colkey='easy_id', colvalue='siid_list', db_path=db_path)
 
 
     def save(x, name):
@@ -7199,7 +7199,7 @@ if 'daily_eval':
 
 
 if 'old':
-    def zz_pd_hist_load2(df, dirhist, dirhist2="", col=None):
+    def zz_pd_hist_load2(df:pd.DataFrame, dirhist, dirhist2="", col=None):
         col= 'hist' if col is None else col
         log(dirhist)
         leasy = list(df.easy_id.unique() )
@@ -7336,7 +7336,7 @@ if 'old':
 
             if  'genre' in tag : df = df.rename(columns={'topk_genre': 'topk' })
             df = df.rename(columns= {'rec' : 'topk', 'topk_user': 'topk',})  ### Ab test results --topk
-            log(df, df.columns )
+            log(df:pd.DataFrame, df.columns )
 
             log("#### Filter only logic", logic11 )
             if  logic11 != "" and 'logic_hash' in df.columns :  df= df[df.logic_hash == logic11 ]
@@ -7356,13 +7356,13 @@ if 'old':
 
             log("#### Histo load  ################################################")
             # os_wait_until(dirhist + "", ntry_max=4000)
-            df = pd_hist_load(df, dirhist, dirhist2, col='hist')
+            df = pd_hist_load(df:pd.DataFrame, dirhist, dirhist2, col='hist')
             df = df[ -(df['hist'].str.len() < 10*2) ]  ### Remove missing history
             log(df)
 
 
             log("#### Purchase load  #############################################")
-            df     = pd_hist_load(df, dirpur, col='hist_pur')
+            df     = pd_hist_load(df:pd.DataFrame, dirpur, col='hist_pur')
             log(df.shape)
 
 
@@ -7589,7 +7589,7 @@ if 'ab_test':
         df2 = df2[ df2.n_clk_t1 > 0.0 ]
         df2 = df2.sort_values('score', ascending=0)
         #### Export
-        pd_to_file(df,  dirout + f"/merge_siid_stats_{tk}_{today}_all_{int(time.time())}.parquet", show=0)
+        pd_to_file(df:pd.DataFrame,  dirout + f"/merge_siid_stats_{tk}_{today}_all_{int(time.time())}.parquet", show=0)
         pd_to_file(df2, dirout + f"/merge_siid_stats_{tk}_{today}_all_{int(time.time())}.csv",     show=0, index=False)
 
 
@@ -7676,7 +7676,7 @@ if 'ab_test':
                 log('avg rank', dfc['rank'].mean()  )
 
 
-    def pd_hist_groupby(df, colid='easy_id', tag = "pur", tostr=True):
+    def pd_hist_groupby(df:pd.DataFrame, colid='easy_id', tag = "pur", tostr=True):
 
        df = pd_add_siid(df)
 
@@ -7878,7 +7878,7 @@ if 'daily_stats':
 
                 df = df.groupby('easy_id').agg({  'item_id' :'count', 'price' : 'mean', 'units': 'sum' }).reset_index()
 
-                pd_to_file(df, dirouti, show=1)
+                pd_to_file(df:pd.DataFrame, dirouti, show=1)
 
 
     def ca_daily_user_hist_brw(mode='pur'):  ##   py ca_daily_user_hist_brw    --mode  pur
@@ -7926,7 +7926,7 @@ if 'daily_stats':
                 #df         = df.groupby('easy_id').apply( lambda dfi:  ",".join(dfi['siid']) ).reset_index()
                 #df.columns = ['easy_id', 'siid_brw']
                 if len(df) < 10 : continue
-                pd_to_file(df, dirouti, show=1)
+                pd_to_file(df:pd.DataFrame, dirouti, show=1)
 
 
 

@@ -570,7 +570,7 @@ if __name__ == "__main__":
 
 ####################################################################################################
 ####################################################################################################
-def pd_export(df, col, pars):
+def pd_export(df:pd.DataFrame, col, pars):
     """
        Export in train folder for next training
        colsall
@@ -591,7 +591,7 @@ def pd_export(df, col, pars):
 
 
 
-def pd_autoencoder(df, col, pars):
+def pd_autoencoder(df:pd.DataFrame, col, pars):
     """"
     (4) Autoencoder
     An autoencoder is a type of artificial neural network used to learn efficient data codings in an unsupervised manner.
@@ -605,7 +605,7 @@ def pd_autoencoder(df, col, pars):
     import tensorflow as tf
     import pandas as pd
     import numpy as np
-    def encoder_dataset(df, drop=None, dimesions=20):
+    def encoder_dataset(df:pd.DataFrame, drop=None, dimesions=20):
         # encode categorical columns
         cat_columns = df.select_dtypes(['category']).columns
         df[cat_columns] = df[cat_columns].apply(lambda x: x.cat.codes)
@@ -632,7 +632,7 @@ def pd_autoencoder(df, col, pars):
     # define the number of encoding dimensions
     encoding_dim = pars.get('dimesions', 2)
     # define the number of features
-    train_scaled = encoder_dataset(df, pars.get('drop',None), encoding_dim)
+    train_scaled = encoder_dataset(df:pd.DataFrame, pars.get('drop',None), encoding_dim)
     print("train scaled: ", train_scaled)
     ncol = train_scaled.shape[1]
     input_dim = tf.keras.Input(shape = (ncol, ))
@@ -721,7 +721,7 @@ def pd_covariate_shift_adjustment():
     
     
 """
-def pd_generic_transform(df, col=None, pars={}, model=None)  :
+def pd_generic_transform(df:pd.DataFrame, col=None, pars={}, model=None)  :
  
      Transform or Samples using  model.fit()   model.sample()  or model.transform()
     params:

@@ -68,7 +68,7 @@ def log(*s, n=0, m=1):
 
 
 ####################################################################################################
-def pd_na_values(df, cols=None, default=0.0, **kw):
+def pd_na_values(df:pd.DataFrame, cols=None, default=0.0, **kw):
     """function pd_na_values
     Args:
         df:   
@@ -85,7 +85,7 @@ def pd_na_values(df, cols=None, default=0.0, **kw):
     return df
 
 
-def generate_data(df, num_data=0, means=[], cov=[[1, 0], [0, 1]]):
+def generate_data(df:pd.DataFrame, num_data=0, means=[], cov=[[1, 0], [0, 1]]):
     """function generate_data
     Args:
         df:   
@@ -114,7 +114,7 @@ def generate_data(df, num_data=0, means=[], cov=[[1, 0], [0, 1]]):
     return X, label
 
 
-def drop_cols(df, cols=None, **kw):
+def drop_cols(df:pd.DataFrame, cols=None, **kw):
     """function drop_cols
     Args:
         df:   
@@ -189,7 +189,7 @@ def pipe_merge(in_pars, out_pars, compute_pars=None, **kw):
     return dfall
 
 
-def pipe_load(df, **in_pars):
+def pipe_load(df:pd.DataFrame, **in_pars):
     """function pipe_load
     Args:
         df:   
@@ -323,7 +323,7 @@ def pipe_run_inference(pipe_list, in_pars, out_pars, compute_pars=None, checkpoi
     return dfout
 
 
-def pipe_checkpoint(df, **kw):
+def pipe_checkpoint(df:pd.DataFrame, **kw):
     """function pipe_checkpoint
     Args:
         df:   
@@ -332,10 +332,10 @@ def pipe_checkpoint(df, **kw):
         
     """
     if kw.get("type") == "pandas":
-        pickle.dump(df, open(kw["out_path"], 'wb'))
+        pickle.dump(df:pd.DataFrame, open(kw["out_path"], 'wb'))
 
     elif kw.get("type") == "model":
-        pickle.dump(df, open(kw["out_path"], 'wb'))
+        pickle.dump(df:pd.DataFrame, open(kw["out_path"], 'wb'))
 
 
 def load_model(path):

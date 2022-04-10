@@ -38,7 +38,7 @@ def run(spark:SparkSession, config_path: str='config.yaml', mode:str='train,pred
 
     log("######  Load Raw features table and Preprocesss #################")
     df, features = preprocess(spark, conf, check=True)
-    spark_check(df, path= f"{check_path}/{prefix}", nsample=10 , save=True, verbose=True)
+    spark_check(df:pd.DataFrame, path= f"{check_path}/{prefix}", nsample=10 , save=True, verbose=True)
 
 
     if 'train' in mode :

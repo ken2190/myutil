@@ -120,14 +120,14 @@ class cAbstractAR:
         lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
         for p in range(1, self.mNbLags + 1):
             # signal lags ... plain old AR model
-            self.addLagForForecast(df, lag_df, self.mCycleResidueName, p);
+            self.addLagForForecast(df:pd.DataFrame, lag_df, self.mCycleResidueName, p);
         # Exogenous variables lags
         if(self.mExogenousInfo is not None):
             # print(self.mExogenousInfo.mEncodedExogenous);
             # print(df.columns);
             for p in range(1, self.mNbExogenousLags + 1):
                 for ex in self.mExogenousInfo.mEncodedExogenous:
-                    self.addLagForForecast(df, lag_df, ex, p);
+                    self.addLagForForecast(df:pd.DataFrame, lag_df, ex, p);
         return lag_df;
 
 
@@ -272,7 +272,7 @@ class cAutoRegressiveEstimator:
             P = autoreg.mNbLags;
             for p in range(1,P+1):
                 # signal lags ... plain old AR model
-                self.addLagForTraining(df, self.mARFrame, cycle_residue, autoreg, p);
+                self.addLagForTraining(df:pd.DataFrame, self.mARFrame, cycle_residue, autoreg, p);
             # Exogenous variables lags
             if(autoreg.mExogenousInfo is not None):
                 P1 = P;
@@ -285,7 +285,7 @@ class cAutoRegressiveEstimator:
                     # print(autoreg.mExogenousInfo.mEncodedExogenous);
                     # print(df.columns);
                     for ex in autoreg.mExogenousInfo.mEncodedExogenous:
-                        self.addLagForTraining(df, self.mARFrame, ex, autoreg, p);
+                        self.addLagForTraining(df:pd.DataFrame, self.mARFrame, ex, autoreg, p);
             # print("AUTOREG_DETAIL" , P , len(autoreg.mInputNames));
             if(autoreg.mExogenousInfo is not None):
                 assert((P + P*len(autoreg.mExogenousInfo.mEncodedExogenous)) >= len(autoreg.mInputNames));

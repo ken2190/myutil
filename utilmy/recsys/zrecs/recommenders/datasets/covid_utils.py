@@ -37,7 +37,7 @@ def load_pandas_df(
     return pd.read_csv(uri)
 
 
-def remove_duplicates(df, cols):
+def remove_duplicates(df:pd.DataFrame, cols):
     """ Remove duplicated entries.
     
     Args:
@@ -61,7 +61,7 @@ def remove_duplicates(df, cols):
     return df
 
 
-def remove_nan(df, cols):
+def remove_nan(df:pd.DataFrame, cols):
     """ Remove rows with NaN values in specified column.
     
     Args:
@@ -94,11 +94,11 @@ def clean_dataframe(df):
 
     # Remove duplicated rows
     cols = ["cord_uid", "doi"]
-    df = remove_duplicates(df, cols)
+    df = remove_duplicates(df:pd.DataFrame, cols)
 
     # Remove rows without values in specified columns
     cols = ["cord_uid", "doi", "title", "license", "url"]
-    df = remove_nan(df, cols)
+    df = remove_nan(df:pd.DataFrame, cols)
 
     return df
 

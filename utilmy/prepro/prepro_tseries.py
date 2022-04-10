@@ -115,11 +115,11 @@ def pd_prepro_custom(df: pd.DataFrame, col: list=None, pars: dict=None):
         df = df.set_index(coldate)
 
         #### time features
-        dfi, coli = pd_ts_date(df, cols=[coldate], pars={'col_add':['day', 'month', 'year', 'weekday']})
+        dfi, coli = pd_ts_date(df:pd.DataFrame, cols=[coldate], pars={'col_add':['day', 'month', 'year', 'weekday']})
         df_new     = dfi
 
         #### Rolling features
-        dfi, coli = pd_ts_rolling(df,  cols= ['date', 'item', 'store', 'sales'],
+        dfi, coli = pd_ts_rolling(df:pd.DataFrame,  cols= ['date', 'item', 'store', 'sales'],
                                   pars= {'col_groupby' : ['store','item'],
                                          'col_stat':     'sales', 'lag_list': [7, 30]})
         df_new = pd.concat([df_new , dfi], axis=1)
@@ -167,14 +167,14 @@ def pd_prepro_custom2(df: pd.DataFrame, cols: list=None, pars: dict=None):
     colgstat  = pars['colstat']
 
     log("### Only dates")
-    df1 = pd_ts_date(df, coldate, pars)
+    df1 = pd_ts_date(df:pd.DataFrame, coldate, pars)
     coldate1 = list(df1.columns)
 
     log("### Initial features")
-    df1 = df1.join(df, on=coldate, how='left')
+    df1 = df1.join(df:pd.DataFrame, on=coldate, how='left')
 
     log("### Groupby features")
-    df2 = pd_ts_groupby(df, col, pars)
+    df2 = pd_ts_groupby(df:pd.DataFrame, col, pars)
     df1 = df1.join(df2, on=coldate, how='left')
 
     log("### Numerical features")
@@ -410,7 +410,7 @@ def pd_ts_difference(df: pd.DataFrame, cols: list=None, pars: dict=None):
     # X_feat_T["variable"] = X_feat_T.index
     #
     # df["variable"] = pd.Series(["demand"])
-    # X_feat_T = X_feat_T.append(df, ignore_index=True)
+    # X_feat_T = X_feat_T.append(df:pd.DataFrame, ignore_index=True)
     # pdb.set_trace()
     # return X_feat_T.set_index(cols + ['variable']).rename_axis(['day'], axis=1).stack().unstack(
     #     'variable').reset_index()
@@ -501,25 +501,25 @@ def test_deltapy_all():
     df = test_get_sampledata();
     df.head()
 
-    df_out = transform.robust_scaler(df, drop=["Close_1"])
-    df_out = transform.standard_scaler(df, drop=["Close"])
-    df_out = transform.fast_fracdiff(df, ["Close", "Open"], 0.5)
-    # df_out = transform.windsorization(df,"Close",para,strategy='both')
-    df_out = transform.operations(df, ["Close"])
-    df_out = transform.triple_exponential_smoothing(df, ["Close"], 12, .2, .2, .2, 0);
+    df_out = transform.robust_scaler(df:pd.DataFrame, drop=["Close_1"])
+    df_out = transform.standard_scaler(df:pd.DataFrame, drop=["Close"])
+    df_out = transform.fast_fracdiff(df:pd.DataFrame, ["Close", "Open"], 0.5)
+    # df_out = transform.windsorization(df:pd.DataFrame,"Close",para,strategy='both')
+    df_out = transform.operations(df:pd.DataFrame, ["Close"])
+    df_out = transform.triple_exponential_smoothing(df:pd.DataFrame, ["Close"], 12, .2, .2, .2, 0);
     df_out = transform.naive_dec(copy.deepcopy(df), ["Close",
                                                      "Open"])  # The function parameter df is changed within the function causing upcoming functions to crash, passing a copy solves this
-    df_out = transform.bkb(df, ["Close"])
-    df_out = transform.butter_lowpass_filter(df, ["Close"], 4)
-    df_out = transform.instantaneous_phases(df, ["Close"])
-    df_out = transform.kalman_feat(df, ["Close"])
-    df_out = transform.perd_feat(df, ["Close"])
-    df_out = transform.fft_feat(df, ["Close"])
-    df_out = transform.harmonicradar_cw(df, ["Close"], 0.3, 0.2)
-    df_out = transform.saw(df, ["Close", "Open"])
-    df_out = transform.modify(df, ["Close"])
-    df_out = transform.multiple_rolling(df, columns=["Close"])
-    df_out = transform.multiple_lags(df, start=1, end=3, columns=["Close"])
+    df_out = transform.bkb(df:pd.DataFrame, ["Close"])
+    df_out = transform.butter_lowpass_filter(df:pd.DataFrame, ["Close"], 4)
+    df_out = transform.instantaneous_phases(df:pd.DataFrame, ["Close"])
+    df_out = transform.kalman_feat(df:pd.DataFrame, ["Close"])
+    df_out = transform.perd_feat(df:pd.DataFrame, ["Close"])
+    df_out = transform.fft_feat(df:pd.DataFrame, ["Close"])
+    df_out = transform.harmonicradar_cw(df:pd.DataFrame, ["Close"], 0.3, 0.2)
+    df_out = transform.saw(df:pd.DataFrame, ["Close", "Open"])
+    df_out = transform.modify(df:pd.DataFrame, ["Close"])
+    df_out = transform.multiple_rolling(df:pd.DataFrame, columns=["Close"])
+    df_out = transform.multiple_lags(df:pd.DataFrame, start=1, end=3, columns=["Close"])
     df_out = transform.prophet_feat(df.reset_index(), ["Close", "Open"], "Date", "D")
 
     # **Interaction**
@@ -533,7 +533,7 @@ def test_deltapy_all():
     df_out = interact.genetic_feat(copy.deepcopy(df))
 
     # **Mapping**
-    df_out = mapper.pca_feature(df, variance_or_components=0.80, drop_cols=["Close_1"])
+    df_out = mapper.pca_feature(df:pd.DataFrame, variance_or_components=0.80, drop_cols=["Close_1"])
     df_out = mapper.cross_lag(df)
     '''
     Regarding https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test chi square test assumes frequencies distribution
@@ -541,10 +541,10 @@ def test_deltapy_all():
     or to normalize the data to be [0-1]. Since this is for the purpose of testing we'll be using: (df-df.min())/(df.max()-df.min())
     '''
     df_out = mapper.a_chi((df - df.min()) / (df.max() - df.min()))
-    df_out = mapper.encoder_dataset(df, ["Close_1"], 15)
-    df_out = mapper.lle_feat(df, ["Close_1"], 4)
-    df_out = mapper.feature_agg(df, ["Close_1"], 4)
-    df_out = mapper.neigh_feat(df, ["Close_1"], 4)
+    df_out = mapper.encoder_dataset(df:pd.DataFrame, ["Close_1"], 15)
+    df_out = mapper.lle_feat(df:pd.DataFrame, ["Close_1"], 4)
+    df_out = mapper.feature_agg(df:pd.DataFrame, ["Close_1"], 4)
+    df_out = mapper.neigh_feat(df:pd.DataFrame, ["Close_1"], 4)
 
     # **Extraction**
     extract.abs_energy(df["Close"])
@@ -607,9 +607,9 @@ def test_prepro_v1():
         
     """
     df         = test_get_sampledata()
-    time_eng  = pd_ts_date(df, ['Date'], pars = {})
-    onehot    = pd_ts_onehot(df, ['Name'], {})
-    trendless = pd_ts_difference(df, ['Close'], {})
+    time_eng  = pd_ts_date(df:pd.DataFrame, ['Date'], pars = {})
+    onehot    = pd_ts_onehot(df:pd.DataFrame, ['Name'], {})
+    trendless = pd_ts_difference(df:pd.DataFrame, ['Close'], {})
 
 
 
@@ -826,7 +826,7 @@ def m5_dataset():
         
         if merge:
             # notebook crash with the entire dfset (maybee use tensorflow, dask, pyspark xD)
-            df = pd.merge(df, calendar, how = 'left', left_on = ['day'], right_on = ['d'])
+            df = pd.merge(df:pd.DataFrame, calendar, how = 'left', left_on = ['day'], right_on = ['d'])
             df.drop(['d', 'day'], inplace = True, axis = 1)
             # get the sell price df (this feature should be very important)
             df = df.merge(sell_prices, on = ['store_id', 'item_id', 'wm_yr_wk'], how = 'left')

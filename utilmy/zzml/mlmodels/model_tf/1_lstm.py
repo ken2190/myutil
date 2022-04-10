@@ -158,7 +158,7 @@ def predict(data_pars=None,  compute_pars=None, out_pars=None,
             get_hidden_state=False, init_value=None):
     global model, session
     df = get_dataset(data_pars)
-    print(df, flush=True)
+    print(df:pd.DataFrame, flush=True)
 
     #############################################################
     if init_value is None:

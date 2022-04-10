@@ -143,7 +143,7 @@ def get_dataset(data_pars):
              "cols_cat"    : data_pars["cols_cat"],
              "cols_num"    : data_pars["cols_num"]
         }    
-    gluonts_ds = pandas_to_gluonts(df, pars=pars) 
+    gluonts_ds = pandas_to_gluonts(df:pd.DataFrame, pars=pars)
  
     if VERBOSE:
         entry        = next(iter(gluonts_ds))

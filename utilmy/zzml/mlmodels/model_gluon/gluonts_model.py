@@ -298,14 +298,14 @@ def get_dataset_pandas_single(data_pars):
         df = pd_clean_v1(df)
         # start_date = pd.Timestamp( data_pars['start'], freq=data_pars['freq'])
  
-        gluonts_ds = pandas_to_gluonts(df, pars=pars) 
+        gluonts_ds = pandas_to_gluonts(df:pd.DataFrame, pars=pars)
  
 
     df = pd.read_csv(data_path + "/test/data.csv")
     df = df.set_index( data_pars['col_date'] )
     df = pd_clean_v1(df)
     # start_date = pd.Timestamp( data_pars['start'], freq=data_pars['freq'])  
-    gluonts_ds_test = pandas_to_gluonts(df, pars=pars) 
+    gluonts_ds_test = pandas_to_gluonts(df:pd.DataFrame, pars=pars)
 
 
     if VERBOSE:

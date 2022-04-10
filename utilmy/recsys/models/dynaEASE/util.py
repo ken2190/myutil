@@ -23,7 +23,7 @@ def compute_k_core(clicks, user_col='session', item_col='item', user_k=5, item_k
         Approximate the k-core for the 'clicks' dataframe.
         i.e. alternatingly drop users and items that appear less than 'k' times, for 'i' iterations.
     '''
-    def drop_below_k(df, col, k):
+    def drop_below_k(df:pd.DataFrame, col, k):
         # Count occurence of values in `col`
         c = df[col].value_counts().reset_index().rename(columns = {'index': col, col: 'count'})
         # Only keep those that occur often enough
@@ -37,7 +37,7 @@ def compute_k_core(clicks, user_col='session', item_col='item', user_k=5, item_k
     
     return clicks
 
-def print_summary(df, cols):
+def print_summary(df:pd.DataFrame, cols):
     '''
         Print number of unique values for discrete identifiers (users, items, ...)
     '''
@@ -54,7 +54,7 @@ def encode_integer_id(col):
     '''
     return LabelEncoder().fit_transform(col)
 
-def generate_csr(df, shape, user_col='session', item_col='item'):
+def generate_csr(df:pd.DataFrame, shape, user_col='session', item_col='item'):
     '''
         Encode user-item pairs into a Compressed Sparse Row (CSR) Matrix
     '''
@@ -138,7 +138,7 @@ def dynEASEr(S, G_diff, k):
     VAinv = vecs.T @ S
     return S - (S @ vecs) @ inv(C + VAinv@vecs, overwrite_a=True, check_finite=False) @ VAinv
 
-def incremental_updates(df, X_init, G_init, S_init, init_ts, num_days, update_minutes, rank='exact'):
+def incremental_updates(df:pd.DataFrame, X_init, G_init, S_init, init_ts, num_days, update_minutes, rank='exact'):
     '''
         Perform incremental updates on `X_init`, `G_init` and `S_init`, every `update_minutes` for `num_days` after `init_ts`.
     '''

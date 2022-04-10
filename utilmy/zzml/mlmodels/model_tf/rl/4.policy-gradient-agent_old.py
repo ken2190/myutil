@@ -277,7 +277,7 @@ def fit(model, df, do_action):
 
 def predict(model, sess, df, do_action):
     model.agent.sess = sess
-    res = model.agent.predict_sequence(df, do_action_example) #TODO needs an example function to work
+    res = model.agent.predict_sequence(df:pd.DataFrame, do_action_example) #TODO needs an example function to work
     return res
 
 

@@ -172,7 +172,7 @@ class Model:
 
         
 ##################################################################################################
-def _preprocess_criteo(df, **kw):
+def _preprocess_criteo(df:pd.DataFrame, **kw):
     """function _preprocess_criteo
     Args:
         df:   
@@ -210,12 +210,12 @@ def _preprocess_criteo(df, **kw):
 
     linear_cols = fixlen_cols
     dnn_cols = fixlen_cols
-    train, test = train_test_split(df, test_size=kw['test_size'])
+    train, test = train_test_split(df:pd.DataFrame, test_size=kw['test_size'])
 
     return df, linear_cols, dnn_cols, train, test, target, test[target].values
 
 
-def _preprocess_movielens(df, **kw):
+def _preprocess_movielens(df:pd.DataFrame, **kw):
     """function _preprocess_movielens
     Args:
         df:   
@@ -237,7 +237,7 @@ def _preprocess_movielens(df, **kw):
         fixlen_cols = [SparseFeat(feat, df[feat].nunique(), embedding_dim=4) for feat in sparse_col]
         linear_cols = fixlen_cols
         dnn_cols = fixlen_cols
-        train, test = train_test_split(df, test_size=0.2)
+        train, test = train_test_split(df:pd.DataFrame, test_size=0.2)
         ytrue = test[target].values
     else:
         ytrue = df[target].values
@@ -348,15 +348,15 @@ def get_dataset(data_pars=None, **kw):
         df = pd.read_csv(data_path)
 
     if data_type == "criteo":
-        df, linear_cols, dnn_cols, train, test, target, ytrue = _preprocess_criteo(df, **data_pars)
+        df, linear_cols, dnn_cols, train, test, target, ytrue = _preprocess_criteo(df:pd.DataFrame, **data_pars)
     
     elif data_type == "movie_len":
-        df, linear_cols, dnn_cols, train, test, target, ytrue = _preprocess_movielens(df, **data_pars)
+        df, linear_cols, dnn_cols, train, test, target, ytrue = _preprocess_movielens(df:pd.DataFrame, **data_pars)
 
     else:  ## Already define
         linear_cols = data_pars['linear_cols']
         dnn_cols    = data_pars['dnn_cols']
-        train, test = train_test_split(df, test_size=data_pars['test_size'])
+        train, test = train_test_split(df:pd.DataFrame, test_size=data_pars['test_size'])
         target      = data_pars['target_col']
         ytrue       = data_pars['target_col']
 

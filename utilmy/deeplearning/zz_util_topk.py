@@ -163,7 +163,7 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
    faiss_index.nprobe = 12  # Runtime param. The number of cells that are visited for search.
         
    ########################################################################
-   if isinstance(df, list):    ### Multi processing part
+   if isinstance(df:pd.DataFrame, list):    ### Multi processing part
         if len(df) < 1 : return 1
         flist = df[0]
         root     = os.path.abspath( os.path.dirname( flist[0] + "/../../") )  ### bug in multipro
@@ -506,7 +506,7 @@ def convert_txt_to_vector_parquet(dirin=None, dirout=None, skip=0, nmax=10**8): 
               kk = kk + 1                
               df = pd.DataFrame({ 'id' : words, 'emb' : embs }  )  
               log(df.shape)  
-              pd_to_file(df, dirout + f"/df_emb_{kk}.parquet", show=0)
+              pd_to_file(df:pd.DataFrame, dirout + f"/df_emb_{kk}.parquet", show=0)
               ntot += len(df)
               words, embs = [], []  
     
@@ -514,7 +514,7 @@ def convert_txt_to_vector_parquet(dirin=None, dirout=None, skip=0, nmax=10**8): 
     df    = pd.DataFrame({ 'id' : words, 'emb' : embs }  )  
     ntot += len(df)
     dirout2 = dirout + f"/df_emb_{kk}.parquet"
-    pd_to_file(df, dirout2, show=1 )
+    pd_to_file(df:pd.DataFrame, dirout2, show=1 )
     log('ntotal', ntot )
     return os.path.dirname(dirout2)
 
@@ -538,7 +538,7 @@ def data_add_onehot(dfref, img_dir, labels_col):
     # labels_col = [  'gender', 'masterCategory', 'subCategory', 'articleType' ]
 
     for ci in labels_col:
-        dfi_1hot = pd.get_dummies(df, columns=[ci])  ### OneHot
+        dfi_1hot = pd.get_dummies(df:pd.DataFrame, columns=[ci])  ### OneHot
         dfi_1hot = dfi_1hot[[t for t in dfi_1hot.columns if ci in t]]  ## keep only OneHot
         df[ci + "_onehot"] = dfi_1hot.apply(lambda x: ','.join([str(t) for t in x]), axis=1)
         #####  0,0,1,0 format   log(dfi_1hot)

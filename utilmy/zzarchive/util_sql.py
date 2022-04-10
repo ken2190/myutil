@@ -238,7 +238,7 @@ os.unlink("birth.xls")
     dbengine.commit()
  dbengine.close()
 
-def sql_insert_df(df, dbtable, dbengine, col_drop=['id'], verbose=1) :
+def sql_insert_df(df:pd.DataFrame, dbtable, dbengine, col_drop=['id'], verbose=1) :
  """function sql_insert_df
  Args:
      df:   

@@ -17,7 +17,7 @@ from source.prepro_tseries import *
 
 ########################################################################################################################
 ########################################################################################################################
-def pd_col_tocat(df, nan_cols, colcat):
+def pd_col_tocat(df:pd.DataFrame, nan_cols, colcat):
     nan_features = nan_cols
     for feature in nan_features:
         df[feature].fillna('unknown', inplace = True)

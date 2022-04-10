@@ -65,7 +65,7 @@ def pandas_reader(task, path, colX, coly, path_eval=None, train_size=0.8):
    if task == "train":
       from sklearn.model_selection import train_test_split
       if path_eval is None :
-         dftrain, dftest = train_test_split(df, train_size = train_size)
+         dftrain, dftest = train_test_split(df:pd.DataFrame, train_size = train_size)
       else :
          dftrain = df
          dftest  = pd.read_csv(path_eval)

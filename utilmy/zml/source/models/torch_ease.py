@@ -221,7 +221,7 @@ def test_dataset_goodbooks(nrows=1000):
     return df, colnum, colcat, coly
 
 
-def train_test_split2(df, coly):
+def train_test_split2(df:pd.DataFrame, coly):
     """function train_test_split2
     Args:
         df:   
@@ -282,7 +282,7 @@ def test(n_sample          = 1000):
         
     """
     df, colnum, colcat, coly = test_dataset_goodbooks(nrows= n_sample)
-    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df, coly)
+    X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df:pd.DataFrame, coly)
 
     #### Matching Big dict  ##################################################
     def post_process_fun(y): return int(y)

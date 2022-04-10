@@ -83,7 +83,7 @@ class Model:
  
 
 ##################################################################################################
-def _preprocess_XXXX(df, **kw):
+def _preprocess_XXXX(df:pd.DataFrame, **kw):
     return df, linear_cols, dnn_cols, train, test, target
 
 def load_and_cache_examples(task, tokenizer, evaluate=False):

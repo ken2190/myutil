@@ -109,16 +109,16 @@ def test():
         df.head(num_items), column_name, threshold, num_perm)
   log(df1.head())
 
-  df2 = pd_text_similarity(df, cols=['question1','question2'])
+  df2 = pd_text_similarity(df:pd.DataFrame, cols=['question1','question2'])
   matched = df.loc[df['score'] >= 0.8]
   print("match using SequenceMatcher is",matched.shape[0])
   print(matched.head())
 
-  df2 = pd_text_similarity(df, cols=['question1','question2'],algo="rapidfuzz")
+  df2 = pd_text_similarity(df:pd.DataFrame, cols=['question1','question2'],algo="rapidfuzz")
   matched = df.loc[df['score'] >= 80]
   print("match using rapidfuzz is",matched.shape[0])
 
-  df2 = pd_text_similarity(df, cols=['question1','question2'],algo="editdistance")
+  df2 = pd_text_similarity(df:pd.DataFrame, cols=['question1','question2'],algo="editdistance")
   matched = df.loc[df['score'] >= 80]
   print("match using editdistance is",matched.shape[0])
 
@@ -143,7 +143,7 @@ def test_lsh():
 
 
 #############################################################################
-def pd_text_hash_create_lsh(df, col, sep=" ", threshold=0.7, num_perm=10, npool=1, chunk = 20000):
+def pd_text_hash_create_lsh(df:pd.DataFrame, col, sep=" ", threshold=0.7, num_perm=10, npool=1, chunk = 20000):
     '''
     For each of the entry create a hash function
     '''

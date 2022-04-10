@@ -312,7 +312,7 @@ if cc.compute_mode == "gpu" :
 os_path_copy(in_dir= cc.code_source  , path= cc.model_dir2 + "/code/")
 
 
-def pd_get_dummies(df, cols_cat, cat_dict:dict, only_onehot=True):
+def pd_get_dummies(df:pd.DataFrame, cols_cat, cat_dict:dict, only_onehot=True):
    """ dfi_onehot = pd_get_dummies( df, cols_cat = ['articleType'  ], cat_dict= cc.labels_map, only_onehot= False)
       dfi_onehot.sum()
       dfi_onehot.dtypes
@@ -414,7 +414,7 @@ df = df[  ['id'] + cc.labels_cols ]
 
 #duplicate ftn removed
 
-df = pd_category_filter(df, cc.labels_map)
+df = pd_category_filter(df:pd.DataFrame, cc.labels_map)
 log(df)
 
 
