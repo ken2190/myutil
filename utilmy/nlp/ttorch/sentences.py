@@ -696,6 +696,34 @@ def load_loss(model, lossname ='cosine',  cc:dict= None):
     return train_loss
 
 
+###################################################################################################################  
+
+def sentence_compare(df, cola, colb, model):
+    """Compare 2 columns and return cosine similarity score
+
+    Args:
+        df (pd DataFrame): Pandas DataFrame containing the data
+        cola (str): column A name
+        colb (str): column B name
+        model (model instance): Pretrained sentence transformer model
+
+    Returns:
+        pd DataFrame: 'cosine_similarity' column and return df
+    """
+    
+    from sklearn.metrics.pairwise import cosine_similarity
+    
+    keywords1_embeds = model.encode(df[cola].tolist())
+    keywords2_embeds = model.encode(df[colb].tolist())       
+    
+    results = list()
+    for embed1,embed2 in zip(keywords1_embeds,keywords2_embeds):
+        result = cosine_similarity([embed1],[embed2])
+        results.append(result)
+    df['cosine_similarity'] = np.array(results).ravel()
+    
+    return df
+
 
 ###################################################################################################################  
 if 'utils':
