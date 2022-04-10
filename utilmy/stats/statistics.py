@@ -55,7 +55,7 @@ def test_all():
     def test():
         log("Testing normality...")
         from utilmy.stats  import statistics as m
-        test_error_normality(df["yield"])
+        error_test_normality(df["yield"])
         
         
         df1 = pd_generate_data(7, 100)
@@ -65,12 +65,12 @@ def test_all():
 
         
         log("Testing heteroscedacity...")
-        log(m.test_error_heteroscedacity(y_test, ypred))
+        log(m.error_test_heteroscedacity(y_test, ypred))
     
         log("Testing test_mutualinfo()...")
         df1 = pd_generate_data(7, 100)
 
-        m.test_error_residual_mutualinfo(df1["0"], df1[["1", "2", "3"]], colname="test")
+        m.error_test_residual_mutualinfo(df1["0"], df1[["1", "2", "3"]], colname="test")
 
         log("Testing hypothesis_test()...")
         log(m.test_hypothesis(X_train, X_test,"chisquare"))
@@ -138,8 +138,8 @@ def test1():
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.50, random_state=42)
     model.fit(X_train, y_train)
     ypred = model.predict(X_test)
-    test_error_normality(df["yield"])
-    log(test_error_heteroscedacity(y_test, ypred))
+    error_test_normality(df["yield"])
+    log(error_test_heteroscedacity(y_test, ypred))
     log(test_hypothesis(X_train, X_test,"chisquare"))
     log(confidence_interval_normal_std(ypred))
     log(confidence_interval_boostrap_bayes(ypred))
@@ -161,8 +161,24 @@ def test3():
 
 
 
-#############################################################################
-#############################################################################
+###############################################################################################
+########## Helpers on test  ###################################################################
+def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
+    """ Hypothesis betweeb Obs and true values
+
+        https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+    """
+    try:
+       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
+            table_margins, expected_frequencies )
+    except :
+       print(' pip install hypothesis ')
+
+    if method == 'chisquare' :
+        c = ChiSquareContingency(df_obs, df_true)
+        return c
+
+
 def test_independance_mutiple(df: pd.DataFrame, colsX=None, coly='y', bonferroni_adjuster=True, threshold=0.1) -> List[float]:
     """Run multiple T tests of Independance
        p_values = multiple_comparisons(data)
@@ -306,26 +322,8 @@ def test_plot_qqplot(df:pd.DataFrame, col_name):
 
 
 ####################################################################################################
-def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
-    """ Hypothesis betweeb Obs and true values
-
-
-    https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
-    """
-    try:
-       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
-            table_margins, expected_frequencies )
-    except :
-       print(' pip install hypothesis ')
-
-    if method == 'chisquare' :
-        c = ChiSquareContingency(df_obs, df_true)
-        return c
-
-
-
-####################################################################################################
-def test_error_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray,  pred_value_only=1):
+############ Residual error ########################################################################
+def error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only=1):
     """function test_heteroscedacity
     Args:
         ytrue:   
@@ -354,7 +352,7 @@ def test_error_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray,  pred_value
     return ddict
 
 
-def test_error_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="norm", test_size_limit=5000):
+def error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="norm", test_size_limit=5000):
     """
        Test  Is Normal distribution
        F pvalues < 0.01 : Rejected
@@ -380,7 +378,7 @@ def test_error_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="nor
     return ddict
 
 
-def test_error_residual_mutualinfo(dfX:pd.DataFrame,  ypred: np.ndarray, ytrue: np.ndarray, colsX=None,   bins=5):
+def error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX=None, bins=5):
     """
        Test  Error vs Input X Variable Independance byt Mutual ifno
        sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
