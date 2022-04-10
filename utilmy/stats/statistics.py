@@ -163,26 +163,83 @@ def test3():
 
 ###############################################################################################
 ########## Helpers on test  ###################################################################
-def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
-    """ Hypothesis betweeb Obs and true values
+def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Test if same mean for all columns
 
-        https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+       https://towardsdatascience.com/why-is-anova-essential-to-data-science-with-a-practical-example-615de10ba310
+
+
     """
-    try:
-       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
-            table_margins, expected_frequencies )
-    except :
-       print(' pip install hypothesis ')
+    p_values = []
+    cols = df.columns  if cols is None else cols
 
-    if method == 'chisquare' :
-        c = ChiSquareContingency(df_obs, df_true)
-        return c
+    if len(cols) == 2:
+        ## Student test of mean
+        p_values = test_student_mean(df, cols[0], cols[1])
 
 
-def test_independance_mutiple(df: pd.DataFrame, colsX=None, coly='y', bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    else :   ##> 3 values
+        p_values = test_anova_mean(df, cols)
+
+
+
+
+
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Run ANOVA Test of independance
+
+
+
+    """
+    p_values = []
+    cols = df.columns  if cols is None else cols
+
+    p_values = test_anova(df, cols)
+
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+
+
+def test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX=None, coly='y', bonferroni_adjuster=True, threshold=0.1) -> List[float]:
     """Run multiple T tests of Independance
        p_values = multiple_comparisons(data)
        
+
+
+    """
+    p_values = []
+    colsX = df.columns  if colsX is None else colsX
+    for c in colsX:
+        if c.startswith(coly):
+            continue
+        group_a = df[df[c] == 0][coly]
+        group_b = df[df[c] == 1][coly]
+
+        _, p = stats.ttest_ind(group_a, group_b, equal_var=False)
+        p_values.append((c, p) )
+    
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+
+def bonferoni_adjuster(p_values, threshold=0.1):
+    """
        # bonferroni correction
         print('Total number of discoveries is: {:,}'  .format(sum([x[1] < threshold / n_trials for x in p_values])))
         print('Percentage of significant results: {:5.2%}'  .format(sum([x[1] < threshold / n_trials for x in p_values]) / n_trials))
@@ -197,28 +254,36 @@ def test_independance_mutiple(df: pd.DataFrame, colsX=None, coly='y', bonferroni
 
         print('Total number of discoveries is: {:,}' .format(len(significant)))
         print('Percentage of significant results: {:5.2%}'.format(len(significant) / n_trials))
-
     """
-    p_values = []
-    colsX = df.columns  if colsX is None else colsX
-    for c in colsX:
-        if c.startswith(coly):
-            continue
-        group_a = df[df[c] == 0][coly]
-        group_b = df[df[c] == 1][coly]
+    p_values.sort(key=lambda x: x[1])
+    for i, x in enumerate(p_values):
+        if x[1] >= (i + 1) / len(p_values) * threshold:
+            break
+    pvalues_significant = p_values[:i]
+    return pvalues_significant
 
-        _, p = stats.ttest_ind(group_a, group_b, equal_var=False)
-        p_values.append((c, p))
-    
-    if bonferroni_adjuster:
-        p_values.sort(key=lambda x: x[1])
-        for i, x in enumerate(p_values):
-            if x[1] >= (i + 1) / len(p_values) * threshold:
-                break
-        pvalues_significant = p_values[:i]
-        return pvalues_significant
-    
-    return p_values
+
+
+
+
+
+
+#################################################################################################
+############ Actual tests########################################################################
+def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
+    """ Hypothesis betweeb Obs and true values
+
+        https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+    """
+    try:
+       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
+            table_margins, expected_frequencies )
+    except :
+       print(' pip install hypothesis ')
+
+    if method == 'chisquare' :
+        c = ChiSquareContingency(df_obs, df_true)
+        return c
 
 
 
