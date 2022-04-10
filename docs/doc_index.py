@@ -458,6 +458,24 @@ train_stop(counter, patience)
 
 
 
+utilmy/deeplearning/kkeras/zkeras_torch_sentence.py
+-------------------------functions----------------------
+build_model()
+create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
+log(*s)
+metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
+model_load(path)
+model_save(path)
+sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
+test()
+
+-------------------------methods----------------------
+ReRanker.__init__(self)
+ReRanker.call(self, inputs, **kwargs)
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
 utilmy/deeplearning/kkeras/zz_util_dataloader_img_old.py
 -------------------------functions----------------------
 _byte_feature(value)
@@ -586,39 +604,88 @@ Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, *
 
 utilmy/deeplearning/ttorch/rule_encoder.py
 -------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-dataset_load_cardio(arg)
-dataset_load_covtype(arg)
-dataset_preprocess_cardio(df, arg)
-dataset_preprocess_covtype(df, arg)
-device_setup(arg)
-get_correct_results(out, label_Y)
-get_metrics(y_true, y_pred, y_score)
-get_perturbed_input(input_tensor, pert_coeff)
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
 help()
-loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
-loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
-loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
-model_build(arg:dict, mode = 'train')
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
-model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg:dict = None)
-test()
-test2()
+test1()
+test2_new()
 test_all()
-test_dataset_classification_fake(nrows = 500)
-verification(out, pert_out, threshold = 0.0)
 
 -------------------------methods----------------------
-DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-DataEncoder.forward(self, x)
-NaiveModel.__init__(self)
-NaiveModel.forward(self, x, alpha = 0.0)
-Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
-Net.forward(self, x, alpha = 0.0)
-Net.get_z(self, x, alpha = 0.0)
-RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-RuleEncoder.forward(self, x)
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
+
+
+utilmy/deeplearning/ttorch/rule_encoder4.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
+help()
+test1()
+test2_new()
+test_all()
+
+-------------------------methods----------------------
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
 
 
 utilmy/deeplearning/ttorch/util_torch.py
@@ -635,26 +702,10 @@ test_all()
 test_dataset_classification_fake(nrows = 500)
 
 -------------------------methods----------------------
+SmeLU.__init__(self, beta: float  =  2.)
+SmeLU.forward(self, input: torch.Tensor)
 model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
 model_dummy.forward(self, x)
-
-
-utilmy/deeplearning/ttorch/zkeras_torch_sentence.py
--------------------------functions----------------------
-build_model()
-create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
-log(*s)
-metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
-model_load(path)
-model_save(path)
-sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
-test()
-
--------------------------methods----------------------
-ReRanker.__init__(self)
-ReRanker.call(self, inputs, **kwargs)
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
 
 
 utilmy/deeplearning/ttorch/zrule_encoder2.py
@@ -1087,6 +1138,8 @@ image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, st
 image_prep_many(image_paths:Sequence[str], image_prep_fun, nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_multiproc(dirimage_list:list, image_prep_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
+image_read2(dirin_filelist:Union[str, list], **kw)
+image_read_iter(dirin_filelist:Union[str, list], **kw)
 image_remove_bg(in_dir:Path_type = "", dirout:Path_type = "", level:int = 1)
 image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
 image_resize(image : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
