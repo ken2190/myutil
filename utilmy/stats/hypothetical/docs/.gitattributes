@@ -1,4 +1,0 @@
-$ cat .gitattributes
-
-*.ipynb
-notebooks/* linguist-documentation
