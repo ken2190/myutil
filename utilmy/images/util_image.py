@@ -165,6 +165,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
 
     """
     import cv2, gc, diskcache
+    from utilmy.images import util_image
 
     # globals  for  multprocessed function
     global xdim, ydim
@@ -362,7 +363,7 @@ def image_read_iter(dirin_filelist:Union[str, list], **kw):
     import tifffile
     image_list = [] 
 
-    def image_single(filepath_or_buffer)
+    def image_single(filepath_or_buffer):
         if filepath_or_buffer.endswith(".tif") or filepath_or_buffer.endswith(".tiff"):
             image = tifffile.imread(filepath_or_buffer)
         else:
@@ -379,7 +380,7 @@ def image_read_iter(dirin_filelist:Union[str, list], **kw):
         return image
 
     elif isinstance(dirin_filelist, list):       
-        flist = dirin_filelist :
+        flist = dirin_filelist
 
     elif isinstance(dirin_filelist, str):
         flist = sorted( glob.glob(dirin_filelist) )
@@ -399,7 +400,7 @@ def image_read2(dirin_filelist:Union[str, list], **kw):
     image = None
     image_list = [] 
 
-    def image_single(filepath_or_buffer)
+    def image_single(filepath_or_buffer):
         if filepath_or_buffer.endswith(".tif") or filepath_or_buffer.endswith(".tiff"):
             image = tifffile.imread(filepath_or_buffer)
         else:
@@ -435,6 +436,7 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
         filepath_or_buffer: The path to the file, a URL, or any object
             with a `read` method (such as `io.BytesIO`)
     """
+    import tifffile
     image = None
     if isinstance(filepath_or_buffer, np.ndarray):
         return filepath_or_buffer
@@ -552,6 +554,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
     """   image white color padded
     """
     import cv2, gc, diskcache
+    from utilmy.images import util_image
 
     in_dir = dirin
   
