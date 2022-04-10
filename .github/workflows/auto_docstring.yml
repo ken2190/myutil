@@ -11,8 +11,8 @@ on:
     - zrefactor
 
 
-  schedule:
-    - cron:  '0 2 * * *'      #### 60mins
+#  schedule:
+#    - cron:  '0 2 * * *'      #### 60mins
     #    - cron:  '*/10 * * * *'
 
 

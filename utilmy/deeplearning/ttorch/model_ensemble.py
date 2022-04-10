@@ -1,15 +1,25 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.torch.util_torch"
-HELP = """ utils for torch training
+MNAME = "utilmy.deeplearning.torch.rule_encoder"
+HELP = """ utils for model explanation
+
+
+https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
+
+
+
+https://discuss.pytorch.org/t/merging-3-models/66230/3
+
+
 
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
 
+from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
+from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
-from sklearn.metrics import mean_squared_error, accuracy_score, roc_curve, auc, roc_auc_score, precision_score, recall_score, precision_recall_curve, accuracy_score
-
 
 import torch
 import torch.nn as nn
@@ -17,11 +27,15 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 
+
 #############################################################################################
 from utilmy import log, log2
 
 def help():
-    """function help        
+    """function help
+    Args:
+    Returns:
+        
     """
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
@@ -40,18 +54,40 @@ def test_all():
     # test2()
 
 
-def test2():
-    """function test2
+
+
+##############################################################################################
+def test():
+    """function test
     Args:
     Returns:
         
     """
+    model_info = {'dataonly': {'rule': 0.0},
+                'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
+                'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
+                'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
+                'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
+                'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
+                'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
+                'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
+                'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
+                'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
+                }
+
     arg = Box({
       "dataurl":  "https://github.com/caravanuden/cardio/raw/master/cardio_train.csv",
       "datapath": './cardio_train.csv',
 
       ##### Rules
-      "rules" : {},
+      "rules": {},
+
+      #"rule_threshold": 129.5,
+      #"src_ok_ratio": 0.3,
+      #"src_unok_ratio": 0.7,
+      #"target_rule_ratio": 0.7,
+      #"rule_ind": 5,
+
 
       #####
       "train_ratio": 0.7,
@@ -76,9 +112,54 @@ def test2():
       'saved_filename' :'./model.pt',
 
     })
+    arg.model_info = model_info
+    arg.merge = 'cat'
+    arg.input_dim = 20   ### 20
+    arg.output_dim = 1
+    log(arg)
+
+
+    #### Rules setup #############################################################
+    arg.rules = {
+          "rule_threshold":  129.5,
+          "src_ok_ratio":      0.3,
+          "src_unok_ratio":    0.7,
+          "target_rule_ratio": 0.7,
+          "rule_ind": 2,    ### Index of the colum Used for rule:  df.iloc[:, rule_ind ]
+    }
+    arg.rules.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
+    arg.rules.loss_rule_calc = loss_rule_calc_cardio
+
+
+    ### device setup
+    device = device_setup(arg)
+
+    #### dataset load
+    df = dataset_load_cardio(arg)
+
+    #### dataset preprocess
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
+    arg.input_dim = train_X.shape[1]
 
 
 
+    ### Create dataloader  ############################
+    train_loader, valid_loader, test_loader = dataloader_create( train_X, train_y, valid_X, valid_y, test_X, test_y,  arg)
+
+    ### Model Build
+    model, losses, arg = model_build(arg=arg)
+
+    ### Model Train
+    model_train(model, losses, train_loader, valid_loader, arg=arg, )
+
+
+    #### Test
+    model_eval, losses = model_load(arg)
+    model_evaluation(model_eval, losses.loss_task_func , arg=arg, dataset_load1= dataset_load_cardio,  dataset_preprocess1 =  dataset_preprocess_cardio  )
+
+
+
+##############################################################################################
 ###############################################################################################
 def device_setup(arg):
     """function device_setup
@@ -139,9 +220,6 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     return train_loader, valid_loader, test_loader
 
 
-
-
-###############################################################################################
 def model_load(arg):
     """function model_load
     Args:
@@ -163,6 +241,76 @@ def model_load(arg):
     # model_evaluation(model_eval, loss_task_func, arg=arg)
 
 
+def model_build(arg:dict, mode='train'):
+    """function model_build
+    Args:
+        arg ( dict ) :   
+        mode:   
+    Returns:
+        
+    """
+    arg = Box(arg)
+
+    if 'test' in mode :
+        rule_encoder = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        model_eval = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
+        return model_eval
+
+    ##### Params  ############################################################################
+    model_params = arg.model_info.get( arg.model_type, {} )
+
+    #### Training
+    arg.lr      = model_params.get('lr', 0.001)  # if 'lr' in model_params else 0.001
+
+    #### Rules encoding
+    from torch.distributions.beta import Beta
+    arg.rules.pert_coeff   = model_params.get('pert', 0.1)
+    arg.rules.scale        = model_params.get('scale', 1.0)
+    beta_param   = model_params.get('beta', [1.0])
+    if   len(beta_param) == 1:  arg.rules.alpha_dist = Beta(float(beta_param[0]), float(beta_param[0]))
+    elif len(beta_param) == 2:  arg.rules.alpha_dist = Beta(float(beta_param[0]), float(beta_param[1]))
+    arg.rules.beta_param = beta_param
+
+
+    #########################################################################################
+    losses    = Box({})
+
+    #### Rule model
+    rule_encoder          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    losses.loss_rule_func = arg.rules.loss_rule_func #lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
+
+
+    #### Data model
+    data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    losses.loss_task_func = nn.BCELoss()    # return scalar (reduction=mean)
+
+    #### Merge Ensembling
+    model        = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db,
+                        n_layers=arg.n_layers, merge= arg.merge).to(arg.device)    # Not residual connection
+
+    ### Summary
+    log('model_type: {}\tscale:\tBeta distribution: Beta()\tlr: \t \tpert_coeff: {}'.format(arg.model_type, arg.rules))
+    return model, losses, arg
+
+
+
+def loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict):
+    """ Calculate loss for constraints rules
+
+    """
+    rule_ind   = arg.rules.rule_ind
+    pert_coeff = arg.rules.pert_coeff
+    alpha      = arg.alpha
+
+    pert_batch_train_x             = batch_train_x.detach().clone()
+    pert_batch_train_x[:,rule_ind] = get_perturbed_input(pert_batch_train_x[:,rule_ind], pert_coeff)
+    pert_output = model(pert_batch_train_x, alpha= alpha)
+    loss_rule   = loss_rule_func(output.reshape(pert_output.size()), pert_output)    # output should be less than pert_output
+    return loss_rule
+
+
+
 def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     """function model_train
     Args:
@@ -177,6 +325,15 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     arg      = Box(arg)  ### Params
     arghisto = Box({})  ### results
 
+
+    #### Rules Loss, params  ##################################################
+    rule_feature   = arg.rules.get( 'rule_feature',   'ap_hi' )
+    loss_rule_func = arg.rules.loss_rule_func
+    if 'loss_rule_calc' in arg.rules: loss_rule_calc = arg.rules.loss_rule_calc
+    src_ok_ratio   = arg.rules.src_ok_ratio
+    src_unok_ratio = arg.rules.src_unok_ratio
+    rule_ind       = arg.rules.rule_ind
+    pert_coeff     = arg.rules.pert_coeff
 
 
     #### Core model params
@@ -203,10 +360,14 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
         batch_train_y = batch_train_y.unsqueeze(-1)
         optimizer.zero_grad()
 
-
+        if   model_type.startswith('dataonly'):  alpha = 0.0
+        elif model_type.startswith('ruleonly'):  alpha = 1.0
+        elif model_type.startswith('ours'):      alpha = arg.rules.alpha_dist.sample().item()
+        arg.alpha = alpha
 
         ###### Base output #########################################
         output    = model(batch_train_x, alpha=alpha).view(batch_train_y.size())
+        loss_task = loss_task_func(output, batch_train_y)
 
 
         ###### Loss Rule perturbed input and its output  #####################
@@ -288,6 +449,8 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
     df = dataset_load1(arg)
     train_X, test_X, train_y, test_y, valid_X, valid_y = dataset_preprocess1(df, arg)
 
+
+
     ######
     train_loader, valid_loader, test_loader = dataloader_create( train_X, test_X, train_y, test_y, valid_X, valid_y, arg)
     model_eval.eval()
@@ -348,94 +511,80 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log()
 
 
-###############################################################################################
-class SmeLU(nn.Module):
-    """
-    This class implements the Smooth ReLU (SmeLU) activation function proposed in:
-    https://arxiv.org/pdf/2202.06499.pdf
-
-
-    Example :
-        def main() -> None:
-            # Init figures
-            fig, ax = plt.subplots(1, 1)
-            fig_grad, ax_grad = plt.subplots(1, 1)
-            # Iterate over some beta values
-            for beta in [0.5, 1., 2., 3., 4.]:
-                # Init SemLU
-                smelu: SmeLU = SmeLU(beta=beta)
-                # Make input
-                input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
-                # Get activations
-                output: torch.Tensor = smelu(input)
-                # Compute gradients
-                output.sum().backward()
-                # Plot activation and gradients
-                ax.plot(input.detach(), output.detach(), label=str(beta))
-                ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))
-            # Show legend, title and grid
-            ax.legend()
-            ax_grad.legend()
-            ax.set_title("SemLU")
-            ax_grad.set_title("SemLU gradient")
-            ax.grid()
-            ax_grad.grid()
-            # Show plots
-            plt.show()
-
-    """
-
-    def __init__(self, beta: float = 2.) -> None:
-        """
-        Constructor method.
-        :param beta (float): Beta value if the SmeLU activation function. Default 2.
-        """
-        # Call super constructor
-        super(SmeLU, self).__init__()
-        # Check beta
-        assert beta >= 0., f"Beta must be equal or larger than zero. beta={beta} given."
-        # Save parameter
-        self.beta: float = beta
-
-    def forward(self, input: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        :param input (torch.Tensor): Tensor of any shape
-        :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
-        """
-        output: torch.Tensor = torch.where(input >= self.beta, input,
-                                           torch.tensor([0.], device=input.device, dtype=input.dtype))
-        output: torch.Tensor = torch.where(torch.abs(input) <= self.beta,
-                                           ((input + self.beta) ** 2) / (4. * self.beta), output)
-        return output
-
-
-
-
-
-
-#####################################################################################################################
-def get_metrics(y_true, y_pred, y_score):
-    """function get_metrics
-    Args:
-        y_true:   
-        y_pred:   
-        y_score:   
-    Returns:
-        
-    """
-    acc = accuracy_score(y_true, y_pred)
-    prec = precision_score(y_true, y_pred)
-    recall = recall_score(y_true, y_pred)
-    fpr, tpr, _ = roc_curve(y_true, y_score)
-    roc_auc = auc(fpr, tpr)
-
-    return acc, prec, recall, fpr, tpr, roc_auc
-
 
 
 #############################################################################################
-class model_dummy(nn.Module):
+'''model.py '''
+class NaiveModel(nn.Module):
+  def __init__(self):
+    """ NaiveModel:__init__
+    Args:
+    Returns:
+       
+    """
+    super(NaiveModel, self).__init__()
+    self.net = nn.Identity()
+
+  def forward(self, x, alpha=0.0):
+    """ Net:forward
+    Args:
+        x:     
+        alpha:     
+    Returns:
+       
+    """
+    """ NaiveModel:forward
+    Args:
+        x:     
+        alpha:     
+    Returns:
+       
+    """
+    return self.net(x)
+
+
+class RuleEncoder(nn.Module):
+  def __init__(self, input_dim, output_dim, hidden_dim=4):
+    """ RuleEncoder:__init__
+    Args:
+        input_dim:     
+        output_dim:     
+        hidden_dim:     
+    Returns:
+       
+    """
+    """ DataEncoder:__init__
+    Args:
+        input_dim:     
+        output_dim:     
+        hidden_dim:     
+    Returns:
+       
+    """
+    super(RuleEncoder, self).__init__()
+    self.input_dim = input_dim
+    self.output_dim = output_dim
+    self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                             nn.ReLU(),
+                             nn.Linear(hidden_dim, output_dim))
+
+  def forward(self, x):
+    """ RuleEncoder:forward
+    Args:
+        x:     
+    Returns:
+       
+    """
+    """ DataEncoder:forward
+    Args:
+        x:     
+    Returns:
+       
+    """
+    return self.net(x)
+
+
+class DataEncoder(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
     super(DataEncoder, self).__init__()
     self.input_dim = input_dim
@@ -448,29 +597,96 @@ class model_dummy(nn.Module):
     return self.net(x)
 
 
-
-def test_dataset_classification_fake(nrows=500):
-    """function test_dataset_classification_fake
+class Net(nn.Module):
+  def __init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+    """ Net:__init__
     Args:
-        nrows:   
+        input_dim:     
+        output_dim:     
+        rule_encoder:     
+        data_encoder:     
+        hidden_dim:     
+        n_layers:     
+        merge:     
+        skip:     
+        input_type:     
     Returns:
-        
+       
     """
-    from sklearn import datasets as sklearn_datasets
-    ndim    =11
-    coly    = 'y'
-    colnum  = ["colnum_" +str(i) for i in range(0, ndim) ]
-    colcat  = ['colcat_1']
-    X, y    = sklearn_datasets.make_classification(n_samples=nrows, n_features=ndim, n_classes=1,
-                                                   n_informative=ndim-2)
-    df         = pd.DataFrame(X,  columns= colnum)
-    df[coly]   = y.reshape(-1, 1)
+    super(Net, self).__init__()
+    self.skip = skip
+    self.input_type   = input_type
+    self.rule_encoder = rule_encoder
+    self.data_encoder = data_encoder
+    self.n_layers =n_layers
+    assert self.rule_encoder.input_dim == self.data_encoder.input_dim
+    assert self.rule_encoder.output_dim == self.data_encoder.output_dim
+    self.merge = merge
+    if merge == 'cat':
+      self.input_dim_decision_block = self.rule_encoder.output_dim * 2
+    elif merge == 'add':
+      self.input_dim_decision_block = self.rule_encoder.output_dim
 
-    for ci in colcat :
-      df[ci] = np.random.randint(0,1, len(df))
+    self.net = []
+    for i in range(n_layers):
+      if i == 0:
+        in_dim = self.input_dim_decision_block
+      else:
+        in_dim = hidden_dim
 
-    pars = { 'colnum': colnum, 'colcat': colcat, "coly": coly }
-    return df, pars
+      if i == n_layers-1:
+        out_dim = output_dim
+      else:
+        out_dim = hidden_dim
+
+      self.net.append(nn.Linear(in_dim, out_dim))
+      if i != n_layers-1:
+        self.net.append(nn.ReLU())
+
+    self.net.append(nn.Sigmoid())
+
+    self.net = nn.Sequential(*self.net)
+
+  def get_z(self, x, alpha=0.0):
+    """ Net:get_z
+    Args:
+        x:     
+        alpha:     
+    Returns:
+       
+    """
+    rule_z = self.rule_encoder(x)
+    data_z = self.data_encoder(x)
+
+    if self.merge == 'add':
+      z = alpha*rule_z + (1-alpha)*data_z
+    elif self.merge == 'cat':
+      z = torch.cat((alpha*rule_z, (1-alpha)*data_z), dim=-1)
+    elif self.merge == 'equal_cat':
+      z = torch.cat((rule_z, data_z), dim=-1)
+
+    return z
+
+  def forward(self, x, alpha=0.0):
+    # merge: cat or add
+
+    rule_z = self.rule_encoder(x)
+    data_z = self.data_encoder(x)
+
+    if self.merge == 'add':
+      z = alpha*rule_z + (1-alpha)*data_z
+    elif self.merge == 'cat':
+      z = torch.cat((alpha*rule_z, (1-alpha)*data_z), dim=-1)
+    elif self.merge == 'equal_cat':
+      z = torch.cat((rule_z, data_z), dim=-1)
+
+    if self.skip:
+      if self.input_type == 'seq':
+        return self.net(z) + x[:, -1, :]
+      else:
+        return self.net(z) + x    # predict delta values
+    else:
+      return self.net(z)    # predict absolute values
 
 
 
@@ -480,5 +696,4 @@ if __name__ == "__main__":
     import fire 
     fire.Fire() 
     # test_all()
-
 

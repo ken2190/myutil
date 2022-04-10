@@ -10,9 +10,9 @@ on:
     branches:
     - ztypehint_run
 
-  schedule:
-    - cron:  '0 3 * * *'      #### 60mins
-    #    - cron:  '*/10 * * * *'
+#  schedule:
+#    - cron:  '0 3 * * *'      #### 60mins
+#    #    - cron:  '*/10 * * * *'
 
 
 #  pull_request:
