@@ -139,6 +139,14 @@ def test1():
               normalize_embeddings=True  #### sub encode params
               )  
     if df is not None : log(df.head(3))
+    
+def test2():
+    model = model_load("distilbert-base-nli-mean-tokens")
+    df = pd.DataFrame({'colA':['good','hello','bad'], 'colB':['nice','welcome','exacerbate']})
+    
+    df = sentence_compare(df, 'colA', 'colB', model)
+    
+    log(df.head())
 
 
 ###################################################################################################################        
@@ -751,5 +759,6 @@ if __name__ == '__main__':
     import fire
     # fire.Fire()
     test1()
+    test2()
 
 
