@@ -77,7 +77,6 @@ def test2():
     log('\n\nimage_prep_multiproc',)
 
 
-
 def test_diskcache():
     import tempfile
     import skimage
@@ -171,9 +170,6 @@ def test_diskcache():
                             pass
                         else:
                             assert False,'diskcache_image_dumpsample:key error should have been raised for non existant key'
-
-
-
 
 
 #################################################################################################
