@@ -102,7 +102,7 @@ pyflakes==2.4.0
 Pygments==2.11.2
 pyinstrument==4.1.1
 PyMeeus==0.5.11
-pyparsing==3.0.7
+pyparsing==3.0.8
 pyproj==3.2.1
 PySnooper==1.1.1
 python-box==6.0.2
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.2
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@37e1d05fb71efe4ff8b8fc37e67bc11199375fb6#egg=utilmy
+-e git+https://github.com/arita37/myutil@39831926f3f74113e0c971ef791e50c9a10dc39b#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.1.1

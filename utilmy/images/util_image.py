@@ -17,12 +17,14 @@ try :
    from albumentations.core.transforms_interface import ImageOnlyTransform
 except : pass
 
-try:
-    import numpy.typing
-    npArrayLike = numpy.typing.ArrayLike
-except ImportError:
-    npArrayLike = Any
-    
+# try:
+#     import numpy.typing
+#     npArrayLike = numpy.typing.ArrayLike
+# except ImportError:
+#     npArrayLike = Any
+npArrayLike = Any
+
+
 #############################################################################################
 from utilmy import Dict_none, Int_none,List_none, Path_type
 from utilmy import pd_read_file
@@ -177,10 +179,16 @@ def test_diskcache():
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
-    Args:
-    Returns:
+    Parameters
+    ----------
 
-     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
+    Returns
+    -------
+
+
+    Notes
+    ----------
+     python  $utildir/images/util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
 
     ### Not used, Only python?3.7  #####################################
     import asyncio
