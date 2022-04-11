@@ -1,6 +1,193 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.torch.rule_encoder"
+MNAME = "utilmy.deeplearning.torch.modelA"
 HELP = """ utils for model explanation
+
+
+can you see modelA5.py?
+i just complet
+
+OK, let me write code below :
+
+
+ ModelA :
+     input XA
+     ...
+     get_embedding_fromlayer(layer_id= 1)
+
+modelB:
+     input XB
+     ....
+     get_embedding_fromlayer(layer_id= 1)
+
+
+
+mergeModel(modelA, modelB, **params)
+   Xinput_dim  = XA_dim + Xb_dim
+   modelMerge = MLP([ Xinput_dim,100, 300, 500]) 
+
+
+
+   def forward(self,X)
+        XAout = modelA.get_embedding_fromlayer(X)
+
+        XBout = modelB.get_embedding_fromlayer(X)
+
+        Xmege_input  = concat(XAout, XBout) 
+
+
+
+        Xmergeout = modelMerge(Xmerge_input)
+
+Ok ?
+yes, am done, wating fo ryour questions/comments on the code.
+
+are you done?.
+
+the previous design is based on this.
+but with difference class, function name. 
+Let me explain the code. 
+you can see the Baseclass :
+
+
+
+
+
+class BaseModel(object):
+
+    This is BaseClass for model create
+
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        create_loss :   Initialize Loss Function 
+
+        build_devicesetup: 
+        build: create model, loss, optimizer (call before training)
+
+        training:   starting training
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        predict :
+        encode :
+        evaluate: 
+        load: 
+        save: 
+
+
+What aboute megeModel ?????
+mergeModel(modelA, modelB, **params)
+   Xinput_dim  = XA_dim + Xb_dim
+   modelMerge = MLP([ Xinput_dim,100, 300, 500]) 
+
+   def forward(self,X)
+        XAout = modelA.get_embedding_fromlayer(X)
+
+        XBout = modelB.get_embedding_fromlayer(X)
+
+        Xmege_input  = concat(XAout, XBout) 
+
+
+
+        Xmergeout = modelMerge(Xmerge_input)
+"""
+class MergeEncoder_Create(BaseModel):
+
+    def __init__(self,arg, modelB=None, modelA=None, architecture:dict):
+        """_summary_
+
+        architecture = Box(architecture)
+
+        Args:
+            arg (_type_): _description_
+            modelB (_type_, optional): _description_. Defaults to None.
+            modelA (_type_, optional): _description_. Defaults to None.
+            modelA and modelB should got following attributes:
+
+            modelMerge = MLP( architecture.mlp.layer_dim_list )   ### ok
+
+                attributes:
+                    self.net : torch.nn.Module
+                    self.modelA_is_train  
+                    self.modelB_is_train
+
+                method:
+                    self.__init__(modelA,modelB,**params)
+                    self.create_loss()
+                    self.create_model() :  return net
+                    self.build():
+                    
+                    self.training()
+                    self.evaluate()
+                    self.encode  :  to output the embeddings after merge.YES< but more TRICKY PART, so a method is needed ## equavilant to __call__(self,X). ok
+                    self.save
+                    self.load
+                    ### merge_input is implemented in __call__()
+
+          """
+
+"""
+
+
+Can you keep naming as above ? (ie short normalized name is better)
+Ok, there is alot of charge must be made but ok.
+
+Ah ???
+Ok, do NOT change names.  (not important), will do after the final code.
+
+OK. 
+
+
+2 critical parts are :
+
+        Xmege_input  = concat(XAout, XBout) 
+        Xmergeout = modelMerge(Xmerge_input)
+
+
+       ### MergeModel can re-merged with another one.
+        mergmodel_C = MergeModel( ...)
+        mergmodel_D = MergeModel( ...)
+
+        mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
+
+
+Otherwise thats good, thanks
+
+Thanks, if there is not problems, can we end the meet?
+Yews, thank you for the time.
+
+I will let clean this file, this on your branch
+
+
+I dont have interest in output prediction, but in the new embeddings
+from the merge....
+
+mergmodel_C = MergeModel( ...)
+mergmodel_D = MergeModel( ...)
+
+mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
+
+We can  re-merge the mergeModel with others...
+
+
+ok. i understand
+
+
+
+No :  input is dataloader  , we dont preprocess in the model....
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)    Please remove
+        load_DataFrame: read pandas
+
+please add encode :  == get_embedding_fromlayer
+
+get_embedding_fromlayer is equivalent to modelA.call
+modelA is modelA  : yes no pb.
+so, i think some charge in function call of model A is enough. 
+
+ok, i understand. some code from modelA4.py
+
+ok
+naming of methods are ok,  (we can change after, no pb)
+Just to make sure the design are aligned.
+
 
 
 https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
@@ -12,6 +199,12 @@ https://discuss.pytorch.org/t/merging-3-models/66230/3
 
 
 """
+
+
+
+
+
+
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
 
@@ -159,6 +352,21 @@ def test():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##############################################################################################
 ###############################################################################################
 def device_setup(arg):
@@ -252,9 +460,9 @@ def model_build(arg:dict, mode='train'):
     arg = Box(arg)
 
     if 'test' in mode :
-        rule_encoder = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
-        data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
-        model_eval = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
+        modelA = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        modelB = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        model_eval = Net(arg.input_dim, arg.output_dim, modelA, modelB, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
         return model_eval
 
     ##### Params  ############################################################################
@@ -277,16 +485,16 @@ def model_build(arg:dict, mode='train'):
     losses    = Box({})
 
     #### Rule model
-    rule_encoder          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    modelA          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
     losses.loss_rule_func = arg.rules.loss_rule_func #lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
 
 
     #### Data model
-    data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    modelB = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
     losses.loss_task_func = nn.BCELoss()    # return scalar (reduction=mean)
 
     #### Merge Ensembling
-    model        = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db,
+    model        = Net(arg.input_dim, arg.output_dim, modelA, modelB, hidden_dim=arg.hidden_dim_db,
                         n_layers=arg.n_layers, merge= arg.merge).to(arg.device)    # Not residual connection
 
     ### Summary
@@ -598,13 +806,13 @@ class DataEncoder(nn.Module):
 
 
 class Net(nn.Module):
-  def __init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+  def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
     """ Net:__init__
     Args:
         input_dim:     
         output_dim:     
-        rule_encoder:     
-        data_encoder:     
+        modelA:     
+        modelB:     
         hidden_dim:     
         n_layers:     
         merge:     
@@ -616,16 +824,16 @@ class Net(nn.Module):
     super(Net, self).__init__()
     self.skip = skip
     self.input_type   = input_type
-    self.rule_encoder = rule_encoder
-    self.data_encoder = data_encoder
+    self.modelA = modelA
+    self.modelB = modelB
     self.n_layers =n_layers
-    assert self.rule_encoder.input_dim == self.data_encoder.input_dim
-    assert self.rule_encoder.output_dim == self.data_encoder.output_dim
+    assert self.modelA.input_dim == self.modelB.input_dim
+    assert self.modelA.output_dim == self.modelB.output_dim
     self.merge = merge
     if merge == 'cat':
-      self.input_dim_decision_block = self.rule_encoder.output_dim * 2
+      self.input_dim_decision_block = self.modelA.output_dim * 2
     elif merge == 'add':
-      self.input_dim_decision_block = self.rule_encoder.output_dim
+      self.input_dim_decision_block = self.modelA.output_dim
 
     self.net = []
     for i in range(n_layers):
@@ -655,8 +863,8 @@ class Net(nn.Module):
     Returns:
        
     """
-    rule_z = self.rule_encoder(x)
-    data_z = self.data_encoder(x)
+    rule_z = self.modelA(x)
+    data_z = self.modelB(x)
 
     if self.merge == 'add':
       z = alpha*rule_z + (1-alpha)*data_z
@@ -670,8 +878,8 @@ class Net(nn.Module):
   def forward(self, x, alpha=0.0):
     # merge: cat or add
 
-    rule_z = self.rule_encoder(x)
-    data_z = self.data_encoder(x)
+    rule_z = self.modelA(x)
+    data_z = self.modelB(x)
 
     if self.merge == 'add':
       z = alpha*rule_z + (1-alpha)*data_z
@@ -697,3 +905,4 @@ if __name__ == "__main__":
     fire.Fire() 
     # test_all()
 
+#Hi, I joined
