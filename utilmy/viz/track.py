@@ -31,3 +31,18 @@ def frames_to_video(pathIn,
         # writing to a image array
         out.write(frame_array[i])
     out.release()
+
+def get_video_creator(frames_folder,video_filename,fps=20):
+    counter = [0]
+    if not os.path.isdir(frames_folder):
+        os.mkdir(frames_folder)
+    pass    
+    def add_to_video(frame):
+        ix = counter[0]
+        skimage.io.imsave(os.path.join(frames_folder,f'{ix}.png'),frame)
+        frames_to_video(frames_folder,
+                        video_filename,
+                        fps)        
+        counter[0] = counter[0] + 1
+        pass
+    return add_to_video
