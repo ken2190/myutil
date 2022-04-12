@@ -1247,7 +1247,9 @@ model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', ta
 model_load(path_or_name_or_object)
 model_save(model, path:str, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+sentence_compare(df, cola, colb, model)
 test1()
+test2()
 test_all()
 
 
