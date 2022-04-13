@@ -87,7 +87,7 @@ phik==0.12.2
 pickleshare==0.7.5
 Pillow==9.1.0
 pmlb==1.0.1.post3
-polars==0.13.21
+polars==0.13.22
 pretty-html-table==0.9.15
 prompt-toolkit==3.0.29
 protobuf==3.20.0
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.2
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@5bf767ee0c6613760b351bf34036da0ac73b99de#egg=utilmy
+-e git+https://github.com/arita37/myutil@beb6588049c11afdd0cffe33a09f0a850a221657#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.1.1

@@ -1121,8 +1121,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
-diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = "cache1")
-diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list)
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = None, n_images:int = None, img_list:list  = [])
 diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
@@ -4061,6 +4060,12 @@ utilmy/viz/test_vizhtml.py
 test1(verbose = False)
 test2(verbose = False)
 test_getdata(verbose = True)
+
+
+
+utilmy/viz/track.py
+-------------------------functions----------------------
+frames_to_video(pathIn, pathOut, fps, )
 
 
 
