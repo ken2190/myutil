@@ -32,7 +32,7 @@ def frames_to_video(pathIn,
         out.write(frame_array[i])
     out.release()
 
-def get_video_creator(frames_folder,video_filename,fps=20):
+def start_video(frames_folder,video_filename,fps=20,lazy_video=True):
     counter = [0]
     if not os.path.isdir(frames_folder):
         os.mkdir(frames_folder)
@@ -40,9 +40,36 @@ def get_video_creator(frames_folder,video_filename,fps=20):
     def add_to_video(frame):
         ix = counter[0]
         skimage.io.imsave(os.path.join(frames_folder,f'{ix}.png'),frame)
+        if not lazy_video:
+            frames_to_video(frames_folder,
+                            video_filename,
+                            fps)        
+        counter[0] = counter[0] + 1
+        pass
+    def finish_video():
         frames_to_video(frames_folder,
                         video_filename,
                         fps)        
-        counter[0] = counter[0] + 1
         pass
-    return add_to_video
+    return add_to_video,finish_video
+
+def test_video_creator():
+    import tempfile
+    fps = 20
+    n_frames = 100
+    #-----------------------------------------------------------------
+    frame_size = (100,100)
+    speed = 1
+    strip_size = 20
+    #-----------------------------------------------------------------
+    for lazy_video in [True,False]:
+        with tempfile.TemporaryDirectory() as frames_folder:
+            with tempfile.TemporaryDirectory() as output_video_folder:
+                add_to_video,finish_video = start_video(frames_folder,os.path.join(output_video_folder,f'video{"_lazy_video" if lazy_video else ""}_fps{fps}_frame_size{frame_size[0]}.mp4'),fps=fps,lazy_video=lazy_video)    
+                for i in range(n_frames):
+                    frame = np.zeros(frame_size+(3,))
+                    frame[:, int(i*speed):min(int(i*speed)+strip_size,frame_size[1]),:] = 1
+                    add_to_video(frame)
+                finish_video()
+    pass
+test_video_creator()
