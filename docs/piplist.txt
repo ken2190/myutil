@@ -110,10 +110,10 @@ python-dateutil==2.8.2
 python-highcharts==0.4.2
 pytz==2022.1
 pytz-deprecation-shim==0.1.0.post0
-pyvis==0.1.9
+pyvis==0.2.0
 PyWavelets==1.3.0
 PyYAML==6.0
-rapidfuzz==2.0.8
+rapidfuzz==2.0.9
 rebound-cli==2.1.0
 regex==2022.3.2
 requests==2.27.1
@@ -128,7 +128,7 @@ Shapely==1.8.1.post1
 six==1.16.0
 smart-open==5.2.1
 snoop==0.4.1
-soupsieve==2.3.2
+soupsieve==2.3.2.post1
 statsmodels==0.13.2
 stdlib-list==0.8.0
 tangled-up-in-unicode==0.1.0
@@ -147,7 +147,7 @@ tzdata==2022.1
 tzlocal==4.2
 urllib3==1.26.9
 urwid==2.1.2
--e git+https://github.com/arita37/myutil@601400558879597021d550ee5c0a58278829a327#egg=utilmy
+-e git+https://github.com/arita37/myutil@2e8cc9dc5e6944421bc2001a35171184ed2ab072#egg=utilmy
 visions==0.7.4
 wcwidth==0.2.5
 Werkzeug==2.1.1
