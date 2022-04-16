@@ -3142,6 +3142,7 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
+generate_rules_fromdata()
 help()
 load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
