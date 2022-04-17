@@ -132,6 +132,7 @@ torch==1.7.0+cpu
 mpld3
 hdbscan
 umap
+optuna
 
 
 ### ONNX part
