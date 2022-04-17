@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_hyper"
-HELP = """ utils for Hyper
-
+HELP = """ utils for Hyper Params
 
 cd myutil
 python utilmy/deeplearning/util_hyper.py    test1
 
 
-Input a dict of variables.
+      pars_dict_init =  {  'boosting_type':'gbdt',
+						'importance_type':'split', 
+						'learning_rate':0.001, 'max_depth':10,
+						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
+	  pars_dict_range =   {  'boosting_type':  ( 'categorical',  ['gbdt', 'gbdt']      ) ,
+						 'importance_type':    'split',
+						 'learning_rate':  ('log_uniform' , 0.001, 0.1,  ),
+						 'max_depth':      ('int',  1, 10, 'uniform')
+						 'n_estimators':   ('int', 0, 10,  'uniform' )
+						 'n_jobs':-1,
+						 'num_leaves':31 }
+      obj_fun(pars_dict) :  Objective function
+      engine_pars :    {   }  optuna parameters
 
-pars_dict
 
-pars_dict_range :
+      API interface integration :
+           https://optuna.readthedocs.io/en/stable/reference/generated/optuna.storages.RDBStorage.html
 
-
-Optimize all
-
-obj_fun
 
 
 """
@@ -49,7 +56,8 @@ def test_all() -> None:
     """function test_all   to be used in test.py         """
     log(MNAME)
     test1_optuna()
-
+    test2_optuna()
+    test3_optuna()
 
 
 def test1_optuna():
@@ -76,8 +84,6 @@ def test1_optuna():
     result_p = run_hyper_optuna(objective1, pars_dict_init= hyperpars_init, pars_dict_range= hyperpars_range,
                                 engine_pars= engine_pars, ntrials=  3)
     log(result_p)
-
-
 
 
 
@@ -129,10 +135,6 @@ def test2_optuna():
     engine_pars2={'metric_target':'roc_auc_score'}
     res = run_hyper_optuna(objective2, param_dict, param_dict_range, engine_pars2,100)
     log(res)
-
-
-
-
 
 
 
@@ -195,6 +197,9 @@ def test3_optuna():
 ############## Core Code ###############################################################################
 def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3, verbose=1):
     """
+
+      Example
+      -------
       pars_dict_init =  {  'boosting_type':'gbdt',
 						'importance_type':'split', 'learning_rate':0.001, 'max_depth':10,
 						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
@@ -693,16 +698,6 @@ print(rfe.support_)
 # summarize the ranking of the attributes
 fea_rank_ = pd.DataFrame({'cols':train.columns, 'fea_rank':rfe.ranking_})
 fea_rank_.loc[fea_rank_.fea_rank > 0].sort_values(by=['fea_rank'], ascending = True)
-
-
-
-
-
-
-
-
-
-
 
 
 
