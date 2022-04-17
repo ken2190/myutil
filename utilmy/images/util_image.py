@@ -10,7 +10,7 @@ from box import Box
 import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
-
+import math
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
    import diskcache as dc    
@@ -24,7 +24,7 @@ except : pass
 #     npArrayLike = Any
 npArrayLike = Any
 
-    
+
 #############################################################################################
 from utilmy import Dict_none, Int_none,List_none, Path_type
 from utilmy import pd_read_file
@@ -79,7 +79,6 @@ def test2():
     log('\n\nimage_prep_multiproc',)
 
 
-
 def test_diskcache():
     import tempfile
     import skimage
@@ -87,7 +86,8 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-
+    import glob
+    
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -107,40 +107,71 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:
+    with  tempfile.TemporaryDirectory() as dirin:              
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:
+        with  tempfile.TemporaryDirectory() as dirout:              
             # print(dirout)
             n_images = len(images)
-
+            
             for i,imname in enumerate(images):
                 im = getattr(skimage.data,imname)()
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
-                skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
+                impath_i = os.path.join(dirin,d_,imname+'.png')
+                skimage.io.imsave(impath_i,im)
+                
                 # break
-
+            
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:
+            with  tempfile.TemporaryDirectory() as dircheck:              
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
-                diskcache_image_dumpsample(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
-                    dirout = dircheck,
-                    tag = tag)
-
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
-
-
+            #===================================================================================
+            # diskcache_image_insert
+            # impaths = []
+            with  tempfile.TemporaryDirectory() as next_dirin:              
+                for i,imname in enumerate(images):
+                    im = getattr(skimage.data,imname)()
+                    impath_i = os.path.join(next_dirin,imname+'.png')
+                    skimage.io.imsave(impath_i,1 - im)
+                    # impaths.append(impath_i)
+                old_cache_len = len(cache)
+                diskcache_image_insert(glob.glob(os.path.join(next_dirin,'*')), db_dir=os.path.join(dirout,f"img_{tag}.cache"))
+                new_cache_len = len(cache)
+                assert new_cache_len == old_cache_len + len(images),f'cache len after diskcache_image_insert should reflect # of images inserted. expected {old_cache_len + len(images)} got {new_cache_len}'
+            #===================================================================================
+            # diskcache_image_dumpsample
+            # import pdb;pdb.set_trace()
+            for j in range(3):
+                with  tempfile.TemporaryDirectory() as dirdumpsample:              
+                    if j == 0:
+                        n_images = 10
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag, n_images=n_images)        
+                        fnames = os.listdir(dirdumpsample)
+                        assert len(fnames) <= n_images,f'more than {n_images} dumped'
+                        # assert all([f in cache for f in fnames]), f'filenames {fnames} not found cache'
+                        #TODO: any better test to verify one of the dumped files matches the cache contents?
+                    elif j == 1:
+                        img_list = list(cache.iterkeys())[:5]
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)        
+                    elif j == 2:
+                        img_list = ['**not_in_cache**']                       
+                        try:
+                            diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)                                
+                        except KeyError:
+                            pass
+                        else:
+                            assert False,'diskcache_image_dumpsample:key error should have been raised for non existant key'
 
 
 #################################################################################################
@@ -148,10 +179,16 @@ def test_diskcache():
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
-    Args:
-    Returns:
+    Parameters
+    ----------
 
-     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
+    Returns
+    -------
+
+
+    Notes
+    ----------
+     python  $utildir/images/util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
 
     ### Not used, Only python?3.7  #####################################
     import asyncio
@@ -278,50 +315,35 @@ def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="
         cache[img_path] = img
 
 
-def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1"):
-    """  dump some sample of diskcache images on disk 
-    Args:
-        db_dir ( str ) :
-        dirout ( str ) :
-        tag:
-    Returns:
-
-    """
-    ##### Write some sample images  from cache #############################
-    import diskcache as dc
-    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
-    log('Nimages', len(cache) )
-
-    log('### Check writing on disk  ###########################')
-    dir_check = dirout + f"/{tag}/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache) :
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        key2 = key.split("/")[-1]
-        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
-    log( dir_check )
-
-
-def diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list):
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag=None,n_images:int=None, img_list:list =[]):
     """ dump some sample of diskcache images on disk 
     """
+    ##### Write some sample images  from cache #############################
     # db_dir = "_70k_clean_nobg_256_256-100000.cache"
     import diskcache as dc
+    # cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
     cache   = dc.Cache(db_dir)
     log('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
-    dir_check = dirout
+    dir_check = dirout + (f'/{tag}/' if tag else '')
     os.makedirs(dir_check, exist_ok=True)
+    if not n_images:
+        # if limit on number of images not provided, use inf
+        n_images = math.inf
+    if not img_list:
+        # if list of images not provided, just iterate through the cache
+        img_list = cache 
     for i, key in enumerate(img_list) :
-        if i > 10: break
+
+        if i > n_images: break
         img = cache[key]
         img = img[:, :, ::-1]
         key2 = key.split("/")[-1]
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
+
+
 
 
 def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
