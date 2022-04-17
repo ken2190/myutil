@@ -799,7 +799,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None, ntest = 10000, npool = 2)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/", ntest = 10000)
 
 
 utilmy/deeplearning/util_onnx.py
@@ -4050,7 +4050,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/")
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/")
 
 
 utilmy/viz/template1.py
