@@ -219,6 +219,10 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
 
     """
     import os
+    from box import Box
+    pars_dict_init = Box(pars_dict_init)
+    pars_dict_range = Box(pars_dict_range)
+
     print(pars_dict_init)
     def parse_dict(mdict, trial):
         #### Recursive parse the dict
