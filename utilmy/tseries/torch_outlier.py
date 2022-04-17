@@ -388,7 +388,7 @@ class modelRecurrentAutoencoder(nn.Module):
   use  LSTM Autoencoder from this [GitHub repo](https://github.com/shobrook/sequitur)
   with some small tweaks. Our model's job is to reconstruct Time Series data.
   """
-  def __init__(self, seq_len, n_features, embedding_dim=64):
+  def __init__(self, seq_len, n_features, embedding_dim=64, device='cpu'):
     super(modelRecurrentAutoencoder, self).__init__()
 
     self.encoder = modelEncoder(seq_len, n_features, embedding_dim).to(device)
