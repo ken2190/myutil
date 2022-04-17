@@ -799,7 +799,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None, ntest = 10000, npool = 2)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/", ntest = 10000)
 
 
 utilmy/deeplearning/util_onnx.py
@@ -1121,8 +1121,7 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
-diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = "cache1")
-diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list)
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = None, n_images:int = None, img_list:list  = [])
 diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
@@ -1247,7 +1246,9 @@ model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', ta
 model_load(path_or_name_or_object)
 model_save(model, path:str, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+sentence_compare(df, cola, colb, model)
 test1()
+test2()
 test_all()
 
 
@@ -3141,6 +3142,7 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
+generate_rules_fromdata()
 help()
 load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
@@ -4048,7 +4050,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/")
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/")
 
 
 utilmy/viz/template1.py
@@ -4059,6 +4061,12 @@ utilmy/viz/test_vizhtml.py
 test1(verbose = False)
 test2(verbose = False)
 test_getdata(verbose = True)
+
+
+
+utilmy/viz/track.py
+-------------------------functions----------------------
+frames_to_video(pathIn, pathOut, fps, )
 
 
 
