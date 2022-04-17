@@ -187,10 +187,10 @@ def test1():
      2D Tensor in  shape *sequence length* x *number of features* (140x1 in our case).
   """
 
-  train_dataset, seq_len, n_features = create_dataset(train_df)
-  val_dataset, _, _          = create_dataset(val_df)
-  test_normal_dataset, _, _  = create_dataset(test_df)
-  test_anomaly_dataset, _, _ = create_dataset(anomaly_df)
+  train_dataset, seq_len, n_features = dataset_create(train_df)
+  val_dataset, _, _          = dataset_create(val_df)
+  test_normal_dataset, _, _  = dataset_create(test_df)
+  test_anomaly_dataset, _, _ = dataset_create(anomaly_df)
 
 
 
@@ -250,22 +250,23 @@ def test1():
   - If  reconstruction loss for an example is below  threshold, classify it as a *normal* heartbeat
   - Alternatively, if  loss is higher than  threshold, classify it as an anomaly
   
-  ### Normal hearbeats
-  Let's check how well our model does on normal heartbeats. use  normal heartbeats from  test set (our model haven't seen those):
   """
 
-  predictions, pred_losses = model_predict(model, test_normal_dataset)
-  sns.distplot(pred_losses, bins=50, kde=True);
 
-  """count  correct predictions:"""
+  ### Normal hearbeats
+  ### Let's check how well our model does on normal heartbeats. use  normal heartbeats from  test set (our model haven't seen those):
+  predictions, pred_losses = model_predict(model, test_normal_dataset)
+  sns.distplot(pred_losses, bins=50, kde=True)
+
+  # """count  correct predictions:"""
   correct = sum(l <= THRESHOLD for l in pred_losses)
   print(f'Correct normal predictions: {correct}/{len(test_normal_dataset)}')
+
 
 
   """### Anomalies
   do  same with  anomaly examples, but ir number is much higher. get a subset that has  same size as  normal heartbeats:
   """
-
   anomaly_dataset = test_anomaly_dataset[:len(test_normal_dataset)]
 
 
@@ -293,9 +294,21 @@ def test1():
   for i, data in enumerate(test_anomaly_dataset[:6]):
     plot_prediction(data, model, title='Anomaly', ax=axs[1, i])
 
-  fig.tight_layout();
+  fig.tight_layout()
 
 
+
+
+#############################################################################################################
+def dataset_create(df):
+
+  sequences = df.astype(np.float32).to_numpy().tolist()
+
+  dataset   = [torch.tensor(s).unsqueeze(1).float() for s in sequences]
+
+  n_seq, seq_len, n_features = torch.stack(dataset).shape
+
+  return dataset, seq_len, n_features
 
 
 
@@ -401,34 +414,8 @@ class modelRecurrentAutoencoder(nn.Module):
     return x
 
 
-def create_dataset(df):
 
-  sequences = df.astype(np.float32).to_numpy().tolist()
-
-  dataset = [torch.tensor(s).unsqueeze(1).float() for s in sequences]
-
-  n_seq, seq_len, n_features = torch.stack(dataset).shape
-
-  return dataset, seq_len, n_features
-
-
-def model_predict(model, dataset, device='cpu'):
-  predictions, losses = [], []
-  loss_calc = nn.L1Loss(reduction='sum').to(device)
-  with torch.no_grad():
-    model = model.eval()
-    for seq_true in dataset:
-      seq_true = seq_true.to(device)
-      seq_pred = model(seq_true)
-
-      loss = loss_calc(seq_pred, seq_true)
-
-      predictions.append(seq_pred.cpu().numpy().flatten())
-      losses.append(loss.item())
-  return predictions, losses
-
-
-
+#############################################################################################################
 def model_train(model, train_dataset, val_dataset, n_epochs, device='cpu'):
   optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
   loss_calc = nn.L1Loss(reduction='sum').to(device)
@@ -476,6 +463,36 @@ def model_train(model, train_dataset, val_dataset, n_epochs, device='cpu'):
 
   model.load_state_dict(best_model_wts)
   return model.eval(), history
+
+
+
+def model_predict(model, dataset, device='cpu'):
+  predictions, losses = [], []
+  loss_calc = nn.L1Loss(reduction='sum').to(device)
+  with torch.no_grad():
+    model = model.eval()
+    for seq_true in dataset:
+      seq_true = seq_true.to(device)
+      seq_pred = model(seq_true)
+
+      loss = loss_calc(seq_pred, seq_true)
+
+      predictions.append(seq_pred.cpu().numpy().flatten())
+      losses.append(loss.item())
+  return predictions, losses
+
+
+
+def model_evaluate(model, test_normal_dataset, device='cpu', threshold=0.2):
+  predictions, pred_losses = model_predict(model, test_normal_dataset)
+  sns.distplot(pred_losses, bins=50, kde=True)
+
+  # """count  correct predictions:"""
+  correct = sum(l <= threshold for l in pred_losses)
+  print(f'Correct normal predictions: {correct}/{len(test_normal_dataset)}')
+
+
+
 
 
 
