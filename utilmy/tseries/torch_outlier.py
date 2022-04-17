@@ -229,19 +229,19 @@ def test1():
 
 
 
-def dataset_ECG5000_fetch_pandas(nrows=100):
+def dataset_ECG5000_fetch_pandas(nrows=100, dirout="./ztmp/"):
   """combine  training and test data into a single data frame.
      This will give us more data to train our Autoencoder. also shuffle it:"""
   from arff2pandas import a2p
 
   if not os.path.isfile('ECG5000_TRAIN.arff' ):
-     os.system("gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT")
-     os.system("unzip -qq ECG5000.zip")
+     os.system(f"gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT -O {dirout} ")
+     os.system(f"unzip -qq  {dirout}/ECG5000.zip")
 
-  with open('ECG5000_TRAIN.arff') as f:
+  with open( dirout + '/ECG5000_TRAIN.arff') as f:
     train = a2p.load(f)
 
-  with open('ECG5000_TEST.arff') as f:
+  with open(dirout + '/ECG5000_TEST.arff') as f:
     test = a2p.load(f)
 
   df = train.append(test)
