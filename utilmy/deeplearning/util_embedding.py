@@ -43,6 +43,7 @@ except: pass
 
 
 
+
 #############################################################################################
 from utilmy import log, log2
 
@@ -96,7 +97,6 @@ class vizEmbedding:
            self = Box({})
            self.path = "C:/D/gitdev/cpa/data/model.vec"
 
-           from utilmy.viz.embedding import vizEmbedding
            myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
            myviz.run_all(nmax=5000)
 
@@ -128,11 +128,11 @@ class vizEmbedding:
         if ".vec"     in self.path :
           embs, id_map, df_labels  = embedding_load_word2vec(self.path, nmax= nmax)
 
-        if ".parquet" in self.path :
-          embs, id_map, df_labels  = embedding_load_parquet(self.path, nmax= nmax)
-
         if ".pkl" in self.path :
           embs, id_map, df_labels  = embedding_load_pickle(self.path, nmax= nmax)
+
+        else : # if ".parquet" in self.path :
+          embs, id_map, df_labels  = embedding_load_parquet(self.path, nmax= nmax)
 
         assert isinstance(id_map, dict)
         assert isinstance(df_labels, pd.DataFrame)
