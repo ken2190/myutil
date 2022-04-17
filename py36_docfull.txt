@@ -128,6 +128,12 @@ torch==1.7.0+cpu
 #-f https://download.pytorch.org/whl/torch_stable.html
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
 
+### visualize emb
+mpld3
+hdbscan
+umap
+
+
 ### ONNX part
 onnxruntime
 # onnx
