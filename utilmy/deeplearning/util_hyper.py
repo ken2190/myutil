@@ -105,13 +105,13 @@ def test2_optuna():
     y_test  = np.random.randint(0, 2,100)
 
 
-    param_dict={'n_estimators':100,
-                'max_depth':3,
-                'min_samples_split':2,
-                'min_samples_leaf':2,
+    param_dict={'n_estimators'      :100,
+                'max_depth'         :3,
+                'min_samples_split' :2,
+                'min_samples_leaf'  :2,
                 'min_weight_fraction_leaf':0.0,
-                'criterion':'gini',
-                'max_features':'sqrt'}
+                'criterion'    :'gini',
+                'max_features' :'sqrt'}
 
 
     param_dict_range={'max_depth':         ('int',  1, 10, 'uniform'),
@@ -133,7 +133,7 @@ def test2_optuna():
 
 
     engine_pars2={'metric_target':'roc_auc_score'}
-    res = run_hyper_optuna(objective2, param_dict, param_dict_range, engine_pars2,100)
+    res = run_hyper_optuna(objective2, param_dict, param_dict_range, engine_pars2, ntrials=3, verbose=1)
     log(res)
 
 
