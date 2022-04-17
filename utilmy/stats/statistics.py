@@ -383,6 +383,21 @@ def test_plot_qqplot(df:pd.DataFrame, col_name):
 
 
 
+def test_mutualinfo(error, Xtest, colname=None, bins=5):
+    """
+       Test  Error vs Input Variable Independance byt Mutual ifno
+       sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
+
+    """
+    from sklearn.feature_selection import mutual_info_classif
+    error = pd.DataFrame({"error": error})
+    error_dis, _ = pd_colnum_tocat(error, bins=bins, method="quantile")
+    # print(error_dis)
+
+    res = mutual_info_classif(Xtest.values, error_dis.values.ravel())
+
+    return dict(zip(colname, res))
+
 
 
 
