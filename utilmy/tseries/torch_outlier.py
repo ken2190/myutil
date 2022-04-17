@@ -90,6 +90,7 @@ def test1():
   sns.set_palette(sns.color_palette(HAPPY_COLORS_PALETTE))
   rcParams['figure.figsize'] = 12, 8
 
+  epochs = 1
 
   RANDOM_SEED = 42
   np.random.seed(RANDOM_SEED)
@@ -103,6 +104,11 @@ def test1():
   """combine  training and test data into a single data frame. 
      This will give us more data to train our Autoencoder. also shuffle it:"""
   from arff2pandas import a2p
+
+  if not os.path.isfile('ECG5000_TRAIN.arff' ):
+     os.system("gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT")
+     os.system("unzip -qq ECG5000.zip")
+
   with open('ECG5000_TRAIN.arff') as f:
     train = a2p.load(f)
 
@@ -111,6 +117,8 @@ def test1():
 
   df = train.append(test)
   df = df.sample(frac=1.0)
+
+  df = df.sample(n=100)
 
 
   """have 5,000 examples. Each row represents a single heartbeat record. Let's name  possible classes:"""
@@ -204,7 +212,7 @@ def test1():
   minimizing  [L1Loss](https://pytorch.org/docs/stable/nn.html#l1loss), 
   which measures  MAE (mean absolute error). Why?  reconstructions seem to be better than with MSE (mean squared error).
   """
-  model, history = model_train(model, train_dataset, val_dataset, n_epochs=150
+  model, history = model_train(model, train_dataset, val_dataset, n_epochs=epochs
                                )
 
 
@@ -291,7 +299,7 @@ def test1():
   for i, data in enumerate(test_normal_dataset[:6]):
     plot_prediction(data, model, title='Normal', ax=axs[0, i])
 
-  for i, data in enumerate(test_anomaly_dataset[:6]):
+  for i, data in enumerate(test_anomaly_dataset[:2]):
     plot_prediction(data, model, title='Anomaly', ax=axs[1, i])
 
   fig.tight_layout()
@@ -533,3 +541,15 @@ if 'utils':
       sharex=True,
       figsize=(22, 8)
     )
+
+
+   
+ 
+    
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire(test_all)
+
+
+    
