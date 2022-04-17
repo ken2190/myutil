@@ -908,7 +908,7 @@ if 'utils_vector':
         return res   
 
 
-    def unzip(in_dir, out_dir):
+    def os_unzip(in_dir, out_dir):
         # !/usr/bin/env python3
         import sys
         import zipfile
