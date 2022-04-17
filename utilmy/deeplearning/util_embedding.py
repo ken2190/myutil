@@ -109,12 +109,19 @@ class vizEmbedding:
         self.num_clusters = num_clusters
         self.dist         = None
 
+        ### Plot @D coordinate
+        self.coordinate_xy = None
+
+        ### Store the embeddings
+        self.id_map    = None
+        self.df_labels = None
+        self.embs      = None
+
 
     def run_all(self, dim_reduction="mds", col_embed='embed', ndim=2, nmax= 5000, dirout="ztmp/", ntrain=10000):
        self.dim_reduction(dim_reduction, ndim=ndim, nmax= nmax, dir_out=dirout, ntrain=ntrain)
        self.create_clusters(after_dim_reduction=True)
        self.create_visualization(dirout, mode='d3', cols_label=None, show_server=False)
-
 
 
     def load_data(self,  col_embed='embed', nmax= 5000,  npool=2 ):
@@ -145,7 +152,7 @@ class vizEmbedding:
 
     def dim_reduction(self, mode="mds", ndim=2, nmax= 5000, dir_out=None, ntrain=10000, npool=2):
 
-
+        pos = None
         if mode == 'mds' :
             ### Co-variance matrix
             dist = 1 - cosine_similarity(self.embs)
