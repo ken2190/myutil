@@ -7,7 +7,10 @@ def frames_to_video(pathIn,
              fps,
              
             ):
-    
+    '''
+    a utility that takes in a folder containing image frames `pathIn`
+    and generates a video `pathOut` at certain `fps`
+    '''
 
     frame_array = []
     files = [f for f in os.listdir(pathIn) if os.path.isfile(os.path.join(pathIn, f))]
@@ -33,11 +36,23 @@ def frames_to_video(pathIn,
     out.release()
 
 def start_video(frames_folder,video_filename,fps=20,lazy_video=True):
+    '''
+    utility to monitor a process by making a video. for e.g. we could monitor 
+    an image GAN's generated image for the same input code over time
+    requires `frames_folder` to dump all the intermediate frames, `video_filename`,`fps`.
+    `lazy_video` collects all the frames into a video only when a trigger is called
+    else it keeps making a video out of the frames collected thus far.
+
+    returns: 2 functions `add_to_video` to add the next frame, `finish_video` to trigger
+    the end of the video creation. see `lazy_video` above
+    '''
+
     counter = [0]
     if not os.path.isdir(frames_folder):
         os.mkdir(frames_folder)
     pass    
     def add_to_video(frame):
+        '''.add the next frame to video '''
         ix = counter[0]
         skimage.io.imsave(os.path.join(frames_folder,f'{ix}.png'),frame)
         if not lazy_video:
@@ -47,6 +62,7 @@ def start_video(frames_folder,video_filename,fps=20,lazy_video=True):
         counter[0] = counter[0] + 1
         pass
     def finish_video():
+        '''.end the video '''
         frames_to_video(frames_folder,
                         video_filename,
                         fps)        
