@@ -109,7 +109,7 @@ def test1():
 
   """have 5,000 examples. Each row represents a single heartbeat record. possible classes:"""
   CLASS_NORMAL = 1
-  df = dataset_ECG5000_prep()
+  df = dataset_ECG5000_prep(df)
   classes = df.target.unique()
 
 
@@ -234,7 +234,9 @@ def dataset_ECG5000_fetch_pandas(nrows=100, dirout="./ztmp/"):
      This will give us more data to train our Autoencoder. also shuffle it:"""
   from arff2pandas import a2p
 
-  if not os.path.isfile('ECG5000_TRAIN.arff' ):
+
+  if not os.path.isfile(dirout + '/ECG5000_TRAIN.arff' ):
+     os.makedirs(dirout, exist_ok=True)
      os.system(f"gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT -O {dirout} ")
      os.system(f"unzip -qq  {dirout}/ECG5000.zip")
 
