@@ -799,7 +799,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None, ntest = 10000, npool = 2)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/", ntest = 10000)
 
 
 utilmy/deeplearning/util_onnx.py
@@ -1121,33 +1121,32 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
-diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = "cache1")
-diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list)
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = None, n_images:int = None, img_list:list  = [])
 diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
-image_center_crop(img:npArrayLike, dim:Tuple[int, int])
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
 image_create_fake2(dirin:Path_type = None)
 image_custom_resize_mp(dirin:Path_type = "", dirout :str  = "")
-image_face_blank(in_dir:Path_type = "", level  =  "/*", dirout:Path_type = f"", npool = 30)
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
-image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5, verbose = False)
+image_prep_addpadding(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
+image_prep_centercrop(img:npArrayLike, dim:Tuple[int, int])
 image_prep_many(image_paths:Sequence[str], image_prep_fun, nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_multiproc(dirimage_list:list, image_prep_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_read2(dirin_filelist:Union[str, list], **kw)
 image_read_iter(dirin_filelist:Union[str, list], **kw)
-image_remove_bg(in_dir:Path_type = "", dirout:Path_type = "", level:int = 1)
+image_remove_background(dirin:Path_type =  "", dirout:Path_type =  "", level:int = 1)
 image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
-image_resize(image : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
+image_remove_humanface(dirin:Path_type =  "", level  = "/*", dirout:Path_type = f"", npool = 30)
+image_remove_text(dirin :Path_type, dirout :Path_type, level = "*")
+image_resize(img : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
 image_resize_pad(img :npArrayLike, size : Tuple[Int_none, Int_none] = (None, None)
-image_resize_ratio(image : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
+image_resize_ratio(img : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
 image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
 image_show_in_row(image_list:Union[dict, list, None] = None)
-image_text_blank(in_dir :Path_type, dirout :Path_type, level = "*")
 npz_image_dumpsample(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 test1()
 test2()
@@ -1247,7 +1246,9 @@ model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', ta
 model_load(path_or_name_or_object)
 model_save(model, path:str, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+sentence_compare(df, cola, colb, model)
 test1()
+test2()
 test_all()
 
 
@@ -2813,10 +2814,10 @@ test_spark_check(spark_session: SparkSession, config: dict)
 utilmy/stats/__init__.py
 
 
-utilmy/stats/hypothetical/__init__.py
+utilmy/stats/hypothesis/__init__.py
 
 
-utilmy/stats/hypothetical/_lib.py
+utilmy/stats/hypothesis/_lib.py
 -------------------------functions----------------------
 _build_des_mat(*args, group = None)
 _build_summary_matrix(x, y = None)
@@ -2825,81 +2826,82 @@ _rank(design_matrix)
 
 
 
-utilmy/stats/hypothetical/aov.py
+utilmy/stats/hypothesis/aov.py
 
 
-utilmy/stats/hypothetical/contingency.py
+utilmy/stats/hypothesis/contingency.py
 
 
-utilmy/stats/hypothetical/critical.py
+utilmy/stats/hypothesis/critical.py
 -------------------------functions----------------------
 chi_square_critical_value(alpha, dof)
 
 
 
-utilmy/stats/hypothetical/descriptive.py
+utilmy/stats/hypothesis/descriptive.py
 -------------------------functions----------------------
 add_noise(cor, epsilon = None, m = None)
 covar(x, y = None, method = None)
 
 
 
-utilmy/stats/hypothetical/docs/setup.py
+utilmy/stats/hypothesis/fa.py
 
 
-utilmy/stats/hypothetical/fa.py
+utilmy/stats/hypothesis/gof.py
 
 
-utilmy/stats/hypothetical/gof.py
+utilmy/stats/hypothesis/hypothesis.py
 
 
-utilmy/stats/hypothetical/hypothesis.py
+utilmy/stats/hypothesis/nonparametric.py
 
 
-utilmy/stats/hypothetical/nonparametric.py
+utilmy/stats/hypothesis/posthoc.py
 
 
-utilmy/stats/hypothetical/posthoc.py
+utilmy/stats/hypothesis/tests/__init__.py
 
 
-utilmy/stats/hypothetical/tests/test_aov.py
+utilmy/stats/hypothesis/tests/test_aov.py
 -------------------------functions----------------------
 multivariate_test_data()
+test_anova_oneway()
 test_data()
-
--------------------------methods----------------------
-TestAnovaOneWay.test_anova_oneway(self)
-TestManovaOneWay.test_manova_oneway(self)
+test_manova_oneway()
 
 
-utilmy/stats/hypothetical/tests/test_contingency.py
--------------------------methods----------------------
-TestChiSquareContingency.test_chi_square_contingency(self)
-TestChiSquareContingency.test_chi_square_contingency_no_continuity(self)
-TestChiSquareContingency.test_chi_square_contingency_no_expected(self)
-TestChiSquareContingency.test_chi_square_exceptions(self)
-TestCochranQ.test_cochranq(self)
-TestCochranQ.test_cochranq_exceptions(self)
-TestMcNemarTest.test_mcnemartest_exceptions(self)
-TestTableMargins.test_expected_frequencies(self)
-TestTableMargins.test_expected_frequencies_exceptions(self)
-TestTableMargins.test_margins_exceptions(self)
-TestTableMargins.test_table_margins(self)
+
+utilmy/stats/hypothesis/tests/test_contingency.py
+-------------------------functions----------------------
+test_chi_square_contingency()
+test_chi_square_contingency_no_continuity()
+test_chi_square_contingency_no_expected()
+test_chi_square_exceptions()
+test_cochranq()
+test_cochranq_exceptions()
+test_expected_frequencies()
+test_expected_frequencies_exceptions()
+test_margins_exceptions()
+test_mcnemartest_exceptions()
+test_table_margins()
 
 
-utilmy/stats/hypothetical/tests/test_critical_values.py
--------------------------methods----------------------
-TestChiSquareCritical.test_critical_values(self)
-TestChiSquareCritical.test_exceptions(self)
-TestRCritical.test_critical_values(self)
-TestRCritical.test_exceptions(self)
-TestUCritical.test_critical_values(self)
-TestUCritical.test_exceptions(self)
-TestWCritical.test_critical_values(self)
-TestWCritical.test_exceptions(self)
+
+utilmy/stats/hypothesis/tests/test_critical_values.py
+-------------------------functions----------------------
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_exceptions()
+test_exceptions()
+test_exceptions()
+test_exceptions()
 
 
-utilmy/stats/hypothetical/tests/test_descriptive.py
+
+utilmy/stats/hypothesis/tests/test_descriptive.py
 -------------------------methods----------------------
 TestCorrelationCovariance.test_covar_no_method(self)
 TestCorrelationCovariance.test_naive_covariance(self)
@@ -2922,10 +2924,10 @@ TestVariance.test_var_textbook_one_pass(self)
 TestVariance.test_var_youngs_cramer(self)
 
 
-utilmy/stats/hypothetical/tests/test_factor_analysis.py
+utilmy/stats/hypothesis/tests/test_factor_analysis.py
 
 
-utilmy/stats/hypothetical/tests/test_gof.py
+utilmy/stats/hypothesis/tests/test_gof.py
 -------------------------methods----------------------
 TestChiSquare.test_chisquare_exceptions(self)
 TestChiSquare.test_chisquare_no_exp(self)
@@ -2936,7 +2938,7 @@ TestJarqueBera.test_jarquebera(self)
 TestJarqueBera.test_jarquebera_exceptions(self)
 
 
-utilmy/stats/hypothetical/tests/test_hypothesis.py
+utilmy/stats/hypothesis/tests/test_hypothesis.py
 -------------------------functions----------------------
 test_data()
 test_multiclass_data()
@@ -2957,7 +2959,7 @@ Test_tTest.test_two_sample_students_test(self)
 Test_tTest.test_two_sample_welch_test(self)
 
 
-utilmy/stats/hypothetical/tests/test_internal.py
+utilmy/stats/hypothesis/tests/test_internal.py
 -------------------------functions----------------------
 test_array()
 test_build_design_matrix()
@@ -2965,7 +2967,7 @@ test_build_matrix()
 
 
 
-utilmy/stats/hypothetical/tests/test_nonparametric.py
+utilmy/stats/hypothesis/tests/test_nonparametric.py
 -------------------------functions----------------------
 multivariate_test_data()
 plants_test_data()
@@ -2997,7 +2999,7 @@ TestWilcoxon.test_wilcoxon_multi_sample(self)
 TestWilcoxon.test_wilcoxon_one_sample(self)
 
 
-utilmy/stats/hypothetical/tests/test_posthoc.py
+utilmy/stats/hypothesis/tests/test_posthoc.py
 -------------------------functions----------------------
 test_tukeytest()
 
@@ -3007,11 +3009,14 @@ TestGamesHowell.test_games_howell(self)
 
 utilmy/stats/statistics.py
 -------------------------functions----------------------
-estimator_boostrap_bayes(err, alpha = 0.05, )
-estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
-estimator_std_normal(err, alpha = 0.05, )
+bonferoni_adjuster(p_values, threshold = 0.1)
+confidence_interval_boostrap_bayes(err:np.ndarray, alpha = 0.05, )
+confidence_interval_bootstrap(err:np.ndarray, custom_stat = None, alpha = 0.05, n_iter = 10000)
+confidence_interval_normal_std(err:np.ndarray, alpha = 0.05, )
+error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only = 1)
+error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution = "norm", test_size_limit = 5000)
+error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX = None, bins = 5)
 help()
-log(*s)
 np_col_extractname(col_onehot)
 np_conv_to_one_col(np_array, sep_char = "_")
 np_list_remove(cols, colsremove, mode = "exact")
@@ -3019,15 +3024,13 @@ test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
-test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
-test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(error, distribution = "norm", test_size_limit = 5000)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
-y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
+test_anova(df:pd.DataFrame, col1, col2)
+test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method = 'chisquare', **kw)
+test_independance(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
+test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX = None, coly = 'y', bonferroni_adjuster = True, threshold = 0.1)
+test_normality2(df:pd.DataFrame, column, test_type)
+test_plot_qqplot(df:pd.DataFrame, col_name)
+test_same_mean(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
 
 
 
@@ -3139,6 +3142,7 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
+generate_rules_fromdata()
 help()
 load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
@@ -4046,7 +4050,7 @@ vizEmbedding.create_clusters(self, after_dim_reduction = True)
 vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
 vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None)
 vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/")
+vizEmbedding.run_all(self, dim_reduction="mds", col_embed ='embed', ndim = 2, nmax =  5000, dir_out ="ztmp/")
 
 
 utilmy/viz/template1.py
@@ -4057,6 +4061,12 @@ utilmy/viz/test_vizhtml.py
 test1(verbose = False)
 test2(verbose = False)
 test_getdata(verbose = True)
+
+
+
+utilmy/viz/track.py
+-------------------------functions----------------------
+frames_to_video(pathIn, pathOut, fps, )
 
 
 
