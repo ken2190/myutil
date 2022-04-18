@@ -836,3 +836,73 @@ def objective(values):
 
 
 """
+
+#=======================================================================
+# set of utilities to drive brute force ablation 
+
+class AblationParameters(dict):
+    @staticmethod
+    def concatenate_keys(k,inner_ablation_keys):
+        inner_ablation_keys2 = []
+        for i_inner,k2 in enumerate(inner_ablation_keys):
+            if isinstance(k2,str):
+                k2 = (k,k2)
+            elif isinstance(k2,tuple):
+                k2 = tuple([k] + list(k2))
+            else:
+                assert False,f'k2 is not a tuple or string {k2}'
+            # inner_ablation_keys[i_inner] = k2
+            inner_ablation_keys2.append(k2)
+        return inner_ablation_keys2
+    
+    
+    @staticmethod
+    def traverse(d,debug={}):
+        # ablation_keys = []
+        assets = {'keys':[]}
+        for k,v in d.items():
+            if isinstance(v,AblationList):
+                assets['keys'].append(k)
+                if debug.get('print',False):
+                    indent = debug.get('indent',0)
+                    print('\t'*indent,k)
+            elif isinstance(v,dict):
+                inner_ablation_assets = AblationParameters.traverse(v)
+                inner_ablation_assets['keys'] = AblationParameters.concatenate_keys(k,inner_ablation_assets['keys'])
+
+                assets['keys'].extend(inner_ablation_assets['keys'])
+
+            
+        return assets        
+    def __init__(self,parameters):
+        super().__init__(parameters)
+        self._dict = parameters
+        self.ablation_assets = AblationParameters.traverse(parameters,debug={})
+    
+    def generate_combinations(self):
+        import itertools
+        items = []
+        for k in self.ablation_assets['keys']:
+            if isinstance(k,tuple):
+                item = self
+                for ki in k:
+                    item = item[ki]
+                items.append(item)
+            elif isinstance(k,str):
+                item = self[k]
+                items.append(item)
+        possible_combinations = itertools.product(*items)
+        return possible_combinations
+    @property
+    def combinations(self):
+        try:
+            return self.__getattr__('_combinations')
+        except AttributeError:
+            self._combinations = self.generate_combinations()
+            return self._combinations
+
+
+class AblationList(list):
+    def __init__(self,l):
+        super().__init__(l)
+    pass
