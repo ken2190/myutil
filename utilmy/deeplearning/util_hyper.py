@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_hyper"
-HELP = """ utils for Hyper
-
+HELP = """ utils for Hyper Params
 
 cd myutil
 python utilmy/deeplearning/util_hyper.py    test1
 
 
-Input a dict of variables.
+      pars_dict_init =  {  'boosting_type':'gbdt',
+						'importance_type':'split', 
+						'learning_rate':0.001, 'max_depth':10,
+						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
+	  pars_dict_range =   {  'boosting_type':  ( 'categorical',  ['gbdt', 'gbdt']      ) ,
+						 'importance_type':    'split',
+						 'learning_rate':  ('log_uniform' , 0.001, 0.1,  ),
+						 'max_depth':      ('int',  1, 10, 'uniform')
+						 'n_estimators':   ('int', 0, 10,  'uniform' )
+						 'n_jobs':-1,
+						 'num_leaves':31 }
+      obj_fun(pars_dict) :  Objective function
+      engine_pars :    {   }  optuna parameters
 
-pars_dict
 
-pars_dict_range :
+      API interface integration :
+           https://optuna.readthedocs.io/en/stable/reference/generated/optuna.storages.RDBStorage.html
 
-
-Optimize all
-
-obj_fun
 
 
 """
@@ -49,7 +56,8 @@ def test_all() -> None:
     """function test_all   to be used in test.py         """
     log(MNAME)
     test1_optuna()
-
+    test2_optuna()
+    test3_optuna()
 
 
 def test1_optuna():
@@ -79,21 +87,15 @@ def test1_optuna():
 
 
 
-
-
 def test2_optuna():
     """function test_hyper2
     """
-    import pandas as pd
     import numpy as np
     import sklearn
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import mean_absolute_error
     from sklearn.metrics import roc_auc_score
-    from sklearn.model_selection import train_test_split
-    from sklearn.model_selection import cross_val_score
-    from sklearn.model_selection import cross_val_predict
     from sklearn.metrics import accuracy_score
 
     X_train  = np.random.random((100, 5  ))
@@ -103,13 +105,13 @@ def test2_optuna():
     y_test  = np.random.randint(0, 2,100)
 
 
-    param_dict={'n_estimators':100,
-                'max_depth':3,
-                'min_samples_split':2,
-                'min_samples_leaf':2,
+    param_dict={'n_estimators'      :100,
+                'max_depth'         :3,
+                'min_samples_split' :2,
+                'min_samples_leaf'  :2,
                 'min_weight_fraction_leaf':0.0,
-                'criterion':'gini',
-                'max_features':'sqrt'}
+                'criterion'    :'gini',
+                'max_features' :'sqrt'}
 
 
     param_dict_range={'max_depth':         ('int',  1, 10, 'uniform'),
@@ -131,11 +133,8 @@ def test2_optuna():
 
 
     engine_pars2={'metric_target':'roc_auc_score'}
-    result_p=run_hyper_optuna(objective2, param_dict, param_dict_range, engine_pars2,100)
-
-
-
-
+    res = run_hyper_optuna(objective2, param_dict, param_dict_range, engine_pars2, ntrials=3, verbose=1)
+    log(res)
 
 
 
@@ -196,10 +195,11 @@ def test3_optuna():
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-DEBUG = True
-
-def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3):
+def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3, verbose=1):
     """
+
+      Example
+      -------
       pars_dict_init =  {  'boosting_type':'gbdt',
 						'importance_type':'split', 'learning_rate':0.001, 'max_depth':10,
 						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
@@ -247,7 +247,7 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
                     print(f'Not supported type {t}, {p}')
 
             mnew[t] = pres
-            if DEBUG : log(t, pres)
+            if verbose>0 : log(t, pres)
         return mnew
 
     def merge_dict(src, dst):
@@ -298,34 +298,6 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
 
 
 
-def eval_dict(src, dst={}):
-    """function eval_dict
-    Args:
-        src:
-        dst:
-    Returns:
-
-    """
-    import pandas as pd
-    for key, value in src.items():
-        if isinstance(value, dict):
-            node = dst.setdefault(key, {})
-            eval_dict(value, node)
-        else:
-            if "@lazy" not in key :
-               dst[key] = value
-            else :
-                key2 = key.split(":")[-1]
-                if 'pandas.read_csv' in key :
-                    dst[key2] = pd.read_csv(value)
-                elif 'pandas.read_parquet' in key :
-                    dst[key2] = pd.read_parquet(value)
-    return dst
-
-
-
-
-
 
 
 
@@ -347,8 +319,34 @@ def eval_dict(src, dst={}):
 #############################################################################################
 #############################################################################################
 if 'utils':
+    def np_dict_eval(src, dst={}):
+        """function eval_dict
+        Args:
+            src:
+            dst:
+        Returns:
+
+        """
+        import pandas as pd
+        for key, value in src.items():
+            if isinstance(value, dict):
+                node = dst.setdefault(key, {})
+                np_dict_eval(value, node)
+            else:
+                if "@lazy" not in key :
+                   dst[key] = value
+                else :
+                    key2 = key.split(":")[-1]
+                    if 'pandas.read_csv' in key :
+                        dst[key2] = pd.read_csv(value)
+                    elif 'pandas.read_parquet' in key :
+                        dst[key2] = pd.read_parquet(value)
+        return dst
+
+
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+
 
     def load_function_uri(uri_name: str="path_norm"):
         """ Load dynamically function from URI
@@ -447,8 +445,8 @@ if 'utils':
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    # fire.Fire()
-    test_onnx_convert()
+    fire.Fire()
+
 
 
 
@@ -700,16 +698,6 @@ print(rfe.support_)
 # summarize the ranking of the attributes
 fea_rank_ = pd.DataFrame({'cols':train.columns, 'fea_rank':rfe.ranking_})
 fea_rank_.loc[fea_rank_.fea_rank > 0].sort_values(by=['fea_rank'], ascending = True)
-
-
-
-
-
-
-
-
-
-
 
 
 

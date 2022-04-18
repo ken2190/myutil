@@ -167,3 +167,5 @@ sendtoterminalplus.vsx
 *.vsx
 *.onnx
 /**/*.onnx
+/**/*ECG500*
+/**/*.pth

@@ -94,8 +94,6 @@ class vizEmbedding:
            Many issues with numba, numpy, pyarrow !!!!
            pip install  pynndescent==0.5.4  numba==0.53.1  umap-learn==0.5.1  llvmlite==0.36.0   numpy==1.19.1   --no-deps
 
-           self = Box({})
-           self.path = "C:/D/gitdev/cpa/data/model.vec"
 
            myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
            myviz.run_all(nmax=5000)
@@ -445,7 +443,7 @@ def embedding_load_pickle(dirin=None, skip=0, nmax=10 ** 8,
     flist =  glob_glob(dirin)
     for fi in flist :
         arr = pickle.load(fi)
-        embs = np.concat((embs, arr)) if embs is not None else arr
+        embs = np.concatenate((embs, arr)) if embs is not None else arr
 
 
     id_map  = {i: i for i in  range(0, len(embs))}
@@ -482,6 +480,7 @@ def sim_scores_sklearn(embs, words):
     return dfsim
 
 
+
 def sim_scores_faiss(path=""):
     """
        Sim Score using FAISS
@@ -505,17 +504,18 @@ def sim_scores_faiss(path=""):
     #print('Distance by FAISS:{}'.format(result))
 
 
-def faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
+
+def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
     """
       1 billion size vector creation
       ####  python prepro.py   faiss_create_index      2>&1 | tee -a log_faiss.txt    
     """
     import faiss
-    # nfile      = 1000
-    emb_dim    = 200   
+
     
     if df_or_path is None :  df_or_path = "/emb/emb//ichib000000000/df/*.parquet"
-    dirout    =  "/".join( os.path.dirname(df_or_path).split("/")[:-1]) + "/faiss/"
+    dirout    =  "/".join( os.path.dirname(df_or_path).split("/")[:-1]) + "/faiss/" if dirout is None else dirout
+
     os.makedirs(dirout, exist_ok=True) ; 
     log( 'dirout', dirout)    
     log('dirin',   df_or_path)  ; time.sleep(10)
@@ -752,10 +752,10 @@ def topk(dirin="", dirout="", topk=100, pattern="df_*1000*.parquet", nrows=10000
 
 
 ###############################################################################################################
-def embedding_table_comparison(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list,
-                         plot_title,
-                         plot_width=1200, plot_height=600,
-                         xaxis_font_size='12pt', yaxis_font_size='12pt'):
+def embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list,
+                                 plot_title,
+                                 plot_width=1200, plot_height=600,
+                                 xaxis_font_size='12pt', yaxis_font_size='12pt'):
         """ Compare embedding from disk
            list of vectors    vs list of labels
            list of vectors    vs list tof labels
@@ -947,7 +947,7 @@ if 'custom_code':
 
 
 
-    def topk_custom(topk=100, dname=None, pattern="df_*", filter1=None):
+    def topk_custom(topk=100, in_dir=None, pattern="df_*", filter1=None):
         """  python prepro.py  topk    |& tee -a  /data/worpoch_261/topk/zzlog.py
 
 
@@ -957,13 +957,6 @@ if 'custom_code':
 
         filter1 = "all"    #### "article"
 
-        if dname is None :
-           dname = "m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_epoch_261"
-
-
-        dname    = dname.replace("/", "_").replace(".", "-")
-        r0       = "/data/workspin9pred/res/"
-        in_dir   = r0 + dname
         out_dir  = in_dir + "/topk/"
         os.makedirs(out_dir, exist_ok=True)
         log(in_dir)
