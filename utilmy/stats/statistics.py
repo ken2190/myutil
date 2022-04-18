@@ -1,7 +1,21 @@
 # coding=utf-8
-HELP="""  Hypothesis testing easy
-  
+HELP="""  Hypothesis testing easy  
 https://github.com/pranab/beymani
+
+Hello
+you can type here to reply questions, ok ?
+and we will code together right now
+
+
+1) Cannot see your check function ..... WHERE IS IT ?
+Can you copy paste here below ???
+Think you forget to commit your code....
+Be careful of checking that the code is visible on github !!!!!
+ I asked 3 times and lost my time....
+ 
+ 
+You forgot to commit ???
+wait throwing other functions
 
 
 
@@ -12,6 +26,167 @@ https://pypi.org/project/pysie/#description
 
 
 """
+
+
+
+def test_check_mean():
+    """
+    ### Much better, ok ???? okk
+
+     2 columsn et 5 columns Ok for you ?????
+     ANOVA does not work for 2 columns .
+
+     Your code is NOT working ,it has bug, did you run it ???
+     one minute... ı check again in my pc. it works on my computer i am using vscode we can solve the bug here..   
+
+    1) Can you check my changes now ?
+    2)              print("H0: There is a no difference between trip averages")  what is trip ?????
+    3) Do NOT put garbage code, ok ?  :  what is trip ?????
+       Budget includes no garbage code, and code 'tested', ok ?
+
+      DO NOT PUT GARBAGE code, ok ? (budget includes :  Clean code + workable code)
+      DO NOT PUT GARBAGE code, ok ? (budget includes :  Clean code + workable code)
+      
+      Ok, but Careful because I asked you 3 times to check.... 
+      I lost my time
+
+    4) I had to show how to make a correct test....
+       I do NOT receive money to help you...  OK ?
+       I'm sorry I didn't want it to be like this but I learned new things I'm better now
+
+    %) Now, you have examples on how to check the code
+       Please take your time to correct your code and make it 'checked'
+        Give you one more week, so enough time for careful check.
+
+    6) DO NOT forget to commit OR just upload the python file in upwork.
+
+     Ok ? 
+     any question ?
+        Give you one more week, so enough time for careful code testing.
+
+        
+     so, let's stop here
+
+    sorry again i will fix it
+
+
+     Ok .   
+
+
+    
+
+    """    
+    n = 100
+    df = pd.DataFrme({'id' :  np.arange(0, n)})
+    df['c1'] = np.random.random(n ) 
+    df['c2'] = np.random.random(n ) 
+    df['c3'] = np.random.random(n ) 
+    df['c4'] = np.random.random(n ) 
+    df['c5'] = np.random.random(n ) 
+
+
+    log("### 2 columns")
+    test_same_mean(df, cols = [ 'c1', 'c2' ], bonferroni_adjuster=False, threshold=0.1, pcritic=0.5 )
+
+
+    log("### 5 columns ")
+    test_same_mean(df, cols=[ 'c1', 'c2', 'c3','c4','c5' ],  bonferroni_adjuster=False, threshold=0.1, pcritic=0.5)
+
+
+    log("### 6 columsn not same")
+    df['d6'] = np.random.random(n ) +0.3     
+    test_same_mean(df, cols=[ 'c1', 'c2', 'c3','c4','d6' ], bonferroni_adjuster=True, threshold=0.1, pcritic=0.5  )
+
+
+
+
+
+def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1, pcritic=0.5) -> List[float]:
+    """Test if same mean for all columns
+
+       https://towardsdatascience.com/why-is-anova-essential-to-data-science-with-a-practical-example-615de10ba310
+
+
+    """
+    p_values = []
+    cols = df.columns  if cols is None else cols
+
+    if len(cols) == 2:
+        log("## Student test of mean for 2 variables")
+        p_values = test_student_mean(df, cols[0],, cols[1], pcritic=pcritic,)
+
+    else :   ##> 3 values
+        log("## ANOVA test of mean for >2 variables")
+        p_values = test_anova_mean(df, cols)
+
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+def test_student_mean(df: pd.DataFrame, col1='col1', col1='col2',  pcritic=0.5) -> List[float]:
+    """
+    significance level = pcritic  , pcritic = 0.5 ?
+    
+    """  
+    from scipy.stats import ttest_ind
+
+    p_values = ttest_ind(df, col1, col2)
+    if p_values < pcritic:
+        print("H0 hypothesis is rejected...")
+    else:
+        print("H0 hypothesis is accepted...")
+    return {'p_value': p_values}
+    
+
+def test_anova_mean(df: pd.DataFrame, cols=None, pcritic=0.5) -> List(float):
+    """ ANOVA Same mean
+    significance level = pcritic
+    
+    """
+    cols = df.columns if cols is None else cols
+
+    import scipy.stats as stats
+    import researchpy as rp 
+    from statsmodels.stats.multicomp import pairwise_tukeyhsd
+    from statsmodels.stats.multicomp import MultiComparison
+    
+    if stats.shapiro(df[0]) < pcritic:
+        print("H0 hypothesis is rejected...")
+    else:
+        print("H0 hypothesis is accepted...")
+        if stats.levene(*args) > pcritic:
+            print("H0: Variances are homogeneous")
+        else:
+            print("H1: Variances are not homogeneous")
+        if stats.f_oneway(*args) < pcritic:
+            print("H0: There is a no difference between trip averages")
+        else:
+            print("H1: There is a difference between trip averages")
+    return p_values
+
+
+
+def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Run ANOVA Test of independance
+     """
+    p_values = []
+    cols = df.columns  if cols is None else cols
+
+    p_values = test_anova(df, cols)
+
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+
+
+
 import os, sys, pandas as pd, numpy as np
 from utilmy.utilmy import pd_generate_data
 from utilmy.prepro.util_feature import  pd_colnum_tocat, pd_colnum_tocat_stat
