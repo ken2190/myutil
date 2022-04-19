@@ -859,19 +859,24 @@ class AblationParameters(dict):
     @staticmethod
     def traverse(d,debug={}):
         # ablation_keys = []
-        assets = {'keys':[]}
+        assets = {'keys':[],'hooks':[]}
         for k,v in d.items():
             if isinstance(v,AblationList):
                 assets['keys'].append(k)
                 if debug.get('print',False):
                     indent = debug.get('indent',0)
                     print('\t'*indent,k)
+            elif isinstance(v,AblationHook):
+                assets['hooks'].append(k)
+                if debug.get('print',False):
+                    indent = debug.get('indent',0)
+                    print('\t'*indent,k)                
             elif isinstance(v,dict):
                 inner_ablation_assets = AblationParameters.traverse(v)
                 inner_ablation_assets['keys'] = AblationParameters.concatenate_keys(k,inner_ablation_assets['keys'])
-
+                inner_ablation_assets['hooks'] = AblationParameters.concatenate_keys(k,inner_ablation_assets['hooks'])
                 assets['keys'].extend(inner_ablation_assets['keys'])
-
+                assets['hooks'].extend(inner_ablation_assets['hooks'])
             
         return assets        
     def __init__(self,parameters):
@@ -901,8 +906,40 @@ class AblationParameters(dict):
             self._combinations = self.generate_combinations()
             return self._combinations
 
+    def ablation(self,callable):
+        combinations = self.combinations
+        keys = self.ablation_assets['keys']
+        hooks = self.ablation_assets['hooks']
+        for c in (combinations):
+            new_parameters = self._dict.copy()
+            for k,ci in zip(keys,c):
+                if isinstance(k,str):
+                    new_parameters[k] = ci
+                elif isinstance(k,tuple):
+                    at = new_parameters
+                    for ki in k[:-1]:
+                        at = at[ki]
+                    at[k[-1]] = ci
+            for k in hooks:
+                if isinstance(k,str):
+                    hook = new_parameters[k]
+                    new_parameters[k] = hook(new_parameters)
+                elif isinstance(k,tuple):
+                    at = new_parameters
+                    for ki in k[:-1]:
+                        at = at[ki]
+                    hook = at[k[-1]]
+                    at[k[-1]] = hook(new_parameters)
+            callable(new_parameters)
+        pass
 
 class AblationList(list):
     def __init__(self,l):
         super().__init__(l)
+    pass
+class AblationHook():
+    def __init__(self,callable):
+        self.callable = callable
+    def __call__(self,*args,**kwargs):
+        return self.callable(*args,**kwargs)
     pass
