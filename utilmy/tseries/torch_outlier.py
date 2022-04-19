@@ -90,12 +90,12 @@ def test1():
   rcParams['figure.figsize'] = 12, 8
 
   #### params
-  cc = Box({})
-  cc.epochs = 1
-  cc.device = 'cpu'  ### 'gpu'
+  cc             = Box({})
+  cc.epochs      = 1
+  cc.device      = 'cpu'  ### 'gpu'
   cc.RANDOM_SEED = 42
-  cc.MODEL_PATH = 'model.pth'
-  cc.THRESHOLD = 26
+  cc.MODEL_PATH  = 'model.pth'
+  cc.THRESHOLD   = 26
 
 
   np.random.seed(cc.RANDOM_SEED)
@@ -234,10 +234,11 @@ def dataset_ECG5000_fetch_pandas(nrows=100, dirout="./ztmp/"):
      This will give us more data to train our Autoencoder. also shuffle it:"""
   from arff2pandas import a2p
 
+  
 
   if not os.path.isfile(dirout + '/ECG5000_TRAIN.arff' ):
      os.makedirs(dirout, exist_ok=True)
-     os.system(f"gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT -O {dirout} ")
+     os.system(f"cd {dirout} && gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT  ")
      os.system(f"unzip -qq  {dirout}/ECG5000.zip")
 
   with open( dirout + '/ECG5000_TRAIN.arff') as f:
