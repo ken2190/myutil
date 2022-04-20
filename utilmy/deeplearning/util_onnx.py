@@ -7,6 +7,7 @@ cd myutil
 python utilmy/deeplearning/util_onnx.py    test1
 
 
+https://cloudblogs.microsoft.com/opensource/2022/04/19/scaling-up-pytorch-inference-serving-billions-of-daily-nlp-inferences-with-onnx-runtime/
 
 https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
 
@@ -24,18 +25,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
+from utilmy import log, log2
+
 try :
     import onnxruntime
     import torch.utils.model_zoo as model_zoo
     import torch.onnx
     import onnx
 except:
-    log("pip install onnxruntime onnx") ; 1/0 
+    log("pip install onnxruntime onnx"); 1/0
+
 
 #############################################################################################
-from utilmy import log, log2
-
-
 def help():
     """function help        """
     from utilmy import help_create
@@ -47,16 +48,10 @@ def help():
 def test_all() -> None:
     """function test_all   to be used in test.py         """
     log(MNAME)
-    test1()
+    test_onnx_convert()
 
 
-def test1() -> None:
-    """function test1     
-    """
-    d = Box({})
-
-
-def test2():
+def test_helper():
     """
     (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
     ========================================================================
@@ -348,40 +343,22 @@ def test3():
 
     isok = test_create_model_pytorch(dirsave=dir_model)
     log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+    onnx_convert(dir_model, dir_checkpoint= dir_weights, dirout=dirout, )
 
     log('Checking ONNX')
     onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
 
 
+def test_onnx_convert():
+    import torch.nn as nn
+    import torch.nn.init as init
 
-def test4():
-    dirmtp = "ztmp/"
-
-    dir_model   = f"{dirtmp}/mpytorchmodel.py:SuperResolutionNet"  ### need towrite model on disk
-    dir_weights = f"{dirtmp}/model_save.pth"  ### Need the weight somwhere !!!!
-    dirout      = f"{dirtmp}/onnx_save.onnx"
-    onnx_pars = {}
-    config_dir = ""
+    dirtmp = "ztmp/"
 
 
-    isok = test_create_model_pytorch(dirsave=dir_model)
-    log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
-
-    log('Checking ONNX')
-    onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
-
-
-
-def test_create_model_pytorch(dirsave=None, model_name=""):
-    """   Create model classfor testing purpose
-
-    
-    """    
-    ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+    ##### Create the super-resolution model by using the above model definition.
     class SuperResolutionNet(nn.Module):
-        def __init__(self, upscale_factor, inplace=False):
+        def __init__(self, upscale_factor=3, inplace=False):
             super(SuperResolutionNet, self).__init__()
 
             self.relu = nn.ReLU(inplace=inplace)
@@ -404,65 +381,108 @@ def test_create_model_pytorch(dirsave=None, model_name=""):
             init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
             init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
             init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
-            init.orthogonal_(self.conv4.weight)    
+            init.orthogonal_(self.conv4.weight)
 
-    """
-    ss = ss.replace("    ", "")  ### for indentation
+    torch_model = SuperResolutionNet(upscale_factor=3)
+    checkpoint_url = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
 
-    if dirsave  is not None :
-        with open(dirsave, mode='w') as fp:
-            fp.write(ss)
-        return True    
-    else :
-        SuperResolutionNet =  None
-        eval(ss)        ## trick
-        return SuperResolutionNet  ## return the class
+
+    ### model 2
+    torch_model_test = "./testdata/ttorch/models.py:SuperResolutionNet"
+    llist = [ SuperResolutionNet(upscale_factor=3), 
+              torch_model_test
+    ]
+
+    #### Run the tests
+    for modeli in llist :
+        log((str(modeli)))
+        onnx_convert(modeli,     input_shape=(1, 224, 224),
+                    dirout              = dirtmp,
+                    dir_checkpoint      = checkpoint_url,
+                    export_params       = True,
+                    onnx_version        = 10,
+                    do_constant_folding = True,
+                    input_names         = ['input'],
+                    output_names        = ['output'],
+                    dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+                    device='cpu',
+        )
+    
+
 
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert(
-    model_path:str, 
-    dirout:str, 
-    input_shape:tuple,
-    onnx_version:int=10, 
-    do_constant_folding:bool=True, 
-    input_names=['input'], 
-    output_names=['output'], 
-    dynamic_axes={'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}):
-    """Core function to convert a pytorch model to onnx
+def onnx_convert(torch_model='path/mymodule.py:myModel or model object', 
+    dir_checkpoint      = './mymodel.pth',
+    dirout              = '.',
+    export_params       = True,
+    onnx_version        = 10,
 
-    Args:
-        model (str:str): model to be converted
-        dirout:str (str): directory to save the onnx model
-        input_shape (tuple): input shape to run model to export onnx model.
-        onnx_version (int, optional): onnx version to convert the model. Defaults to 10.
+    input_shape         = (1, 224, 224),
+    do_constant_folding = True,
+    input_names         = ['input'],
+    output_names        = ['output'],
+    dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
+    device              = 'cpu',
+    ):
+    """Convert a pytorch model to onnx
+    Arguments:
+    --------- 
+        torch_model                         : model object to load state dict  OR path of the model .py definition
+        dir_checkpoint     (str)           : path to checkpoint file
+        dirout              (str)           : directory to save the onnx model
+        input_shape         (tuple)         : input shape to run model to export onnx model.
+        onnx_version        (int, optional) : onnx version to convert the model. Defaults to 10.
         do_constant_folding (bool, optional): whether to execute constant folding for optimization. Defaults to True.
-        input_names (list, optional): input names of the model. Defaults to ['input'].
-        output_names (list, optional): output names of the model. Defaults to ['output'].
-        dynamic_axes (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
+        input_names         (list, optional): input names of the model. Defaults to ['input'].
+        output_names        (list, optional): output names of the model. Defaults to ['output'].
+        dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
+    
+    Returns: None    
     """
-    filename = '.'.join(os.path.basena:strme(model_path).split('.')[:-1])
-    out_path = os.path.join(dirout:str, filename + '.onnx')
+    import glob, os
+    filename = '.'.join(os.path.basename(dir_checkpoint).split('.')[:-1])
+    fileout = os.path.join(dirout, filename + '.onnx')
+    os.makedirs(dirout, exist_ok=True)
 
-    model = torch.load(model_path)
-    model.eval()
+    if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
+        torch_class_name = load_function_uri(uri_name= torch_model)
+        torch_model      = torch_class_name() #### Class Instance  Buggy
+        log('loaded from file ', torch_model)
 
-    x = torch.rand(1, *input_shape, requires_grad=True)
-    out = model(x)
+
+    if 'http' in dir_checkpoint :
+       #torch.cuda.is_available():
+       map_location = torch.device('gpu') if 'gpu' in device else  torch.device('cpu')
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(dir_checkpoint, map_location=map_location)
+    else :   
+       checkpoint = torch.load( dir_checkpoint)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint['loss']}\t at epoch: {checkpoint['epoch']}" )
+       
+    torch_model.load_state_dict(state_dict=model_state)
+
+    ## Evaluate
+    torch_model.eval()
+    x   = torch.rand(1, *input_shape, requires_grad=True)
+    out = torch_model(x)
+
+    # log("### Export")
     torch.onnx.export(
-        model, 
+        torch_model, 
         x,
-        out_path,
-        export_params=export_params,
-        opset_version=onnx_version,
-        do_constant_folding=do_constant_folding,
-        input_names=input_names,
-        output_names=output_names,
-        dynamic_axes=dynamic_axes
+        fileout,
+        export_params       = export_params,
+        opset_version       = onnx_version,
+        do_constant_folding = do_constant_folding,
+        input_names         = input_names,
+        output_names        = output_names,
+        dynamic_axes        = dynamic_axes
     )
 
-    log( glob.glob(out_path) )
+    log( 'Exported', glob.glob(fileout) )
 
 
 
@@ -536,27 +556,89 @@ def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirw
 
 
 
+def onnx_optimize(dirmodel:str, model_type='bert', **kw):
+    """ Optimize Model by OnnxRuntime and/or python fusion logic.
+            MODEL_TYPES = {
+                "bart": (BartOnnxModel, "pytorch", 1),
+                "bert": (BertOnnxModel, "pytorch", 1),
+                "bert_tf": (BertOnnxModelTF, "tf2onnx", 0),
+                "bert_keras": (BertOnnxModelKeras, "keras2onnx", 0),
+                "gpt2": (Gpt2OnnxModel, "pytorch", 1),
+                "gpt2_tf": (Gpt2OnnxModel, 'tf2onnx', 0),  # might add a class for GPT2OnnxModel for TF later.
+                "tnlr": (TnlrOnnxModel, "pytorch", 1),
+            }
+
+    ONNX Runtime has graph optimizations (https://onnxruntime.ai/docs/resources/graph-optimizations.html).
+    However, the coverage is limited. We also have graph fusions that implemented in Python to improve the coverage.
+    They can combined: ONNX Runtime will run first when opt_level > 0, then graph fusions in Python will be applied.
+
+    To use ONNX Runtime only and no Python fusion logic, use only_onnxruntime flag and a positive opt_level like
+        optimize_model(input, opt_level=1, use_gpu=False, only_onnxruntime=True)
+
+    When opt_level is None, we will choose default optimization level according to model type.
+    When opt_level is 0 and only_onnxruntime is False, only python fusion logic is used and onnxruntime is disabled.
+    When opt_level > 1, use_gpu shall set properly since the optimized graph might contain operators for GPU or CPU only.
+
+    If your model is intended for GPU inference only (especially float16 or mixed precision model), it is recommended to
+    set use_gpu to be True, otherwise the model is not optimized for GPU inference.
+
+    For BERT model, num_heads and hidden_size are optional. For other model types, you need specify these parameters.
+
+    Args:
+        input (str): input model path.
+        model_type (str, optional): model type - like bert, bert_tf, bert_keras or gpt2. Defaults to 'bert'.
+        num_heads (int, optional): number of attention heads. Defaults to 0.
+                                   0 allows detect the parameter from graph automatically (for model_type "bert" only).
+        hidden_size (int, optional): hidden size. Defaults to 0.
+                                     0 allows detect the parameter from graph automatically (for model_type "bert" only).
+        optimization_options (FusionOptions, optional): optimization options that turn on/off some fusions. Defaults to None.
+        opt_level (int, optional): onnxruntime graph optimization level (0, 1, 2 or 99) or None. Defaults to None.
+                                   When the value is None, default value (1 for bert and gpt2, 0 for other model types) will be used.
+                                   When the level > 0, onnxruntime will be used to optimize model first.
+        use_gpu (bool, optional): use gpu or not for onnxruntime. Defaults to False.
+        only_onnxruntime (bool, optional): only use onnxruntime to optimize model, and no python fusion. Defaults to False.
+
+     Returns:
+        object of an optimizer class.
+
+    
+    """
+    from onnxruntime.transformers import optimizer
+    model2 = optimizer.optimize_model(dirmodel, model_type=model_type, **kw)
+    model2.convert_float_to_float16()
+    return model2
+
+
+
+            
+
+
 #############################################################################################
 #############################################################################################
 if 'utils':
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-
-
-    def load_function_uri(uri_name="path_norm"):
+    def load_function_uri(uri_name: str="path_norm"):
         """ Load dynamically function from URI
         ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "preprocess.generic:pandasDataset"
+        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
         ###### External File processor :
         #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
         """
         import importlib, sys
         from pathlib import Path
-        pkg = uri_name.split(":")
+        if ":" in uri_name :
+            pkg = uri_name.split(":")
+            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+            package, name = pkg[0], pkg[1]
 
-        assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-        package, name = pkg[0], pkg[1]
+        else :
+            pkg = uri_name.split(".")
+            package = ".".join(pkg[:-1])      
+            name    = pkg[-1]   
+
         
         try:
             #### Import from package mlmodels sub-folder
@@ -579,9 +661,63 @@ if 'utils':
                 raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
 
 
+    def test_load_function_uri():
+        uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
+        myclass = load_function_uri(uri_name)
+        log(myclass)
+
+
+    def test_create_model_pytorch(dirsave=None, model_name=""):
+        """   Create model classfor testing purpose
+
+        
+        """    
+        ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+        class SuperResolutionNet(nn.Module):
+            def __init__(self, upscale_factor, inplace=False):
+                super(SuperResolutionNet, self).__init__()
+
+                self.relu = nn.ReLU(inplace=inplace)
+                self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+                self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+                self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+                self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+                self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+                self._initialize_weights()
+
+            def forward(self, x):
+                x = self.relu(self.conv1(x))
+                x = self.relu(self.conv2(x))
+                x = self.relu(self.conv3(x))
+                x = self.pixel_shuffle(self.conv4(x))
+                return x
+
+            def _initialize_weights(self):
+                init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv4.weight)    
+
+        """
+        ss = ss.replace("    ", "")  ### for indentation
+
+        if dirsave  is not None :
+            with open(dirsave, mode='w') as fp:
+                fp.write(ss)
+            return True    
+        else :
+            SuperResolutionNet =  None
+            eval(ss)        ## trick
+            return SuperResolutionNet  ## return the class
+
+
+
 ###################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    # fire.Fire()
+    test_onnx_convert()
+
 
 

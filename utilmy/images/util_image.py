@@ -10,19 +10,21 @@ from box import Box
 import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
-
+import math
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
    import diskcache as dc    
    from albumentations.core.transforms_interface import ImageOnlyTransform
 except : pass
 
-try:
-    import numpy.typing
-    npArrayLike = numpy.typing.ArrayLike
-except ImportError:
-    npArrayLike = Any
-    
+# try:
+#     import numpy.typing
+#     npArrayLike = numpy.typing.ArrayLike
+# except ImportError:
+#     npArrayLike = Any
+npArrayLike = Any
+
+
 #############################################################################################
 from utilmy import Dict_none, Int_none,List_none, Path_type
 from utilmy import pd_read_file
@@ -77,7 +79,6 @@ def test2():
     log('\n\nimage_prep_multiproc',)
 
 
-
 def test_diskcache():
     import tempfile
     import skimage
@@ -85,7 +86,8 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-
+    import glob
+    
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -105,40 +107,71 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:
+    with  tempfile.TemporaryDirectory() as dirin:              
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:
+        with  tempfile.TemporaryDirectory() as dirout:              
             # print(dirout)
             n_images = len(images)
-
+            
             for i,imname in enumerate(images):
                 im = getattr(skimage.data,imname)()
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
-                skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
+                impath_i = os.path.join(dirin,d_,imname+'.png')
+                skimage.io.imsave(impath_i,im)
+                
                 # break
-
+            
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:
+            with  tempfile.TemporaryDirectory() as dircheck:              
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
-                diskcache_image_dumpsample(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
-                    dirout = dircheck,
-                    tag = tag)
-
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
-
-
+            #===================================================================================
+            # diskcache_image_insert
+            # impaths = []
+            with  tempfile.TemporaryDirectory() as next_dirin:              
+                for i,imname in enumerate(images):
+                    im = getattr(skimage.data,imname)()
+                    impath_i = os.path.join(next_dirin,imname+'.png')
+                    skimage.io.imsave(impath_i,1 - im)
+                    # impaths.append(impath_i)
+                old_cache_len = len(cache)
+                diskcache_image_insert(glob.glob(os.path.join(next_dirin,'*')), db_dir=os.path.join(dirout,f"img_{tag}.cache"))
+                new_cache_len = len(cache)
+                assert new_cache_len == old_cache_len + len(images),f'cache len after diskcache_image_insert should reflect # of images inserted. expected {old_cache_len + len(images)} got {new_cache_len}'
+            #===================================================================================
+            # diskcache_image_dumpsample
+            # import pdb;pdb.set_trace()
+            for j in range(3):
+                with  tempfile.TemporaryDirectory() as dirdumpsample:              
+                    if j == 0:
+                        n_images = 10
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag, n_images=n_images)        
+                        fnames = os.listdir(dirdumpsample)
+                        assert len(fnames) <= n_images,f'more than {n_images} dumped'
+                        # assert all([f in cache for f in fnames]), f'filenames {fnames} not found cache'
+                        #TODO: any better test to verify one of the dumped files matches the cache contents?
+                    elif j == 1:
+                        img_list = list(cache.iterkeys())[:5]
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)        
+                    elif j == 2:
+                        img_list = ['**not_in_cache**']                       
+                        try:
+                            diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)                                
+                        except KeyError:
+                            pass
+                        else:
+                            assert False,'diskcache_image_dumpsample:key error should have been raised for non existant key'
 
 
 #################################################################################################
@@ -146,10 +179,16 @@ def test_diskcache():
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
-    Args:
-    Returns:
+    Parameters
+    ----------
 
-     python  util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
+    Returns
+    -------
+
+
+    Notes
+    ----------
+     python  $utildir/images/util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
 
     ### Not used, Only python?3.7  #####################################
     import asyncio
@@ -165,6 +204,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
 
     """
     import cv2, gc, diskcache
+    from utilmy.images import util_image
 
     # globals  for  multprocessed function
     global xdim, ydim
@@ -196,7 +236,7 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # image = util_image.image_resize_pad(image, (xdim,ydim), padColor=255)
-            image = util_image.image_center_crop(image, (245, 245))
+            image = util_image.image_prep_centercrop(image, (245, 245))
             # image = image.astype('float32')
             return image, image_path
             #return [1], "1"
@@ -275,50 +315,35 @@ def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="
         cache[img_path] = img
 
 
-def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1"):
-    """  dump some sample of diskcache images on disk 
-    Args:
-        db_dir ( str ) :
-        dirout ( str ) :
-        tag:
-    Returns:
-
-    """
-    ##### Write some sample images  from cache #############################
-    import diskcache as dc
-    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
-    log('Nimages', len(cache) )
-
-    log('### Check writing on disk  ###########################')
-    dir_check = dirout + f"/{tag}/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache) :
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        key2 = key.split("/")[-1]
-        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
-    log( dir_check )
-
-
-def diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list):
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag=None,n_images:int=None, img_list:list =[]):
     """ dump some sample of diskcache images on disk 
     """
+    ##### Write some sample images  from cache #############################
     # db_dir = "_70k_clean_nobg_256_256-100000.cache"
     import diskcache as dc
+    # cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
     cache   = dc.Cache(db_dir)
     log('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
-    dir_check = dirout
+    dir_check = dirout + (f'/{tag}/' if tag else '')
     os.makedirs(dir_check, exist_ok=True)
+    if not n_images:
+        # if limit on number of images not provided, use inf
+        n_images = math.inf
+    if not img_list:
+        # if list of images not provided, just iterate through the cache
+        img_list = cache 
     for i, key in enumerate(img_list) :
-        if i > 10: break
+
+        if i > n_images: break
         img = cache[key]
         img = img[:, :, ::-1]
         key2 = key.split("/")[-1]
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
+
+
 
 
 def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
@@ -353,6 +378,81 @@ def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3,
 
 ###################################################################################################
 #### Images readers ###############################################################################
+def image_read_iter(dirin_filelist:Union[str, list], **kw):
+    """  Read a file into an image object
+    Args:
+        dirin: The path to the file, a URL, or any object
+            with a `read` method (such as `io.BytesIO`)
+    """
+    import tifffile
+    image_list = [] 
+
+    def image_single(filepath_or_buffer):
+        if filepath_or_buffer.endswith(".tif") or filepath_or_buffer.endswith(".tiff"):
+            image = tifffile.imread(filepath_or_buffer)
+        else:
+            image = cv2.imread(filepath_or_buffer)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return image 
+
+    if isinstance(dirin_filelist, np.ndarray):
+        return dirin_filelist
+
+    if hasattr(dirin_filelist, "read"):
+        image = np.asarray(bytearray(dirin_filelist.read()), dtype=np.uint8)
+        image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+        return image
+
+    elif isinstance(dirin_filelist, list):       
+        flist = dirin_filelist
+
+    elif isinstance(dirin_filelist, str):
+        flist = sorted( glob.glob(dirin_filelist) )
+
+    for fi in flist :
+        yield image_single(fi)
+
+
+
+def image_read2(dirin_filelist:Union[str, list], **kw):
+    """  Read a file into an image object
+    Args:
+        dirin: The path to the file, a URL, or any object
+            with a `read` method (such as `io.BytesIO`)
+    """
+    import tifffile
+    image = None
+    image_list = [] 
+
+    def image_single(filepath_or_buffer):
+        if filepath_or_buffer.endswith(".tif") or filepath_or_buffer.endswith(".tiff"):
+            image = tifffile.imread(filepath_or_buffer)
+        else:
+            image = cv2.imread(filepath_or_buffer)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return image 
+
+    if isinstance(dirin_filelist, np.ndarray):
+        return [dirin_filelist]
+
+    if hasattr(dirin_filelist, "read"):
+        image = np.asarray(bytearray(dirin_filelist.read()), dtype=np.uint8)
+        image = cv2.imdecode(image, cv2.IMREAD_UNCHANGED)
+        return [image]
+
+    elif isinstance(dirin_filelist, list):        
+        for fi in dirin_filelist :
+            image_list.append(image_single(fi))
+
+    elif isinstance(dirin_filelist, str):
+        flist = sorted( glob.glob(dirin_filelist) )
+        for fi in flist :
+            image_list.append(image_single(fi))
+
+    return image_list
+
+
+
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
     """
     Read a file into an image object
@@ -360,6 +460,7 @@ def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
         filepath_or_buffer: The path to the file, a URL, or any object
             with a `read` method (such as `io.BytesIO`)
     """
+    import tifffile
     image = None
     if isinstance(filepath_or_buffer, np.ndarray):
         return filepath_or_buffer
@@ -477,6 +578,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
     """   image white color padded
     """
     import cv2, gc, diskcache
+    from utilmy.images import util_image
 
     in_dir = dirin
   
@@ -560,6 +662,42 @@ def image_prep_multiproc(dirimage_list:list, image_prep_fun=None, npool=1):
     return images, labels
 
 
+def image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width):
+    """
+    Args:
+        image_list:  list of image
+        n_dim:
+        padding_size: padding size max
+        max_height:   max height
+        total_width:  total width
+    Returns:
+    """
+    # create an empty array with a size large enough to contain all the images + padding between images
+    if n_dim == 2:
+        final_image = np.zeros((max_height, total_width), dtype=np.uint8)
+    else:
+        final_image = np.zeros((max_height, total_width, 3), dtype=np.uint8)
+
+    current_x = 0  # keep track of where your current image was last placed in the x coordinate
+    idx_len = len(image_list) - 1
+    for idx, image in enumerate(image_list):
+        # add an image to the final array and increment the x coordinate
+        height = image.shape[0]
+        width = image.shape[1]
+        if n_dim == 2:
+            final_image[:height, current_x : width + current_x] = image
+        else:
+            final_image[:height, current_x : width + current_x, :] = image
+        # add the padding between the images
+        if idx == idx_len:
+            current_x += width
+        else:
+            #TODO @aniket: is padding_size "per image". also is it an int or tuple
+            current_x += width + padding_size[idx]
+
+    return final_image, padding_size
+
+
 
 
 #################################################################################################
@@ -580,7 +718,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         # print(image_path)
         image = image_read(image_path)
         image = image_resize_pad(image, (xdim,ydim), padColor=0)
-        image = image_center_crop(image, (xdim,ydim))
+        image = image_prep_centercrop(image, (xdim, ydim))
         assert np.max(image) > 1, "image should be uint8, 0-255"
         image = (image / 255)
         image = (image-mean) /std  # Normalize the image to mean and std
@@ -591,7 +729,7 @@ def image_prep(image_path:str, xdim :int=1, ydim :int=1,
         return [], ""
 
 
-def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
+def image_prep_centercrop(img:npArrayLike, dim:Tuple[int, int]):
     """Returns center cropped image
     Args:
     img: image to be center cropped
@@ -610,10 +748,25 @@ def image_center_crop(img:npArrayLike, dim:Tuple[int,int]):
     return crop_img
 
 
-def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
+def image_prep_addpadding(paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
+    """
+    Args:
+        paddings_number:  4
+        min_padding:      1
+        max_padding:    100
+    Returns: padding list
+    """
+    return np.random.randint(low=min_padding, high=max_padding + 1, size=paddings_number)
+
+
+
+
+
+###################################################
+def image_resize_ratio(img : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
     Args:
-        image:
+        img:
         width:
         height:
         inter:
@@ -624,11 +777,11 @@ def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_n
     # Grab the image size and initialize dimensions
     import cv2
     dim = None
-    (h, w) = image.shape[:2]
+    (h, w) = img.shape[:2]
 
     # Return original image if no need to resize
     if width is None and height is None:
-        return image
+        return img
 
     # We are resizing height if width is none
     if width is None:
@@ -642,20 +795,20 @@ def image_resize_ratio(image : npArrayLike, width :Int_none =None, height :Int_n
         dim = (width, int(h * r))
 
     # Return the resized image
-    return cv2.resize(image, dim, interpolation=inter)
+    return cv2.resize(img, dim, interpolation=inter)
 
 
-def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none = None, inter=cv2.INTER_AREA):
+def image_resize(img : npArrayLike, width :Int_none =None, height :Int_none = None, inter=cv2.INTER_AREA):
     """Resizes a image and maintains aspect ratio.
     inter: interpolation method (choose from INTER_NEAREST, INTER_LINEAR, INTER_AREA, INTER_CUBIC,INTER_LANCZOS4)
     """
     # Grab the image size and initialize dimensions
     dim = None
-    (h, w) = image.shape[:2]
+    (h, w) = img.shape[:2]
 
     # Return original image if no need to resize
     if width is None and height is None:
-        return image
+        return img
 
     # We are resizing height if width is none
     if width is None:
@@ -669,10 +822,10 @@ def image_resize(image : npArrayLike , width :Int_none =None, height :Int_none =
         dim = (width, int(h * r))
 
     # Return the resized image
-    return cv2.resize(image, dim, interpolation=inter)
+    return cv2.resize(img, dim, interpolation=inter)
 
 
-def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None), padColor=0, pad :bool =True ):
+def image_resize_pad(img :npArrayLike, size : Tuple[Int_none, Int_none]=(None, None), padColor=0, pad :bool =True):
      """resize image while preserving aspect ratio.
      longer side resized to shape, excess space padded
 
@@ -719,53 +872,10 @@ def image_resize_pad(img :npArrayLike,size : Tuple[Int_none,Int_none]=(None,None
      return scaled_img
 
 
-def image_padding_generate( paddings_number: int = 1, min_padding: int = 1, max_padding: int = 1) -> np.array:
-    """
-    Args:
-        paddings_number:  4
-        min_padding:      1
-        max_padding:    100
-    Returns: padding list
-    """
-    return np.random.randint(low=min_padding, high=max_padding + 1, size=paddings_number)
 
 
-def image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width):
-    """
-    Args:
-        image_list:  list of image
-        n_dim:
-        padding_size: padding size max
-        max_height:   max height
-        total_width:  total width
-    Returns:
-    """
-    # create an empty array with a size large enough to contain all the images + padding between images
-    if n_dim == 2:
-        final_image = np.zeros((max_height, total_width), dtype=np.uint8)
-    else:
-        final_image = np.zeros((max_height, total_width, 3), dtype=np.uint8)
 
-    current_x = 0  # keep track of where your current image was last placed in the x coordinate
-    idx_len = len(image_list) - 1
-    for idx, image in enumerate(image_list):
-        # add an image to the final array and increment the x coordinate
-        height = image.shape[0]
-        width = image.shape[1]
-        if n_dim == 2:
-            final_image[:height, current_x : width + current_x] = image
-        else:
-            final_image[:height, current_x : width + current_x, :] = image
-        # add the padding between the images
-        if idx == idx_len:
-            current_x += width
-        else:
-            #TODO @aniket: is padding_size "per image". also is it an int or tuple
-            current_x += width + padding_size[idx]
-
-    return final_image, padding_size
-
-
+##################################################
 def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot :bool =True):
     """TODO: Issue with small dot noise points : noise or not ?
               Padding calc has also issues with small blobs.
@@ -795,7 +905,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
     return crop
 
 
-def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
+def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int=1):
     """ #### remove background
 
          source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
@@ -808,15 +918,11 @@ def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
         mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/
 
     """
-    in_dir  = "/gsp/v1000k_clean/"
-    dirout = "//gsp/v1000k_clean_nobg/"
-
-
-    fpaths = glob.glob(in_dir + "/*")
+    fpaths = glob.glob(dirin + "/*")
     log( str(fpaths)[:10] )
     for fp in fpaths :
         if "." not in fp.split("/")[-1] :
-            fp_out = fp.replace(in_dir, dirout)
+            fp_out = fp.replace(dirin, dirout)
             os.makedirs(fp_out, exist_ok=True)
             cmd = f"rembg   -p {fp}  {fp_out} "    #### no adjustment -ae 15
             log(cmd)
@@ -825,8 +931,7 @@ def image_remove_bg(in_dir:Path_type="", dirout:Path_type="", level:int=1):
             except : pass
 
 
-def image_face_blank(in_dir:Path_type="", level = "/*",
-                     dirout:Path_type=f"", npool=30):
+def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"", npool=30):
     """  Remove face
 
      python prepro.py  image_face_blank
@@ -842,7 +947,7 @@ def image_face_blank(in_dir:Path_type="", level = "/*",
     import cv2, glob
     import face_detection
 
-    fpaths   = glob.glob(os.path.join(in_dir,level))
+    fpaths   = glob.glob(os.path.join(dirin, level))
 
     detector = face_detection.build_detector( "RetinaNetMobileNetV1",
                             confidence_threshold=.5, nms_iou_threshold=.3)
@@ -861,7 +966,7 @@ def image_face_blank(in_dir:Path_type="", level = "/*",
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
-          fout = fp.replace(in_dir, dirout)
+          fout = fp.replace(dirin, dirout)
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass
@@ -874,10 +979,12 @@ def image_face_blank(in_dir:Path_type="", level = "/*",
     pool.join()
 
 
-def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
-    """
-        Not working well
-        python prepro.py  image_text_blank  --in_dir img/data/fashion/ztest   --dirout img/data/fashion/ztest_noface
+def image_remove_text(dirin :Path_type, dirout :Path_type, level="*"):
+    """ Remove text from background image
+    Parameters
+    ----------
+
+
 
 
     """
@@ -885,7 +992,7 @@ def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
     from ztext_detector import detect_text_regions
 
 
-    fpaths  = glob.glob(os.path.join(in_dir,level ))
+    fpaths  = glob.glob(os.path.join(dirin, level))
     log(str(fpaths)[:60])
     for fp in fpaths :
       try :
@@ -900,7 +1007,7 @@ def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
              x0,y0, x1, y1     = int(x0), int(y0), int(x1), int(y1)
              img[y0:y1, x0:x1] = 0
 
-          fout = fp.replace(in_dir, dirout)
+          fout = fp.replace(dirin, dirout)
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
       except : pass #TODO: code smell:better to handle specific exceptions
@@ -915,7 +1022,8 @@ def image_text_blank(in_dir :Path_type, dirout :Path_type, level="*"):
 def download_page_image(query, dirout="query1", genre_en='', id0="", cat="", npage=1) :
     """
         python util_image.py download_page  '    --dirout men_fs_blue
-
+    Parameters
+    ----------
 
     """
     import time, os, json, csv, requests, sys, urllib

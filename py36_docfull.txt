@@ -23,6 +23,13 @@ tqdm
 holidays
 
 ########################################################
+#### utilmy.stats
+numpy-indexed
+pytest
+
+
+
+########################################################
 #### utilmy.debug
 pyinstrument  ### code profile
 icecream  ### debugger
@@ -105,7 +112,6 @@ imodels   ### rule generator
 mapie  ### Uncertainty est.
 
 
-
 ###############################
 ## utilmy.recsys
 ## abracadabra
@@ -122,10 +128,16 @@ torch==1.7.0+cpu
 #-f https://download.pytorch.org/whl/torch_stable.html
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
 
-### Create o=issues
-## onnx
-runtime
+### visualize emb
+mpld3
+hdbscan
+umap
+optuna
 
+
+### ONNX part
+onnxruntime
+# onnx
 
 
 
