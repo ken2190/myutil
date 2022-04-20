@@ -163,6 +163,7 @@ sendtoterminalplus.vsx
 /**/*.pkl
 /**/*.png
 /**/*.zip
+/**/*.csv
 *.csv
 *.vsx
 *.onnx
