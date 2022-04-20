@@ -21,30 +21,17 @@ def google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
 
   Example
   -------
-  import gdown
-  url_or_id = "16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT"  
-  dirout="./ztmp/"
-      # a file
-      url = "https://drive.google.com/uc?id=1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ"
-      output = "fcn8s_from_caffe.npz"
-      gdown.download(url, output, quiet=False)
+  ## File
+  google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
+                    dirout="./ztmp/", unzip=True )
 
-      # same as the above, but with the file ID
-      id = "0B9P1L--7Wd2vNm9zMTJWOGxobkU"
-      gdown.download(id=id, output=output, quiet=False)
+  ## File
+  google_download(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT", 
+                    dirout="./ztmp/", unzip=True )
 
-      # same as the above, and you can copy-and-paste a URL from Google Drive with fuzzy=True
-      url = "https://drive.google.com/file/d/0B9P1L--7Wd2vNm9zMTJWOGxobkU/view?usp=sharing"
-      gdown.download(url=url, output=output, quiet=False, fuzzy=True)
-
-
-      # a folder
-      url = "https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl"
-      gdown.download_folder(url, quiet=True, use_cookies=False)
-
-      # same as the above, but with the folder ID
-      id = "15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl"
-      gdown.download_folder(id=id, quiet=True, use_cookies=False)
+  ### Folder
+  google_download(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl", 
+                    dirout="./ztmp/", unzip=True )
 
   """
   import gdown, shutil, os, glob
@@ -64,7 +51,10 @@ def google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
   isfuzzy = True if '?usp=sharing' in url_or_id else False
 
   try :
-    gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
+    if 'folder' in url_or_id:
+        gdown.download_folder(url_or_id, quiet=False, use_cookies=False)
+    else :      
+        gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
     flist = glob.glob(dirout2 + "/*")
     print('Files downloaded', flist)
     if unzip:
