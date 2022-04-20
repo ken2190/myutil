@@ -11,7 +11,16 @@ MOVIELENS_DATASET_S3_URL = "https://reclist-datasets-6d3c836d-6djh887d.s3.us-wes
 
 def google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     dirout="./ztmp/", unzip=True ):
-  """download  file from google drive on disk + unzip
+  """Download  file from google drive on disk + unzip
+
+  Parameters
+  ----------
+     url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" 
+
+
+
+  Example
+  -------
   import gdown
   url_or_id = "16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT"  
   dirout="./ztmp/"

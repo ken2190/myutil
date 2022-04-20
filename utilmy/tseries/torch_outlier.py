@@ -234,12 +234,12 @@ def dataset_ECG5000_fetch_pandas(nrows=100, dirout="./ztmp/"):
      This will give us more data to train our Autoencoder. also shuffle it:"""
   from arff2pandas import a2p
 
-  
-
   if not os.path.isfile(dirout + '/ECG5000_TRAIN.arff' ):
-     os.makedirs(dirout, exist_ok=True)
-     os.system(f"cd {dirout} && gdown --id 16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT  ")
-     os.system(f"unzip -qq  {dirout}/ECG5000.zip")
+     from utilmy.util_download import google_download
+     google_download( "16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT", dirout=dirout, unzip=True)
+     #os.makedirs(dirout, exist_ok=True)
+     #os.system(f"cd {dirout} && gdown --id  ")
+     #os.system(f"unzip -qq  {dirout}/ECG5000.zip")
 
   with open( dirout + '/ECG5000_TRAIN.arff') as f:
     train = a2p.load(f)
