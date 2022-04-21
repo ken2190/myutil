@@ -23,6 +23,13 @@ tqdm
 holidays
 
 ########################################################
+#### utilmy.stats
+numpy-indexed
+pytest
+
+
+
+########################################################
 #### utilmy.debug
 pyinstrument  ### code profile
 icecream  ### debugger
@@ -110,11 +117,6 @@ mapie  ### Uncertainty est.
 ## abracadabra
 
 
-###############################
-## utilmy.tseries
-arff2pandas
-
-
 ########################################################
 #### utilmy.deeplearning
 protobuf==3.16.0
@@ -130,6 +132,8 @@ torch==1.7.0+cpu
 mpld3
 hdbscan
 umap
+optuna
+
 
 ### ONNX part
 onnxruntime
