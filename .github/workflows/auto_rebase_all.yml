@@ -59,6 +59,7 @@ jobs:
            echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
            export name='dhamani' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='tranchung'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='zpractice'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
 
 
       - name: Create Auto merge  main INTO local
