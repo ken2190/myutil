@@ -49,7 +49,7 @@ MOVIELENS_DATASET_S3_URL         = "https://reclist-datasets-6d3c836d-6djh887d.s
 #############################################################################################
 def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", 
                    dirout="./ztmp/"):
-    """Fetch dataset from a given URL and save it.
+    """Download  file from github 
 
     Parameters
     ----------
