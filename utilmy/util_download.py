@@ -11,59 +11,58 @@ MOVIELENS_DATASET_S3_URL = "https://reclist-datasets-6d3c836d-6djh887d.s3.us-wes
 
 def google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     dirout="./ztmp/", unzip=True ):
-  """Download  file from google drive on disk + unzip
+      """Download  file from google drive on disk + unzip
 
-  Parameters
-  ----------
-  url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
+      Parameters
+      ----------
+      url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
 
 
-  Example
-  -------
-  ## File
-  google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
-                    dirout="./ztmp/", unzip=True )
+      Examples
+      --------
+      File:
+      google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" ,
+                        dirout="./ztmp/", unzip=True )
 
-  ## File
-  google_download(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT", 
-                    dirout="./ztmp/", unzip=True )
+      google_download(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT",
+                        dirout="./ztmp/", unzip=True )
 
-  ### Folder
-  google_download(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl", 
-                    dirout="./ztmp/", unzip=True )
+      Folder:
+      google_download(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",
+                        dirout="./ztmp/", unzip=True )
 
-  """
-  import gdown, shutil, os, glob
-  dirout = os.path.abspath(dirout)
-  dirout = dirout.replace("\\","/")
+      """
+      import gdown, shutil, os, glob
+      dirout = os.path.abspath(dirout)
+      dirout = dirout.replace("\\","/")
 
-  tag = url_or_id
-  if "https:"in  url_or_id:
-    tag = str(hash(url_or_id))
+      tag = url_or_id
+      if "https:" in  url_or_id:
+        tag = str(hash(url_or_id))
 
-  dirout2 = dirout + f"/gdown_{tag}/"
-  os.makedirs(dirout2, exist_ok=True)
-  dir_cur = os.getcwd()
+      dirout2 = dirout + f"/gdown_{tag}/"
+      os.makedirs(dirout2, exist_ok=True)
+      dir_cur = os.getcwd()
 
-  os.chdir(dirout2)
+      os.chdir(dirout2)
 
-  isfuzzy = True if '?usp=sharing' in url_or_id else False
+      isfuzzy = True if '?usp=sharing' in url_or_id else False
 
-  try :
-    if 'folder' in url_or_id:
-        gdown.download_folder(url_or_id, quiet=False, use_cookies=False)
-    else :      
-        gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
-    flist = glob.glob(dirout2 + "/*")
-    print('Files downloaded', flist)
-    if unzip:
-      for fi in flist :
-        shutil.unpack_archive(fi, dirout)
-  except Exception as e:
-    print(e)
-  os.chdir(dir_cur) 
-  return dirout 
+      try :
+        if 'folder' in url_or_id:
+            gdown.download_folder(url_or_id, quiet=False, use_cookies=False)
+        else :
+            gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
+        flist = glob.glob(dirout2 + "/*")
+        print('Files downloaded', flist)
+        if unzip:
+          for fi in flist :
+            shutil.unpack_archive(fi, dirout)
+      except Exception as e:
+        print(e)
+      os.chdir(dir_cur)
+      return dirout
 
 
 
