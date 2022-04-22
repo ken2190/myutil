@@ -51,21 +51,19 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
                    dirout="./ztmp/"):
     """Fetch dataset from a given URL and save it.
 
-    Parameters
-    ----------
-    :param url:   URL to send
-    :param fileout:   Path to save files
-    :param fileout:   File to save files
+      Args:
+        url:   URL
+        dirout:   Path to save files
 
-    Examples
-    --------
-    https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
-    https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip            
-    https://raw.githubusercontent.com/arita37/dsa2_data/main/input/titanic/train/features.csv            
-    https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip             
-    https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
+      Examples:
+          Using file::
+
+                https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
+                https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
+                https://raw.githubusercontent.com/arita37/dsa2_data/main/input/titanic/train/features.csv
+                https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip
+                https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
     """
-    log("###### Download ##################################################")
     from tempfile import mktemp, mkdtemp
     from urllib.parse import urlparse, parse_qs
     import pathlib, requests
@@ -108,34 +106,32 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
 def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     fileout="./ztmp/", unzip=True ):
       """Download  file from google drive on disk + unzip
+      Args:
+          url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
-      Parameters
-      ----------
-      url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
+      Examples:
+          Using file::
 
+              download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" ,
+                                fileout="./ztmp/", unzip=True )
 
+              download_google(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT",
+                                fileout="./ztmp/", unzip=True )
 
-      Examples
-      --------
-      File:
-      download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" ,
-                        fileout="./ztmp/", unzip=True )
+          Using Folder::
 
-      download_google(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT",
-                        fileout="./ztmp/", unzip=True )
-
-      Folder:
-      download_google(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",
-                        fileout="./ztmp/", unzip=True )
+              download_google(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",
+                                fileout="./ztmp/", unzip=True )
 
       """
-      import gdown, shutil, os, glob
+      import gdown, shutil, os, glob, time
       fileout = os.path.abspath(fileout)
       fileout = fileout.replace("\\","/")
 
       tag = url_or_id
       if "https:" in  url_or_id:
-        tag = str(hash(url_or_id))
+        #yyyymmdd = time.strftime("%Y%m%d")
+        tag =  str(hash(url_or_id))
 
       dirout2 = fileout + f"/gdown_{tag}/"
       os.makedirs(dirout2, exist_ok=True)
@@ -143,20 +139,23 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
 
       os.chdir(dirout2)
 
-      isfuzzy = True if '?usp=sharing' in url_or_id else False
 
       try :
         if 'folder' in url_or_id:
             gdown.download_folder(url_or_id, quiet=False, use_cookies=False)
         else :
+            isfuzzy = True if '?usp=sharing' in url_or_id else False
             gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
+
         flist = glob.glob(dirout2 + "/*")
         print('Files downloaded', flist)
+
         if unzip:
           for fi in flist :
             shutil.unpack_archive(fi, fileout)
       except Exception as e:
         print(e)
+
       os.chdir(dir_cur)
       return fileout
 
