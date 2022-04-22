@@ -40,7 +40,7 @@ def test1() -> None:
 #############################################################################################
 def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", 
                    dirout="./ztmp/"):
-    """Fetch dataset from a given URL and save it.
+    """Download  file from github 
 
       Args:
         url:   URL
