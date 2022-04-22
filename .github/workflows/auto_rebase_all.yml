@@ -60,6 +60,8 @@ jobs:
            export name='dhamani' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='tranchung'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='zpractice'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='zdocs_y23487teg65f6'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+
 
 
       - name: Create Auto merge  main INTO local

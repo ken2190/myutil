@@ -49,6 +49,13 @@ extensions = [
 
     #### Buggy 
     #'sphinx_pyreverse'
+
+
+  # 'nbsphinx',   #### Jupyter notebook
+  #'sphinx.ext.mathjax',
+  #'sphinx_rtd_theme',
+  # 'sphinx_gallery.load_style',  # load CSS for gallery (needs SG >= 0.6)
+
 ]
 
 # Add any paths that contain templates here, relative to this directory.

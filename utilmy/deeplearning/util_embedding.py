@@ -66,14 +66,20 @@ def test1() -> None:
     """
     d = Box({})
     dirtmp ="./ztmp/"
-    viz_run(dirin=dirtmp + "/model.vec", dirout= dirtmp + "out/", dim_reduction='umap', nmax=100, ntrain=10)
+    vizembedding_create(dirin=dirtmp + "/model.vec", dirout=dirtmp + "out/", dim_reduction='umap', nmax=100, ntrain=10)
 
 
 
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
-def viz_run(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """
+def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
+   """  Create HTML plot file of embeddings
+
+   Args:
+
+
+   Returns:
+
 
 
    """
@@ -82,13 +88,13 @@ def viz_run(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100
    #### Generate HTML  ############################################
    log(dirin)
 
-   myviz = vizEmbedding(path = dirin )
+   myviz = EmbeddingViz(path = dirin)
    myviz.load_data(nmax= nmax)
-   myviz.run_all(dirout= dirout, dim_reduction=dim_reduction, nmax=nmax, ntrain=50000)
+   myviz.run_all(dirout= dirout, dim_reduction=dim_reduction, nmax=nmax, ntrain=ntrain)
 
 
 
-class vizEmbedding:
+class EmbeddingViz:
     def __init__(self, path="myembed.parquet", num_clusters=5, sep=";", config:dict=None):
         """
            Many issues with numba, numpy, pyarrow !!!!
