@@ -11,7 +11,6 @@ from typing import List, Optional, Tuple, Union  ; from numpy import ndarray
 from box import Box
 
 
-from utilmy import pd_read_file, os_makedirs, pd_to_file, glob_glob
 
 #############################################################################################
 from utilmy import log, log2
@@ -36,14 +35,6 @@ def test1() -> None:
     dirtmp ="./ztmp/"
 
 
-#############################################################################################
-COVEO_INTERACTION_DATASET_S3_URL = 'https://reclist-datasets-6d3c836d-6djh887d.s3.us-west-2.amazonaws.com/coveo_sigir.zip'
-SPOTIFY_PLAYLIST_DATASET_S3_URL  = 'https://reclist-datasets-6d3c836d-6djh887d.s3.us-west-2.amazonaws.com/small_spotify_playlist.zip'
-MOVIELENS_DATASET_S3_URL         = "https://reclist-datasets-6d3c836d-6djh887d.s3.us-west-2.amazonaws.com/movielens_25m.zip"
-
-
-
-
 
 
 #############################################################################################
@@ -56,11 +47,10 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
         dirout:   Path to save files
 
       Examples:
+
           Using file::
 
                 https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
-                https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
-                https://raw.githubusercontent.com/arita37/dsa2_data/main/input/titanic/train/features.csv
                 https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip
                 https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
     """
@@ -112,16 +102,13 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
       Examples:
           Using file::
 
-              download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" ,
-                                fileout="./ztmp/", unzip=True )
+              download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , fileout="./ztmp/", unzip=True )
 
-              download_google(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT",
-                                fileout="./ztmp/", unzip=True )
+              download_google(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT", fileout="./ztmp/", unzip=True )
 
           Using Folder::
 
-              download_google(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",
-                                fileout="./ztmp/", unzip=True )
+              download_google(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",  fileout="./ztmp/", unzip=True )
 
       """
       import gdown, shutil, os, glob, time
@@ -299,7 +286,7 @@ def os_extract_archive(file_path, dirout="./ztmp/", archive_format="auto"):
         archive_format = [archive_format]
 
     file_path = os.path.abspath(file_path)
-    dirout = os.path.abspath(dirout)
+    dirout    = os.path.abspath(dirout)
 
     for archive_type in archive_format:
         if archive_type == "tar":
@@ -327,11 +314,13 @@ def os_extract_archive(file_path, dirout="./ztmp/", archive_format="auto"):
     return False
 
 
+
 def to_file(s, filep):
     """function to_file
     Args:
         s:
         filep:
+
     Returns:
 
     """
@@ -356,6 +345,16 @@ def download_with_progress(url, fileout):
                        total=int(response.headers.get('content-length', 0))) as fout:
         for chunk in response.iter_content(chunk_size=4096):
             fout.write(chunk)
+
+
+
+
+
+
+### Aliass
+unzip_file = os_extract_archive
+
+
 
 
 
