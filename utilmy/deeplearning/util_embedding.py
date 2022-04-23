@@ -637,8 +637,7 @@ def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_di
 ########################################################################################################
 ######## Top-K retrieval Faiss #########################################################################
 def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
-    """
-      1 billion size vector creation
+    """ 1 billion size vector creation
       ####  python prepro.py   faiss_create_index      2>&1 | tee -a log_faiss.txt    
     """
     import faiss
@@ -663,7 +662,7 @@ def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4
     tag = f"_" + str(len(df))    
     df  = df.sort_values('id')    
     df[ 'idx' ] = np.arange(0,len(df))
-    pd_to_file( df[[ 'idx', 'id' ]].rename(columns={"id":'item_tag_vran'}), 
+    pd_to_file( df[[ 'idx', 'id' ]], 
                 dirout + f"/map_idx{tag}.parquet", show=1)   #### Keeping maping faiss idx, item_tag
     
 
