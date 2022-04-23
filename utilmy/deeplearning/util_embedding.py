@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME='utilmy.deeplearning.util_embedding'
-HELP=""" Embedding
+HELP=""" Embedding utils/ Visualization
 
 https://try2explore.com/questions/10109123
 
@@ -8,9 +8,7 @@ https://mpld3.github.io/examples/index.html
 
 
 """
-import os, glob, sys, math, time, json, functools, random, yaml, gc, copy
-from datetime import datetime
-import pandas as pd, numpy as np
+import os, glob, sys, math, time, json, functools, random, yaml, gc, copy, pandas as pd, numpy as np
 from pathlib import Path; from collections import defaultdict, OrderedDict ;
 from typing import List, Optional, Tuple, Union  ; from numpy import ndarray
 from box import Box
@@ -637,7 +635,7 @@ def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_di
 
 
 ########################################################################################################
-######## Top-K retrieval ###############################################################################
+######## Top-K retrieval Faiss #########################################################################
 def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
     """
       1 billion size vector creation
