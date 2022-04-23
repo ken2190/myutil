@@ -354,10 +354,9 @@ https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integrati
 #######iguana Rule generator ################################################################
 
 def generate_rules_fromdata():
-    """"  Helper for Rule Generators
+    """"  Helper for Rule Generators.
+    Code::
 
-    """
-    ss = """
         from iguanas.rule_generation import RuleGeneratorDT
         from iguanas.rule_optimisation import BayesianOptimiser
         from iguanas.metrics.classification import FScore, Precision
@@ -390,8 +389,8 @@ def generate_rules_fromdata():
         }
 
      https://paypal.github.io/Iguanas/examples/complete/rbs_example.html
-
     """
+    ss=""
     print(ss)
 
 
