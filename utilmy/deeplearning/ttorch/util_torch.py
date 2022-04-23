@@ -412,10 +412,11 @@ class SmeLU(nn.Module):
 
 
 #####################################################################################################################
-def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], ypred_proba=None, return_dict=False, metric_pars:dict=None):
+def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,  metric_list:list=["mean_squared_error", "mean_absolute_error("], 
+                 ypred_proba:np.ndarray=None, return_dict:bool=False, metric_pars:dict=None):
     """ Generic metrics calculation, using sklearn naming pattern.
     Code::
-
+          Metric names are below
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           
           #### Classification metrics
