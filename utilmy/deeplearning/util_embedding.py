@@ -64,7 +64,7 @@ def test1() -> None:
     """
     d = Box({})
     dirtmp ="./ztmp/"
-    vizembedding_create(dirin=dirtmp + "/model.vec", dirout=dirtmp + "out/", dim_reduction='umap', nmax=100, ntrain=10)
+    embedding_create_vizhtml(dirin=dirtmp + "/model.vec", dirout=dirtmp + "out/", dim_reduction='umap', nmax=100, ntrain=10)
 
 
 
@@ -718,7 +718,7 @@ def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4
         
 
 
-def faiss_load_index(db_path=faiss_index):
+def faiss_load_index(faiss_index_path=""):
     return None
 
 
