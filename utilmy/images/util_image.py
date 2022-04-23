@@ -765,12 +765,6 @@ def image_prep_addpadding(paddings_number: int = 1, min_padding: int = 1, max_pa
 ###################################################
 def image_resize_ratio(img : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
-    Args:
-        img:
-        width:
-        height:
-        inter:
-    Returns:
 
     """
     # Resizes a image and maintains aspect ratio
@@ -906,16 +900,15 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
 
 
 def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int=1):
-    """ #### remove background
+    """ Remove background
+    Code::
 
-         source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
+        source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
 
+        python $utilmy/images/util_image.py image_remove_backgroun  --dirin  img/data/bing/v4     --dirout  img/data/bing/v4_nobg &>> img/data/zlog_rembg.py  &
 
-        python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --dirout  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
+        rembg  -ae 15 -p  img/data/fashion/test2/  img/data/fashion/test_nobg/
 
-        rembg  -ae 15 -p  /data/workspaces/noelkevin01/img/data/fashion/test2/  /data/workspaces/noelkevin01/img/data/fashion/test_nobg/
-
-        mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/
 
     """
     fpaths = glob.glob(dirin + "/*")
@@ -933,15 +926,16 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
 
 def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"", npool=30):
     """  Remove face
+    Code::
 
-     python prepro.py  image_face_blank
+        python $utilmy/images/util_image.py  image_face_blank
 
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
 
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
 
 
-      five elements are [xmin, ymin, xmax, ymax, detection_confidence]
+        five elements are [xmin, ymin, xmax, ymax, detection_confidence]
 
     """
     import cv2, glob

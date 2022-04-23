@@ -426,9 +426,10 @@ def onnx_convert(torch_model='path/mymodule.py:myModel or model object',
     dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
     device              = 'cpu',
     ):
-    """Convert a pytorch model to onnx
-    Parameters
-    ----------
+    """Convert a pytorch model to onnx.
+    
+    Arguments::
+
         torch_model                         : model object to load state dict  OR path of the model .py definition
         dir_checkpoint     (str)           : path to checkpoint file
         dirout              (str)           : directory to save the onnx model
@@ -439,7 +440,7 @@ def onnx_convert(torch_model='path/mymodule.py:myModel or model object',
         output_names        (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
     
-    Returns: None    
+        Returns: None    
     """
     import glob, os
     filename = '.'.join(os.path.basename(dir_checkpoint).split('.')[:-1])
