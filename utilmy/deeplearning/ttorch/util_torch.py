@@ -412,13 +412,15 @@ class SmeLU(nn.Module):
 
 
 #####################################################################################################################
-def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], ypred_proba=None, return_dict=False):
+def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], ypred_proba=None, return_dict=False, metric_pars:dict=None):
     """ Generic metrics calculation, using sklearn naming pattern
     Example:
     
        metric_list::
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           
+
+          #### Classification metrics
           accuracy_score(y_true, y_pred, *[, ...])
           auc(x, y)
           average_precision_score(y_true, ...)
@@ -446,6 +448,81 @@ def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], y
           roc_curve(y_true, y_score, *[, ...])
           top_k_accuracy_score(y_true, y_score, *)
           zero_one_loss(y_true, y_pred, *[, ...])
+
+
+          #### Regression metrics
+          explained_variance_score(y_true, ...)
+          max_error(y_true, y_pred)
+          mean_absolute_error(y_true, y_pred, *)
+          mean_squared_error(y_true, y_pred, *)
+          mean_squared_log_error(y_true, y_pred, *)
+          median_absolute_error(y_true, y_pred, *)
+          mean_absolute_percentage_error(...)
+          r2_score(y_true, y_pred, *[, ...])
+          mean_poisson_deviance(y_true, y_pred, *)
+          mean_gamma_deviance(y_true, y_pred, *)
+          mean_tweedie_deviance(y_true, y_pred, *)
+          d2_tweedie_score(y_true, y_pred, *)
+          mean_pinball_loss(y_true, y_pred, *)
+
+
+          #### Multilabel ranking metrics
+          coverage_error(y_true, y_score, *[, ...])
+          label_ranking_average_precision_score(...)
+          label_ranking_loss(y_true, y_score, *)
+
+
+          ##### Clustering
+          supervised, which uses a ground truth class values for each sample.
+          unsupervised, which does not and measures the ‘quality’ of the model itself.
+
+          adjusted_mutual_info_score(...[, ...])
+          adjusted_rand_score(labels_true, ...)
+          calinski_harabasz_score(X, labels)
+          davies_bouldin_score(X, labels)
+          completeness_score(labels_true, ...)
+          cluster.contingency_matrix(...[, ...])
+          cluster.pair_confusion_matrix(...)
+          fowlkes_mallows_score(labels_true, ...)
+          homogeneity_completeness_v_measure(...)
+          homogeneity_score(labels_true, ...)
+          mutual_info_score(labels_true, ...)
+          normalized_mutual_info_score(...[, ...])
+          rand_score(labels_true, labels_pred)
+          silhouette_score(X, labels, *[, ...])
+          silhouette_samples(X, labels, *[, ...])
+          v_measure_score(labels_true, ...[, beta])
+          consensus_score(a, b, *[, similarity])
+
+
+
+          #### Pairwise metrics
+          pairwise.additive_chi2_kernel(X[, Y])
+          pairwise.chi2_kernel(X[, Y, gamma])
+          pairwise.cosine_similarity(X[, Y, ...])
+          pairwise.cosine_distances(X[, Y])
+          pairwise.distance_metrics()
+          pairwise.euclidean_distances(X[, Y, ...])
+          pairwise.haversine_distances(X[, Y])
+          pairwise.kernel_metrics()
+          pairwise.laplacian_kernel(X[, Y, gamma])
+          pairwise.linear_kernel(X[, Y, ...])
+          pairwise.manhattan_distances(X[, Y, ...])
+          pairwise.nan_euclidean_distances(X)
+          pairwise.pairwise_kernels(X[, Y, ...])
+          pairwise.polynomial_kernel(X[, Y, ...])
+          pairwise.rbf_kernel(X[, Y, gamma])
+          pairwise.sigmoid_kernel(X[, Y, ...])
+          pairwise.paired_euclidean_distances(X, Y)
+          pairwise.paired_manhattan_distances(X, Y)
+          pairwise.paired_cosine_distances(X, Y)
+          pairwise.paired_distances(X, Y, *[, ...])
+          pairwise_distances(X[, Y, metric, ...])
+          pairwise_distances_argmin(X, Y, *[, ...])
+          pairwise_distances_argmin_min(X, Y, *)
+          pairwise_distances_chunked(X[, Y, ...])
+
+
                 
     """
     import pandas as pd, importlib, sklearn
@@ -484,6 +561,29 @@ def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], y
 
     mdict = pd.DataFrame(mdict)
     return mdict
+
+
+def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
+    """ Generic metrics Plotting
+    Example:
+    
+       metric_list::
+          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+          
+          #### Plotting
+          plot_confusion_matrix(estimator, X, ...)
+          plot_det_curve(estimator, X, y, *[, ...])
+          plot_precision_recall_curve(...[, ...])
+          plot_roc_curve(estimator, X, y, *[, ...])
+          ConfusionMatrixDisplay(...[, ...])
+          DetCurveDisplay(*, fpr, fnr[, ...])
+          PrecisionRecallDisplay(precision, ...)
+          RocCurveDisplay(*, fpr, tpr[, ...])
+          calibration.CalibrationDisplay(prob_true, ...)
+                
+    """
+
+
 
 
 #############################################################################################
