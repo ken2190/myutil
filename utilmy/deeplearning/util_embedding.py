@@ -460,18 +460,84 @@ def embedding_load_pickle(dirin=None, skip=0, nmax=10 ** 8,
 
 
 
+def embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list,
+                                 plot_title,
+                                 plot_width=1200, plot_height=600,
+                                 xaxis_font_size='12pt', yaxis_font_size='12pt'):
+        """ Compare embedding from disk
+           list of vectors    vs list of labels
+           list of vectors    vs list tof labels
+
+
+        """
+        import bokeh
+        import bokeh.models
+        import bokeh.plotting
+
+        assert len(embeddings_1) == len(labels_1)
+        assert len(embeddings_2) == len(labels_2)
+
+        # arccos based text similarity (Yang et al. 2019; Cer et al. 2019)
+        sim = 1 - np.arccos(
+            sklearn.metrics.pairwise.cosine_similarity(embeddings_1,
+                                                       embeddings_2))/np.pi
+
+        embeddings_1_col, embeddings_2_col, sim_col = [], [], []
+        for i in range(len(embeddings_1)):
+          for j in range(len(embeddings_2)):
+            embeddings_1_col.append(labels_1[i])
+            embeddings_2_col.append(labels_2[j])
+            sim_col.append(sim[i][j])
+        df = pd.DataFrame(zip(embeddings_1_col, embeddings_2_col, sim_col),
+                          columns=['embeddings_1', 'embeddings_2', 'sim'])
+
+        mapper = bokeh.models.LinearColorMapper(
+            palette=[*reversed(bokeh.palettes.YlOrRd[9])], low=df.sim.min(),
+            high=df.sim.max())
+
+        p = bokeh.plotting.figure(title=plot_title, x_range=labels_1,
+                                  x_axis_location="above",
+                                  y_range=[*reversed(labels_2)],
+                                  plot_width=plot_width, plot_height=plot_height,
+                                  tools="save",toolbar_location='below', tooltips=[
+                                      ('pair', '@embeddings_1 ||| @embeddings_2'),
+                                      ('sim', '@sim')])
+        p.rect(x="embeddings_1", y="embeddings_2", width=1, height=1, source=df,
+               fill_color={'field': 'sim', 'transform': mapper}, line_color=None)
+
+        p.title.text_font_size = '12pt'
+        p.axis.axis_line_color = None
+        p.axis.major_tick_line_color = None
+        p.axis.major_label_standoff = 16
+        p.xaxis.major_label_text_font_size = xaxis_font_size
+        p.xaxis.major_label_orientation = 0.25 * np.pi
+        p.yaxis.major_label_text_font_size = yaxis_font_size
+        p.min_border_right = 300
+
+        bokeh.io.output_notebook()
+        bokeh.io.show(p)
+
+
+
 ########################################################################################################
 ######## Top-K retrieval ###############################################################################
-def sim_scores_sklearn(embs, words):
-    """
-      Calculation
+def sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric=False):
+    """ Pairwise Cosinus Sim scores
+    Example:
+        Code::
+
+           embs   = np.random.random((10,200))
+           idlist = [str(i) for i in range(0,10)]
+           df = sim_scores_fast(embs:np, idlist, is_symmetric=False)
+           df[[ 'id1', 'id2', 'sim_score'  ]]
+
     """
     from sklearn.metrics.pairwise import cosine_similarity    
     dfsim = []
-    for i in  range(0, len(words) -1) :
+    for i in  range(0, len(idlist) -1) :
         vi = embs[i,:]
         normi = np.sqrt(np.dot(vi,vi))
-        for j in range(i+1, len(words) ) :
+        for j in range(i+1, len(idlist) ) :
             # simij = cosine_similarity( embs[i,:].reshape(1, -1) , embs[j,:].reshape(1, -1)     )
             vj = embs[j,:]
             normj = np.sqrt(np.dot(vj, vj))
@@ -479,23 +545,26 @@ def sim_scores_sklearn(embs, words):
             dfsim.append([ words[i], words[j],  simij   ])
             # dfsim2.append([ nwords[i], nwords[j],  simij[0][0]  ])
     
-    dfsim  = pd.DataFrame(dfsim, columns= ['l3_genre_a', 'l3_genre_b', 'sim_score' ] )   
+    dfsim  = pd.DataFrame(dfsim, columns= ['id1', 'id2', 'sim_score' ] )   
 
-    ### Add symmetric part      
-    dfsim3 = copy.deepcopy(dfsim)
-    dfsim3.columns = ['l3_genre_b', 'l3_genre_a', 'sim_score' ]
-    dfsim          = pd.concat(( dfsim, dfsim3 ))
+    if is_symmetric:
+        ### Add symmetric part      
+        dfsim3 = copy.deepcopy(dfsim)
+        dfsim3.columns = ['id2', 'id1', 'sim_score' ] 
+        dfsim          = pd.concat(( dfsim, dfsim3 ))
     return dfsim
 
 
 
-def sim_scores_faiss(path=""):
-    """
-       Sim Score using FAISS
+def sim_scores_faiss(embs:np.ndarray, idlist:list, is_symmetric=False):
+    """ Sim Score using FAISS
+    #To Tally the results check the cosine similarity of the following example
+    #from scipy import spatial
+    #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
+    #print('Distance by FAISS:{}'.format(result))
     
     """
     import faiss
-    x0 = [ 0.1, .2, 0.3]
     x  = np.array([x0]).astype(np.float32)
 
     index = faiss.index_factory(3, "Flat", faiss.METRIC_INNER_PRODUCT)
@@ -503,16 +572,71 @@ def sim_scores_faiss(path=""):
     faiss.normalize_L2(x)
     index.add(x)
     distance, index = index.search(x, 5)
-    log(f'Distance by FAISS:{distance}')
     return distance, index
     
-    #To Tally the results check the cosine similarity of the following example
-    #from scipy import spatial
-    #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
-    #print('Distance by FAISS:{}'.format(result))
 
 
 
+def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3) :
+   """ Retrieve top k nearest vectors using FAISS, raw retrievail
+   """
+   import faiss  
+   index = faiss.index_factory(x0.shape[1], 'Flat')
+   index.add(vector_list)
+   dist, indice = index.search(x0, topk)
+   return dist, indice
+
+
+
+def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_dim=200, tag=None, debug=True):
+    """ Get Topk vector per each element vector of dirin
+    Example:
+        Code::
+    
+           python $utilmy/deeplearning/util_embedding.py  topk_calc   --diremb     --dirout
+    
+
+    """
+    from utilmy import pd_read_file
+
+    ##### Load emb data  ###############################################
+    flist    = glob_glob(diremb)
+    df       = pd_read_file(  flist , n_pool=10 )
+    df.index = np.arange(0, len(df))
+    log(df)
+
+    assert len(df[['id', 'emb' ]]) > 0
+
+
+    ##### Element X0 ####################################################
+    vectors = np_str_to_array(df['emb'].values,  mdim= emb_dim)   
+
+    llids = idlist
+    if idlist is None :    
+       llids = df['id'].values    
+       llids = llids[:nexample]
+
+    dfr = [] 
+    for ii in range(0, len(llids)) :        
+        x0      = vectors[ii]
+        xname   = llids[ii]
+        log(xname)
+        x0         = x0.reshape(1, -1).astype('float32')  
+        dist, rank = topk_nearest_vector(x0, vectors, topk= topk) 
+        
+        ss_rankid = np_array_to_str( llids[ rank[0] ] )
+        ss_distid = np_array_to_str( dist[0]  )
+
+        dfr.append([  xname, x0,  ss_rankid,  ss_distid  ])   
+
+    dfr = pd.DataFrame( dfr, columns=[  'id', 'emb', 'topk', 'dist'  ] )
+    pd_read_file( dfr, dirout + f"/topk_{tag}.parquet"  )
+
+
+
+
+########################################################################################################
+######## Top-K retrieval ###############################################################################
 def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200):
     """
       1 billion size vector creation
@@ -709,132 +833,7 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
 
 
 
-def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3) :
-   """ Retrieve top k nearest vectors using FAISS, raw retrievail
-   """
-   import faiss  
-   index = faiss.index_factory(x0.shape[1], 'Flat')
-   index.add(vector_list)
-   dist, indice = index.search(x0, topk)
-   return dist, indice
-
-
-
-def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_dim=200, tag=None, debug=True):
-    """ Get Topk vector per each element vector of dirin
-    Example:
-        Code::
-    
-           python $utilmy/deeplearning/util_embedding.py  topk_calc   --diremb     --dirout
-    
-
-    """
-    from utilmy import pd_read_file
-
-    ##### Load emb data  ###############################################
-    flist    = glob_glob(diremb)
-    df       = pd_read_file(  flist , n_pool=10 )
-    df.index = np.arange(0, len(df))
-    log(df)
-
-    assert len(df[['id', 'emb' ]]) > 0
-
-
-
-
-    ##### Element X0 ####################################################
-    vectors = np_str_to_array(df['emb'].values,  mdim= emb_dim)   
-    
-    llids = df['id'].values    
-    llids = llids[:nexample]
-    
-
-    for ii in range(0, len(llids)) :        
-        if ii >= nexample : break
-        x0      = vectors[ii]
-        xname   = llids[ii]
-        log(xname)
-
-        x0      = x0.reshape(1, -1).astype('float32')  
-        # log(x0.shape, vectors.shape)
-        dist, rank = topk_nearest_vector(x0, vectors, topk= topk) 
-
-        ss_rankid = np_array_to_str( llids[ rank[0] ] )
-        ss_distid = np_array_to_str(  dist[0]  )
-
-        ss_rankid_list.append(ss_rankid)   
-        ss_distid_list.append(ss_distid)
-
-    df['topk'] = ss_rankid_list
-    df['dist'] = ss_distid_list
-    pd_read_file( df, dirout + f"/topk_{tag}.parquet"  )
-
-
-
-
-
-
-
-
-
-
 ###############################################################################################################
-def embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list,
-                                 plot_title,
-                                 plot_width=1200, plot_height=600,
-                                 xaxis_font_size='12pt', yaxis_font_size='12pt'):
-        """ Compare embedding from disk
-           list of vectors    vs list of labels
-           list of vectors    vs list tof labels
-
-
-        """
-        import bokeh
-        import bokeh.models
-        import bokeh.plotting
-
-        assert len(embeddings_1) == len(labels_1)
-        assert len(embeddings_2) == len(labels_2)
-
-        # arccos based text similarity (Yang et al. 2019; Cer et al. 2019)
-        sim = 1 - np.arccos(
-            sklearn.metrics.pairwise.cosine_similarity(embeddings_1,
-                                                       embeddings_2))/np.pi
-
-        embeddings_1_col, embeddings_2_col, sim_col = [], [], []
-        for i in range(len(embeddings_1)):
-          for j in range(len(embeddings_2)):
-            embeddings_1_col.append(labels_1[i])
-            embeddings_2_col.append(labels_2[j])
-            sim_col.append(sim[i][j])
-        df = pd.DataFrame(zip(embeddings_1_col, embeddings_2_col, sim_col),
-                          columns=['embeddings_1', 'embeddings_2', 'sim'])
-
-        mapper = bokeh.models.LinearColorMapper(
-            palette=[*reversed(bokeh.palettes.YlOrRd[9])], low=df.sim.min(),
-            high=df.sim.max())
-
-        p = bokeh.plotting.figure(title=plot_title, x_range=labels_1,
-                                  x_axis_location="above",
-                                  y_range=[*reversed(labels_2)],
-                                  plot_width=plot_width, plot_height=plot_height,
-                                  tools="save",toolbar_location='below', tooltips=[
-                                      ('pair', '@embeddings_1 ||| @embeddings_2'),
-                                      ('sim', '@sim')])
-        p.rect(x="embeddings_1", y="embeddings_2", width=1, height=1, source=df,
-               fill_color={'field': 'sim', 'transform': mapper}, line_color=None)
-
-        p.title.text_font_size = '12pt'
-        p.axis.axis_line_color = None
-        p.axis.major_tick_line_color = None
-        p.axis.major_label_standoff = 16
-        p.xaxis.major_label_text_font_size = xaxis_font_size
-        p.xaxis.major_label_orientation = 0.25 * np.pi
-        p.yaxis.major_label_text_font_size = yaxis_font_size
-        p.min_border_right = 300
-
-        bokeh.io.output_notebook()
-        bokeh.io.show(p)
 
 
 
@@ -880,9 +879,15 @@ if 'utils_matplotlib':
 
 
 if 'utils_vector':
+    def np_array_to_str(vv, ):
+        """ array/list into  , string """
+        vv= np.array(vv, dtype='float32')
+        vv= [ str(x) for x in vv]
+        return ",".join(vv)
+
+
     def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
-        """
-        ### Extract list of string into numpy 2D Array
+        """ Extract list of string into numpy 2D Array
         #mdim = len(vv[0].split(","))
         # mdim = 200
 
