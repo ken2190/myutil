@@ -74,11 +74,11 @@ def test1() -> None:
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
    """  Create HTML plot file of embeddings
-
-   Args:
-
-
-   Returns:
+   Example:
+      Code::
+         
+          dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
+          embedding_create_vizhtml(dirin="in/model.vec", dirout="zhtmlfile/", dim_reduction='umap', nmax=100, ntrain=10)
 
 
 
@@ -97,15 +97,17 @@ def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction
 class EmbeddingViz:
     def __init__(self, path="myembed.parquet", num_clusters=5, sep=";", config:dict=None):
         """
-           Many issues with numba, numpy, pyarrow !!!!
-           pip install  pynndescent==0.5.4  numba==0.53.1  umap-learn==0.5.1  llvmlite==0.36.0   numpy==1.19.1   --no-deps
+        Example:
+           Code::
 
+                Many issues with numba, numpy, pyarrow !!!!
+                pip install  pynndescent==0.5.4  numba==0.53.1  umap-learn==0.5.1  llvmlite==0.36.0   numpy==1.19.1   --no-deps
 
-           myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
-           myviz.run_all(nmax=5000)
+                myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
+                myviz.run_all(nmax=5000)
 
-           myviz.dim_reduction(mode='mds')
-           myviz.create_visualization(dir_out="ztmp/vis/")
+                myviz.dim_reduction(mode='mds')
+                myviz.create_visualization(dir_out="ztmp/vis/")
 
         """
         self.path         = path
@@ -369,6 +371,7 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
     return os.path.dirname(dirout2)
 
 
+
 def embedding_load_parquet(dirin="df.parquet",  colid     = 'id', col_embed = 'pred_emb',  nmax = 500):
     """  id, emb (string , separated)
     
@@ -434,7 +437,6 @@ def embedding_load_word2vec(dirin=None, skip=0, nmax=10 ** 8,
     dflabel['label1'] = 0
 
     return  embs, id_map, dflabel
-
 
 
 
@@ -592,7 +594,11 @@ def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4
     faiss.write_index(index, dirout2 )
     return dirout2
         
-                
+
+def faiss_load_index(db_path=faiss_index):
+    return None
+
+
 def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
    """ id, dist_list, id_list 
        ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
@@ -702,6 +708,7 @@ def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, t
    return os.path.dirname( dirout2 )
 
 
+
 def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3) :
    """ Retrieve top k nearest vectors using FAISS, raw retrievail
    """
@@ -712,45 +719,59 @@ def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3) :
    return dist, indice
 
 
-def topk(dirin="", dirout="", topk=100, pattern="df_*1000*.parquet", nrows=1000000000, tag=None, debug=True):
-    """  python emb.py  topk    |& tee -a  /zzlog.py
+
+def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_dim=200, tag=None, debug=True):
+    """ Get Topk vector per each element vector of dirin
+    Example:
+        Code::
     
+           python $utilmy/deeplearning/util_embedding.py  topk_calc   --diremb     --dirout
+    
+
     """
     from utilmy import pd_read_file
 
-
-    #### Load emb data  ###############################################
-    flist = glob_glob(dirin)
-    df        = pd_read_file(  flist , n_pool=10 )
+    ##### Load emb data  ###############################################
+    flist    = glob_glob(diremb)
+    df       = pd_read_file(  flist , n_pool=10 )
     df.index = np.arange(0, len(df))
     log(df)
-    # df['emb'] = df['emb'].apply(lambda x :  list( np.array(x) /np.sqrt(np.dot(x,x)) ) )   ###Norm Vector
 
-        
-    #### Element X0 ####################################################
-    llids   = list(df.sample(frac=1.0)['id'].values)
-    vectors =  np_str_to_array(df['emb'].values,  mdim=200)   
+    assert len(df[['id', 'emb' ]]) > 0
+
+
+
+
+    ##### Element X0 ####################################################
+    vectors = np_str_to_array(df['emb'].values,  mdim= emb_dim)   
     
-    # faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF4096,Flat", nfile=1000, emb_dim=200)
+    llids = df['id'].values    
+    llids = llids[:nexample]
     
-    for ii,idr in enumerate(llids) :        
-        if ii >= nrows : break
-        dfi     = df[ df['id'] == idr ] 
-        if len(dfi) < 1: continue
-        x0      = np.array(dfi['emb'].values[0]).astype(np.float32)
-        xname   = dfi['id'].values[0]
+
+    for ii in range(0, len(llids)) :        
+        if ii >= nexample : break
+        x0      = vectors[ii]
+        xname   = llids[ii]
         log(xname)
 
-        ##### Setup Faiss queey ########################################
         x0      = x0.reshape(1, -1).astype('float32')  
         # log(x0.shape, vectors.shape)
         dist, rank = topk_nearest_vector(x0, vectors, topk= topk) 
-        df1              = df.iloc[rank[0], :]
-        df1['topk_dist'] = dist[0]
-        df1['topk_rank'] = np.arange(0, len(df1))
-        if debug: log( df1 )
-        del df1['emb']
-        pd_read_file( dirout + f"/topk_{xname}_{tag}.parquet"  )
+
+        ss_rankid = np_array_to_str( llids[ rank[0] ] )
+        ss_distid = np_array_to_str(  dist[0]  )
+
+        ss_rankid_list.append(ss_rankid)   
+        ss_distid_list.append(ss_distid)
+
+    df['topk'] = ss_rankid_list
+    df['dist'] = ss_distid_list
+    pd_read_file( df, dirout + f"/topk_{tag}.parquet"  )
+
+
+
+
 
 
 
