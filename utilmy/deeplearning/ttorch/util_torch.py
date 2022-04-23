@@ -118,7 +118,8 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     Returns:
         
     """
-    batch_size = arg.batch_size
+    arg = 
+    batch_size = arg.get('batch_size', 64)
     train_loader, valid_loader, test_loader = None, None, None
 
     if train_X is not None :

@@ -34,7 +34,7 @@ def help():
     from utilmy import help_create
     print( HELP + help_create("utilmy.stats.statistics") )
 
-    
+
 #################################################################################################
 def test_all():
     """
