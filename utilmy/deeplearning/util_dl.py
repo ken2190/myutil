@@ -27,19 +27,20 @@ def test_all():
 ################################################################################################
 ################################################################################################
 def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
-    """ Save Arbitrary dict in tensorboard
-    #### Usage 1
-    logdir = 'logs/params'
-    cc = {'arbitray dict' : 1, 'ykey': {'mykey2' : 5 } }
+    """ Save Arbitrary dict in tensorboard.
+    Code::
 
-    from tensorboardX import SummaryWriter
-    # from tensorboard import SummaryWriter
-    tb_writer = SummaryWriter(logdir)
-    tensorboard_log(cc, writer= tb_writer)
+        #### Usage 1
+        logdir = 'logs/params'
+        cc = {'arbitray dict' : 1, 'ykey': {'mykey2' : 5 } }
 
+        from tensorboardX import SummaryWriter
+        # from tensorboard import SummaryWriter
+        tb_writer = SummaryWriter(logdir)
+        tensorboard_log(cc, writer= tb_writer)
 
-    %reload_ext tensorboard
-    %tensorboard --logdir logs/params/
+        %reload_ext tensorboard
+        %tensorboard --logdir logs/params/
     """
     import collections
     def dict_flatten(d, parent_key='', sep='_'):
@@ -51,7 +52,6 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
             else:
                 items.append((new_key, v))
         return dict(items)
-
 
     flatten_box = dict_flatten(pars_dict)
     if verbose:

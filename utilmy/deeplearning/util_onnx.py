@@ -4,7 +4,7 @@ HELP = """ utils for ONNX runtime Optimization
 
 
 cd myutil
-python utilmy/deeplearning/util_onnx.py    test1
+python $utilmy/deeplearning/util_onnx.py    test1
 
 
 https://cloudblogs.microsoft.com/opensource/2022/04/19/scaling-up-pytorch-inference-serving-billions-of-daily-nlp-inferences-with-onnx-runtime/
@@ -413,11 +413,8 @@ def test_onnx_convert():
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert(torch_model='path/mymodule.py:myModel or model object', 
-    dir_checkpoint      = './mymodel.pth',
-    dirout              = '.',
-    export_params       = True,
-    onnx_version        = 10,
+def onnx_convert(torch_model='path/mymodule.py:myModel or model object',  dir_checkpoint= './mymodel.pth', dirout= '.',
+    export_params       = True, onnx_version        = 10,
 
     input_shape         = (1, 224, 224),
     do_constant_folding = True,
@@ -487,9 +484,9 @@ def onnx_convert(torch_model='path/mymodule.py:myModel or model object',
 
 
 def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
-    """ wrapper to load Pytorch model + weights
-       dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
-       batch_size = 1    # just a random number
+    """ wrapper to load Pytorch model + weights.
+        dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
+        batch_size = 1    # just a random number
     """  
     torch_model = load_function_uri(dirmodel) 
 
@@ -620,12 +617,14 @@ if 'utils':
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
     def load_function_uri(uri_name: str="path_norm"):
-        """ Load dynamically function from URI
-        ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+        """ Load dynamically function from URI.
+        Code::
 
-        ###### External File processor :
-        #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+            ###### Pandas CSV case : Custom MLMODELS One
+            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
+            ###### External File processor :
+            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
         """
         import importlib, sys
         from pathlib import Path
