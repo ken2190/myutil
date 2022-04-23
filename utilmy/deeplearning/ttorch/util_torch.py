@@ -417,9 +417,9 @@ def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], y
     Example:
     
        metric_list::
+
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           
-
           #### Classification metrics
           accuracy_score(y_true, y_pred, *[, ...])
           auc(x, y)
@@ -568,6 +568,7 @@ def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], p
     Example:
     
        metric_list::
+       
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           
           #### Plotting

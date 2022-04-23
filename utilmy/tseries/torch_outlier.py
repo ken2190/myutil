@@ -244,8 +244,7 @@ def dataset_ECG5000_prep(df):
   df.columns = new_columns
 
 
-  """## Exploratory Data Analysis
-  """
+  """## Exploratory Data Analysis"""
   df.target.value_counts()
   ax = sns.countplot(df.target)
   ax.set_xticklabels(class_names);
