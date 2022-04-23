@@ -130,15 +130,13 @@ def test1():
   df.columns = new_columns
 
 
-  """## Exploratory Data Analysis
-  """
+  """## Exploratory Data Analysis"""
   df.target.value_counts()
   ax = sns.countplot(df.target)
   ax.set_xticklabels(class_names);
 
 
   """ normal class, has by far,  most examples. This is great because use it to train our model.
-  
   Let's have a look at an averaged (smood out with one standard deviation on top and bottom of it) Time Series for each class:
   """
   classes = df.target.unique()
