@@ -413,10 +413,7 @@ class SmeLU(nn.Module):
 
 #####################################################################################################################
 def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], ypred_proba=None, return_dict=False, metric_pars:dict=None):
-    """ Generic metrics calculation, using sklearn naming pattern
-    Example:
-    
-       metric_list::
+    """ Generic metrics calculation, using sklearn naming pattern::
 
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           
@@ -564,10 +561,7 @@ def metrics_eval(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], y
 
 
 def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
-    """ Generic metrics Plotting
-    Example:
-    
-       metric_list::
+    """ Generic metrics Plotting::
        
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
           

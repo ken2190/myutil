@@ -71,12 +71,10 @@ def test1() -> None:
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """  Create HTML plot file of embeddings
-   Code::
-        
+   """Create HTML plot file of embeddings::
+
         dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
         embedding_create_vizhtml(dirin="in/model.vec", dirout="zhtmlfile/", dim_reduction='umap', nmax=100, ntrain=10)
-
 
 
    """
