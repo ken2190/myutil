@@ -28,7 +28,7 @@ if 'import':
         from box import Box
 
 
-    sys.path.append( "/home/noelkevin01/test_code/" )
+    sys.path.append( "/home/test_code/" )
     
     PYFILE = "python prepro_prod.py"
 
@@ -66,45 +66,45 @@ if 'import':
 ####################################################################################################
 if 'path':
     dirs = Box({})
-    dirs.pur_dir      = "/a/acb401/ipsvols06/pydata/pur_ran_v15/"
-    dirs.brw_dir      = "/a/acb401/ipsvols06/pydata/brw_ran_v15/"   ## User History
-    # dirs.clk_dir      = "/a/acb401/ipsvols06/pydata/brw_item_v15/"  ### ~last 120 days of click, Only ITEMS
+    dirs.pur_dir      = "/a/"
+    dirs.brw_dir      = "/a//"   ## User History
+    # dirs.clk_dir      = "/a/pydata/brw_item_v15/"  ### ~last 120 days of click, Only ITEMS
 
-    dirs.sc_clk_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_clk/"  ####  ~last 400 days of click
-    dirs.sc_pur_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_pur/"  ###   ~last 400 days of purchase
-    dirs.sc_imp_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_imp/"  ###   ~last 120 days of impression
+    dirs.sc_clk_dir   = "/a//"  ####  ~last 400 days of click
+    dirs.sc_pur_dir   = "/a//"  ###   ~last 400 days of purchase
+    dirs.sc_imp_dir   = "/a/"  ###   ~last 120 days of impression
 
-    pur_dir      = "/a/acb401/ipsvols06/pydata/pur_ran_v15/"
-    brw_dir      = "/a/acb401/ipsvols06/pydata/brw_ran_v15/"   ## User History
-    # dirs.clk_dir      = "/a/acb401/ipsvols06/pydata/brw_item_v15/"  ### ~last 120 days of click, Only ITEMS
+    pur_dir      = "/a/"
+    brw_dir      = "/a//"   ## User History
+    # dirs.clk_dir      = "/a/pydata/brw_item_v15/"  ### ~last 120 days of click, Only ITEMS
 
-    sc_clk_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_clk/"  ####  ~last 400 days of click
-    sc_pur_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_pur/"  ###   ~last 400 days of purchase
-    sc_imp_dir   = "/a/acb401/ipsvols06/pydata/sc_widget_imp/"  ###   ~last 120 days of impression
+    sc_clk_dir   = "/a/pydata/sc_widget_clk/"  ####  ~last 400 days of click
+    sc_pur_dir   = "/a/pydata/sc_widget_pur/"  ###   ~last 400 days of purchase
+    sc_imp_dir   = "/a/pydata/sc_widget_imp/"  ###   ~last 120 days of impression
 
 
     dir_scitems = "/a/adigcb301/ipsvols05/pydata/sc_items/sc_campaign_items.tsv"
-    dir_pydata  = "/a/acb401/ipsvols06/pydata/"
+    dir_pydata  = "/a/pydata/"
 
-    dir_ngsiid  = "//a/acb401/ipsvols06/pydata/sc_block_user_item/"
+    dir_ngsiid  = "//a/pydata/sc_block_user_item/"
     dir_ngsiid2 = "/a/gfs101/ipsvols07/ndata/cpa/hdfs/sc_block_user_item/"
 
 
     #dir_rec = zlocal.dir_rec
     dir_rec     = '/data/workspaces/takos01/cpa/'
-    dir_out0    = '/data/workspaces/noelkevin01/cpa/'
+    dir_out0    = '/data/workspaces/cpa/'
 
 
-    dir_hive    = "/a/adigcb204/ipsvolh03/ndata/cpa/input"
-    dir_res     = "/a/adigcb204/ipsvolh03/ndata/cpa//res/"
+    dir_hive    = "/a//ndata/cpa/input"
+    dir_res     = "/a//ndata/cpa//res/"
 
-    dir_norec   = "/a/adigcb204/ipsvolh03/ndata/cpa/res/norec.sh"
-    dir_nohist  = "/a/adigcb204/ipsvolh03/ndata/cpa/res/nohist.sh"
+    dir_norec   = "/a//ndata/cpa/res/norec.sh"
+    dir_nohist  = "/a//ndata/cpa/res/nohist.sh"
 
 
-    dir_rec3    = '/a/gfs101/ipsvols07/ndata/cpa/'   ### 66 Tb
-    dir_cpaloc  = "/data/workspaces/takos01/cpa/"
-    dir_cpa3    = '/a/gfs101/ipsvols07/ndata/cpa/'    ### 3 Tb
+    dir_rec3    = '/a//ndata/cpa/'   ### 66 Tb
+    dir_cpaloc  = "/cpa/"
+    dir_cpa3    = '/cpa/'    ### 3 Tb
 
 
 if 'path_ca':
@@ -123,7 +123,7 @@ if 'path_ca':
     table_ca_300d = "nono3.ca_daily_coupons11"   ### all days with   NO ranid
 
     dir_export = "/a/gfs101/ipsvols07/ntmp/export/ca/rec/"
-    dir_ca_prod = "/a/acb401/ipsvols06/sc-coupon-advance-batches/"
+    dir_ca_prod = "/a/sc-coupon-advance-batches/"
 
     flog_warning = "/a/gfs101/ipsvols07/ndata/cpa/log/log_gpu/aaa_Warning.py"
 
@@ -1145,7 +1145,7 @@ if 'word2vec' :
         if not os.path.isfile(pinput) :
             raise Exception("input Not a file, " + pinput)
 
-        #pfast  = "/data/workspaces/noelkevin01/cpa/nono_exe"  #zlocal.dir_rec_fastexe #  "C:\D\gitdev\bin\fasttext\fasttext.exe "
+        #pfast  = "/data/workspaces/cpa/nono_exe"  #zlocal.dir_rec_fastexe #  "C:\D\gitdev\bin\fasttext\fasttext.exe "
         #pfast   = " ../../../../tensorflow-lightgbm-transformers "  #zlocal.dir_rec_fastexe #  "C:\D\gitdev\bin\fasttext\fasttext.exe "
         pfast   = " ../../../../../tensorflow-lightgbm-transformers "  #zlocal.dir_rec_fastexe #  "C:\D\gitdev\bin\fasttext\fasttext.exe "
 
@@ -1585,14 +1585,14 @@ if 'backup' :
 
     def os_copy_safe(dirin=None, dirout=None,  nlevel=5, nfile=5000, logdir="./", pattern="*", cmd_fallback=""):  ### python prepro.py os_copy_safe
         """
-            a2/acb401/ipsvols06/ndata/cpa/cpa/topk/ichiba_pur
+            a2/ndata/cpa/cpa/topk/ichiba_pur
         """
         import shutil, time, os, glob
         # dirin  = "/data/workspaces/takos01/cpa/emb/"
         # dirout = "/a/adigcb204/ipsvolh03/ndata/cpa/emb/emb/"
         if dirin is None :
            dirin  = "/a/adigcb201/ipsvolh03/ndata/cpa/emb/emb/ichiba_order_20210901b_itemtagb2/aseq_full_hash3v24full/topk_ranid/"
-           dirout = "/a/acb401/ipsvols06/ndata/cpa/cpa/topk/ichiba_pur/topk_ranid/"
+           dirout = "/a/ndata/cpa/cpa/topk/ichiba_pur/topk_ranid/"
 
         flist = [] ; dirinj = dirin
         for j in range(nlevel):
@@ -1680,7 +1680,7 @@ if 'backup' :
         os_copy_safe(dirin, dirout, nlevel=15, nfile=500000, logdir="./", cmd_fallback= cmd_mountgs )
 
     def backup_img():   # python prepro.py backup_img &
-        dirin  = "/data/workspaces/noelkevin01/img/models/"
+        dirin  = "/data/workspaces/img/models/"
         dirout = "/a/gfs101/ipsvols07/ndata/cpa/img/models/"
 
         os_copy_safe(dirin, dirout, nlevel=20, nfile=500000, logdir="./", cmd_fallback= cmd_mountgs )
@@ -1700,7 +1700,7 @@ if 'backup' :
 
     def backup_code():   # py backup_code &
         t0      = str(date_now_jp() )
-        dirin   = "/home/noelkevin01/test_code"
+        dirin   = "/home/test_code"
         dirout1 = "/a/gfs101/ipsvols07/ndata/zbackup/cd/latest/"
         dirout2 = "/a/gfs101/ipsvols07/ndata/zbackup/cd/" + str(t0) + "/"
         log(t0, dirin, dirout2)
@@ -3722,7 +3722,7 @@ if 'rec_genre':
         ##### Input Data in T-1
         tk = get_timekey() - 1 + add_days
         if 'new' in tag :    dirin_list = [f"/a/gfs101/ipsvols07/ndata/cpa/hdfs/daily_user_eod/", ]
-        elif tag == 'sc':    dirin_list = [f"/a/acb401/ipsvols06/pydata/sc_widget_pur/"]
+        elif tag == 'sc':    dirin_list = [f"/a/pydata/sc_widget_pur/"]
         else:  return 'no tag early finish'
         log('users', dirin_list);  # time.sleep(1)
 
@@ -4395,8 +4395,8 @@ if 'daily_afternoon':
         tmax    = get_timekey() + add_days
         log(tk_list); time.sleep(5)
 
-        if  'all' in tag : dirin_list = [ f"/a/acb401/ipsvols06/pydata/brw_ran_v15/",   ]
-        elif 'sc' in tag : dirin_list = [ f"/a/acb401/ipsvols06/pydata/sc_widget_pur/"  ]
+        if  'all' in tag : dirin_list = [ f"/a/pydata/brw_ran_v15/",   ]
+        elif 'sc' in tag : dirin_list = [ f"/a/pydata/sc_widget_pur/"  ]
         else :             return 'no tag early finish'
         log('users', dirin_list) ; time.sleep(5)
 
@@ -4414,7 +4414,7 @@ if 'daily_afternoon':
             flist  = []
 
             #### Pur only
-            #dirin2 = f"/a/acb401/ipsvols06/pydata/pur_ran_v15/"
+            #dirin2 = f"/a/pydata/pur_ran_v15/"
             #for tk in tk_list2:
             #    flist = flist +  glob.glob(dirin2 + f"/{bk}/*{tk}*"  )
 
@@ -4482,9 +4482,9 @@ if 'daily_afternoon':
 
         for tk in tk_list :
             dirin_list = []
-            if 'pur' in mode : dirin_list.append( f"/a/acb401/ipsvols06/pydata/pur_ran_v15/*/*{tk}*.parquet"  )
-            if 'brw' in mode : dirin_list.append( f"/a/acb401/ipsvols06/pydata/brw_ran_v15/*/*{tk}*.parquet"  )
-            # f"/a/acb401/ipsvols06/pydata/sc_widget_clk/*/*{tk}*.parquet"
+            if 'pur' in mode : dirin_list.append( f"/a/pydata/pur_ran_v15/*/*{tk}*.parquet"  )
+            if 'brw' in mode : dirin_list.append( f"/a/pydata/brw_ran_v15/*/*{tk}*.parquet"  )
+            # f"/a/pydata/sc_widget_clk/*/*{tk}*.parquet"
 
             for dirin in dirin_list :
                 flist = glob_glob(dirin , 5000 )
@@ -4526,12 +4526,12 @@ if 'daily_afternoon':
         tmax = get_timekey()
 
         if  'brw' in tag :
-            dirin   = f"/a/acb401/ipsvols06/pydata/brw_ran_v15/"
+            dirin   = f"/a/pydata/brw_ran_v15/"
             dbname  = 'db_easyid_topgenre_brw'
             tk_list = [ t for t in range(t0-60  , t0+1  , 1)  ]   ### Past 5 day ONLY
 
         elif 'pur' in tag :
-            dirin   = f"/a/acb401/ipsvols06/pydata/pur_ran_v15/"
+            dirin   = f"/a/pydata/pur_ran_v15/"
             dbname  = 'db_easyid_topgenre_pur'
             tk_list = [ t for t in range(t0-120  , t0+1  , 1)  ]   ### Past 5 day ONLY
 
@@ -4725,11 +4725,11 @@ if 'daily_afternoon':
             batch_split_run(cmd, split=split, sleep= random.randint(2, 10) ) ; return 'done'
         
         if  'brw' in tag :
-            dirin_list = [ f"/a/acb401/ipsvols06/pydata/brw_ran_v15/",   ]
+            dirin_list = [ f"/a/pydata/brw_ran_v15/",   ]
             group      = "brw_ran" + mode
 
         elif 'pur' in tag:
-            dirin_list = [ f"/a/acb401/ipsvols06/pydata/pur_ran_v15/",   ]
+            dirin_list = [ f"/a/pydata/pur_ran_v15/",   ]
             group      = "pur_ran" + mode
 
         else :             return 'no tag early finish'
@@ -5302,9 +5302,9 @@ if 'daily_rec_topk':
         tmax = t0
 
         if    'new' in tag :   dirin_list = [ f"/a/gfs101/ipsvols07/ndata/cpa/hdfs/daily_user_eod/",   ]
-        elif  'all' in tag :   dirin_list = [ f"/a/acb401/ipsvols06/pydata/brw_ran_v15/",   ]
-        elif tag == 'sc'  :    dirin_list = [ f"/a/acb401/ipsvols06/pydata/sc_widget_pur/"  ]
-        elif tag == 'sclk'  :  dirin_list = [ f"/a/acb401/ipsvols06/pydata/sc_widget_clk/"  ]
+        elif  'all' in tag :   dirin_list = [ f"/a/pydata/brw_ran_v15/",   ]
+        elif tag == 'sc'  :    dirin_list = [ f"/a/pydata/sc_widget_pur/"  ]
+        elif tag == 'sclk'  :  dirin_list = [ f"/a/pydata/sc_widget_clk/"  ]
         else :              return 'no tag early finish'
         log('users', dirin_list) ; # time.sleep(1)
 
@@ -7944,7 +7944,7 @@ if 'hadoop':
 
         hdfs dfs  -ls   hdfs://nameservice1/user/hive/warehouse/nono3.db/siid_feat_20210526_v2b/
 
-        hdfs dfs  -copyFromLocal   /data/workspaces/noelkevin01/img/models/fashion/dcf_vae/   hdfs://nameservice1/scoupon/nono/zimg/
+        hdfs dfs  -copyFromLocal   /data/workspaces/img/models/fashion/dcf_vae/   hdfs://nameservice1/scoupon/nono/zimg/
 
         https://hadoop.apache.org/docs/current/hadoop-distcp/DistCp.html
 
@@ -8003,11 +8003,11 @@ if 'hadoop':
         /user/scoupon/zexport/z/fashion_emb_100k
 
         from_dir = "hdfs://nameservice1/user/hive/warehouse/nono3.db/shop_v1_20210526"
-        to_dir   = "data/workspaces/noelkevin01/img/models/fashion/dcf_vae/auto_album/"
+        to_dir   = "data/workspaces/img/models/fashion/dcf_vae/auto_album/"
         verbose= True
 
         """
-        from_dir   = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_best_good_epoch_313/fashion_emb_100k/"
+        from_dir   = "/data/workspaces/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_best_good_epoch_313/fashion_emb_100k/"
         to_dir     = "hdfs://nameservice1/user/scoupon/zexport/z/fashion_emb_100k/"
         # verbose= True
 
