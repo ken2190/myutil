@@ -558,10 +558,10 @@ def sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric=False):
 
 def sim_scores_faiss(embs:np.ndarray, idlist:list, is_symmetric=False):
     """ Sim Score using FAISS
-    #To Tally the results check the cosine similarity of the following example
-    #from scipy import spatial
-    #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
-    #print('Distance by FAISS:{}'.format(result))
+        #To Tally the results check the cosine similarity of the following example
+        #from scipy import spatial
+        #result = 1 - spatial.distance.cosine(dataSetI, dataSetII)
+        #print('Distance by FAISS:{}'.format(result))
     
     """
     import faiss
@@ -576,15 +576,16 @@ def sim_scores_faiss(embs:np.ndarray, idlist:list, is_symmetric=False):
     
 
 
-
-def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3) :
-   """ Retrieve top k nearest vectors using FAISS, raw retrievail
-   """
-   import faiss  
-   index = faiss.index_factory(x0.shape[1], 'Flat')
-   index.add(vector_list)
-   dist, indice = index.search(x0, topk)
-   return dist, indice
+def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3, engine='faiss', engine_pars:dict=None) :
+    """ Retrieve top k nearest vectors using FAISS, raw retrievail
+    """
+    if 'faiss' in engine :
+        # cc = engine_pars
+        import faiss  
+        index = faiss.index_factory(x0.shape[1], 'Flat')
+        index.add(vector_list)
+        dist, indice = index.search(x0, topk)
+        return dist, indice
 
 
 
@@ -719,11 +720,13 @@ def faiss_create_index(df_or_path=None, col='emb', dirout=None,  db_type = "IVF4
     return dirout2
         
 
+
 def faiss_load_index(db_path=faiss_index):
     return None
 
 
-def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
+
+def faiss_topk_calc(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
    """ id, dist_list, id_list 
        ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
        
