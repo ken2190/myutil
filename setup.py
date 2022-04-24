@@ -181,16 +181,18 @@ setup(
 
 
 
-#### Add environemment variables
+#### Add environemment variables  utilmy
 try :
-    repopath = os.path.dirname( os.path.abspath(__file__) )
+    repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
-        os.system(f" set  utildir='{repopath}' ")
-        os.system(f" setx utildir='{repopath}' ")
+        os.system(f" set  utilmy='{repopath}/' ")  ### Any new session
+        os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os.system(f" echo 'export utildir={repopath}' >> ~/.bashrc      ")
-        os.system(f" export utildir={repopath} ")
+        os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
+        os.system(f" export utilmy={repopath}/ ")
+
+    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
 
 except :
     pass

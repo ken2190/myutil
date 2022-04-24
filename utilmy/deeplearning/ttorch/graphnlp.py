@@ -494,8 +494,8 @@ Users can build their customized dataset APIs by inheriting our low-level datase
         def __init__(self, config):
             super(ModelHandler, self).__init__()
             self.config = config
-            self.logger = Logger(self.config['out_dir'], config={k:v for k, v in self.config.items() if k != 'device'}, overwrite=True)
-            self.logger.write(self.config['out_dir'])
+            self.logger = Logger(self.config['dirout'], config={k:v for k, v in self.config.items() if k != 'device'}, overwrite=True)
+            self.logger.write(self.config['dirout'])
             self._build_device()
             self._build_dataloader()
             self._build_model()
@@ -591,7 +591,7 @@ Users can build their customized dataset APIs by inheriting our low-level datase
         def _build_optimizer(self):
             parameters = [p for p in self.model.parameters() if p.requires_grad]
             self.optimizer = optim.Adam(parameters, lr=self.config['lr'])
-            self.stopper = EarlyStopping(os.path.join(self.config['out_dir'], Constants._SAVED_WEIGHTS_FILE), patience=self.config['patience'])
+            self.stopper = EarlyStopping(os.path.join(self.config['dirout'], Constants._SAVED_WEIGHTS_FILE), patience=self.config['patience'])
             self.scheduler = ReduceLROnPlateau(self.optimizer, mode='max', factor=self.config['lr_reduce_factor'], \
                 patience=self.config['lr_patience'], verbose=True)
 

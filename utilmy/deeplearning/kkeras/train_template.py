@@ -309,7 +309,7 @@ if cc.compute_mode == "gpu" :
 ## 1) Define some helper functions ###############################################
 
 
-os_path_copy(in_dir= cc.code_source  , path= cc.model_dir2 + "/code/")
+os_path_copy(dirin= cc.code_source  , path= cc.model_dir2 + "/code/")
 
 
 def pd_get_dummies(df, cols_cat, cat_dict:dict, only_onehot=True):

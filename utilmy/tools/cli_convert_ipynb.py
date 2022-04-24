@@ -37,19 +37,19 @@ def scan(data_file):
     return files
 
 
-def convert2python(source_files, data_file, out_dir):
+def convert2python(source_files, data_file, dirout):
     """function convert2python
     Args:
         source_files:   
         data_file:   
-        out_dir:   
+        dirout:   
     Returns:
         
     """
     dst_files = []
     for filepath in tqdm(source_files):
-        # export_path = '%s/%s.py'%(out_dir, os.path.basename(filepath[:-6]))
-        export_path = filepath.replace(data_file, out_dir)
+        # export_path = '%s/%s.py'%(dirout, os.path.basename(filepath[:-6]))
+        export_path = filepath.replace(data_file, dirout)
         export_path = export_path[:-6] + ".py"
         # print(export_path)
 
@@ -160,27 +160,27 @@ def main():
         
     """
     args = load_arguments()
-    data_file, out_dir = args.dir_in, args.dir_out
+    data_file, dirout = args.dir_in, args.dir_out
 
     # scan file recursively
     source_files = scan(data_file)
     # print(source_files)
 
     # make some dirs in dst fold
-    if os.path.exists(out_dir):
+    if os.path.exists(dirout):
         inp = input("output dir exists, delete to re-generate? (y/n): ")
         if inp == "y":
-            shutil.rmtree(out_dir)
+            shutil.rmtree(dirout)
         else:
             sys.exit(0)
     # TODO: this is copying whole source dir to target, fix this
-    shutil.copytree(data_file, out_dir)
-    dst_files_to_delete = scan(out_dir)
+    shutil.copytree(data_file, dirout)
+    dst_files_to_delete = scan(dirout)
     for s in dst_files_to_delete:
         os.remove(s)
 
     # convert all files
-    dst_files = convert2python(source_files, data_file, out_dir)
+    dst_files = convert2python(source_files, data_file, dirout)
 
     # check converted script file are runnable
     # dump log file, default to the current fold
