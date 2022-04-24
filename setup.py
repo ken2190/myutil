@@ -117,6 +117,8 @@ def main_cli(): fire.Fire(main)
 
 
 
+
+
 ##################################################################   
 setup(
     name="utilmy",
@@ -177,6 +179,44 @@ setup(
 
 
 
+
+
+#### Add environemment variables  utilmy
+try :
+    repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
+    if 'win' in sys.platform :
+        os.system(f" set  utilmy='{repopath}/' ")  ### Any new session
+        os.system(f" setx utilmy='{repopath}/' ")  ### Current session
+
+    elif 'linux' in sys.platform :
+        os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
+        os.system(f" export utilmy={repopath}/ ")
+
+    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
+
+except :
+    pass
+
+
+"""
+:: Sets environment variables for both the current `cmd` window 
+::   and/or other applications going forward.
+:: I call this file keyz.cmd to be able to just type `keyz` at the prompt 
+::   after changes because the word `keys` is already taken in Windows.
+
+@echo off
+
+:: set for the current window
+set APCA_API_KEY_ID=key_id
+set APCA_API_SECRET_KEY=secret_key
+set APCA_API_BASE_URL=https://paper-api.alpaca.markets
+
+:: setx also for other windows and processes going forward
+setx APCA_API_KEY_ID     %APCA_API_KEY_ID%
+setx APCA_API_SECRET_KEY %APCA_API_SECRET_KEY%
+setx APCA_API_BASE_URL   %APCA_API_BASE_URL%
+
+"""
 
 
 

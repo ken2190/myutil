@@ -148,6 +148,9 @@ new_algo(df)
 
 
 
+utilmy/db/util_sql.py
+
+
 utilmy/debug.py
 -------------------------functions----------------------
 help()
@@ -190,10 +193,10 @@ utilmy/deeplearning/autoencoder/__init__.py
 utilmy/deeplearning/autoencoder/keras_ae.py
 
 
-utilmy/deeplearning/keras/__init__.py
+utilmy/deeplearning/kkeras/__init__.py
 
 
-utilmy/deeplearning/keras/loss_graph.py
+utilmy/deeplearning/kkeras/loss_graph.py
 -------------------------functions----------------------
 create_fake_neighbor(x: ndarray, max_neighbors: int)
 create_graph_loss(max_neighbors = 2)
@@ -206,7 +209,7 @@ train_step(x, y, model, loss_fn, optimizer, nbr_features_layer = None, ### Graph
 
 
 
-utilmy/deeplearning/keras/loss_vq_vae2.py
+utilmy/deeplearning/kkeras/loss_vq_vae2.py
 -------------------------functions----------------------
 encoder_Base(latent_dim: int)
 get_vqvae_layer_hierarchical(latent_dim: int = 16, num_embeddings: int = 64)
@@ -227,7 +230,7 @@ VQ_VAE_Trainer_2.metrics(self)
 VQ_VAE_Trainer_2.train_step(self, x: Tensor)
 
 
-utilmy/deeplearning/keras/train_graph_loss.py
+utilmy/deeplearning/kkeras/train_graph_loss.py
 -------------------------functions----------------------
 cal_loss_macro_soft_f1(y, y_hat)
 log(*s)
@@ -265,7 +268,7 @@ StepDecay.__call__(self, epoch)
 StepDecay.__init__(self, init_lr = 0.01, factor = 0.25, drop_every = 10)
 
 
-utilmy/deeplearning/keras/train_template.py
+utilmy/deeplearning/kkeras/train_template.py
 -------------------------functions----------------------
 label_get_data()
 param_set()
@@ -276,7 +279,7 @@ validation_step(x, model, y_label_list = None)
 
 
 
-utilmy/deeplearning/keras/util_dataloader_img.py
+utilmy/deeplearning/kkeras/util_dataloader_img.py
 -------------------------functions----------------------
 help()
 test()
@@ -299,7 +302,7 @@ Transform_sprinkle.__init__(self, num_holes: int = 30, side_length: int = 5, alw
 Transform_sprinkle.apply(self, image: ndarray, **params)
 
 
-utilmy/deeplearning/keras/util_dataloader_tab.py
+utilmy/deeplearning/kkeras/util_dataloader_tab.py
 -------------------------functions----------------------
 ModelCustom2()
 Modelcustom(n_wide_cross, n_wide, n_deep, n_feat = 8, m_EMBEDDING = 10, loss = 'mse', metric  =  'mean_squared_error')
@@ -338,7 +341,7 @@ DataGenerator.on_epoch_end(self)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 
 
-utilmy/deeplearning/keras/util_debug.py
+utilmy/deeplearning/kkeras/util_debug.py
 -------------------------functions----------------------
 image_compare_modelpred(file_path, model_path, target_size)
 keras_check_layer(mlayer, )
@@ -355,7 +358,7 @@ GradCAM.find_target_layer(self)
 GradCAM.overlay_heatmap(self, heatmap, image, alpha = 0.5, colormap = cv2.COLORMAP_JET)
 
 
-utilmy/deeplearning/keras/util_layers.py
+utilmy/deeplearning/kkeras/util_layers.py
 -------------------------functions----------------------
 dataloader_get_mnist()
 help()
@@ -385,7 +388,7 @@ ResBlock.__init__(self, filters: List[int], kernels: List[int])
 ResBlock.call(self, input_tensor, training = False)
 
 
-utilmy/deeplearning/keras/util_loss.py
+utilmy/deeplearning/kkeras/util_loss.py
 -------------------------functions----------------------
 learning_rate_schedule(mode = "step", epoch = 1, cc = None)
 loss_clf_macro_soft_f1(y, y_hat)
@@ -402,7 +405,7 @@ StepDecay.__call__(self, epoch)
 StepDecay.__init__(self, init_lr = 0.01, factor = 0.25, drop_every = 5)
 
 
-utilmy/deeplearning/keras/util_models.py
+utilmy/deeplearning/kkeras/util_models.py
 -------------------------functions----------------------
 make_classifier(class_dict, latent_dim = 10)
 make_classifier_2(latent_dim, class_dict)
@@ -420,7 +423,7 @@ DFC_VAE.encode(self, x)
 DFC_VAE.reparameterize(self, z_mean, z_logsigma)
 
 
-utilmy/deeplearning/keras/util_similarity.py
+utilmy/deeplearning/kkeras/util_similarity.py
 -------------------------functions----------------------
 __cast_left_and_right_to_tensors(left: EagerTensor, right: EagerTensor)
 __get_rows_counts(left: EagerTensor, right: EagerTensor)
@@ -435,7 +438,7 @@ tf_cdist_euclidean(left: Iterable[float], right: Iterable[float])
 
 
 
-utilmy/deeplearning/keras/util_train.py
+utilmy/deeplearning/kkeras/util_train.py
 -------------------------functions----------------------
 check_valid_image(img_list, path = "", tag = "", y_labels = "", n_sample = 3, renorm = True)
 clean_duplicates(ll)
@@ -445,7 +448,7 @@ image_check(name, img, renorm = False)
 log(*s)
 model_reload(model_reload_name, cc, )
 np_remove_duplicates(seq)
-os_path_copy(in_dir, path, ext = "*.py")
+os_path_copy(dirin, path, ext = "*.py")
 pd_category_filter(df, category_map)
 print_debug_info(*s)
 print_log_info(*s)
@@ -458,7 +461,25 @@ train_stop(counter, patience)
 
 
 
-utilmy/deeplearning/keras/zz_util_dataloader_img_old.py
+utilmy/deeplearning/kkeras/zkeras_torch_sentence.py
+-------------------------functions----------------------
+build_model()
+create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
+log(*s)
+metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
+model_load(path)
+model_save(path)
+sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
+test()
+
+-------------------------methods----------------------
+ReRanker.__init__(self)
+ReRanker.call(self, inputs, **kwargs)
+SentenceEncoder.__init__(self, num_labels = None)
+SentenceEncoder.call(self, inputs, **kwargs)
+
+
+utilmy/deeplearning/kkeras/zz_util_dataloader_img_old.py
 -------------------------functions----------------------
 _byte_feature(value)
 _float_feature(value)
@@ -490,10 +511,10 @@ SprinklesTransform.__init__(self, num_holes: int = 30, side_length: int = 5, alw
 SprinklesTransform.apply(self, image, **params)
 
 
-utilmy/deeplearning/torch/__init__.py
+utilmy/deeplearning/ttorch/__init__.py
 
 
-utilmy/deeplearning/torch/graphnlp.py
+utilmy/deeplearning/ttorch/graphnlp.py
 -------------------------functions----------------------
 dataset_download(dirout = '/content/sample_data/sent_tans/')
 dataset_fake(dirdata)
@@ -512,10 +533,10 @@ test()
 
 
 
-utilmy/deeplearning/torch/images/__init__.py
+utilmy/deeplearning/ttorch/images/__init__.py
 
 
-utilmy/deeplearning/torch/images/base.py
+utilmy/deeplearning/ttorch/images/base.py
 -------------------------methods----------------------
 BaseHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss', loss_weight = 1.0), multi_class = False, label_smooth_eps = 0.0)
 BaseHead.forward(self, x)
@@ -523,24 +544,49 @@ BaseHead.init_weights(self)
 BaseHead.loss(self, cls_score, labels, **kwargs)
 
 
-utilmy/deeplearning/torch/images/i3d.py
+utilmy/deeplearning/ttorch/images/i3d.py
 -------------------------methods----------------------
 I3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, **kwargs)
 I3DHead.forward(self, x)
 I3DHead.init_weights(self)
 
 
-utilmy/deeplearning/torch/images/x3d.py
+utilmy/deeplearning/ttorch/images/x3d.py
 -------------------------methods----------------------
 X3DHead.__init__(self, num_classes, in_channels, type = 'CrossEntropyLoss'), spatial_type = 'avg', dropout_ratio = 0.5, init_std = 0.01, fc1_bias = False)
 X3DHead.forward(self, x)
 X3DHead.init_weights(self)
 
 
-utilmy/deeplearning/torch/models/__init__.py
+utilmy/deeplearning/ttorch/model_ensemble.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+help()
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
+model_build(arg:dict, mode = 'train')
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+test()
+test_all()
+
+-------------------------methods----------------------
+DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+DataEncoder.forward(self, x)
+NaiveModel.__init__(self)
+NaiveModel.forward(self, x, alpha = 0.0)
+Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
+Net.forward(self, x, alpha = 0.0)
+Net.get_z(self, x, alpha = 0.0)
+RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
+RuleEncoder.forward(self, x)
 
 
-utilmy/deeplearning/torch/models/sentences_model.py
+utilmy/deeplearning/ttorch/models/__init__.py
+
+
+utilmy/deeplearning/ttorch/models/sentences_model.py
 -------------------------functions----------------------
 evaluate(model, session = None, data_pars = None, compute_pars = None, out_pars = None, **kw)
 fit(model, data_pars = None, model_pars = None, compute_pars = None, out_pars = None, *args, **kw)
@@ -559,101 +605,99 @@ test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
 
 
-utilmy/deeplearning/torch/rule_encoder.py
+utilmy/deeplearning/ttorch/models/torch_lstm_check.py
 -------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-dataset_load_cardio(arg)
-dataset_load_covtype(arg)
-dataset_preprocess_cardio(df, arg)
-dataset_preprocess_covtype(df, arg)
-device_setup(arg)
-get_correct_results(out, label_Y)
-get_metrics(y_true, y_pred, y_score)
-get_perturbed_input(input_tensor, pert_coeff)
-help()
-loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
-loss_rule_calc_cardio(model, batch_train_x, loss_rule_func, output, arg, )
-loss_rule_calc_covtype(model, batch_train_x, loss_rule_func, output, arg, )
-model_build(arg:dict, mode = 'train')
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
-model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg:dict = None)
-test()
-test2()
-test_all()
-test_dataset_classification_fake(nrows = 500)
-verification(out, pert_out, threshold = 0.0)
-
--------------------------methods----------------------
-DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-DataEncoder.forward(self, x)
-NaiveModel.__init__(self)
-NaiveModel.forward(self, x, alpha = 0.0)
-Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
-Net.forward(self, x, alpha = 0.0)
-Net.get_z(self, x, alpha = 0.0)
-RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-RuleEncoder.forward(self, x)
+check_lstm()
 
 
-utilmy/deeplearning/torch/sentences.py
+
+utilmy/deeplearning/ttorch/rule_encoder.py
 -------------------------functions----------------------
-dataset_download(dirout = '/content/sample_data/sent_tans/')
-dataset_fake(dirdata:str, nsample = 10)
-dataset_fake2(dirdata = '')
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
 help()
-load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, npool = 4)
-load_evaluator(path_or_df:Union[pd.DataFrame, str] = "", dname = 'sts', cc:dict = None)
-load_loss(model  = '', lossname  = 'cosine', cc:dict =  None)
-model_check_cos_sim(model  =  "model name or path or object", sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
-model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
-model_load(path_or_name_or_object)
-model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  None)
-model_save(model, path, reload = True)
-model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
-pd_read_csv(path_or_df = './myfile.csv', npool = 1, **kw)
 test1()
+test2_new()
 test_all()
 
+-------------------------methods----------------------
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
 
 
-utilmy/deeplearning/torch/util_torch.py
+utilmy/deeplearning/ttorch/rule_encoder4.py
 -------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-device_setup(arg)
-get_metrics(y_true, y_pred, y_score)
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
 help()
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
-model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg:dict = None)
-test2()
+test1()
+test2_new()
 test_all()
-test_dataset_classification_fake(nrows = 500)
 
 -------------------------methods----------------------
-model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
-model_dummy.forward(self, x)
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
 
 
-utilmy/deeplearning/torch/zkeras_torch_sentence.py
--------------------------functions----------------------
-build_model()
-create_evaluator(dname = 'sts', dirin = '/content/sample_data/sent_tans/', cc:dict = None)
-log(*s)
-metric_evaluate(model, )fIn, delimiter = '\t', )test_samples = []) =  []):)
-model_load(path)
-model_save(path)
-sentrans_train(modelname_or_path = "", taskname = "classifier", lossname = "", train_path = "train/*.csv", val_path = "val/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", cc:dict =  Nonecc)   #### can use cc.epoch   cc.lr{})cc.epoch = 3cc.lr = 1E-5cc.warmup = 100cc.n_sample  = 1000cc.batch_size=16cc.mode = 'cpu/gpu'cc.ncpu =5  dir_train )dftrain = dftrain[[ 'text1', 'text2', 'label'  ]].values  dir_train )dfval  =  dfval[[ 'text1', 'text2', 'label'  ]].valuesif lossname == 'cosinus' = = 'cosinus':  loss =if taskname == 'classifier ':)
-test()
-
--------------------------methods----------------------
-ReRanker.__init__(self)
-ReRanker.call(self, inputs, **kwargs)
-SentenceEncoder.__init__(self, num_labels = None)
-SentenceEncoder.call(self, inputs, **kwargs)
-
-
-utilmy/deeplearning/torch/zrule_encoder2.py
+utilmy/deeplearning/ttorch/zrule_encoder2.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
 dataset_load(arg, mode = 'eval')
@@ -717,49 +761,56 @@ test_all()
 
 utilmy/deeplearning/util_embedding.py
 -------------------------functions----------------------
-convert_txt_to_vector_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8)
-data_add_onehot(dfref, img_dir, labels_col)
-embedding_load_parquet(dirin = "df.parquet", nmax  =  500)
-embedding_table_comparison(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
-embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
-faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
-faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
+embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
+embedding_create_vizhtml(dirin = "in/model.vec", dirout = "ztmp/", dim_reduction = 'umap', nmax = 100, ntrain = 10)
+embedding_load_parquet(dirin = "df.parquet", colid      =  'id', col_embed  =  'pred_emb', nmax  =  500)
+embedding_load_pickle(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneimport pickleembs = Nonedirin)for fi in flist  = Noneimport pickleembs = Nonedirin)for fi in flist :)
+embedding_load_word2vec(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneif is_linevalid_fun is None  = Noneif is_linevalid_fun is None : #### Validate linew):)
+embedding_rawtext_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
+faiss_create_index(df_or_path = None, col = 'emb', dirout = None, db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_load_index(faiss_index_path = "")
+faiss_topk_calc(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
 help()
-sim_scores_faiss(path = "")
-sim_scores_sklearn(embs, words)
+sim_scores_faiss(embs:np.ndarray, idlist:list, is_symmetric = False)
+sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric = False)
 test1()
 test_all()
-topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
-topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
-topk_export()
-topk_nearest_vector(x0, vector_list, topk = 3)
-topk_nearest_vector(x0, vector_list, topk = 3)
-topk_predict()
-viz_run(dirin = "in/model.vec", dirout = "ztmp/", nmax = 100)
+topk_calc(diremb = "", dirout = "", topk = 100, idlist = None, nexample = 10, emb_dim = 200, tag = None, debug = True)
+topk_nearest_vector(x0:np.ndarray, vector_list:list, topk = 3, engine = 'faiss', engine_pars:dict = None)
 
 -------------------------methods----------------------
-TopToolbar.__init__(self)
-vizEmbedding.__init__(self, path = "myembed.parquet", num_clusters = 5, sep = ";", config:dict = None)
-vizEmbedding.create_clusters(self, after_dim_reduction = True)
-vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
-vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None, ntest = 10000, npool = 2)
-vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
+EmbeddingViz.__init__(self, path = "myembed.parquet", num_clusters = 5, sep = ";", config:dict = None)
+EmbeddingViz.create_clusters(self, after_dim_reduction = True)
+EmbeddingViz.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
+EmbeddingViz.dim_reduction(self, mode = "mds", ndim = 2, nmax =  5000, dir_out = None, ntrain = 10000, npool = 2)
+EmbeddingViz.draw_hiearchy(self)
+EmbeddingViz.load_data(self, col_embed = 'embed', nmax =  5000, npool = 2)
+EmbeddingViz.run_all(self, dim_reduction = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dirout = "ztmp/", ntrain = 10000)
+
+
+utilmy/deeplearning/util_hyper.py
+-------------------------functions----------------------
+help()
+run_hyper_optuna(obj_fun, pars_dict_init, pars_dict_range, engine_pars, ntrials = 3, verbose = 1)
+test1_optuna()
+test2_optuna()
+test3_optuna()
+test_all()
+
 
 
 utilmy/deeplearning/util_onnx.py
 -------------------------functions----------------------
 help()
 onnx_check_onnx(dironnx:str = "super_resolution.onnx", dirmodel:str = None, dirweights:str = None, x_numpy:Union[ndarray, list] = None)
-onnx_convert(model_path:str, dirout:str, input_shape:tuple, onnx_version:int = 10, do_constant_folding:bool = True, input_names = ['input'], output_names = ['output'], dynamic_axes={'input'  = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}})
+onnx_convert(torch_model='path/mymodule.py = 'path/mymodule.py:myModel or model object', dir_checkpoint =  './mymodel.pth', dirout =  '.', export_params        =  True, onnx_version         =  10, 1, 224, 224), do_constant_folding  =  True, input_names          =  ['input'], output_names         =  ['output'], dynamic_axes        = {'input'  =  {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}, device               =  'cpu', )
 onnx_load_modelbase(dirmodel:str = "myClassmodel.py:MyNNClass", dirweight:str = "", mode_inference = True, verbose = 1)
 onnx_load_onnx(dironnx:str = "super_resolution.onnx", )
-test1()
-test2()
+onnx_optimize(dirmodel:str, model_type = 'bert', **kw)
 test3()
-test4()
 test_all()
-test_create_model_pytorch(dirsave = None, model_name = "")
+test_helper()
+test_onnx_convert()
 
 
 
@@ -791,7 +842,7 @@ topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
-unzip(in_dir, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -1015,14 +1066,14 @@ utilmy/docs/zold_cli_format.py
 -------------------------functions----------------------
 format_assignments(text)
 format_comments(text = "default", line_size = 90)
-format_dir(in_dir, out_dir)
-format_file(in_file, out_dir)
+format_dir(dirin, dirout)
+format_file(in_file, dirout)
 format_imports(text)
 format_logs(text = "default", line_size = 90)
 load_arguments()
 main()
 mod_period(in_file)
-os_glob(in_dir)
+os_glob(dirin)
 
 
 
@@ -1066,35 +1117,34 @@ utilmy/images/__init__.py
 
 utilmy/images/util_image.py
 -------------------------functions----------------------
-diskcache_image_check(db_dir:str = "db_images.cache", dirout:str = "tmp/", tag = "cache1")
-diskcache_image_check2()
-diskcache_image_createcache(dirin:str = "", dirout:str = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
-diskcache_image_getsample(db_dir :Union[str, bytes, os.PathLike], dirout:Union[str, bytes, os.PathLike])
+diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = None, n_images:int = None, img_list:list  = [])
+diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
-diskcache_image_save(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
-image_center_crop(img:npArrayLike, dim:Tuple[int, int])
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
-image_create_fake2(dirin:str = None)
-image_face_blank(in_dir:Union[str, bytes, os.PathLike] = "", level  =  "/*", dirout:Union[str, bytes, os.PathLike] = f"", npool = 30)
+image_create_fake2(dirin:Path_type = None)
+image_custom_resize_mp(dirin:Path_type = "", dirout :str  = "")
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
-image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5, verbose = False)
-image_prep_many(image_paths:Sequence[str], nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
-image_preps_mp(dirin_image:list, prepro_image_fun = None, npool = 1)
+image_prep_addpadding(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
+image_prep_centercrop(img:npArrayLike, dim:Tuple[int, int])
+image_prep_many(image_paths:Sequence[str], image_prep_fun, nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
+image_prep_multiproc(dirimage_list:list, image_prep_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
-image_remove_bg(in_dir:Union[str, bytes, os.PathLike] = "", dirout:Union[str, bytes, os.PathLike] = "", level:int = 1)
+image_read2(dirin_filelist:Union[str, list], **kw)
+image_read_iter(dirin_filelist:Union[str, list], **kw)
+image_remove_background(dirin:Path_type =  "", dirout:Path_type =  "", level:int = 1)
 image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
-image_resize(image : npArrayLike, width :Union[None, int]  = None, height :Union[None, int]  =  None, inter = cv2.INTER_AREA)
-image_resize_mp(dirin:str = "", dirout :str  = "")
-image_resize_pad(img :npArrayLike, size : Tuple[Union[None, int], Union[None, int]] = (None, None)
-image_resize_ratio(image : npArrayLike, width :Union[int, None]  = None, height :Union[int, None]  = None, inter :int  = cv2.INTER_AREA)
+image_remove_humanface(dirin:Path_type =  "", level  = "/*", dirout:Path_type = f"", npool = 30)
+image_remove_text(dirin :Path_type, dirout :Path_type, level = "*")
+image_resize(img : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
+image_resize_pad(img :npArrayLike, size : Tuple[Int_none, Int_none] = (None, None)
+image_resize_ratio(img : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
 image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
 image_show_in_row(image_list:Union[dict, list, None] = None)
-image_text_blank(in_dir :Union[str, bytes, os.PathLike], dirout :Union[str, bytes, os.PathLike], level = "*")
-npz_image_check(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
-run_multiprocess(myfun, list_args, npool = 10, **kwargs)
+npz_image_dumpsample(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 test1()
 test2()
 test_all()
@@ -1150,10 +1200,10 @@ writelog(m = "", f = None)
 utilmy/nlp/__init__.py
 
 
-utilmy/nlp/keras/__init__.py
+utilmy/nlp/kkeras/__init__.py
 
 
-utilmy/nlp/keras/sentences.py
+utilmy/nlp/kkeras/sentences.py
 -------------------------functions----------------------
 embed_compare_class_sim(model, embed_a, embed_b, embed_c, embed_d)
 get_embed(model_emb, word)
@@ -1171,26 +1221,31 @@ SentenceEncoder.__init__(self, num_labels = None)
 SentenceEncoder.call(self, inputs, **kwargs)
 
 
-utilmy/nlp/torch/__init__.py
+utilmy/nlp/ttorch/__init__.py
 
 
-utilmy/nlp/torch/sentences.py
+utilmy/nlp/ttorch/sentences.py
 -------------------------functions----------------------
-dataset_download(dirout = '/content/sample_data/sent_tans/')
-dataset_fake(dirdata:str, fname = 'data_fake.parquet', nsample = 10)
+dataset_download(name = 'AllNLI.tsv.gz', dirout = '/content/sample_data/sent_tans/')
+dataset_fake(name = 'AllNLI.tsv.gz', dirdata:str = '', fname:str = 'data_fake.parquet', nsample = 10)
 dataset_fake2(dirdata = '')
 help()
 load_dataloader(path_or_df:str  =  "", name:str = 'sts', cc:dict =  None, istrain = True, npool = 4)
-load_evaluator(path_or_df:Union[pd.DataFrame, str] = "", dname = 'sts', cc:dict = None)
-load_loss(model  = '', lossname  = 'cosine', cc:dict =  None)
-model_check_cos_sim(model  =  "model name or path or object", sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
-model_encode(model  =  "model name or path or object", dirdata:Union[str, pd.DataFrame] = "data/*.parquet", coltext:str = 'sentence1', dirout:str = "embs/myfile.parquet", **kw)
+load_evaluator(path_or_df:Dataframe_str = "", dname = 'sts', cc:dict = None)
+load_loss(model, lossname  = 'cosine', cc:dict =  None)
+model_check_cos_sim(model, sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
+model_encode(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", show = 1, **kw)
+model_encode_batch(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", nsplit = 5, imin = 0, imax = 500, **kw)
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
+model_finetune(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_finetune_classifier(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
+model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
 model_load(path_or_name_or_object)
-model_load_fit_sentence(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
 model_save(model, path:str, reload = True)
-model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:dict = None)
+model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+sentence_compare(df, cola, colb, model)
 test1()
+test2()
 test_all()
 
 
@@ -1354,6 +1409,21 @@ test2()
 test_all()
 tokenize_bert(corpus, tokenizer = None, maxlen = None)
 utils_bert_embedding(txt, tokenizer, nlp, log = False)
+
+
+
+utilmy/nlp/zzz_text.py
+-------------------------functions----------------------
+help()
+help_get_codesource(func)
+log(*s)
+pd_text_getcluster(df:pd.DataFrame, col:str = 'col', threshold = 0.5, num_perm:int = 5, npool = 1, chunk  =  100000)
+pd_text_hash_create_lsh(df, col, sep = " ", threshold = 0.7, num_perm = 10, npool = 1, chunk  =  20000)
+pd_text_similarity(df: pd.DataFrame, cols = [], algo = '')
+test()
+test()
+test_all()
+test_lsh()
 
 
 
@@ -2105,6 +2175,9 @@ VectorStoreCache.__init__(self, prefix = "m001", cass_query = None, nmax = 10**6
 VectorStoreCache.get_multi(self, siids, use_dict = True, update_cache = True)
 
 
+utilmy/recsys/zprepro_recs.py
+
+
 utilmy/recsys/zrecs/docs/source/conf.py
 
 
@@ -2756,10 +2829,10 @@ test_spark_check(spark_session: SparkSession, config: dict)
 utilmy/stats/__init__.py
 
 
-utilmy/stats/hypothetical/__init__.py
+utilmy/stats/hypothesis/__init__.py
 
 
-utilmy/stats/hypothetical/_lib.py
+utilmy/stats/hypothesis/_lib.py
 -------------------------functions----------------------
 _build_des_mat(*args, group = None)
 _build_summary_matrix(x, y = None)
@@ -2768,81 +2841,82 @@ _rank(design_matrix)
 
 
 
-utilmy/stats/hypothetical/aov.py
+utilmy/stats/hypothesis/aov.py
 
 
-utilmy/stats/hypothetical/contingency.py
+utilmy/stats/hypothesis/contingency.py
 
 
-utilmy/stats/hypothetical/critical.py
+utilmy/stats/hypothesis/critical.py
 -------------------------functions----------------------
 chi_square_critical_value(alpha, dof)
 
 
 
-utilmy/stats/hypothetical/descriptive.py
+utilmy/stats/hypothesis/descriptive.py
 -------------------------functions----------------------
 add_noise(cor, epsilon = None, m = None)
 covar(x, y = None, method = None)
 
 
 
-utilmy/stats/hypothetical/docs/setup.py
+utilmy/stats/hypothesis/fa.py
 
 
-utilmy/stats/hypothetical/fa.py
+utilmy/stats/hypothesis/gof.py
 
 
-utilmy/stats/hypothetical/gof.py
+utilmy/stats/hypothesis/hypothesis.py
 
 
-utilmy/stats/hypothetical/hypothesis.py
+utilmy/stats/hypothesis/nonparametric.py
 
 
-utilmy/stats/hypothetical/nonparametric.py
+utilmy/stats/hypothesis/posthoc.py
 
 
-utilmy/stats/hypothetical/posthoc.py
+utilmy/stats/hypothesis/tests/__init__.py
 
 
-utilmy/stats/hypothetical/tests/test_aov.py
+utilmy/stats/hypothesis/tests/test_aov.py
 -------------------------functions----------------------
 multivariate_test_data()
+test_anova_oneway()
 test_data()
-
--------------------------methods----------------------
-TestAnovaOneWay.test_anova_oneway(self)
-TestManovaOneWay.test_manova_oneway(self)
+test_manova_oneway()
 
 
-utilmy/stats/hypothetical/tests/test_contingency.py
--------------------------methods----------------------
-TestChiSquareContingency.test_chi_square_contingency(self)
-TestChiSquareContingency.test_chi_square_contingency_no_continuity(self)
-TestChiSquareContingency.test_chi_square_contingency_no_expected(self)
-TestChiSquareContingency.test_chi_square_exceptions(self)
-TestCochranQ.test_cochranq(self)
-TestCochranQ.test_cochranq_exceptions(self)
-TestMcNemarTest.test_mcnemartest_exceptions(self)
-TestTableMargins.test_expected_frequencies(self)
-TestTableMargins.test_expected_frequencies_exceptions(self)
-TestTableMargins.test_margins_exceptions(self)
-TestTableMargins.test_table_margins(self)
+
+utilmy/stats/hypothesis/tests/test_contingency.py
+-------------------------functions----------------------
+test_chi_square_contingency()
+test_chi_square_contingency_no_continuity()
+test_chi_square_contingency_no_expected()
+test_chi_square_exceptions()
+test_cochranq()
+test_cochranq_exceptions()
+test_expected_frequencies()
+test_expected_frequencies_exceptions()
+test_margins_exceptions()
+test_mcnemartest_exceptions()
+test_table_margins()
 
 
-utilmy/stats/hypothetical/tests/test_critical_values.py
--------------------------methods----------------------
-TestChiSquareCritical.test_critical_values(self)
-TestChiSquareCritical.test_exceptions(self)
-TestRCritical.test_critical_values(self)
-TestRCritical.test_exceptions(self)
-TestUCritical.test_critical_values(self)
-TestUCritical.test_exceptions(self)
-TestWCritical.test_critical_values(self)
-TestWCritical.test_exceptions(self)
+
+utilmy/stats/hypothesis/tests/test_critical_values.py
+-------------------------functions----------------------
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_exceptions()
+test_exceptions()
+test_exceptions()
+test_exceptions()
 
 
-utilmy/stats/hypothetical/tests/test_descriptive.py
+
+utilmy/stats/hypothesis/tests/test_descriptive.py
 -------------------------methods----------------------
 TestCorrelationCovariance.test_covar_no_method(self)
 TestCorrelationCovariance.test_naive_covariance(self)
@@ -2865,10 +2939,10 @@ TestVariance.test_var_textbook_one_pass(self)
 TestVariance.test_var_youngs_cramer(self)
 
 
-utilmy/stats/hypothetical/tests/test_factor_analysis.py
+utilmy/stats/hypothesis/tests/test_factor_analysis.py
 
 
-utilmy/stats/hypothetical/tests/test_gof.py
+utilmy/stats/hypothesis/tests/test_gof.py
 -------------------------methods----------------------
 TestChiSquare.test_chisquare_exceptions(self)
 TestChiSquare.test_chisquare_no_exp(self)
@@ -2879,7 +2953,7 @@ TestJarqueBera.test_jarquebera(self)
 TestJarqueBera.test_jarquebera_exceptions(self)
 
 
-utilmy/stats/hypothetical/tests/test_hypothesis.py
+utilmy/stats/hypothesis/tests/test_hypothesis.py
 -------------------------functions----------------------
 test_data()
 test_multiclass_data()
@@ -2900,7 +2974,7 @@ Test_tTest.test_two_sample_students_test(self)
 Test_tTest.test_two_sample_welch_test(self)
 
 
-utilmy/stats/hypothetical/tests/test_internal.py
+utilmy/stats/hypothesis/tests/test_internal.py
 -------------------------functions----------------------
 test_array()
 test_build_design_matrix()
@@ -2908,7 +2982,7 @@ test_build_matrix()
 
 
 
-utilmy/stats/hypothetical/tests/test_nonparametric.py
+utilmy/stats/hypothesis/tests/test_nonparametric.py
 -------------------------functions----------------------
 multivariate_test_data()
 plants_test_data()
@@ -2940,7 +3014,7 @@ TestWilcoxon.test_wilcoxon_multi_sample(self)
 TestWilcoxon.test_wilcoxon_one_sample(self)
 
 
-utilmy/stats/hypothetical/tests/test_posthoc.py
+utilmy/stats/hypothesis/tests/test_posthoc.py
 -------------------------functions----------------------
 test_tukeytest()
 
@@ -2950,11 +3024,14 @@ TestGamesHowell.test_games_howell(self)
 
 utilmy/stats/statistics.py
 -------------------------functions----------------------
-estimator_boostrap_bayes(err, alpha = 0.05, )
-estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
-estimator_std_normal(err, alpha = 0.05, )
+bonferoni_adjuster(p_values, threshold = 0.1)
+confidence_interval_boostrap_bayes(err:np.ndarray, alpha = 0.05, )
+confidence_interval_bootstrap(err:np.ndarray, custom_stat = None, alpha = 0.05, n_iter = 10000)
+confidence_interval_normal_std(err:np.ndarray, alpha = 0.05, )
+error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only = 1)
+error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution = "norm", test_size_limit = 5000)
+error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX = None, bins = 5)
 help()
-log(*s)
 np_col_extractname(col_onehot)
 np_conv_to_one_col(np_array, sep_char = "_")
 np_list_remove(cols, colsremove, mode = "exact")
@@ -2962,19 +3039,31 @@ test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
-test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
+test_anova(df:pd.DataFrame, col1, col2)
+test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method = 'chisquare', **kw)
+test_independance(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
+test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX = None, coly = 'y', bonferroni_adjuster = True, threshold = 0.1)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(error, distribution = "norm", test_size_limit = 5000)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
-y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
+test_normality2(df:pd.DataFrame, column, test_type)
+test_plot_qqplot(df:pd.DataFrame, col_name)
+test_same_mean(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
 
 
 
 utilmy/tabular/__init__.py
+
+
+utilmy/tabular/ppolars.py
+-------------------------functions----------------------
+help()
+load_function_uri(uri_name = "path_norm")
+pandas_test()
+pd_compare(df, dfp)
+pivot_table_polars(df_or_path, columns:list, index:list, values:list, aggfunc:str = 'sum', dirout = "./mypivot.parquet")
+polars_test()
+test1()
+test_all()
+
 
 
 utilmy/tabular/sparse/test_data.py
@@ -2996,11 +3085,7 @@ utilmy/tabular/sparse/test_model2.py
 
 utilmy/tabular/tabular.py
 -------------------------functions----------------------
-estimator_boostrap_bayes(err, alpha = 0.05, )
-estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
-estimator_std_normal(err, alpha = 0.05, )
 help()
-log(*s)
 np_col_extractname(col_onehot)
 np_conv_to_one_col(np_array, sep_char = "_")
 np_list_remove(cols, colsremove, mode = "exact")
@@ -3014,18 +3099,9 @@ pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
 pd_to_scipy_sparse_matrix(df)
 pd_train_test_split_time(df, test_period  =  40, cols = None, coltime  = "time_key", sort = True, minsize = 5, n_sample = 5, verbose = False)
-test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
-test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
-test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(error, distribution = "norm", test_size_limit = 5000)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
@@ -3082,6 +3158,7 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
+generate_rules_fromdata()
 help()
 load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
@@ -3208,7 +3285,7 @@ utilmy/templates/__init__.py
 utilmy/templates/cli.py
 -------------------------functions----------------------
 run_cli()
-template_copy(name, out_dir)
+template_copy(name, dirout)
 template_show()
 
 
@@ -3448,7 +3525,7 @@ DAG.validate(self)
 utilmy/tools/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -3609,7 +3686,7 @@ utilmy/tools/cli_repo_check.py
 -------------------------functions----------------------
 get_logger()
 get_os()
-git_clone(url, out_dir = None)
+git_clone(url, dirout = None)
 load_arguments()
 main()
 os_system(cmds, stdout_only = True)
@@ -3677,7 +3754,7 @@ test_toplvl()
 utilmy/tools/test/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -3760,6 +3837,39 @@ os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel 
 
 
 utilmy/tseries/__init__.py
+
+
+utilmy/tseries/torch_outlier.py
+-------------------------functions----------------------
+dataset_ECG5000_fetch_pandas(nrows = 100, dirout = "./ztmp/")
+dataset_ECG5000_prep(df)
+dataset_create(df)
+help()
+model_evaluate(model, test_normal_dataset, device = 'cpu', THRESHOLD = 0.2)
+model_plotLoss(history:dict)
+model_predict(model, dataset, device = 'cpu')
+model_save(model, path)
+model_train(model, train_dataset, val_dataset, n_epochs, device = 'cpu')
+test1()
+test_all()
+
+-------------------------methods----------------------
+DynamicLSTM.__init__(self, input_size, hidden_size = 100, num_layers = 1, dropout = 0., bidirectional = False)
+DynamicLSTM.forward(self, x, seq_lens)
+QuoraModel.__init__(self, args)
+QuoraModel.forward(self, word_seq, seq_len)
+modelDecoder3.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder3.forward(self, x)
+modelDecoder.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder.forward(self, x)
+modelEncoder3.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder3.forward(self, x)
+modelEncoder.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder.forward(self, x)
+modelRecurrentAutoencoder3.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder3.forward(self, x)
+modelRecurrentAutoencoder.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder.forward(self, x)
 
 
 utilmy/tseries/util_tseries.py
@@ -3877,9 +3987,16 @@ user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
 
 utilmy/util_download.py
 -------------------------functions----------------------
-download_page_image(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
-download_with_progress(url, destination)
-get_cache_directory()
+donwload_and_extract(url, dirout = './ztmp/', unzip = True)
+download_custom_pageimage(query, fileout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+download_github(url="https = "https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", dirout = "./ztmp/")
+download_google(url_or_id="https = "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing", fileout = "./ztmp/", unzip = True)
+download_with_progress(url, fileout)
+help()
+os_extract_archive(file_path, dirout = "./ztmp/", archive_format = "auto")
+test1()
+test_all()
+to_file(s, filep)
 
 
 
@@ -3900,7 +4017,7 @@ dir_size(dirin = "mypath", dirout = "./save.txt")
 gzip(dirin = '/mydir', dirout = "./")
 os_extract_archive(file_path, path = ".", archive_format = "auto")
 to_file(s, filep)
-unzip(in_dir, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -3912,6 +4029,7 @@ get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
 glob_glob(dirin:Union[str, list] = "**/*.py", nfile = 1000, direxclude:Union[str, list] = "", exclude:Union[str, list] = "", recursive = True, silent = False, show = 0, **kw)
+google_download(url_or_id="https = "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing", dirout = "./ztmp/", unzip = True)
 help()
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
@@ -4000,6 +4118,12 @@ utilmy/viz/test_vizhtml.py
 test1(verbose = False)
 test2(verbose = False)
 test_getdata(verbose = True)
+
+
+
+utilmy/viz/track.py
+-------------------------functions----------------------
+frames_to_video(pathIn, pathOut, fps, )
 
 
 
@@ -4153,6 +4277,22 @@ web_get_url_loginpassword(url_list = None, browser = "phantomjs", login = "", pa
 web_send_email_tls(FROM, recipient, subject, body, login1 = "mizenjapan@gmail.com", pss1 = "sophieelise237", server1 = "smtp.gmail.com", port1 = 465, )
 web_sendurl(url1)
 
+
+
+utilmy/zdocstring.py
+-------------------------functions----------------------
+a__google_doc_string_example(package:str = "mlmodels.util", name:str = "path_norm")
+
+-------------------------methods----------------------
+ExampleClass.__init__(self, param1, param2, param3)
+ExampleClass.__special__(self)
+ExampleClass.__special_without_docstring__(self)
+ExampleClass._private(self)
+ExampleClass._private_without_docstring(self)
+ExampleClass.example_method(self, param1, param2)
+ExampleClass.readonly_property(self)
+ExampleClass.readwrite_property(self)
+ExampleClass.readwrite_property(self)
 
 
 utilmy/zml/core_deploy.py
@@ -6431,9 +6571,6 @@ test_helper(model_pars, data_pars, compute_pars)
 MY_MODEL_CLASS.__init__(cpars)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
-
-
-utilmy/zprepro.py
 
 
 utilmy/zzarchive/_HELP.py
@@ -10084,7 +10221,7 @@ utilmy/zzml/mlmodels/model_tf/raw/convert_ipny_cli.py
 -------------------------functions----------------------
 Run()
 check(file_list, dump = False)
-convert_topython(source_files, data_file, out_dir)
+convert_topython(source_files, data_file, dirout)
 scan(data_file)
 
 
@@ -11077,19 +11214,4 @@ versions_from_file(filename)
 versions_from_parentdir(parentdir_prefix, root, verbose)
 versions_from_parentdir(parentdir_prefix, root, verbose)
 write_to_version_file(filename, versions)
-
-
-
-utilmy/zzz_text.py
--------------------------functions----------------------
-help()
-help_get_codesource(func)
-log(*s)
-pd_text_getcluster(df:pd.DataFrame, col:str = 'col', threshold = 0.5, num_perm:int = 5, npool = 1, chunk  =  100000)
-pd_text_hash_create_lsh(df, col, sep = " ", threshold = 0.7, num_perm = 10, npool = 1, chunk  =  20000)
-pd_text_similarity(df: pd.DataFrame, cols = [], algo = '')
-test()
-test()
-test_all()
-test_lsh()
 

@@ -350,6 +350,53 @@ https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integrati
 
 """
 
+#############################################################################################
+#######iguana Rule generator ################################################################
+
+def generate_rules_fromdata():
+    """"  Helper for Rule Generators.
+    Code::
+
+        from iguanas.rule_generation import RuleGeneratorDT
+        from iguanas.rule_optimisation import BayesianOptimiser
+        from iguanas.metrics.classification import FScore, Precision
+        from iguanas.metrics.pairwise import JaccardSimilarity
+        from iguanas.rules import Rules, ConvertProcessedConditionsToGeneral, ReturnMappings
+        from iguanas.correlation_reduction import AgglomerativeClusteringReducer
+        from iguanas.rule_selection import SimpleFilter, GreedyFilter, CorrelatedFilter
+        from iguanas.rbs import RBSPipeline, RBSOptimiser
+
+        import pandas as pd
+        import numpy as np
+        from sklearn.model_selection import train_test_split
+        from category_encoders.one_hot import OneHotEncoder
+        from sklearn.ensemble import RandomForestClassifier
+        import pickle
+        from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
+        import seaborn as sns
+
+        RuleGeneratorDT: Generate rules by extracting the highest performing branches from a tree ensemble model.
+
+        RuleGeneratorOpt: Generate rules by optimising the thresholds of single features and combining these one condition rules with AND conditions to create more complex rules.
+
+            params = {
+            'metric': f1.fit,
+            'n_total_conditions': 4,
+            'tree_ensemble': RandomForestClassifier(n_estimators=10, random_state=0),
+            'target_feat_corr_types': 'Infer',
+            'num_cores': 4,
+            'verbose': 1
+        }
+
+     https://paypal.github.io/Iguanas/examples/complete/rbs_example.html
+    """
+    ss=""
+    print(ss)
+
+
+
+
+
 
 #############################################################################################
 def model_fit(name:str='imodels.SLIMRegressor', model_pars:dict=None, data_pars:dict=None, do_eval: bool=True, **kw

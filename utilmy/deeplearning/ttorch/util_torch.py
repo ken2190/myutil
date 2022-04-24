@@ -105,36 +105,33 @@ def device_setup(arg):
     return device
 
 
-def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  arg=None):
+def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
+                     batch_size=64, shuffle=True, device='cpu', batch_size_val=None, batch_size_test=None):
     """function dataloader_create
     Args:
-        train_X:   
-        train_y:   
-        valid_X:   
-        valid_y:   
-        test_X:   
-        test_y:   
-        arg:   
+        train_X:     
     Returns:
         
     """
-    batch_size = arg.batch_size
     train_loader, valid_loader, test_loader = None, None, None
 
+    batch_size_val=  valid_X.shape[0] if batch_size_val is None else batch_size_val
+    batch_size_test=  valid_X.shape[0] if batch_size_val is None else batch_size_test
+
     if train_X is not None :
-        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=arg.device), torch.tensor(train_y, dtype=torch.float32, device=arg.device)
-        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
-        log("data size", len(train_X) )
+        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=shuffle)
+        log("train size", len(train_X) )
 
     if valid_X is not None :
-        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=arg.device), torch.tensor(valid_y, dtype=torch.float32, device=arg.device)
-        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
-        log("data size", len(valid_X)  )
+        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=device), torch.tensor(valid_y, dtype=torch.float32, device=device)
+        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size= batch_size_val)
+        log("val size", len(valid_X)  )
 
     if test_X  is not None :
         test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=arg.device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
         test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
-        log("data size:", len(test_X) )
+        log("test size:", len(test_X) )
 
     return train_loader, valid_loader, test_loader
 
@@ -348,29 +345,247 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log()
 
 
+###############################################################################################
+########### Custom layer ######################################################################
+class SmeLU(nn.Module):
+    """
+    This class implements the Smooth ReLU (SmeLU) activation function proposed in:
+    https://arxiv.org/pdf/2202.06499.pdf
+
+
+    Example :
+        def main() -> None:
+            # Init figures
+            fig, ax = plt.subplots(1, 1)
+            fig_grad, ax_grad = plt.subplots(1, 1)
+            # Iterate over some beta values
+            for beta in [0.5, 1., 2., 3., 4.]:
+                # Init SemLU
+                smelu: SmeLU = SmeLU(beta=beta)
+                # Make input
+                input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
+                # Get activations
+                output: torch.Tensor = smelu(input)
+                # Compute gradients
+                output.sum().backward()
+                # Plot activation and gradients
+                ax.plot(input.detach(), output.detach(), label=str(beta))
+                ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))
+            # Show legend, title and grid
+            ax.legend()
+            ax_grad.legend()
+            ax.set_title("SemLU")
+            ax_grad.set_title("SemLU gradient")
+            ax.grid()
+            ax_grad.grid()
+            # Show plots
+            plt.show()
+
+    """
+
+    def __init__(self, beta: float = 2.) -> None:
+        """
+        Constructor method.
+        :param beta (float): Beta value if the SmeLU activation function. Default 2.
+        """
+        # Call super constructor
+        super(SmeLU, self).__init__()
+        # Check beta
+        assert beta >= 0., f"Beta must be equal or larger than zero. beta={beta} given."
+        # Save parameter
+        self.beta: float = beta
+
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass.
+        :param input (torch.Tensor): Tensor of any shape
+        :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
+        """
+        output: torch.Tensor = torch.where(input >= self.beta, input,
+                                           torch.tensor([0.], device=input.device, dtype=input.dtype))
+        output: torch.Tensor = torch.where(torch.abs(input) <= self.beta,
+                                           ((input + self.beta) ** 2) / (4. * self.beta), output)
+        return output
+
+
+
+
 
 #####################################################################################################################
-def get_metrics(y_true, y_pred, y_score):
-    """function get_metrics
-    Args:
-        y_true:   
-        y_pred:   
-        y_score:   
-    Returns:
-        
-    """
-    acc = accuracy_score(y_true, y_pred)
-    prec = precision_score(y_true, y_pred)
-    recall = recall_score(y_true, y_pred)
-    fpr, tpr, _ = roc_curve(y_true, y_score)
-    roc_auc = auc(fpr, tpr)
+def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,  metric_list:list=["mean_squared_error", "mean_absolute_error("], 
+                 ypred_proba:np.ndarray=None, return_dict:bool=False, metric_pars:dict=None):
+    """ Generic metrics calculation, using sklearn naming pattern.
+    Code::
+          Metric names are below
+          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+          
+          #### Classification metrics
+          accuracy_score(y_true, y_pred, *[, ...])
+          auc(x, y)
+          average_precision_score(y_true, ...)
+          balanced_accuracy_score(y_true, ...)
+          brier_score_loss(y_true, y_prob, *)
+          classification_report(y_true, y_pred, *)
+          cohen_kappa_score(y1, y2, *[, ...])
+          confusion_matrix(y_true, y_pred, *)
+          dcg_score(y_true, y_score, *[, k, ...])
+          det_curve(y_true, y_score[, ...])
+          f1_score(y_true, y_pred, *[, ...])
+          fbeta_score(y_true, y_pred, *, beta)
+          hamming_loss(y_true, y_pred, *[, ...])
+          hinge_loss(y_true, pred_decision, *)
+          jaccard_score(y_true, y_pred, *[, ...])
+          log_loss(y_true, y_pred, *[, eps, ...])
+          matthews_corrcoef(y_true, y_pred, *)
+          multilabel_confusion_matrix(y_true, ...)
+          ndcg_score(y_true, y_score, *[, k, ...])
+          precision_recall_curve(y_true, ...)
+          precision_recall_fscore_support(...)
+          precision_score(y_true, y_pred, *[, ...])
+          recall_score(y_true, y_pred, *[, ...])
+          roc_auc_score(y_true, y_score, *[, ...])
+          roc_curve(y_true, y_score, *[, ...])
+          top_k_accuracy_score(y_true, y_score, *)
+          zero_one_loss(y_true, y_pred, *[, ...])
 
-    return acc, prec, recall, fpr, tpr, roc_auc
+
+          #### Regression metrics
+          explained_variance_score(y_true, ...)
+          max_error(y_true, y_pred)
+          mean_absolute_error(y_true, y_pred, *)
+          mean_squared_error(y_true, y_pred, *)
+          mean_squared_log_error(y_true, y_pred, *)
+          median_absolute_error(y_true, y_pred, *)
+          mean_absolute_percentage_error(...)
+          r2_score(y_true, y_pred, *[, ...])
+          mean_poisson_deviance(y_true, y_pred, *)
+          mean_gamma_deviance(y_true, y_pred, *)
+          mean_tweedie_deviance(y_true, y_pred, *)
+          d2_tweedie_score(y_true, y_pred, *)
+          mean_pinball_loss(y_true, y_pred, *)
+
+
+          #### Multilabel ranking metrics
+          coverage_error(y_true, y_score, *[, ...])
+          label_ranking_average_precision_score(...)
+          label_ranking_loss(y_true, y_score, *)
+
+
+          ##### Clustering
+          supervised, which uses a ground truth class values for each sample.
+          unsupervised, which does not and measures the ‘quality’ of the model itself.
+
+          adjusted_mutual_info_score(...[, ...])
+          adjusted_rand_score(labels_true, ...)
+          calinski_harabasz_score(X, labels)
+          davies_bouldin_score(X, labels)
+          completeness_score(labels_true, ...)
+          cluster.contingency_matrix(...[, ...])
+          cluster.pair_confusion_matrix(...)
+          fowlkes_mallows_score(labels_true, ...)
+          homogeneity_completeness_v_measure(...)
+          homogeneity_score(labels_true, ...)
+          mutual_info_score(labels_true, ...)
+          normalized_mutual_info_score(...[, ...])
+          rand_score(labels_true, labels_pred)
+          silhouette_score(X, labels, *[, ...])
+          silhouette_samples(X, labels, *[, ...])
+          v_measure_score(labels_true, ...[, beta])
+          consensus_score(a, b, *[, similarity])
+
+
+
+          #### Pairwise metrics
+          pairwise.additive_chi2_kernel(X[, Y])
+          pairwise.chi2_kernel(X[, Y, gamma])
+          pairwise.cosine_similarity(X[, Y, ...])
+          pairwise.cosine_distances(X[, Y])
+          pairwise.distance_metrics()
+          pairwise.euclidean_distances(X[, Y, ...])
+          pairwise.haversine_distances(X[, Y])
+          pairwise.kernel_metrics()
+          pairwise.laplacian_kernel(X[, Y, gamma])
+          pairwise.linear_kernel(X[, Y, ...])
+          pairwise.manhattan_distances(X[, Y, ...])
+          pairwise.nan_euclidean_distances(X)
+          pairwise.pairwise_kernels(X[, Y, ...])
+          pairwise.polynomial_kernel(X[, Y, ...])
+          pairwise.rbf_kernel(X[, Y, gamma])
+          pairwise.sigmoid_kernel(X[, Y, ...])
+          pairwise.paired_euclidean_distances(X, Y)
+          pairwise.paired_manhattan_distances(X, Y)
+          pairwise.paired_cosine_distances(X, Y)
+          pairwise.paired_distances(X, Y, *[, ...])
+          pairwise_distances(X[, Y, metric, ...])
+          pairwise_distances_argmin(X, Y, *[, ...])
+          pairwise_distances_argmin_min(X, Y, *)
+          pairwise_distances_chunked(X[, Y, ...])
+
+
+                
+    """
+    import pandas as pd, importlib, sklearn
+    mdict = {"metric_name": [],
+             "metric_val": [],
+             "n_sample": [len(ytrue)] * len(metric_list)}
+
+    if isinstance(metric_list, str):
+        metric_list = [metric_list]
+
+    for metric_name in metric_list:
+        mod = "sklearn.metrics"
+
+
+        if metric_name in ["roc_auc_score"]:        #y_pred_proba is not defined
+            #### Ok for Multi-Class
+            metric_scorer = getattr(importlib.import_module(mod), metric_name)
+            assert len(ypred_proba)>0, 'Require ypred_proba'
+            mval_=[]
+            for i_ in range(ypred_proba.shape[1]):
+                mval_.append(metric_scorer(pd.get_dummies(ytrue).to_numpy()[:,i_], ypred_proba[:,i_]))
+            mval          = np.mean(np.array(mval_))
+
+        elif metric_name in ["root_mean_squared_error"]:
+            metric_scorer = getattr(importlib.import_module(mod), "mean_squared_error")
+            mval          = np.sqrt(metric_scorer(ytrue, ypred))
+
+        else:
+            metric_scorer = getattr(importlib.import_module(mod), metric_name)
+            mval = metric_scorer(ytrue, ypred)
+
+        mdict["metric_name"].append(metric_name)
+        mdict["metric_val"].append(mval)
+
+    if return_dict: return mdict
+
+    mdict = pd.DataFrame(mdict)
+    return mdict
+
+
+def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
+    """ Generic metrics Plotting.
+    Code::
+       
+          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
+          
+          #### Plotting
+          plot_confusion_matrix(estimator, X, ...)
+          plot_det_curve(estimator, X, y, *[, ...])
+          plot_precision_recall_curve(...[, ...])
+          plot_roc_curve(estimator, X, y, *[, ...])
+          ConfusionMatrixDisplay(...[, ...])
+          DetCurveDisplay(*, fpr, fnr[, ...])
+          PrecisionRecallDisplay(precision, ...)
+          RocCurveDisplay(*, fpr, tpr[, ...])
+          calibration.CalibrationDisplay(prob_true, ...)
+                
+    """
+
 
 
 
 #############################################################################################
-class model_dummy(nn.Module):
+class test_modelClass_dummy(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
     super(DataEncoder, self).__init__()
     self.input_dim = input_dim

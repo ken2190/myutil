@@ -95,13 +95,13 @@ def scan_dir(folder):
     return files
 
 
-def git_clone(url, out_dir=None):
+def git_clone(url, dirout=None):
     """
     Clone a git repository from its url.
     """
-    if out_dir != None:
+    if dirout != None:
         _, stderr, errcode = os_system(
-            ["git", "clone", url, out_dir], stdout_only=False)
+            ["git", "clone", url, dirout], stdout_only=False)
         if errcode != 0:
             logger.error(stderr.decode('UTF-8'))
             # to indicate our operation was not a success

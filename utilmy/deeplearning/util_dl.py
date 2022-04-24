@@ -27,19 +27,25 @@ def test_all():
 ################################################################################################
 ################################################################################################
 def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
-    """ Save Arbitrary dict in tensorboard
-    #### Usage 1
-    logdir = 'logs/params'
-    cc = {'arbitray dict' : 1, 'ykey': {'mykey2' : 5 } }
+    """ Save Arbitrary dict in tensorboard.
+    Doc::
 
-    from tensorboardX import SummaryWriter
-    # from tensorboard import SummaryWriter
-    tb_writer = SummaryWriter(logdir)
-    tensorboard_log(cc, writer= tb_writer)
+        #### Usage 1
+        from utilmy.deeplearning.util_dl import tensorboard_log
+        from box import Box
+
+        cc = Box({'arbitray dict' : 1, 'ykey': {'mykey2' : 5 }, 'log_tbdir': './tblog/' })
+
+        from tensorboardX import SummaryWriter
+        # from tensorboard import SummaryWriter
+        tb_writer = SummaryWriter(cc.logdir)
 
 
-    %reload_ext tensorboard
-    %tensorboard --logdir logs/params/
+        cc.hist_loss = [0.1, 0.3, 0.4]  
+        tensorboard_log(cc, writer= tb_writer)
+
+        %reload_ext tensorboard
+        %tensorboard --logdir logs/params/
     """
     import collections
     def dict_flatten(d, parent_key='', sep='_'):
@@ -51,7 +57,6 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
             else:
                 items.append((new_key, v))
         return dict(items)
-
 
     flatten_box = dict_flatten(pars_dict)
     if verbose:
@@ -71,9 +76,12 @@ def tensorboard_log(pars_dict:dict=None,  writer=None,  verbose=True):
 
     
 def gpu_usage():
-   """function gpu_usage
-   Args:
-   Returns:
+   """GPU Usage: 
+   Doc::
+
+      python $utilmy/deeplearning/util_dl.py   gpu_usage
+      nvidia-smi --query-gpu=pci.bus_id,utilization.gpu --format=csv
+
        
    """
    cmd = "nvidia-smi --query-gpu=pci.bus_id,utilization.gpu --format=csv"
@@ -85,7 +93,12 @@ def gpu_usage():
     
     
 def gpu_available():
-    """function gpu_available        
+    """function gpu_available.
+    Doc::
+
+        "nvidia-smi --query-gpu=pci.bus_id,utilization.gpu --format=csv  
+        " 0 %"  in t[1]:
+
     """
     cmd = "nvidia-smi --query-gpu=pci.bus_id,utilization.gpu --format=csv  "
     from utilmy import os_system    

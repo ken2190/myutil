@@ -1,13 +1,7 @@
 # coding=utf-8
-HELP="""
-
-
-https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
-
+HELP="""  Hypothesis testing easy
+  
 https://github.com/pranab/beymani
-
-
-https://pkghosh.wordpress.com/2020/12/24/concept-drift-detection-techniques-with-python-implementation-for-supervised-machine-learning-models/
 
 
 
@@ -22,6 +16,11 @@ import os, sys, pandas as pd, numpy as np
 from utilmy.utilmy import pd_generate_data
 from utilmy.prepro.util_feature import  pd_colnum_tocat, pd_colnum_tocat_stat
 
+# conduct multiple comparisons
+from tqdm import tqdm
+from typing import List, Union
+from scipy import stats
+
 
 #################################################################################################
 from utilmy.utilmy import log, log2
@@ -33,9 +32,9 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create("utilmy.tabular") )
+    print( HELP + help_create("utilmy.stats.statistics") )
 
-    
+
 #################################################################################################
 def test_all():
     """
@@ -51,12 +50,12 @@ def test_all():
     X = df[["yield","density","block"]]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.50, random_state=42)
     model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
+    ypred = model.predict(X_test)
     
     def test():
         log("Testing normality...")
-        import utilmy.tabular as m
-        test_normality(df["yield"])
+        from utilmy.stats  import statistics as m
+        error_test_normality(df["yield"])
         
         
         df1 = pd_generate_data(7, 100)
@@ -66,18 +65,15 @@ def test_all():
 
         
         log("Testing heteroscedacity...")
-        from utilmy.tabular import test_heteroscedacity
-        log(test_heteroscedacity(y_test,y_pred))
+        log(m.error_test_heteroscedacity(y_test, ypred))
     
         log("Testing test_mutualinfo()...")
-        from utilmy.tabular import test_mutualinfo
         df1 = pd_generate_data(7, 100)
 
-        test_mutualinfo(df1["0"],df1[["1","2","3"]],colname="test")
+        m.error_test_residual_mutualinfo(df1["0"], df1[["1", "2", "3"]], colname="test")
 
         log("Testing hypothesis_test()...")
-        from utilmy.tabular import test_hypothesis
-        log(test_hypothesis(X_train, X_test,"chisquare"))
+        log(m.test_hypothesis(X_train, X_test,"chisquare"))
 
     def custom_stat(values, axis=1):
         #stat_val = np.mean(np.asmatrix(values),axis=axis)
@@ -87,89 +83,16 @@ def test_all():
 
     def test_estimator():
         log("Testing estimators()...")
-        from utilmy.tabular import estimator_std_normal,estimator_boostrap_bayes,estimator_bootstrap
-        log(estimator_std_normal(y_pred))
-        log(estimator_boostrap_bayes(y_pred))
-        estimator_bootstrap(y_pred, custom_stat=custom_stat)
+        from utilmy.stats.statistics import confidence_interval_normal_std,confidence_interval_boostrap_bayes,confidence_interval_bootstrap
+        log(confidence_interval_normal_std(ypred))
+        log(confidence_interval_boostrap_bayes(ypred))
+        confidence_interval_bootstrap(ypred, custom_stat=custom_stat)
 
-       
-    
-    def test_pd_utils():
-        log("Testing pd_utils ...")
-        from utilmy.tabular import pd_train_test_split_time,pd_to_scipy_sparse_matrix,pd_stat_correl_pair,\
-            pd_stat_pandas_profile,pd_stat_distribution_colnum,pd_stat_histogram,pd_stat_shift_trend_changes,\
-            pd_stat_shift_trend_correlation,pd_stat_shift_changes
-        from utilmy.prepro.util_feature import pd_colnum_tocat_stat
-
-        pd_train_test_split_time(df, coltime="block")
-        pd_to_scipy_sparse_matrix(df)
-        '''TODO: git test failling here
-        this bug is caused due to typecasting mismatch in the function.
-        However, even typecasting the arrays manually in the function is not solving
-        the problem.
-        '''
-        # log(pd_stat_correl_pair(df,coltarget=["fertilizer"],colname=["yield"]))
-        
-        pd_stat_pandas_profile(df,savefile="./testdata/tmp/test/report.html", title="Pandas profile")
-        pd_stat_distribution_colnum(df, nrows=len(df))
-        pd_stat_histogram(df, bins=50, coltarget="yield")
-        _,df_grouped = pd_colnum_tocat_stat(df,"density","block",10)
-        pd_stat_shift_trend_changes(df_grouped,"density","block")
-
-        _, X_train_grouped =  pd_colnum_tocat_stat(X_train,"yield","block",10)
-        _, X_test_grouped =  pd_colnum_tocat_stat(X_test,"yield","block",10)
-        pd_stat_shift_trend_correlation(X_train_grouped, X_test_grouped,"yield","block")
-
-        '''TODO: TypeError: pd_colnum_tocat_stat() got an unexpected keyword argument 'colname',
-        This function needs complete rewrite there are many bugs and logical errors.
-        pd_stat_shift_changes(df,"yield", features_list=["density","block"])
-        '''
-
-    def test_drift_detect():
-        import tensorflow as tf
-        from tensorflow.keras.layers import Dense,InputLayer,Dropout
-        from utilmy.tabular import pd_data_drift_detect_alibi
-
-        input_size = X_train.shape[1]
-        output_size = y_train.nunique()
-        model = tf.keras.Sequential(
-            [
-                InputLayer(input_shape=(input_size)),
-                Dense(16,activation=tf.nn.relu),
-                Dropout(0.3),
-                Dense(1)
-            ]
-        )
-        model.compile(optimizer='adam',loss='mse')
-        model.fit(X_train,y_train,epochs=1)
-
-        pd_data_drift_detect_alibi(X_train, X_test,'regressoruncertaintydrift','tensorflow',model=model)
-        pd_data_drift_detect_alibi(X_train, X_test,'learnedkerneldrift','tensorflow',model=model)
-        pd_data_drift_detect_alibi(X_train, X_test,'spotthediffdrift','tensorflow',model=model)
-        pd_data_drift_detect_alibi(X_train, X_test,'spotthediffdrift','tensorflow')
-        pd_data_drift_detect_alibi(X_train, X_test,'ksdrift','tensorflow')
-        pd_data_drift_detect_alibi(X_train, X_test,'mmddrift','tensorflow')
-        pd_data_drift_detect_alibi(X_train, X_test,'chisquaredrift','tensorflow')
-        pd_data_drift_detect_alibi(X_train, X_test,'tabulardrift','tensorflow')
-
-        input_size = X_train.shape[1]
-        output_size = y_train.nunique()
-        model = tf.keras.Sequential(
-            [
-                InputLayer(input_shape=(input_size)),
-                Dense(16,activation=tf.nn.relu),
-                Dropout(0.3),
-                Dense(output_size,activation=tf.nn.softmax)
-            ]
-        )
-        model.compile(optimizer='adam',loss=tf.keras.losses.CategoricalCrossentropy())
-        model.fit(X_train,tf.one_hot(y_train,output_size),epochs=1)
-        pd_data_drift_detect_alibi(X_train,X_test,'classifieruncertaintydrift','tensorflow',model=model)
 
 
     def test_np_utils():
         log("Testing np_utils ...")
-        from utilmy.tabular import np_col_extractname, np_conv_to_one_col, np_list_remove
+        from utilmy.stats.statistics import np_col_extractname, np_conv_to_one_col, np_list_remove
         import numpy as np
         arr = np.array([[1, 2, 3], [4, 5, 6]])
         np_col_extractname(["aa_","bb-","cc"])
@@ -179,10 +102,8 @@ def test_all():
   
     test()
     test_estimator()
-    test_pd_utils()
     # test_drift_detect()
     test_np_utils()
-
 
 
 def test0():
@@ -200,6 +121,7 @@ def test0():
     test_mutualinfo(df["0"],df[["1","2","3"]],colname="test")
     '''
 
+
 def test1():
     """function test1
     Args:
@@ -215,14 +137,14 @@ def test1():
     X = df[["yield","density","block"]]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.50, random_state=42)
     model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    test_normality(df["yield"])
-    log(test_heteroscedacity(y_test,y_pred))
+    ypred = model.predict(X_test)
+    error_test_normality(df["yield"])
+    log(error_test_heteroscedacity(y_test, ypred))
     log(test_hypothesis(X_train, X_test,"chisquare"))
-    log(estimator_std_normal(y_pred))
-    log(estimator_boostrap_bayes(y_pred))
+    log(confidence_interval_normal_std(ypred))
+    log(confidence_interval_boostrap_bayes(ypred))
     '''TODO: need to check this one
-    estimator_bootstrap(y_pred, custom_stat=custom_stat(y_pred))
+    estimator_bootstrap(ypred, custom_stat=custom_stat(ypred))
     '''
 
 
@@ -238,52 +160,89 @@ def test3():
     np_conv_to_one_col(arr)
 
 
-def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+
+###############################################################################################
+########## Helpers on test  ###################################################################
+def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Test if same mean for all columns
+
+       https://towardsdatascience.com/why-is-anova-essential-to-data-science-with-a-practical-example-615de10ba310
+
+
     """
-    print(s)
+    p_values = []
+    cols = df.columns  if cols is None else cols
+
+    if len(cols) == 2:
+        ## Student test of mean
+        p_values = test_student_mean(df, cols[0], cols[1])
 
 
-#############################################################################
-#############################################################################
-def y_adjuster_log(y_true, y_pred_log, error_func, **kwargs):
+    else :   ##> 3 values
+        p_values = test_anova_mean(df, cols)
+
+
+
+
+
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Run ANOVA Test of independance
+
+
+
     """
-       Adjustment of log, exp transfrmation for yt= y + error
-       https://www.inovex.de/de/blog/honey-i-shrunk-the-target-variable/
-       
-       log(y) = u =sigma**2
-    
-    """
-    import scipy as sp
+    p_values = []
+    cols = df.columns  if cols is None else cols
 
-    def cost_func(delta):
-        return error_func(np.exp(delta + y_pred_log), y_true)
+    p_values = test_anova(df, cols)
 
-    res = sp.optimize.minimize(cost_func, 0., **kwargs)
-    if res.success:
-        return res.x
-    else:
-        raise RuntimeError(f"Finding correction term failed!\n{res}")
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
 
 
-# conduct multiple comparisons
-from tqdm import tqdm
-from typing import List
-from scipy import stats
 
-def test_multiple_comparisons(data: pd.DataFrame, label='y', adjuster=True) -> List[float]:
-    """Run multiple t tests.
+
+
+def test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX=None, coly='y', bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+    """Run multiple T tests of Independance
        p_values = multiple_comparisons(data)
        
+
+
+    """
+    p_values = []
+    colsX = df.columns  if colsX is None else colsX
+    for c in colsX:
+        if c.startswith(coly):
+            continue
+        group_a = df[df[c] == 0][coly]
+        group_b = df[df[c] == 1][coly]
+
+        _, p = stats.ttest_ind(group_a, group_b, equal_var=False)
+        p_values.append((c, p) )
+    
+    if bonferroni_adjuster:
+        p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    return p_values
+
+
+
+
+def bonferoni_adjuster(p_values, threshold=0.1):
+    """
        # bonferroni correction
-        print('Total number of discoveries is: {:,}'
-              .format(sum([x[1] < threshold / n_trials for x in p_values])))
-        print('Percentage of significant results: {:5.2%}'
-              .format(sum([x[1] < threshold / n_trials for x in p_values]) / n_trials))
+        print('Total number of discoveries is: {:,}'  .format(sum([x[1] < threshold / n_trials for x in p_values])))
+        print('Percentage of significant results: {:5.2%}'  .format(sum([x[1] < threshold / n_trials for x in p_values]) / n_trials))
 
         # Benjamini–Hochberg procedure
         p_values.sort(key=lambda x: x[1])
@@ -293,36 +252,42 @@ def test_multiple_comparisons(data: pd.DataFrame, label='y', adjuster=True) -> L
                 break
         significant = p_values[:i]
 
-        print('Total number of discoveries is: {:,}'
-              .format(len(significant)))
-        print('Percentage of significant results: {:5.2%}'
-              .format(len(significant) / n_trials))
-
+        print('Total number of discoveries is: {:,}' .format(len(significant)))
+        print('Percentage of significant results: {:5.2%}'.format(len(significant) / n_trials))
     """
-    p_values = []
-    for c in tqdm(data.columns):
-        if c.startswith(label): 
-            continue
-        group_a = data[data[c] == 0][label]
-        group_b = data[data[c] == 1][label]
-
-        _, p = stats.ttest_ind(group_a, group_b, equal_var=True)
-        p_values.append((c, p))
-    
-    if adjuster:
-        p_values.sort(key=lambda x: x[1])
-        for i, x in enumerate(p_values):
-            if x[1] >= (i + 1) / len(p_values) * threshold:
-                break
-        significant = p_values[:i]    
-        return significant
-    
-    return p_values
+    p_values.sort(key=lambda x: x[1])
+    for i, x in enumerate(p_values):
+        if x[1] >= (i + 1) / len(p_values) * threshold:
+            break
+    pvalues_significant = p_values[:i]
+    return pvalues_significant
 
 
 
-    
-def test_anova(df, col1, col2):
+
+
+
+
+#################################################################################################
+############ Actual tests########################################################################
+def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
+    """ Hypothesis betweeb Obs and true values
+
+        https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+    """
+    try:
+       from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
+            table_margins, expected_frequencies )
+    except :
+       print(' pip install hypothesis ')
+
+    if method == 'chisquare' :
+        c = ChiSquareContingency(df_obs, df_true)
+        return c
+
+
+
+def test_anova(df:pd.DataFrame, col1, col2):
     """
     ANOVA test two categorical features
     Input dfframe, 1st feature and 2nd feature
@@ -330,28 +295,31 @@ def test_anova(df, col1, col2):
     import scipy.stats as stats
 
     ov=pd.crosstab(df[col1],df[col2])
-    edu_frame=df[[col1, col2]]
-    groups = edu_frame.groupby(col1).groups
-    edu_class=edu_frame[col2]
+
+    dfb       = df[[col1, col2]]
+    groups    = dfb.groupby(col1).groups
+    edu_class = dfb[col2]
     lis_group = groups.keys()
     lg=[]
     for i in groups.keys():
         globals()[i]  = edu_class[groups[i]].values
         lg.append(globals()[i])
+
     dfd = 0
     for m in lis_group:
         dfd=len(m)-1+dfd
     print(stats.f_oneway(*lg))
+
     stat_val = stats.f_oneway(*lg)[0]
     crit_val = stats.f.ppf(q=1-0.05, dfn=len(lis_group)-1, dfd=dfd)
     if stat_val >= crit_val :
          print('Reject null hypothesies and conclude that atleast one group is different and the feature is releavant to the class.')
     else:
          print('Accept null hypothesies and conclude that atleast one group is same and the feature is not releavant to the class.')
+    return { 'stat_val': stat_val, 'crit_val': crit_val  }
 
 
-
-def test_normality2(df, column, test_type):
+def test_normality2(df:pd.DataFrame, column, test_type):
     """
     Function to check Normal Distribution of a Feature by 3 methods
     Input dfframe, feature name, and a test type
@@ -398,7 +366,8 @@ def test_normality2(df, column, test_type):
                 print(sl,' : ',cv,' ',column,' does not looks normal (fail to reject H0)')
 
 
-def test_plot_qqplot(df, col_name):
+
+def test_plot_qqplot(df:pd.DataFrame, col_name):
     """
     Function to plot boxplot, histplot and qqplot for numerical feature analyze
     """
@@ -412,61 +381,6 @@ def test_plot_qqplot(df, col_name):
     sm.qqplot(ax=axes[2],data=df[col_name], line ='45')
     print(df[col_name].describe())
 
-
-
-####################################################################################################
-def test_heteroscedacity(y, y_pred, pred_value_only=1):
-    """function test_heteroscedacity
-    Args:
-        y:   
-        y_pred:   
-        pred_value_only:   
-    Returns:
-        
-    """
-    ss = """
-       Test  Heteroscedacity :  Residual**2  = Linear(X, Pred, Pred**2)
-       F pvalues < 0.01 : Null is Rejected  ---> Not Homoscedastic
-       het_breuschpagan
-
-    """
-    from statsmodels.stats.diagnostic import het_breuschpagan, het_white
-    error    = y_pred - y
-
-    ypred_df = pd.DataFrame({"pcst": [1.0] * len(y), "pred": y_pred, "pred2": y_pred * y_pred})
-    labels   = ["LM Statistic", "LM-Test p-value", "F-Statistic", "F-Test p-value"]
-    test1    = het_breuschpagan(error * error, ypred_df.values)
-    test2    = het_white(error * error, ypred_df.values)
-    ddict    = {"het-breuschpagan": dict(zip(labels, test1)),
-             "het-white": dict(zip(labels, test2)),
-             }
-
-    return ddict
-
-
-def test_normality(error, distribution="norm", test_size_limit=5000):
-    """
-       Test  Is Normal distribution
-       F pvalues < 0.01 : Rejected
-
-    """
-    from scipy.stats import shapiro, anderson, kstest
-
-    error2 = error
-
-    error2 = error2[np.random.choice(len(error2), 5000)]  # limit test
-    test1  = shapiro(error2)
-    ddict1 = dict(zip(["shapiro", "W-p-value"], test1))
-
-    test2  = anderson(error2, dist=distribution)
-    ddict2 = dict(zip(["anderson", "p-value", "P critical"], test2))
-
-    test3  = kstest(error2, distribution)
-    ddict3 = dict(zip(["kstest", "p-value"], test3))
-
-    ddict  = dict(zip(["shapiro", "anderson", "kstest"], [ddict1, ddict2, ddict3]))
-
-    return ddict
 
 
 def test_mutualinfo(error, Xtest, colname=None, bins=5):
@@ -485,32 +399,96 @@ def test_mutualinfo(error, Xtest, colname=None, bins=5):
     return dict(zip(colname, res))
 
 
-def test_hypothesis(df_obs, df_ref, method='', **kw):
+
+
+####################################################################################################
+############ Residual error ########################################################################
+def error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only=1):
+    """function test_heteroscedacity
+    Args:
+        ytrue:   
+        ypred:   
+        pred_value_only:   
+    Returns:
+        
     """
-    https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+    ss = """
+       Test  Heteroscedacity :  Residual**2  = Linear(X, Pred, Pred**2)
+       F pvalues < 0.01 : Null is Rejected  ---> Not Homoscedastic
+       het_breuschpagan
 
     """
-    try:
-       from hypothetical.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
-            table_margins, expected_frequencies )
-    except :
-       print(' pip install hypothetical ')
+    from statsmodels.stats.diagnostic import het_breuschpagan, het_white
+    error    = ypred - ytrue
 
-    if method == 'chisquare' :
-        c = ChiSquareContingency(df_obs, df_ref)
-        return c
+    ypred_df = pd.DataFrame({"pcst": [1.0] * len(ytrue), "pred": ypred, "pred2": ypred * ypred})
+    labels   = ["LM Statistic", "LM-Test p-value", "F-Statistic", "F-Test p-value"]
+    test1    = het_breuschpagan(error * error, ypred_df.values)
+    test2    = het_white(error * error, ypred_df.values)
+    ddict    = {"het-breuschpagan": dict(zip(labels, test1)),
+             "het-white": dict(zip(labels, test2)),
+             }
+
+    return ddict
+
+
+def error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="norm", test_size_limit=5000):
+    """
+       Test  Is Normal distribution
+       F pvalues < 0.01 : Rejected
+
+    """
+    from scipy.stats import shapiro, anderson, kstest
+    
+
+    error2 = ypred -  ytrue
+
+    error2 = error2[np.random.choice(len(error2), 5000)]  # limit test
+    test1  = shapiro(error2)
+    ddict1 = dict(zip(["shapiro", "W-p-value"], test1))
+
+    test2  = anderson(error2, dist=distribution)
+    ddict2 = dict(zip(["anderson", "p-value", "P critical"], test2))
+
+    test3  = kstest(error2, distribution)
+    ddict3 = dict(zip(["kstest", "p-value"], test3))
+
+    ddict  = dict(zip(["shapiro", "anderson", "kstest"], [ddict1, ddict2, ddict3]))
+
+    return ddict
+
+
+def error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX=None, bins=5):
+    """
+       Test  Error vs Input X Variable Independance byt Mutual ifno
+       sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
+
+    """
+    from sklearn.feature_selection import mutual_info_classif
+    dferror = pd.DataFrame({"error": ypred - ytrue })
+    error_dis, _ = pd_colnum_tocat(dferror, bins=bins, method="quantile")
+    # print(error_dis)
+
+    colsX = colsX if colsX is not None else dfX.columns
+    dfX = dfX[colsX].values
+    res = mutual_info_classif(dfX, error_dis.values.ravel())
+
+    return dict(zip(colsX, res))
+
+
+
 
 
 
 ####################################################################################################
-####################################################################################################
-def estimator_std_normal(err, alpha=0.05, ):
+######### Confidence interval ######################################################################
+def confidence_interval_normal_std(err:np.ndarray, alpha=0.05, ):
     """function estimator_std_normal
     Args:
         err:   
-        alpha:   
+        alpha:   confidence level
         :   
-    Returns:
+    Returns:   std_err, 
         
     """
     # estimate_std( err, alpha=0.05, )
@@ -524,7 +502,7 @@ def estimator_std_normal(err, alpha=0.05, ):
     return np.sqrt(s2), (lower, upper)
 
 
-def estimator_boostrap_bayes(err, alpha=0.05, ):
+def confidence_interval_boostrap_bayes(err:np.ndarray, alpha=0.05, ):
     """function estimator_boostrap_bayes
     Args:
         err:   
@@ -538,7 +516,7 @@ def estimator_boostrap_bayes(err, alpha=0.05, ):
     return mean, var, std
 
 
-def estimator_bootstrap(err, custom_stat=None, alpha=0.05, n_iter=10000):
+def confidence_interval_bootstrap(err:np.ndarray, custom_stat=None, alpha=0.05, n_iter=10000):
     """
       def custom_stat(values, axis=1):
       # stat_val = np.mean(np.asmatrix(values),axis=axis)
@@ -546,12 +524,18 @@ def estimator_bootstrap(err, custom_stat=None, alpha=0.05, n_iter=10000):
       stat_val = np.sqrt(np.mean(np.asmatrix(values*values),axis=axis))
       return stat_val
     """
-    import bootstrapped.bootstrap as bs
+    try :
+       import bootstrapped.bootstrap as bs
+    except:
+        log('pip install bootsrapped') ; 1/0
     res = bs.bootstrap(err, stat_func=custom_stat, alpha=alpha, num_iterations=n_iter)
     return res
 
 
 
+
+####################################################################################################
+####### Utils ######################################################################################
 def np_col_extractname(col_onehot):
     """
     Column extraction from onehot name
@@ -612,4 +596,8 @@ def np_conv_to_one_col(np_array, sep_char="_"):
     return np_array_[:,None]
 
 
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire()
 
