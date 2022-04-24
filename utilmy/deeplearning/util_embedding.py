@@ -937,12 +937,12 @@ if 'utils_vector':
         return res   
 
 
-    def os_unzip(dirin, out_dir):
+    def os_unzip(dirin, dirout):
         # !/usr/bin/env python3
         import sys
         import zipfile
         with zipfile.ZipFile(dirin, 'r') as zip_ref:
-            zip_ref.extractall(out_dir)
+            zip_ref.extractall(dirout)
 
 
 
@@ -986,8 +986,8 @@ if 'custom_code':
 
         filter1 = "all"    #### "article"
 
-        out_dir  = dirin + "/topk/"
-        os.makedirs(out_dir, exist_ok=True)
+        dirout  = dirin + "/topk/"
+        os.makedirs(dirout, exist_ok=True)
         log(dirin)
 
         #### Load emb data  ###############################################
@@ -1050,7 +1050,7 @@ if 'custom_code':
                 df1['topk_dist'] = dist[0]
                 df1['topk_rank'] = np.arange(0, len(df1))
                 log( df1 )
-                df1.to_csv( out_dir + f"/topk_{xname}_{filter1}.csv"  )
+                df1.to_csv( dirout + f"/topk_{xname}_{filter1}.csv"  )
 
                 img_list = df1['id'].values
                 log(str(img_list)[:30])
@@ -1062,7 +1062,7 @@ if 'custom_code':
                 cache   = dc.Cache(db_path)
                 print('Nimages', len(cache) )
 
-                dir_check = out_dir + f"/{xname}_{filter1}/"
+                dir_check = dirout + f"/{xname}_{filter1}/"
                 os.makedirs(dir_check, exist_ok=True)
                 for i, key in enumerate(img_list) :
                     if i > 15: break

@@ -9,7 +9,7 @@ rule 4 - align assignment operators
 
 Usage:
 
-cli_format -i /path/to/file or /path/to/dir --out_dir /path/to/output
+cli_format -i /path/to/file or /path/to/dir --dirout /path/to/output
 
 """
 import re
@@ -149,11 +149,11 @@ def os_glob(dirin):
     return files
 
 
-def format_file(in_file, out_dir):
+def format_file(in_file, dirout):
     """function format_file
     Args:
         in_file:   
-        out_dir:   
+        dirout:   
     Returns:
         
     """
@@ -169,21 +169,21 @@ def format_file(in_file, out_dir):
 
         # get the base directory of source file for makedirs function
         file_path, file_name = os.path.split(in_file)
-        if not os.path.exists(os.path.join(out_dir, file_path)):
-            os.makedirs(os.path.join(out_dir, file_path))
+        if not os.path.exists(os.path.join(dirout, file_path)):
+            os.makedirs(os.path.join(dirout, file_path))
 
-        with open(os.path.join(out_dir, file_path, file_name), "w") as f:
+        with open(os.path.join(dirout, file_path, file_name), "w") as f:
             f.write(text_f)
 
     else:
         print(f"No such file exists {in_file}, make sure your path is correct")
 
 
-def format_dir(dirin, out_dir):
+def format_dir(dirin, dirout):
     """function format_dir
     Args:
         dirin:   
-        out_dir:   
+        dirout:   
     Returns:
         
     """
@@ -191,7 +191,7 @@ def format_dir(dirin, out_dir):
 
     for f in tqdm.tqdm(src_files):
         if mod_period(f):
-            format_file(f, out_dir)
+            format_file(f, dirout)
         else:
             print(f"{f} is not modified within one week")
 
@@ -241,15 +241,15 @@ def main():
     args = load_arguments()
 
     _input = args.dir_in
-    out_dir = args.dir_out
+    dirout = args.dir_out
 
     if ".py" in _input:
         if mod_period(_input):
-            format_file(_input, out_dir)
+            format_file(_input, dirout)
         else:
             print(f"{_input} is not modified within one week")
     else:
-        format_dir(_input, out_dir)
+        format_dir(_input, dirout)
 
 
 if __name__ == "__main__":

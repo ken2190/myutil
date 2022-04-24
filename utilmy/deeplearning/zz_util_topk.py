@@ -330,8 +330,8 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
     dname    = dname.replace("/", "_").replace(".", "-")    
     r0       = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/"
     dirin   = r0 + dname
-    out_dir  = dirin + "/topk/"
-    os.makedirs(out_dir, exist_ok=True)
+    dirout  = dirin + "/topk/"
+    os.makedirs(dirout, exist_ok=True)
     log(dirin)
     
     #### Load emb data  ###############################################
@@ -343,8 +343,8 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
     """
     name = 'tshirts'
     dfy  = df[df.articleType == name ]
-    # dfy[[ 'id1', 'gender', 'pred_emb'  ]].to_parquet(  out_dir + f'/export_{name}.parquet'  )
-    del dfy[ 'pred_emb' ] ; dfy.to_csv( out_dir + f'/{name}.csv')
+    # dfy[[ 'id1', 'gender', 'pred_emb'  ]].to_parquet(  dirout + f'/export_{name}.parquet'  )
+    del dfy[ 'pred_emb' ] ; dfy.to_csv( dirout + f'/{name}.csv')
     sys.exit(0)
     """
     
@@ -411,7 +411,7 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
             df1['topk_dist'] = dist[0]
             df1['topk_rank'] = np.arange(0, len(df1))
             log( df1 )
-            df1.to_csv( out_dir + f"/topk_{xname}_{filter1}.csv"  )
+            df1.to_csv( dirout + f"/topk_{xname}_{filter1}.csv"  )
 
             img_list = df1['id'].values
             log(str(img_list)[:30])
@@ -423,7 +423,7 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
             cache   = dc.Cache(db_path)
             print('Nimages', len(cache) )
 
-            dir_check = out_dir + f"/{xname}_{filter1}/"
+            dir_check = dirout + f"/{xname}_{filter1}/"
             os.makedirs(dir_check, exist_ok=True)
             for i, key in enumerate(img_list) :
                 if i > 15: break       
@@ -559,12 +559,12 @@ def test():
     log(df.head(2).T)
 
 
-def unzip(dirin, out_dir):
+def unzip(dirin, dirout):
     # !/usr/bin/env python3
     import sys
     import zipfile
     with zipfile.ZipFile(dirin, 'r') as zip_ref:
-        zip_ref.extractall(out_dir)
+        zip_ref.extractall(dirout)
 
 
 def gzip():

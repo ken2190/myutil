@@ -842,7 +842,7 @@ topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
-unzip(dirin, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -1066,8 +1066,8 @@ utilmy/docs/zold_cli_format.py
 -------------------------functions----------------------
 format_assignments(text)
 format_comments(text = "default", line_size = 90)
-format_dir(dirin, out_dir)
-format_file(in_file, out_dir)
+format_dir(dirin, dirout)
+format_file(in_file, dirout)
 format_imports(text)
 format_logs(text = "default", line_size = 90)
 load_arguments()
@@ -3285,7 +3285,7 @@ utilmy/templates/__init__.py
 utilmy/templates/cli.py
 -------------------------functions----------------------
 run_cli()
-template_copy(name, out_dir)
+template_copy(name, dirout)
 template_show()
 
 
@@ -3525,7 +3525,7 @@ DAG.validate(self)
 utilmy/tools/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -3686,7 +3686,7 @@ utilmy/tools/cli_repo_check.py
 -------------------------functions----------------------
 get_logger()
 get_os()
-git_clone(url, out_dir = None)
+git_clone(url, dirout = None)
 load_arguments()
 main()
 os_system(cmds, stdout_only = True)
@@ -3754,7 +3754,7 @@ test_toplvl()
 utilmy/tools/test/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -4017,7 +4017,7 @@ dir_size(dirin = "mypath", dirout = "./save.txt")
 gzip(dirin = '/mydir', dirout = "./")
 os_extract_archive(file_path, path = ".", archive_format = "auto")
 to_file(s, filep)
-unzip(dirin, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -10221,7 +10221,7 @@ utilmy/zzml/mlmodels/model_tf/raw/convert_ipny_cli.py
 -------------------------functions----------------------
 Run()
 check(file_list, dump = False)
-convert_topython(source_files, data_file, out_dir)
+convert_topython(source_files, data_file, dirout)
 scan(data_file)
 
 

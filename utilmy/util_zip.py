@@ -8,11 +8,11 @@ import wget, yaml
 
 ##########################################################################################
 ################### donwload  ############################################################
-def unzip(dirin, out_dir):
+def unzip(dirin, dirout):
     """function unzip
     Args:
         dirin:   
-        out_dir:   
+        dirout:   
     Returns:
         
     """
@@ -20,7 +20,7 @@ def unzip(dirin, out_dir):
     import sys
     import zipfile
     with zipfile.ZipFile(dirin, 'r') as zip_ref:
-        zip_ref.extractall(out_dir)
+        zip_ref.extractall(dirout)
 
 
 def gzip(dirin='/mydir', dirout="./"):

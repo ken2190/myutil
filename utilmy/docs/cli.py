@@ -3,34 +3,34 @@ HELP ="""
 ########  Usage 
     pip install --upgrade utilmy
     cd  myutil
-    docs all --repo_url  https://github.com/arita37/spacefusion.git   --out_dir docs/
-    docs all --repo_path  your_path/   --out_dir docs/
+    docs all --repo_url  https://github.com/arita37/spacefusion.git   --dirout docs/
+    docs all --repo_path  your_path/   --dirout docs/
 
-    docs  all   --repo_dir utilmy/      --out_dir docs/
+    docs  all   --repo_dir utilmy/      --dirout docs/
     
         
-    docs  callgraph  --repo_dir utilmy/      --out_dir docs/
-    docs  csv        --repo_dir utilmy/      --out_dir docs/
-    docs  txt        --repo_dir utilmy/      --out_dir docs/
+    docs  callgraph  --repo_dir utilmy/      --dirout docs/
+    docs  csv        --repo_dir utilmy/      --dirout docs/
+    docs  txt        --repo_dir utilmy/      --dirout docs/
     
     
 
 ###########
     python utilmy/docs/cli.py markdown --repo_url https://github.com/CompVis/taming-transformers.git
 
-    python utilmy/docs/cli.py markdown --repo_dir utilmy/      --out_dir docs/
+    python utilmy/docs/cli.py markdown --repo_dir utilmy/      --dirout docs/
 
     python utilmy/docs/cli.py callgraph  --repo_url https://github.com/CompVis/taming-transformers.git
 
-    python utilmy/docs/cli.py callgraph  --repo_dir utilmy/      --out_dir docs/
+    python utilmy/docs/cli.py callgraph  --repo_dir utilmy/      --dirout docs/
 
     python utilmy/docs/cli.py csv  --repo_url https://github.com/CompVis/taming-transformers.git
 
-    python utilmy/docs/cli.py csv  --repo_dir utilmy/      --out_dir docs/
+    python utilmy/docs/cli.py csv  --repo_dir utilmy/      --dirout docs/
 
     python utilmy/docs/cli.py txt  --repo_url https://github.com/CompVis/taming-transformers.git
 
-    python utilmy/docs/cli.py csv  --repo_dir utilmy/      --out_dir docs/
+    python utilmy/docs/cli.py csv  --repo_dir utilmy/      --dirout docs/
 
 
 ###########
@@ -72,11 +72,11 @@ def run_cli():
     pip install -e  .
 
     docs  help
-    docs markdown --repo_url  https://github.com/arita37/spacefusion.git   --out_dir docs/
+    docs markdown --repo_url  https://github.com/arita37/spacefusion.git   --dirout docs/
 
-    docs  callgraph  --repo_dir utilmy/      --out_dir docs/
-    docs  csv        --repo_dir utilmy/      --out_dir docs/
-    docs  txt        --repo_dir utilmy/      --out_dir docs/
+    docs  callgraph  --repo_dir utilmy/      --dirout docs/
+    docs  csv        --repo_dir utilmy/      --dirout docs/
+    docs  txt        --repo_dir utilmy/      --dirout docs/
 
 
     """
@@ -87,14 +87,14 @@ def run_cli():
 
     add("--repo_url",    type=str, default=None,     help = "repo_url")
     add("--repo_dir",    type=str, default="./",     help = "repo_dir")
-    add("--out_dir",     type=str, default="docs/",  help = "doc_dir")
+    add("--dirout",     type=str, default="docs/",  help = "doc_dir")
     add("--out_file",     type=str, default="",      help = "out_file")
     add("--exclude_dir", type=str, default="",       help = "path1,path2")
     add("--prefix",      type=str, default=None,     help = "https://github.com/user/repo/tree/a")
   
     args = p.parse_args()
 
-    doc_dir            = args.out_dir
+    doc_dir            = args.dirout
     prefix             = args.prefix if args.prefix is not None else "./"
     out_file           = args.out_file
 

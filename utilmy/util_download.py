@@ -144,7 +144,7 @@ def download_custom_pageimage(query, fileout="query1", genre_en='', id0="", cat=
     """ Donwload one page
     Code::
     
-        python  "$utilmy/util_download.py" download_page_image   --query 'メンス+ポロシャツ'    --out_dir men_fs_blue
+        python  "$utilmy/util_download.py" download_page_image   --query 'メンス+ポロシャツ'    --dirout men_fs_blue
 
 
     """
