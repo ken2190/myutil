@@ -329,13 +329,13 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
     
     dname    = dname.replace("/", "_").replace(".", "-")    
     r0       = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/"
-    in_dir   = r0 + dname
-    out_dir  = in_dir + "/topk/"
-    os.makedirs(out_dir, exist_ok=True)
-    log(in_dir)
+    dirin   = r0 + dname
+    dirout  = dirin + "/topk/"
+    os.makedirs(dirout, exist_ok=True)
+    log(dirin)
     
     #### Load emb data  ###############################################
-    df        = pd_read_file(  in_dir + f"/{pattern}.parquet", n_pool=10 )
+    df        = pd_read_file(  dirin + f"/{pattern}.parquet", n_pool=10 )
     log(df)
     df['id1'] = df['id'].apply(lambda x : x.split(".")[0])
     
@@ -343,8 +343,8 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
     """
     name = 'tshirts'
     dfy  = df[df.articleType == name ]
-    # dfy[[ 'id1', 'gender', 'pred_emb'  ]].to_parquet(  out_dir + f'/export_{name}.parquet'  )
-    del dfy[ 'pred_emb' ] ; dfy.to_csv( out_dir + f'/{name}.csv')
+    # dfy[[ 'id1', 'gender', 'pred_emb'  ]].to_parquet(  dirout + f'/export_{name}.parquet'  )
+    del dfy[ 'pred_emb' ] ; dfy.to_csv( dirout + f'/{name}.csv')
     sys.exit(0)
     """
     
@@ -411,7 +411,7 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
             df1['topk_dist'] = dist[0]
             df1['topk_rank'] = np.arange(0, len(df1))
             log( df1 )
-            df1.to_csv( out_dir + f"/topk_{xname}_{filter1}.csv"  )
+            df1.to_csv( dirout + f"/topk_{xname}_{filter1}.csv"  )
 
             img_list = df1['id'].values
             log(str(img_list)[:30])
@@ -423,7 +423,7 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
             cache   = dc.Cache(db_path)
             print('Nimages', len(cache) )
 
-            dir_check = out_dir + f"/{xname}_{filter1}/"
+            dir_check = dirout + f"/{xname}_{filter1}/"
             os.makedirs(dir_check, exist_ok=True)
             for i, key in enumerate(img_list) :
                 if i > 15: break       
@@ -559,25 +559,25 @@ def test():
     log(df.head(2).T)
 
 
-def unzip(in_dir, out_dir):
+def unzip(dirin, dirout):
     # !/usr/bin/env python3
     import sys
     import zipfile
-    with zipfile.ZipFile(in_dir, 'r') as zip_ref:
-        zip_ref.extractall(out_dir)
+    with zipfile.ZipFile(dirin, 'r') as zip_ref:
+        zip_ref.extractall(dirout)
 
 
 def gzip():
     #  python prepro.py gzip
     import sys
 
-    # in_dir  = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9a_g6_-img_train_nobg_256_256-100000.cache/check"
+    # dirin  = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9a_g6_-img_train_nobg_256_256-100000.cache/check"
 
-    in_dir = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_epoch_261/topk"
+    dirin = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_epoch_261/topk"
 
-    name = "_".join(in_dir.split("/")[-2:])
+    name = "_".join(dirin.split("/")[-2:])
 
-    cmd = f"tar -czf /data/workspaces/noelkevin01/{name}.tar.gz   '{in_dir}/'   "
+    cmd = f"tar -czf /data/workspaces/noelkevin01/{name}.tar.gz   '{dirin}/'   "
     print(cmd)
     os.system(cmd)
 

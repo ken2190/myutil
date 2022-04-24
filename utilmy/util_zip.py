@@ -8,19 +8,19 @@ import wget, yaml
 
 ##########################################################################################
 ################### donwload  ############################################################
-def unzip(in_dir, out_dir):
+def unzip(dirin, dirout):
     """function unzip
     Args:
-        in_dir:   
-        out_dir:   
+        dirin:   
+        dirout:   
     Returns:
         
     """
     # !/usr/bin/env python3
     import sys
     import zipfile
-    with zipfile.ZipFile(in_dir, 'r') as zip_ref:
-        zip_ref.extractall(out_dir)
+    with zipfile.ZipFile(dirin, 'r') as zip_ref:
+        zip_ref.extractall(dirout)
 
 
 def gzip(dirin='/mydir', dirout="./"):
@@ -32,7 +32,7 @@ def gzip(dirin='/mydir', dirout="./"):
         
     """
     #  python prepro.py gzip
-    name = "_".join(in_dir.split("/")[-2:])
+    name = "_".join(dirin.split("/")[-2:])
     cmd  = f"tar -czf '{dirout}/{name}.tar.gz'   '{dirin}/'   "
     print(cmd)
     os.system(cmd)
