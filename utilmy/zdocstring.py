@@ -4,7 +4,8 @@
 
         Actual Docstring code ::
 
-          This is an example of function.
+          This is an example of a module level function.
+
           Args:
               param1 (int): The first parameter.
               param2 (:obj:`str`, optional): The second parameter. Defaults to None.
@@ -80,7 +81,6 @@ def a__google_doc_string_example(package:str="mlmodels.util", name:str="path_nor
     """
     import importlib
     return  getattr(importlib.import_module(package), name)
-
 
 
 
