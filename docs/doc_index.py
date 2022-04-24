@@ -448,7 +448,7 @@ image_check(name, img, renorm = False)
 log(*s)
 model_reload(model_reload_name, cc, )
 np_remove_duplicates(seq)
-os_path_copy(in_dir, path, ext = "*.py")
+os_path_copy(dirin, path, ext = "*.py")
 pd_category_filter(df, category_map)
 print_debug_info(*s)
 print_log_info(*s)
@@ -842,7 +842,7 @@ topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
-unzip(in_dir, out_dir)
+unzip(dirin, out_dir)
 
 
 
@@ -1066,14 +1066,14 @@ utilmy/docs/zold_cli_format.py
 -------------------------functions----------------------
 format_assignments(text)
 format_comments(text = "default", line_size = 90)
-format_dir(in_dir, out_dir)
+format_dir(dirin, out_dir)
 format_file(in_file, out_dir)
 format_imports(text)
 format_logs(text = "default", line_size = 90)
 load_arguments()
 main()
 mod_period(in_file)
-os_glob(in_dir)
+os_glob(dirin)
 
 
 
@@ -4017,7 +4017,7 @@ dir_size(dirin = "mypath", dirout = "./save.txt")
 gzip(dirin = '/mydir', dirout = "./")
 os_extract_archive(file_path, path = ".", archive_format = "auto")
 to_file(s, filep)
-unzip(in_dir, out_dir)
+unzip(dirin, out_dir)
 
 
 

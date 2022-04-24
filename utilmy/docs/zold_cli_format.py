@@ -138,11 +138,11 @@ def format_assignments(text):
 
 
 ######################################################################################
-def os_glob(in_dir):
+def os_glob(dirin):
     """
     os_glob a given directory for all .py files and returns a list of source files.
     """
-    files = glob.glob(in_dir + "/**/*.py", recursive=True)
+    files = glob.glob(dirin + "/**/*.py", recursive=True)
     # remove .ipynb_checkpoints
     files = [s for s in files if ".ipynb_checkpoints" not in s]
     # print("os_glob files done ... ")
@@ -179,15 +179,15 @@ def format_file(in_file, out_dir):
         print(f"No such file exists {in_file}, make sure your path is correct")
 
 
-def format_dir(in_dir, out_dir):
+def format_dir(dirin, out_dir):
     """function format_dir
     Args:
-        in_dir:   
+        dirin:   
         out_dir:   
     Returns:
         
     """
-    src_files = os_glob(in_dir)
+    src_files = os_glob(dirin)
 
     for f in tqdm.tqdm(src_files):
         if mod_period(f):

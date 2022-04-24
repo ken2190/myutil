@@ -329,13 +329,13 @@ def topk(topk=100, dname=None, pattern="df_*", filter1=None):
     
     dname    = dname.replace("/", "_").replace(".", "-")    
     r0       = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/"
-    in_dir   = r0 + dname
-    out_dir  = in_dir + "/topk/"
+    dirin   = r0 + dname
+    out_dir  = dirin + "/topk/"
     os.makedirs(out_dir, exist_ok=True)
-    log(in_dir)
+    log(dirin)
     
     #### Load emb data  ###############################################
-    df        = pd_read_file(  in_dir + f"/{pattern}.parquet", n_pool=10 )
+    df        = pd_read_file(  dirin + f"/{pattern}.parquet", n_pool=10 )
     log(df)
     df['id1'] = df['id'].apply(lambda x : x.split(".")[0])
     
@@ -559,11 +559,11 @@ def test():
     log(df.head(2).T)
 
 
-def unzip(in_dir, out_dir):
+def unzip(dirin, out_dir):
     # !/usr/bin/env python3
     import sys
     import zipfile
-    with zipfile.ZipFile(in_dir, 'r') as zip_ref:
+    with zipfile.ZipFile(dirin, 'r') as zip_ref:
         zip_ref.extractall(out_dir)
 
 
@@ -571,13 +571,13 @@ def gzip():
     #  python prepro.py gzip
     import sys
 
-    # in_dir  = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9a_g6_-img_train_nobg_256_256-100000.cache/check"
+    # dirin  = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9a_g6_-img_train_nobg_256_256-100000.cache/check"
 
-    in_dir = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_epoch_261/topk"
+    dirin = "/data/workspaces/noelkevin01/img/models/fashion/dcf_vae/m_train9pred/res/m_train9b_g3_-img_train_r2p2_200k_clean_nobg_256_256-500000-cache_best_epoch_261/topk"
 
-    name = "_".join(in_dir.split("/")[-2:])
+    name = "_".join(dirin.split("/")[-2:])
 
-    cmd = f"tar -czf /data/workspaces/noelkevin01/{name}.tar.gz   '{in_dir}/'   "
+    cmd = f"tar -czf /data/workspaces/noelkevin01/{name}.tar.gz   '{dirin}/'   "
     print(cmd)
     os.system(cmd)
 

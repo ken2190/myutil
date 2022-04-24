@@ -211,14 +211,14 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
     xdim, ydim = xdim0, ydim0
 
     log("#### paths  ####################################################################")
-    in_dir = dirin
+    dirin = dirin
     tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
     db_dir  = dirout + f"/img_{tag}.cache"
-    log(in_dir, db_dir)
+    log(dirin, db_dir)
 
 
     log("#### Image list  ################################################################")
-    image_list = sorted(list(glob.glob(  f'{in_dir}/**/*')))
+    image_list = sorted(list(glob.glob(  f'{dirin}/**/*')))
     fexclude   = sorted(list(glob.glob(  f'{file_exclude}')))
     image_list = [  fi  for fi in image_list if fi not in fexclude   ] #TODO: some folders to exclude?
     image_list = image_list[:nmax]
@@ -580,7 +580,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
     import cv2, gc, diskcache
     from utilmy.images import util_image
 
-    in_dir = dirin
+    dirin = dirin
   
     nmax = 500000000
     global xdim, ydim
@@ -611,7 +611,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
             return [], ""
 
     log("#### Process  ######################################################################")
-    image_list = sorted(list(glob.glob(f'/{in_dir}/*.*')))
+    image_list = sorted(list(glob.glob(f'/{dirin}/*.*')))
     image_list = image_list[:nmax]
     log('Size Before', len(image_list))
 
@@ -930,9 +930,9 @@ def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"
 
         python $utilmy/images/util_image.py  image_face_blank
 
-        python $utilmy/images/util_image.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --dirin img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
 
-        python $utilmy/images/util_image.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --dirin img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
 
 
         five elements are [xmin, ymin, xmax, ymax, detection_confidence]

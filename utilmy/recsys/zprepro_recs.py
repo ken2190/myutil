@@ -7988,8 +7988,8 @@ if 'hadoop':
     def hdfs_rename(dirin=None, ):
         """  python prepro.py  hdfs_rename
         """
-        in_dir  = "/data/workspaces/takos01/cpa/input/"
-        flist = glob.glob(in_dir + "/*/*" )
+        dirin  = "/data/workspaces/takos01/cpa/input/"
+        flist = glob.glob(dirin + "/*/*" )
         log(str(flist)[:100])
         for fi in flist :
             if ".parquet" not in fi :

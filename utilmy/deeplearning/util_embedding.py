@@ -937,11 +937,11 @@ if 'utils_vector':
         return res   
 
 
-    def os_unzip(in_dir, out_dir):
+    def os_unzip(dirin, out_dir):
         # !/usr/bin/env python3
         import sys
         import zipfile
-        with zipfile.ZipFile(in_dir, 'r') as zip_ref:
+        with zipfile.ZipFile(dirin, 'r') as zip_ref:
             zip_ref.extractall(out_dir)
 
 
@@ -976,7 +976,7 @@ if 'custom_code':
 
 
 
-    def topk_custom(topk=100, in_dir=None, pattern="df_*", filter1=None):
+    def topk_custom(topk=100, dirin=None, pattern="df_*", filter1=None):
         """  python prepro.py  topk    |& tee -a  /data/worpoch_261/topk/zzlog.py
 
 
@@ -986,12 +986,12 @@ if 'custom_code':
 
         filter1 = "all"    #### "article"
 
-        out_dir  = in_dir + "/topk/"
+        out_dir  = dirin + "/topk/"
         os.makedirs(out_dir, exist_ok=True)
-        log(in_dir)
+        log(dirin)
 
         #### Load emb data  ###############################################
-        df        = pd_read_file(  in_dir + f"/{pattern}.parquet", n_pool=10 )
+        df        = pd_read_file(  dirin + f"/{pattern}.parquet", n_pool=10 )
         log(df)
         df['id1'] = df['id'].apply(lambda x : x.split(".")[0])
 
