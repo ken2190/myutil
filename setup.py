@@ -192,6 +192,8 @@ try :
         os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
         os.system(f" export utilmy={repopath}/ ")
 
+    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
+
 except :
     pass
 
