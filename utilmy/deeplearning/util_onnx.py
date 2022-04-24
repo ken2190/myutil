@@ -4,9 +4,10 @@ HELP = """ utils for ONNX runtime Optimization
 
 
 cd myutil
-python utilmy/deeplearning/util_onnx.py    test1
+python $utilmy/deeplearning/util_onnx.py    test1
 
 
+https://cloudblogs.microsoft.com/opensource/2022/04/19/scaling-up-pytorch-inference-serving-billions-of-daily-nlp-inferences-with-onnx-runtime/
 
 https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
 
@@ -32,11 +33,10 @@ try :
     import torch.onnx
     import onnx
 except:
-    log("pip install onnxruntime onnx")
+    log("pip install onnxruntime onnx"); 1/0
+
 
 #############################################################################################
-
-
 def help():
     """function help        """
     from utilmy import help_create
@@ -48,13 +48,7 @@ def help():
 def test_all() -> None:
     """function test_all   to be used in test.py         """
     log(MNAME)
-    test1()
-
-
-def test1() -> None:
-    """function test1     
-    """
-    d = Box({})
+    test_onnx_convert()
 
 
 def test_helper():
@@ -349,7 +343,7 @@ def test3():
 
     isok = test_create_model_pytorch(dirsave=dir_model)
     log('Convreting to ONNX')
-    onnx_convert(dir_model, dir_weights, dirout=dirout, onnx_pars= onnx_pars, config_dir= config_dir )
+    onnx_convert(dir_model, dir_checkpoint= dir_weights, dirout=dirout, )
 
     log('Checking ONNX')
     onnx_check_onnx(dir_model, dir_weights, x_numpy=x_numpy )
@@ -359,6 +353,10 @@ def test_onnx_convert():
     import torch.nn as nn
     import torch.nn.init as init
 
+    dirtmp = "ztmp/"
+
+
+    ##### Create the super-resolution model by using the above model definition.
     class SuperResolutionNet(nn.Module):
         def __init__(self, upscale_factor=3, inplace=False):
             super(SuperResolutionNet, self).__init__()
@@ -385,25 +383,22 @@ def test_onnx_convert():
             init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
             init.orthogonal_(self.conv4.weight)
 
-    # Create the super-resolution model by using the above model definition.
     torch_model = SuperResolutionNet(upscale_factor=3)
-
     checkpoint_url = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
 
-    dirtmp = "ztmp/"
 
-
+    ### model 2
     torch_model_test = "./testdata/ttorch/models.py:SuperResolutionNet"
-    
     llist = [ SuperResolutionNet(upscale_factor=3), 
               torch_model_test
     ]
 
+    #### Run the tests
     for modeli in llist :
         log((str(modeli)))
         onnx_convert(modeli,     input_shape=(1, 224, 224),
                     dirout              = dirtmp,
-                    checkpoint_path     = checkpoint_url,
+                    dir_checkpoint      = checkpoint_url,
                     export_params       = True,
                     onnx_version        = 10,
                     do_constant_folding = True,
@@ -418,22 +413,21 @@ def test_onnx_convert():
 
 ########################################################################################################
 ############## Core Code ###############################################################################
-def onnx_convert(torch_model, 
+def onnx_convert(torch_model='path/mymodule.py:myModel or model object',  dir_checkpoint= './mymodel.pth', dirout= '.',
+    export_params       = True, onnx_version        = 10,
+
     input_shape         = (1, 224, 224),
-    dirout              = '.',
-    checkpoint_path     = './mymodel.pth',
-    export_params       = True,
-    onnx_version        = 10,
     do_constant_folding = True,
     input_names         = ['input'],
     output_names        = ['output'],
     dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
     device              = 'cpu',
     ):
-    """Core function to convert a pytorch model to onnx
-    Args: 
+    """Convert a pytorch model to onnx.
+    Code::
+
         torch_model                         : model object to load state dict  OR path of the model .py definition
-        checkpoint_path     (str)           : path to checkpoint file
+        dir_checkpoint     (str)           : path to checkpoint file
         dirout              (str)           : directory to save the onnx model
         input_shape         (tuple)         : input shape to run model to export onnx model.
         onnx_version        (int, optional) : onnx version to convert the model. Defaults to 10.
@@ -442,10 +436,11 @@ def onnx_convert(torch_model,
         output_names        (list, optional): output names of the model. Defaults to ['output'].
         dynamic_axes        (dict, optional): variable length axes. Defaults to {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}.
     
-    Returns: None    
+        Returns: None    
     """
-    filename = '.'.join(os.path.basename(checkpoint_path).split('.')[:-1])
-    out_path = os.path.join(dirout, filename + '.onnx')
+    import glob, os
+    filename = '.'.join(os.path.basename(dir_checkpoint).split('.')[:-1])
+    fileout = os.path.join(dirout, filename + '.onnx')
     os.makedirs(dirout, exist_ok=True)
 
     if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
@@ -454,13 +449,13 @@ def onnx_convert(torch_model,
         log('loaded from file ', torch_model)
 
 
-    if 'http' in checkpoint_path :
+    if 'http' in dir_checkpoint :
        #torch.cuda.is_available():
-       map_location = None if 'gpu' in device else  torch.device('cpu')
+       map_location = torch.device('gpu') if 'gpu' in device else  torch.device('cpu')
        import torch.utils.model_zoo as model_zoo
-       model_state = model_zoo.load_url(checkpoint_path, map_location=map_location)
+       model_state = model_zoo.load_url(dir_checkpoint, map_location=map_location)
     else :   
-       checkpoint = torch.load( checkpoint_path)
+       checkpoint = torch.load( dir_checkpoint)
        model_state = checkpoint['model_state_dict']
        log( f"loss: {checkpoint['loss']}\t at epoch: {checkpoint['epoch']}" )
        
@@ -475,7 +470,7 @@ def onnx_convert(torch_model,
     torch.onnx.export(
         torch_model, 
         x,
-        out_path,
+        fileout,
         export_params       = export_params,
         opset_version       = onnx_version,
         do_constant_folding = do_constant_folding,
@@ -484,14 +479,14 @@ def onnx_convert(torch_model,
         dynamic_axes        = dynamic_axes
     )
 
-    log( 'Exported', glob.glob(out_path) )
+    log( 'Exported', glob.glob(fileout) )
 
 
 
 def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
-    """ wrapper to load Pytorch model + weights
-       dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
-       batch_size = 1    # just a random number
+    """ wrapper to load Pytorch model + weights.
+        dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
+        batch_size = 1    # just a random number
     """  
     torch_model = load_function_uri(dirmodel) 
 
@@ -558,6 +553,63 @@ def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirw
 
 
 
+def onnx_optimize(dirmodel:str, model_type='bert', **kw):
+    """ Optimize Model by OnnxRuntime and/or python fusion logic.
+            MODEL_TYPES = {
+                "bart": (BartOnnxModel, "pytorch", 1),
+                "bert": (BertOnnxModel, "pytorch", 1),
+                "bert_tf": (BertOnnxModelTF, "tf2onnx", 0),
+                "bert_keras": (BertOnnxModelKeras, "keras2onnx", 0),
+                "gpt2": (Gpt2OnnxModel, "pytorch", 1),
+                "gpt2_tf": (Gpt2OnnxModel, 'tf2onnx', 0),  # might add a class for GPT2OnnxModel for TF later.
+                "tnlr": (TnlrOnnxModel, "pytorch", 1),
+            }
+
+    ONNX Runtime has graph optimizations (https://onnxruntime.ai/docs/resources/graph-optimizations.html).
+    However, the coverage is limited. We also have graph fusions that implemented in Python to improve the coverage.
+    They can combined: ONNX Runtime will run first when opt_level > 0, then graph fusions in Python will be applied.
+
+    To use ONNX Runtime only and no Python fusion logic, use only_onnxruntime flag and a positive opt_level like
+        optimize_model(input, opt_level=1, use_gpu=False, only_onnxruntime=True)
+
+    When opt_level is None, we will choose default optimization level according to model type.
+    When opt_level is 0 and only_onnxruntime is False, only python fusion logic is used and onnxruntime is disabled.
+    When opt_level > 1, use_gpu shall set properly since the optimized graph might contain operators for GPU or CPU only.
+
+    If your model is intended for GPU inference only (especially float16 or mixed precision model), it is recommended to
+    set use_gpu to be True, otherwise the model is not optimized for GPU inference.
+
+    For BERT model, num_heads and hidden_size are optional. For other model types, you need specify these parameters.
+
+    Args:
+        input (str): input model path.
+        model_type (str, optional): model type - like bert, bert_tf, bert_keras or gpt2. Defaults to 'bert'.
+        num_heads (int, optional): number of attention heads. Defaults to 0.
+                                   0 allows detect the parameter from graph automatically (for model_type "bert" only).
+        hidden_size (int, optional): hidden size. Defaults to 0.
+                                     0 allows detect the parameter from graph automatically (for model_type "bert" only).
+        optimization_options (FusionOptions, optional): optimization options that turn on/off some fusions. Defaults to None.
+        opt_level (int, optional): onnxruntime graph optimization level (0, 1, 2 or 99) or None. Defaults to None.
+                                   When the value is None, default value (1 for bert and gpt2, 0 for other model types) will be used.
+                                   When the level > 0, onnxruntime will be used to optimize model first.
+        use_gpu (bool, optional): use gpu or not for onnxruntime. Defaults to False.
+        only_onnxruntime (bool, optional): only use onnxruntime to optimize model, and no python fusion. Defaults to False.
+
+     Returns:
+        object of an optimizer class.
+
+    
+    """
+    from onnxruntime.transformers import optimizer
+    model2 = optimizer.optimize_model(dirmodel, model_type=model_type, **kw)
+    model2.convert_float_to_float16()
+    return model2
+
+
+
+            
+
+
 #############################################################################################
 #############################################################################################
 if 'utils':
@@ -565,12 +617,14 @@ if 'utils':
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
     def load_function_uri(uri_name: str="path_norm"):
-        """ Load dynamically function from URI
-        ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+        """ Load dynamically function from URI.
+        Code::
 
-        ###### External File processor :
-        #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+            ###### Pandas CSV case : Custom MLMODELS One
+            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
+            ###### External File processor :
+            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
         """
         import importlib, sys
         from pathlib import Path
