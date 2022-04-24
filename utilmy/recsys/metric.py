@@ -133,7 +133,34 @@ def metrics_calc(dirin:Union[str, pd.DataFrame],
                  popdict:dict=None,
                  topk=5,
                  **kw):
-    
+    """metrics_calc
+    Code::
+
+        Args:
+            dirin:  
+            dirout:   =None.
+            colid:   ='userid'.
+            colrec:   ='reclist'.
+            coltrue:   ='purchaselist'.
+            colinfo:   ='genrelist'.
+            colts:   ='datetime'.
+            methods:   =[''].
+            nsample:   =-1.
+            nfile:   =1.
+            featuredf:   =None.
+            popdict:   =None.
+            topk:   =5.
+        Returns: pd.DataFrame 
+
+        df, popdict, feature_df = test_get_testdata()
+        dfres = metrics_calc(df,
+                methods=['personalization','catalog_coverage','intra_list_similarity',
+                        'recall_average_at_k_mean','novelty','recommender_precision','recommender_recall'],
+                featuredf=feature_df,
+                popdict=popdict
+                )
+                 
+    """
     from utilmy import pd_read_file, pd_to_file
 
     if isinstance(dirin, pd.DataFrame):

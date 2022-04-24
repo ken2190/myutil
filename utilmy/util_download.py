@@ -41,18 +41,14 @@ def test1() -> None:
 def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", 
                    dirout="./ztmp/"):
     """Download  file from github 
+    Doc::
 
-      Args:
-        url:   URL
-        dirout:   Path to save files
+        url:  URL https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip   
+        dirout: Path to save files
+        
+        https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip
+        https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
 
-      Examples:
-
-          Using file::
-
-                https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip
-                https://raw.githubusercontent.com/arita37/dsa2_data/tree/main/input/titanic/train/features.zip
-                https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip
     """
     from tempfile import mktemp, mkdtemp
     from urllib.parse import urlparse, parse_qs
@@ -95,19 +91,15 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
 
 def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     fileout="./ztmp/", unzip=True ):
-      """Download  file from google drive on disk + unzip
-      Args:
+      """Download  file from google drive on disk + unzip.
+      Code::
           url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
-      Examples:
-          Using file::
-
+          ### Using file
               download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , fileout="./ztmp/", unzip=True )
-
               download_google(url_or_id="16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT", fileout="./ztmp/", unzip=True )
 
-          Using Folder::
-
+          ## Using Folder
               download_google(url_or_id="https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl",  fileout="./ztmp/", unzip=True )
 
       """
@@ -149,7 +141,9 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
 
 
 def download_custom_pageimage(query, fileout="query1", genre_en='', id0="", cat="", npage=1) :
-    """
+    """ Donwload one page
+    Code::
+    
         python  "$utilmy/util_download.py" download_page_image   --query 'メンス+ポロシャツ'    --out_dir men_fs_blue
 
 
