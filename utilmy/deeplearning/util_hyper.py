@@ -836,7 +836,6 @@ def objective(values):
 
 
 """
-
 #=======================================================================
 # set of utilities to drive brute force ablation 
 
@@ -849,6 +848,8 @@ class AblationParameters(dict):
                 k2 = (k,k2)
             elif isinstance(k2,tuple):
                 k2 = tuple([k] + list(k2))
+            elif isinstance(k2,AblationCombination):
+                k2 = (k,k2)
             else:
                 assert False,f'k2 is not a tuple or string {k2}'
             # inner_ablation_keys[i_inner] = k2
@@ -866,6 +867,12 @@ class AblationParameters(dict):
                 if debug.get('print',False):
                     indent = debug.get('indent',0)
                     print('\t'*indent,k)
+            if isinstance(k,AblationCombination):
+                assets['keys'].append(k)
+                if debug.get('print',False):
+                    indent = debug.get('indent',0)
+                    print('\t'*indent,k)
+
             elif isinstance(v,AblationHook):
                 assets['hooks'].append(k)
                 if debug.get('print',False):
@@ -883,6 +890,7 @@ class AblationParameters(dict):
         super().__init__(parameters)
         self._dict = parameters
         self.ablation_assets = AblationParameters.traverse(parameters,debug={})
+        
     
     def generate_combinations(self):
         import itertools
@@ -897,6 +905,7 @@ class AblationParameters(dict):
                 item = self[k]
                 items.append(item)
         possible_combinations = itertools.product(*items)
+        
         return possible_combinations
     @property
     def combinations(self):
@@ -910,8 +919,8 @@ class AblationParameters(dict):
         combinations = self.combinations
         keys = self.ablation_assets['keys']
         hooks = self.ablation_assets['hooks']
-        for c in (combinations):
-            new_parameters = self._dict.copy()
+        for run_i,c in enumerate(combinations):
+            new_parameters = copy.deepcopy(self._dict)
             for k,ci in zip(keys,c):
                 if isinstance(k,str):
                     new_parameters[k] = ci
@@ -919,7 +928,15 @@ class AblationParameters(dict):
                     at = new_parameters
                     for ki in k[:-1]:
                         at = at[ki]
-                    at[k[-1]] = ci
+                    last_key = k[-1]
+                    if isinstance(last_key,str):
+                        at[last_key] = ci
+                    elif isinstance(last_key,AblationCombination):
+                        del at[last_key]
+                        at.update( dict(zip(last_key,ci)) )
+                elif isinstance(k,AblationCombination):
+                        del at[k]
+                        at.update( dict(zip(k,ci)) )
             for k in hooks:
                 if isinstance(k,str):
                     hook = new_parameters[k]
@@ -930,6 +947,7 @@ class AblationParameters(dict):
                         at = at[ki]
                     hook = at[k[-1]]
                     at[k[-1]] = hook(new_parameters)
+            # import pdb;pdb.set_trace()
             callable(new_parameters)
         pass
 
@@ -937,6 +955,25 @@ class AblationList(list):
     def __init__(self,l):
         super().__init__(l)
     pass
+'''
+class AblationCombination():
+    def __init__(self,*keys):
+        # super().__init__(keys)
+        self.keys = keys
+        pass
+    def __hash__(self):
+        return hash(self.keys)
+        pass
+'''
+class AblationCombination(list):
+    def __init__(self,keys):
+        super().__init__(keys)
+        self.keys = keys
+        pass
+    def __hash__(self):
+        return hash(self.keys)
+
+
 class AblationHook():
     def __init__(self,callable):
         self.callable = callable
