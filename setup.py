@@ -183,7 +183,7 @@ setup(
 
 #### Add environemment variables  utilmy
 try :
-    repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/")  + "/utilmy/" )
+    repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
         os.system(f" set  utilmy='{repopath}/' ")  ### Any new session
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
