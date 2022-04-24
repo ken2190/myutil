@@ -110,11 +110,11 @@ def config_save(cc,path):
    print(path)
 
     
-def os_path_copy(in_dir, path, ext="*.py"):
+def os_path_copy(dirin, path, ext="*.py"):
   """ Copy folder recursively 
   """
   import os, shutil, glob
-  file_list = glob.glob(in_dir + '/' + ext)
+  file_list = glob.glob(dirin + '/' + ext)
   print(file_list)
   os.makedirs(path, exist_ok=True)
   for f in file_list:
@@ -123,7 +123,7 @@ def os_path_copy(in_dir, path, ext="*.py"):
     else:
       shutil.copy2(f, os.path.join(path, os.path.basename(f)))  
 
-os_path_copy(in_dir= cc.code_source  , path= cc.model_dir2 + "/code/")
+os_path_copy(dirin= cc.code_source  , path= cc.model_dir2 + "/code/")
 
 from utilmy.deeplearning.keras.train_graph_loss import metric_accuracy;
 

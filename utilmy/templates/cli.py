@@ -13,14 +13,14 @@ def run_cli():
     add("--action",   type=str,  default="show",           help = "repo_dir")
 
     add("--name",     type=str,  default="pypi_package",   help = "")
-    add("--out_dir",  type=str,  default="mytemplate/",    help = "")
+    add("--dirout",  type=str,  default="mytemplate/",    help = "")
     args = p.parse_args()
 
     if args.action == 'show':
        template_show()
 
     if args.action == 'copy':
-       template_copy(args.name, args.out_dir)
+       template_copy(args.name, args.dirout)
 
 
 def template_show():
@@ -35,11 +35,11 @@ def template_show():
     print(flist)
 
 
-def template_copy(name, out_dir):
+def template_copy(name, dirout):
     """function template_copy
     Args:
         name:   
-        out_dir:   
+        dirout:   
     Returns:
         
     """
@@ -50,8 +50,8 @@ def template_copy(name, out_dir):
     this_file = os.path.abspath(__file__).replace("\\", "/")
     this_repo = os.path.abspath(this_file + "/../")
     src       = this_repo + "/templates/tempfile/" + name
-    os_copy(src, out_dir)
-    print( Path(out_dir) /  Path(name) )
+    os_copy(src, dirout)
+    print( Path(dirout) /  Path(name) )
 
 
 #############################################################################

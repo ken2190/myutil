@@ -134,24 +134,24 @@ def metrics_calc(dirin:Union[str, pd.DataFrame],
                  topk=5,
                  **kw):
     """metrics_calc
-    Code::
+    Doc::
 
-        Args:
-            dirin:  
-            dirout:   =None.
-            colid:   ='userid'.
-            colrec:   ='reclist'.
-            coltrue:   ='purchaselist'.
-            colinfo:   ='genrelist'.
-            colts:   ='datetime'.
-            methods:   =[''].
-            nsample:   =-1.
-            nfile:   =1.
-            featuredf:   =None.
-            popdict:   =None.
-            topk:   =5.
+        dirin:  
+        dirout:  = None.
+        colid:   ='userid'.
+        colrec:  ='reclist'.
+        coltrue: ='purchaselist'.
+        colinfo: ='genrelist'.
+        colts:   ='datetime'.
+        methods: =['personalization','catalog_coverage','intra_list_similarity','recall_average_at_k_mean','novelty','recommender_precision','recommender_recall'],
+        nsample: =-1.
+        nfile:   =1.
+        featuredf:   =None.
+        popdict:   =None.
+        topk:   =5.
         Returns: pd.DataFrame 
-
+        #### Example:
+        from utilmy.recys.util_rec import metrics_calc
         df, popdict, feature_df = test_get_testdata()
         dfres = metrics_calc(df,
                 methods=['personalization','catalog_coverage','intra_list_similarity',
