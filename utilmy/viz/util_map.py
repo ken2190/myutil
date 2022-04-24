@@ -339,12 +339,12 @@ class webMap():
     def __init__(self,title:str='map.html') -> None:
         self.title = title
         self.htmlDoc = HTMLDoc(title=title) 
-        self.out_dir = ''
+        self.dirout = ''
         self.map_js = ''
 
     def load_document(self,rewrite=False,open_new_tab=True):
         self.htmlDoc.add_js(self.map_js) if rewrite==False else self.htmlDoc.rewrite_js(self.map_js)
-        self.htmlDoc.save(self.out_dir)
+        self.htmlDoc.save(self.dirout)
         if open_new_tab:self.htmlDoc.browse()
 
     
@@ -374,7 +374,7 @@ class webMap():
                     OpenStreetMap_Mapnik.addTo(map);
                 """.format(center=center,zoom=zoom,tile=tile)
         
-        self.out_dir = dir
+        self.dirout = dir
         self.map_js = js
         self.load_document(open_new_tab=open_new_tab)
 

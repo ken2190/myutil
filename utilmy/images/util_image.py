@@ -10,7 +10,7 @@ from box import Box
 import io, cv2,  matplotlib, tempfile, skimage
 # import  tifffile.tifffile
 from PIL import Image
-
+import math
 os.environ['MPLCONFIGDIR'] = "/tmp/"
 try :
    import diskcache as dc    
@@ -79,7 +79,6 @@ def test2():
     log('\n\nimage_prep_multiproc',)
 
 
-
 def test_diskcache():
     import tempfile
     import skimage
@@ -87,7 +86,8 @@ def test_diskcache():
     # dump some skimage images to a directory to create a cache from
     import skimage.data
     import os
-
+    import glob
+    
     images = ('astronaut',
           'binary_blobs',
           'brick',
@@ -107,40 +107,71 @@ def test_diskcache():
           'text',
           'rocket',
           )
-    with  tempfile.TemporaryDirectory() as dirin:
+    with  tempfile.TemporaryDirectory() as dirin:              
         # print(dirin)
         subdirs = ['1','2','3']
         for d_ in subdirs:
             os.mkdir(os.path.join(dirin,d_))
-        with  tempfile.TemporaryDirectory() as dirout:
+        with  tempfile.TemporaryDirectory() as dirout:              
             # print(dirout)
             n_images = len(images)
-
+            
             for i,imname in enumerate(images):
                 im = getattr(skimage.data,imname)()
                 d_ = subdirs[i//int(np.ceil(n_images / len(subdirs)))]
-                skimage.io.imsave(os.path.join(dirin,d_,imname+'.png'),im)
+                impath_i = os.path.join(dirin,d_,imname+'.png')
+                skimage.io.imsave(impath_i,im)
+                
                 # break
-
+            
             tag0 = 'dc_tag'
             xdim0 = 256
             ydim0 = 256
             nmax = 10000000
             cache = diskcache_image_createcache(dirin, dirout=dirout, xdim0=xdim0, ydim0=ydim0, tag0= "dc_tag", nmax=nmax, file_exclude="" )
             assert len(cache) == n_images, 'size of the cache is not the same as n_images'
-            with  tempfile.TemporaryDirectory() as dircheck:
+            with  tempfile.TemporaryDirectory() as dircheck:              
                 tag = f"{tag0}_{xdim0}_{ydim0}-{nmax}"
-                diskcache_image_dumpsample(
-                    db_dir  = os.path.join(dirout,f"img_{tag}.cache"),
-                    dirout = dircheck,
-                    tag = tag)
-
                 cache2 = diskcache_image_loadcache(db_dir = os.path.join(dirout,f"img_{tag}.cache"))
                 assert len(cache2) == len(cache),'loaded cache is not same length as saved cache'
                 for k in cache2:
                     assert (cache2[k] == cache[k]).all(),f'caches differ on {k} value'
-
-
+            #===================================================================================
+            # diskcache_image_insert
+            # impaths = []
+            with  tempfile.TemporaryDirectory() as next_dirin:              
+                for i,imname in enumerate(images):
+                    im = getattr(skimage.data,imname)()
+                    impath_i = os.path.join(next_dirin,imname+'.png')
+                    skimage.io.imsave(impath_i,1 - im)
+                    # impaths.append(impath_i)
+                old_cache_len = len(cache)
+                diskcache_image_insert(glob.glob(os.path.join(next_dirin,'*')), db_dir=os.path.join(dirout,f"img_{tag}.cache"))
+                new_cache_len = len(cache)
+                assert new_cache_len == old_cache_len + len(images),f'cache len after diskcache_image_insert should reflect # of images inserted. expected {old_cache_len + len(images)} got {new_cache_len}'
+            #===================================================================================
+            # diskcache_image_dumpsample
+            # import pdb;pdb.set_trace()
+            for j in range(3):
+                with  tempfile.TemporaryDirectory() as dirdumpsample:              
+                    if j == 0:
+                        n_images = 10
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag, n_images=n_images)        
+                        fnames = os.listdir(dirdumpsample)
+                        assert len(fnames) <= n_images,f'more than {n_images} dumped'
+                        # assert all([f in cache for f in fnames]), f'filenames {fnames} not found cache'
+                        #TODO: any better test to verify one of the dumped files matches the cache contents?
+                    elif j == 1:
+                        img_list = list(cache.iterkeys())[:5]
+                        diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)        
+                    elif j == 2:
+                        img_list = ['**not_in_cache**']                       
+                        try:
+                            diskcache_image_dumpsample(db_dir=os.path.join(dirout,f"img_{tag}.cache"), dirout=dirdumpsample, tag=tag , img_list=img_list)                                
+                        except KeyError:
+                            pass
+                        else:
+                            assert False,'diskcache_image_dumpsample:key error should have been raised for non existant key'
 
 
 #################################################################################################
@@ -180,14 +211,14 @@ def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=2
     xdim, ydim = xdim0, ydim0
 
     log("#### paths  ####################################################################")
-    in_dir = dirin
+    dirin = dirin
     tag      = f"{tag0}_{xdim}_{ydim}-{nmax}"
     db_dir  = dirout + f"/img_{tag}.cache"
-    log(in_dir, db_dir)
+    log(dirin, db_dir)
 
 
     log("#### Image list  ################################################################")
-    image_list = sorted(list(glob.glob(  f'{in_dir}/**/*')))
+    image_list = sorted(list(glob.glob(  f'{dirin}/**/*')))
     fexclude   = sorted(list(glob.glob(  f'{file_exclude}')))
     image_list = [  fi  for fi in image_list if fi not in fexclude   ] #TODO: some folders to exclude?
     image_list = image_list[:nmax]
@@ -284,50 +315,35 @@ def diskcache_image_insert(dirin_image:str="myimages/", db_dir:str="tmp/", tag="
         cache[img_path] = img
 
 
-def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag="cache1"):
-    """  dump some sample of diskcache images on disk 
-    Args:
-        db_dir ( str ) :
-        dirout ( str ) :
-        tag:
-    Returns:
-
-    """
-    ##### Write some sample images  from cache #############################
-    import diskcache as dc
-    cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
-    log('Nimages', len(cache) )
-
-    log('### Check writing on disk  ###########################')
-    dir_check = dirout + f"/{tag}/"
-    os.makedirs(dir_check, exist_ok=True)
-    for i, key in enumerate(cache) :
-        if i > 10: break
-        img = cache[key]
-        img = img[:, :, ::-1]
-        key2 = key.split("/")[-1]
-        cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
-    log( dir_check )
-
-
-def diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list):
+def diskcache_image_dumpsample(db_dir:Path_type="db_images.cache", dirout:Path_type="tmp/", tag=None,n_images:int=None, img_list:list =[]):
     """ dump some sample of diskcache images on disk 
     """
+    ##### Write some sample images  from cache #############################
     # db_dir = "_70k_clean_nobg_256_256-100000.cache"
     import diskcache as dc
+    # cache   = dc.Cache(db_dir, size_limit= 100 * 10**9, timeout= 5 )
     cache   = dc.Cache(db_dir)
     log('Nimages', len(cache) )
 
     log('### writing on disk  ######################################')
-    dir_check = dirout
+    dir_check = dirout + (f'/{tag}/' if tag else '')
     os.makedirs(dir_check, exist_ok=True)
+    if not n_images:
+        # if limit on number of images not provided, use inf
+        n_images = math.inf
+    if not img_list:
+        # if list of images not provided, just iterate through the cache
+        img_list = cache 
     for i, key in enumerate(img_list) :
-        if i > 10: break
+
+        if i > n_images: break
         img = cache[key]
         img = img[:, :, ::-1]
         key2 = key.split("/")[-1]
         cv2.imwrite( dir_check + f"/{i}_{key2}"  , img)
     log( dir_check )
+
+
 
 
 def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3, renorm=True):
@@ -564,7 +580,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
     import cv2, gc, diskcache
     from utilmy.images import util_image
 
-    in_dir = dirin
+    dirin = dirin
   
     nmax = 500000000
     global xdim, ydim
@@ -595,7 +611,7 @@ def image_custom_resize_mp(dirin:Path_type="", dirout :str =""):
             return [], ""
 
     log("#### Process  ######################################################################")
-    image_list = sorted(list(glob.glob(f'/{in_dir}/*.*')))
+    image_list = sorted(list(glob.glob(f'/{dirin}/*.*')))
     image_list = image_list[:nmax]
     log('Size Before', len(image_list))
 
@@ -749,12 +765,6 @@ def image_prep_addpadding(paddings_number: int = 1, min_padding: int = 1, max_pa
 ###################################################
 def image_resize_ratio(img : npArrayLike, width :Int_none =None, height :Int_none =None, inter :int =cv2.INTER_AREA):
     """function image_resize_ratio
-    Args:
-        img:
-        width:
-        height:
-        inter:
-    Returns:
 
     """
     # Resizes a image and maintains aspect ratio
@@ -890,16 +900,15 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
 
 
 def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int=1):
-    """ #### remove background
+    """ Remove background
+    Code::
 
-         source activate py38 &&  sleep 5 && python prepro.py   image_remove_bg
+        source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
 
+        python $utilmy/images/util_image.py image_remove_backgroun  --dirin  img/data/bing/v4     --dirout  img/data/bing/v4_nobg &>> img/data/zlog_rembg.py  &
 
-        python prepro.py rembg  --in_dir  /data/workspaces/noelkevin01/img/data/bing/v4     --dirout  /data/workspaces/noelkevin01/img/data/bing/v4_nobg &>> /data/workspaces/noelkevin01/img/data/zlog_rembg.py  &
+        rembg  -ae 15 -p  img/data/fashion/test2/  img/data/fashion/test_nobg/
 
-        rembg  -ae 15 -p  /data/workspaces/noelkevin01/img/data/fashion/test2/  /data/workspaces/noelkevin01/img/data/fashion/test_nobg/
-
-        mkdir /data/workspaces/noelkevin01/img/data/fashion/train_nobg/
 
     """
     fpaths = glob.glob(dirin + "/*")
@@ -917,15 +926,16 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
 
 def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"", npool=30):
     """  Remove face
+    Code::
 
-     python prepro.py  image_face_blank
+        python $utilmy/images/util_image.py  image_face_blank
 
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --dirin img/data/fashion/test_nobg   --dirout img/data/fashion/test_nobg_noface
 
-     python prepro.py  image_face_blank  --in_dir img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
+        python $utilmy/images/util_image.py  image_face_blank  --dirin img/data/fashion/train_nobg   --dirout img/data/fashion/train_nobg_noface
 
 
-      five elements are [xmin, ymin, xmax, ymax, detection_confidence]
+        five elements are [xmin, ymin, xmax, ymax, detection_confidence]
 
     """
     import cv2, glob

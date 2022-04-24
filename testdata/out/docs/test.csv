@@ -972,7 +972,7 @@ uri,name,type,n_variable,n_words,n_words_unique,n_characters,avg_char_per_word,n
 ./utilmy/logs/util_log.py:z_logger_custom_1,z_logger_custom_1,function,38,110,92,1250,11.36,2,1,[],[],[],187,[],"['InterceptHandler', 'emit', 'logger.level', 'str', 'logging.currentframe', 'logger.opt', 'record.getMessage', 'format_record', 'pformat', 'setup_logging', 'logging.getLogger', 'logger.configure']",12
 ./utilmy/templates/cli.py:run_cli,run_cli,function,9,30,23,332,11.07,0,2,[],[],[],5,"['    """""" USage\n', '    \n', '    template  copy  --repo_dir utilmy/\n', '    """"""\n']","['argparse.ArgumentParser', 'add', 'p.parse_args', 'template_show', 'template_copy']",5
 ./utilmy/templates/cli.py:template_show,template_show,function,7,9,9,115,12.78,0,0,[],[],[],26,[],"['os.walk', 'print']",2
-./utilmy/templates/cli.py:template_copy,template_copy,function,12,26,22,249,9.58,0,0,"['name', 'out_dir']","[None, None]","[None, None]",33,[],"['os_copy', 'print', 'Path']",3
+./utilmy/templates/cli.py:template_copy,template_copy,function,12,26,22,249,9.58,0,0,"['name', 'dirout']","[None, None]","[None, None]",33,[],"['os_copy', 'print', 'Path']",3
 ./utilmy/viz/embedding.py:log,log,function,1,2,2,23,11.5,0,0,['*s'],[None],[None],38,[],['print'],1
 ./utilmy/viz/toptoolbar.py:TopToolbar,TopToolbar,class,35,67,55,571,8.52,0,2,[],[],[],4,[],[],0
 ./utilmy/viz/vizhtml.py:log,log,function,1,2,2,20,10.0,0,0,['*s'],[None],[None],21,[],['print'],1

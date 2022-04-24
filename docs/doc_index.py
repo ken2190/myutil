@@ -148,6 +148,9 @@ new_algo(df)
 
 
 
+utilmy/db/util_sql.py
+
+
 utilmy/debug.py
 -------------------------functions----------------------
 help()
@@ -445,7 +448,7 @@ image_check(name, img, renorm = False)
 log(*s)
 model_reload(model_reload_name, cc, )
 np_remove_duplicates(seq)
-os_path_copy(in_dir, path, ext = "*.py")
+os_path_copy(dirin, path, ext = "*.py")
 pd_category_filter(df, category_map)
 print_debug_info(*s)
 print_log_info(*s)
@@ -602,6 +605,12 @@ test(data_path = "dataset/", pars_choice = "test01", config_mode = "test")
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None, **kwargs)
 
 
+utilmy/deeplearning/ttorch/models/torch_lstm_check.py
+-------------------------functions----------------------
+check_lstm()
+
+
+
 utilmy/deeplearning/ttorch/rule_encoder.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
@@ -688,26 +697,6 @@ RuleEncoder_Create.load_DataFrame(self, )
 RuleEncoder_Create.prepro_dataset(self, df)
 
 
-utilmy/deeplearning/ttorch/util_torch.py
--------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-device_setup(arg)
-get_metrics(y_true, y_pred, y_score)
-help()
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
-model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg:dict = None)
-test2()
-test_all()
-test_dataset_classification_fake(nrows = 500)
-
--------------------------methods----------------------
-SmeLU.__init__(self, beta: float  =  2.)
-SmeLU.forward(self, input: torch.Tensor)
-model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
-model_dummy.forward(self, x)
-
-
 utilmy/deeplearning/ttorch/zrule_encoder2.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
@@ -772,44 +761,52 @@ test_all()
 
 utilmy/deeplearning/util_embedding.py
 -------------------------functions----------------------
-convert_txt_to_vector_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8)
-data_add_onehot(dfref, img_dir, labels_col)
-embedding_load_parquet(dirin = "df.parquet", nmax  =  500)
-embedding_table_comparison(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
-embedding_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10**8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
-faiss_create_index(df_or_path = None, col = 'emb', dir_out = "", db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
-faiss_topk(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
+embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
+embedding_create_vizhtml(dirin = "in/model.vec", dirout = "ztmp/", dim_reduction = 'umap', nmax = 100, ntrain = 10)
+embedding_load_parquet(dirin = "df.parquet", colid      =  'id', col_embed  =  'pred_emb', nmax  =  500)
+embedding_load_pickle(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneimport pickleembs = Nonedirin)for fi in flist  = Noneimport pickleembs = Nonedirin)for fi in flist :)
+embedding_load_word2vec(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneif is_linevalid_fun is None  = Noneif is_linevalid_fun is None : #### Validate linew):)
+embedding_rawtext_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
+faiss_create_index(df_or_path = None, col = 'emb', dirout = None, db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
+faiss_load_index(faiss_index_path = "")
+faiss_topk_calc(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
 help()
-sim_scores_faiss(path = "")
-sim_scores_sklearn(embs, words)
+sim_scores_faiss(embs:np.ndarray, idlist:list, is_symmetric = False)
+sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric = False)
 test1()
 test_all()
-topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
-topk(topk = 100, dname = None, pattern = "df_*1000*.parquet", filter1 = None)
-topk_export()
-topk_nearest_vector(x0, vector_list, topk = 3)
-topk_nearest_vector(x0, vector_list, topk = 3)
-topk_predict()
-viz_run(dirin = "in/model.vec", dirout = "ztmp/", nmax = 100)
+topk_calc(diremb = "", dirout = "", topk = 100, idlist = None, nexample = 10, emb_dim = 200, tag = None, debug = True)
+topk_nearest_vector(x0:np.ndarray, vector_list:list, topk = 3, engine = 'faiss', engine_pars:dict = None)
 
 -------------------------methods----------------------
-TopToolbar.__init__(self)
-vizEmbedding.__init__(self, path = "myembed.parquet", num_clusters = 5, sep = ";", config:dict = None)
-vizEmbedding.create_clusters(self, after_dim_reduction = True)
-vizEmbedding.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
-vizEmbedding.dim_reduction(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = None, ntest = 10000, npool = 2)
-vizEmbedding.draw_hiearchy(self)
-vizEmbedding.run_all(self, mode = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dir_out = "ztmp/", ntest = 10000)
+EmbeddingViz.__init__(self, path = "myembed.parquet", num_clusters = 5, sep = ";", config:dict = None)
+EmbeddingViz.create_clusters(self, after_dim_reduction = True)
+EmbeddingViz.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
+EmbeddingViz.dim_reduction(self, mode = "mds", ndim = 2, nmax =  5000, dir_out = None, ntrain = 10000, npool = 2)
+EmbeddingViz.draw_hiearchy(self)
+EmbeddingViz.load_data(self, col_embed = 'embed', nmax =  5000, npool = 2)
+EmbeddingViz.run_all(self, dim_reduction = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dirout = "ztmp/", ntrain = 10000)
+
+
+utilmy/deeplearning/util_hyper.py
+-------------------------functions----------------------
+help()
+run_hyper_optuna(obj_fun, pars_dict_init, pars_dict_range, engine_pars, ntrials = 3, verbose = 1)
+test1_optuna()
+test2_optuna()
+test3_optuna()
+test_all()
+
 
 
 utilmy/deeplearning/util_onnx.py
 -------------------------functions----------------------
 help()
 onnx_check_onnx(dironnx:str = "super_resolution.onnx", dirmodel:str = None, dirweights:str = None, x_numpy:Union[ndarray, list] = None)
-onnx_convert(torch_model, 1, 224, 224), dirout               =  '.', checkpoint_path      =  './mymodel.pth', export_params        =  True, onnx_version         =  10, do_constant_folding  =  True, input_names          =  ['input'], output_names         =  ['output'], dynamic_axes        = {'input'  =  {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}, device               =  'cpu', )
+onnx_convert(torch_model='path/mymodule.py = 'path/mymodule.py:myModel or model object', dir_checkpoint =  './mymodel.pth', dirout =  '.', export_params        =  True, onnx_version         =  10, 1, 224, 224), do_constant_folding  =  True, input_names          =  ['input'], output_names         =  ['output'], dynamic_axes        = {'input'  =  {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}}, device               =  'cpu', )
 onnx_load_modelbase(dirmodel:str = "myClassmodel.py:MyNNClass", dirweight:str = "", mode_inference = True, verbose = 1)
 onnx_load_onnx(dironnx:str = "super_resolution.onnx", )
-test1()
+onnx_optimize(dirmodel:str, model_type = 'bert', **kw)
 test3()
 test_all()
 test_helper()
@@ -845,7 +842,7 @@ topk(topk = 100, dname = None, pattern = "df_*", filter1 = None)
 topk_export()
 topk_nearest_vector(x0, vector_list, topk = 3)
 topk_predict()
-unzip(in_dir, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -1069,14 +1066,14 @@ utilmy/docs/zold_cli_format.py
 -------------------------functions----------------------
 format_assignments(text)
 format_comments(text = "default", line_size = 90)
-format_dir(in_dir, out_dir)
-format_file(in_file, out_dir)
+format_dir(dirin, dirout)
+format_file(in_file, dirout)
 format_imports(text)
 format_logs(text = "default", line_size = 90)
 load_arguments()
 main()
 mod_period(in_file)
-os_glob(in_dir)
+os_glob(dirin)
 
 
 
@@ -1121,33 +1118,32 @@ utilmy/images/__init__.py
 utilmy/images/util_image.py
 -------------------------functions----------------------
 diskcache_image_createcache(dirin:Path_type = "", dirout:Path_type = "", xdim0 = 256, ydim0 = 256, tag0 =  "", nmax = 10000000, file_exclude = "")
-diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = "cache1")
-diskcache_image_dumpsample2(db_dir :Path_type, dirout:Path_type, img_list:list)
+diskcache_image_dumpsample(db_dir:Path_type = "db_images.cache", dirout:Path_type = "tmp/", tag = None, n_images:int = None, img_list:list  = [])
 diskcache_image_insert(dirin_image:str = "myimages/", db_dir:str = "tmp/", tag = "cache1")
 diskcache_image_loadcache(db_dir:str = "db_images.cache")
 download_page_image(query, dirout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
 help()
-image_center_crop(img:npArrayLike, dim:Tuple[int, int])
 image_create_fake() + "/ztmp/images/", nimages = 1, 300, 300), 255, 0, 0)))
 image_create_fake2(dirin:Path_type = None)
 image_custom_resize_mp(dirin:Path_type = "", dirout :str  = "")
-image_face_blank(in_dir:Path_type = "", level  =  "/*", dirout:Path_type = f"", npool = 30)
 image_merge(image_list :Sequence[npArrayLike], n_dim :int, padding_size, max_height, total_width)
-image_padding_generate(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
 image_prep(image_path:str, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5, verbose = False)
+image_prep_addpadding(paddings_number: int  =  1, min_padding: int  =  1, max_padding: int  =  1)
+image_prep_centercrop(img:npArrayLike, dim:Tuple[int, int])
 image_prep_many(image_paths:Sequence[str], image_prep_fun, nmax:int = 10000000, xdim :int = 1, ydim :int = 1, mean :float  =  0.5, std :float     =  0.5)
 image_prep_multiproc(dirimage_list:list, image_prep_fun = None, npool = 1)
 image_read(filepath_or_buffer: Union[str, io.BytesIO])
 image_read2(dirin_filelist:Union[str, list], **kw)
 image_read_iter(dirin_filelist:Union[str, list], **kw)
-image_remove_bg(in_dir:Path_type = "", dirout:Path_type = "", level:int = 1)
+image_remove_background(dirin:Path_type =  "", dirout:Path_type =  "", level:int = 1)
 image_remove_extra_padding(img :npArrayLike, inverse : bool = False, removedot :bool  = True)
-image_resize(image : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
+image_remove_humanface(dirin:Path_type =  "", level  = "/*", dirout:Path_type = f"", npool = 30)
+image_remove_text(dirin :Path_type, dirout :Path_type, level = "*")
+image_resize(img : npArrayLike, width :Int_none  = None, height :Int_none  =  None, inter = cv2.INTER_AREA)
 image_resize_pad(img :npArrayLike, size : Tuple[Int_none, Int_none] = (None, None)
-image_resize_ratio(image : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
+image_resize_ratio(img : npArrayLike, width :Int_none  = None, height :Int_none  = None, inter :int  = cv2.INTER_AREA)
 image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
 image_show_in_row(image_list:Union[dict, list, None] = None)
-image_text_blank(in_dir :Path_type, dirout :Path_type, level = "*")
 npz_image_dumpsample(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
 test1()
 test2()
@@ -1247,7 +1243,9 @@ model_finetune_qanswer(modelname_or_path = 'distilbert-base-nli-mean-tokens', ta
 model_load(path_or_name_or_object)
 model_save(model, path:str, reload = True)
 model_setup_compute(model, use_gpu = 0, ngpu = 1, ncpu = 1, cc:Dict_none = None)
+sentence_compare(df, cola, colb, model)
 test1()
+test2()
 test_all()
 
 
@@ -1411,6 +1409,21 @@ test2()
 test_all()
 tokenize_bert(corpus, tokenizer = None, maxlen = None)
 utils_bert_embedding(txt, tokenizer, nlp, log = False)
+
+
+
+utilmy/nlp/zzz_text.py
+-------------------------functions----------------------
+help()
+help_get_codesource(func)
+log(*s)
+pd_text_getcluster(df:pd.DataFrame, col:str = 'col', threshold = 0.5, num_perm:int = 5, npool = 1, chunk  =  100000)
+pd_text_hash_create_lsh(df, col, sep = " ", threshold = 0.7, num_perm = 10, npool = 1, chunk  =  20000)
+pd_text_similarity(df: pd.DataFrame, cols = [], algo = '')
+test()
+test()
+test_all()
+test_lsh()
 
 
 
@@ -2162,6 +2175,9 @@ VectorStoreCache.__init__(self, prefix = "m001", cass_query = None, nmax = 10**6
 VectorStoreCache.get_multi(self, siids, use_dict = True, update_cache = True)
 
 
+utilmy/recsys/zprepro_recs.py
+
+
 utilmy/recsys/zrecs/docs/source/conf.py
 
 
@@ -2813,10 +2829,10 @@ test_spark_check(spark_session: SparkSession, config: dict)
 utilmy/stats/__init__.py
 
 
-utilmy/stats/hypothetical/__init__.py
+utilmy/stats/hypothesis/__init__.py
 
 
-utilmy/stats/hypothetical/_lib.py
+utilmy/stats/hypothesis/_lib.py
 -------------------------functions----------------------
 _build_des_mat(*args, group = None)
 _build_summary_matrix(x, y = None)
@@ -2825,81 +2841,82 @@ _rank(design_matrix)
 
 
 
-utilmy/stats/hypothetical/aov.py
+utilmy/stats/hypothesis/aov.py
 
 
-utilmy/stats/hypothetical/contingency.py
+utilmy/stats/hypothesis/contingency.py
 
 
-utilmy/stats/hypothetical/critical.py
+utilmy/stats/hypothesis/critical.py
 -------------------------functions----------------------
 chi_square_critical_value(alpha, dof)
 
 
 
-utilmy/stats/hypothetical/descriptive.py
+utilmy/stats/hypothesis/descriptive.py
 -------------------------functions----------------------
 add_noise(cor, epsilon = None, m = None)
 covar(x, y = None, method = None)
 
 
 
-utilmy/stats/hypothetical/docs/setup.py
+utilmy/stats/hypothesis/fa.py
 
 
-utilmy/stats/hypothetical/fa.py
+utilmy/stats/hypothesis/gof.py
 
 
-utilmy/stats/hypothetical/gof.py
+utilmy/stats/hypothesis/hypothesis.py
 
 
-utilmy/stats/hypothetical/hypothesis.py
+utilmy/stats/hypothesis/nonparametric.py
 
 
-utilmy/stats/hypothetical/nonparametric.py
+utilmy/stats/hypothesis/posthoc.py
 
 
-utilmy/stats/hypothetical/posthoc.py
+utilmy/stats/hypothesis/tests/__init__.py
 
 
-utilmy/stats/hypothetical/tests/test_aov.py
+utilmy/stats/hypothesis/tests/test_aov.py
 -------------------------functions----------------------
 multivariate_test_data()
+test_anova_oneway()
 test_data()
-
--------------------------methods----------------------
-TestAnovaOneWay.test_anova_oneway(self)
-TestManovaOneWay.test_manova_oneway(self)
+test_manova_oneway()
 
 
-utilmy/stats/hypothetical/tests/test_contingency.py
--------------------------methods----------------------
-TestChiSquareContingency.test_chi_square_contingency(self)
-TestChiSquareContingency.test_chi_square_contingency_no_continuity(self)
-TestChiSquareContingency.test_chi_square_contingency_no_expected(self)
-TestChiSquareContingency.test_chi_square_exceptions(self)
-TestCochranQ.test_cochranq(self)
-TestCochranQ.test_cochranq_exceptions(self)
-TestMcNemarTest.test_mcnemartest_exceptions(self)
-TestTableMargins.test_expected_frequencies(self)
-TestTableMargins.test_expected_frequencies_exceptions(self)
-TestTableMargins.test_margins_exceptions(self)
-TestTableMargins.test_table_margins(self)
+
+utilmy/stats/hypothesis/tests/test_contingency.py
+-------------------------functions----------------------
+test_chi_square_contingency()
+test_chi_square_contingency_no_continuity()
+test_chi_square_contingency_no_expected()
+test_chi_square_exceptions()
+test_cochranq()
+test_cochranq_exceptions()
+test_expected_frequencies()
+test_expected_frequencies_exceptions()
+test_margins_exceptions()
+test_mcnemartest_exceptions()
+test_table_margins()
 
 
-utilmy/stats/hypothetical/tests/test_critical_values.py
--------------------------methods----------------------
-TestChiSquareCritical.test_critical_values(self)
-TestChiSquareCritical.test_exceptions(self)
-TestRCritical.test_critical_values(self)
-TestRCritical.test_exceptions(self)
-TestUCritical.test_critical_values(self)
-TestUCritical.test_exceptions(self)
-TestWCritical.test_critical_values(self)
-TestWCritical.test_exceptions(self)
+
+utilmy/stats/hypothesis/tests/test_critical_values.py
+-------------------------functions----------------------
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_critical_values()
+test_exceptions()
+test_exceptions()
+test_exceptions()
+test_exceptions()
 
 
-utilmy/stats/hypothetical/tests/test_descriptive.py
+
+utilmy/stats/hypothesis/tests/test_descriptive.py
 -------------------------methods----------------------
 TestCorrelationCovariance.test_covar_no_method(self)
 TestCorrelationCovariance.test_naive_covariance(self)
@@ -2922,10 +2939,10 @@ TestVariance.test_var_textbook_one_pass(self)
 TestVariance.test_var_youngs_cramer(self)
 
 
-utilmy/stats/hypothetical/tests/test_factor_analysis.py
+utilmy/stats/hypothesis/tests/test_factor_analysis.py
 
 
-utilmy/stats/hypothetical/tests/test_gof.py
+utilmy/stats/hypothesis/tests/test_gof.py
 -------------------------methods----------------------
 TestChiSquare.test_chisquare_exceptions(self)
 TestChiSquare.test_chisquare_no_exp(self)
@@ -2936,7 +2953,7 @@ TestJarqueBera.test_jarquebera(self)
 TestJarqueBera.test_jarquebera_exceptions(self)
 
 
-utilmy/stats/hypothetical/tests/test_hypothesis.py
+utilmy/stats/hypothesis/tests/test_hypothesis.py
 -------------------------functions----------------------
 test_data()
 test_multiclass_data()
@@ -2957,7 +2974,7 @@ Test_tTest.test_two_sample_students_test(self)
 Test_tTest.test_two_sample_welch_test(self)
 
 
-utilmy/stats/hypothetical/tests/test_internal.py
+utilmy/stats/hypothesis/tests/test_internal.py
 -------------------------functions----------------------
 test_array()
 test_build_design_matrix()
@@ -2965,7 +2982,7 @@ test_build_matrix()
 
 
 
-utilmy/stats/hypothetical/tests/test_nonparametric.py
+utilmy/stats/hypothesis/tests/test_nonparametric.py
 -------------------------functions----------------------
 multivariate_test_data()
 plants_test_data()
@@ -2997,7 +3014,7 @@ TestWilcoxon.test_wilcoxon_multi_sample(self)
 TestWilcoxon.test_wilcoxon_one_sample(self)
 
 
-utilmy/stats/hypothetical/tests/test_posthoc.py
+utilmy/stats/hypothesis/tests/test_posthoc.py
 -------------------------functions----------------------
 test_tukeytest()
 
@@ -3007,11 +3024,14 @@ TestGamesHowell.test_games_howell(self)
 
 utilmy/stats/statistics.py
 -------------------------functions----------------------
-estimator_boostrap_bayes(err, alpha = 0.05, )
-estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
-estimator_std_normal(err, alpha = 0.05, )
+bonferoni_adjuster(p_values, threshold = 0.1)
+confidence_interval_boostrap_bayes(err:np.ndarray, alpha = 0.05, )
+confidence_interval_bootstrap(err:np.ndarray, custom_stat = None, alpha = 0.05, n_iter = 10000)
+confidence_interval_normal_std(err:np.ndarray, alpha = 0.05, )
+error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only = 1)
+error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution = "norm", test_size_limit = 5000)
+error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX = None, bins = 5)
 help()
-log(*s)
 np_col_extractname(col_onehot)
 np_conv_to_one_col(np_array, sep_char = "_")
 np_list_remove(cols, colsremove, mode = "exact")
@@ -3019,19 +3039,31 @@ test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
-test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
+test_anova(df:pd.DataFrame, col1, col2)
+test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method = 'chisquare', **kw)
+test_independance(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
+test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX = None, coly = 'y', bonferroni_adjuster = True, threshold = 0.1)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(error, distribution = "norm", test_size_limit = 5000)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
-y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
+test_normality2(df:pd.DataFrame, column, test_type)
+test_plot_qqplot(df:pd.DataFrame, col_name)
+test_same_mean(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
 
 
 
 utilmy/tabular/__init__.py
+
+
+utilmy/tabular/ppolars.py
+-------------------------functions----------------------
+help()
+load_function_uri(uri_name = "path_norm")
+pandas_test()
+pd_compare(df, dfp)
+pivot_table_polars(df_or_path, columns:list, index:list, values:list, aggfunc:str = 'sum', dirout = "./mypivot.parquet")
+polars_test()
+test1()
+test_all()
+
 
 
 utilmy/tabular/sparse/test_data.py
@@ -3053,11 +3085,7 @@ utilmy/tabular/sparse/test_model2.py
 
 utilmy/tabular/tabular.py
 -------------------------functions----------------------
-estimator_boostrap_bayes(err, alpha = 0.05, )
-estimator_bootstrap(err, custom_stat = None, alpha = 0.05, n_iter = 10000)
-estimator_std_normal(err, alpha = 0.05, )
 help()
-log(*s)
 np_col_extractname(col_onehot)
 np_conv_to_one_col(np_array, sep_char = "_")
 np_list_remove(cols, colsremove, mode = "exact")
@@ -3071,18 +3099,9 @@ pd_stat_shift_trend_changes(df, feature, target_col, threshold = 0.03)
 pd_stat_shift_trend_correlation(df, df_test, colname, target_col)
 pd_to_scipy_sparse_matrix(df)
 pd_train_test_split_time(df, test_period  =  40, cols = None, coltime  = "time_key", sort = True, minsize = 5, n_sample = 5, verbose = False)
-test0()
 test1()
 test3()
 test_all()
-test_anova(df, col1, col2)
-test_heteroscedacity(y, y_pred, pred_value_only = 1)
-test_hypothesis(df_obs, df_ref, method = '', **kw)
-test_multiple_comparisons(data: pd.DataFrame, label = 'y', adjuster = True)
-test_mutualinfo(error, Xtest, colname = None, bins = 5)
-test_normality(error, distribution = "norm", test_size_limit = 5000)
-test_normality2(df, column, test_type)
-test_plot_qqplot(df, col_name)
 y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 
@@ -3139,6 +3158,7 @@ y_adjuster_log(y_true, y_pred_log, error_func, **kwargs)
 
 utilmy/tabular/util_explain.py
 -------------------------functions----------------------
+generate_rules_fromdata()
 help()
 load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
@@ -3265,7 +3285,7 @@ utilmy/templates/__init__.py
 utilmy/templates/cli.py
 -------------------------functions----------------------
 run_cli()
-template_copy(name, out_dir)
+template_copy(name, dirout)
 template_show()
 
 
@@ -3505,7 +3525,7 @@ DAG.validate(self)
 utilmy/tools/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -3666,7 +3686,7 @@ utilmy/tools/cli_repo_check.py
 -------------------------functions----------------------
 get_logger()
 get_os()
-git_clone(url, out_dir = None)
+git_clone(url, dirout = None)
 load_arguments()
 main()
 os_system(cmds, stdout_only = True)
@@ -3734,7 +3754,7 @@ test_toplvl()
 utilmy/tools/test/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
-convert2python(source_files, data_file, out_dir)
+convert2python(source_files, data_file, dirout)
 load_arguments()
 main()
 scan(data_file)
@@ -3817,6 +3837,39 @@ os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel 
 
 
 utilmy/tseries/__init__.py
+
+
+utilmy/tseries/torch_outlier.py
+-------------------------functions----------------------
+dataset_ECG5000_fetch_pandas(nrows = 100, dirout = "./ztmp/")
+dataset_ECG5000_prep(df)
+dataset_create(df)
+help()
+model_evaluate(model, test_normal_dataset, device = 'cpu', THRESHOLD = 0.2)
+model_plotLoss(history:dict)
+model_predict(model, dataset, device = 'cpu')
+model_save(model, path)
+model_train(model, train_dataset, val_dataset, n_epochs, device = 'cpu')
+test1()
+test_all()
+
+-------------------------methods----------------------
+DynamicLSTM.__init__(self, input_size, hidden_size = 100, num_layers = 1, dropout = 0., bidirectional = False)
+DynamicLSTM.forward(self, x, seq_lens)
+QuoraModel.__init__(self, args)
+QuoraModel.forward(self, word_seq, seq_len)
+modelDecoder3.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder3.forward(self, x)
+modelDecoder.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder.forward(self, x)
+modelEncoder3.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder3.forward(self, x)
+modelEncoder.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder.forward(self, x)
+modelRecurrentAutoencoder3.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder3.forward(self, x)
+modelRecurrentAutoencoder.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder.forward(self, x)
 
 
 utilmy/tseries/util_tseries.py
@@ -3934,9 +3987,16 @@ user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
 
 utilmy/util_download.py
 -------------------------functions----------------------
-download_page_image(query, out_dir = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
-download_with_progress(url, destination)
-get_cache_directory()
+donwload_and_extract(url, dirout = './ztmp/', unzip = True)
+download_custom_pageimage(query, fileout = "query1", genre_en = '', id0 = "", cat = "", npage = 1)
+download_github(url="https = "https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", dirout = "./ztmp/")
+download_google(url_or_id="https = "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing", fileout = "./ztmp/", unzip = True)
+download_with_progress(url, fileout)
+help()
+os_extract_archive(file_path, dirout = "./ztmp/", archive_format = "auto")
+test1()
+test_all()
+to_file(s, filep)
 
 
 
@@ -3957,7 +4017,7 @@ dir_size(dirin = "mypath", dirout = "./save.txt")
 gzip(dirin = '/mydir', dirout = "./")
 os_extract_archive(file_path, path = ".", archive_format = "auto")
 to_file(s, filep)
-unzip(in_dir, out_dir)
+unzip(dirin, dirout)
 
 
 
@@ -3969,6 +4029,7 @@ get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
 glob_glob(dirin:Union[str, list] = "**/*.py", nfile = 1000, direxclude:Union[str, list] = "", exclude:Union[str, list] = "", recursive = True, silent = False, show = 0, **kw)
+google_download(url_or_id="https = "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing", dirout = "./ztmp/", unzip = True)
 help()
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
@@ -4057,6 +4118,12 @@ utilmy/viz/test_vizhtml.py
 test1(verbose = False)
 test2(verbose = False)
 test_getdata(verbose = True)
+
+
+
+utilmy/viz/track.py
+-------------------------functions----------------------
+frames_to_video(pathIn, pathOut, fps, )
 
 
 
@@ -4210,6 +4277,22 @@ web_get_url_loginpassword(url_list = None, browser = "phantomjs", login = "", pa
 web_send_email_tls(FROM, recipient, subject, body, login1 = "mizenjapan@gmail.com", pss1 = "sophieelise237", server1 = "smtp.gmail.com", port1 = 465, )
 web_sendurl(url1)
 
+
+
+utilmy/zdocstring.py
+-------------------------functions----------------------
+a__google_doc_string_example(package:str = "mlmodels.util", name:str = "path_norm")
+
+-------------------------methods----------------------
+ExampleClass.__init__(self, param1, param2, param3)
+ExampleClass.__special__(self)
+ExampleClass.__special_without_docstring__(self)
+ExampleClass._private(self)
+ExampleClass._private_without_docstring(self)
+ExampleClass.example_method(self, param1, param2)
+ExampleClass.readonly_property(self)
+ExampleClass.readwrite_property(self)
+ExampleClass.readwrite_property(self)
 
 
 utilmy/zml/core_deploy.py
@@ -6488,9 +6571,6 @@ test_helper(model_pars, data_pars, compute_pars)
 MY_MODEL_CLASS.__init__(cpars)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
 Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
-
-
-utilmy/zprepro.py
 
 
 utilmy/zzarchive/_HELP.py
@@ -10141,7 +10221,7 @@ utilmy/zzml/mlmodels/model_tf/raw/convert_ipny_cli.py
 -------------------------functions----------------------
 Run()
 check(file_list, dump = False)
-convert_topython(source_files, data_file, out_dir)
+convert_topython(source_files, data_file, dirout)
 scan(data_file)
 
 
@@ -11134,19 +11214,4 @@ versions_from_file(filename)
 versions_from_parentdir(parentdir_prefix, root, verbose)
 versions_from_parentdir(parentdir_prefix, root, verbose)
 write_to_version_file(filename, versions)
-
-
-
-utilmy/zzz_text.py
--------------------------functions----------------------
-help()
-help_get_codesource(func)
-log(*s)
-pd_text_getcluster(df:pd.DataFrame, col:str = 'col', threshold = 0.5, num_perm:int = 5, npool = 1, chunk  =  100000)
-pd_text_hash_create_lsh(df, col, sep = " ", threshold = 0.7, num_perm = 10, npool = 1, chunk  =  20000)
-pd_text_similarity(df: pd.DataFrame, cols = [], algo = '')
-test()
-test()
-test_all()
-test_lsh()
 
