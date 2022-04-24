@@ -183,14 +183,14 @@ setup(
 
 #### Add environemment variables
 try :
-    repopath = os.path.dirname( os.path.abspath(__file__) )
+    repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/")  + "/utilmy/" )
     if 'win' in sys.platform :
-        os.system(f" set  utildir='{repopath}' ")
-        os.system(f" setx utildir='{repopath}' ")
+        os.system(f" set  utilmy='{repopath}' ")
+        os.system(f" setx utilmy='{repopath}' ")
 
     elif 'linux' in sys.platform :
-        os.system(f" echo 'export utildir={repopath}' >> ~/.bashrc      ")
-        os.system(f" export utildir={repopath} ")
+        os.system(f""" echo 'export utilmy={repopath}' >> ~/.bashrc      """)
+        os.system(f" export utilmy={repopath} ")
 
 except :
     pass
