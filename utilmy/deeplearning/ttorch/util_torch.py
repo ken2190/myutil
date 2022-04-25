@@ -36,11 +36,11 @@ def test_all():
         
     """
     log(MNAME)
-    test()
+    test1()
     # test2()
 
 
-def test2():
+def test1():
     """function test2
     Args:
     Returns:
@@ -129,7 +129,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
         log("val size", len(valid_X)  )
 
     if test_X  is not None :
-        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=arg.device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
         test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
         log("test size:", len(test_X) )
 
@@ -139,7 +139,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
 
 ###############################################################################################
-def model_load(arg):
+def model_load(dirmodel, model_definition):
     """function model_load
     Args:
         arg:   
@@ -148,19 +148,16 @@ def model_load(arg):
     """
     model_eval = model_build(arg=arg, mode='test')
 
-    checkpoint = torch.load( arg.saved_filename)
+    checkpoint = torch.load( dirmodel)
     model_eval.load_state_dict(checkpoint['model_state_dict'])
     log("best model loss: {:.6f}\t at epoch: {}".format(checkpoint['loss'], checkpoint['epoch']))
 
 
-    ll = Box({})
-    ll.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))
-    ll.loss_task_func = nn.BCELoss()
-    return model_eval, ll # (loss_task_func, loss_rule_func)
+    return model_eval # (loss_task_func, loss_rule_func)
     # model_evaluation(model_eval, loss_task_func, arg=arg)
 
 
-def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
+def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loader=None, arg:dict=None ):
     """function model_train
     Args:
         model:   
@@ -171,26 +168,27 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     Returns:
         
     """
-    arg      = Box(arg)  ### Params
-    arghisto = Box({})  ### results
+    arg   = Box(arg)  ### Params
+    histo = Box({})  ### results
 
 
-
-    #### Core model params
+    arg.lr     = arg.get('lr', 0.001)
+    arg.epochs = arg.get('epochs', 1)
+    arg.early_stopping_thld    = arg.get('early_stopping_thld' ,2)
+    arg.seed   = arg.get('seed', 42)
     model_params   = arg.model_info[ arg.model_type]
-    lr             = model_params.get('lr',  0.001)
-    optimizer      = torch.optim.Adam(model.parameters(), lr=lr)
-    loss_task_func = losses.loss_task_func
+
+    arg.metric_list = arg.get('metric_list',  ['mean_squared_error'] )
+
+
+    #### Optimizer model params
+    if optimizer is None:
+       optimizer      = torch.optim.Adam(model.parameters(), lr= arg.lr)
 
 
     #### Train params
-    model_type = arg.model_type
-    # epochs     = arg.epochs
-    early_stopping_thld    = arg.early_stopping_thld
     counter_early_stopping = 1
-    # valid_freq     = arg.valid_freq
-    seed=arg.seed
-    log('saved_filename: {}\n'.format( arg.saved_filename))
+    log('saved_filename: {}\n'.format( arg.dir_modelsave))
     best_val_loss = float('inf')
 
 
@@ -200,19 +198,15 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
         batch_train_y = batch_train_y.unsqueeze(-1)
         optimizer.zero_grad()
 
-
-
         ###### Base output #########################################
-        output    = model(batch_train_x, alpha=alpha).view(batch_train_y.size())
+        output    = model(batch_train_x).view(batch_train_y.size())
 
 
-        ###### Loss Rule perturbed input and its output  #####################
-        loss_rule = loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg )
+        ###### Loss Rule perturbed input and its output
+        loss = loss_calc()
 
 
-        #### Total Losses  ##################################################
-        scale = 1
-        loss  = alpha * loss_rule + scale * (1 - alpha) * loss_task
+        ###### Total Losses
         loss.backward()
         optimizer.step()
 
@@ -220,51 +214,36 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
       # Evaluate on validation set
       if epoch % arg.valid_freq == 0:
         model.eval()
-        if  model_type.startswith('ruleonly'):  alpha = 1.0
-        else:                                   alpha = 0.0
-
         with torch.no_grad():
           for val_x, val_y in valid_loader:
             val_y = val_y.unsqueeze(-1)
 
-            output = model(val_x, alpha=alpha).reshape(val_y.size())
-            val_loss_task = loss_task_func(output, val_y).item()
-
-            # perturbed input and its output
-            pert_val_x = val_x.detach().clone()
-            pert_val_x[:,rule_ind] = get_perturbed_input(pert_val_x[:,rule_ind], pert_coeff)
-            pert_output = model(pert_val_x, alpha=alpha)    # \hat{y}_{p}    predicted sales from perturbed input
-
-            val_loss_rule = loss_rule_func(output.reshape(pert_output.size()), pert_output).item()
-            val_ratio = verification(pert_output, output, threshold=0.0).item()
+            output = model(val_x).reshape(val_y.size())
+            val_loss_task = loss_calc(output, val_y).item()
 
             val_loss = val_loss_task
-
             y_true = val_y.cpu().numpy()
             y_score = output.cpu().numpy()
             y_pred = np.round(y_score)
 
             y_true = y_pred.reshape(y_true.shape[:-1])
             y_pred = y_pred.reshape(y_pred.shape[:-1])
+            val_acc = metrics_eval(y_pred, ytrue=y_true, metric_list= metric_list)
 
-            val_acc = mean_squared_error(y_true, y_pred)
 
           if val_loss < best_val_loss:
             counter_early_stopping = 1
             best_val_loss = val_loss
             best_model_state_dict = deepcopy(model.state_dict())
-            log('[Valid] Epoch: {} Loss: {:.6f} (alpha: {:.2f})\t Loss(Task): {:.6f} Acc: {:.2f}\t Loss(Rule): {:.6f}\t Ratio: {:.4f} best model is updated %%%%'
-                  .format(epoch, best_val_loss, alpha, val_loss_task, val_acc, val_loss_rule, val_ratio))
             torch.save({
                 'epoch': epoch,
                 'model_state_dict': best_model_state_dict,
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': best_val_loss
-            }, arg.saved_filename)
+            }, arg.dir_modelsave)
           else:
-            log('[Valid] Epoch: {} Loss: {:.6f} (alpha: {:.2f})\t Loss(Task): {:.6f} Acc: {:.2f}\t Loss(Rule): {:.6f}\t Ratio: {:.4f}({}/{})'
-                  .format(epoch, val_loss, alpha, val_loss_task, val_acc, val_loss_rule, val_ratio, counter_early_stopping, early_stopping_thld))
-            if counter_early_stopping >= early_stopping_thld:
+            log( f'[Valid] Epoch: {epoch} Loss: {val_loss} ')
+            if counter_early_stopping >= arg.early_stopping_thld:
               break
             else:
               counter_early_stopping += 1
@@ -349,6 +328,7 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
 def model_summary(model, **kw):
     """   PyTorch model to summarize.
     Doc::
+
         https://pypi.org/project/torch-summary/
         #######################
         import torchvision
@@ -489,177 +469,9 @@ class SmeLU(nn.Module):
 
 
 
-
-
-#####################################################################################################################
-def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,  metric_list:list=["mean_squared_error", "mean_absolute_error("], 
-                 ypred_proba:np.ndarray=None, return_dict:bool=False, metric_pars:dict=None):
-    """ Generic metrics calculation, using sklearn naming pattern.
-    Code::
-          Metric names are below
-          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
-          
-          #### Classification metrics
-          accuracy_score(y_true, y_pred, *[, ...])
-          auc(x, y)
-          average_precision_score(y_true, ...)
-          balanced_accuracy_score(y_true, ...)
-          brier_score_loss(y_true, y_prob, *)
-          classification_report(y_true, y_pred, *)
-          cohen_kappa_score(y1, y2, *[, ...])
-          confusion_matrix(y_true, y_pred, *)
-          dcg_score(y_true, y_score, *[, k, ...])
-          det_curve(y_true, y_score[, ...])
-          f1_score(y_true, y_pred, *[, ...])
-          fbeta_score(y_true, y_pred, *, beta)
-          hamming_loss(y_true, y_pred, *[, ...])
-          hinge_loss(y_true, pred_decision, *)
-          jaccard_score(y_true, y_pred, *[, ...])
-          log_loss(y_true, y_pred, *[, eps, ...])
-          matthews_corrcoef(y_true, y_pred, *)
-          multilabel_confusion_matrix(y_true, ...)
-          ndcg_score(y_true, y_score, *[, k, ...])
-          precision_recall_curve(y_true, ...)
-          precision_recall_fscore_support(...)
-          precision_score(y_true, y_pred, *[, ...])
-          recall_score(y_true, y_pred, *[, ...])
-          roc_auc_score(y_true, y_score, *[, ...])
-          roc_curve(y_true, y_score, *[, ...])
-          top_k_accuracy_score(y_true, y_score, *)
-          zero_one_loss(y_true, y_pred, *[, ...])
-
-
-          #### Regression metrics
-          explained_variance_score(y_true, ...)
-          max_error(y_true, y_pred)
-          mean_absolute_error(y_true, y_pred, *)
-          mean_squared_error(y_true, y_pred, *)
-          mean_squared_log_error(y_true, y_pred, *)
-          median_absolute_error(y_true, y_pred, *)
-          mean_absolute_percentage_error(...)
-          r2_score(y_true, y_pred, *[, ...])
-          mean_poisson_deviance(y_true, y_pred, *)
-          mean_gamma_deviance(y_true, y_pred, *)
-          mean_tweedie_deviance(y_true, y_pred, *)
-          d2_tweedie_score(y_true, y_pred, *)
-          mean_pinball_loss(y_true, y_pred, *)
-
-
-          #### Multilabel ranking metrics
-          coverage_error(y_true, y_score, *[, ...])
-          label_ranking_average_precision_score(...)
-          label_ranking_loss(y_true, y_score, *)
-
-
-          ##### Clustering
-          supervised, which uses a ground truth class values for each sample.
-          unsupervised, which does not and measures the ‘quality’ of the model itself.
-
-          adjusted_mutual_info_score(...[, ...])
-          adjusted_rand_score(labels_true, ...)
-          calinski_harabasz_score(X, labels)
-          davies_bouldin_score(X, labels)
-          completeness_score(labels_true, ...)
-          cluster.contingency_matrix(...[, ...])
-          cluster.pair_confusion_matrix(...)
-          fowlkes_mallows_score(labels_true, ...)
-          homogeneity_completeness_v_measure(...)
-          homogeneity_score(labels_true, ...)
-          mutual_info_score(labels_true, ...)
-          normalized_mutual_info_score(...[, ...])
-          rand_score(labels_true, labels_pred)
-          silhouette_score(X, labels, *[, ...])
-          silhouette_samples(X, labels, *[, ...])
-          v_measure_score(labels_true, ...[, beta])
-          consensus_score(a, b, *[, similarity])
-
-
-
-          #### Pairwise metrics
-          pairwise.additive_chi2_kernel(X[, Y])
-          pairwise.chi2_kernel(X[, Y, gamma])
-          pairwise.cosine_similarity(X[, Y, ...])
-          pairwise.cosine_distances(X[, Y])
-          pairwise.distance_metrics()
-          pairwise.euclidean_distances(X[, Y, ...])
-          pairwise.haversine_distances(X[, Y])
-          pairwise.kernel_metrics()
-          pairwise.laplacian_kernel(X[, Y, gamma])
-          pairwise.linear_kernel(X[, Y, ...])
-          pairwise.manhattan_distances(X[, Y, ...])
-          pairwise.nan_euclidean_distances(X)
-          pairwise.pairwise_kernels(X[, Y, ...])
-          pairwise.polynomial_kernel(X[, Y, ...])
-          pairwise.rbf_kernel(X[, Y, gamma])
-          pairwise.sigmoid_kernel(X[, Y, ...])
-          pairwise.paired_euclidean_distances(X, Y)
-          pairwise.paired_manhattan_distances(X, Y)
-          pairwise.paired_cosine_distances(X, Y)
-          pairwise.paired_distances(X, Y, *[, ...])
-          pairwise_distances(X[, Y, metric, ...])
-          pairwise_distances_argmin(X, Y, *[, ...])
-          pairwise_distances_argmin_min(X, Y, *)
-          pairwise_distances_chunked(X[, Y, ...])
-
-
-                
-    """
-    import pandas as pd, importlib, sklearn
-    mdict = {"metric_name": [],
-             "metric_val": [],
-             "n_sample": [len(ytrue)] * len(metric_list)}
-
-    if isinstance(metric_list, str):
-        metric_list = [metric_list]
-
-    for metric_name in metric_list:
-        mod = "sklearn.metrics"
-
-
-        if metric_name in ["roc_auc_score"]:        #y_pred_proba is not defined
-            #### Ok for Multi-Class
-            metric_scorer = getattr(importlib.import_module(mod), metric_name)
-            assert len(ypred_proba)>0, 'Require ypred_proba'
-            mval_=[]
-            for i_ in range(ypred_proba.shape[1]):
-                mval_.append(metric_scorer(pd.get_dummies(ytrue).to_numpy()[:,i_], ypred_proba[:,i_]))
-            mval          = np.mean(np.array(mval_))
-
-        elif metric_name in ["root_mean_squared_error"]:
-            metric_scorer = getattr(importlib.import_module(mod), "mean_squared_error")
-            mval          = np.sqrt(metric_scorer(ytrue, ypred))
-
-        else:
-            metric_scorer = getattr(importlib.import_module(mod), metric_name)
-            mval = metric_scorer(ytrue, ypred)
-
-        mdict["metric_name"].append(metric_name)
-        mdict["metric_val"].append(mval)
-
-    if return_dict: return mdict
-
-    mdict = pd.DataFrame(mdict)
-    return mdict
-
-
-def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
-    """ Generic metrics Plotting.
-    Code::
-       
-          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
-          
-          #### Plotting
-          plot_confusion_matrix(estimator, X, ...)
-          plot_det_curve(estimator, X, y, *[, ...])
-          plot_precision_recall_curve(...[, ...])
-          plot_roc_curve(estimator, X, y, *[, ...])
-          ConfusionMatrixDisplay(...[, ...])
-          DetCurveDisplay(*, fpr, fnr[, ...])
-          PrecisionRecallDisplay(precision, ...)
-          RocCurveDisplay(*, fpr, tpr[, ...])
-          calibration.CalibrationDisplay(prob_true, ...)
-                
-    """
+###############################################################################################
+########### Metrics  ##########################################################################
+from utilmy.deeplearning.util_dl import metrics_eval, metrics_plot
 
 
 
