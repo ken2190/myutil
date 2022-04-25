@@ -5,6 +5,7 @@ HELP = """ utils for torch training
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
+from typing import List,Dict,Union
 
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
@@ -139,12 +140,12 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
 
 ###############################################################################################
-def model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, device='cpu'):
+def model_load(dir_checkpoint:str, torch_model=None, doeval=True, dotrain=False, device='cpu', input_shape=None, **kw):
     """function model_load from checkpoint
     Doc::
 
         dir_checkpoint = "./check/mycheck.pt"
-        torch_model    = "./mymodel:NNClass.py"                       
+        torch_model    = "./mymodel:NNClass.py"   ### or Torch Object
         model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, device='cpu')
     """
 
@@ -169,14 +170,35 @@ def model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, dev
     if doeval:
       ## Evaluate
       torch_model.eval()
-      x   = torch.rand(1, *input_shape, requires_grad=True)
-      out = torch_model(x)
+      # x   = torch.rand(1, *input_shape, requires_grad=True)
+      # out = torch_model(x)
 
     if dotrain:
       torch_model.train()  
 
     return torch_model 
     
+
+def model_save(torch_model=None, dir_checkpoint:str="./checkpoint/check.pt", optimizer=None, cc:dict=None,
+               epoch=-1, loss_val=0.0, show=1, **kw):
+    """function model_save
+    Doc::
+
+        dir_checkpoint = "./check/mycheck.pt"
+        model_save(model, dir_checkpoint, epoch=1,)
+    """
+    from copy import deepcopy
+    dd = {}
+    dd['model_state_dict'] = deepcopy(torch_model.state_dict())
+    dd['epoch'] = cc.get('epoch',   epoch)
+    dd['loss']  = cc.get('loss_val', loss_val)
+    dd['optimizer_state_dict']  = optimizer.state_dict()  if optimizer is not None else {}
+
+    torch.save(dd, dir_checkpoint)
+    if show>0: log(dir_checkpoint)
+    return dir_checkpoint
+
+
 
 def model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor]):
     """  using 1x RAM for large model
@@ -254,7 +276,7 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
     arg.seed   = arg.get('seed', 42)
     model_params   = arg.model_info[ arg.model_type]
 
-    arg.metric_list = arg.get('metric_list',  ['mean_squared_error'] )
+    metric_list = arg.get('metric_list',  ['mean_squared_error'] )
 
 
     #### Optimizer model params
@@ -362,31 +384,15 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
     model_eval.eval()
 
     # perturbed input and its output
-    pert_test_x = te_x.detach().clone()
-    pert_test_x[:,rule_ind] = get_perturbed_input(pert_test_x[:,rule_ind], pert_coeff)
     for alpha in alphas:
       model_eval.eval()
       with torch.no_grad():
         for te_x, te_y in test_loader:
           te_y = te_y.unsqueeze(-1)
 
-        if model_type.startswith('dataonly'):
-          output = model_eval(te_x, alpha=0.0)
-        elif model_type.startswith('ours'):
-          output = model_eval(te_x, alpha=alpha)
-        elif model_type.startswith('ruleonly'):
-          output = model_eval(te_x, alpha=1.0)
 
         test_loss_task = loss_task_func(output, te_y.view(output.size())).item()
 
-        if model_type.startswith('dataonly'):
-          pert_output = model_eval(pert_test_x, alpha=0.0)
-        elif model_type.startswith('ours'):
-          pert_output = model_eval(pert_test_x, alpha=alpha)
-        elif model_type.startswith('ruleonly'):
-          pert_output = model_eval(pert_test_x, alpha=1.0)
-
-        test_ratio = verification(pert_output, output, threshold=0.0).item()
 
         y_true = te_y.cpu().numpy()
         y_score = output.cpu().numpy()
@@ -478,7 +484,7 @@ def model_summary(model, **kw):
         os.system('pip install torch-summary')
         from torchsummary import summary
 
-    return summary(model. **kw)
+    return summary(model, **kw)
 
 
 ###############################################################################################
