@@ -71,7 +71,8 @@ def test1() -> None:
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """Create HTML plot file of embeddings::
+   """Create HTML plot file of embeddings:
+   Doc::
 
         dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
         embedding_create_vizhtml(dirin="in/model.vec", dirout="zhtmlfile/", dim_reduction='umap', nmax=100, ntrain=10)
@@ -91,9 +92,8 @@ def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction
 
 class EmbeddingViz:
     def __init__(self, path="myembed.parquet", num_clusters=5, sep=";", config:dict=None):
-        """
-        Example:
-           Code::
+        """ Visualize Embedding
+        Doc::
 
                 Many issues with numba, numpy, pyarrow !!!!
                 pip install  pynndescent==0.5.4  numba==0.53.1  umap-learn==0.5.1  llvmlite==0.36.0   numpy==1.19.1   --no-deps
@@ -325,6 +325,41 @@ class EmbeddingViz:
 
 #########################################################################################################
 ############## Loader of embeddings #####################################################################
+def embedding_torchtensor_to_parquet(tensor_list,
+                                     id_list:list, label_list, dirout=None, tag="",  nmax=10 ** 8 ):
+    """ List ofTorch tensor to embedding stored in parquet
+    Doc::
+
+        yemb = model.encode(X)
+        id_list = np.arange(0, len(yemb))
+        ylabel = ytrue
+        embedding_torchtensor_to_parquet(tensor_list= yemb,
+                                     id_list=id_list, label_list=ylabel,
+                                     dirout="./ztmp/", tag="v01"  )
+
+
+    """
+    n          =  len(tensor_list)
+    id_list    = np.arange(0, n) if id_list is None else id_list
+    label_list = [0]*n if label_list is None else id_list
+
+    assert len(id_list) == len(tensor_list)
+
+    df = []
+    for idi, vecti, labeli in zip(id_list,tensor_list, label_list):
+        ss = np_array_to_str(vecti.tonumpy())
+        df.append([ idi, ss, labeli    ])
+
+    df = pd.DataFrame(df, columns= ['id', 'emb', 'label'])
+
+
+    if dirout is not None :
+      log(dirout) ; os_makedirs(dirout)  ; time.sleep(4)
+      dirout2 = dirout + f"/df_emb_{tag}.parquet"
+      pd_to_file(df, dirout2, show=1 )
+    return df
+
+
 def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
                                  is_linevalid_fun=None):   ##   python emb.py   embedding_to_parquet  &
     #### FastText/ Word2Vec to parquet files    9808032 for purhase
