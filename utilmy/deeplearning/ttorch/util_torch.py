@@ -5,6 +5,7 @@ HELP = """ utils for torch training
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
+from typing import List,Dict,Union
 
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
@@ -36,11 +37,11 @@ def test_all():
         
     """
     log(MNAME)
-    test()
+    test1()
     # test2()
 
 
-def test2():
+def test1():
     """function test2
     Args:
     Returns:
@@ -115,8 +116,8 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     """
     train_loader, valid_loader, test_loader = None, None, None
 
-    batch_size_val=  valid_X.shape[0] if batch_size_val is None else batch_size_val
-    batch_size_test=  valid_X.shape[0] if batch_size_val is None else batch_size_test
+    batch_size_val  = valid_X.shape[0] if batch_size_val is None else batch_size_val
+    batch_size_test = valid_X.shape[0] if batch_size_test is None else batch_size_test
 
     if train_X is not None :
         train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
@@ -129,7 +130,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
         log("val size", len(valid_X)  )
 
     if test_X  is not None :
-        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=arg.device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
         test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
         log("test size:", len(test_X) )
 
@@ -139,28 +140,122 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
 
 ###############################################################################################
-def model_load(arg):
-    """function model_load
-    Args:
-        arg:   
-    Returns:
-        
+def model_load(dir_checkpoint:str, torch_model=None, doeval=True, dotrain=False, device='cpu', input_shape=None, **kw):
+    """function model_load from checkpoint
+    Doc::
+
+        dir_checkpoint = "./check/mycheck.pt"
+        torch_model    = "./mymodel:NNClass.py"   ### or Torch Object
+        model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, device='cpu')
     """
-    model_eval = model_build(arg=arg, mode='test')
 
-    checkpoint = torch.load( arg.saved_filename)
-    model_eval.load_state_dict(checkpoint['model_state_dict'])
-    log("best model loss: {:.6f}\t at epoch: {}".format(checkpoint['loss'], checkpoint['epoch']))
-
-
-    ll = Box({})
-    ll.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))
-    ll.loss_task_func = nn.BCELoss()
-    return model_eval, ll # (loss_task_func, loss_rule_func)
-    # model_evaluation(model_eval, loss_task_func, arg=arg)
+    if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
+        torch_class_name = load_function_uri(uri_name= torch_model)
+        torch_model      = torch_class_name() #### Class Instance  Buggy
+        log('loaded from file ', torch_model)
 
 
-def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
+    if 'http' in dir_checkpoint :
+       #torch.cuda.is_available():
+       map_location = torch.device('gpu') if 'gpu' in device else  torch.device('cpu')
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(dir_checkpoint, map_location=map_location)
+    else :   
+       checkpoint = torch.load( dir_checkpoint)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint.get('loss')}\t at epoch: {checkpoint.get('epoch')}" )
+       
+    torch_model.load_state_dict(state_dict=model_state)
+
+    if doeval:
+      ## Evaluate
+      torch_model.eval()
+      # x   = torch.rand(1, *input_shape, requires_grad=True)
+      # out = torch_model(x)
+
+    if dotrain:
+      torch_model.train()  
+
+    return torch_model 
+    
+
+def model_save(torch_model=None, dir_checkpoint:str="./checkpoint/check.pt", optimizer=None, cc:dict=None,
+               epoch=-1, loss_val=0.0, show=1, **kw):
+    """function model_save
+    Doc::
+
+        dir_checkpoint = "./check/mycheck.pt"
+        model_save(model, dir_checkpoint, epoch=1,)
+    """
+    from copy import deepcopy
+    dd = {}
+    dd['model_state_dict'] = deepcopy(torch_model.state_dict())
+    dd['epoch'] = cc.get('epoch',   epoch)
+    dd['loss']  = cc.get('loss_val', loss_val)
+    dd['optimizer_state_dict']  = optimizer.state_dict()  if optimizer is not None else {}
+
+    torch.save(dd, dir_checkpoint)
+    if show>0: log(dir_checkpoint)
+    return dir_checkpoint
+
+
+
+def model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor]):
+    """  using 1x RAM for large model
+    Doc::
+
+        model = MyModel()
+        model_load_state_dict_with_low_memory(model, torch.load("checkpoint.pt"))
+
+        # free up memory by placing the model in the `meta` device
+        https://github.com/FrancescoSaverioZuppichini/Loading-huge-PyTorch-models-with-linear-memory-consumption
+
+
+    """
+    from typing import Dict
+
+    def get_keys_to_submodule(model: nn.Module) -> Dict[str, nn.Module]:
+        keys_to_submodule = {}
+        # iterate all submodules
+        for submodule_name, submodule in model.named_modules():
+            # iterate all paramters in each submobule
+            for param_name, param in submodule.named_parameters():
+                # param_name is organized as <name>.<subname>.<subsubname> ...
+                # the more we go deep in the model, the less "subname"s we have
+                splitted_param_name = param_name.split('.')
+                # if we have only one subname, then it means that we reach a "leaf" submodule, 
+                # we cannot go inside it anymore. This is the actual parameter
+                is_leaf_param = len(splitted_param_name) == 1
+                if is_leaf_param:
+                    # we recreate the correct key
+                    key = f"{submodule_name}.{param_name}"
+                    # we associate this key with this submodule
+                    keys_to_submodule[key] = submodule
+                    
+        return keys_to_submodule
+
+    # free up memory by placing the model in the `meta` device
+    model.to(torch.device("meta"))
+    keys_to_submodule = get_keys_to_submodule(model)
+    for key, submodule in keys_to_submodule.items():
+        # get the valye from the state_dict
+        val = state_dict[key]
+        # we need to substitute the parameter inside submodule, 
+        # remember key is composed of <name>.<subname>.<subsubname>
+        # the actual submodule's parameter is stored inside the 
+        # last subname. If key is `in_proj.weight`, the correct field if `weight`
+        param_name = key.split('.')[-1]
+        param_dtype = getattr(submodule, param_name).dtype
+        val = val.to(param_dtype)
+        # create a new parameter
+        new_val = torch.nn.Parameter(val)
+        setattr(submodule, param_name, new_val)
+
+
+
+
+###############################################################################################
+def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loader=None, arg:dict=None ):
     """function model_train
     Args:
         model:   
@@ -171,26 +266,27 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
     Returns:
         
     """
-    arg      = Box(arg)  ### Params
-    arghisto = Box({})  ### results
+    arg   = Box(arg)  ### Params
+    histo = Box({})  ### results
 
 
-
-    #### Core model params
+    arg.lr     = arg.get('lr', 0.001)
+    arg.epochs = arg.get('epochs', 1)
+    arg.early_stopping_thld    = arg.get('early_stopping_thld' ,2)
+    arg.seed   = arg.get('seed', 42)
     model_params   = arg.model_info[ arg.model_type]
-    lr             = model_params.get('lr',  0.001)
-    optimizer      = torch.optim.Adam(model.parameters(), lr=lr)
-    loss_task_func = losses.loss_task_func
+
+    metric_list = arg.get('metric_list',  ['mean_squared_error'] )
+
+
+    #### Optimizer model params
+    if optimizer is None:
+       optimizer      = torch.optim.Adam(model.parameters(), lr= arg.lr)
 
 
     #### Train params
-    model_type = arg.model_type
-    # epochs     = arg.epochs
-    early_stopping_thld    = arg.early_stopping_thld
     counter_early_stopping = 1
-    # valid_freq     = arg.valid_freq
-    seed=arg.seed
-    log('saved_filename: {}\n'.format( arg.saved_filename))
+    log('saved_filename: {}\n'.format( arg.dir_modelsave))
     best_val_loss = float('inf')
 
 
@@ -200,19 +296,15 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
         batch_train_y = batch_train_y.unsqueeze(-1)
         optimizer.zero_grad()
 
-
-
         ###### Base output #########################################
-        output    = model(batch_train_x, alpha=alpha).view(batch_train_y.size())
+        output    = model(batch_train_x).view(batch_train_y.size())
 
 
-        ###### Loss Rule perturbed input and its output  #####################
-        loss_rule = loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg )
+        ###### Loss Rule perturbed input and its output
+        loss = loss_calc()
 
 
-        #### Total Losses  ##################################################
-        scale = 1
-        loss  = alpha * loss_rule + scale * (1 - alpha) * loss_task
+        ###### Total Losses
         loss.backward()
         optimizer.step()
 
@@ -220,51 +312,36 @@ def model_train(model, losses, train_loader, valid_loader, arg:dict=None ):
       # Evaluate on validation set
       if epoch % arg.valid_freq == 0:
         model.eval()
-        if  model_type.startswith('ruleonly'):  alpha = 1.0
-        else:                                   alpha = 0.0
-
         with torch.no_grad():
           for val_x, val_y in valid_loader:
             val_y = val_y.unsqueeze(-1)
 
-            output = model(val_x, alpha=alpha).reshape(val_y.size())
-            val_loss_task = loss_task_func(output, val_y).item()
-
-            # perturbed input and its output
-            pert_val_x = val_x.detach().clone()
-            pert_val_x[:,rule_ind] = get_perturbed_input(pert_val_x[:,rule_ind], pert_coeff)
-            pert_output = model(pert_val_x, alpha=alpha)    # \hat{y}_{p}    predicted sales from perturbed input
-
-            val_loss_rule = loss_rule_func(output.reshape(pert_output.size()), pert_output).item()
-            val_ratio = verification(pert_output, output, threshold=0.0).item()
+            output = model(val_x).reshape(val_y.size())
+            val_loss_task = loss_calc(output, val_y).item()
 
             val_loss = val_loss_task
-
             y_true = val_y.cpu().numpy()
             y_score = output.cpu().numpy()
             y_pred = np.round(y_score)
 
             y_true = y_pred.reshape(y_true.shape[:-1])
             y_pred = y_pred.reshape(y_pred.shape[:-1])
+            val_acc = metrics_eval(y_pred, ytrue=y_true, metric_list= metric_list)
 
-            val_acc = mean_squared_error(y_true, y_pred)
 
           if val_loss < best_val_loss:
             counter_early_stopping = 1
             best_val_loss = val_loss
             best_model_state_dict = deepcopy(model.state_dict())
-            log('[Valid] Epoch: {} Loss: {:.6f} (alpha: {:.2f})\t Loss(Task): {:.6f} Acc: {:.2f}\t Loss(Rule): {:.6f}\t Ratio: {:.4f} best model is updated %%%%'
-                  .format(epoch, best_val_loss, alpha, val_loss_task, val_acc, val_loss_rule, val_ratio))
             torch.save({
                 'epoch': epoch,
                 'model_state_dict': best_model_state_dict,
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': best_val_loss
-            }, arg.saved_filename)
+            }, arg.dir_modelsave)
           else:
-            log('[Valid] Epoch: {} Loss: {:.6f} (alpha: {:.2f})\t Loss(Task): {:.6f} Acc: {:.2f}\t Loss(Rule): {:.6f}\t Ratio: {:.4f}({}/{})'
-                  .format(epoch, val_loss, alpha, val_loss_task, val_acc, val_loss_rule, val_ratio, counter_early_stopping, early_stopping_thld))
-            if counter_early_stopping >= early_stopping_thld:
+            log( f'[Valid] Epoch: {epoch} Loss: {val_loss} ')
+            if counter_early_stopping >= arg.early_stopping_thld:
               break
             else:
               counter_early_stopping += 1
@@ -307,31 +384,15 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
     model_eval.eval()
 
     # perturbed input and its output
-    pert_test_x = te_x.detach().clone()
-    pert_test_x[:,rule_ind] = get_perturbed_input(pert_test_x[:,rule_ind], pert_coeff)
     for alpha in alphas:
       model_eval.eval()
       with torch.no_grad():
         for te_x, te_y in test_loader:
           te_y = te_y.unsqueeze(-1)
 
-        if model_type.startswith('dataonly'):
-          output = model_eval(te_x, alpha=0.0)
-        elif model_type.startswith('ours'):
-          output = model_eval(te_x, alpha=alpha)
-        elif model_type.startswith('ruleonly'):
-          output = model_eval(te_x, alpha=1.0)
 
         test_loss_task = loss_task_func(output, te_y.view(output.size())).item()
 
-        if model_type.startswith('dataonly'):
-          pert_output = model_eval(pert_test_x, alpha=0.0)
-        elif model_type.startswith('ours'):
-          pert_output = model_eval(pert_test_x, alpha=alpha)
-        elif model_type.startswith('ruleonly'):
-          pert_output = model_eval(pert_test_x, alpha=1.0)
-
-        test_ratio = verification(pert_output, output, threshold=0.0).item()
 
         y_true = te_y.cpu().numpy()
         y_score = output.cpu().numpy()
@@ -343,6 +404,87 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log('[Test] Accuracy: {:.4f} (alpha:{})'.format(test_acc, alpha))
       log("[Test] Ratio of verified predictions: {:.6f} (alpha:{})".format(test_ratio, alpha))
       log()
+
+
+
+def model_summary(model, **kw):
+    """   PyTorch model to summarize.
+    Doc::
+
+        https://pypi.org/project/torch-summary/
+        #######################
+        import torchvision
+        model = torchvision.models.resnet50()
+        summary(model, (3, 224, 224), depth=3)
+        #######################
+        model (nn.Module):
+                PyTorch model to summarize.
+
+        input_data (Sequence of Sizes or Tensors):
+                Example input tensor of the model (dtypes inferred from model input).
+                - OR -
+                Shape of input data as a List/Tuple/torch.Size
+                (dtypes must match model input, default is FloatTensors).
+                You should NOT include batch size in the tuple.
+                - OR -
+                If input_data is not provided, no forward pass through the network is
+                performed, and the provided model information is limited to layer names.
+                Default: None
+
+        batch_dim (int):
+                Batch_dimension of input data. If batch_dim is None, the input data
+                is assumed to contain the batch dimension.
+                WARNING: in a future version, the default will change to None.
+                Default: 0
+
+        branching (bool):
+                Whether to use the branching layout for the printed output.
+                Default: True
+
+        col_names (Iterable[str]):
+                Specify which columns to show in the output. Currently supported:
+                ("input_size", "output_size", "num_params", "kernel_size", "mult_adds")
+                If input_data is not provided, only "num_params" is used.
+                Default: ("output_size", "num_params")
+
+        col_width (int):
+                Width of each column.
+                Default: 25
+
+        depth (int):
+                Number of nested layers to traverse (e.g. Sequentials).
+                Default: 3
+
+        device (torch.Device):
+                Uses this torch device for model and input_data.
+                If not specified, uses result of torch.cuda.is_available().
+                Default: None
+
+        dtypes (List[torch.dtype]):
+                For multiple inputs, specify the size of both inputs, and
+                also specify the types of each parameter here.
+                Default: None
+
+        verbose (int):
+                0 (quiet): No output
+                1 (default): Print model summary
+                2 (verbose): Show weight and bias layers in full detail
+                Default: 1
+
+        *args, **kwargs:
+                Other arguments used in `model.forward` function.
+
+    Return:
+        ModelStatistics object
+                See torchsummary/model_statistics.py for more information.
+    """
+    try :
+       from torchsummary import summary
+    except:
+        os.system('pip install torch-summary')
+        from torchsummary import summary
+
+    return summary(model, **kw)
 
 
 ###############################################################################################
@@ -409,183 +551,16 @@ class SmeLU(nn.Module):
 
 
 
-
-
-#####################################################################################################################
-def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,  metric_list:list=["mean_squared_error", "mean_absolute_error("], 
-                 ypred_proba:np.ndarray=None, return_dict:bool=False, metric_pars:dict=None):
-    """ Generic metrics calculation, using sklearn naming pattern.
-    Code::
-          Metric names are below
-          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
-          
-          #### Classification metrics
-          accuracy_score(y_true, y_pred, *[, ...])
-          auc(x, y)
-          average_precision_score(y_true, ...)
-          balanced_accuracy_score(y_true, ...)
-          brier_score_loss(y_true, y_prob, *)
-          classification_report(y_true, y_pred, *)
-          cohen_kappa_score(y1, y2, *[, ...])
-          confusion_matrix(y_true, y_pred, *)
-          dcg_score(y_true, y_score, *[, k, ...])
-          det_curve(y_true, y_score[, ...])
-          f1_score(y_true, y_pred, *[, ...])
-          fbeta_score(y_true, y_pred, *, beta)
-          hamming_loss(y_true, y_pred, *[, ...])
-          hinge_loss(y_true, pred_decision, *)
-          jaccard_score(y_true, y_pred, *[, ...])
-          log_loss(y_true, y_pred, *[, eps, ...])
-          matthews_corrcoef(y_true, y_pred, *)
-          multilabel_confusion_matrix(y_true, ...)
-          ndcg_score(y_true, y_score, *[, k, ...])
-          precision_recall_curve(y_true, ...)
-          precision_recall_fscore_support(...)
-          precision_score(y_true, y_pred, *[, ...])
-          recall_score(y_true, y_pred, *[, ...])
-          roc_auc_score(y_true, y_score, *[, ...])
-          roc_curve(y_true, y_score, *[, ...])
-          top_k_accuracy_score(y_true, y_score, *)
-          zero_one_loss(y_true, y_pred, *[, ...])
-
-
-          #### Regression metrics
-          explained_variance_score(y_true, ...)
-          max_error(y_true, y_pred)
-          mean_absolute_error(y_true, y_pred, *)
-          mean_squared_error(y_true, y_pred, *)
-          mean_squared_log_error(y_true, y_pred, *)
-          median_absolute_error(y_true, y_pred, *)
-          mean_absolute_percentage_error(...)
-          r2_score(y_true, y_pred, *[, ...])
-          mean_poisson_deviance(y_true, y_pred, *)
-          mean_gamma_deviance(y_true, y_pred, *)
-          mean_tweedie_deviance(y_true, y_pred, *)
-          d2_tweedie_score(y_true, y_pred, *)
-          mean_pinball_loss(y_true, y_pred, *)
-
-
-          #### Multilabel ranking metrics
-          coverage_error(y_true, y_score, *[, ...])
-          label_ranking_average_precision_score(...)
-          label_ranking_loss(y_true, y_score, *)
-
-
-          ##### Clustering
-          supervised, which uses a ground truth class values for each sample.
-          unsupervised, which does not and measures the ‘quality’ of the model itself.
-
-          adjusted_mutual_info_score(...[, ...])
-          adjusted_rand_score(labels_true, ...)
-          calinski_harabasz_score(X, labels)
-          davies_bouldin_score(X, labels)
-          completeness_score(labels_true, ...)
-          cluster.contingency_matrix(...[, ...])
-          cluster.pair_confusion_matrix(...)
-          fowlkes_mallows_score(labels_true, ...)
-          homogeneity_completeness_v_measure(...)
-          homogeneity_score(labels_true, ...)
-          mutual_info_score(labels_true, ...)
-          normalized_mutual_info_score(...[, ...])
-          rand_score(labels_true, labels_pred)
-          silhouette_score(X, labels, *[, ...])
-          silhouette_samples(X, labels, *[, ...])
-          v_measure_score(labels_true, ...[, beta])
-          consensus_score(a, b, *[, similarity])
-
-
-
-          #### Pairwise metrics
-          pairwise.additive_chi2_kernel(X[, Y])
-          pairwise.chi2_kernel(X[, Y, gamma])
-          pairwise.cosine_similarity(X[, Y, ...])
-          pairwise.cosine_distances(X[, Y])
-          pairwise.distance_metrics()
-          pairwise.euclidean_distances(X[, Y, ...])
-          pairwise.haversine_distances(X[, Y])
-          pairwise.kernel_metrics()
-          pairwise.laplacian_kernel(X[, Y, gamma])
-          pairwise.linear_kernel(X[, Y, ...])
-          pairwise.manhattan_distances(X[, Y, ...])
-          pairwise.nan_euclidean_distances(X)
-          pairwise.pairwise_kernels(X[, Y, ...])
-          pairwise.polynomial_kernel(X[, Y, ...])
-          pairwise.rbf_kernel(X[, Y, gamma])
-          pairwise.sigmoid_kernel(X[, Y, ...])
-          pairwise.paired_euclidean_distances(X, Y)
-          pairwise.paired_manhattan_distances(X, Y)
-          pairwise.paired_cosine_distances(X, Y)
-          pairwise.paired_distances(X, Y, *[, ...])
-          pairwise_distances(X[, Y, metric, ...])
-          pairwise_distances_argmin(X, Y, *[, ...])
-          pairwise_distances_argmin_min(X, Y, *)
-          pairwise_distances_chunked(X[, Y, ...])
-
-
-                
-    """
-    import pandas as pd, importlib, sklearn
-    mdict = {"metric_name": [],
-             "metric_val": [],
-             "n_sample": [len(ytrue)] * len(metric_list)}
-
-    if isinstance(metric_list, str):
-        metric_list = [metric_list]
-
-    for metric_name in metric_list:
-        mod = "sklearn.metrics"
-
-
-        if metric_name in ["roc_auc_score"]:        #y_pred_proba is not defined
-            #### Ok for Multi-Class
-            metric_scorer = getattr(importlib.import_module(mod), metric_name)
-            assert len(ypred_proba)>0, 'Require ypred_proba'
-            mval_=[]
-            for i_ in range(ypred_proba.shape[1]):
-                mval_.append(metric_scorer(pd.get_dummies(ytrue).to_numpy()[:,i_], ypred_proba[:,i_]))
-            mval          = np.mean(np.array(mval_))
-
-        elif metric_name in ["root_mean_squared_error"]:
-            metric_scorer = getattr(importlib.import_module(mod), "mean_squared_error")
-            mval          = np.sqrt(metric_scorer(ytrue, ypred))
-
-        else:
-            metric_scorer = getattr(importlib.import_module(mod), metric_name)
-            mval = metric_scorer(ytrue, ypred)
-
-        mdict["metric_name"].append(metric_name)
-        mdict["metric_val"].append(mval)
-
-    if return_dict: return mdict
-
-    mdict = pd.DataFrame(mdict)
-    return mdict
-
-
-def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
-    """ Generic metrics Plotting.
-    Code::
-       
-          https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
-          
-          #### Plotting
-          plot_confusion_matrix(estimator, X, ...)
-          plot_det_curve(estimator, X, y, *[, ...])
-          plot_precision_recall_curve(...[, ...])
-          plot_roc_curve(estimator, X, y, *[, ...])
-          ConfusionMatrixDisplay(...[, ...])
-          DetCurveDisplay(*, fpr, fnr[, ...])
-          PrecisionRecallDisplay(precision, ...)
-          RocCurveDisplay(*, fpr, tpr[, ...])
-          calibration.CalibrationDisplay(prob_true, ...)
-                
-    """
+###############################################################################################
+########### Metrics  ##########################################################################
+from utilmy.deeplearning.util_dl import metrics_eval, metrics_plot
 
 
 
 
 #############################################################################################
-class test_modelClass_dummy(nn.Module):
+#############################################################################################
+class test_model_dummy(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
     super(DataEncoder, self).__init__()
     self.input_dim = input_dim
@@ -596,6 +571,118 @@ class test_modelClass_dummy(nn.Module):
 
   def forward(self, x):
     return self.net(x)
+
+
+class test_model_dummy2(nn.Sequential):
+    def __init__(self):
+        super().__init__()
+        self.in_proj = nn.Linear(2, 10)
+        self.stages = nn.Sequential(
+             nn.Linear(10, 10),
+             nn.Linear(10, 10)
+        )
+        self.out_proj = nn.Linear(10, 2)
+
+
+
+if 'utils':
+    def to_numpy(tensor):
+        return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+
+    def load_function_uri(uri_name: str="path_norm"):
+        """ Load dynamically function from URI.
+        Code::
+
+            ###### Pandas CSV case : Custom MLMODELS One
+            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
+            ###### External File processor :
+            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+        """
+        import importlib, sys
+        from pathlib import Path
+        if ":" in uri_name :
+            pkg = uri_name.split(":")
+            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+            package, name = pkg[0], pkg[1]
+
+        else :
+            pkg = uri_name.split(".")
+            package = ".".join(pkg[:-1])      
+            name    = pkg[-1]   
+
+        
+        try:
+            #### Import from package mlmodels sub-folder
+            return  getattr(importlib.import_module(package), name)
+
+        except Exception as e1:
+            try:
+                ### Add Folder to Path and Load absoluate path module
+                path_parent = str(Path(package).parent.parent.absolute())
+                sys.path.append(path_parent)
+                #log(path_parent)
+
+                #### import Absolute Path model_tf.1_lstm
+                model_name   = Path(package).stem  # remove .py
+                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
+                #log(package_name, model_name)
+                return  getattr(importlib.import_module(package_name), name)
+
+            except Exception as e2:
+                raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
+
+
+    def test_load_function_uri():
+        uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
+        myclass = load_function_uri(uri_name)
+        log(myclass)
+
+
+    def test_create_model_pytorch(dirsave=None, model_name=""):
+        """   Create model classfor testing purpose
+
+        
+        """    
+        ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+        class SuperResolutionNet(nn.Module):
+            def __init__(self, upscale_factor, inplace=False):
+                super(SuperResolutionNet, self).__init__()
+
+                self.relu = nn.ReLU(inplace=inplace)
+                self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+                self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+                self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+                self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+                self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+                self._initialize_weights()
+
+            def forward(self, x):
+                x = self.relu(self.conv1(x))
+                x = self.relu(self.conv2(x))
+                x = self.relu(self.conv3(x))
+                x = self.pixel_shuffle(self.conv4(x))
+                return x
+
+            def _initialize_weights(self):
+                init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv4.weight)    
+
+        """
+        ss = ss.replace("    ", "")  ### for indentation
+
+        if dirsave  is not None :
+            with open(dirsave, mode='w') as fp:
+                fp.write(ss)
+            return dirsave    
+        else :
+            SuperResolutionNet =  None
+            eval(ss)        ## trick
+            return SuperResolutionNet  ## return the class
+
 
 
 
