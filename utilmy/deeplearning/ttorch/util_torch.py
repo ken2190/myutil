@@ -139,24 +139,100 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
 
 ###############################################################################################
-def model_load(dirmodel, model_definition):
-    """function model_load
-    Args:
-        arg:   
-    Returns:
-        
+def model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, device='cpu'):
+    """function model_load from checkpoint
+    Doc::
+
+        dir_checkpoint = "./check/mycheck.pt"
+        torch_model    = "./mymodel:NNClass.py"                       
+        model_load(dir_checkpoint, torch_model=None, doeval=True, dotrain=False, device='cpu')
     """
-    model_eval = model_build(arg=arg, mode='test')
 
-    checkpoint = torch.load( dirmodel)
-    model_eval.load_state_dict(checkpoint['model_state_dict'])
-    log("best model loss: {:.6f}\t at epoch: {}".format(checkpoint['loss'], checkpoint['epoch']))
-
-
-    return model_eval # (loss_task_func, loss_rule_func)
-    # model_evaluation(model_eval, loss_task_func, arg=arg)
+    if isinstance( torch_model, str) : ### "path/mymodule.py:myModel"
+        torch_class_name = load_function_uri(uri_name= torch_model)
+        torch_model      = torch_class_name() #### Class Instance  Buggy
+        log('loaded from file ', torch_model)
 
 
+    if 'http' in dir_checkpoint :
+       #torch.cuda.is_available():
+       map_location = torch.device('gpu') if 'gpu' in device else  torch.device('cpu')
+       import torch.utils.model_zoo as model_zoo
+       model_state = model_zoo.load_url(dir_checkpoint, map_location=map_location)
+    else :   
+       checkpoint = torch.load( dir_checkpoint)
+       model_state = checkpoint['model_state_dict']
+       log( f"loss: {checkpoint.get('loss')}\t at epoch: {checkpoint.get('epoch')}" )
+       
+    torch_model.load_state_dict(state_dict=model_state)
+
+    if doeval:
+      ## Evaluate
+      torch_model.eval()
+      x   = torch.rand(1, *input_shape, requires_grad=True)
+      out = torch_model(x)
+
+    if dotrain:
+      torch_model.train()  
+
+    return torch_model 
+    
+
+def model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor]):
+    """  using 1x RAM for large model
+    Doc::
+
+        model = MyModel()
+        model_load_state_dict_with_low_memory(model, torch.load("checkpoint.pt"))
+
+        # free up memory by placing the model in the `meta` device
+        https://github.com/FrancescoSaverioZuppichini/Loading-huge-PyTorch-models-with-linear-memory-consumption
+
+
+    """
+    from typing import Dict
+
+    def get_keys_to_submodule(model: nn.Module) -> Dict[str, nn.Module]:
+        keys_to_submodule = {}
+        # iterate all submodules
+        for submodule_name, submodule in model.named_modules():
+            # iterate all paramters in each submobule
+            for param_name, param in submodule.named_parameters():
+                # param_name is organized as <name>.<subname>.<subsubname> ...
+                # the more we go deep in the model, the less "subname"s we have
+                splitted_param_name = param_name.split('.')
+                # if we have only one subname, then it means that we reach a "leaf" submodule, 
+                # we cannot go inside it anymore. This is the actual parameter
+                is_leaf_param = len(splitted_param_name) == 1
+                if is_leaf_param:
+                    # we recreate the correct key
+                    key = f"{submodule_name}.{param_name}"
+                    # we associate this key with this submodule
+                    keys_to_submodule[key] = submodule
+                    
+        return keys_to_submodule
+
+    # free up memory by placing the model in the `meta` device
+    model.to(torch.device("meta"))
+    keys_to_submodule = get_keys_to_submodule(model)
+    for key, submodule in keys_to_submodule.items():
+        # get the valye from the state_dict
+        val = state_dict[key]
+        # we need to substitute the parameter inside submodule, 
+        # remember key is composed of <name>.<subname>.<subsubname>
+        # the actual submodule's parameter is stored inside the 
+        # last subname. If key is `in_proj.weight`, the correct field if `weight`
+        param_name = key.split('.')[-1]
+        param_dtype = getattr(submodule, param_name).dtype
+        val = val.to(param_dtype)
+        # create a new parameter
+        new_val = torch.nn.Parameter(val)
+        setattr(submodule, param_name, new_val)
+
+
+
+
+###############################################################################################
 def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loader=None, arg:dict=None ):
     """function model_train
     Args:
@@ -477,7 +553,8 @@ from utilmy.deeplearning.util_dl import metrics_eval, metrics_plot
 
 
 #############################################################################################
-class test_modelClass_dummy(nn.Module):
+#############################################################################################
+class test_model_dummy(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
     super(DataEncoder, self).__init__()
     self.input_dim = input_dim
@@ -488,6 +565,118 @@ class test_modelClass_dummy(nn.Module):
 
   def forward(self, x):
     return self.net(x)
+
+
+class test_model_dummy2(nn.Sequential):
+    def __init__(self):
+        super().__init__()
+        self.in_proj = nn.Linear(2, 10)
+        self.stages = nn.Sequential(
+             nn.Linear(10, 10),
+             nn.Linear(10, 10)
+        )
+        self.out_proj = nn.Linear(10, 2)
+
+
+
+if 'utils':
+    def to_numpy(tensor):
+        return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+
+    def load_function_uri(uri_name: str="path_norm"):
+        """ Load dynamically function from URI.
+        Code::
+
+            ###### Pandas CSV case : Custom MLMODELS One
+            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+
+            ###### External File processor :
+            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+        """
+        import importlib, sys
+        from pathlib import Path
+        if ":" in uri_name :
+            pkg = uri_name.split(":")
+            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
+            package, name = pkg[0], pkg[1]
+
+        else :
+            pkg = uri_name.split(".")
+            package = ".".join(pkg[:-1])      
+            name    = pkg[-1]   
+
+        
+        try:
+            #### Import from package mlmodels sub-folder
+            return  getattr(importlib.import_module(package), name)
+
+        except Exception as e1:
+            try:
+                ### Add Folder to Path and Load absoluate path module
+                path_parent = str(Path(package).parent.parent.absolute())
+                sys.path.append(path_parent)
+                #log(path_parent)
+
+                #### import Absolute Path model_tf.1_lstm
+                model_name   = Path(package).stem  # remove .py
+                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
+                #log(package_name, model_name)
+                return  getattr(importlib.import_module(package_name), name)
+
+            except Exception as e2:
+                raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
+
+
+    def test_load_function_uri():
+        uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
+        myclass = load_function_uri(uri_name)
+        log(myclass)
+
+
+    def test_create_model_pytorch(dirsave=None, model_name=""):
+        """   Create model classfor testing purpose
+
+        
+        """    
+        ss = """import torch ;  import torch.nn as nn; import torch.nn.functional as F
+        class SuperResolutionNet(nn.Module):
+            def __init__(self, upscale_factor, inplace=False):
+                super(SuperResolutionNet, self).__init__()
+
+                self.relu = nn.ReLU(inplace=inplace)
+                self.conv1 = nn.Conv2d(1, 64, (5, 5), (1, 1), (2, 2))
+                self.conv2 = nn.Conv2d(64, 64, (3, 3), (1, 1), (1, 1))
+                self.conv3 = nn.Conv2d(64, 32, (3, 3), (1, 1), (1, 1))
+                self.conv4 = nn.Conv2d(32, upscale_factor ** 2, (3, 3), (1, 1), (1, 1))
+                self.pixel_shuffle = nn.PixelShuffle(upscale_factor)
+
+                self._initialize_weights()
+
+            def forward(self, x):
+                x = self.relu(self.conv1(x))
+                x = self.relu(self.conv2(x))
+                x = self.relu(self.conv3(x))
+                x = self.pixel_shuffle(self.conv4(x))
+                return x
+
+            def _initialize_weights(self):
+                init.orthogonal_(self.conv1.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv2.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv3.weight, init.calculate_gain('relu'))
+                init.orthogonal_(self.conv4.weight)    
+
+        """
+        ss = ss.replace("    ", "")  ### for indentation
+
+        if dirsave  is not None :
+            with open(dirsave, mode='w') as fp:
+                fp.write(ss)
+            return dirsave    
+        else :
+            SuperResolutionNet =  None
+            eval(ss)        ## trick
+            return SuperResolutionNet  ## return the class
+
 
 
 
