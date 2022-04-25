@@ -115,8 +115,8 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
     """
     train_loader, valid_loader, test_loader = None, None, None
 
-    batch_size_val=  valid_X.shape[0] if batch_size_val is None else batch_size_val
-    batch_size_test=  valid_X.shape[0] if batch_size_val is None else batch_size_test
+    batch_size_val  = valid_X.shape[0] if batch_size_val is None else batch_size_val
+    batch_size_test = valid_X.shape[0] if batch_size_test is None else batch_size_test
 
     if train_X is not None :
         train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
@@ -129,7 +129,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
         log("val size", len(valid_X)  )
 
     if test_X  is not None :
-        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
         test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
         log("test size:", len(test_X) )
 
