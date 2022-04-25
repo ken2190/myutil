@@ -671,7 +671,7 @@ if 'utils':
         if dirsave  is not None :
             with open(dirsave, mode='w') as fp:
                 fp.write(ss)
-            return True    
+            return dirsave    
         else :
             SuperResolutionNet =  None
             eval(ss)        ## trick
