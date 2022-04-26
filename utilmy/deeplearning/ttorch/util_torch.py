@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.torch.util_torch"
 HELP = """ utils for torch training
-
-
 TVM optimizer
 https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
-
 
 
 """
