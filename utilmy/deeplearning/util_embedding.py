@@ -549,6 +549,57 @@ def embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:
 
 
 
+
+
+def embedding_extract_fromtransformer(model,Xinput:list):
+    """ Transformder require Pooling layer to extract word level embedding.
+    Doc::
+
+        https://github.com/Riccorl/transformers-embedder
+        import transformers_embedder as tre
+
+        tokenizer = tre.Tokenizer("bert-base-cased")
+
+        model = tre.TransformersEmbedder(
+            "bert-base-cased", subword_pooling_strategy="sparse", layer_pooling_strategy="mean"
+        )
+
+        example = "This is a sample sentence"
+        inputs = tokenizer(example, return_tensors=True)
+
+
+        class TransformersEmbedder(torch.nn.Module):
+                model: Union[str, tr.PreTrainedModel],
+                subword_pooling_strategy: str = "sparse",
+                layer_pooling_strategy: str = "last",
+                output_layers: Tuple[int] = (-4, -3, -2, -1),
+                fine_tune: bool = True,
+                return_all: bool = True,
+            )
+            
+
+    """
+    import transformers_embedder as tre
+
+    tokenizer = tre.Tokenizer("bert-base-cased")
+
+    model = tre.TransformersEmbedder(
+        "bert-base-cased", subword_pooling_strategy="sparse", layer_pooling_strategy="mean"
+    )
+
+    # X = "This is a sample sentence"
+    X2 = tokenizer(Xinput, return_tensors=True)
+    yout = model(X2)
+    emb  = yout.word_embeddings.shape[1:-1]       # remove [CLS] and [SEP]
+    # torch.Size([1, 5, 768])
+    # len(example)
+    return yout
+
+
+
+
+
+
 ########################################################################################################
 ######## Top-K retrieval ###############################################################################
 def sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric=False):
