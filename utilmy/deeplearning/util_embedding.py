@@ -402,7 +402,7 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
 
 
 
-def embedding_load_parquet(dirin="df.parquet",  colid     = 'id', col_embed = 'pred_emb',  nmax = 500):
+def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'pred_emb',  nmax= 500):
     """  id, emb (string , separated)
     
     """
@@ -432,9 +432,13 @@ def embedding_load_parquet(dirin="df.parquet",  colid     = 'id', col_embed = 'p
 
 
 def embedding_load_word2vec(dirin=None, skip=0, nmax=10 ** 8,
-                                 is_linevalid_fun=None):   ##   python emb.py   embedding_to_parquet  &
-    """
-       #### FastText/ Word2Vec to parquet files    9808032 for purhase
+                                 is_linevalid_fun=None):
+    """  Parse FastText/ Word2Vec to parquet files.
+    Doc::
+
+       dirin: .parquet files with cols:
+       embs: 2D np.array, id_map: Dict, dflabel: pd.DataFrame
+
 
     """
     if is_linevalid_fun is None : #### Validate line
@@ -461,7 +465,7 @@ def embedding_load_word2vec(dirin=None, skip=0, nmax=10 ** 8,
     ntot   += len(df)
 
 
-    embs   =  np_str_to_array( df['embds'].values  )  ### 2D numpy array
+    embs   =  np_str_to_array( df['emb'].values  )  ### 2D numpy array
     id_map = { i : idi for i, idi in enumerate(df['id'].values)  }
     dflabel      = pd.DataFrame({ 'id' : words }  )
     dflabel['label1'] = 0
