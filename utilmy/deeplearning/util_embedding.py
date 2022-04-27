@@ -576,7 +576,7 @@ def embedding_extract_fromtransformer(model,Xinput:list):
                 fine_tune: bool = True,
                 return_all: bool = True,
             )
-            
+
 
     """
     import transformers_embedder as tre
