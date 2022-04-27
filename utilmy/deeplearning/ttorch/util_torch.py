@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.torch.util_torch"
 HELP = """ utils for torch training
+TVM optimizer
+https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
+
 
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
@@ -256,15 +259,22 @@ def model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str
 
 ###############################################################################################
 def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loader=None, arg:dict=None ):
-    """function model_train
-    Args:
-        model:   
-        losses:   
-        train_loader:   
-        valid_loader:   
-        arg ( dict ) :   
-    Returns:
-        
+    """One liner for training a pytorch model.
+    Doc::
+             
+       import utilmy.deepelearning.ttorch.util_torch as ut
+       cc= Box({})
+       cc=0
+
+       model= ut.test_model_dummy2()
+       log(model)
+
+
+       ut.model_train(model,
+            loss_calc=
+            optimizer= torch.optim.Adam(model.parameters(), lr= cc.lr)
+
+
     """
     arg   = Box(arg)  ### Params
     histo = Box({})  ### results
