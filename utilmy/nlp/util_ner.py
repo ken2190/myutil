@@ -57,7 +57,8 @@ def test2() -> None:
 def ner_spacy_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=False):
     '''
     Display the spacy NER model.
-    :parameter
+    Doc::
+
         txt: string - text input for the model.
         model: string - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
         lst_tag_filter: list or None - example ["ORG", "GPE", "LOC"], None for all tags
@@ -128,7 +129,8 @@ def ner_features(lst_dics_tuples, tag):
 def ner_spacy_add_tag_features(data, column, ner=None, lst_tag_filter=None, grams_join="_", create_features=True):
     '''
     Apply spacy NER model and add tag features.
-    :parameter
+    Doc::
+
         dtf: dataframe - dtf with a text column
         column: string - name of column containing text
         ner: spacy object - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
@@ -189,7 +191,8 @@ def ner_freq_spacy_tag(tags, top=30, figsize=(10,5)):
 def ner_spacy_retrain(train_data, output_dir, model="blank", n_iter=100):
     '''
     Retrain spacy NER model with new tags.
-    :parameter
+    Doc::
+
         train_data: list [
                 ("Who is Shaka Khan?", {"entities": [(7, 17, "PERSON")]}),
                 ("I like London and Berlin.", {"entities": [(7, 13, "LOC"), (18, 24, "LOC")]}),
@@ -258,7 +261,8 @@ if 'utils':
     def list_topk(lst, top:int=None):
         '''
         Counts the elements in a list.
-        :parameter
+        Doc::
+
             lst: list
             top: num - number of top elements to return
         :return

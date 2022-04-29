@@ -121,7 +121,8 @@ if 'utils':
     def metric_classifier_multilabel_show(y_test, predicted, predicted_prob, figsize=(15,5)):
         '''
         Evaluates a model performance.
-        :parameter
+        Doc::
+
             y_test: array
             predicted: array
             predicted_prob: array

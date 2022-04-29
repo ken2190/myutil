@@ -64,7 +64,8 @@ def test2() -> None:
 def explainer_lime(model, y_train, txt_instance, top=10):
     '''
     Use lime to build an a explainer.
-    :parameter
+    Doc::
+
         model: pipeline with vectorizer and classifier
         Y_train: array
         txt_instance: string - raw text
@@ -85,7 +86,8 @@ def explainer_lime(model, y_train, txt_instance, top=10):
 def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[], top=5, figsize=(5,3)):
     '''
     Takes the weights of an Attention layer and builds an explainer.
-    :parameter
+    Doc::
+
         model: model instance (after fitting)
         tokenizer: keras tokenizer (after fitting)
         txt_instance: string - raw text
@@ -134,7 +136,8 @@ def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[],
 def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=10):
     '''
     Use shap to build an a explainer (works only if model has binary_crossentropy).
-    :parameter
+    Doc::
+
         model: model instance (after fitting)
         X_train: array
         X_instance: array of size n (n,)
@@ -156,7 +159,8 @@ def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=
 def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level=False, top=5, figsize=(20,10)):
     '''
     Plot a text instance into a 2d vector space and compute similarity.
-    :parameter
+    Doc::
+
         tokenizer: transformers tokenizer
         nlp: transformers bert
         dic_clusters: dict - dict - {0:lst_words, 1:lst_words, ...}

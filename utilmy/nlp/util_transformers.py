@@ -75,7 +75,8 @@ def test2() -> None:
 def utils_bert_embedding(txt, tokenizer, nlp, log=False):
     '''
     Word embedding with Bert (equivalent to nlp["word"]).
-    :parameter
+    Doc::
+
         txt: string
         tokenizer: transformers tokenizer
         nlp: transformers bert
@@ -96,7 +97,8 @@ def utils_bert_embedding(txt, tokenizer, nlp, log=False):
 def embedding_bert(x, tokenizer=None, nlp=None, log=False):
     '''
     Creates a feature matrix (num_docs x vector_size)
-    :parameter
+    Doc::
+
         x: string or list
         tokenizer: transformers tokenizer
         nlp: transformers bert
@@ -146,7 +148,8 @@ def embedding_bert(x, tokenizer=None, nlp=None, log=False):
 def tokenize_bert(corpus, tokenizer=None, maxlen=None):
     '''
     Preprocess corpus to create features for Bert.
-    :parameter
+    Doc::
+
         corpus: list - dtf["text"]
         tokenizer: transformer tokenizer
         maxlen: num - max length of the padded sequence
@@ -201,7 +204,8 @@ def tokenize_bert(corpus, tokenizer=None, maxlen=None):
 def fit_bert_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None, model=None, epochs=100, batch_size=64):
     '''
     Pre-trained Bert + Fine-tuning (transfer learning) with tf2 and transformers.
-    :parameter
+    Doc::
+
         X_train: array of sequence
         y_train: array of classes
         X_test: array of sequence

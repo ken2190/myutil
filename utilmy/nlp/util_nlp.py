@@ -118,7 +118,8 @@ def text_add_detect_lang(data, column):
 def text_add_text_length(data, column):
     '''
     Compute different text length metrics.
-    :parameter
+    Doc::
+
         df: dataframe - df with a text column
         column: string - name of column containing text
     :return
@@ -138,7 +139,8 @@ def text_add_text_length(data, column):
 def text_add_sentiment(data, column, algo="vader", sentiment_range=(-1,1)):
     '''
     Computes the sentiment using Textblob or Vader.
-    :parameter
+    Doc::
+
         df: dataframe - df with a text column
         column: string - name of column containing text
         algo: string - "textblob" or "vader"
@@ -165,7 +167,8 @@ def text_add_sentiment(data, column, algo="vader", sentiment_range=(-1,1)):
 def text_create_stopwords(lst_langs=["english"], lst_add_words=[], lst_keep_words=[]):
     '''
     Creates a list of stopwords.
-    :parameter
+    Doc::
+
         lst_langs: list - ["english", "italian"]
         lst_add_words: list - list of new stopwords to add
         lst_keep_words: list - list words to keep (exclude from stopwords)
@@ -184,7 +187,8 @@ def text_create_stopwords(lst_langs=["english"], lst_add_words=[], lst_keep_word
 def text_utils_preprocess_text(txt, lst_regex=None, punkt=True, lower=True, slang=True, lst_stopwords=None, stemm=False, lemm=True):
     '''
     Preprocess a string.
-    :parameter
+    Doc::
+
         txt: string - name of column containing text
         lst_regex: list - list of regex to remove
         punkt: bool - if True removes punctuations and characters
@@ -243,7 +247,8 @@ def text_utils_preprocess_text(txt, lst_regex=None, punkt=True, lower=True, slan
 def text_add_preprocessed_text(data, column, lst_regex=None, punkt=False, lower=False, slang=False, lst_stopwords=None, stemm=False, lemm=False, remove_na=True):
     '''
     Adds a column of preprocessed text.
-    :parameter
+    Doc::
+
         df: dataframe - df with a text column
         column: string - name of column containing text
     :return
@@ -270,7 +275,8 @@ def text_add_preprocessed_text(data, column, lst_regex=None, punkt=False, lower=
 def text_word_freq(corpus, ngrams=[1,2,3], top=10, figsize=(10,7)):
     '''
     Compute n-grams frequency with nltk tokenizer.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: int or list - 1 for unigrams, 2 for bigrams, [1,2] for both
         top: num - plot the top frequent words
@@ -304,7 +310,8 @@ def text_word_freq(corpus, ngrams=[1,2,3], top=10, figsize=(10,7)):
 def text_plot_wordcloud(corpus, max_words=150, max_font_size=35, figsize=(10,10)):
     '''
     Plots a wordcloud from a list of Docs or from a dictionary
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
     '''
     wc = wordcloud.WordCloud(background_color='black', max_words=max_words, max_font_size=max_font_size)
@@ -319,7 +326,8 @@ def text_plot_wordcloud(corpus, max_words=150, max_font_size=35, figsize=(10,10)
 def text_add_word_freq(data, column, lst_words, freq="count"):
     '''
     Adds a column with word frequency.
-    :parameter
+    Doc::
+
         df: dataframe - df with a text column
         column: string - name of column containing text
         lst_words: list - ["donald trump", "china", ...]
@@ -357,7 +365,8 @@ def text_add_word_freq(data, column, lst_words, freq="count"):
 def bagwords_fit_bow(corpus, vectorizer=None, vocabulary=None):
     '''
     Vectorize corpus with Bag-of-Words (classic Count or Tf-Idf variant), plots the most frequent words.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         vectorizer: sklearn vectorizer object, like Count or Tf-Idf
         vocabulary: list of words or dict, if None it creates from scratch, else it searches the words into corpus
@@ -399,7 +408,8 @@ def bagwords_fit_bow(corpus, vectorizer=None, vocabulary=None):
 def bagwords_features_selection(X, y, X_names, top=None, print_top=10):
     '''
     Perform feature selection using p-values (keep highly correlated features)
-    :parameter
+    Doc::
+
         X: array - like sparse matrix or df.values
         y: array or df - like df["y"]
         X_names: list - like vetcorizer.get_feature_names()
@@ -434,7 +444,8 @@ def bagwords_features_selection(X, y, X_names, top=None, print_top=10):
 def bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix=""):
     '''
     Transform a sparse matrix into a df with selected features only.
-    :parameter
+    Doc::
+
         X: array - like sparse matrix or df.values
         dic_vocabulary: dict - {"word":idx}
         X_names: list of words - like vetcorizer.get_feature_names()
@@ -451,7 +462,8 @@ def bagwords_sparse2dtf(X, dic_vocabulary, X_names, prefix=""):
 def bagwords_fit_ml_classif(X_train, y_train, X_test, vectorizer=None, classifier=None):
     '''
     Fits a sklearn classification model.
-    :parameter
+    Doc::
+
         X_train: feature matrix
         y_train: array of classes
         X_test: raw text
@@ -488,7 +500,8 @@ def word2vec_utils_preprocess_ngrams(corpus, ngrams=1, grams_join=" ", lst_ngram
     Create a list of lists of grams with gensim:
         [ ["hi", "my", "name", "is", "Tom"],
         ["what", "is", "yours"] ]
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: num - ex. "new", "york"
         grams_join: string - "_" (new_york), " " (new york)
@@ -514,7 +527,8 @@ def word2vec_utils_preprocess_ngrams(corpus, ngrams=1, grams_join=" ", lst_ngram
 def word2vec_create_ngrams_detectors(corpus, grams_join=" ", lst_common_terms=[], min_count=5, top=10, figsize=(10,7)):
     '''
     Train common bigrams and trigrams detectors with gensim
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         grams_join: string - "_" (new_york), " " (new york)
         lst_common_terms: list - ["of","with","without","and","or","the","a"]
@@ -549,7 +563,8 @@ def word2vec_create_ngrams_detectors(corpus, grams_join=" ", lst_common_terms=[]
 def word2vec_fit_w2v(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], min_count=1, size=300, window=20, sg=1, epochs=100):
     '''
     Fits the Word2Vec model from gensim.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: num - ex. "new", "york"
         grams_join: string - "_" (new_york), " " (new york)
@@ -571,7 +586,8 @@ def word2vec_fit_w2v(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], 
 def word2vec_embedding_w2v(x, nlp=None, value_na=0):
     '''
     Creates a feature matrix (num_docs x vector_size)
-    :parameter
+    Doc::
+
         x: string or list
         nlp: gensim model
         value_na: value to return when the word is not in vocabulary
@@ -616,7 +632,8 @@ def word2vec_embedding_w2v(x, nlp=None, value_na=0):
 def word2vec_plot_w2v(lst_words=None, nlp=None, plot_type="2d", top=20, annotate=True, figsize=(10,5)):
     '''
     Plot words in vector space (2d or 3d).
-    :parameter
+    Doc::
+
         lst_words: list - ["donald trump","china", ...]. If None, it plots the whole vocabulary
         nlp: gensim model
         plot_type: string - "2d" or "3d"
@@ -681,7 +698,8 @@ def word2vec_plot_w2v(lst_words=None, nlp=None, plot_type="2d", top=20, annotate
 def word2vec_vocabulary_embeddings(dic_vocabulary, nlp=None):
     '''
     Embeds a vocabulary of unigrams with gensim w2v.
-    :parameter
+    Doc::
+
         dic_vocabulary: dict - {"word":1, "word":2, ...}
         nlp: gensim model
     :return
@@ -704,7 +722,8 @@ def word2vec_vocabulary_embeddings(dic_vocabulary, nlp=None):
 def word2vec_text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], fitted_tokenizer=None, top=None, oov=None, maxlen=None):
     '''
     Transforms the corpus into an array of sequences of idx (tokenizer) with same length (padding).
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: num - ex. "new", "york"
         grams_join: string - "_" (new_york), " " (new york)
@@ -751,7 +770,8 @@ def word2vec_text2seq(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[],
 def word2vec_fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=None, model=None, weights=None, epochs=100, batch_size=256):
     '''
     Fits a keras classification model.
-    :parameter
+    Doc::
+
         dic_y_mapping: dict - {0:"A", 1:"B", 2:"C"}. If None it calculates.
         X_train: array of sequence
         y_train: array of classes
@@ -804,7 +824,8 @@ def word2vec_fit_dl_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapp
 def topic_get_similar_words(lst_words, top, nlp=None):
     '''
     Use Word2Vec to get a list of similar words of a given input words list
-    :parameter
+    Doc::
+
         lst_words: list - input words
         top: num - number of words to return
         nlp: gensim model
@@ -822,7 +843,8 @@ def topic_get_similar_words(lst_words, top, nlp=None):
 def topic_word_clustering(corpus, nlp=None, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], n_clusters=3):
     '''
     Clusters a Word2Vec vocabulary with nltk Kmeans using cosine similarity.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: num - ex. "new", "york"
         grams_join: string - "_" (new_york), " " (new york)
@@ -852,7 +874,8 @@ def topic_word_clustering(corpus, nlp=None, ngrams=1, grams_join=" ", lst_ngrams
 def topic_fit_lda(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], n_topics=3, figsize=(10,7)):
     '''
     Fits Latent Dirichlet Allocation with gensim.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ngrams: num - ex. "new", "york"
         grams_join: string - "_" (new_york), " " (new york)
@@ -890,7 +913,8 @@ def topic_fit_lda(corpus, ngrams=1, grams_join=" ", lst_ngrams_detectors=[], n_t
 def topic_plot_w2v_cluster(dic_words=None, nlp=None, plot_type="2d", annotate=True, figsize=(10,5)):
     '''
     Plot word clusters in vector space (2d or 3d).
-    :parameter
+    Doc::
+
         dic_words: dict - {0:lst_words, 1:lst_words, ...}
         nlp: gensim model
         plot_type: string - "2d" or "3d"
@@ -962,7 +986,8 @@ def topic_plot_w2v_cluster(dic_words=None, nlp=None, plot_type="2d", annotate=Tr
 def text_cluster_cosine_sim(a, b, nlp=None):
     '''
     Compute cosine similarity between 2 strings or 2 vectors/matrices: cosine_sim = matrix (rows_a x rows_b)
-    :parameter
+    Doc::
+
         a: string, vector, or matrix
         b: string, vector, or matrix
         nlp: gensim model - used only if a and b are strings
@@ -993,7 +1018,8 @@ def text_cluster_cosine_sim(a, b, nlp=None):
 def text_cluster_predict_similarity_classif(X, dic_y):
     '''
     Clustering of text to specific classes (Unsupervised Classification by similarity).
-    :parameter
+    Doc::
+
         X: feature matrix (num_docs x vector_size)
         dic_y: dic label:mean_vector - {'finance':mean_vec, 'esg':mean_vec}
     :return
@@ -1025,7 +1051,8 @@ def text_cluster_predict_similarity_classif(X, dic_y):
 def string_matching_cossim(a, lst_b, threshold=None, top=None):
     '''
     Matches strings with cosine similarity.
-    :parameter
+    Doc::
+
         a: string - ex. "my house"
         lst_b: list of strings - ex. ["my", "hi", "house", "sky"]
         threshold: num - similarity threshold to consider the match valid
@@ -1057,7 +1084,8 @@ def string_matching_cossim(a, lst_b, threshold=None, top=None):
 def string_vlookup(lst_left, lst_right, threshold=0.7, top=1):
     '''
     str_vlookup for similar strings.
-    :parameter
+    Doc::
+
         lst_left - array or lst
         lst_right - array or lst
         threshold: num - similarity threshold to consider the match valid
@@ -1085,7 +1113,8 @@ def string_vlookup(lst_left, lst_right, threshold=0.7, top=1):
 def string_matching_display(a, b, both=True, sentences=True, titles=[]):
     '''
     Highlights the matched strings in text.
-    :parameter
+    Doc::
+
         a: string - raw text
         b: string - raw text
         both: bool - search a in b and, if True, viceversa
@@ -1138,7 +1167,8 @@ def string_matching_display(a, b, both=True, sentences=True, titles=[]):
 def seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model=None, build_encoder_decoder=True, epochs=100, batch_size=64):
     '''
     Fits a keras seq2seq model.
-    :parameter
+    Doc::
+
         X_train: array of sequences
         y_train: array of sequences
         X_embeddings: array of weights - shape (len_vocabulary x 300)
@@ -1209,7 +1239,8 @@ def seqseq_fit_seq2seq(X_train, y_train, X_embeddings, y_embeddings, model=None,
 def seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenizer, special_tokens=("<START>","<END>")):
     '''
     Predicts text sequences.
-    :parameter
+    Doc::
+
         x: array - sequence of shape (n x max_seq_lenght)
         encoder_model: keras model - input: x
                                             output: [(1, max_seq_lenght, lstm_units), state_h, state_c]
@@ -1262,7 +1293,8 @@ def seqseq_predict_seq2seq(X_test, encoder_model, decoder_model, fitted_tokenize
 def summary_evaluate_summary(y_test, predicted):
     '''
     Calculate ROUGE score.
-    :parameter
+    Doc::
+
         y_test: string or list
         predicted: string or list
     '''
@@ -1279,7 +1311,8 @@ def summary_evaluate_summary(y_test, predicted):
 def summary_textrank(corpus, ratio=0.2):
     '''
     Summarizes corpus with TextRank.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ratio: length of the summary (ex. 20% of the text)
     :return
@@ -1295,7 +1328,8 @@ def summary_textrank(corpus, ratio=0.2):
 def summary_bart(corpus, ratio=0.2):
     '''
     Summarizes corpus with Bart.
-    :parameter
+    Doc::
+
         corpus: list - df["text"]
         ratio: length of the summary (ex. 20% of the text)
     :return
@@ -1342,7 +1376,8 @@ if 'utils':
     def metric_classifier_multilabel_show(y_test, predicted, predicted_prob, figsize=(15,5)):
         '''
         Evaluates a model performance.
-        :parameter
+        Doc::
+
             y_test: array
             predicted: array
             predicted_prob: array
