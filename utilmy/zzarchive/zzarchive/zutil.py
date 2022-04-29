@@ -946,7 +946,7 @@ def os_file_normpath(path):
     - eliminating double slashes, etc. (os.path.normpath)
     - ensure paths contain ~[user]/ expanded.
 
-    :param path: Path string :: str
+    path: Path string :: str
     """
     return os.path.normpath(os.path.expanduser(path) if "~" in path else path)
 
@@ -954,7 +954,7 @@ def os_file_normpath(path):
 def os_folder_is_path(path_or_stream):
     """
     Is given object `path_or_stream` a file path?
-    :param path_or_stream: file path or stream, file/file-like object
+    path_or_stream: file path or stream, file/file-like object
     :return: True if `path_or_stream` is a file path
     """
     return isinstance(path_or_stream, str)
@@ -964,7 +964,7 @@ def os_file_get_path_from_stream(maybe_stream):
     """
     Try to get file path from given stream `stream`.
 
-    :param maybe_stream: A file or file-like object
+    maybe_stream: A file or file-like object
     :return: Path of given file or file-like object or None
 
     # >>> __file__ == get_path_from_stream(__file__)
@@ -1000,7 +1000,7 @@ def os_file_try_to_get_extension(path_or_strm):
 def os_file_are_same_file_types(paths):
     """
     Are given (maybe) file paths same type (extension) ?
-    :param paths: A list of file path or file(-like) objects
+    paths: A list of file path or file(-like) objects
 
     # >>> are_same_file_types([])
     False
@@ -1023,10 +1023,10 @@ def os_file_are_same_file_types(paths):
 
 def os_file_norm_paths(paths, marker="*"):
     """
-    :param paths:
+    paths:
         A glob path pattern string, or a list consists of path strings or glob
         path pattern strings or file objects
-    :param marker: Glob marker character or string, e.g. '*'
+    marker: Glob marker character or string, e.g. '*'
     :return: List of path strings
     # >>> norm_paths([])
     []
@@ -3232,9 +3232,9 @@ def np_map_dict_to_bq_schema(source_dict, schema, dest_dict):
      new_dict = {}
      map_dict_to_bq_schema (my_dict, schema, new_dict)
 
-    :param source_dict:
-    :param schema:
-    :param dest_dict:
+    source_dict:
+    schema:
+    dest_dict:
     :return:
     """
     # iterate every field from current schema

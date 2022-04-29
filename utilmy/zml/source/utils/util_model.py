@@ -127,12 +127,12 @@ def pd_dim_reduction(
        Dimension reduction technics
        dftext_svd, svd = pd_dim_reduction(dfcat_test, None,colprefix="colsvd",
                          method="svd", dimpca=2, return_val="dataframe,param")
-    :param df:
-    :param colname:
-    :param colprefix:
-    :param method:
-    :param dimpca:
-    :param return_val:
+    df:
+    colname:
+    colprefix:
+    method:
+    dimpca:
+    return_val:
     :return:
     """
     colname = colname if colname is not None else list(df.columns)
@@ -291,12 +291,12 @@ def sk_params_search_best(
     """
    Genetic: population_size=5, ngene_mutation_prob=0.10,,gene_crossover_prob=0.5, tournament_size=3,  generations_number=3
 
-    :param X:
-    :param y:
-    :param clf:
-    :param param_grid:
-    :param method:
-    :param param_search:
+    X:
+    y:
+    clf:
+    param_grid:
+    method:
+    param_search:
     :return:
   """
     p = param_search
@@ -723,8 +723,8 @@ def sk_model_eval(clf_list, Xtest, ytest, cv=1,
 def sk_feature_impt(clf, colname, model_type="logistic"):
     """
        Feature importance with colname
-    :param clf:  model or colnum with weights
-    :param colname:
+    clf:  model or colnum with weights
+    colname:
     :return:
     """
     if model_type == "logistic":
@@ -888,12 +888,12 @@ def sk_feature_covariate_shift(dftrain, dftest, colname, nsample=10000):
 
 def sk_model_eval_classification_cv(clf, X, y, test_size=0.5, ncv=1, method="random"):
     """
-    :param clf:
-    :param X:
-    :param y:
-    :param test_size:
-    :param ncv:
-    :param method:
+    clf:
+    X:
+    y:
+    test_size:
+    ncv:
+    method:
     :return:
     """
     if method == "kfold":

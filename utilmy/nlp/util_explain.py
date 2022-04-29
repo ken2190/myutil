@@ -64,11 +64,12 @@ def test2() -> None:
 def explainer_lime(model, y_train, txt_instance, top=10):
     '''
     Use lime to build an a explainer.
-    :parameter
-        :param model: pipeline with vectorizer and classifier
-        :param Y_train: array
-        :param txt_instance: string - raw text
-        :param top: num - top features to display
+    Doc::
+
+        model: pipeline with vectorizer and classifier
+        Y_train: array
+        txt_instance: string - raw text
+        top: num - top features to display
     :return
         dtf with explanations
     '''
@@ -85,12 +86,13 @@ def explainer_lime(model, y_train, txt_instance, top=10):
 def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[], top=5, figsize=(5,3)):
     '''
     Takes the weights of an Attention layer and builds an explainer.
-    :parameter
-        :param model: model instance (after fitting)
-        :param tokenizer: keras tokenizer (after fitting)
-        :param txt_instance: string - raw text
-        :param lst_ngrams_detectors: list - [bigram and trigram models], if empty doesn't detect common n-grams
-        :param top: num - top features to display
+    Doc::
+
+        model: model instance (after fitting)
+        tokenizer: keras tokenizer (after fitting)
+        txt_instance: string - raw text
+        lst_ngrams_detectors: list - [bigram and trigram models], if empty doesn't detect common n-grams
+        top: num - top features to display
     :return
         text html, it can be visualized on notebook with display(HTML(text))
     '''
@@ -134,13 +136,14 @@ def explainer_attention(model, tokenizer, txt_instance, lst_ngrams_detectors=[],
 def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=10):
     '''
     Use shap to build an a explainer (works only if model has binary_crossentropy).
-    :parameter
-        :param model: model instance (after fitting)
-        :param X_train: array
-        :param X_instance: array of size n (n,)
-        :param dic_vocabulary: dict - {"word":0, ...}
-        :param class_names: list - labels
-        :param top: num - top features to display
+    Doc::
+
+        model: model instance (after fitting)
+        X_train: array
+        X_instance: array of size n (n,)
+        dic_vocabulary: dict - {"word":0, ...}
+        class_names: list - labels
+        top: num - top features to display
     :return
         dtf with explanations
     '''
@@ -156,13 +159,14 @@ def explainer_shap(model, X_train, X_instance, dic_vocabulary, class_names, top=
 def explainer_similarity_classif(tokenizer, nlp, dic_clusters, txt_instance, token_level=False, top=5, figsize=(20,10)):
     '''
     Plot a text instance into a 2d vector space and compute similarity.
-    :parameter
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
-        :param dic_clusters: dict - dict - {0:lst_words, 1:lst_words, ...}
-        :param txt_instance: string - raw text
-        :param token_level: bool - if True the text is broken down into tokens otherwise the mean vector is taken
-        :param top: num - top similarity to display
+    Doc::
+
+        tokenizer: transformers tokenizer
+        nlp: transformers bert
+        dic_clusters: dict - dict - {0:lst_words, 1:lst_words, ...}
+        txt_instance: string - raw text
+        token_level: bool - if True the text is broken down into tokens otherwise the mean vector is taken
+        top: num - top similarity to display
     '''
     ## create embedding Matrix
     y = np.concatenate([embedding_bert(v, tokenizer, nlp) for v in dic_clusters.values()])

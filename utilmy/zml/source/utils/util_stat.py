@@ -305,7 +305,7 @@ def np_transform_pca(X, dimpca=2, whiten=True):
 
 def sk_distribution_kernel_bestbandwidth(X, kde):
     """Find best Bandwidht for a  given kernel
-  :param kde:
+  kde:
   :return:
  """
     from sklearn.model_selection import GridSearchCV

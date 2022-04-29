@@ -110,9 +110,9 @@ def pd_coltext_clean( df, col, stopwords= None , pars=None):
 
 def pd_coltext_wordfreq(df, col, stopwords, ntoken=100):
     """
-    :param df:
-    :param coltext:  text where word frequency should be extracted
-    :param nb_to_show:
+    df:
+    coltext:  text where word frequency should be extracted
+    nb_to_show:
     :return:
     """
     sep=" "

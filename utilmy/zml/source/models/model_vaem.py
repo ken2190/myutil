@@ -537,28 +537,28 @@ def p_vae_active_learning(Data_train_compressed, Data_train,mask_train,Data_test
     '''
     This function train or loads a VAEM model, and performs SAIA using SING or full EDDI strategy.
     Note that we assume that the last column of x is the target variable of interest
-    :param Data_train_compressed: preprocessed traning data matrix without one-hot encodings. Note that we assume that the columns of the data matrix is re-ordered, so that the categorical variables appears first, and then the continuous variables afterwards.
-    :param Data_train: preprocessed traning data matrix with one-hot encodings. Is is re-ordered as Data_train_compressed.
-    :param mask_train: mask matrix that indicates the missingness of training data,with one-hot encodings. 1=observed, 0 = missing
-    :param Data_test: test data matrix, with one-hot encodings.
-    :param mask_test: mask matrix that indicates the missingness of test data, with one-hot encodings.. 1=observed, 0 = missing
-    :param mask_test_compressed: mask matrix that indicates the missingness of test data, without one-hot encodings. 1=observed, 0 = missing.
-    :param cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-    :param dim_flt: number of continuous variables.
-    :param dic_var_type: a list that contains the statistical types for each variables
-    :param args.epochs: number of epochs for training.
-    :param args.latent_dim: latent dimension of partial VAE.
-    :param args.K: dimension of feature map of PNP encoder
-    :param args.M: number of samples used for MC sampling
-    :param args.Repeat: number of repeats.
-    :param estimation_method: what method to use for single ordering information reward estimation.
+    Data_train_compressed: preprocessed traning data matrix without one-hot encodings. Note that we assume that the columns of the data matrix is re-ordered, so that the categorical variables appears first, and then the continuous variables afterwards.
+    Data_train: preprocessed traning data matrix with one-hot encodings. Is is re-ordered as Data_train_compressed.
+    mask_train: mask matrix that indicates the missingness of training data,with one-hot encodings. 1=observed, 0 = missing
+    Data_test: test data matrix, with one-hot encodings.
+    mask_test: mask matrix that indicates the missingness of test data, with one-hot encodings.. 1=observed, 0 = missing
+    mask_test_compressed: mask matrix that indicates the missingness of test data, without one-hot encodings. 1=observed, 0 = missing.
+    cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+    dim_flt: number of continuous variables.
+    dic_var_type: a list that contains the statistical types for each variables
+    args.epochs: number of epochs for training.
+    args.latent_dim: latent dimension of partial VAE.
+    args.K: dimension of feature map of PNP encoder
+    args.M: number of samples used for MC sampling
+    args.Repeat: number of repeats.
+    estimation_method: what method to use for single ordering information reward estimation.
             In order to calculate the single best ordering, we need to somehow marginalize (average) the
             information reward over the data set (in this case, the test set).
             we provide two methods of marginalization.
             - estimation_method = 0: information reward marginalized using the model distribution p_{vae_model}(x_o).
             - estimation_method = 1: information reward marginalized using the data distribution p_{data}(x_o)
-    :param args.list_stage: a list of stages that you wish to perform training. 1 = train marginal VAEs, 2 = train dependency VAEs, 3 = fine-tune, 4 = load a model without training.
-    :param args.list_strategy: a list of strategies that is used for SAIA. 0 = Random, 1 = SING
+    args.list_stage: a list of stages that you wish to perform training. 1 = train marginal VAEs, 2 = train dependency VAEs, 3 = fine-tune, 4 = load a model without training.
+    args.list_strategy: a list of strategies that is used for SAIA. 0 = Random, 1 = SING
     
     :return: None (active learning results are saved to args.output_dir)
     '''
@@ -722,18 +722,18 @@ def train_p_vae(stage, x_train, Data_train,mask_train, epochs, latent_dim,cat_di
     global obs_dim
     '''
         This function trains the partial VAE.
-        :param stage: stage of training 
-        :param x_train: initial inducing points
-        :param Data_train: training Data matrix, N by D
-        :param mask_train: mask matrix that indicates the missingness. 1=observed, 0 = missing
-        :param epochs: number of epochs of training
-        :param LATENT_DIM: latent dimension for partial VAE model
-        :param cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        :param dim_flt: number of continuous variables.
-        :param batch_size: batch_size.
-        :param p: dropout rate for creating additional missingness during training
-        :param K: dimension of feature map of PNP encoder
-        :param iteration: how many mini-batches are used each epoch. set to -1 to run the full epoch.
+        stage: stage of training 
+        x_train: initial inducing points
+        Data_train: training Data matrix, N by D
+        mask_train: mask matrix that indicates the missingness. 1=observed, 0 = missing
+        epochs: number of epochs of training
+        LATENT_DIM: latent dimension for partial VAE model
+        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+        dim_flt: number of continuous variables.
+        batch_size: batch_size.
+        p: dropout rate for creating additional missingness during training
+        K: dimension of feature map of PNP encoder
+        iteration: how many mini-batches are used each epoch. set to -1 to run the full epoch.
         :return: trained VAE, together with the test data used for testing.
         '''
     # we have three stages of training.

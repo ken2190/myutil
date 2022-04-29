@@ -26,14 +26,14 @@ class lindley(object):
     def R_lindley_chain(self, i, x, mask, vae, im, loc):
         '''
         function for computing reward function approximation
-        :param i: indicates the index of x_i
-        :param x: data matrix
-        :param mask: mask of missingness
-        :param M: number of MC samples
-        :param cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        :param dic_var_type: a list that indicates the whether a variable is continuous.
-        :param vae: a pre-trained vae
-        :param im: sampled missing data, a M by N by D matrix, where M is the number of samples.
+        i: indicates the index of x_i
+        x: data matrix
+        mask: mask of missingness
+        M: number of MC samples
+        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+        dic_var_type: a list that indicates the whether a variable is continuous.
+        vae: a pre-trained vae
+        im: sampled missing data, a M by N by D matrix, where M is the number of samples.
         :return:
         '''
         im_i = im[:, :, i]
@@ -53,13 +53,13 @@ class lindley(object):
     def completion(self, x, mask, vae,):
         '''
         function to generate new samples conditioned on observations
-        :param x: underlying partially observed data
-        :param mask: mask of missingness
-        :param M: number of MC samples
-        :param cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        :param dic_var_type: a list that indicates the whether a variable is continuous.
-        :param vae: a pre-trained vae.
-        :param list_discrete: list of discrete variables
+        x: underlying partially observed data
+        mask: mask of missingness
+        M: number of MC samples
+        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+        dic_var_type: a list that indicates the whether a variable is continuous.
+        vae: a pre-trained vae.
+        list_discrete: list of discrete variables
         :return: sampled missing data, a M by N by D matrix, where M is the number of samples.
         '''
         ## decompress mask

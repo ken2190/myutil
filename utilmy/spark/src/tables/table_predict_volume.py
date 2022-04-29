@@ -88,8 +88,8 @@ def run(spark:SparkSession, config_path: str='config.yaml'):
 ####################################################
 def preprocess(spark, conf, check=True):
     """ Generate Structured Log table on disk
-    :param spark:
-    :param config:
+    spark:
+    config:
     :return: Structured Log Spark Dataframe
     """
     user_sessionDF = spark.read.parquet( conf['FilePaths']['userlog_path'] )

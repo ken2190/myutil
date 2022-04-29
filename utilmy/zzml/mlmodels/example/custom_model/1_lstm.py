@@ -133,10 +133,10 @@ def metrics(model, sess=None, data_pars=None, compute_pars=None, out_pars=None):
     # Compute stats on training
     #df = get_dataset(data_pars)
     #arr_out = predict(model, sess, df, get_hidden_state=False, init_value=None)
-    :param model:
-    :param sess:
-    :param data_pars:
-    :param out_pars:
+    model:
+    sess:
+    data_pars:
+    out_pars:
     :return:
     """
 

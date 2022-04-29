@@ -256,9 +256,9 @@ class aws_ec2_ssh(object):
         
     Use  class aws_ec2_ssh(object)  to process it
     
-   :param fromfolder1: 
-   :param tofolder1: 
-   :param usezip:   zip the folder before the transfer and unzip after
+   fromfolder1: 
+   tofolder1: 
+   usezip:   zip the folder before the transfer and unzip after
    :return: 
    
       '''
@@ -299,9 +299,9 @@ def aws_ec2_allocate_elastic_ip(con, instance_id="", elastic_ip='', region="ap-n
 
 def aws_ec2_printinfo(instance=None, ipadress="", instance_id=""):
    '''   Idenfiy instnance of
-   :param instance: 
+   instance: 
      ipadress
-   :param instance_id: 
+   instance_id: 
    :return: return info on the instance : ip, ip_adress,  
    '''
    if ipadress != "" :
@@ -321,14 +321,14 @@ def aws_ec2_spot_start(con, region, key_name="ecsInstanceRole", inst_type="cx2.2
                        elastic_ip='',
                        pars= {"security_group": [""], "disk_size": 25, "disk_type": "ssd", "volume_type": "gp2"}):
     '''
-   :param con:   Connector to Boto
-   :param region: AWS region (us-east-1,..) 
-   :param key_name: AWS  SSH Key Name  (in EC2 webspage )
-   :param security_group: AWS security group id
-   :param inst_type:  AWS EC2 instance type (t1.micro, m1.small ...)
-   :param ami_id:  AWS AMI ID
-   :param pars: Disk Size, Volume type (General Purpose SSD - gp2, Magnetic etc)
-   :param pricemax: minmum spot instance bid price
+   con:   Connector to Boto
+   region: AWS region (us-east-1,..) 
+   key_name: AWS  SSH Key Name  (in EC2 webspage )
+   security_group: AWS security group id
+   inst_type:  AWS EC2 instance type (t1.micro, m1.small ...)
+   ami_id:  AWS AMI ID
+   pars: Disk Size, Volume type (General Purpose SSD - gp2, Magnetic etc)
+   pricemax: minmum spot instance bid price
     '''
     pars= dict2(pars)   #Dict to Attribut Dict
     print ("starting EC2 Spot Instance")
@@ -378,9 +378,9 @@ def aws_ec2_get_id(ipadress='', instance_id=''):
 
 def aws_ec2_spot_stop(con, ipadress="", instance_id="") :
    '''
-   :param con: connector 
-   :param ipadress:   of the instance  to Identify the instance.
-   :param instance_id:  OR use instance ID....
+   con: connector 
+   ipadress:   of the instance  to Identify the instance.
+   instance_id:  OR use instance ID....
    :return: 
    '''
    if instance_id=="" : instance_id=  aws_ec2_get_instanceid(con, ipadress)  #Get ID from IP Adress
@@ -406,15 +406,15 @@ def aws_ec2_res_start(con, region, key_name, ami_id, inst_type="cx2.2", min_coun
                              pars= {"security_group": [""], "disk_size": 25, "disk_type": "ssd", "volume_type": "gp2"}):
     '''  
         normal instance start
-        :param con:   Connector to Boto
-        :param region: AWS region (us-east-1,..) 
-        :param key_name: AWS  SSH Key Name
-        :param security_group: AWS security group id
-        :param inst_type:  AWS EC2 instance type (t1.micro, m1.small ...)
-        :param ami_id:  AWS AMI ID
-        :param min_count: Minumum number of instances
-        :param max_count : Maximum number of instances
-        :param pars: Disk Size, Volume type (General Purpose SSD - gp2, Magnetic etc)
+        con:   Connector to Boto
+        region: AWS region (us-east-1,..) 
+        key_name: AWS  SSH Key Name
+        security_group: AWS security group id
+        inst_type:  AWS EC2 instance type (t1.micro, m1.small ...)
+        ami_id:  AWS AMI ID
+        min_count: Minumum number of instances
+        max_count : Maximum number of instances
+        pars: Disk Size, Volume type (General Purpose SSD - gp2, Magnetic etc)
         :return 
     '''
     pars= dict2(pars)   #Dict to Attribut Dict
@@ -449,9 +449,9 @@ def aws_ec2_res_start(con, region, key_name, ami_id, inst_type="cx2.2", min_coun
 
 def aws_ec2_res_stop(con, ipadress="", instance_id="") :
    '''
-   :param con: connector 
-   :param ipadress:     Of the instance  to Identify the instance.
-   :param instance_id:  OR use instance ID....
+   con: connector 
+   ipadress:     Of the instance  to Identify the instance.
+   instance_id:  OR use instance ID....
    :return: 
    '''
    if instance_id=="" : instance_id=  aws_ec2_get_instanceid(con, ipadress)
@@ -966,9 +966,9 @@ def aws_ec2_putfolder(fromfolder='D:/_devs/Python01/project27//linux/batch/task/
 
 def aws_ec2_put(fromfolder='d:/ file1.zip', tofolder='/home/notebook/aapackage/', host='', typecopy='code') :
   Copy python code, copy specific file, copy all folder content
-  :param fromfolder: 1 file or 1 folder
-  :param tofolder:
-  :param host:
+  fromfolder: 1 file or 1 folder
+  tofolder:
+  host:
 
 
   sftp= aws_ec2_create_con('sftp', host, isprint=1)

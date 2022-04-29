@@ -33,7 +33,7 @@ class CoveoP2VRecModel(RecModel):
     def train(self, products, iterations=15):
         """
         Takes a list of products in the COVEO dataset (with coveo dataset format) and trains a model
-        :param products: list of json
+        products: list of json
         :return:
         """
         x_train_skus = [[e['product_sku'] for e in s] for s in products]
@@ -44,7 +44,7 @@ class CoveoP2VRecModel(RecModel):
         Implement the abstract method, accepting a list of lists, each list being
         the content of a cart: the predictions returned by the model are the top K
         items suggested to complete the cart.
-        :param prediction_input:
+        prediction_input:
         :return:
         """
         predictions = []
@@ -152,7 +152,7 @@ class MovieLensP2VRecModel(RecModel):
         """
         Predicts the top 10 similar items recommended for each user according
         to the movies that they've watched and the ratings that they've given
-        :param prediction_input: a list of lists containing a dictionary for
+        prediction_input: a list of lists containing a dictionary for
                                  each movie watched by that user
         :return:
         """
@@ -177,7 +177,7 @@ class MovieLensP2VRecModel(RecModel):
     def get_vector(self, x):
         """
         Returns the latent vector that corresponds to the movie ID and the rating
-        :param x:
+        x:
         :return:
         """
         movie = (x["movieId"], x["rating"])

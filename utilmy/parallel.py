@@ -241,7 +241,7 @@ def pd_read_file(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False
                  drop_duplicates=None, col_filter:str=None,  col_filter_vals:list=None, dtype_reduce=None,
                  fun_apply=None, use_ext=None,   **kw)->pd.DataFrame:
     """  Read file in parallel from disk : very Fast
-    :param path_glob: list of pattern, or sep by ";"
+    path_glob: list of pattern, or sep by ";"
     :return:
     """
     import glob, gc,  pandas as pd, os
@@ -314,7 +314,7 @@ def pd_read_file(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False
 def pd_read_file2(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False, nrows=-1, nfile=1000000, concat_sort=True, n_pool=1, npool=None,
                  drop_duplicates=None, col_filter:str=None,  col_filter_vals:list=None, dtype_reduce=None, fun_apply=None, use_ext=None,  **kw)->pd.DataFrame:
     """  Read file in parallel from disk : very Fast
-    :param path_glob: list of pattern, or sep by ";"
+    path_glob: list of pattern, or sep by ";"
     :return:
     """
     import glob, gc,  pandas as pd, os
@@ -680,7 +680,7 @@ if __name__ == '__main__':
 def z_pd_read_file3(path_glob="*.pkl", ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True, n_pool=1, npool=None,
                  drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype_reduce=None,  **kw):
     """  Read file in parallel from disk : very Fast
-    :param path_glob: list of pattern, or sep by ";"
+    path_glob: list of pattern, or sep by ";"
     :return:
     """
     import glob, gc,  pandas as pd, os
@@ -768,7 +768,7 @@ def zz_pd_read_file3(path_glob="*.pkl", ignore_index=True,  cols=None,  nrows=-1
                  verbose=False,
                  **kw):
     """  Read file in parallel from disk : very Fast
-    :param path_glob: list of pattern, or sep by ";"
+    path_glob: list of pattern, or sep by ";"
     :return:
     """
     import glob, gc,  pandas as pd, os, time

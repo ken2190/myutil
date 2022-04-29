@@ -66,7 +66,7 @@ class DeepAR(NNModel):
         """
         This function takes an input of size equal to the n_steps specified in 'Input' when building the
         network
-        :param input_list:
+        input_list:
         :return: [[]], a list of list. E.g. when using Gaussian layer this returns a list of two list,
         corresponding to [[mu_values], [sigma_values]]
         """
@@ -79,8 +79,8 @@ class DeepAR(NNModel):
 def ts_generator(ts_obj, n_steps):
     """
     This is a util generator function for Keras
-    :param ts_obj: a Dataset child class object that implements the 'next_batch' method
-    :param n_steps: parameter that specifies the length of the net's input tensor
+    ts_obj: a Dataset child class object that implements the 'next_batch' method
+    n_steps: parameter that specifies the length of the net's input tensor
     :return:
     """
     while 1:

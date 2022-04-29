@@ -147,13 +147,13 @@ def preprocess_batch(path_train_X="", path_train_y="", path_pipeline_export="", 
 def preprocess(path_train_X="", path_train_y="", path_pipeline_export="", cols_group=None, n_sample=5000,
                preprocess_pars={}, path_features_store=None):
     """ Used for trainiing only, Save params on disk
-    :param path_train_X:
-    :param path_train_y:
-    :param path_pipeline_export:
-    :param cols_group:
-    :param n_sample:
-    :param preprocess_pars:
-    :param path_features_store:
+    path_train_X:
+    path_train_y:
+    path_pipeline_export:
+    cols_group:
+    n_sample:
+    preprocess_pars:
+    path_features_store:
     :return:
     """
     ##### column names for feature generation #####################################################
@@ -288,10 +288,10 @@ def preprocess_inference(df, path_pipeline="data/pipeline/pipe_01/", preprocess_
     """
        At Inference time, load model, params and preprocess data.
        Not saving the data, only output final dataframe
-    :param df: input dataframe
-    :param path_pipeline:  path where processors are stored
-    :param preprocess_pars: dict of params specific to preprocessing
-    :param cols_group:  dict of column family
+    df: input dataframe
+    path_pipeline:  path where processors are stored
+    preprocess_pars: dict of params specific to preprocessing
+    cols_group:  dict of column family
     :return: dfXy  Final dataframe,
              cols_family_full : dict of column family
     """
@@ -385,13 +385,13 @@ def preprocess_load(path_train_X="", path_train_y="", path_pipeline_export="", c
                preprocess_pars={},  path_features_store=None):
     """
         Load pre-computed dataframe
-    :param path_train_X:
-    :param path_train_y:
-    :param path_pipeline_export:
-    :param cols_group:
-    :param n_sample:
-    :param preprocess_pars:
-    :param path_features_store:
+    path_train_X:
+    path_train_y:
+    path_pipeline_export:
+    cols_group:
+    n_sample:
+    preprocess_pars:
+    path_features_store:
     :return:
     """
     from source.util_feature import load
@@ -417,11 +417,11 @@ def preprocess_load(path_train_X="", path_train_y="", path_pipeline_export="", c
 def run_preprocess(config_name, config_path, n_sample=5000,
                    mode='run_preprocess', model_dict=None):     #prefix "pre" added, in order to make if loop possible
     """
-    :param config_name:   titanic_lightgbm
-    :param config_path:   titanic_classifier.py
-    :param n_sample:     nb of rows used
-    :param mode:     'run_preprocess'  / 'load_prerocess'
-    :param model_dict:  Optional provide the dict model
+    config_name:   titanic_lightgbm
+    config_path:   titanic_classifier.py
+    n_sample:     nb of rows used
+    mode:     'run_preprocess'  / 'load_prerocess'
+    model_dict:  Optional provide the dict model
     :return: None,  only show and save dataframe
     """
     model_dict = model_dict_load(model_dict, config_path, config_name, verbose=True)

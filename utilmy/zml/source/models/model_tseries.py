@@ -155,11 +155,11 @@ def walk_forward_validation(data, n_test):
 	return error, test[:, -1], predictions
 
 
-    :param Xpred:
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    Xpred:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
     global model, session

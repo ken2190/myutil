@@ -26,7 +26,7 @@ from utils import (
 class RankNet(nn.Module):
     def __init__(self, net_structures, double_precision=False):
         """
-        :param net_structures: list of int for RankNet FC width
+        net_structures: list of int for RankNet FC width
         """
         super(RankNet, self).__init__()
         self.fc_layers = len(net_structures)
@@ -113,15 +113,15 @@ def train_rank_net(
 ):
     """
 
-    :param start_epoch: int
-    :param additional_epoch: int
-    :param lr: float
-    :param optim: str
-    :param train_algo: str
-    :param double_precision: boolean
-    :param standardize: boolean
-    :param small_dataset: boolean
-    :param debug: boolean
+    start_epoch: int
+    additional_epoch: int
+    lr: float
+    optim: str
+    train_algo: str
+    double_precision: boolean
+    standardize: boolean
+    small_dataset: boolean
+    debug: boolean
     :return:
     """
     print("start_epoch:{}, additional_epoch:{}, lr:{}".format(start_epoch, additional_epoch, lr))
@@ -362,12 +362,12 @@ def factorized_training_loop(
 
 def eval_model(inference_model, device, df_valid, valid_loader):
     """
-    :param model: torch.nn.Module
-    :param inference_model: torch.nn.Module
-    :param loss_func: loss function
-    :param device: str, cpu or cuda:id
-    :param df_valid: pandas.DataFrame with validation data
-    :param valid_loader:
+    model: torch.nn.Module
+    inference_model: torch.nn.Module
+    loss_func: loss function
+    device: str, cpu or cuda:id
+    df_valid: pandas.DataFrame with validation data
+    valid_loader:
     :return:
     """
     inference_model.eval()  # Set model to evaluate mode
