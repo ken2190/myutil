@@ -8,7 +8,7 @@ on:
       
   push:
     branches:
-    - z_docstring
+    - z_docstring_create
 
 
 #  schedule:
