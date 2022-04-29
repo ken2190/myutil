@@ -191,9 +191,9 @@ def get_dataset_split_for_model_petastorm(Xtrain, ytrain=None, pars:dict=None):
     """  Split data for moel input/
     Xtrain  ---> Split INTO  tuple PetaStorm Reader
     https://github.com/uber/petastorm/blob/master/petastorm/reader.py#L61-L134
-    :param Xtrain:  path
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:  path
+    cols_type_received:
+    cols_ref:
     :return:
     """
     file = r'C:\Users\TusharGoel\Desktop\Upwork\project4\dsa2\datasets\parquet\f01.parquet'

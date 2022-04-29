@@ -449,11 +449,11 @@ def has_arg(fn, name, accept_all=False):
 def check_model(model, model_name, x, y, check_model_io=True):
     """
     compile model,train and evaluate it,then save/load weight and model file.
-    :param model:
-    :param model_name:
-    :param x:
-    :param y:
-    :param check_model_io: test save/load model file or not
+    model:
+    model_name:
+    x:
+    y:
+    check_model_io: test save/load model file or not
     :return:
     """
 

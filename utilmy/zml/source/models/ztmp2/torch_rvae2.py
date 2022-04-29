@@ -212,9 +212,9 @@ def load_info(path=""):
 cols_ref_formodel = ['colcontinuous', 'colsparse']
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
     """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:
+    cols_type_received:
+    cols_ref:
     :return:
     """
     if len(cols_ref) <= 1 :

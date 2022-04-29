@@ -72,7 +72,7 @@ def get_config_path(config=''):
 ########## Profile data #############################################################
 def data_profile2(config=''):
     """
-    :param config:
+    config:
     :return:
     """
     config_uri, config_name = get_config_path(config)
@@ -99,8 +99,8 @@ def data_profile(path_data="NO PATH", path_output="NO PATH@", n_sample= 5000):
 def preprocess(config='', nsample=None):
     """
 
-    :param config:
-    :param nsample:
+    config:
+    nsample:
     :return:
     """
     config_uri, config_name = get_config_path(config)
@@ -121,8 +121,8 @@ def preprocess(config='', nsample=None):
 ########## Train ###################################################################
 def train(config='', nsample=None):
     """  train a model with  confi_name  and nsample
-    :param config:
-    :param nsample:
+    config:
+    nsample:
     :return:
     """
 
@@ -154,8 +154,8 @@ def check(config='outlier_predict.py::titanic_lightgbm'):
 ####### Inference ######################################################################
 def predict(config='', nsample=None):
     """
-    :param config:
-    :param nsample:
+    config:
+    nsample:
     :return:
     """
     config_uri, config_name = get_config_path(config)
@@ -184,8 +184,8 @@ def predict(config='', nsample=None):
 ########## source/ru_sampler Train Sampler ###############################################
 def train_sampler(config='', nsample=None):
     """  train a model with  confi_name  and nsample
-    :param config:
-    :param nsample:
+    config:
+    nsample:
     :return:
     """
     config_uri, config_name = get_config_path(config)
@@ -203,8 +203,8 @@ def train_sampler(config='', nsample=None):
 ####### source/run_sampler tranform ####################################################
 def transform(config='', nsample=None):
     """
-    :param config:
-    :param nsample:
+    config:
+    nsample:
     :return:
     """
     config_uri, config_name = get_config_path(config)

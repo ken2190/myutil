@@ -32,8 +32,8 @@ def pd_datestring_split(
     """
       Parsing date
       'Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p'
-    :param datelist:
-    :param fmt:
+    datelist:
+    fmt:
     :return:
     """
     fmt = None if fmt in [None, "auto"] else fmt
@@ -60,8 +60,8 @@ def datestring_todatetime(datelist, fmt="%Y-%m-%d %H:%M:%S"):
     """
       Parsing date
       'Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p'
-    :param datelist:
-    :param fmt:
+    datelist:
+    fmt:
     :return:
     """
     datenew = []
@@ -86,8 +86,8 @@ def datestring_todatetime(datelist, fmt="%Y-%m-%d %H:%M:%S"):
 def datetime_tostring(datelist, fmt="%Y-%m-%d %H:%M:%S"):
     """
   https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
-  :param x:
-  :param fmt:
+  x:
+  fmt:
   :return:
   """
     if isinstance(datelist, list):
@@ -177,7 +177,7 @@ dd_weekday_cache = {}
 def datetime_weekday_fast(dateval):
     """
       date values
-    :param dateval:
+    dateval:
     :return:
     """
     try:

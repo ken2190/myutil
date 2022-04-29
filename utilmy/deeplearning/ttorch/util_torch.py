@@ -538,7 +538,7 @@ class SmeLU(nn.Module):
     def __init__(self, beta: float = 2.) -> None:
         """
         Constructor method.
-        :param beta (float): Beta value if the SmeLU activation function. Default 2.
+        beta (float): Beta value if the SmeLU activation function. Default 2.
         """
         # Call super constructor
         super(SmeLU, self).__init__()
@@ -550,7 +550,7 @@ class SmeLU(nn.Module):
     def forward(self, input: torch.Tensor) -> torch.Tensor:
         """
         Forward pass.
-        :param input (torch.Tensor): Tensor of any shape
+        input (torch.Tensor): Tensor of any shape
         :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
         """
         output: torch.Tensor = torch.where(input >= self.beta, input,

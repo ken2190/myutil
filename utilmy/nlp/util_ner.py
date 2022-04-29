@@ -58,10 +58,10 @@ def ner_spacy_displacy(txt, ner=None, lst_tag_filter=None, title=None, serve=Fal
     '''
     Display the spacy NER model.
     :parameter
-        :param txt: string - text input for the model.
-        :param model: string - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
-        :param lst_tag_filter: list or None - example ["ORG", "GPE", "LOC"], None for all tags
-        :param title: str or None
+        txt: string - text input for the model.
+        model: string - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
+        lst_tag_filter: list or None - example ["ORG", "GPE", "LOC"], None for all tags
+        title: str or None
     '''
     ner = spacy.load("en_core_web_lg") if ner is None else ner
     doc = ner(txt)
@@ -105,8 +105,8 @@ def ner_spacy_text(txt, ner=None, lst_tag_filter=None, grams_join="_"):
 def ner_features(lst_dics_tuples, tag):
     '''
     Creates columns
-        :param lst_dics_tuples: [{('Texas','GPE'):1}, {('Trump','PERSON'):3}]
-        :param tag: string - 'PERSON'
+        lst_dics_tuples: [{('Texas','GPE'):1}, {('Trump','PERSON'):3}]
+        tag: string - 'PERSON'
     :return
         int
     '''
@@ -129,12 +129,12 @@ def ner_spacy_add_tag_features(data, column, ner=None, lst_tag_filter=None, gram
     '''
     Apply spacy NER model and add tag features.
     :parameter
-        :param dtf: dataframe - dtf with a text column
-        :param column: string - name of column containing text
-        :param ner: spacy object - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
-        :param lst_tag_filter: list - ["ORG","PERSON","NORP","GPE","EVENT", ...]. If None takes all
-        :param grams_join: string - "_", " ", or more (ex. "new york" --> "new_york")
-        :param create_features: bool - create columns with category features
+        dtf: dataframe - dtf with a text column
+        column: string - name of column containing text
+        ner: spacy object - "en_core_web_lg", "en_core_web_sm", "xx_ent_wiki_sm"
+        lst_tag_filter: list - ["ORG","PERSON","NORP","GPE","EVENT", ...]. If None takes all
+        grams_join: string - "_", " ", or more (ex. "new york" --> "new_york")
+        create_features: bool - create columns with category features
     :return
         dtf
     '''
@@ -190,13 +190,13 @@ def ner_spacy_retrain(train_data, output_dir, model="blank", n_iter=100):
     '''
     Retrain spacy NER model with new tags.
     :parameter
-        :param train_data: list [
+        train_data: list [
                 ("Who is Shaka Khan?", {"entities": [(7, 17, "PERSON")]}),
                 ("I like London and Berlin.", {"entities": [(7, 13, "LOC"), (18, 24, "LOC")]}),
             ]
-        :param output_dir: string - path of directory to save model
-        :param model: string - "blanck" or "en_core_web_lg", ...
-        :param n_iter: num - number of iteration
+        output_dir: string - path of directory to save model
+        model: string - "blanck" or "en_core_web_lg", ...
+        n_iter: num - number of iteration
     '''
     try:
         ## prepare data
@@ -259,8 +259,8 @@ if 'utils':
         '''
         Counts the elements in a list.
         :parameter
-            :param lst: list
-            :param top: num - number of top elements to return
+            lst: list
+            top: num - number of top elements to return
         :return
             lst_top - list with top elements
         '''

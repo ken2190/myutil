@@ -49,10 +49,10 @@ def save_features(df, name, path):
 def model_dict_load(model_dict, config_path, config_name, verbose=True):
     """
        load the model dict from the python config file.
-    :param model_dict:
-    :param config_path:
-    :param config_name:
-    :param verbose:
+    model_dict:
+    config_path:
+    config_name:
+    verbose:
     :return:
     """
     if model_dict is None :

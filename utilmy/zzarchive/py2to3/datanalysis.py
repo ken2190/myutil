@@ -53,9 +53,9 @@ def pd_filter_column(df_client_product, filter_val=[], iscol=1):
    '''
    # Remove Columns where Index Value is not in the filter_value
    # filter1= X_client['client_id'].values
-   :param df_client_product:
-   :param filter_val:
-   :param iscol:
+   df_client_product:
+   filter_val:
+   iscol:
    :return:
    '''
    axis=1 if iscol==1 else 0
@@ -1080,7 +1080,7 @@ def plot_cluster_embedding(Xmat, title=None):
 def optim_is_pareto_efficient(Xmat_cost, epsilon= 0.01, ret_boolean=1):
     """ Calculate Pareto Frontier of Multi-criteria Optimization program
     c1, c2  has to be minimized : -Sharpe, -Perf, +Drawdown
-    :param Xmat_cost: An (n_points, k_costs) array
+    Xmat_cost: An (n_points, k_costs) array
     :return: A (n_points, ) boolean array, indicating whether each point is Pareto efficient
     """
     pesp= 1.0 + epsilon   #Relax Pareto Constraints
@@ -1098,14 +1098,14 @@ def optim_is_pareto_efficient(Xmat_cost, epsilon= 0.01, ret_boolean=1):
 def sk_model_auto_tpot(Xmat, y,  outfolder='aaserialize/', model_type='regressor/classifier', train_size=0.5, generation=1, population_size=5, verbosity=2 ):
   ''' Automatic training of Xmat--->Y, Generate SKlearn code in outfile
       Very Slow Process, use lower number of Sample
-  :param Xmat:
-  :param y:
-  :param outfolder:
-  :param model_type:
-  :param train_size:
-  :param generation: 
-  :param population_size:
-  :param verbosity:
+  Xmat:
+  y:
+  outfolder:
+  model_type:
+  train_size:
+  generation: 
+  population_size:
+  verbosity:
   :return:
   '''
   from tpot import TPOTClassifier,   TPOTRegressor
@@ -1128,12 +1128,12 @@ def sk_params_search_best(Xmat, Ytarget, model1, param_grid={'alpha':  np.linspa
   '''
    genetic: population_size=5, ngene_mutation_prob=0.10,,gene_crossover_prob=0.5, tournament_size=3,  generations_number=3
 
-  :param Xmat:
-  :param Ytarget:
-  :param model1:
-  :param param_grid:
-  :param method:
-  :param param_search:
+  Xmat:
+  Ytarget:
+  model1:
+  param_grid:
+  method:
+  param_search:
   :return:
   '''
   p= param_search
@@ -1192,7 +1192,7 @@ grid.best_params_
 
 def sk_distribution_kernel_bestbandwidth(kde):
  '''Find best Bandwidht for a  given kernel
-  :param kde:
+  kde:
   :return:
  '''
  from sklearn.grid_search import GridSearchCV

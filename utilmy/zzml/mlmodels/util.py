@@ -755,13 +755,13 @@ def path_local_setup(current_file=None, out_folder="", sublevel=0, data_path="da
 def os_folder_getfiles(folder, ext, dirlevel = -1, mode="fullpath"):
     """
 
-    :param folder: folder path to be analyzed
+    folder: folder path to be analyzed
     :type folder: string
-    :param ext: file extension hint example: "*.json"
+    ext: file extension hint example: "*.json"
     :type ext: string
-    :param dirlevel: number of levels to be analyzed
+    dirlevel: number of levels to be analyzed
     :type dirlevel: int
-    :param mode: either fullpath or filename
+    mode: either fullpath or filename
     :type mode: string
     :return: list of files paths or names (depending on mode param)
     :rtype: list of str

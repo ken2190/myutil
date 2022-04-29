@@ -720,7 +720,7 @@ def generateallmultiprocess(process,s0,mu, vol, corrmatrix, timegrid, nbsimul):
 
 #-----TO DO Later Generate One Path of Jump Geometric Brownian -NOT TESTED------------------------
 def jump_process(lamda,jumps_mu, jumps_vol, timegrid):
-    """:param param: the model parameters object :return: jump sizes for each point in time (mostly zeroes if jumps are infrequent) """
+    """param: the model parameters object :return: jump sizes for each point in time (mostly zeroes if jumps are infrequent) """
     dt = np.diff(timegrid)
     n = len(timegrid) -1
     jump_sizes = np.zeros(n)

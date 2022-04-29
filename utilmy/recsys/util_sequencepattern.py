@@ -122,10 +122,10 @@ if 'utils':
         '''
         Evaluates a model performance.
         :parameter
-            :param y_test: array
-            :param predicted: array
-            :param predicted_prob: array
-            :param figsize: tuple - plot setting
+            y_test: array
+            predicted: array
+            predicted_prob: array
+            figsize: tuple - plot setting
         '''
         classes = np.unique(y_test)
         y_test_array = pd.get_dummies(y_test, drop_first=False).values

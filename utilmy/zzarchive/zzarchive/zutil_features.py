@@ -160,9 +160,9 @@ def test_get_classification_data(name=None):
 def params_check(pars, check_list, name=""):
     """
       Validate a dict parans
-    :param pars:
-    :param check_list:
-    :param name:
+    pars:
+    check_list:
+    name:
     :return:
     """
     ss = ""
@@ -185,9 +185,9 @@ def params_check(pars, check_list, name=""):
 
 def save_features(df, name, path=None):
     """ Save dataframe on disk
-    :param df:
-    :param name:
-    :param path:
+    df:
+    name:
+    path:
     :return:
     """
     if path is not None :
@@ -234,16 +234,16 @@ def pd_read_file(path_glob="*.pkl", ignore_index=True,  cols=None,
                  verbose=False, nrows=-1, concat_sort=True, n_pool=1, drop_duplicates=None, col_filter=None,  col_filter_val=None,  **kw):
   """
       Read file in parallel from disk : very Fast
-  :param path_glob:
-  :param ignore_index:
-  :param cols:
-  :param verbose:
-  :param nrows:
-  :param concat_sort:
-  :param n_pool:
-  :param drop_duplicates:
-  :param shop_id:
-  :param kw:
+  path_glob:
+  ignore_index:
+  cols:
+  verbose:
+  nrows:
+  concat_sort:
+  n_pool:
+  drop_duplicates:
+  shop_id:
+  kw:
   :return:
   """
   import glob, gc,  pandas as pd, os
@@ -302,10 +302,10 @@ def load_dataset(path_data_x, path_data_y='',  colid="jobId", n_sample=-1):
       return a datraframe
       https://raw.github.com/someguy/brilliant/master/somefile.txt
 
-    :param path_data_x:
-    :param path_data_y:
-    :param colid:
-    :param n_sample:
+    path_data_x:
+    path_data_y:
+    colid:
+    n_sample:
     :return:
     """
     log('loading', colid, path_data_x)
@@ -389,9 +389,9 @@ def fetch_dataset(url_dataset, path_target=None, file_target=None):
     Currently `github`, `gdrive` and `dropbox` are the only supported sources of
     data. Also only zip files are supported.
 
-    :param url_dataset:   URL to send
-    :param path_target:   Path to save dataset
-    :param file_target:   File to save dataset
+    url_dataset:   URL to send
+    path_target:   Path to save dataset
+    file_target:   File to save dataset
 
     """
     log("###### Download ##################################################")
@@ -768,10 +768,10 @@ def pd_feature_generate_cross(df, cols, cols_cross_input=None, pct_threshold=0.2
 
 def pd_col_to_onehot(dfref, colname=None, colonehot=None, return_val="dataframe,column"):
     """
-    :param df:
-    :param colname:
-    :param colonehot: previous one hot columns
-    :param returncol:
+    df:
+    colname:
+    colonehot: previous one hot columns
+    returncol:
     :return:
     """
     df = copy.deepcopy(dfref)
@@ -812,9 +812,9 @@ def pd_col_to_onehot(dfref, colname=None, colonehot=None, return_val="dataframe,
 def pd_colcat_mergecol(df, col_list, x0, colid="easy_id"):
     """
        Merge category onehot column
-    :param df:
-    :param l:
-    :param x0:
+    df:
+    l:
+    x0:
     :return:
     """
     dfz = pd.DataFrame({colid: df[colid].values})
@@ -888,8 +888,8 @@ def pd_colcat_tonum(df, colcat="all", drop_single_label=False, drop_fact_dict=Tr
 def pd_colcat_mapping(df, colname):
     """
        map category to integers
-    :param df:
-    :param colname:
+    df:
+    colname:
     :return:
     """
     mapping_rev = {
@@ -954,8 +954,8 @@ def pd_colnum_tocat(  df, colname=None, colexclude=None, colbinmap=None, bins=5,
     """
     colbinmap = for each column, definition of bins
     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing
-       :param df:
-       :param method:
+       df:
+       method:
        :return:
     """
 
@@ -1037,9 +1037,9 @@ def pd_colnum_tocat(  df, colname=None, colexclude=None, colbinmap=None, bins=5,
 
 def pd_colnum_normalize(df0, colname, pars, suffix="_norm", return_val='dataframe,param'):
     """
-    :param df:
-    :param colnum_log:
-    :param colproba:
+    df:
+    colnum_log:
+    colproba:
     :return:
     """
     df = df0[colname]
@@ -1084,8 +1084,8 @@ def pd_colnum_normalize(df0, colname, pars, suffix="_norm", return_val='datafram
 def pd_col_merge_onehot(df, colname):
     """
       Merge columns into single (hotn
-    :param df:
-    :param colname:
+    df:
+    colname:
     :return :
     """
     dd = {}
@@ -1115,9 +1115,9 @@ def pd_col_filter(df, filter_val=None, iscol=1):
     """
    # Remove Columns where Index Value is not in the filter_value
    # filter1= X_client['client_id'].values
-   :param df:
-   :param filter_val:
-   :param iscol:
+   df:
+   filter_val:
+   iscol:
    :return:
    """
     axis = 1 if iscol == 1 else 0
@@ -1186,8 +1186,8 @@ def pd_pipeline_apply(df, pipeline):
     , (pd_col_to_onehot, {"colname": None, "colonehot": colnum_onehot,
                           "return_val": "dataframe"})
       ]
-    :param df:
-    :param pipeline:
+    df:
+    pipeline:
     :return:
     """
     dfi = copy.deepcopy(df)
@@ -1204,9 +1204,9 @@ def pd_stat_correl_pair(df, coltarget=None, colname=None):
     """
       Genearte correletion between the column and target column
       df represents the dataframe comprising the column and colname comprising the target column
-    :param df:
-    :param colname: list of columns
-    :param coltarget : target column
+    df:
+    colname: list of columns
+    coltarget : target column
     :return:
     """
     from scipy.stats import pearsonr
@@ -1276,9 +1276,9 @@ def pd_stat_distribution_colnum(df, nrows=2000, verbose=False):
 
 def pd_stat_histogram(df, bins=50, coltarget="diff"):
     """
-    :param df:
-    :param bins:
-    :param coltarget:
+    df:
+    bins:
+    coltarget:
     :return:
     """
     hh = np.histogram(
@@ -1292,7 +1292,7 @@ def pd_stat_histogram(df, bins=50, coltarget="diff"):
 def col_extractname(col_onehot):
     """
     Column extraction from onehot name
-    :param col_onehot
+    col_onehot
     :return:
     """
     colnew = []
@@ -1341,11 +1341,11 @@ def pd_colnum_tocat_stat(df, feature, target_col, bins, cuts=0):
     """
     Bins continuous features into equal sample size buckets and returns the target mean in each bucket. Separates out
     nulls into another bucket.
-    :param df: dataframe containg features and target column
-    :param feature: feature column name
-    :param target_col: target column
-    :param bins: Number bins required
-    :param cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
+    df: dataframe containg features and target column
+    feature: feature column name
+    target_col: target column
+    bins: Number bins required
+    cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
     :return: If cuts are passed only df_grouped data is returned, else cuts and df_grouped data is returned
     """
     has_null = pd.isnull(df[feature]).sum() > 0
@@ -1409,10 +1409,10 @@ def pd_colnum_tocat_stat(df, feature, target_col, bins, cuts=0):
 def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
     """
     Calculates number of times the trend of feature wrt target changed direction.
-    :param df: df_grouped dataset
-    :param feature: feature column name
-    :param target_col: target column
-    :param threshold: minimum % difference required to count as trend change
+    df: df_grouped dataset
+    feature: feature column name
+    target_col: target column
+    threshold: minimum % difference required to count as trend change
     :return: number of trend chagnes for the feature
     """
     df                            = df.loc[df[feature] != 'Nulls', :].reset_index(drop=True)
@@ -1433,10 +1433,10 @@ def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
 def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
     """
     Calculates correlation between train and test trend of colname wrt target.
-    :param df: train df data
-    :param df_test: test df data
-    :param colname: colname column name
-    :param target_col: target column name
+    df: train df data
+    df_test: test df data
+    colname: colname column name
+    target_col: target column name
     :return: trend correlation between train and test
     """
     df      = df[df[colname] != 'Nulls'].reset_index(drop=True)
@@ -1464,11 +1464,11 @@ def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
 def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
     """
     Calculates trend changes and correlation between train/test for list of features
-    :param df: dfframe containing features and target columns
-    :param target_col: target column name
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
-    :param bins: number of bins to be created from continuous colname
-    :param df_test: test df which has to be compared with input df for correlation
+    df: dfframe containing features and target columns
+    target_col: target column name
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    bins: number of bins to be created from continuous colname
+    df_test: test df which has to be compared with input df for correlation
     :return: dfframe with trend changes and trend correlation (if test df passed)
     """
 
@@ -1509,8 +1509,8 @@ def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
 def np_conv_to_one_col(np_array, sep_char="_"):
     """
     converts string/numeric columns to one string column
-    :param np_array: the numpy array with more than one column
-    :param sep_char: the separator character
+    np_array: the numpy array with more than one column
+    sep_char: the separator character
     """
     def row2string(row_):
         return sep_char.join([str(i) for i in row_])

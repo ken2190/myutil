@@ -735,7 +735,7 @@ def os_folder_copy(src, dst, symlinks=False, pattern1="*.py", fun_file_toignore=
 
     Since copytree() is called recursively, the callable will be called once for each directory that is copied.
     It returns a  list of names relative to the `src` directory that should not be copied.
-   :param fun_ignore:
+   fun_ignore:
    '''
    import shutil, errno, fnmatch
    def fun_file_toignore(src, names) :
@@ -806,10 +806,10 @@ def os_file_listall(dir1, pattern="*.*", dirlevel=1, onlyfolder=0):
    # aa= listallfile(DIRCWD, "*.*", 2)
    # aa[0][30];   aa[2][30]
 
-   :param dir1:
-   :param pattern:
-   :param dirlevel:
-   :param onlyfolder:
+   dir1:
+   pattern:
+   dirlevel:
+   onlyfolder:
    :return:
   '''
   import fnmatch; import os; import numpy as np;  matches = []
@@ -2379,10 +2379,10 @@ engine = create_engine('sqlite:///  folder/foo.db')
    
 def sql_query(sqlr='SELECT ticker,shortratio,sector1_id, FROM stockfundamental',  dbengine=None, output='df', dburl='sqlite:///aaserialize/store/finviz.db'):
  '''
- :param sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
- :param output:     df   /   file1.csv
- :param dburl:      'sqlite:///aaserialize/store/finviz.db'
- :param dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
+ sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
+ output:     df   /   file1.csv
+ dburl:      'sqlite:///aaserialize/store/finviz.db'
+ dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
  :return:
  '''
  if dbengine is None :   dbengine = sql.create_engine(dburl)
@@ -3745,9 +3745,9 @@ def gc_map_dict_to_bq_schema(source_dict, schema, dest_dict):
      new_dict = {}
      map_dict_to_bq_schema (my_dict, schema, new_dict)
 
-    :param source_dict:
-    :param schema:
-    :param dest_dict:
+    source_dict:
+    schema:
+    dest_dict:
     :return:
     '''
     #iterate every field from current schema
@@ -4294,9 +4294,9 @@ def aws_ec2_putfolder(fromfolder='D:/_devs/Python01/project27//linux/batch/task/
 
 def aws_ec2_put(fromfolder='d:/ file1.zip', tofolder='/home/notebook/aapackage/', host='', typecopy='code') :
   Copy python code, copy specific file, copy all folder content
-  :param fromfolder: 1 file or 1 folder
-  :param tofolder:
-  :param host:
+  fromfolder: 1 file or 1 folder
+  tofolder:
+  host:
 
 
   sftp= aws_ec2_create_con('sftp', host, isprint=1)

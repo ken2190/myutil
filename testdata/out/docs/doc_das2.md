@@ -18,9 +18,9 @@
 <br>
       'Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p'
 <br>
-    :param datelist:
+    datelist:
 <br>
-    :param fmt:
+    fmt:
 <br>
     :return:
 <br>
@@ -42,9 +42,9 @@
 <br>
       'Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p'
 <br>
-    :param datelist:
+    datelist:
 <br>
-    :param fmt:
+    fmt:
 <br>
     :return:
 <br>
@@ -64,9 +64,9 @@
 <br>
   https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
 <br>
-  :param x:
+  x:
 <br>
-  :param fmt:
+  fmt:
 <br>
   :return:
 <br>
@@ -126,7 +126,7 @@
 <br>
       date values
 <br>
-    :param dateval:
+    dateval:
 <br>
     :return:
 <br>
@@ -1270,11 +1270,11 @@
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -1457,7 +1457,7 @@
 <br>
       Get the Class of the object stored in source/models/
 <br>
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
 <br>
     :return: model module
 <br>
@@ -1477,13 +1477,13 @@
         <ul>model_dict,<br>dfX,<br>cols_family,<br>post_process_fun,<br></ul>
         <li>Docs:<br>    """  Train the model using model_dict, save model, save prediction
 <br>
-    :param model_dict:  dict containing params
+    model_dict:  dict containing params
 <br>
-    :param dfX:  pd.DataFrame
+    dfX:  pd.DataFrame
 <br>
-    :param cols_family: dict of list containing column names
+    cols_family: dict of list containing column names
 <br>
-    :param post_process_fun:
+    post_process_fun:
 <br>
     :return: dfXtrain , dfXval  DataFrame containing prediction.
 <br>
@@ -1503,11 +1503,11 @@
 <br>
       Configuration of the model is in config_model.py file
 <br>
-    :param config_name:
+    config_name:
 <br>
-    :param config_path:
+    config_path:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
     :return:
 <br>
@@ -1719,11 +1719,11 @@
         <ul>df,<br>coltext,<br>sep = " ",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param coltext:  text where word frequency should be extracted
+    coltext:  text where word frequency should be extracted
 <br>
-    :param nb_to_show:
+    nb_to_show:
 <br>
     :return:
 <br>
@@ -1741,9 +1741,9 @@
         <ul>ddict,<br>colname,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param ddict:
+    ddict:
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -1765,7 +1765,7 @@
 <br>
 
 <br>
-    :param df:
+    df:
 <br>
     :return:
 <br>
@@ -1847,13 +1847,13 @@
 <br>
                                               return_val="dataframe,param")
 <br>
-    :param dfref:
+    dfref:
 <br>
-    :param colname:
+    colname:
 <br>
-    :param n_component:
+    n_component:
 <br>
-    :param return_val:
+    return_val:
 <br>
     :return:
 <br>
@@ -2194,11 +2194,11 @@
 <br>
       Validate a dict parans
 <br>
-    :param pars:
+    pars:
 <br>
-    :param check_list:
+    check_list:
 <br>
-    :param name:
+    name:
 <br>
     :return:
 <br>
@@ -2216,11 +2216,11 @@
         <ul>df,<br>name,<br>path = None,<br></ul>
         <li>Docs:<br>    """ Save dataframe on disk
 <br>
-    :param df:
+    df:
 <br>
-    :param name:
+    name:
 <br>
-    :param path:
+    path:
 <br>
     :return:
 <br>
@@ -2260,25 +2260,25 @@
 <br>
       Read file in parallel from disk : very Fast
 <br>
-  :param path_glob:
+  path_glob:
 <br>
-  :param ignore_index:
+  ignore_index:
 <br>
-  :param cols:
+  cols:
 <br>
-  :param verbose:
+  verbose:
 <br>
-  :param nrows:
+  nrows:
 <br>
-  :param concat_sort:
+  concat_sort:
 <br>
-  :param n_pool:
+  n_pool:
 <br>
-  :param drop_duplicates:
+  drop_duplicates:
 <br>
-  :param shop_id:
+  shop_id:
 <br>
-  :param kw:
+  kw:
 <br>
   :return:
 <br>
@@ -2298,25 +2298,25 @@
 <br>
       Read file in parallel from disk : very Fast
 <br>
-  :param path_glob:
+  path_glob:
 <br>
-  :param ignore_index:
+  ignore_index:
 <br>
-  :param cols:
+  cols:
 <br>
-  :param verbose:
+  verbose:
 <br>
-  :param nrows:
+  nrows:
 <br>
-  :param concat_sort:
+  concat_sort:
 <br>
-  :param n_pool:
+  n_pool:
 <br>
-  :param drop_duplicates:
+  drop_duplicates:
 <br>
-  :param shop_id:
+  shop_id:
 <br>
-  :param kw:
+  kw:
 <br>
   :return:
 <br>
@@ -2336,25 +2336,25 @@
 <br>
       Read file in parallel from disk : very Fast
 <br>
-  :param path_glob:
+  path_glob:
 <br>
-  :param ignore_index:
+  ignore_index:
 <br>
-  :param cols:
+  cols:
 <br>
-  :param verbose:
+  verbose:
 <br>
-  :param nrows:
+  nrows:
 <br>
-  :param concat_sort:
+  concat_sort:
 <br>
-  :param n_pool:
+  n_pool:
 <br>
-  :param drop_duplicates:
+  drop_duplicates:
 <br>
-  :param shop_id:
+  shop_id:
 <br>
-  :param kw:
+  kw:
 <br>
   :return:
 <br>
@@ -2378,13 +2378,13 @@
 <br>
 
 <br>
-    :param path_data_x:
+    path_data_x:
 <br>
-    :param path_data_y:
+    path_data_y:
 <br>
-    :param colid:
+    colid:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
     :return:
 <br>
@@ -2420,11 +2420,11 @@
 <br>
 
 <br>
-    :param url_dataset:   URL to send
+    url_dataset:   URL to send
 <br>
-    :param path_target:   Path to save dataset
+    path_target:   Path to save dataset
 <br>
-    :param file_target:   File to save dataset
+    file_target:   File to save dataset
 <br>
 
 <br>
@@ -2588,11 +2588,11 @@
         <ul>df,<br>bins = 50,<br>coltarget = "diff",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param bins:
+    bins:
 <br>
-    :param coltarget:
+    coltarget:
 <br>
     :return:
 <br>
@@ -2612,7 +2612,7 @@
 <br>
     Column extraction from onehot name
 <br>
-    :param col_onehot
+    col_onehot
 <br>
     :return:
 <br>
@@ -2648,15 +2648,15 @@
 <br>
     nulls into another bucket.
 <br>
-    :param df: dataframe containg features and target column
+    df: dataframe containg features and target column
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param bins: Number bins required
+    bins: Number bins required
 <br>
-    :param cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
+    cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
 <br>
     :return: If cuts are passed only df_grouped data is returned, else cuts and df_grouped data is returned
 <br>
@@ -2676,13 +2676,13 @@
 <br>
     Calculates number of times the trend of feature wrt target changed direction.
 <br>
-    :param df: df_grouped dataset
+    df: df_grouped dataset
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param threshold: minimum % difference required to count as trend change
+    threshold: minimum % difference required to count as trend change
 <br>
     :return: number of trend chagnes for the feature
 <br>
@@ -2702,13 +2702,13 @@
 <br>
     Calculates correlation between train and test trend of colname wrt target.
 <br>
-    :param df: train df data
+    df: train df data
 <br>
-    :param df_test: test df data
+    df_test: test df data
 <br>
-    :param colname: colname column name
+    colname: colname column name
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
     :return: trend correlation between train and test
 <br>
@@ -2728,15 +2728,15 @@
 <br>
     Calculates trend changes and correlation between train/test for list of features
 <br>
-    :param df: dfframe containing features and target columns
+    df: dfframe containing features and target columns
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
 <br>
-    :param bins: number of bins to be created from continuous colname
+    bins: number of bins to be created from continuous colname
 <br>
-    :param df_test: test df which has to be compared with input df for correlation
+    df_test: test df which has to be compared with input df for correlation
 <br>
     :return: dfframe with trend changes and trend correlation (if test df passed)
 <br>
@@ -2756,9 +2756,9 @@
 <br>
     converts string/numeric columns to one string column
 <br>
-    :param np_array: the numpy array with more than one column
+    np_array: the numpy array with more than one column
 <br>
-    :param sep_char: the separator character
+    sep_char: the separator character
 <br>
     """
 <br>
@@ -2837,13 +2837,13 @@
         <ul>sqlr = "SELECT ticker,shortratio,sector1_id, FROM stockfundamental",<br>dbengine = None,<br>output = "df",<br>dburl="sqlite:  = "sqlite:///aaserialize/store/finviz.db",<br>,<br></ul>
         <li>Docs:<br>    """
 <br>
-   :param sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
+   sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
 <br>
-   :param output:     df   /   file1.csv
+   output:     df   /   file1.csv
 <br>
-   :param dburl:      'sqlite:///aaserialize/store/finviz.db'
+   dburl:      'sqlite:///aaserialize/store/finviz.db'
 <br>
-   :param dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
+   dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
 <br>
    :return:
 <br>
@@ -4086,9 +4086,9 @@
 <br>
        Return the model loaded from disk
 <br>
-    :param dir_model:
+    dir_model:
 <br>
-    :param model_uri:
+    model_uri:
 <br>
     :return:
 <br>
@@ -4269,11 +4269,11 @@
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -4349,7 +4349,7 @@
 <br>
 
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>
@@ -4664,13 +4664,13 @@
 <br>
        load the model dict from the python config file.
 <br>
-    :param model_dict:
+    model_dict:
 <br>
-    :param config_path:
+    config_path:
 <br>
-    :param config_name:
+    config_name:
 <br>
-    :param verbose:
+    verbose:
 <br>
     :return:
 <br>
@@ -4872,11 +4872,11 @@
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -5262,15 +5262,15 @@
 <br>
        Generic train
 <br>
-    :param input_path:
+    input_path:
 <br>
-    :param max_rows:
+    max_rows:
 <br>
-    :param n_experiments:
+    n_experiments:
 <br>
-    :param colid:
+    colid:
 <br>
-    :param coly:
+    coly:
 <br>
     :return:
 <br>
@@ -5350,21 +5350,21 @@
 <br>
 
 <br>
-    :param df_sales:
+    df_sales:
 <br>
-    :param dir_out:
+    dir_out:
 <br>
-    :param features_group_name:
+    features_group_name:
 <br>
-    :param drop_cols:
+    drop_cols:
 <br>
-    :param df_calendar:
+    df_calendar:
 <br>
-    :param index_cols:
+    index_cols:
 <br>
-    :param merge_cols_mapping:
+    merge_cols_mapping:
 <br>
-    :param id_cols:
+    id_cols:
 <br>
     :return:
 <br>
@@ -6389,13 +6389,13 @@
         <ul>dfref,<br>colname = None,<br>colonehot = None,<br>return_val = "dataframe,column",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param colname:
+    colname:
 <br>
-    :param colonehot: previous one hot columns
+    colonehot: previous one hot columns
 <br>
-    :param returncol:
+    returncol:
 <br>
     :return:
 <br>
@@ -6415,11 +6415,11 @@
 <br>
        Merge category onehot column
 <br>
-    :param df:
+    df:
 <br>
-    :param l:
+    l:
 <br>
-    :param x0:
+    x0:
 <br>
     :return:
 <br>
@@ -6499,9 +6499,9 @@
 <br>
         df[col] = df[col].apply(lambda x : colcat_map["cat_map"][col].get(x)  )
 <br>
-    :param df:
+    df:
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -6533,9 +6533,9 @@
 <br>
     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing
 <br>
-       :param df:
+       df:
 <br>
-       :param method:
+       method:
 <br>
        :return:
 <br>
@@ -6557,9 +6557,9 @@
 <br>
     https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing
 <br>
-       :param df:
+       df:
 <br>
-       :param method:
+       method:
 <br>
        :return:
 <br>
@@ -6577,11 +6577,11 @@
         <ul>df,<br>colnum_log,<br>colproba,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param colnum_log:
+    colnum_log:
 <br>
-    :param colproba:
+    colproba:
 <br>
     :return:
 <br>
@@ -6609,11 +6609,11 @@
         <ul>df1,<br>df2,<br>colid,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df1:
+    df1:
 <br>
-    :param df2:
+    df2:
 <br>
-    :param colid:
+    colid:
 <br>
     :return :
 <br>
@@ -6633,9 +6633,9 @@
 <br>
       Merge columns into single (hotn
 <br>
-    :param df:
+    df:
 <br>
-    :param colname:
+    colname:
 <br>
     :return :
 <br>
@@ -6667,11 +6667,11 @@
 <br>
    # filter1= X_client['client_id'].values
 <br>
-   :param df:
+   df:
 <br>
-   :param filter_val:
+   filter_val:
 <br>
-   :param iscol:
+   iscol:
 <br>
    :return:
 <br>
@@ -6831,9 +6831,9 @@
 <br>
       ]
 <br>
-    :param df:
+    df:
 <br>
-    :param pipeline:
+    pipeline:
 <br>
     :return:
 <br>
@@ -6853,15 +6853,15 @@
 <br>
         DownSampler
 <br>
-    :param df:
+    df:
 <br>
-    :param coltarget: binary class
+    coltarget: binary class
 <br>
-    :param n1max:
+    n1max:
 <br>
-    :param n2max:
+    n2max:
 <br>
-    :param isconcat:
+    isconcat:
 <br>
     :return:
 <br>
@@ -6881,7 +6881,7 @@
 <br>
     Concat vertically dataframe
 <br>
-    :param df_list:
+    df_list:
 <br>
     :return:
 <br>
@@ -6903,11 +6903,11 @@
 <br>
       df represents the dataframe comprising the column and colname comprising the target column
 <br>
-    :param df:
+    df:
 <br>
-    :param colname: list of columns
+    colname: list of columns
 <br>
-    :param coltarget : target column
+    coltarget : target column
 <br>
     :return:
 <br>
@@ -6925,7 +6925,7 @@
         <ul>df,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
     :return :
 <br>
@@ -6975,11 +6975,11 @@
         <ul>df,<br>bins = 50,<br>coltarget = "diff",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param bins:
+    bins:
 <br>
-    :param coltarget:
+    coltarget:
 <br>
     :return:
 <br>
@@ -6997,13 +6997,13 @@
         <ul>df,<br>bins = 50,<br>coltarget = "diff",<br>colgroupby = "y",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param bins:
+    bins:
 <br>
-    :param coltarget:
+    coltarget:
 <br>
-    :param colgroupby:
+    colgroupby:
 <br>
     :return:
 <br>
@@ -7021,9 +7021,9 @@
         <ul>df,<br>n = 10 ** 6,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param n:
+    n:
 <br>
     :return:
 <br>
@@ -7041,7 +7041,7 @@
         <ul>df,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
     :return:
 <br>
@@ -7059,9 +7059,9 @@
         <ul>data,<br>to,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param data:
+    data:
 <br>
-    :param to:
+    to:
 <br>
     :return :
 <br>
@@ -7097,7 +7097,7 @@
 <br>
     1hot column name to generic column names
 <br>
-    :param cols2:
+    cols2:
 <br>
     :return:
 <br>
@@ -7127,7 +7127,7 @@
 <br>
     Column extraction
 <br>
-    :param col_onehot
+    col_onehot
 <br>
     :return:
 <br>
@@ -7187,15 +7187,15 @@
 <br>
     nulls into another bucket.
 <br>
-    :param df: dataframe containg features and target column
+    df: dataframe containg features and target column
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param bins: Number bins required
+    bins: Number bins required
 <br>
-    :param cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
+    cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
 <br>
     :return: If cuts are passed only df_grouped data is returned, else cuts and df_grouped data is returned
 <br>
@@ -7215,13 +7215,13 @@
 <br>
     Calculates number of times the trend of feature wrt target changed direction.
 <br>
-    :param df: df_grouped dataset
+    df: df_grouped dataset
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param threshold: minimum % difference required to count as trend change
+    threshold: minimum % difference required to count as trend change
 <br>
     :return: number of trend chagnes for the feature
 <br>
@@ -7241,13 +7241,13 @@
 <br>
     Calculates correlation between train and test trend of colname wrt target.
 <br>
-    :param df: train df data
+    df: train df data
 <br>
-    :param df_test: test df data
+    df_test: test df data
 <br>
-    :param colname: colname column name
+    colname: colname column name
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
     :return: trend correlation between train and test
 <br>
@@ -7267,15 +7267,15 @@
 <br>
     Calculates trend changes and correlation between train/test for list of features
 <br>
-    :param df: dfframe containing features and target columns
+    df: dfframe containing features and target columns
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
 <br>
-    :param bins: number of bins to be created from continuous colname
+    bins: number of bins to be created from continuous colname
 <br>
-    :param df_test: test df which has to be compared with input df for correlation
+    df_test: test df which has to be compared with input df for correlation
 <br>
     :return: dfframe with trend changes and trend correlation (if test df passed)
 <br>
@@ -7438,11 +7438,11 @@
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -7765,11 +7765,11 @@
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -7843,19 +7843,19 @@
 <br>
            Dense Model of DeepWide
 <br>
-        :param n_wide_cross: 
+        n_wide_cross: 
 <br>
-        :param n_wide: 
+        n_wide: 
 <br>
-        :param n_deep: 
+        n_deep: 
 <br>
-        :param n_feat: 
+        n_feat: 
 <br>
-        :param m_EMBEDDING: 
+        m_EMBEDDING: 
 <br>
-        :param loss: 
+        loss: 
 <br>
-        :param metric: 
+        metric: 
 <br>
         :return: 
 <br>
@@ -8807,7 +8807,7 @@
 <br>
     Reads csv file (maybe zipped) from data directory and caches it's content as a pickled DataFrame
 <br>
-    :param name: file name without extension
+    name: file name without extension
 <br>
     :return: file content
 <br>
@@ -8869,9 +8869,9 @@
 <br>
     Autocorrelation for single data series
 <br>
-    :param series: traffic series
+    series: traffic series
 <br>
-    :param lag: lag, days
+    lag: lag, days
 <br>
     :return:
 <br>
@@ -8891,17 +8891,17 @@
 <br>
     Calculate autocorrelation for batch (many time series at once)
 <br>
-    :param data: Time series, shape [n_pages, n_days]
+    data: Time series, shape [n_pages, n_days]
 <br>
-    :param lag: Autocorrelation lag
+    lag: Autocorrelation lag
 <br>
-    :param starts: Start index for each series
+    starts: Start index for each series
 <br>
-    :param ends: End index for each series
+    ends: End index for each series
 <br>
-    :param threshold: Minimum support (ratio of time series length to lag) to calculate meaningful autocorrelation.
+    threshold: Minimum support (ratio of time series length to lag) to calculate meaningful autocorrelation.
 <br>
-    :param backoffset: Offset from the series end, days.
+    backoffset: Offset from the series end, days.
 <br>
     :return: autocorrelation, shape [n_series]. If series is too short (support less than threshold),
 <br>
@@ -8925,7 +8925,7 @@
 <br>
      end is index of last non-zero, non-NaN value
 <br>
-    :param data: Time series, shape [n_pages, n_days]
+    data: Time series, shape [n_pages, n_days]
 <br>
     :return:
 <br>
@@ -8945,11 +8945,11 @@
 <br>
     Reads source data, calculates start and end of each series, drops bad series, calculates log1p(series)
 <br>
-    :param start: start date of effective time interval, can be None to start from beginning
+    start: start date of effective time interval, can be None to start from beginning
 <br>
-    :param end: end date of effective time interval, can be None to return all data
+    end: end date of effective time interval, can be None to return all data
 <br>
-    :param valid_threshold: minimal ratio of series real length to entire (end-start) interval. Series dropped if
+    valid_threshold: minimal ratio of series real length to entire (end-start) interval. Series dropped if
 <br>
     ratio is less than threshold
 <br>
@@ -8971,9 +8971,9 @@
 <br>
     Calculates indexes for 3, 6, 9, 12 months backward lag for the given date range
 <br>
-    :param begin: start of date range
+    begin: start of date range
 <br>
-    :param end: end of date range
+    end: end of date range
 <br>
     :return: List of 4 Series, one for each lag. For each Series, index is date in range(begin, end), value is an index
 <br>
@@ -8995,7 +8995,7 @@
 <br>
     Calculates page features (site, country, agent, etc) from urls
 <br>
-    :param pages: Source urls
+    pages: Source urls
 <br>
     :return: DataFrame with features as columns and urls as index
 <br>
@@ -9015,7 +9015,7 @@
 <br>
     Finds agent types (spider, desktop, mobile, all) for each unique url, i.e. groups pages by agents
 <br>
-    :param pages: all urls (must be presorted)
+    pages: all urls (must be presorted)
 <br>
     :return: array[num_unique_urls, 4], where each column corresponds to agent type and each row corresponds to unique url.
 <br>
@@ -9037,7 +9037,7 @@
 <br>
     Applies one-hot encoding to page features and normalises result
 <br>
-    :param df: page features DataFrame (one column per feature)
+    df: page features DataFrame (one column per feature)
 <br>
     :return: dictionary feature_name:encoded_values. Encoded values is [n_pages,n_values] array
 <br>
@@ -9578,7 +9578,7 @@
 <br>
 
 <br>
-    :param x: the time series to calculate the feature of
+    x: the time series to calculate the feature of
 <br>
     :type x: numpy.ndarray
 <br>
@@ -10248,7 +10248,7 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>Xpred = None,<br>data_pars = {},<br>compute_pars = {},<br>out_pars = {},<br>**kw,<br></ul>
         <li>Docs:<br>    """ Geenrate Xtrain  ----> Xtrain_new
 <br>
-    :param Xpred:
+    Xpred:
 <br>
         Xpred ==> None            if you want to get generated samples by by SDV models
 <br>
@@ -10256,13 +10256,13 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
               ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -10280,7 +10280,7 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>Xpred = None,<br>data_pars = {},<br>compute_pars = {},<br>out_pars = {},<br>**kw,<br></ul>
         <li>Docs:<br>    """ Geenrate Xtrain  ----> Xtrain_new
 <br>
-    :param Xpred:
+    Xpred:
 <br>
         Xpred ==> None            if you want to get generated samples by by SDV models
 <br>
@@ -10288,13 +10288,13 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
               ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -10352,13 +10352,13 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br>split = False,<br></ul>
         <li>Docs:<br>    """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
-    :param split: 
+    split: 
 <br>
         True :  split data to list of dataframe 
 <br>
@@ -10522,11 +10522,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
        colsall
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -10546,11 +10546,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
        Remove rows based on criteria
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -10715,11 +10715,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
 
 <br>
-    :param df:
+    df:
 <br>
-    :param name:
+    name:
 <br>
-    :param path:
+    path:
 <br>
     :return:
 <br>
@@ -10739,21 +10739,21 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
 
 <br>
-    :param path_train_X:
+    path_train_X:
 <br>
-    :param path_train_y:
+    path_train_y:
 <br>
-    :param path_pipeline_export:
+    path_pipeline_export:
 <br>
-    :param cols_group:
+    cols_group:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
-    :param preprocess_pars:
+    preprocess_pars:
 <br>
-    :param filter_pars:
+    filter_pars:
 <br>
-    :param path_features_store:
+    path_features_store:
 <br>
     :return:
 <br>
@@ -11120,15 +11120,15 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
     nulls into another bucket.
 <br>
-    :param input_data: dataframe containg features and target column
+    input_data: dataframe containg features and target column
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param bins: Number bins required
+    bins: Number bins required
 <br>
-    :param cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
+    cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
 <br>
     :return: If cuts are passed only grouped data is returned, else cuts and grouped data is returned
 <br>
@@ -11148,15 +11148,15 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
     Creates univariate dependence plots for features in the dataset
 <br>
-    :param data: dataframe containing features and target columns
+    data: dataframe containing features and target columns
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
 <br>
-    :param bins: number of bins to be created from continuous feature
+    bins: number of bins to be created from continuous feature
 <br>
-    :param data_test: test data which has to be compared with input data for correlation
+    data_test: test data which has to be compared with input data for correlation
 <br>
     :return: Draws univariate plots for all columns in data
 <br>
@@ -11176,15 +11176,15 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
     Calls the draw plot function and editing around the plots
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param data: dataframe containing features and target columns
+    data: dataframe containing features and target columns
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
-    :param bins: number of bins to be created from continuous feature
+    bins: number of bins to be created from continuous feature
 <br>
-    :param data_test: test data which has to be compared with input data for correlation
+    data_test: test data which has to be compared with input data for correlation
 <br>
     :return: grouped data if only train passed, else (grouped train data, grouped test data)
 <br>
@@ -11204,13 +11204,13 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
     Calculates correlation between train and test trend of feature wrt target.
 <br>
-    :param grouped: train grouped data
+    grouped: train grouped data
 <br>
-    :param grouped_test: test grouped data
+    grouped_test: test grouped data
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column name
+    target_col: target column name
 <br>
     :return: trend correlation between train and test
 <br>
@@ -11230,13 +11230,13 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
     Draws univariate dependence plots for a feature
 <br>
-    :param input_data: grouped data contained bins of feature and target mean.
+    input_data: grouped data contained bins of feature and target mean.
 <br>
-    :param feature: feature column name
+    feature: feature column name
 <br>
-    :param target_col: target column
+    target_col: target column
 <br>
-    :param trend_correlation: correlation between train and test trends of feature wrt target
+    trend_correlation: correlation between train and test trends of feature wrt target
 <br>
     :return: Draws trend plots for feature
 <br>
@@ -11264,15 +11264,15 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>12,<br>10),<br>title = "feature importance",<br>savefile = "myfile.png",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param x:
+    x:
 <br>
-    :param y:
+    y:
 <br>
-    :param color:
+    color:
 <br>
-    :param size:
+    size:
 <br>
-    :param title:
+    title:
 <br>
     """
 <br>
@@ -11288,13 +11288,13 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>df,<br>col_include = None,<br>col_exclude = None,<br>pars={"binsize":  = {"binsize": 20},<br></ul>
         <li>Docs:<br>    """  Retrives all the information of the column
 <br>
-    :param df:
+    df:
 <br>
-    :param col_include:
+    col_include:
 <br>
-    :param col_exclude:
+    col_exclude:
 <br>
-    :param pars:
+    pars:
 <br>
     """
 <br>
@@ -11310,11 +11310,11 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>df,<br>Xcolname = None,<br>Ycoltarget = None,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param Xcolname:
+    Xcolname:
 <br>
-    :param Ycoltarget:
+    Ycoltarget:
 <br>
  
 <br>
@@ -11334,9 +11334,9 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
 
 <br>
-    :param Xmat_dist:
+    Xmat_dist:
 <br>
-    :param Xcolname:
+    Xcolname:
 <br>
     :return:
 <br>
@@ -11354,11 +11354,11 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>X_2dim,<br>target_class,<br>target_names,<br></ul>
         <li>Docs:<br>    """ 
 <br>
-    :param X_2dim:
+    X_2dim:
 <br>
-    :param target_class:
+    target_class:
 <br>
-    :param target_names:
+    target_names:
 <br>
     :return: 
 <br>
@@ -11492,11 +11492,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
      Create Interactive Plotly
 <br>
-    :param xx:
+    xx:
 <br>
-    :param yy:
+    yy:
 <br>
-    :param towhere:
+    towhere:
 <br>
     :return:
 <br>
@@ -11514,11 +11514,11 @@ Compute a Higuchi Fractal Dimension of a time series
         <ul>X,<br>Y,<br>Zcolor = None,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param X:
+    X:
 <br>
-    :param Y:
+    Y:
 <br>
-    :param Zcolor:
+    Zcolor:
 <br>
     :return:
 <br>
@@ -11648,7 +11648,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
 
 <br>
-    :param df:
+    df:
 <br>
     :return:
 <br>
@@ -12658,7 +12658,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
 
 <br>
-    :param x: the time series to calculate the feature of
+    x: the time series to calculate the feature of
 <br>
     :type x: numpy.ndarray
 <br>
@@ -14606,11 +14606,11 @@ cf.set_config_file(offline=False, world_readable=True)
         <ul>df,<br>name,<br>path,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param name:
+    name:
 <br>
-    :param path:
+    path:
 <br>
     :return:
 <br>
@@ -14648,11 +14648,11 @@ cf.set_config_file(offline=False, world_readable=True)
         <ul>df,<br>col,<br>stopwords,<br>ntoken = 100,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param coltext:  text where word frequency should be extracted
+    coltext:  text where word frequency should be extracted
 <br>
-    :param nb_to_show:
+    nb_to_show:
 <br>
     :return:
 <br>
@@ -15348,7 +15348,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
 
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>
@@ -16240,11 +16240,11 @@ cf.set_config_file(offline=False, world_readable=True)
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -16280,7 +16280,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
 
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>
@@ -16502,7 +16502,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     https://arxiv.org/abs/1706.02515
 <br>
-    :param x:
+    x:
 <br>
     :return:
 <br>
@@ -16522,17 +16522,17 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Builds encoder, using CUDA RNN
 <br>
-    :param time_inputs: Input tensor, shape [batch, time, features]
+    time_inputs: Input tensor, shape [batch, time, features]
 <br>
-    :param encoder_features_depth: Static size for features dimension
+    encoder_features_depth: Static size for features dimension
 <br>
-    :param is_train:
+    is_train:
 <br>
-    :param hparams:
+    hparams:
 <br>
-    :param seed:
+    seed:
 <br>
-    :param transpose_output: Transform RNN output to batch-first shape
+    transpose_output: Transform RNN output to batch-first shape
 <br>
     :return:
 <br>
@@ -16552,13 +16552,13 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     FC compression layer, reduces RNN output depth to hparams.attention_depth
 <br>
-    :param rnn_out:
+    rnn_out:
 <br>
-    :param hparams:
+    hparams:
 <br>
-    :param dropout:
+    dropout:
 <br>
-    :param seed:
+    seed:
 <br>
     :return:
 <br>
@@ -16578,13 +16578,13 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Calculates 'fingerprint' of timeseries, to feed into attention layer
 <br>
-    :param x:
+    x:
 <br>
-    :param is_train:
+    is_train:
 <br>
-    :param fc_dropout:
+    fc_dropout:
 <br>
-    :param seed:
+    seed:
 <br>
     :return:
 <br>
@@ -16614,11 +16614,11 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Calculates SMAPE on rounded submission values. Should be close to official SMAPE in competition
 <br>
-    :param true:
+    true:
 <br>
-    :param predicted:
+    predicted:
 <br>
-    :param weights: Weights mask to exclude some values
+    weights: Weights mask to exclude some values
 <br>
     :return:
 <br>
@@ -16638,11 +16638,11 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Differentiable SMAPE loss
 <br>
-    :param true: Truth values
+    true: Truth values
 <br>
-    :param predicted: Predicted values
+    predicted: Predicted values
 <br>
-    :param weights: Weights mask to exclude some values
+    weights: Weights mask to exclude some values
 <br>
     :return:
 <br>
@@ -16662,9 +16662,9 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Converts normalized prediction values to log1p(pageviews), e.g. reverts normalization
 <br>
-    :param decoder_readout: Decoder output, shape [n_days, batch]
+    decoder_readout: Decoder output, shape [n_days, batch]
 <br>
-    :param inp: Input tensors
+    inp: Input tensors
 <br>
     :return:
 <br>
@@ -16684,11 +16684,11 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Calculates losses, ignoring NaN true values (assigning zero loss to them)
 <br>
-    :param predictions: Predicted values
+    predictions: Predicted values
 <br>
-    :param true_y: True values
+    true_y: True values
 <br>
-    :param additional_mask:
+    additional_mask:
 <br>
     :return: MAE loss, differentiable SMAPE loss, competition SMAPE loss
 <br>
@@ -16718,9 +16718,9 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     Converts RNN state tensor from cuDNN representation to TF RNNCell compatible representation.
 <br>
-    :param h_state: tensor [num_layers, batch_size, depth]
+    h_state: tensor [num_layers, batch_size, depth]
 <br>
-    :param c_state: LSTM additional state, should be same shape as h_state
+    c_state: LSTM additional state, should be same shape as h_state
 <br>
     :return: TF cell representation matching RNNCell.state_size structure for compatible cell
 <br>
@@ -16742,7 +16742,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     https://arxiv.org/pdf/1511.08400.pdf
 <br>
-    :param rnn_output: [time, batch, features]
+    rnn_output: [time, batch, features]
 <br>
     :return: loss value
 <br>
@@ -16764,7 +16764,7 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
     https://arxiv.org/pdf/1511.08400.pdf
 <br>
-    :param rnn_output: [time, batch, features]
+    rnn_output: [time, batch, features]
 <br>
     :return: loss value
 <br>
@@ -16794,19 +16794,19 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
         Encoder-decoder prediction model
 <br>
-        :param inp: Input tensors
+        inp: Input tensors
 <br>
-        :param hparams:
+        hparams:
 <br>
-        :param is_train:
+        is_train:
 <br>
-        :param seed:
+        seed:
 <br>
-        :param graph_prefix: Subgraph prefix for multi-model graph
+        graph_prefix: Subgraph prefix for multi-model graph
 <br>
-        :param asgd_decay: Decay for SGD averaging
+        asgd_decay: Decay for SGD averaging
 <br>
-        :param loss_mask: Additional mask for losses calculation (one value for each prediction day), shape=[predict_window]
+        loss_mask: Additional mask for losses calculation (one value for each prediction day), shape=[predict_window]
 <br>
         """
 <br>
@@ -16832,13 +16832,13 @@ cf.set_config_file(offline=False, world_readable=True)
         <ul>self,<br>encoder_state,<br>attn_features,<br>prediction_inputs,<br>previous_y,<br></ul>
         <li>Docs:<br>        """
 <br>
-        :param encoder_state: shape [batch_size, encoder_rnn_depth]
+        encoder_state: shape [batch_size, encoder_rnn_depth]
 <br>
-        :param prediction_inputs: features for prediction days, tensor[batch_size, time, input_depth]
+        prediction_inputs: features for prediction days, tensor[batch_size, time, input_depth]
 <br>
-        :param previous_y: Last day pageviews, shape [batch_size]
+        previous_y: Last day pageviews, shape [batch_size]
 <br>
-        :param attn_features: Additional features from attention layer, shape [batch, predict_window, readout_depth*n_heads]
+        attn_features: Additional features from attention layer, shape [batch, predict_window, readout_depth*n_heads]
 <br>
         :return: decoder rnn output
 <br>
@@ -16933,7 +16933,7 @@ cf.set_config_file(offline=False, world_readable=True)
         <ul>model_name,<br></ul>
         <li>Docs:<br>    """ Get the Class of the object stored in source/models/
 <br>
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
 <br>
     :return: model module
 <br>
@@ -17030,17 +17030,17 @@ cf.set_config_file(offline=False, world_readable=True)
 <br>
                          method="svd", dimpca=2, return_val="dataframe,param")
 <br>
-    :param df:
+    df:
 <br>
-    :param colname:
+    colname:
 <br>
-    :param colprefix:
+    colprefix:
 <br>
-    :param method:
+    method:
 <br>
-    :param dimpca:
+    dimpca:
 <br>
-    :param return_val:
+    return_val:
 <br>
     :return:
 <br>
@@ -17130,17 +17130,17 @@ preds_proba = model.predict_proba(test_pool)
 <br>
    Genetic: population_size=5, ngene_mutation_prob=0.10,,gene_crossover_prob=0.5, tournament_size=3,  generations_number=3
 <br>
-    :param X:
+    X:
 <br>
-    :param y:
+    y:
 <br>
-    :param clf:
+    clf:
 <br>
-    :param param_grid:
+    param_grid:
 <br>
-    :param method:
+    method:
 <br>
-    :param param_search:
+    param_search:
 <br>
     :return:
 <br>
@@ -17336,9 +17336,9 @@ kde.sample(5)
 <br>
        Feature importance with colname
 <br>
-    :param clf:  model or colnum with weights
+    clf:  model or colnum with weights
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -17358,9 +17358,9 @@ kde.sample(5)
 <br>
        Feature importance with colname
 <br>
-    :param clf:  model or colnum with weights
+    clf:  model or colnum with weights
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -17506,17 +17506,17 @@ kde.sample(5)
         <ul>clf,<br>X,<br>y,<br>test_size = 0.5,<br>ncv = 1,<br>method = "random",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param clf:
+    clf:
 <br>
-    :param X:
+    X:
 <br>
-    :param y:
+    y:
 <br>
-    :param test_size:
+    test_size:
 <br>
-    :param ncv:
+    ncv:
 <br>
-    :param method:
+    method:
 <br>
     :return:
 <br>
@@ -18696,11 +18696,11 @@ kde.sample(5)
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref = None,<br></ul>
         <li>Docs:<br>    """  Split into Tuples:  Xtuple = (df1, df2, df3) OR single dataframe  to Feed model
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -19530,11 +19530,11 @@ def sales_validation:
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -20154,15 +20154,15 @@ def sales_validation:
 <br>
        Generic train
 <br>
-    :param input_path:
+    input_path:
 <br>
-    :param max_rows:
+    max_rows:
 <br>
-    :param n_experiments:
+    n_experiments:
 <br>
-    :param colid:
+    colid:
 <br>
-    :param coly:
+    coly:
 <br>
     :return:
 <br>
@@ -21181,11 +21181,11 @@ def sales_validation:
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -22608,7 +22608,7 @@ def sales_validation:
         <ul>X,<br>kde,<br></ul>
         <li>Docs:<br>    """Find best Bandwidht for a  given kernel
 <br>
-  :param kde:
+  kde:
 <br>
   :return:
 <br>
@@ -22711,11 +22711,11 @@ def sales_validation:
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -22883,7 +22883,7 @@ def sales_validation:
 <br>
 
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>
@@ -23082,11 +23082,11 @@ def sales_validation:
         <ul>variable_list,<br>folder,<br>globals_main = None,<br></ul>
         <li>Docs:<br>    """ Pickle saving batch
 <br>
-    :param variable_list:
+    variable_list:
 <br>
-    :param folder:
+    folder:
 <br>
-    :param globals_main:
+    globals_main:
 <br>
     :return:
 <br>
@@ -23114,11 +23114,11 @@ def sales_validation:
         <ul>filename = "/folder1/keyname",<br>isabsolutpath = 0,<br>encoding1 = "utf-8",<br></ul>
         <li>Docs:<br>    """ pickle load
 <br>
-    :param filename:
+    filename:
 <br>
-    :param isabsolutpath:
+    isabsolutpath:
 <br>
-    :param encoding1:
+    encoding1:
 <br>
     :return:
 <br>
@@ -23347,7 +23347,7 @@ def sales_validation:
 <br>
       Get the Class of the object stored in source/models/
 <br>
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
 <br>
     :return: model module
 <br>
@@ -23367,13 +23367,13 @@ def sales_validation:
         <ul>model_dict,<br>dfX,<br>cols_family,<br>post_process_fun,<br></ul>
         <li>Docs:<br>    """  Train the model using model_dict, save model, save prediction
 <br>
-    :param model_dict:  dict containing params
+    model_dict:  dict containing params
 <br>
-    :param dfX:  pd.DataFrame
+    dfX:  pd.DataFrame
 <br>
-    :param cols_family: dict of list containing column names
+    cols_family: dict of list containing column names
 <br>
-    :param post_process_fun:
+    post_process_fun:
 <br>
     :return: dfXtrain , dfXval  DataFrame containing prediction.
 <br>
@@ -23391,7 +23391,7 @@ def sales_validation:
         <ul>model_dict,<br></ul>
         <li>Docs:<br>    """  Validate dictionnary
 <br>
-    :param model_dict:
+    model_dict:
 <br>
     :return:
 <br>
@@ -23411,11 +23411,11 @@ def sales_validation:
 <br>
       Configuration of the model is in config_model.py file
 <br>
-    :param config_name:
+    config_name:
 <br>
-    :param config_path:
+    config_path:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
     :return:
 <br>
@@ -23433,9 +23433,9 @@ def sales_validation:
         <ul>path_output,<br>scoring,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param path_output:
+    path_output:
 <br>
-    :param scoring:
+    scoring:
 <br>
     :return:
 <br>
@@ -23567,11 +23567,11 @@ def sales_validation:
         <ul>df,<br>col,<br>stopwords,<br>ntoken = 100,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param df:
+    df:
 <br>
-    :param coltext:  text where word frequency should be extracted
+    coltext:  text where word frequency should be extracted
 <br>
-    :param nb_to_show:
+    nb_to_show:
 <br>
     :return:
 <br>
@@ -24405,9 +24405,9 @@ def sales_validation:
         <ul>data_pars,<br>task_type = "train",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param task_type:
+    task_type:
 <br>
     :return:
 <br>
@@ -24483,11 +24483,11 @@ def sales_validation:
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -24606,7 +24606,7 @@ def sales_validation:
         <ul>config = '',<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>
@@ -24636,9 +24636,9 @@ def sales_validation:
 <br>
 
 <br>
-    :param config:
+    config:
 <br>
-    :param nsample:
+    nsample:
 <br>
     :return:
 <br>
@@ -24656,9 +24656,9 @@ def sales_validation:
         <ul>config = '',<br>nsample = None,<br></ul>
         <li>Docs:<br>    """  train a model with  confi_name  and nsample
 <br>
-    :param config:
+    config:
 <br>
-    :param nsample:
+    nsample:
 <br>
     :return:
 <br>
@@ -24686,9 +24686,9 @@ def sales_validation:
         <ul>config = '',<br>nsample = None,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param config:
+    config:
 <br>
-    :param nsample:
+    nsample:
 <br>
     :return:
 <br>
@@ -24706,9 +24706,9 @@ def sales_validation:
         <ul>config = '',<br>nsample = None,<br></ul>
         <li>Docs:<br>    """  train a model with  confi_name  and nsample
 <br>
-    :param config:
+    config:
 <br>
-    :param nsample:
+    nsample:
 <br>
     :return:
 <br>
@@ -24726,9 +24726,9 @@ def sales_validation:
         <ul>config = '',<br>nsample = None,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param config:
+    config:
 <br>
-    :param nsample:
+    nsample:
 <br>
     :return:
 <br>
@@ -25881,9 +25881,9 @@ def sales_validation:
         <ul>prefix,<br>pars,<br></ul>
         <li>Docs:<br>    """  Load previously savec preprocessors
 <br>
-    :param prefix:
+    prefix:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -25901,17 +25901,17 @@ def sales_validation:
         <ul>prefix,<br>pars,<br>df_new,<br>cols_new,<br>prepro,<br></ul>
         <li>Docs:<br>    """  Save preprocessors and export
 <br>
-    :param prefix:
+    prefix:
 <br>
-    :param pars:
+    pars:
 <br>
-    :param df_new:
+    df_new:
 <br>
-    :param cols_new:
+    cols_new:
 <br>
-    :param prepro:
+    prepro:
 <br>
-    :param pars_prepro:
+    pars_prepro:
 <br>
     :return:
 <br>
@@ -26015,11 +26015,11 @@ def sales_validation:
         <ul>df:  pd.DataFrame,<br>col:  list = None,<br>pars:  dict = None,<br></ul>
         <li>Docs:<br>    """  float column into  binned columns
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -26967,17 +26967,17 @@ def sales_validation:
         <ul>Xpred = None,<br>data_pars = {},<br>compute_pars = {},<br>out_pars = {},<br>**kw,<br></ul>
         <li>Docs:<br>    """ Geenrate Xtrain  ----> Xtrain_new  (ie transformed)
 <br>
-    :param Xpred:
+    Xpred:
 <br>
               ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -26997,15 +26997,15 @@ def sales_validation:
 <br>
        Embedding --> Actual values
 <br>
-    :param Xpred:
+    Xpred:
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -27027,15 +27027,15 @@ def sales_validation:
 <br>
 
 <br>
-    :param Xpred:
+    Xpred:
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -27093,13 +27093,13 @@ def sales_validation:
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br>split = False,<br></ul>
         <li>Docs:<br>    """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
-    :param split: 
+    split: 
 <br>
         True :  split data to list of dataframe 
 <br>
@@ -27165,11 +27165,11 @@ def sales_validation:
 <br>
        colsall
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -27558,7 +27558,7 @@ def sales_validation:
 <br>
         Shuffles pages so all user_agents of each unique pages stays together in a shuffled list
 <br>
-        :param cluster_idx: Tensor[uniq_pages, n_agents], each value is index of pair (uniq_page, agent) in other page tensors
+        cluster_idx: Tensor[uniq_pages, n_agents], each value is index of pair (uniq_page, agent) in other page tensors
 <br>
         :return: list of page indexes for use in a global page tensors
 <br>
@@ -27598,11 +27598,11 @@ def sales_validation:
 <br>
         Cuts [start:end] diapason from input data
 <br>
-        :param hits: hits timeseries
+        hits: hits timeseries
 <br>
-        :param start: start index
+        start: start index
 <br>
-        :param end: end index
+        end: end index
 <br>
         :return: tuple (train_hits, test_hits, dow, lagged_hits)
 <br>
@@ -27622,9 +27622,9 @@ def sales_validation:
 <br>
         Cuts a segment of time series for training. Randomly chooses starting point.
 <br>
-        :param hits: hits timeseries
+        hits: hits timeseries
 <br>
-        :param args: pass-through data, will be appended to result
+        args: pass-through data, will be appended to result
 <br>
         :return: result of cut() + args
 <br>
@@ -27646,9 +27646,9 @@ def sales_validation:
 <br>
         Always cuts train_window + predict_window length segment beginning at start_offset point
 <br>
-        :param hits: hits timeseries
+        hits: hits timeseries
 <br>
-        :param args: pass-through data, will be appended to result
+        args: pass-through data, will be appended to result
 <br>
         :return: result of cut() + args
 <br>
@@ -27700,35 +27700,35 @@ def sales_validation:
 <br>
         Create data preprocessing pipeline
 <br>
-        :param inp: Raw input data
+        inp: Raw input data
 <br>
-        :param features: Features tensors (subset of data in inp)
+        features: Features tensors (subset of data in inp)
 <br>
-        :param n_pages: Total number of pages
+        n_pages: Total number of pages
 <br>
-        :param mode: Train/Predict/Eval mode selector
+        mode: Train/Predict/Eval mode selector
 <br>
-        :param n_epoch: Number of epochs. Generates endless data stream if None
+        n_epoch: Number of epochs. Generates endless data stream if None
 <br>
-        :param batch_size:
+        batch_size:
 <br>
-        :param runs_in_burst: How many batches can be consumed at short time interval (burst). Multiplicator for prefetch()
+        runs_in_burst: How many batches can be consumed at short time interval (burst). Multiplicator for prefetch()
 <br>
-        :param verbose: Print additional information during graph construction
+        verbose: Print additional information during graph construction
 <br>
-        :param predict_window: Number of days to predict
+        predict_window: Number of days to predict
 <br>
-        :param train_window: Use train_window days for traning
+        train_window: Use train_window days for traning
 <br>
-        :param train_completeness_threshold: Percent of zero datapoints allowed in train timeseries.
+        train_completeness_threshold: Percent of zero datapoints allowed in train timeseries.
 <br>
-        :param predict_completeness_threshold: Percent of zero datapoints allowed in test/predict timeseries.
+        predict_completeness_threshold: Percent of zero datapoints allowed in test/predict timeseries.
 <br>
-        :param back_offset: Don't use back_offset days at the end of timeseries
+        back_offset: Don't use back_offset days at the end of timeseries
 <br>
-        :param train_skip_first: Don't use train_skip_first days at the beginning of timeseries
+        train_skip_first: Don't use train_skip_first days at the beginning of timeseries
 <br>
-        :param rand_seed:
+        rand_seed:
 <br>
 
 <br>
@@ -28055,9 +28055,9 @@ def sales_validation:
         <ul>actual,<br>predicted,<br>eps = 1e-15,<br></ul>
         <li>Docs:<br>    """Multi class version of Logarithmic Loss metric.
 <br>
-    :param actual: Array containing the actual target classes
+    actual: Array containing the actual target classes
 <br>
-    :param predicted: Matrix with class predictions, one probability per class
+    predicted: Matrix with class predictions, one probability per class
 <br>
     """
 <br>
@@ -28095,17 +28095,17 @@ def sales_validation:
 <br>
         Ensembler init function
 <br>
-        :param model_dict: model dictionary, see README for its format
+        model_dict: model dictionary, see README for its format
 <br>
-        :param num_folds: the number of folds for ensembling
+        num_folds: the number of folds for ensembling
 <br>
-        :param task_type: classification or regression
+        task_type: classification or regression
 <br>
-        :param optimize: the function to optimize for, e.g. AUC, logloss, etc. Must have two arguments y_test and y_pred
+        optimize: the function to optimize for, e.g. AUC, logloss, etc. Must have two arguments y_test and y_pred
 <br>
-        :param lower_is_better: is lower value of optimization function better or higher
+        lower_is_better: is lower value of optimization function better or higher
 <br>
-        :param save_path: path to which model pickles will be dumped to along with generated predictions, or None
+        save_path: path to which model pickles will be dumped to along with generated predictions, or None
 <br>
         """
 <br>
@@ -28121,9 +28121,9 @@ def sales_validation:
         <ul>self,<br>training_data,<br>y,<br>lentrain,<br></ul>
         <li>Docs:<br>        """
 <br>
-        :param training_data: training data in tabular format
+        training_data: training data in tabular format
 <br>
-        :param y: binary, multi-class or regression
+        y: binary, multi-class or regression
 <br>
         :return: chain of models to be used in prediction
 <br>
@@ -28174,17 +28174,17 @@ def sales_validation:
 <br>
                          method="svd", dimpca=2, return_val="dataframe,param")
 <br>
-    :param df:
+    df:
 <br>
-    :param colname:
+    colname:
 <br>
-    :param colprefix:
+    colprefix:
 <br>
-    :param method:
+    method:
 <br>
-    :param dimpca:
+    dimpca:
 <br>
-    :param return_val:
+    return_val:
 <br>
     :return:
 <br>
@@ -28284,17 +28284,17 @@ preds_proba = model.predict_proba(test_pool)
 <br>
 
 <br>
-    :param X:
+    X:
 <br>
-    :param y:
+    y:
 <br>
-    :param clf:
+    clf:
 <br>
-    :param param_grid:
+    param_grid:
 <br>
-    :param method:
+    method:
 <br>
-    :param param_search:
+    param_search:
 <br>
     :return:
 <br>
@@ -28502,9 +28502,9 @@ kde.sample(5)
 <br>
        Feature importance with colname
 <br>
-    :param clf:  model or colnum with weights
+    clf:  model or colnum with weights
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -28524,9 +28524,9 @@ kde.sample(5)
 <br>
        Feature importance with colname
 <br>
-    :param clf:  model or colnum with weights
+    clf:  model or colnum with weights
 <br>
-    :param colname:
+    colname:
 <br>
     :return:
 <br>
@@ -28690,17 +28690,17 @@ kde.sample(5)
         <ul>clf,<br>X,<br>y,<br>test_size = 0.5,<br>ncv = 1,<br>method = "random",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param clf:
+    clf:
 <br>
-    :param X:
+    X:
 <br>
-    :param y:
+    y:
 <br>
-    :param test_size:
+    test_size:
 <br>
-    :param ncv:
+    ncv:
 <br>
-    :param method:
+    method:
 <br>
     :return:
 <br>
@@ -29110,9 +29110,9 @@ kde.sample(5)
         <ul>data_pars,<br>task_type = "train",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param task_type:
+    task_type:
 <br>
     :return:
 <br>
@@ -29154,15 +29154,15 @@ kde.sample(5)
         <ul>Xpred = None,<br>data_pars:  dict = {},<br>compute_pars:  dict = {},<br>out_pars:  dict = {},<br>**kw,<br></ul>
         <li>Docs:<br>    """ Specify the format required   due to sampling
 <br>
-    :param Xpred:
+    Xpred:
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param compute_pars:
+    compute_pars:
 <br>
-    :param out_pars:
+    out_pars:
 <br>
-    :param kw:
+    kw:
 <br>
     :return:
 <br>
@@ -29234,11 +29234,11 @@ kde.sample(5)
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -29597,9 +29597,9 @@ kde.sample(5)
 <br>
     Cardinality of gluonts dataset
 <br>
-  :param dataset_path:
+  dataset_path:
 <br>
-  :param TD:
+  TD:
 <br>
   :return:
 <br>
@@ -30317,17 +30317,17 @@ kde.sample(5)
 <br>
     Calculate Segmentation of colum using rule based.
 <br>
-    :param df:
+    df:
 <br>
-    :param col_score:
+    col_score:
 <br>
-    :param coldefault:
+    coldefault:
 <br>
-    :param ntotal_default:
+    ntotal_default:
 <br>
-    :param def_list:
+    def_list:
 <br>
-    :param nblock:
+    nblock:
 <br>
     :return:
 <br>
@@ -30347,9 +30347,9 @@ kde.sample(5)
 <br>
     ##### Get Kaiso limit ###############################################################
 <br>
-    :param x:
+    x:
 <br>
-    :param l1:
+    l1:
 <br>
     :return :
 <br>
@@ -30367,7 +30367,7 @@ kde.sample(5)
         <ul>l1,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param l1:
+    l1:
 <br>
     :return :
 <br>
@@ -30387,13 +30387,13 @@ kde.sample(5)
 <br>
 
 <br>
-    :param clf:
+    clf:
 <br>
-    :param df1:
+    df1:
 <br>
-    :param cols:
+    cols:
 <br>
-    :param outype:
+    outype:
 <br>
     :return:
 <br>
@@ -31023,9 +31023,9 @@ kde.sample(5)
         <ul>data_pars,<br>task_type = "train",<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param data_pars:
+    data_pars:
 <br>
-    :param task_type:
+    task_type:
 <br>
     :return:
 <br>
@@ -31101,11 +31101,11 @@ kde.sample(5)
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -31206,21 +31206,21 @@ kde.sample(5)
 <br>
       Very Slow Process, use lower number of Sample
 <br>
-  :param Xmat:
+  Xmat:
 <br>
-  :param y:
+  y:
 <br>
-  :param outfolder:
+  outfolder:
 <br>
-  :param model_type:
+  model_type:
 <br>
-  :param train_size:
+  train_size:
 <br>
-  :param generation:
+  generation:
 <br>
-  :param population_size:
+  population_size:
 <br>
-  :param verbosity:
+  verbosity:
 <br>
   :return:
 <br>
@@ -33745,11 +33745,11 @@ Once the training is done, you can run the generated files from the command line
 <br>
 
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -33805,11 +33805,11 @@ Once the training is done, you can run the generated files from the command line
 <br>
        category to oneHot (ie week, weekday, shop, ..)
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -33992,7 +33992,7 @@ Once the training is done, you can run the generated files from the command line
 <br>
     Extracts features from url. Features: agent, site, country, term, marker
 <br>
-    :param source: urls
+    source: urls
 <br>
     :return: DataFrame, one column per feature
 <br>
@@ -35171,7 +35171,7 @@ Once the training is done, you can run the generated files from the command line
 <br>
 
 <br>
-    :param x: the time series to calculate the feature of
+    x: the time series to calculate the feature of
 <br>
     :type x: numpy.ndarray
 <br>
@@ -35864,11 +35864,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
        colsall
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -35888,11 +35888,11 @@ Compute a Higuchi Fractal Dimension of a time series
 <br>
        Remove rows based on criteria
 <br>
-    :param df:
+    df:
 <br>
-    :param col:
+    col:
 <br>
-    :param pars:
+    pars:
 <br>
     :return:
 <br>
@@ -36191,11 +36191,11 @@ def pd_generic_transform(df, col=None, pars={}, model=None)  :
         <ul>self,<br>path:  str,<br>tensor_vars:  Dict[str,<br>Union[pd.DataFrame,<br>pd.Series,<br>np.ndarray]]  =  None,<br>plain_vars:  Dict[str,<br>Any]  =  None,<br></ul>
         <li>Docs:<br>        """
 <br>
-        :param path: dir to store data
+        path: dir to store data
 <br>
-        :param tensor_vars: Variables to save as Tensors (pandas DataFrames/Series or numpy arrays)
+        tensor_vars: Variables to save as Tensors (pandas DataFrames/Series or numpy arrays)
 <br>
-        :param plain_vars: Variables to save as Python objects
+        plain_vars: Variables to save as Python objects
 <br>
         """
 <br>
@@ -36271,7 +36271,7 @@ def pd_generic_transform(df, col=None, pars={}, model=None)  :
 <br>
         Restores variable content
 <br>
-        :param session: current session
+        session: current session
 <br>
         :return: variable list
 <br>
@@ -37095,11 +37095,11 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -38442,11 +38442,11 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -38681,11 +38681,11 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -39713,9 +39713,9 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
 <br>
     This function calculates the autoregression for each channel.
 <br>
-    :param x: the input signal. Its size is (number of channels, samples).
+    x: the input signal. Its size is (number of channels, samples).
 <br>
-    :param settings: a dictionary with one attribute, "autoreg_lag", that is the max lag for autoregression.
+    settings: a dictionary with one attribute, "autoreg_lag", that is the max lag for autoregression.
 <br>
     :return: the "final_value" is a matrix (number of channels, autoreg_lag) indicating the parameters of
 <br>
@@ -40585,11 +40585,11 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>df,<br>name,<br>path = None,<br></ul>
         <li>Docs:<br>    """ Save dataframe on disk
 <br>
-    :param df:
+    df:
 <br>
-    :param name:
+    name:
 <br>
-    :param path:
+    path:
 <br>
     :return:
 <br>
@@ -40617,13 +40617,13 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>model_dict,<br>config_path,<br>config_name,<br>verbose = True,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param model_dict:
+    model_dict:
 <br>
-    :param config_path:
+    config_path:
 <br>
-    :param config_name:
+    config_name:
 <br>
-    :param verbose:
+    verbose:
 <br>
     :return:
 <br>
@@ -40647,19 +40647,19 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
 <br>
 
 <br>
-    :param path_train_X:
+    path_train_X:
 <br>
-    :param path_train_y:
+    path_train_y:
 <br>
-    :param path_pipeline_export:
+    path_pipeline_export:
 <br>
-    :param cols_group:
+    cols_group:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
-    :param preprocess_pars:
+    preprocess_pars:
 <br>
-    :param path_features_store:
+    path_features_store:
 <br>
     :return:
 <br>
@@ -40681,13 +40681,13 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
 <br>
        Not saving the data, only output final dataframe
 <br>
-    :param df: input dataframe
+    df: input dataframe
 <br>
-    :param path_pipeline:  path where processors are stored
+    path_pipeline:  path where processors are stored
 <br>
-    :param preprocess_pars: dict of params specific to preprocessing
+    preprocess_pars: dict of params specific to preprocessing
 <br>
-    :param cols_group:  dict of column family
+    cols_group:  dict of column family
 <br>
     :return: dfXy  Final dataframe,
 <br>
@@ -40709,19 +40709,19 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
 <br>
         Load pre-computed dataframe
 <br>
-    :param path_train_X:
+    path_train_X:
 <br>
-    :param path_train_y:
+    path_train_y:
 <br>
-    :param path_pipeline_export:
+    path_pipeline_export:
 <br>
-    :param cols_group:
+    cols_group:
 <br>
-    :param n_sample:
+    n_sample:
 <br>
-    :param preprocess_pars:
+    preprocess_pars:
 <br>
-    :param path_features_store:
+    path_features_store:
 <br>
     :return:
 <br>
@@ -40739,15 +40739,15 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>config_name,<br>config_path,<br>n_sample = 5000,<br>mode = 'run_preprocess',<br>model_dict = Nonemodel_dict,<br>config_path,<br>config_name,<br>verbose = True)m = model_dict['global_pars']path_data         = m['path_data_preprocess']'path_data_prepro_X',<br>path_data + "/features.zip") # ### Can be a list of zip or parquet files'path_data_prepro_y',<br>path_data + "/target.zip")   # ### Can be a list of zip or parquet filespath_output          =  m['path_train_output']'path_pipeline',<br>path_output + "/pipeline/" )'path_features_store',<br>path_output + '/features_store/' )  #path_data_train replaced with path_output,<br>because preprocessed files are stored there'path_check_out',<br>path_output + "/check/" )path_output)"#### load input column family  ###################################################")try : ,<br></ul>
         <li>Docs:<br>    """
 <br>
-    :param config_name:   titanic_lightgbm
+    config_name:   titanic_lightgbm
 <br>
-    :param config_path:   titanic_classifier.py
+    config_path:   titanic_classifier.py
 <br>
-    :param n_sample:     nb of rows used
+    n_sample:     nb of rows used
 <br>
-    :param mode:     'run_preprocess'  / 'load_prerocess'
+    mode:     'run_preprocess'  / 'load_prerocess'
 <br>
-    :param model_dict:  Optional provide the dict model
+    model_dict:  Optional provide the dict model
 <br>
     :return: None,  only show and save dataframe
 <br>
@@ -40842,11 +40842,11 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
         <ul>Xtrain,<br>cols_type_received,<br>cols_ref,<br></ul>
         <li>Docs:<br>    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
 <br>
-    :param Xtrain:
+    Xtrain:
 <br>
-    :param cols_type_received:
+    cols_type_received:
 <br>
-    :param cols_ref:
+    cols_ref:
 <br>
     :return:
 <br>
@@ -40944,7 +40944,7 @@ ALL_DB['japancoupon']['df_table_columns']= df_schema_dict
 <br>
           for cols in cols_input_group,
 <br>
-    :param config:
+    config:
 <br>
     :return:
 <br>

@@ -253,10 +253,10 @@ def os_file_listall(dir1, pattern="*.*", dirlevel=1, onlyfolder=0):
    # aa= listallfile(DIRCWD, "*.*", 2)
    # aa[0][30];   aa[2][30]
 
-   :param dir1:
-   :param pattern:
-   :param dirlevel:
-   :param onlyfolder:
+   dir1:
+   pattern:
+   dirlevel:
+   onlyfolder:
    :return:
   '''
   import fnmatch; import os; import numpy as np;  matches = []

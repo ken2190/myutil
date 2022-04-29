@@ -95,7 +95,7 @@ def model_dict_load(model_dict, config_path, config_name, verbose=True):
 def map_model(model_name):
     """
       Get the Class of the object stored in source/models/
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
     :return: model module
 
     """
@@ -211,10 +211,10 @@ def data_split(dfX, data_pars, model_path, colsX, coly):
 
 def train(model_dict, dfX, cols_family, post_process_fun):
     """  Train the model using model_dict, save model, save prediction
-    :param model_dict:  dict containing params
-    :param dfX:  pd.DataFrame
-    :param cols_family: dict of list containing column names
-    :param post_process_fun:
+    model_dict:  dict containing params
+    dfX:  pd.DataFrame
+    cols_family: dict of list containing column names
+    post_process_fun:
     :return: dfXtrain , dfXval  DataFrame containing prediction.
     """
     model_pars, compute_pars = model_dict['model_pars'], model_dict['compute_pars']
@@ -331,7 +331,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
 ############CLI Command ############################################################################
 def cols_validate(model_dict):
     """  Validate BIG model_dict dictionnary
-    :param model_dict:
+    model_dict:
     :return:
     """
     cols_input_type   = model_dict['data_pars']['cols_input_type']
@@ -358,9 +358,9 @@ def cols_validate(model_dict):
 def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
               mode="run_preprocess", model_dict=None, return_mode='file', **kw):
     """ Configuration of the model is
-    :param config_name:
-    :param config_path:
-    :param n_sample:
+    config_name:
+    config_path:
+    n_sample:
     :return:
     """
     model_dict  = model_dict_load(model_dict, config_path, config_name, verbose=True)
@@ -447,8 +447,8 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
 
 def run_model_check(path_output, scoring):
     """
-    :param path_output:
-    :param scoring:
+    path_output:
+    scoring:
     :return:
     """
     import pandas as pd

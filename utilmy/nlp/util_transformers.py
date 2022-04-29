@@ -76,9 +76,9 @@ def utils_bert_embedding(txt, tokenizer, nlp, log=False):
     '''
     Word embedding with Bert (equivalent to nlp["word"]).
     :parameter
-        :param txt: string
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
+        txt: string
+        tokenizer: transformers tokenizer
+        nlp: transformers bert
     :return
         tensor sentences x words x vector (1x3x768)
     '''
@@ -97,10 +97,10 @@ def embedding_bert(x, tokenizer=None, nlp=None, log=False):
     '''
     Creates a feature matrix (num_docs x vector_size)
     :parameter
-        :param x: string or list
-        :param tokenizer: transformers tokenizer
-        :param nlp: transformers bert
-        :param log: bool - print tokens
+        x: string or list
+        tokenizer: transformers tokenizer
+        nlp: transformers bert
+        log: bool - print tokens
     :return
         vector or matrix
     '''
@@ -147,9 +147,9 @@ def tokenize_bert(corpus, tokenizer=None, maxlen=None):
     '''
     Preprocess corpus to create features for Bert.
     :parameter
-        :param corpus: list - dtf["text"]
-        :param tokenizer: transformer tokenizer
-        :param maxlen: num - max length of the padded sequence
+        corpus: list - dtf["text"]
+        tokenizer: transformer tokenizer
+        maxlen: num - max length of the padded sequence
     :return
         tensor/list with idx, masks, segments
     '''
@@ -202,14 +202,14 @@ def fit_bert_classif(X_train, y_train, X_test, encode_y=False, dic_y_mapping=Non
     '''
     Pre-trained Bert + Fine-tuning (transfer learning) with tf2 and transformers.
     :parameter
-        :param X_train: array of sequence
-        :param y_train: array of classes
-        :param X_test: array of sequence
-        :param model: model object - model to fit (before fitting)
-        :param encode_y: bool - whether to encode y with a dic_y_mapping
-        :param dic_y_mapping: dict - {0:"A", 1:"B", 2:"C"}. If None it calculates
-        :param epochs: num - epochs to run
-        :param batch_size: num - it does backpropagation every batch, the more the faster but it can use all the memory
+        X_train: array of sequence
+        y_train: array of classes
+        X_test: array of sequence
+        model: model object - model to fit (before fitting)
+        encode_y: bool - whether to encode y with a dic_y_mapping
+        dic_y_mapping: dict - {0:"A", 1:"B", 2:"C"}. If None it calculates
+        epochs: num - epochs to run
+        batch_size: num - it does backpropagation every batch, the more the faster but it can use all the memory
     :return
         model fitted and predictions
     '''

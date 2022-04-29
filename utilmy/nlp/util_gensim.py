@@ -192,9 +192,9 @@ def gensim_model_load(dirin,  modeltype='fastext', **kw):
     """
     Loads the FastText model from the given path
 
-    :param dirin: the path of the saved model
-    :param modeltye:
-    :param kw:
+    dirin: the path of the saved model
+    modeltye:
+    kw:
     :return: loaded model
     """
     if modeltype == 'fastext':
@@ -222,9 +222,9 @@ def gensim_model_train_save(model_or_path=None, dirinput='lee_background.cor', d
           report_delay=1.0, compute_loss=False, callbacks=(), **kwargs
 
 
-    :param model: The model to train
-    :param dirinput: the filepath of the input data
-    :param dirout: directory to save the model
+    model: The model to train
+    dirinput: the filepath of the input data
+    dirout: directory to save the model
     :epochs: number of epochs to train the model
     :pars: parameters of the creating FastText
     :return:
@@ -292,9 +292,9 @@ def gensim_model_check(model_path):
 
 def text_preprocess(sentence, lemmatizer, stop_words):
     """ Preprocessing Function
-    :param sentence: sentence to preprocess
-    :param lemmatizer: the class which lemmatizes the words
-    :param stop_words: stop_words in english http://xpo6.com/list-of-english-stop-words/
+    sentence: sentence to preprocess
+    lemmatizer: the class which lemmatizes the words
+    stop_words: stop_words in english http://xpo6.com/list-of-english-stop-words/
     :return: preprocessed sentence
     """
     import nltk
@@ -309,8 +309,8 @@ def text_generate_random_sentences( dirout=None, n_sentences=5,):
     """
     Generates Random sentences and Preprocesses them
 
-    :param n_sentences: number of sentences to generate
-    :param dirout: filepath do write the generated sentences
+    n_sentences: number of sentences to generate
+    dirout: filepath do write the generated sentences
     :return: generated sentences
     """
     from essential_generators import DocumentGenerator

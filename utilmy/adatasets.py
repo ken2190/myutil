@@ -269,9 +269,9 @@ if 'utils':
         Currently `github`, `gdrive` and `dropbox` are the only supported sources of
         data. Also only zip files are supported.
 
-        :param url_dataset:   URL to send
-        :param path_target:   Path to save dataset
-        :param file_target:   File to save dataset
+        url_dataset:   URL to send
+        path_target:   Path to save dataset
+        file_target:   File to save dataset
 
         """
         log("###### Download ##################################################")
@@ -360,9 +360,9 @@ if 'utils':
         Currently `github`, `gdrive` and `dropbox` are the only supported sources of
         data. Also only zip files are supported.
 
-        :param url_dataset:   URL to send
-        :param path_target:   Path to save dataset
-        :param file_target:   File to save dataset
+        url_dataset:   URL to send
+        path_target:   Path to save dataset
+        file_target:   File to save dataset
 
         """
         log("###### Download ##################################################")

@@ -130,9 +130,9 @@ def Modelcustom(n_wide_cross, n_wide,n_deep, n_feat=8, m_EMBEDDING=10, loss='mse
 
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
     """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:
+    cols_type_received:
+    cols_ref:
     :return:
     """
     if len(cols_ref) < 1 :
@@ -357,7 +357,7 @@ def test(config=''):
         Group of columns for the input model
            cols_input_group = [ ]
           for cols in cols_input_group,
-    :param config:
+    config:
     :return:
     """
 

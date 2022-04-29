@@ -299,9 +299,9 @@ def load_info(path=""):
 cols_ref_formodel = ['colcontinuous', 'colsparse']
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref=None):
     """  Split into Tuples:  Xtuple = (df1, df2, df3) OR single dataframe  to Feed model
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:
+    cols_type_received:
+    cols_ref:
     :return:
     """
     global cols_ref_formodel  ## Split INTO tuples for model feed

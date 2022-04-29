@@ -325,7 +325,7 @@ def to_file(s, filep):
 def download_with_progress(url, fileout):
     """
     Downloads a file with a progress bar
-    :param url: url from which to download from
+    url: url from which to download from
     :fileout: file path for saving data
     """
     import tqdm

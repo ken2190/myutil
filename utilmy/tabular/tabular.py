@@ -203,7 +203,7 @@ def pd_train_test_split_time(df, test_period = 40, cols=None , coltime ="time_ke
 def pd_to_scipy_sparse_matrix(df):
     """
     Converts a sparse pandas data frame to sparse scipy csr_matrix.
-    :param df: pandas data frame
+    df: pandas data frame
     :return: csr_matrix
     """
     import numpy as np
@@ -220,9 +220,9 @@ def pd_stat_correl_pair(df, coltarget=None, colname=None):
     """
       Genearte correletion between the column and target column
       df represents the dataframe comprising the column and colname comprising the target column
-    :param df:
-    :param colname: list of columns
-    :param coltarget : target column
+    df:
+    colname: list of columns
+    coltarget : target column
     :return:
     """
     from scipy.stats import pearsonr
@@ -293,9 +293,9 @@ def pd_stat_distribution_colnum(df, nrows=2000, verbose=False):
 
 def pd_stat_histogram(df, bins=50, coltarget="diff"):
     """
-    :param df:
-    :param bins:
-    :param coltarget:
+    df:
+    bins:
+    coltarget:
     :return:
     """
     hh = np.histogram(
@@ -310,7 +310,7 @@ def pd_stat_histogram(df, bins=50, coltarget="diff"):
 def np_col_extractname(col_onehot):
     """
     Column extraction from onehot name
-    :param col_onehotp
+    col_onehotp
     :return:
     """
     colnew = []
@@ -358,10 +358,10 @@ def np_list_remove(cols, colsremove, mode="exact"):
 def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
     """
     Calculates number of times the trend of feature wrt target changed direction.
-    :param df: df_grouped dataset
-    :param feature: feature column name
-    :param target_col: target column
-    :param threshold: minimum % difference required to count as trend change
+    df: df_grouped dataset
+    feature: feature column name
+    target_col: target column
+    threshold: minimum % difference required to count as trend change
     :return: number of trend chagnes for the feature
     """
     df                            = df.loc[df[feature] != 'Nulls', :].reset_index(drop=True)
@@ -382,10 +382,10 @@ def pd_stat_shift_trend_changes(df, feature, target_col, threshold=0.03):
 def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
     """
     Calculates correlation between train and test trend of colname wrt target.
-    :param df: train df data
-    :param df_test: test df data
-    :param colname: colname column name
-    :param target_col: target column name
+    df: train df data
+    df_test: test df data
+    colname: colname column name
+    target_col: target column name
     :return: trend correlation between train and test
     """
     df[colname] = df[colname].astype('category')
@@ -415,11 +415,11 @@ def pd_stat_shift_trend_correlation(df, df_test, colname, target_col):
 def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
     """
     Calculates trend changes and correlation between train/test for list of features
-    :param df: dfframe containing features and target columns
-    :param target_col: target column name
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
-    :param bins: number of bins to be created from continuous colname
-    :param df_test: test df which has to be compared with input df for correlation
+    df: dfframe containing features and target columns
+    target_col: target column name
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    bins: number of bins to be created from continuous colname
+    df_test: test df which has to be compared with input df for correlation
     :return: dfframe with trend changes and trend correlation (if test df passed)
     """
 
@@ -460,8 +460,8 @@ def pd_stat_shift_changes(df, target_col, features_list=0, bins=10, df_test=0):
 def np_conv_to_one_col(np_array, sep_char="_"):
     """
     converts string/numeric columns to one string column
-    :param np_array: the numpy array with more than one column
-    :param sep_char: the separator character
+    np_array: the numpy array with more than one column
+    sep_char: the separator character
     """
     def row2string(row_):
         return sep_char.join([str(i) for i in row_])
@@ -483,11 +483,11 @@ def pd_data_drift_detect_alibi(
     """ Detecting drift in the dataset using alibi
     https://docs.seldon.io/projects/alibi-detect/en/latest/api/modules.html
     
-    :param df:    dfframe test dataset to check for drift
-    :param dfnew: dfframe test dataset to check for drift    
-    :param backend: str "tensorflow" or "pytorch"
-    :param model:  trained pytorch or tensorflow model.
-    :param p_val: p value float 
+    df:    dfframe test dataset to check for drift
+    dfnew: dfframe test dataset to check for drift    
+    backend: str "tensorflow" or "pytorch"
+    model:  trained pytorch or tensorflow model.
+    p_val: p value float 
 
     example:
     model = tf.keras.Sequential([InputLayer(input_shape=(input_size)),Dropout(0.3),Dense(1)])
