@@ -536,7 +536,7 @@ def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwri
                     ss1.append( ' '*4 + f'{function["indent"]}')
                     for line in ss[1:] :
                         ss1.append( ' '*4 + f'{function["indent"]}' + line )
-)
+
                     new_docstring = ss1
 
 

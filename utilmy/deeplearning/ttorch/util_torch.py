@@ -5,6 +5,15 @@ TVM optimizer
 https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
 
 
+
+https://github.com/szymonmaszke/torchlayers
+
+https://github.com/Riccorl/transformers-embedder
+
+https://github.com/szymonmaszke/torchfunc
+
+
+
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
