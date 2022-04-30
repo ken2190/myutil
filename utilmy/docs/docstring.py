@@ -90,6 +90,22 @@ def run_all(mode='overwrite'):
 
 
 
+def update_all(mode='overwrite'):
+    """function update with Doc::       
+    """
+    log(""" generate_docstring """)
+    # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
+
+    # not use
+    # docstring_from_type_hints(python_tips_dir, python_tips_dir, overwrite_script=True, test=True)
+    
+    python_dir = Path.cwd().joinpath("utilmy/")
+    if 'overwrite' in mode :
+       # overwrite scripts
+       update_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+
+
+
 
 ##########################################################################################################
 def docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str,Path], 
@@ -474,6 +490,186 @@ def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overw
 
 
 
+
+
+def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
+    """  Generate docstring
+        dirin (< nothing >): textual directory to search for Python functions in
+        overwrite_script (< wrong variable type>): enables automatic overwriting of Python scripts in dirin
+        test (Something completely different): whether to write script content to a test_it.py file
+    """    
+    dirin = Path(dirin) if isinstance(dirin, str) else dirin
+    p = dirin.glob("**/*.py")
+
+    # exclude = "*zml*"
+    # p = glob_glob_python(dirin, suffix ="*.py", nfile=15000, exclude=exclude)
+    scripts = [x for x in p if Path(x).is_file()]
+
+    # print(scripts)
+    for script in scripts:
+        try :
+            log("\n", script)
+            log2('########## Process functions  #############################') 
+            list_functions = get_list_function_info(f'{script.parent}/{script.name}')
+            for function in list_functions:
+                # print('--------')
+                # print(function['name'])
+                # print(function['line'])
+                # print(function['start_idx'])
+                # print(function['arg_name'])
+                # print(function['arg_type'])
+                # print(function['arg_value'])
+                # print(function['docs'])
+                # print(function['indent'])
+                # print('--------')
+
+                new_docstring = []
+                # auto generate docstring
+                if function['docs']:
+                    # function already have docstring, update it
+                    # list of new docstring
+                    ss = function['docs']
+
+                    ss1 = []
+                    ss1.append(ss[0])
+                    ss1.append( f'{function["indent"]}Doc::')
+                    ss1.append( ' '*4 + f'{function["indent"]}')
+                    for line in ss[1:] :
+                        ss1.append( ' '*4 + f'{function["indent"]}' + line )
+
+                    new_docstring = ss1
+
+
+                else:
+                    continue
+                    # # list of new docstring
+                    # new_docstring.append(f'{function["indent"]}"""function {function["name"]}\n')
+                    # # new_docstring.append("")
+
+                    # # add args
+                    # new_docstring.append(f'{function["indent"]}Args:\n')
+                    # for i in range(len(function['arg_name'])):
+                    #     arg_type_str = f' ( {(function["arg_type"][i])} ) ' if function["arg_type"][i] else ""
+
+                    #     ### TODO argname:   type, default-value,   text explanation
+                    #     new_docstring.append(f'{function["indent"]}    {function["arg_name"][i]}{arg_type_str}:   \n')
+                    #     # new_docstring.append(f'{function["indent"]}    {function["arg_name"][i]}{arg_type_str}: {function["arg_name"][i]}\n')
+
+                    # # new_docstring.append(f'{function["indent"]}Example:')
+                    # new_docstring.append(f'{function["indent"]}Returns:\n')
+                    # new_docstring.append(f'{function["indent"]}    \n')
+                    # new_docstring.append(f'{function["indent"]}"""\n')
+
+                # print(new_docstring)
+                function["new_docs"] = new_docstring
+
+            # 1. Update the file with new update docstring for functions first
+            # print(len(list_functions))
+            list_functions.sort(key=lambda x: x['line'], reverse=True)
+            for function in list_functions:
+                if function['name'] == 'export_stats_perrepo':
+                    pprint(function)
+
+            with open(f'{script.parent}/{script.name}', "r") as file:
+                script_lines = file.readlines()
+
+            for function in list_functions:
+                if function["new_docs"]:
+                    script_lines = (
+                        script_lines[: function["line"]]
+                        # + [f'{function["new_docs"]}\n']
+                        + function["new_docs"]
+                        + script_lines[function["line"] + function['start_idx'] -1:]
+                    )
+
+            file_temp = f"{Path.cwd()}/temp_{script.name}"
+            with open(file_temp, "w") as script_file:
+                script_file.writelines(script_lines)
+
+
+            log2('########## Process methods  ###############################') 
+            list_methods = get_list_method_info(file_temp)
+            for method in list_methods:
+                new_docstring = []
+                # auto generate docstring
+                if method['docs']:
+                    # function already have docstring, will not update it
+                    pass
+                else:
+                    # list of new docstring
+                    new_docstring.append(f'{method["indent"]}""" {method["name"]}\n')
+                    # new_docstring.append("")
+
+                    # add args
+                    new_docstring.append(f'{method["indent"]}Args:\n')
+                    for i in range(len(method['arg_name'])):
+                        arg_type_str = f' (function["arg_type"][i]) ' if method["arg_type"][i] else ""
+
+                        ####3 TODO   argname : type, value
+                        if method["arg_name"][i] not in  ['self'] :
+                           new_docstring.append(f'{method["indent"]}    {method["arg_name"][i]}{arg_type_str}:     \n')
+                           #new_docstring.append(f'{method["indent"]}    {method["arg_name"][i]}{arg_type_str}: {method["arg_name"][i]}\n')
+
+
+                    # new_docstring.append(f'{function["indent"]}Example:')
+                    new_docstring.append(f'{method["indent"]}Returns:\n')
+                    new_docstring.append(f'{method["indent"]}   \n')
+                    new_docstring.append(f'{method["indent"]}"""\n')
+
+                # print(new_docstring)
+                method["new_docs"] = new_docstring
+
+
+            # 2. Update the file with new update docstring for methods
+            # print(len(list_methods))
+            list_methods.sort(key=lambda x: x['line'], reverse=True)
+            # for method in list_methods:
+            #     print(method)
+            with open(file_temp, "r") as file:
+                script_lines = file.readlines()
+            os.remove(file_temp)
+
+            for method in list_methods:
+                if method["new_docs"]:
+                    script_lines = (
+                        script_lines[: method["line"]]
+                        # + [f'{function["new_docs"]}\n']
+                        + method["new_docs"]
+                        + script_lines[method["line"] + method['start_idx'] -1:]
+                    )
+
+            log2('########## Write on Disk ################################') 
+            if overwrite:
+                script_tmp  = f'{script.parent}/ztmp.py'
+                script_test = f'{script.parent}/{script.name}'
+                with open(script_tmp, "w") as script_file:
+                    script_file.writelines(script_lines)
+                isok = os_file_compile_check(script_tmp, verbose=0)   
+                log('compile', isok)
+                if isok :
+                    if os.path.exists(script_test): os.remove(script_test)
+                    os.rename(script_tmp, script_test)
+                else :
+                    os.remove(script_tmp)
+
+
+            elif test:
+                script_tmp  = f'{dirout}/ztmp.py'                
+                script_test = f"{dirout}/test_{script.name}"
+                with open(script_test, "w") as script_file:
+                    script_file.writelines(script_lines)
+
+                isok = os_file_compile_check(script_tmp, verbose=0)   
+                log('compile', isok)
+                if isok :
+                    if os.path.exists(script_test): os.remove(script_test)
+                    os.rename(script_tmp, script_test)
+                else :
+                    os.remove(script_tmp)
+
+
+        except Exception as e :
+            log("\n",e, "\n")
 
 
 
