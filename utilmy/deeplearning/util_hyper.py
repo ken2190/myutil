@@ -31,7 +31,7 @@ import os, numpy as np, glob, pandas as pd, glob, copy, gc
 from typing import List, Optional, Tuple, Union
 from numpy import ndarray  #### typing
 from box import Box
-
+import copy
 
 
 
@@ -838,7 +838,7 @@ def objective(values):
 """
 #=======================================================================
 # set of utilities to drive brute force ablation 
-
+#=========================================================================
 class AblationParameters(dict):
     @staticmethod
     def concatenate_keys(k,inner_ablation_keys):
@@ -904,8 +904,13 @@ class AblationParameters(dict):
             elif isinstance(k,str):
                 item = self[k]
                 items.append(item)
-        possible_combinations = itertools.product(*items)
+            elif isinstance(k,AblationCombination):
+                items.append(self[k])
+            else:
+                assert False,f'unknown type of {k}'
         
+        possible_combinations = itertools.product(*items)
+        # assert False
         return possible_combinations
     @property
     def combinations(self):
@@ -935,8 +940,11 @@ class AblationParameters(dict):
                         del at[last_key]
                         at.update( dict(zip(last_key,ci)) )
                 elif isinstance(k,AblationCombination):
-                        del at[k]
-                        at.update( dict(zip(k,ci)) )
+                    at = new_parameters
+                    del at[k]
+                    at.update( dict(zip(k,ci)) )
+                else:
+                    assert False,f'unknown type of {k}'
             for k in hooks:
                 if isinstance(k,str):
                     hook = new_parameters[k]
@@ -980,3 +988,24 @@ class AblationHook():
     def __call__(self,*args,**kwargs):
         return self.callable(*args,**kwargs)
     pass
+#=================================================================================
+def test_ablation():
+    import copy
+    create_save_dir = lambda p:f"{p['name']}_{p['outer1']['param1']}_{p['outer1']['param2']}"
+    parameters =\
+    AblationParameters({
+        'name': AblationList(['a','b']),
+        'savedir':AblationHook(create_save_dir),
+        'outer1':{
+            AblationCombination(('param1','param2')):((1,10),(99,100))},
+    })
+    def my_experiment(parameters_):
+        print('parameters for individual experiment')
+        print(parameters_)
+        print('.'*20)
+        pass
+    print('parameters for study:')
+    print(parameters)
+    print('*'*20)
+    parameters.ablation(my_experiment)
+#=================================================================================
