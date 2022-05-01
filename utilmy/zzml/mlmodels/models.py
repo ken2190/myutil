@@ -196,7 +196,7 @@ def metrics(module, data_pars=None, compute_pars=None, out_pars=None, **kwarg):
 def load(module, load_pars, **kwarg):
     """
        Load model/session from files
-       :param folder_name:
+       folder_name:
     """
     return module.load(load_pars, **kwarg)
 

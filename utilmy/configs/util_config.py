@@ -255,10 +255,10 @@ def global_verbosity(cur_path, path_relative="/../../config.json",
 
     verbosity = global_verbosity("repo_root", "config/config.json", default=5 )
 
-    :param cur_path:
-    :param path_relative:
-    :param key:
-    :param default:
+    cur_path:
+    path_relative:
+    key:
+    default:
     :return:
     """
     import utilmy, json

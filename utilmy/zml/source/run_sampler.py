@@ -46,10 +46,10 @@ def save_features(df, name, path):
 def model_dict_load(model_dict, config_path, config_name, verbose=True):
     """
        load the model dict from the python config file.
-    :param model_dict:
-    :param config_path:
-    :param config_name:
-    :param verbose:
+    model_dict:
+    config_path:
+    config_name:
+    verbose:
     :return:
     """
     if model_dict is None :
@@ -64,7 +64,7 @@ def model_dict_load(model_dict, config_path, config_name, verbose=True):
 ##### train    #####################################################################################
 def map_model(model_name):
     """ Get the Class of the object stored in source/models/
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
     :return: model module
     """
     ##### Custom folder
@@ -100,10 +100,10 @@ def map_model(model_name):
 
 def train(model_dict, dfX, cols_family, post_process_fun):
     """  Train the model using model_dict, save model, save prediction
-    :param model_dict:  dict containing params
-    :param dfX:  pd.DataFrame
-    :param cols_family: dict of list containing column names
-    :param post_process_fun:
+    model_dict:  dict containing params
+    dfX:  pd.DataFrame
+    cols_family: dict of list containing column names
+    post_process_fun:
     :return: dfXtrain , dfXval  DataFrame containing prediction.
     """
     model_pars, compute_pars = model_dict['model_pars'], model_dict['compute_pars']
@@ -209,9 +209,9 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
               mode="run_preprocess", model_dict=None, return_mode='file', **kw):
     """
       Configuration of the model is in config_model.py file
-    :param config_name:
-    :param config_path:
-    :param n_sample:
+    config_name:
+    config_path:
+    n_sample:
     :return:
     """
     model_dict  = model_dict_load(model_dict, config_path, config_name, verbose=True)

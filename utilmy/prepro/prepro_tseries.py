@@ -147,9 +147,9 @@ def pd_prepro_custom2(df: pd.DataFrame, cols: list=None, pars: dict=None):
        { 'name': 'deltapy.transform::standard_scaler',               'pars': {'drop':["Close_1"]} },
        ]e
 
-    :param df:
-    :param col:
-    :param pars:
+    df:
+    col:
+    pars:
     :return:
     """
     prefix = "coltseries_custom2"
@@ -266,9 +266,9 @@ def pd_ts_groupby(df: pd.DataFrame, cols: list=None, pars: dict=None):
 def pd_ts_onehot(df: pd.DataFrame, cols: list=None, pars: dict=None):
     """
        category to oneHot (ie week, weekday, shop, ..)
-    :param df:
-    :param col:
-    :param pars:
+    df:
+    col:
+    pars:
     :return:
     """
     df_onehot = pd.get_dummies(df[cols])
@@ -378,8 +378,8 @@ def pd_ts_difference(df: pd.DataFrame, cols: list=None, pars: dict=None):
 # def pd_ts_tsfresh_features(df: pd.DataFrame, cols: list=None, pars: dict=None):
     # """
     #
-    # :param df:
-    # :param cols:
+    # df:
+    # cols:
     # :return:
     # """
     #

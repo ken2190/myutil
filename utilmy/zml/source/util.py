@@ -153,7 +153,7 @@ df.to_parquet('/users/nick/desktop/test.parquet',
 def pd_to_scipy_sparse_matrix(df):
     """
     Converts a sparse pandas data frame to sparse scipy csr_matrix.
-    :param df: pandas data frame
+    df: pandas data frame
     :return: csr_matrix
     """
     from scipy.sparse import lil_matrix

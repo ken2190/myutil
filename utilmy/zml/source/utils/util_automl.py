@@ -75,14 +75,14 @@ def model_auto_tpot(
 ):
     """ Automatic training of Xmat--->Y, Generate SKlearn code in outfile
       Very Slow Process, use lower number of Sample
-  :param Xmat:
-  :param y:
-  :param outfolder:
-  :param model_type:
-  :param train_size:
-  :param generation:
-  :param population_size:
-  :param verbosity:
+  Xmat:
+  y:
+  outfolder:
+  model_type:
+  train_size:
+  generation:
+  population_size:
+  verbosity:
   :return:
     """
     tpot = import_("tpot")

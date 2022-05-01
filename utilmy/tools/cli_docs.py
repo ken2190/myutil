@@ -570,8 +570,8 @@ def module_signature_write(module_name, outputfile="", return_df=0, isdebug=0):
 
 def obj_arg_filter_apply_1(df, filter_list=None):
     """  Apply Sequential Filtering to the frame of argument
-    :param df: Signature Datframe
-    :param filter_list:    ('sort_ascending', 1)  we can add very easily new filter
+    df: Signature Datframe
+    filter_list:    ('sort_ascending', 1)  we can add very easily new filter
     :return: dataframe filtering
     """
     if filter_list is None:
@@ -619,10 +619,10 @@ def module_unitest_write(
     isdebug=0,
 ):
     """
-     :param module_name:     name of modul in string
-     :param input_signature_csv_file:   csv file name
-     :param outputfile: 
-     :param filter_list:  ("public_only","") 
+     module_name:     name of modul in string
+     input_signature_csv_file:   csv file name
+     outputfile: 
+     filter_list:  ("public_only","") 
      :return: 
     """
     if filter_list is None:
@@ -870,9 +870,9 @@ Goal is to check the method which are deprecated / added from source file.
 def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
     """
      guess typing pytypes de Google
-    :param full_name: 
-    :param arg_name: 
-    :param type_guess_engine: 
+    full_name: 
+    arg_name: 
+    type_guess_engine: 
     :return: 
     """
     if type_guess_engine == "pytype":

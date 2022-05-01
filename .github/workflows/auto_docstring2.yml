@@ -8,7 +8,7 @@ on:
       
   push:
     branches:
-    - z_docstring_create
+    - z_docstring_update
 
 
 #  schedule:
@@ -98,10 +98,10 @@ jobs:
         git branch -a
 
 
-    - name: Auto generation of docstring
+    - name: Update of docstring
       #vcontinue-on-error: true
       run:  |
-        python  utilmy/docs/docstring.py  generate_docstring --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false
+        python  utilmy/docs/docstring.py  update_docstring --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false
 
         git add -A || echo 'nothing'
         git commit -am "docstring" ||   echo 'nothing'

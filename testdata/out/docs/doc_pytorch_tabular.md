@@ -2307,31 +2307,31 @@
 <br>
         One can drop (sic!) this module anywhere instead of nn.Linear
 <br>
-        :param in_features: number of features in the input tensor
+        in_features: number of features in the input tensor
 <br>
-        :param num_trees: number of trees in this layer
+        num_trees: number of trees in this layer
 <br>
-        :param tree_dim: number of response channels in the response of individual tree
+        tree_dim: number of response channels in the response of individual tree
 <br>
-        :param depth: number of splits in every tree
+        depth: number of splits in every tree
 <br>
-        :param flatten_output: if False, returns [..., num_trees, tree_dim],
+        flatten_output: if False, returns [..., num_trees, tree_dim],
 <br>
             by default returns [..., num_trees * tree_dim]
 <br>
-        :param choice_function: f(tensor, dim) -> R_simplex computes feature weights s.t. f(tensor, dim).sum(dim) == 1
+        choice_function: f(tensor, dim) -> R_simplex computes feature weights s.t. f(tensor, dim).sum(dim) == 1
 <br>
-        :param bin_function: f(tensor) -> R[0, 1], computes tree leaf weights
+        bin_function: f(tensor) -> R[0, 1], computes tree leaf weights
 <br>
 
 <br>
-        :param initialize_response_: in-place initializer for tree output tensor
+        initialize_response_: in-place initializer for tree output tensor
 <br>
-        :param initialize_selection_logits_: in-place initializer for logits that select features for the tree
+        initialize_selection_logits_: in-place initializer for logits that select features for the tree
 <br>
         both thresholds and scales are initialized with data-aware init (or .load_state_dict)
 <br>
-        :param threshold_init_beta: initializes threshold to a q-th quantile of data points
+        threshold_init_beta: initializes threshold to a q-th quantile of data points
 <br>
             where q ~ Beta(:threshold_init_beta:, :threshold_init_beta:)
 <br>
@@ -2343,7 +2343,7 @@
 <br>
 
 <br>
-        :param threshold_init_cutoff: threshold log-temperatures initializer, in (0, inf)
+        threshold_init_cutoff: threshold log-temperatures initializer, in (0, inf)
 <br>
             By default(1.0), log-remperatures are initialized in such a way that all bin selectors
 <br>
@@ -2514,7 +2514,7 @@
         <ul>self,<br>X,<br></ul>
         <li>Docs:<br>        """Transform categorical data based on mapping learnt at fitting time.
 <br>
-        :param pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
+        pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
 <br>
         :return: encoded DataFrame of shape (n_samples, n_features), initial categorical columns are dropped, and
 <br>
@@ -2536,9 +2536,9 @@
         <ul>self,<br>X,<br>y = None,<br></ul>
         <li>Docs:<br>        """Encode given columns of X according to y, and transform X based on the learnt mapping.
 <br>
-        :param pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
+        pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
 <br>
-        :param pandas.Series y: pandas Series of target values, shape (n_samples,).
+        pandas.Series y: pandas Series of target values, shape (n_samples,).
 <br>
             Required only for encoders that need it: TargetEncoder, WeightOfEvidenceEncoder
 <br>
@@ -2602,9 +2602,9 @@
         <ul>self,<br>cols = None,<br>handle_unseen = "impute",<br></ul>
         <li>Docs:<br>        """Instantiation
 <br>
-        :param [str] cols: list of columns to encode, or None (then all dataset columns will be encoded at fitting time)
+        [str] cols: list of columns to encode, or None (then all dataset columns will be encoded at fitting time)
 <br>
-        :param str handle_unseen:
+        str handle_unseen:
 <br>
             'error'  - raise an error if a category unseen at fitting time is found
 <br>
@@ -2628,7 +2628,7 @@
         <ul>self,<br>X,<br>y = None,<br></ul>
         <li>Docs:<br>        """Label Encode given columns of X.
 <br>
-        :param pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
+        pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
 <br>
         :return: None
 <br>
@@ -2676,7 +2676,7 @@
         <ul>self,<br>X,<br>y = None,<br></ul>
         <li>Docs:<br>        """Label Encode given columns of X.
 <br>
-        :param pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
+        pandas.DataFrame X: DataFrame of features, shape (n_samples, n_features). Must contain columns to encode.
 <br>
         :return: None
 <br>

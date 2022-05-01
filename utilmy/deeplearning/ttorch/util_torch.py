@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.torch.util_torch"
+MNAME = "utilmy.deeplearning.ttorch.util_torch"
 HELP = """ utils for torch training
 TVM optimizer
 https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
+
+
+
+https://github.com/szymonmaszke/torchlayers
+
+https://github.com/Riccorl/transformers-embedder
+
+https://github.com/szymonmaszke/torchfunc
+
 
 
 """
@@ -261,7 +270,7 @@ def model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str
 def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loader=None, arg:dict=None ):
     """One liner for training a pytorch model.
     Doc::
-             
+
        import utilmy.deepelearning.ttorch.util_torch as ut
        cc= Box({})
        cc=0
@@ -538,7 +547,7 @@ class SmeLU(nn.Module):
     def __init__(self, beta: float = 2.) -> None:
         """
         Constructor method.
-        :param beta (float): Beta value if the SmeLU activation function. Default 2.
+        beta (float): Beta value if the SmeLU activation function. Default 2.
         """
         # Call super constructor
         super(SmeLU, self).__init__()
@@ -550,7 +559,7 @@ class SmeLU(nn.Module):
     def forward(self, input: torch.Tensor) -> torch.Tensor:
         """
         Forward pass.
-        :param input (torch.Tensor): Tensor of any shape
+        input (torch.Tensor): Tensor of any shape
         :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
         """
         output: torch.Tensor = torch.where(input >= self.beta, input,

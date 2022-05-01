@@ -5,9 +5,9 @@ from sklearn.preprocessing import LabelEncoder
 def data_preprocess(Data,Mask,dic_var_type):
     """
     Convert categorical variables into one hot
-    :param Data: data matrix. Note that we assume that the columns of the data matrix is re-ordered, so that the categorical variables appears first, and then the continuous variables afterwards.
-    :param Mask: missing mask matrix
-    :param dic_var_type: a list that contains the statistical types for each variables
+    Data: data matrix. Note that we assume that the columns of the data matrix is re-ordered, so that the categorical variables appears first, and then the continuous variables afterwards.
+    Mask: missing mask matrix
+    dic_var_type: a list that contains the statistical types for each variables
     :return: processed data matrix and mask matrix with one hot encoding representation
     """
     cat_mask = np.zeros(Data.shape[1])
@@ -71,9 +71,9 @@ def noisy_transform(Data,list_discrete, noise_ratio):
     Examples include variables that take integer values, for example month, day of week, number of custumors etc.
     Other examples include numerical variables that are recorded on a discrete grid (for example salary).
 
-    :param Data: Data matrix
-    :param list_discrete: list of continuous-discrete variables (not categorical variables)
-    :param noise_ratio: level of noise divided by the gap between two adjacent discrete values (for example for integer observations, the gap is always one ), maximum value is one
+    Data: Data matrix
+    list_discrete: list of continuous-discrete variables (not categorical variables)
+    noise_ratio: level of noise divided by the gap between two adjacent discrete values (for example for integer observations, the gap is always one ), maximum value is one
     :return: noisy version of the data matrix, and other parameters that are required in order to remove the noise in the future.
     """
     
@@ -107,9 +107,9 @@ def invert_noise(Data_noisy,list_discrete,records_d):
     Other examples include numerical variables that are recorded on a discrete grid (for example salary).
     This is normally applied to decoder outputs, so that they are rounded to the closest discrete value,
     as decribed in Appendix C.1.3 in our paper
-    :param Data_noisy: noisy data matrix
-    :param list_discrete: list of continuous-discrete variables
-    :param records_d:
+    Data_noisy: noisy data matrix
+    list_discrete: list of continuous-discrete variables
+    records_d:
     :return: Data matrix that is rounded to the closest discrete value defined in records_d.
     """
     noise_ratio = 1
@@ -169,9 +169,9 @@ def compress_data(decoded,cat_dims, dic_var_type,):
 
     """
     invert the one-hot encoding of categorical variables to discrete values
-    :param decoded: output of the VAE decoder
-    :param cat_dims: a list containing number of categories of each categorical variables
-    :param dic_var_type: a list containing statistical types of each variables.
+    decoded: output of the VAE decoder
+    cat_dims: a list containing number of categories of each categorical variables
+    dic_var_type: a list containing statistical types of each variables.
     :return: data matrix where one hot encodings are removed.
     """
 

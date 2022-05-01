@@ -13,8 +13,8 @@ class DCG(object):
 
     def __init__(self, k=10, gain_type='exp2'):
         """
-        :param k: int DCG@k
-        :param gain_type: 'exp2' or 'identity'
+        k: int DCG@k
+        gain_type: 'exp2' or 'identity'
         """
         self.k = k
         self.discount = self._make_discount(256)
@@ -25,7 +25,7 @@ class DCG(object):
 
     def evaluate(self, targets):
         """
-        :param targets: ranked list with relevance
+        targets: ranked list with relevance
         :return: float
         """
         gain = self._get_gain(targets)
@@ -73,14 +73,14 @@ class NDCG(DCG):
 
     def __init__(self, k=10, gain_type='exp2'):
         """
-        :param k: int NDCG@k
-        :param gain_type: 'exp2' or 'identity'
+        k: int NDCG@k
+        gain_type: 'exp2' or 'identity'
         """
         super(NDCG, self).__init__(k, gain_type)
 
     def evaluate(self, targets):
         """
-        :param targets: ranked list with relevance
+        targets: ranked list with relevance
         :return: float
         """
         dcg = super(NDCG, self).evaluate(targets)
@@ -90,7 +90,7 @@ class NDCG(DCG):
 
     def maxDCG(self, targets):
         """
-        :param targets: ranked list with relevance
+        targets: ranked list with relevance
         :return:
         """
         ideal = np.sort(targets)[::-1]

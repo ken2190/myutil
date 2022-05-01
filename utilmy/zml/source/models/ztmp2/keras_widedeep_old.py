@@ -354,7 +354,7 @@ def test(config=''):
           for cols in cols_input_group,
 
 
-    :param config:
+    config:
     :return:
     """
     global model, session
