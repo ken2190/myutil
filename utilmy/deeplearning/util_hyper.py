@@ -45,7 +45,7 @@ from utilmy import log, log2
 
 
 def help():
-    """function help        """
+    """ help()       """
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
 
@@ -190,9 +190,6 @@ def test3_optuna():
 
 
 
-
-
-
 ########################################################################################################
 ############## Core Code ###############################################################################
 def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3, verbose=1):
@@ -311,20 +308,6 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
     log("####  Save on disk ##########################################################")
 
     return pars_best, score_best
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
