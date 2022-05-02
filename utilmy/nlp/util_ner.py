@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp.util_ner"
-HELP = """ utils for Name Entity Recognition
+""" utils for Name Entity Recognition
 
 
 
@@ -19,7 +19,7 @@ from utilmy import log, log2,help_create
 
 def help():
     """function help"""
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 

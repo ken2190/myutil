@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy."
-HELP = """ utils for
+""" utils for
 
 
 

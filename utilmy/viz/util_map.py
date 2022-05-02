@@ -1,4 +1,4 @@
-HELP = """
+"""
   pip install folium geopandas
 
 # should be used in a web run env as jupyter notebook to see the actual map. 

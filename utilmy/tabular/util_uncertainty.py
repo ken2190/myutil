@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_uncertainty"
-HELP = """ utils for uncertainty estimation
+""" utils for uncertainty estimation
 #### Uncertainy interval.
 https://mapie.readthedocs.io/en/latest/tutorial_classification.html
 
@@ -50,7 +50,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     print(ss)
 
 
@@ -295,48 +295,7 @@ def test_data_classifier_digits() -> Tuple[ndarray, ndarray, ndarray, ndarray, L
     return X_train, X_test, y_train, y_test, feature_names
 
 
-def load_function_uri(uri_name: str="path_norm") -> Union[Type[MapieRegressor], Type[MapieClassifier]]:
-    """ Load dynamically function from URI
-    ###### Pandas CSV case : Custom MLMODELS One
-    #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-
-    ###### External File processor :
-    #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-    """
-    import importlib, sys
-    from pathlib import Path
-    if ":" in uri_name :
-       pkg = uri_name.split(":")
-       assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-       package, name = pkg[0], pkg[1]
-
-    else :
-       pkg = uri_name.split(".")
-       package = ".".join(pkg[:-1])      
-       name    = pkg[-1]   
-
-    
-    try:
-        #### Import from package mlmodels sub-folder
-        return  getattr(importlib.import_module(package), name)
-
-    except Exception as e1:
-        try:
-            ### Add Folder to Path and Load absoluate path module
-            path_parent = str(Path(package).parent.parent.absolute())
-            sys.path.append(path_parent)
-            #log(path_parent)
-
-            #### import Absolute Path model_tf.1_lstm
-            model_name   = Path(package).stem  # remove .py
-            package_name = str(Path(package).parts[-2]) + "." + str(model_name)
-            #log(package_name, model_name)
-            return  getattr(importlib.import_module(package_name), name)
-
-        except Exception as e2:
-            raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
-
-
+from utilmy.utilmy import load_function_uri
 
 
 

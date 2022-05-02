@@ -26,7 +26,7 @@ def help():
         
     """
     from utilmy.utilmy import help_create
-    ss = HELP + help_create('utilmy.nlp.util_cluster')
+    ss = help_create('utilmy.nlp.util_cluster')
     print(ss)
 
 

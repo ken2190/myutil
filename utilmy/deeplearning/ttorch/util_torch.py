@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.ttorch.util_torch"
-HELP = """ utils for torch training
-TVM optimizer
-https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
+"""Doc::
+
+    utils for torch training
+    TVM optimizer
+    https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
 
 
 
-https://github.com/szymonmaszke/torchlayers
+    https://github.com/szymonmaszke/torchlayers
 
-https://github.com/Riccorl/transformers-embedder
+    https://github.com/Riccorl/transformers-embedder
 
-https://github.com/szymonmaszke/torchfunc
+    https://github.com/szymonmaszke/torchfunc
 
 
 
@@ -37,7 +38,7 @@ def help():
     """function help        
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     log(ss)
 
 
@@ -93,15 +94,12 @@ def test1():
 
 
 ###############################################################################################
-def device_setup(arg):
-    """function device_setup
-    Args:
-        arg:   
-    Returns:
+def device_setup( device='cpu', seed=42, arg:dict=None):
+    """Setup 'cpu' or 'gpu' for device and seed for torch
         
     """
-    device = arg.device
-    seed   = arg.seed
+    device = arg.device if arg is not None else device
+    seed   = arg.seed   if arg is not None else seed
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -120,10 +118,11 @@ def device_setup(arg):
 
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                      batch_size=64, shuffle=True, device='cpu', batch_size_val=None, batch_size_test=None):
-    """function dataloader_create
-    Args:
-        train_X:     
-    Returns:
+    """dataloader_create
+    Doc::
+
+         Example
+
         
     """
     train_loader, valid_loader, test_loader = None, None, None
@@ -165,7 +164,6 @@ def model_load(dir_checkpoint:str, torch_model=None, doeval=True, dotrain=False,
         torch_class_name = load_function_uri(uri_name= torch_model)
         torch_model      = torch_class_name() #### Class Instance  Buggy
         log('loaded from file ', torch_model)
-
 
     if 'http' in dir_checkpoint :
        #torch.cuda.is_available():
@@ -277,7 +275,6 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
 
        model= ut.test_model_dummy2()
        log(model)
-
 
        ut.model_train(model,
             loss_calc=
@@ -608,49 +605,7 @@ if 'utils':
     def to_numpy(tensor):
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
-    def load_function_uri(uri_name: str="path_norm"):
-        """ Load dynamically function from URI.
-        Code::
-
-            ###### Pandas CSV case : Custom MLMODELS One
-            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-
-            ###### External File processor :
-            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-        """
-        import importlib, sys
-        from pathlib import Path
-        if ":" in uri_name :
-            pkg = uri_name.split(":")
-            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-            package, name = pkg[0], pkg[1]
-
-        else :
-            pkg = uri_name.split(".")
-            package = ".".join(pkg[:-1])      
-            name    = pkg[-1]   
-
-        
-        try:
-            #### Import from package mlmodels sub-folder
-            return  getattr(importlib.import_module(package), name)
-
-        except Exception as e1:
-            try:
-                ### Add Folder to Path and Load absoluate path module
-                path_parent = str(Path(package).parent.parent.absolute())
-                sys.path.append(path_parent)
-                #log(path_parent)
-
-                #### import Absolute Path model_tf.1_lstm
-                model_name   = Path(package).stem  # remove .py
-                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
-                #log(package_name, model_name)
-                return  getattr(importlib.import_module(package_name), name)
-
-            except Exception as e2:
-                raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
-
+    from utilmy.utilmy import load_function_uri
 
     def test_load_function_uri():
         uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
@@ -728,14 +683,19 @@ def test_dataset_classification_fake(nrows=500):
     pars = { 'colnum': colnum, 'colcat': colcat, "coly": coly }
     return df, pars
 
+
+
 ###################################################################################################
-def load_partially_compatible(model,device):
+def load_partially_compatible(model,device='cpu'):
     current_model=model.state_dict()
     keys_vin=torch.load('',map_location=device)
 
     new_state_dict={k:v if v.size()==current_model[k].size()  else  current_model[k] for k,v in zip(current_model.keys(), keys_vin['model_state_dict'].values()) 
                     }    
     current_model.load_state_dict(new_state_dict)
+    return current_model
+
+
 
 ###################################################################################################
 def gradwalk(x, _depth=0):
@@ -746,9 +706,12 @@ def gradwalk(x, _depth=0):
             print(' ' * _depth + str(fn))
             gradwalk(fn[0], _depth+1)
 
-for name, param in graph.named_parameters():
-    gradwalk(param)
-    
+def gradwalk_run(graph):
+    for name, param in graph.named_parameters():
+        gradwalk(param)
+
+
+
 if __name__ == "__main__":
     import fire 
     fire.Fire() 

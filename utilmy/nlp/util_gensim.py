@@ -1,6 +1,6 @@
 # coding=utf-8
 MNAME='utilmy.nlp.util_gensim'
-HELP = """
+"""
    Gensim model
 """
 import os, sys, itertools, time, pandas as pd, numpy as np, pickle, gc, re, random, glob
@@ -19,7 +19,7 @@ from utilmy import log, log2, help_create
 
 
 def help():
-    print( HELP + help_create(MNAME))
+    print( help_create(MNAME))
 
 
 #################################################################################################
@@ -207,27 +207,29 @@ def gensim_model_load(dirin,  modeltype='fastext', **kw):
 def gensim_model_train_save(model_or_path=None, dirinput='lee_background.cor', dirout="./modelout/model",
                             epochs=1, pars: dict = None, **kw):
     """ Trains the Fast text model and saves the model
-      classgensim.models.fasttext.FastText(sentences=None, corpus_file=None, sg=0, hs=0, vector_size=100,
-      alpha=0.025, window=5, min_count=5, max_vocab_size=None, word_ngrams=1, sample=0.001,
-      seed=1, workers=3, min_alpha=0.0001, negative=5, ns_exponent=0.75, cbow_mean=1,
-      hashfxn=<built-in function hash>, epochs=5, null_word=0, min_n=3, max_n=6,
-      sorted_vocab=1, bucket=2000000, trim_rule=None,
-      batch_words=10000, callbacks=(), max_final_vocab=None, shrink_windows=True)
+    Doc::
 
-    https://radimrehurek.com/gensim/models/fasttext.html
+        classgensim.models.fasttext.FastText(sentences=None, corpus_file=None, sg=0, hs=0, vector_size=100,
+        alpha=0.025, window=5, min_count=5, max_vocab_size=None, word_ngrams=1, sample=0.001,
+        seed=1, workers=3, min_alpha=0.0001, negative=5, ns_exponent=0.75, cbow_mean=1,
+        hashfxn=<built-in function hash>, epochs=5, null_word=0, min_n=3, max_n=6,
+        sorted_vocab=1, bucket=2000000, trim_rule=None,
+        batch_words=10000, callbacks=(), max_final_vocab=None, shrink_windows=True)
 
-
-    train(corpus_iterable=None, corpus_file=None, total_examples=None, total_words=None, epochs=None, start_alpha=None,
-          end_alpha=None, word_count=0, queue_factor=2,
-          report_delay=1.0, compute_loss=False, callbacks=(), **kwargs
+        https://radimrehurek.com/gensim/models/fasttext.html
 
 
-    model: The model to train
-    dirinput: the filepath of the input data
-    dirout: directory to save the model
-    :epochs: number of epochs to train the model
-    :pars: parameters of the creating FastText
-    :return:
+        train(corpus_iterable=None, corpus_file=None, total_examples=None, total_words=None, epochs=None, start_alpha=None,
+            end_alpha=None, word_count=0, queue_factor=2,
+            report_delay=1.0, compute_loss=False, callbacks=(), **kwargs
+
+
+        model: The model to train
+        dirinput: the filepath of the input data
+        dirout: directory to save the model
+        :epochs: number of epochs to train the model
+        :pars: parameters of the creating FastText
+        :return:
     """
     from gensim.test.utils import datapath      
     from gensim.models import FastText
@@ -263,18 +265,18 @@ def gensim_model_train_save(model_or_path=None, dirinput='lee_background.cor', d
 
 def gensim_model_check(model_path):
     ''' various model check
+    Doc::
+
           score(sentences, total_sentences=1000000, chunksize=100, queue_factor=2, report_delay=1)
           Score the log probability for a sequence of sentences. This does not change the fitted model in any way (see train() for that).
-
           Gensim has currently only implemented score for the hierarchical softmax scheme, so you need to have run word2vec with hs=1 and negative=0 for this to work.
           Note that you should specify total_sentences; you’ll run into problems if you ask to score more than this number of sentences but it is inefficient to set the value too high.
-
-       Parameters
-       sentences (iterable of list of str) – The sentences iterable can be simply a list of lists of tokens, but for larger corpora, consider an iterable that streams the sentences directly from disk/network. See BrownCorpus, Text8Corpus or LineSentence in word2vec module for such examples.
-       total_sentences (int, optional) – Count of sentences.
-       chunksize (int, optional) – Chunksize of jobs
-       queue_factor (int, optional) – Multiplier for size of queue (number of workers * queue_factor).
-       report_delay (float, optional) – Seconds to wait before reporting progress.
+            Parameters
+            sentences (iterable of list of str) – The sentences iterable can be simply a list of lists of tokens, but for larger corpora, consider an iterable that streams the sentences directly from disk/network. See BrownCorpus, Text8Corpus or LineSentence in word2vec module for such examples.
+            total_sentences (int, optional) – Count of sentences.
+            chunksize (int, optional) – Chunksize of jobs
+            queue_factor (int, optional) – Multiplier for size of queue (number of workers * queue_factor).
+            report_delay (float, optional) – Seconds to wait before reporting progress.
 
     '''
     from gensim.test.utils import datapath  

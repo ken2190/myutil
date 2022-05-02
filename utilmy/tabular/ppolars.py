@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.ppolars"
-HELP = """ utils for polars
+""" utils for polars
 
 
 #### 1) pandas_to_polars
@@ -217,7 +217,7 @@ def help():
 
     """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 

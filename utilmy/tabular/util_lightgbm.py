@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_lightgbm"
-HELP = """ utils for LightGBM
+""" utils for LightGBM
 """
 import os, math, time, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
 from box import Box
@@ -47,7 +47,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 

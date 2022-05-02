@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp.util_nlp"
-HELP = """ utils for NLP processing
+""" utils for NLP processing
 
 ### pip install fire
 
@@ -48,7 +48,7 @@ import rouge
 #############################################################################################
 from utilmy import log, log2, help_create
 def help():
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 #############################################################################################

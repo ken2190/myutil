@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.adatasets"
-HELP = """ utils for dataset donwloading
+""" utils for dataset donwloading
 
 
 """
@@ -23,7 +23,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 ##############################################################################################
