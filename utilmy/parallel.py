@@ -1,6 +1,8 @@
 # coding=utf-8
 MNAME="utilmy.parallel"
-HELP="""
+"""# 
+Doc::
+
     python parallel.py test0
     #  python parallel.py test2
 """

@@ -1,5 +1,7 @@
 MNAME='utilmy.docs.docstring'
-HELP=""" Automates Python scripts formatting, linting and Mkdocs documentation.
+"""# 
+Doc::
+ Automates Python scripts formatting, linting and Mkdocs documentation.
 
 
 cd myutil

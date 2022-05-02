@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME='utilmy.deeplearning.util_embedding'
-HELP=""" Embedding utils/ Visualization
+"""# 
+Doc::
+ Embedding utils/ Visualization
 
 https://try2explore.com/questions/10109123
 

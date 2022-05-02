@@ -1,4 +1,6 @@
-HELP="""All related to distributed compute and atomic read/write
+"""# 
+Doc::
+All related to distributed compute and atomic read/write
    Thread Safe
    Process Safe
    Lock Mechanism

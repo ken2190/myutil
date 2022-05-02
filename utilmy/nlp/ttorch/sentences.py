@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
-MNAME="utilmy.deeplearning.torch.sentences"
-HELP="""sentence_tansformer wrapper
+"""#
+Doc::
 
-python  utilmy/nlp/ttorch/sentences.py  test1
+    sentence_tansformer wrapper
 
-
-Original file is located at
-https://colab.research.google.com/drive/1dPPD-2Vrn61v2uYZT1AXiujqqw7ZwzEA#scrollTo=TZCBsq36j4aH
+    python  utilmy/nlp/ttorch/sentences.py  test1
 
 
-train Sentence Transformer with different Losses such as:**
-> Softmax Loss
-> Cusine Loss
-> TripletHard Loss
-> MultpleNegativesRanking Loss
+    Original file is located at
+    https://colab.research.google.com/drive/1dPPD-2Vrn61v2uYZT1AXiujqqw7ZwzEA#scrollTo=TZCBsq36j4aH
 
-# !pip install sentence-transformers
 
-We create a new end-to-end example on how to use a custom inference.py script w
-ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+    train Sentence Transformer with different Losses such as:**
+    > Softmax Loss
+    > Cusine Loss
+    > TripletHard Loss
+    > MultpleNegativesRanking Loss
 
-🖼  blog: https://lnkd.in/dXNu4R-G
-📈  notebook: https://lnkd.in/dkjDMNaC
+    # !pip install sentence-transformers
+
+    We create a new end-to-end example on how to use a custom inference.py script w
+    ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+
+    🖼  blog: https://lnkd.in/dXNu4R-G
+    📈  notebook: https://lnkd.in/dkjDMNaC
 
 
 """

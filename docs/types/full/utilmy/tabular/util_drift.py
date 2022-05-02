@@ -1,7 +1,9 @@
 os.getcwd /home/runner/work/myutil/myutil/utilmy/tabular
 ### drift
 # coding=utf-8
-HELP="""
+"""# 
+Doc::
+
 
 
 https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
