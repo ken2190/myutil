@@ -54,7 +54,7 @@ def help():
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all   to be used in test.py         """
+    """ python  $utilmy/deeplearning/util_embedding.py test_all         """
     log(MNAME)
     test1()
 
@@ -126,7 +126,9 @@ class EmbeddingViz:
 
 
     def load_data(self,  col_embed='embed', nmax= 5000,  npool=2 ):
-        """  raw data in file into
+        """  Load embedding vector from file.
+        Doc::
+
                 ip_map :     dict  0--N  Integer to  id_label
                 df_labelss : pandas dataframe: id, label1, label2
                 embs  :      list of np array
@@ -151,8 +153,14 @@ class EmbeddingViz:
         self.embs      = embs
 
 
-    def dim_reduction(self, mode="mds", ndim=2, nmax= 5000, dir_out=None, ntrain=10000, npool=2):
+    def dim_reduction(self, mode="mds", ndim=2, nmax= 5000, dirout=None, ntrain=10000, npool=2):
+        """  Reduce dimension of embedding into 2D X,Y for plotting.
+        Doc::
 
+             mode:   'mds', 'umap'  algo reduction.
+             ntrain: 10000, nb of samples to train.
+            
+        """
         pos = None
         if mode == 'mds' :
             ### Co-variance matrix
@@ -188,18 +196,18 @@ class EmbeddingViz:
 
         self.coordinate_xy       = pos
 
-        if dir_out is not None :
+        if dirout is not None :
             os.makedirs(dir_out, exist_ok=True)
             df = pd.DataFrame(pos, columns=['x', 'y'] )
             for ci in [ 'x', 'y' ] :
                df[ ci ] = df[ ci ].astype('float32')
 
             # log(df, df.dtypes)
-            pd_to_file(df.iloc[:100, :],  f"{dir_out}/embs_xy_{mode}.csv" )
-            pd_to_file(df,                f"{dir_out}/embs_xy_{mode}.parquet" , show=1)
+            pd_to_file(df.iloc[:100, :],  f"{dirout}/embs_xy_{mode}.csv" )
+            pd_to_file(df,                f"{dirout}/embs_xy_{mode}.parquet" , show=1)
 
 
-    def create_clusters(self, after_dim_reduction=True):
+    def create_clusters(self, method='kmeans', after_dim_reduction=True):
 
         import hdbscan
         #km = hdbscan.HDBSCAN(min_samples=3, min_cluster_size=10)  #.fit_predict(self.pos)
@@ -216,7 +224,7 @@ class EmbeddingViz:
         self.cluster_names = {i: f'Cluster {i}' for i in range(self.num_clusters)}
 
 
-    def create_visualization(self, dir_out="ztmp/", mode='d3', cols_label=None, show_server=False,  **kw ):
+    def create_visualization(self, dir_out="ztmp/", mode='d3', cols_label=None, start_server=False,  **kw ):
         """
 
         """
@@ -301,18 +309,22 @@ class EmbeddingViz:
 
         ##### Export ############################################################
         mpld3.save_html(fig,  f"{dir_out}/embeds.html")
-        log('Visualization',    f"{dir_out}/embeds.html" )
+        log(f"{dir_out}/embeds.html" )
 
         ### Windows specifc
         if os.name == 'nt': os.system(f'start chrome "{dir_out}/embeds.html" ')
 
 
-        if show_server :
+        if start_server :
            # mpld3.show(fig=None, ip='127.0.0.1', port=8888, n_retries=50, local=True, open_browser=True, http_server=None, **kwargs)[source]
            mpld3.show()  # show the plot
 
 
-    def draw_hiearchy(self):
+    def draw_cluster_hiearchy(self):
+        """  Dendogram from distance
+
+        """
+        from scipy.cluster.hierarchy import ward, dendrogram
         linkage_matrix = ward(self.dist)  # define the linkage_matrix using ward clustering pre-computed distances
         fig, ax = plt.subplots(figsize=(15, 20))  # set size
         ax = dendrogram(linkage_matrix, orientation="right", labels=self.text_labels)
