@@ -88,7 +88,7 @@ def test1_optuna():
 
 
 def test2_optuna():
-    """function test_hyper2
+    """  util_hyper.help()
     """
     import numpy as np
     import sklearn
@@ -196,10 +196,9 @@ def test3_optuna():
 ########################################################################################################
 ############## Core Code ###############################################################################
 def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3, verbose=1):
-    """
+    """ Run Hyper params with optuna.
+    Docs:: 
 
-      Example
-      -------
       pars_dict_init =  {  'boosting_type':'gbdt',
 						'importance_type':'split', 'learning_rate':0.001, 'max_depth':10,
 						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
@@ -212,10 +211,29 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
 						 'num_leaves':31 }
       obj_fun(pars_dict) :  Objective function
       engine_pars :    {   }  optuna parameters
-
-
       API interface integration :
            https://optuna.readthedocs.io/en/stable/reference/generated/optuna.storages.RDBStorage.html
+
+
+    Example::
+
+        ## Initial values
+        hyperpars_init = {'x':2,
+                'y':{'z':3, 't':2}}
+        ## Sampling of values
+        hyperpars_range = {'x': ('uniform',  -10,10),
+                    'y': {'z':('int',-10, 10)}
+                    }
+        def objective1(ddict):
+            ### ddict contains the variable to be used.
+            x   = ddict['x']
+            z   = ddict['y']['z']
+            obj = ((x - 2)**3 + z**2 )
+            return obj
+        engine_pars = {'metric_target':'loss'}
+        result_p = run_hyper_optuna(objective1, pars_dict_init= hyperpars_init, pars_dict_range= hyperpars_range,
+                                    engine_pars= engine_pars, ntrials=  3)
+        log(result_p)    
 
     """
     import os
@@ -348,52 +366,7 @@ if 'utils':
         return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
 
 
-    def load_function_uri(uri_name: str="path_norm"):
-        """ Load dynamically function from URI
-        ###### Pandas CSV case : Custom MLMODELS One
-        #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-
-        ###### External File processor :
-        #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-        """
-        import importlib, sys
-        from pathlib import Path
-        if ":" in uri_name :
-            pkg = uri_name.split(":")
-            assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-            package, name = pkg[0], pkg[1]
-
-        else :
-            pkg = uri_name.split(".")
-            package = ".".join(pkg[:-1])      
-            name    = pkg[-1]   
-
-        
-        try:
-            #### Import from package mlmodels sub-folder
-            return  getattr(importlib.import_module(package), name)
-
-        except Exception as e1:
-            try:
-                ### Add Folder to Path and Load absoluate path module
-                path_parent = str(Path(package).parent.parent.absolute())
-                sys.path.append(path_parent)
-                #log(path_parent)
-
-                #### import Absolute Path model_tf.1_lstm
-                model_name   = Path(package).stem  # remove .py
-                package_name = str(Path(package).parts[-2]) + "." + str(model_name)
-                #log(package_name, model_name)
-                return  getattr(importlib.import_module(package_name), name)
-
-            except Exception as e2:
-                raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
-
-
-    def test_load_function_uri():
-        uri_name = "./testdata/ttorch/models.py:SuperResolutionNet"
-        myclass = load_function_uri(uri_name)
-        log(myclass)
+    from utilmy.utilmy import load_function_uri
 
 
     def test_create_model_pytorch(dirsave=None, model_name=""):
