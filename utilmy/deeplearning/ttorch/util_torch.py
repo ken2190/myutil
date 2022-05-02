@@ -724,14 +724,19 @@ def test_dataset_classification_fake(nrows=500):
     pars = { 'colnum': colnum, 'colcat': colcat, "coly": coly }
     return df, pars
 
+
+
 ###################################################################################################
-def load_partially_compatible(model,device):
+def load_partially_compatible(model,device='cpu'):
     current_model=model.state_dict()
     keys_vin=torch.load('',map_location=device)
 
     new_state_dict={k:v if v.size()==current_model[k].size()  else  current_model[k] for k,v in zip(current_model.keys(), keys_vin['model_state_dict'].values()) 
                     }    
     current_model.load_state_dict(new_state_dict)
+    return current_model
+
+
 
 ###################################################################################################
 def gradwalk(x, _depth=0):
@@ -742,9 +747,12 @@ def gradwalk(x, _depth=0):
             print(' ' * _depth + str(fn))
             gradwalk(fn[0], _depth+1)
 
-for name, param in graph.named_parameters():
-    gradwalk(param)
-    
+def gradwalk_run(graph):
+    for name, param in graph.named_parameters():
+        gradwalk(param)
+
+
+
 if __name__ == "__main__":
     import fire 
     fire.Fire() 
