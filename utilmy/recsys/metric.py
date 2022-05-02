@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.metric"
-HELP = """"
+""""
 All about metrics
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp_util_explain"
-HELP = """ utils for NL explanation
+""" utils for NL explanation
 
 
 

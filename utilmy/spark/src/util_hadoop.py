@@ -1,4 +1,4 @@
-HELP = """
+"""
 
 Hadoop, hive related
 

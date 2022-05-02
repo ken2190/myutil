@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_hyper"
-HELP = """ utils for Hyper Params
+""" utils for Hyper Params
 
 cd myutil
 python utilmy/deeplearning/util_hyper.py    test1

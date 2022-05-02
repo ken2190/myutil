@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.util_tfranking"
-HELP = """"
+""""
 All about TF Ranking
 
 https://colab.research.google.com/drive/1VWO8a78P3ZkvgLfU5QDz5Sj-NzCgBhs9

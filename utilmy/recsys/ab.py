@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.ab"
-HELP = """"
+""""
 All about abtest
 
 cd utilmy/recsys/ab

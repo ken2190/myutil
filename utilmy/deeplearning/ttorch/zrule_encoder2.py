@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.torch.rule_encoder"
-HELP = """ utils for model explanation
+""" utils for model explanation
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy

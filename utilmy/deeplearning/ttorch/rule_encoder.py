@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.torch.rule_encoder"
-HELP = """ utils for model explanation
+""" utils for model explanation
 
 ### pip install fire
 
