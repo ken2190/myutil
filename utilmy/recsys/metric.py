@@ -1,26 +1,27 @@
 from __future__ import absolute_import, division
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.recsys.metric"
-""""
-All about metrics
+""""#
+Doc::
+
+    All about metrics
 
 
-https://github.com/jacopotagliabue/reclist/blob/main/reclist/recommenders/prod2vec.py
+    https://github.com/jacopotagliabue/reclist/blob/main/reclist/recommenders/prod2vec.py
 
 
-https://github.com/statisticianinstilettos/recmetrics/blob/master/example.ipynb
+    https://github.com/statisticianinstilettos/recmetrics/blob/master/example.ipynb
 
 
-https://github.com/AstraZeneca/rexmex
+    https://github.com/AstraZeneca/rexmex
 
 
-# Recommender system ranking metrics derived from Spark source for use with
-# original Spark Scala source code for recommender metrics.
-# https://github.com/apache/spark/blob/master/mllib/src/main/scala/org/apache/spark/mllib/evaluation/RankingMetrics.scala
+    # Recommender system ranking metrics derived from Spark source for use with
+    # original Spark Scala source code for recommender metrics.
+    # https://github.com/apache/spark/blob/master/mllib/src/main/scala/org/apache/spark/mllib/evaluation/RankingMetrics.scala
 
 
 
-https://rexmex.readthedocs.io/en/latest/modules/root.html#module-rexmex.metrics.ranking
+    https://rexmex.readthedocs.io/en/latest/modules/root.html#module-rexmex.metrics.ranking
 
 
 
