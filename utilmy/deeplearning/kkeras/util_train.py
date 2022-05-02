@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """ watch nvidia-smi
+""" watch nvidia-smi
 Focus on reconstruction
 """
 import os, glob, sys, math, string, time, json, logging, functools, random, numpy as np, pandas as pd, cv2, matplotlib, scipy, h5py, yaml

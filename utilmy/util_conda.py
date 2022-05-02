@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.util_conda"
-HELP = """ utils for conda/pip
+""" utils for conda/pip
 
 
 """

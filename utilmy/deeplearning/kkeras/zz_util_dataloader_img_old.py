@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """
+"""
  utils keras for dataloading
 """
 import os,io, numpy as np, sys, glob, time, copy, json, pandas as pd, functools, sys

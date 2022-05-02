@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_uncertainty"
-HELP = """ utils for uncertainty estimation
+""" utils for uncertainty estimation
 #### Uncertainy interval.
 https://mapie.readthedocs.io/en/latest/tutorial_classification.html
 

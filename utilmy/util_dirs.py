@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """Utilities for determining application-specific dirs.
+"""Utilities for determining application-specific dirs.
 
 # Dev Notes:
 # - MSDN on where to store app data files:

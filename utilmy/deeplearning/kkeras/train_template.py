@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """ watch nvidia-smi
+""" watch nvidia-smi
 Focus on reconstruction
 """
 import os, pandas as pd, time, numpy as np,sys

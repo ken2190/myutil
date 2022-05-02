@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.util_colab"
-HELP = """ Colab utils
+""" Colab utils
 
 #### Increase the RAMDISK space
 ! mount -o remount,size=16G /var/colab 

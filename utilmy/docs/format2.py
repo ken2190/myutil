@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.docs.format2"
-HELP = """ utils for re-formatting files using TEMPLATES
+""" utils for re-formatting files using TEMPLATES
 
 
 

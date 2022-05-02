@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """merge ranking
+"""merge ranking
 Original file is located at
     https://colab.research.google.com/drive/1wMTlaj4PPBlpkh4VE0A3X7D0ZULWnok8
 

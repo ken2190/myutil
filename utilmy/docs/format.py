@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.docs.format"
-HELP = """ A simple python module to parse the code and format it based on some rules.
+""" A simple python module to parse the code and format it based on some rules.
 
 Goal is to normalize all python files with similar structure.
 

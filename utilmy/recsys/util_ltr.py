@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.util_ltr"
-HELP = """"
+""""
 All about LTR models
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp.util_ner"
-HELP = """ utils for Name Entity Recognition
+""" utils for Name Entity Recognition
 
 
 

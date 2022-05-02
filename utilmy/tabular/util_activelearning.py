@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_activelearning"
-HELP = """ utils for active learning
+""" utils for active learning
 
 
 https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integration.html

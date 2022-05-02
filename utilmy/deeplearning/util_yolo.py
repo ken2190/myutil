@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_yolo"
-HELP = """ utils for Yolo
+""" utils for Yolo
 
 
 cd myutil

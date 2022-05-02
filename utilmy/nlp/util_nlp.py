@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.nlp.util_nlp"
-HELP = """ utils for NLP processing
+""" utils for NLP processing
 
 ### pip install fire
 

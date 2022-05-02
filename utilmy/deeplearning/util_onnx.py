@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.util_onnx"
-HELP = """ utils for ONNX runtime Optimization
+""" utils for ONNX runtime Optimization
 
 
 cd myutil

@@ -1,6 +1,6 @@
 # coding=utf-8
 MNAME='utilmy.nlp.util_topk'
-HELP = """  Top-K retrieval
+"""  Top-K retrieval
 
 
 """

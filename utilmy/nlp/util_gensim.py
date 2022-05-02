@@ -1,6 +1,6 @@
 # coding=utf-8
 MNAME='utilmy.nlp.util_gensim'
-HELP = """
+"""
    Gensim model
 """
 import os, sys, itertools, time, pandas as pd, numpy as np, pickle, gc, re, random, glob

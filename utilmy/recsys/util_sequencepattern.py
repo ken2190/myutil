@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.util_sequencepattern"
-HELP = """ utils for sequential pattern discovery
+""" utils for sequential pattern discovery
 
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNANE="utilmy.nlp.keras.sentences"
-HELP = """  sentence --> generate vectors
+"""  sentence --> generate vectors
 
 
 """

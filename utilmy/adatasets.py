@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.adatasets"
-HELP = """ utils for dataset donwloading
+""" utils for dataset donwloading
 
 
 """

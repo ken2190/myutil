@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """
+"""
 
 
 https://eliot.readthedocs.io/en/stable/
