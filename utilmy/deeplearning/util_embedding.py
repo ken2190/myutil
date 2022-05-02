@@ -979,17 +979,17 @@ if 'utils_matplotlib':
 
 if 'utils_vector':
     def np_array_to_str(vv, ):
-        """ array/list into  , string """
+        """ array/list into  "," delimited string """
         vv= np.array(vv, dtype='float32')
         vv= [ str(x) for x in vv]
         return ",".join(vv)
 
 
     def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
-        """ Extract list of string into numpy 2D Array
-        #mdim = len(vv[0].split(","))
-        # mdim = 200
-
+        """ Convert list of string into numpy 2D Array
+        Docs::
+             
+             np_str_to_array(vv=[ '3,4,5', '7,8,9'],  l2_norm=True,     mdim = 3)    
 
         """
         from sklearn import preprocessing
@@ -1009,7 +1009,15 @@ if 'utils_vector':
         return X
 
 
-    def np_matrix_to_str2(m, map_dict):
+    def np_matrix_to_str2(m, map_dict:dict):
+        """ 2D numpy into list of string and apply map_dict.
+        
+        Doc::
+            map_dict = { 4:'four', 3: 'three' }
+            m= [[ 0,3,4  ], [2,4,5]]
+            np_matrix_to_str2(m, map_dict)
+
+        """
         res = []
         for v in m:
             ss = ""
