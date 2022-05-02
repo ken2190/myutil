@@ -355,8 +355,8 @@ def pip_install(pkg_str=" pandas "):
 
 
 
-def load_function_uri(uri_name: str="MyFolder/myfile.py:myClass):
-    """ Load dynamically Python function/Class from string
+def load_function_uri(uri_name: str="MyFolder/myfile.py:my_function"):
+    """ Load dynamically Python function/Class from string name
     Doc::
 
         ###### Pandas CSV case : Custom MLMODELS One
