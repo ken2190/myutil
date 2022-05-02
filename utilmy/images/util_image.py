@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.images.util_image"
-HELP=""" utils images
+"""# 
+Doc::
+ utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd

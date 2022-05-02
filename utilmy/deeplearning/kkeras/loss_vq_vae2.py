@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-HELP="""Keras VQ-VAE-2.ipynb
+"""# 
+Doc::
+Keras VQ-VAE-2.ipynb
 
 Original file is located at
     https://colab.research.google.com/drive/1dsRcxGDtLIY_ZVeiyPyF_HQQrZlp19TP

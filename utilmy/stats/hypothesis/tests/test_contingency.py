@@ -1,4 +1,6 @@
-HELP="""
+"""# 
+Doc::
+
   
    python utilmy/stats/tests/test_contingency.py test_chi_square_contingency
 

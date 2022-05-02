@@ -1,5 +1,7 @@
 # coding=utf-8
-HELP="""  Hypothesis testing easy
+"""# 
+Doc::
+  Hypothesis testing easy
   
 https://github.com/pranab/beymani
 
