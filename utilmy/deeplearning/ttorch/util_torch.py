@@ -93,15 +93,12 @@ def test1():
 
 
 ###############################################################################################
-def device_setup(arg):
-    """function device_setup
-    Args:
-        arg:   
-    Returns:
+def device_setup( device='cpu', seed=42, arg:dict=None):
+    """Setup 'cpu' or 'gpu' for device and seed for torch
         
     """
-    device = arg.device
-    seed   = arg.seed
+    device = arg.device if arg is not None else device
+    seed   = arg.seed   if arg is not None else seed
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -120,10 +117,11 @@ def device_setup(arg):
 
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                      batch_size=64, shuffle=True, device='cpu', batch_size_val=None, batch_size_test=None):
-    """function dataloader_create
-    Args:
-        train_X:     
-    Returns:
+    """dataloader_create
+    Doc::
+
+         Example
+
         
     """
     train_loader, valid_loader, test_loader = None, None, None
@@ -165,7 +163,6 @@ def model_load(dir_checkpoint:str, torch_model=None, doeval=True, dotrain=False,
         torch_class_name = load_function_uri(uri_name= torch_model)
         torch_model      = torch_class_name() #### Class Instance  Buggy
         log('loaded from file ', torch_model)
-
 
     if 'http' in dir_checkpoint :
        #torch.cuda.is_available():
@@ -277,7 +274,6 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
 
        model= ut.test_model_dummy2()
        log(model)
-
 
        ut.model_train(model,
             loss_calc=
