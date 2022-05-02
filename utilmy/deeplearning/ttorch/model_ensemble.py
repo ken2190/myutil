@@ -38,7 +38,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     log(ss)
 
 

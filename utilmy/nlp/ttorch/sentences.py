@@ -59,7 +59,7 @@ Dataframe_str = Union[str, pd.DataFrame, None]
 
 from utilmy import log, log2, help_create
 def help():
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 #############################################################################################

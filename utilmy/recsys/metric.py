@@ -47,7 +47,7 @@ from sklearn.metrics import precision_recall_curve, roc_curve
 from utilmy import log, log2
 def help():
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     print(ss)
 
 #################################################################################################

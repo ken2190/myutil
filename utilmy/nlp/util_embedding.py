@@ -25,7 +25,7 @@ from sklearn import preprocessing, model_selection, feature_extraction, feature_
 #############################################################################################
 from utilmy import log, log2, help_create
 def help():
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 

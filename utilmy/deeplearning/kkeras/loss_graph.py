@@ -27,7 +27,7 @@ def help():
     """
 
     from utilmy import help_create
-    ss = HELP + help_create("utilmy.deeplearning.keras.Loss_graph")
+    ss = help_create("utilmy.deeplearning.keras.Loss_graph")
     print(ss)
 
 
