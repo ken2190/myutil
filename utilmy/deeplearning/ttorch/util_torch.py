@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Module.
+"""#
 Doc::
 
     Utils for torch training
@@ -11,7 +11,6 @@ Doc::
     https://github.com/Riccorl/transformers-embedder
 
     https://github.com/szymonmaszke/torchfunc
-
 
 
 """

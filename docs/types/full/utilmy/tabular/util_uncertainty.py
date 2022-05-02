@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.tabular.util_uncertainty"
-""" utils for uncertainty estimation
-#### Uncertainy interval.
-https://mapie.readthedocs.io/en/latest/tutorial_classification.html
+"""#
+Doc::
+
+  utils for uncertainty estimation
+  #### Uncertainy interval.
+  https://mapie.readthedocs.io/en/latest/tutorial_classification.html
 
 
-clf = GaussianNB().fit(X_train, y_train)
-y_pred = clf.predict(X_test)
-y_pred_proba = clf.predict_proba(X_test)
-y_pred_proba_max = np.max(y_pred_proba, axis=1)
+  clf = GaussianNB().fit(X_train, y_train)
+  y_pred = clf.predict(X_test)
+  y_pred_proba = clf.predict_proba(X_test)
+  y_pred_proba_max = np.max(y_pred_proba, axis=1)
 
-mapie_score = MapieClassifier(estimator=clf, cv="prefit", method="score")
-mapie_score.fit(X_cal, y_cal)
-alpha = [0.2, 0.1, 0.05]
-y_pred_score, y_ps_score = mapie_score.predict(X_test_mesh, alpha=alpha)
+  mapie_score = MapieClassifier(estimator=clf, cv="prefit", method="score")
+  mapie_score.fit(X_cal, y_cal)
+  alpha = [0.2, 0.1, 0.05]
+  y_pred_score, y_ps_score = mapie_score.predict(X_test_mesh, alpha=alpha)
 
 
 
