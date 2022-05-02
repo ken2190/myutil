@@ -52,20 +52,22 @@ def test_all() -> None:
 
 
 def test_helper():
-    """
-    (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
-    ========================================================================
-    In this tutorial, we describe how to convert a model defined
-    in PyTorch into the ONNX format and then run it with ONNX Runtime.
+    """ Example code.
+    Doc::
 
-    ONNX Runtime has proved to considerably increase performance over
-    multiple models as explained `here
-    <https://cloudblogs.microsoft.com/opensource/2019/05/22/onnx-runtime-machine-learning-inferencing-0-4-release>`__
-    For this tutorial, you will need to install `ONNX <https://github.com/onnx/onnx>`__
-    and `ONNX Runtime <https://github.com/microsoft/onnxruntime>`__.
-    You can get binary builds of ONNX and ONNX Runtime with
-    ``pip install onnx onnxruntime``.
-    Note that ONNX Runtime is compatible with Python versions 3.5 to 3.7.
+        (optional) Exporting a Model from PyTorch to ONNX and Running it using ONNX Runtime
+        ========================================================================
+        In this tutorial, we describe how to convert a model defined
+        in PyTorch into the ONNX format and then run it with ONNX Runtime.
+
+        ONNX Runtime has proved to considerably increase performance over
+        multiple models as explained `here
+        <https://cloudblogs.microsoft.com/opensource/2019/05/22/onnx-runtime-machine-learning-inferencing-0-4-release>`__
+        For this tutorial, you will need to install `ONNX <https://github.com/onnx/onnx>`__
+        and `ONNX Runtime <https://github.com/microsoft/onnxruntime>`__.
+        You can get binary builds of ONNX and ONNX Runtime with
+        ``pip install onnx onnxruntime``.
+        Note that ONNX Runtime is compatible with Python versions 3.5 to 3.7.
     """
 
     # Some standard imports
@@ -350,6 +352,8 @@ def test3():
 
 
 def test_onnx_convert():
+    """Example"""
+
     import torch.nn as nn
     import torch.nn.init as init
 
@@ -390,7 +394,7 @@ def test_onnx_convert():
     ### model 2
     torch_model_test = "./testdata/ttorch/models.py:SuperResolutionNet"
     llist = [ SuperResolutionNet(upscale_factor=3), 
-              torch_model_test
+            torch_model_test
     ]
 
     #### Run the tests
@@ -407,7 +411,9 @@ def test_onnx_convert():
                     dynamic_axes        = {'input' : {0 : 'batch_size'}, 'output' : {0 : 'batch_size'}},
                     device='cpu',
         )
-    
+
+
+
 
 
 
