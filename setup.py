@@ -191,6 +191,7 @@ try :
     elif 'linux' in sys.platform :
         os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
         os.system(f" export utilmy={repopath}/ ")
+        print(' source  ~/.bashrc  ')
 
     print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
 
