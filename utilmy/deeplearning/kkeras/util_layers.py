@@ -26,7 +26,7 @@ def help():
     Summary: Extract code source from test code
     """
     from utilmy import help_create
-    ss = HELP + help_create("utilmy.deeplearning.keras.util_layers")
+    ss = help_create("utilmy.deeplearning.keras.util_layers")
     print(ss)
 
 

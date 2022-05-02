@@ -32,7 +32,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create("utilmy.stats.statistics") )
+    print( help_create("utilmy.stats.statistics") )
 
 
 #################################################################################################

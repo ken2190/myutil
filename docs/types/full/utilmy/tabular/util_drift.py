@@ -30,7 +30,7 @@ from utilmy.utilmy import log, log2
 
 def help():
     from utilmy import help_create
-    print( HELP + help_create("utilmy.tabular") )
+    print( help_create("utilmy.tabular") )
 
     
 #################################################################################################

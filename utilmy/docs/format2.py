@@ -194,7 +194,7 @@ def normalize_logger(lines):
     if not is_exist_help:
         lines2.extend([
             'def help():\n',
-            '   print( HELP + help_create(MNAME) )\n',
+            '   print( help_create(MNAME) )\n',
             '\n',
             '\n'
         ])

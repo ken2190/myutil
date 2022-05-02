@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.ttorch.util_torch"
-""" utils for torch training
-TVM optimizer
-https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
+"""Doc::
+
+    utils for torch training
+    TVM optimizer
+    https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
 
 
 
-https://github.com/szymonmaszke/torchlayers
+    https://github.com/szymonmaszke/torchlayers
 
-https://github.com/Riccorl/transformers-embedder
+    https://github.com/Riccorl/transformers-embedder
 
-https://github.com/szymonmaszke/torchfunc
+    https://github.com/szymonmaszke/torchfunc
 
 
 
@@ -37,7 +38,7 @@ def help():
     """function help        
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     log(ss)
 
 

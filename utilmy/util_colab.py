@@ -59,7 +59,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 
