@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """#
 Doc::
->>>>>>> a856ddd254079d95850f5a332b1b3d659d02d042
 
     sentence_tansformer wrapper
 
