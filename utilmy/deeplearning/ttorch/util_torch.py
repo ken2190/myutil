@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Doc.
+"""Module.
 Doc::
 
     Utils for torch training
