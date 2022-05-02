@@ -17,6 +17,16 @@
     https://github.com/arita37/myutil/issues/9
 
 
+    Patching for Intel CPU speed up
+
+        https://intel.github.io/scikit-learn-intelex/acceleration.html
+
+        Through global patching to enable patching for your scikit-learn installation for all further runs:
+        python sklearnex.glob patch_sklearn
+
+        pip install scikit-learn-intelex
+
+
 
 ## How to use 
  
