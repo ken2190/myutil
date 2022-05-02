@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_explain"
-""" utils for model explanation
+"""#
+Doc::
+   utils for model explanation
+   https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integration.html
 """
 import os, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt
 from box import Box
@@ -327,7 +330,7 @@ def test_imodels():
 
 """
 
-https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integration.html
+
 
 """
 
