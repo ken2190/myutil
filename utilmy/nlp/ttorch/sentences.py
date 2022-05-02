@@ -72,20 +72,23 @@ def test_all() -> None:
 
 
 def test1():
-    """ Run Various test suing sent trans_former,
-        <> losses, <> tasks    # Mostly Single sentence   ---> Classification
+    """#
+    Doc::
 
-    python utilmy/nlp/ttorch/sentences.py test1
+        Run Various test suing sent trans_former,
+            <> losses, <> tasks    # Mostly Single sentence   ---> Classification
+
+        python utilmy/nlp/ttorch/sentences.py test1
 
 
-    model.encode(self, sentences: Union[str, List[str]],
-               batch_size: int = 32,
-               show_progress_bar: bool = None,
-               output_value: str = 'sentence_embedding',
-               convert_to_numpy: bool = True,
-               convert_to_tensor: bool = False,
-               device: str = None,
-               normalize_embeddings: bool = False) -> Union[List[Tensor], ndarray, Tensor]:
+        model.encode(self, sentences: Union[str, List[str]],
+                batch_size: int = 32,
+                show_progress_bar: bool = None,
+                output_value: str = 'sentence_embedding',
+                convert_to_numpy: bool = True,
+                convert_to_tensor: bool = False,
+                device: str = None,
+                normalize_embeddings: bool = False) -> Union[List[Tensor], ndarray, Tensor]:
     """
     os.environ['CUDA_VISIBLE_DEVICES']='2,3'
   
@@ -240,7 +243,10 @@ def model_finetune(modelname_or_path='distilbert-base-nli-mean-tokens',
                    metricname='cosinus',
                    dirout ="mymodel_save/", nsample=100000,
                    cc:dict= None):
-    """" Load pre-trained model and fine tune with specific dataset
+    """"#
+    Doc::
+
+         Load pre-trained model and fine tune with specific dataset
 
          cols= ['sentence1', 'sentence2', 'label', 'score' ],
          task='classifier',  df[['sentence1', 'sentence2', 'label']]
@@ -334,14 +340,17 @@ def model_check_cos_sim(model, sentence1 = "sentence 1" , sentence2 = "sentence 
 def model_encode(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
                 coltext:str='sentence1', colid=None,
                 dirout:str="embs/myfile.parquet", show=1,  **kw )->Dataframe_str :
-    """   Sentence encoder  
-    sentences        : the sentences to embed
-    batch_size       : the batch size used for the computation
-    show_progress_bar: Output a progress bar when encode sentences
-    output_value     : Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
-    convert_to_numpy : If true,                    the output is a list of numpy vectors. Else,                                                               it is a list of pytorch tensors.
-    convert_to_tensor: If true,                    you get one large tensor as return. Overwrites any setting from convert_to_numpy
-    device           : Which torch.device to use for the computation
+    """#
+    Doc::
+
+        Sentence encoder  
+        sentences        : the sentences to embed
+        batch_size       : the batch size used for the computation
+        show_progress_bar: Output a progress bar when encode sentences
+        output_value     : Default sentence_embedding, to get sentence embeddings. Can be set to token_embeddings to get wordpiece token embeddings. Set to None, to get all output values
+        convert_to_numpy : If true,                    the output is a list of numpy vectors. Else,                                                               it is a list of pytorch tensors.
+        convert_to_tensor: If true,                    you get one large tensor as return. Overwrites any setting from convert_to_numpy
+        device           : Which torch.device to use for the computation
 
     """  
     model = model_load(model)
@@ -420,14 +429,17 @@ def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv'
 
 
 def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None)->SentenceTransformer: 
-    """model_setup_compute _summary_
-     # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
-    Args:
-        model: _description_
-        use_gpu: _description_. Defaults to 0.
-        ngpu: _description_. Defaults to 1.
-        ncpu: _description_. Defaults to 1.
-        cc: _description_. Defaults to None.
+    """#
+    Doc::
+    
+        model_setup_compute _summary_
+        # Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.
+        Args:
+            model: _description_
+            use_gpu: _description_. Defaults to 0.
+            ngpu: _description_. Defaults to 1.
+            ncpu: _description_. Defaults to 1.
+            cc: _description_. Defaults to None.
     """
     cc = Box(cc) if cc is not None else Box({})
     if cc.get('use_gpu', 0) > 0 :        ### default is CPU
