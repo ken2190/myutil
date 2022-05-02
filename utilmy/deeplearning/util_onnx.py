@@ -38,7 +38,7 @@ except:
 
 #############################################################################################
 def help():
-    """function help        """
+    """help()        """
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
 
@@ -424,7 +424,7 @@ def onnx_convert(torch_model='path/mymodule.py:myModel or model object',  dir_ch
     device              = 'cpu',
     ):
     """Convert a pytorch model to onnx.
-    Code::
+    Doc::
 
         torch_model                         : model object to load state dict  OR path of the model .py definition
         dir_checkpoint     (str)           : path to checkpoint file
@@ -484,7 +484,9 @@ def onnx_convert(torch_model='path/mymodule.py:myModel or model object',  dir_ch
 
 
 def onnx_load_modelbase(dirmodel:str="myClassmodel.py:MyNNClass",  dirweight:str="", mode_inference=True, verbose=1):
-    """ wrapper to load Pytorch model + weights.
+    """ Wrapper to load Pytorch model + weights.
+    Doc::
+
         dirweights = 'https://s3.amazonaws.com/pytorch/test_data/export/superres_epoch100-44c6958e.pth'
         batch_size = 1    # just a random number
     """  
@@ -525,8 +527,10 @@ def onnx_load_onnx(dironnx:str="super_resolution.onnx",):
 
 def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirweights:str=None, x_numpy:Union[ndarray, list]=None):
     """ Check ONNX :  Base check, Compare with Pytorch model values,
-    x_numpy: Input X numpy to check prediction values
-    # TODO : list of numpy arrays to check
+    Doc::
+
+        x_numpy: Input X numpy to check prediction values
+        # TODO : list of numpy arrays to check
     """
     import onnxruntime
     log("check ONNX")
@@ -555,48 +559,50 @@ def onnx_check_onnx(dironnx:str="super_resolution.onnx", dirmodel:str=None, dirw
 
 def onnx_optimize(dirmodel:str, model_type='bert', **kw):
     """ Optimize Model by OnnxRuntime and/or python fusion logic.
-            MODEL_TYPES = {
-                "bart": (BartOnnxModel, "pytorch", 1),
-                "bert": (BertOnnxModel, "pytorch", 1),
-                "bert_tf": (BertOnnxModelTF, "tf2onnx", 0),
-                "bert_keras": (BertOnnxModelKeras, "keras2onnx", 0),
-                "gpt2": (Gpt2OnnxModel, "pytorch", 1),
-                "gpt2_tf": (Gpt2OnnxModel, 'tf2onnx', 0),  # might add a class for GPT2OnnxModel for TF later.
-                "tnlr": (TnlrOnnxModel, "pytorch", 1),
-            }
+    Doc::
 
-    ONNX Runtime has graph optimizations (https://onnxruntime.ai/docs/resources/graph-optimizations.html).
-    However, the coverage is limited. We also have graph fusions that implemented in Python to improve the coverage.
-    They can combined: ONNX Runtime will run first when opt_level > 0, then graph fusions in Python will be applied.
+        MODEL_TYPES = {
+            "bart": (BartOnnxModel, "pytorch", 1),
+            "bert": (BertOnnxModel, "pytorch", 1),
+            "bert_tf": (BertOnnxModelTF, "tf2onnx", 0),
+            "bert_keras": (BertOnnxModelKeras, "keras2onnx", 0),
+            "gpt2": (Gpt2OnnxModel, "pytorch", 1),
+            "gpt2_tf": (Gpt2OnnxModel, 'tf2onnx', 0),  # might add a class for GPT2OnnxModel for TF later.
+            "tnlr": (TnlrOnnxModel, "pytorch", 1),
+        }
 
-    To use ONNX Runtime only and no Python fusion logic, use only_onnxruntime flag and a positive opt_level like
-        optimize_model(input, opt_level=1, use_gpu=False, only_onnxruntime=True)
+        ONNX Runtime has graph optimizations (https://onnxruntime.ai/docs/resources/graph-optimizations.html).
+        However, the coverage is limited. We also have graph fusions that implemented in Python to improve the coverage.
+        They can combined: ONNX Runtime will run first when opt_level > 0, then graph fusions in Python will be applied.
 
-    When opt_level is None, we will choose default optimization level according to model type.
-    When opt_level is 0 and only_onnxruntime is False, only python fusion logic is used and onnxruntime is disabled.
-    When opt_level > 1, use_gpu shall set properly since the optimized graph might contain operators for GPU or CPU only.
+        To use ONNX Runtime only and no Python fusion logic, use only_onnxruntime flag and a positive opt_level like
+            optimize_model(input, opt_level=1, use_gpu=False, only_onnxruntime=True)
 
-    If your model is intended for GPU inference only (especially float16 or mixed precision model), it is recommended to
-    set use_gpu to be True, otherwise the model is not optimized for GPU inference.
+        When opt_level is None, we will choose default optimization level according to model type.
+        When opt_level is 0 and only_onnxruntime is False, only python fusion logic is used and onnxruntime is disabled.
+        When opt_level > 1, use_gpu shall set properly since the optimized graph might contain operators for GPU or CPU only.
 
-    For BERT model, num_heads and hidden_size are optional. For other model types, you need specify these parameters.
+        If your model is intended for GPU inference only (especially float16 or mixed precision model), it is recommended to
+        set use_gpu to be True, otherwise the model is not optimized for GPU inference.
 
-    Args:
-        input (str): input model path.
-        model_type (str, optional): model type - like bert, bert_tf, bert_keras or gpt2. Defaults to 'bert'.
-        num_heads (int, optional): number of attention heads. Defaults to 0.
-                                   0 allows detect the parameter from graph automatically (for model_type "bert" only).
-        hidden_size (int, optional): hidden size. Defaults to 0.
-                                     0 allows detect the parameter from graph automatically (for model_type "bert" only).
-        optimization_options (FusionOptions, optional): optimization options that turn on/off some fusions. Defaults to None.
-        opt_level (int, optional): onnxruntime graph optimization level (0, 1, 2 or 99) or None. Defaults to None.
-                                   When the value is None, default value (1 for bert and gpt2, 0 for other model types) will be used.
-                                   When the level > 0, onnxruntime will be used to optimize model first.
-        use_gpu (bool, optional): use gpu or not for onnxruntime. Defaults to False.
-        only_onnxruntime (bool, optional): only use onnxruntime to optimize model, and no python fusion. Defaults to False.
+        For BERT model, num_heads and hidden_size are optional. For other model types, you need specify these parameters.
 
-     Returns:
-        object of an optimizer class.
+        Args:
+            input (str): input model path.
+            model_type (str, optional): model type - like bert, bert_tf, bert_keras or gpt2. Defaults to 'bert'.
+            num_heads (int, optional): number of attention heads. Defaults to 0.
+                                    0 allows detect the parameter from graph automatically (for model_type "bert" only).
+            hidden_size (int, optional): hidden size. Defaults to 0.
+                                        0 allows detect the parameter from graph automatically (for model_type "bert" only).
+            optimization_options (FusionOptions, optional): optimization options that turn on/off some fusions. Defaults to None.
+            opt_level (int, optional): onnxruntime graph optimization level (0, 1, 2 or 99) or None. Defaults to None.
+                                    When the value is None, default value (1 for bert and gpt2, 0 for other model types) will be used.
+                                    When the level > 0, onnxruntime will be used to optimize model first.
+            use_gpu (bool, optional): use gpu or not for onnxruntime. Defaults to False.
+            only_onnxruntime (bool, optional): only use onnxruntime to optimize model, and no python fusion. Defaults to False.
+
+        Returns:
+            object of an optimizer class.
 
     
     """
