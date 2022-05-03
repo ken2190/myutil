@@ -10,25 +10,25 @@ class partial_vaem(object):
     def __init__(self, stage,encoder,decoder,obs_dim,cat_dims,dim_flt,decoder_path, encoder_path,x_train,list_discrete,records_d,learning_rate=1e-3,optimizer=tf.train.AdamOptimizer,obs_std=0.02*np.sqrt(2),K = 20,latent_dim = 10,batch_size = 100, load_model=0,M=5,all=1):
         
         '''
-        :param encoder: type of encoder model choosen from coding.py
-        :param decoder: type of decoder model choosen from coding.py
-        :param obs_dim: maximum number of partial observational dimensions
-        :param cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        :param dim_flt: number of continuous variables.
-        :param encoder_path: path for saving encoder model parameter
-        :param decoder_path: path for saving decoder model parameter
-        :param x_train: initial inducing points
-        :param list_discrete: list of discrete variables
-        :param records_d: unique values of discrete variables
-        :param learning_rate: optimizer learning rate
-        :param optimizer: we use Adam here.
-        :param obs_distrib: Bernoulli or Gaussian.
-        :param obs_std: observational noise for decoder.
-        :param K: length of code for summarizing partial observations
-        :param latent_dim: latent dimension of VAE
-        :param batch_size: training batch size
-        :param load_model: 1 = load a pre-trained model from decoder_path and encoder_path
-        :param M : number of MC samples used when performing imputing/prediction
+        encoder: type of encoder model choosen from coding.py
+        decoder: type of decoder model choosen from coding.py
+        obs_dim: maximum number of partial observational dimensions
+        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+        dim_flt: number of continuous variables.
+        encoder_path: path for saving encoder model parameter
+        decoder_path: path for saving decoder model parameter
+        x_train: initial inducing points
+        list_discrete: list of discrete variables
+        records_d: unique values of discrete variables
+        learning_rate: optimizer learning rate
+        optimizer: we use Adam here.
+        obs_distrib: Bernoulli or Gaussian.
+        obs_std: observational noise for decoder.
+        K: length of code for summarizing partial observations
+        latent_dim: latent dimension of VAE
+        batch_size: training batch size
+        load_model: 1 = load a pre-trained model from decoder_path and encoder_path
+        M : number of MC samples used when performing imputing/prediction
         '''
         self._stage = stage
         self._K = K
@@ -394,8 +394,8 @@ class partial_vaem(object):
     def _kl_diagnormal_stdnormal(self, mu, log_var):
         '''
         This function calculates KL divergence
-        :param mu: mean
-        :param log_var: log variance
+        mu: mean
+        log_var: log variance
         :return:
         '''
         var = tf.exp(log_var)
@@ -468,9 +468,9 @@ class partial_vaem(object):
     def _bernoulli_log_likelihood(targets, outputs, mask, eps=1e-8):
         '''
         This function comptutes negative log likelihood for Bernoulli likelihood
-        :param targets: test data
-        :param outputs: model predictions
-        :param mask: mask of missingness
+        targets: test data
+        outputs: model predictions
+        mask: mask of missingness
         :return: negative log llh
         '''
         eps = 0
@@ -482,9 +482,9 @@ class partial_vaem(object):
         '''
         This function computes negative log likelihood for Gaussians during training
         Note that constant terms are dropped.
-        :param targets: test data
-        :param mean: mean
-        :param std: sigma
+        targets: test data
+        mean: mean
+        std: sigma
         :return: negative log llh
         '''
         se = tf.reduce_sum(
@@ -496,9 +496,9 @@ class partial_vaem(object):
         '''
         This function computes negative log likelihood for Gaussians during training
         Note that constant terms are dropped.
-        :param targets: test data
-        :param mean: mean
-        :param std: sigma
+        targets: test data
+        mean: mean
+        std: sigma
         :return: negative log llh
         '''
         se = tf.reduce_sum(0.5 * tf.square(targets[:,0:] - mean[:,0:]) / tf.square(std[:,0:]) + tf.log(std[:,0:]),axis = 1,keep_dims = True)
@@ -509,9 +509,9 @@ class partial_vaem(object):
         '''
         This function computes negative log likelihood for Gaussians during training
         Note that constant terms are dropped.
-        :param targets: test data
-        :param mean: mean
-        :param std: sigma
+        targets: test data
+        mean: mean
+        std: sigma
         :return: negative log llh
         '''
         se = 0.5 * tf.square(targets[:,0:] - mean[:,0:]) / tf.square(std[:,0:]) + tf.log(std[:,0:])
@@ -587,8 +587,8 @@ class partial_vaem(object):
     def update(self, x, mask, mode):
         '''
         This function is used to update the model during training/optimization
-        :param x: training data
-        :param mask: mask that indicates observed data and missing data locations
+        x: training data
+        mask: mask that indicates observed data and missing data locations
         '''
         if mode == 'joint':
             _, loss = self._sesh.run([self._train_joint, self._loss_print],
@@ -630,8 +630,8 @@ class partial_vaem(object):
     def full_batch_loss(self, x,mask):
         '''
         retrieve different components of loss function
-        :param x: dat matrix
-        :param mask: mask that indicates observed data and missing data locations
+        x: dat matrix
+        mask: mask that indicates observed data and missing data locations
         :return: overall loss (averaged over all entries), KL term, and reconstruction loss
         '''
         loss, loss_cat, loss_flt, loss_z_local, loss_kl,auto_std, log_like_featurewise, log_importance_ratio = self._sesh.run(
@@ -649,8 +649,8 @@ class partial_vaem(object):
         This function computes predictive losses (negative llh).
         This is used for active learning phase.
         We assume that the last column of x is the target variable of interest
-        :param x: data matrix, the last column of x is the target variable of interest
-        :param mask: mask that indicates observed data and missing data locations
+        x: data matrix, the last column of x is the target variable of interest
+        mask: mask that indicates observed data and missing data locations
         :return: MAE and RMSE
         '''
         lh = 0
@@ -726,8 +726,8 @@ class partial_vaem(object):
     def im(self, x, mask):
         '''
         This function produces simulations of unobserved variables based on observed ones.
-        :param x: data matrix
-        :param mask: mask that indicates observed data and missing data locations
+        x: data matrix
+        mask: mask that indicates observed data and missing data locations
         :return: im, which contains samples of completion.
         '''
         im = self._sesh.run(self.decoded,feed_dict={self.x: x, self.mask: mask,self.x_induce:self._x_train})
@@ -749,9 +749,9 @@ class partial_vaem(object):
         '''
         calculate the first term of information reward approximation
         used only in active learning phase
-        :param x: data
-        :param mask: mask of missingness
-        :param i: indicates the index of x_i
+        x: data
+        mask: mask of missingness
+        i: indicates the index of x_i
         :return:  the first term of information reward approximation
         '''
         temp_mask = copy.deepcopy(mask)
@@ -788,9 +788,9 @@ class partial_vaem(object):
         calculate the second term of information reward approximation
         used only in active learning phase
         Note that we assume that the last column of x is the target variable of interest
-        :param x: data
-        :param mask: mask of missingness
-        :param i: indicates the index of x_i
+        x: data
+        mask: mask of missingness
+        i: indicates the index of x_i
         :return:  the second term of information reward approximation
         '''
         temp_mask = copy.deepcopy(mask)

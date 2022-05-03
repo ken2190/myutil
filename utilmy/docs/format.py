@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.docs.format"
-HELP = """ A simple python module to parse the code and format it based on some rules.
+""" A simple python module to parse the code and format it based on some rules.
 
 Goal is to normalize all python files with similar structure.
 
@@ -37,7 +37,7 @@ from utilmy import log, log2
 def help():
     """function help """
     #from utilmy import help_create
-    #print( HELP + help_create(MNAME) )
+    #print( help_create(MNAME) )
 
 
 
@@ -282,7 +282,7 @@ def format_add_helper_logger(txt):
     def help():
         ### helper shows list of all tests  
         from utilmy import help_create
-        print( HELP + help_create(MNAME) )
+        print( help_create(MNAME) )
     """
     new = new.replace( " " * 4, "")
 

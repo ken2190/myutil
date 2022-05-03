@@ -299,7 +299,7 @@ def jsons_to_df(json_paths):
             column4: fullname, name containing the subkey and its higher levels for example:
                      fullname(F , {A:{B:1,C:{E:4,F:5}},D:3}) = "A.C.F"
             column5: field_value, value of the subkey in question
-    :param json_paths: list of json paths
+    json_paths: list of json paths
     :type json_paths: list of str
     :return: DataFrame of the jsons
     :rtype: DataFrame
@@ -355,11 +355,11 @@ def jsons_to_df(json_paths):
 
 def dict_update(fields_list, d, value):
     """
-    :param fields_list: list of hierarchically sorted dictionary fields leading to value to be modified
+    fields_list: list of hierarchically sorted dictionary fields leading to value to be modified
     :type fields_list: list of str
-    :param d: dictionary to be modified
+    d: dictionary to be modified
     :type d: dict
-    :param value: new value
+    value: new value
     :type value: any type
     :return: updated dictionary
     :rtype: dict
@@ -382,7 +382,7 @@ def json_csv_to_json(file_csv="", out_path="dataset/"):
     """
     This function takes as a parameter csv file of jsons, create a normalized json structure,
     and creates new normalized jsons in out_path
-    :param csv: csv file containing jsons to be normalized
+    csv: csv file containing jsons to be normalized
     :type csv: str
     :return: list of normalized jsons as dictionaries
     :rtype: list of dicts
@@ -442,7 +442,7 @@ class _ParserBase(ast.NodeVisitor):
     extracts JSON from class defintions. This class provides common functions
     used by the two subclasses.
 
-    :param srcfile: path of Python source file
+    srcfile: path of Python source file
     :raises _EmptyJSONData: the generated json data contains nothing
     """
     def __init__(self, srcfile):
@@ -462,7 +462,7 @@ class _ParserBase(ast.NodeVisitor):
         """
         Get name string from an ast.Name or ast.Attribute node.
 
-        :param node: a node of ast.Name or ast.Attribute type
+        node: a node of ast.Name or ast.Attribute type
         :returns: name string
         """
         if isinstance(node, ast.Name):
@@ -477,7 +477,7 @@ class _ParserBase(ast.NodeVisitor):
         or bool type, respectively. If the node is of ast.Name or
         ast.Attribute, the returned value is of Python str type.
 
-        :param node: an AST node
+        node: an AST node
         :returns: value
         """
         if isinstance(node, ast.Num):
@@ -493,8 +493,8 @@ class _ParserBase(ast.NodeVisitor):
         """
         Generate JSON data for a function or method.
 
-        :param node: a node of ast.FunctionDef type
-        :param parenturi: URI of the parent node
+        node: a node of ast.FunctionDef type
+        parenturi: URI of the parent node
         :returns: JSON data representing the function or method
         """
         fndata = {"uri": "%s:%s" % (parenturi, node.name), "args": [], "kwargs": {}}
@@ -515,7 +515,7 @@ class _ParserBase(ast.NodeVisitor):
         """
         Merge items of args and kwargs to a single line.
 
-        :param text: JSON data
+        text: JSON data
         :returns: merged JSON data
         """
         def _merge_lines(text, keyword, offset, open_bracket, close_bracket):
@@ -561,7 +561,7 @@ class _ExtractFunc(_ParserBase):
     source file. It works by looking method defintions in a file and
     generates JSON based on those methods' signatures.
 
-    :param srcfile: Python source file
+    srcfile: Python source file
     """
     def __init__(self, srcfile):
         self.data = []
@@ -579,7 +579,7 @@ class _ExtractClass(_ParserBase):
     source file. It works by looking for method defintions in a class
     and generates JSON based on those methods' signatures.
 
-    :param srcfile: Python source file
+    srcfile: Python source file
     """
     def __init__(self, srcfile):
         self.data = []
@@ -602,7 +602,7 @@ def json_extract_code(path):
     a Python source file or a diretory. In latter case, all Python source
     files in that directory (including its subdirs) are converted.
 
-    :param path: path for a Python file or a directory
+    path: path for a Python file or a directory
     """
     def _json_extract_code(srcfile):
         try:

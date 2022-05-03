@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME= "utilmy.dates"
-HELP="""
+"""# 
+Doc::
+
 https://github.com/uqfoundation/pox/tree/master/pox
 
 

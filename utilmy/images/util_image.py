@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.images.util_image"
-HELP=""" utils images
+"""# 
+Doc::
+ utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
@@ -33,7 +35,7 @@ from utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print(HELP + help_create(MNAME))
+    print(help_create(MNAME))
 
 
 

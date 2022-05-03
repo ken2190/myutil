@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """
+"""
  utils keras for dataloading
 """
 import os, numpy as np, glob, pandas as pd
@@ -41,7 +41,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = HELP + help_create("utilmy.deeplearning.keras.util_layers")
+    ss = help_create("utilmy.deeplearning.keras.util_layers")
     print(ss)
 
 

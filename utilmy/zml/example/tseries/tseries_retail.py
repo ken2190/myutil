@@ -43,11 +43,11 @@ def pd_merge(df_list, cols_join):
 def train(input_path, n_experiments = 3, colid = None, coly = None):
     """
        Generic train
-    :param input_path:
-    :param max_rows:
-    :param n_experiments:
-    :param colid:
-    :param coly:
+    input_path:
+    max_rows:
+    n_experiments:
+    colid:
+    coly:
     :return:
     """
     model_params = {'num_leaves': 555,

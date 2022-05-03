@@ -178,12 +178,12 @@ def fit(data_pars: dict=None, compute_pars: dict=None, out_pars: dict=None, **kw
 
 def transform(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
     """ Geenrate Xtrain  ----> Xtrain_new  (ie transformed)
-    :param Xpred:
+    Xpred:
               ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
 
@@ -218,11 +218,11 @@ encode = transform   ### alias
 def decode(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
     """
        Embedding --> Actual values
-    :param Xpred:
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    Xpred:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
     pass
@@ -233,11 +233,11 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
     """
        Encode + Decode
 
-    :param Xpred:
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    Xpred:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
     global model, session
@@ -312,10 +312,10 @@ def load_info(path=""):
 ############ Do not change #########################################################################
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split=False):
     """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras)
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
-    :param split: 
+    Xtrain:
+    cols_type_received:
+    cols_ref:
+    split: 
         True :  split data to list of dataframe 
         False:  return same input of data
     :return:
@@ -574,9 +574,9 @@ def pd_export(df, col, pars):
     """
        Export in train folder for next training
        colsall
-    :param df:
-    :param col:
-    :param pars:
+    df:
+    col:
+    pars:
     :return:
     """
     colid, colsX, coly = pars['colid'], pars['colsX'], pars['coly']

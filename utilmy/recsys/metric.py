@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.metric"
-HELP = """"
+""""
 All about metrics
 
 
@@ -47,7 +47,7 @@ from sklearn.metrics import precision_recall_curve, roc_curve
 from utilmy import log, log2
 def help():
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     print(ss)
 
 #################################################################################################
@@ -527,9 +527,9 @@ def hit_rate_at_k(y_preds, y_true, k=3):
 def mrr_at_k_nep(y_preds, y_true, k=3):
     """
     Computes MRR
-    :param y_preds: y, as lists of lists
-    :param y_true: target data, as lists of lists (eventually [[sku1], [sku2],...]
-    :param k: top-k
+    y_preds: y, as lists of lists
+    y_true: target data, as lists of lists (eventually [[sku1], [sku2],...]
+    k: top-k
     """
     y_true = [[k] for k in y_true]
     return mrr_at_k(y_preds, y_true, k=k)
@@ -538,9 +538,9 @@ def mrr_at_k_nep(y_preds, y_true, k=3):
 def mrr_at_k(y_preds, y_true, k=3):
     """
     Computes MRR
-    :param y_preds: y, as lists of lists
-    :param y_true: target data, as lists of lists (eventually [[sku1], [sku2],...]
-    :param k: top-k
+    y_preds: y, as lists of lists
+    y_true: target data, as lists of lists (eventually [[sku1], [sku2],...]
+    k: top-k
     """
     rr = []
     for _p, _y in zip(y_preds, y_true):

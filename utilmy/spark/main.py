@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-HELP="""
+"""# 
+Doc::
+
 You can run Spark in local mode using local, local[n] or the most general local[*] for the master URL.
 
 The URL says how many threads can be used in total:

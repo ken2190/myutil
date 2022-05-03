@@ -511,6 +511,9 @@ SprinklesTransform.__init__(self, num_holes: int = 30, side_length: int = 5, alw
 SprinklesTransform.apply(self, image, **params)
 
 
+utilmy/deeplearning/test.py
+
+
 utilmy/deeplearning/ttorch/__init__.py
 
 
@@ -697,6 +700,29 @@ RuleEncoder_Create.load_DataFrame(self, )
 RuleEncoder_Create.prepro_dataset(self, df)
 
 
+utilmy/deeplearning/ttorch/util_torch.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, batch_size = 64, shuffle = True, device = 'cpu', batch_size_val = None, batch_size_test = None)
+device_setup(arg)
+help()
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(dir_checkpoint:str, torch_model = None, doeval = True, dotrain = False, device = 'cpu', input_shape = None, **kw)
+model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor])
+model_save(torch_model = None, dir_checkpoint:str = "./checkpoint/check.pt", optimizer = None, cc:dict = None, epoch = -1, loss_val = 0.0, show = 1, **kw)
+model_summary(model, **kw)
+model_train(model, loss_calc, optimizer = None, train_loader = None, valid_loader = None, arg:dict = None)
+test1()
+test_all()
+test_dataset_classification_fake(nrows = 500)
+
+-------------------------methods----------------------
+SmeLU.__init__(self, beta: float  =  2.)
+SmeLU.forward(self, input: torch.Tensor)
+test_model_dummy2.__init__(self)
+test_model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
+test_model_dummy.forward(self, x)
+
+
 utilmy/deeplearning/ttorch/zrule_encoder2.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
@@ -749,24 +775,19 @@ RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
 RuleEncoder.forward(self, x)
 
 
-utilmy/deeplearning/util_dl.py
--------------------------functions----------------------
-gpu_available()
-gpu_usage()
-help()
-tensorboard_log(pars_dict:dict = None, writer = None, verbose = True)
-test_all()
-
+utilmy/deeplearning/tutorial/transf.py
 
 
 utilmy/deeplearning/util_embedding.py
 -------------------------functions----------------------
 embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
 embedding_create_vizhtml(dirin = "in/model.vec", dirout = "ztmp/", dim_reduction = 'umap', nmax = 100, ntrain = 10)
-embedding_load_parquet(dirin = "df.parquet", colid      =  'id', col_embed  =  'pred_emb', nmax  =  500)
+embedding_extract_fromtransformer(model, Xinput:list)
+embedding_load_parquet(dirin = "df.parquet", colid =  'id', col_embed =  'pred_emb', nmax =  500)
 embedding_load_pickle(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneimport pickleembs = Nonedirin)for fi in flist  = Noneimport pickleembs = Nonedirin)for fi in flist :)
-embedding_load_word2vec(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneif is_linevalid_fun is None  = Noneif is_linevalid_fun is None : #### Validate linew):)
+embedding_load_word2vec(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun = None)
 embedding_rawtext_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
+embedding_torchtensor_to_parquet(tensor_list, id_list:list, label_list, dirout = None, tag = "", nmax = 10 ** 8)
 faiss_create_index(df_or_path = None, col = 'emb', dirout = None, db_type  =  "IVF4096,Flat", nfile = 1000, emb_dim = 200)
 faiss_load_index(faiss_index_path = "")
 faiss_topk_calc(df = None, root = None, colid = 'id', colemb = 'emb', faiss_index = None, topk = 200, npool = 1, nrows = 10**7, nfile = 1000)
@@ -797,6 +818,18 @@ test2_optuna()
 test3_optuna()
 test_all()
 
+-------------------------methods----------------------
+AblationCombination.__hash__(self)
+AblationCombination.__init__(self, keys)
+AblationHook.__call__(self, *args, **kwargs)
+AblationHook.__init__(self, callable)
+AblationList.__init__(self, l)
+AblationParameters.__init__(self, parameters)
+AblationParameters.ablation(self, callable)
+AblationParameters.combinations(self)
+AblationParameters.concatenate_keys(k, inner_ablation_keys)
+AblationParameters.generate_combinations(self)
+AblationParameters.traverse(d, debug = {})
 
 
 utilmy/deeplearning/util_onnx.py
@@ -943,6 +976,8 @@ help()
 run_all(mode = 'overwrite')
 test1(mode = 'test')
 test_all()
+update_all(mode = 'overwrite')
+update_docstring(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
 
 
 
@@ -3852,6 +3887,41 @@ model_save(model, path)
 model_train(model, train_dataset, val_dataset, n_epochs, device = 'cpu')
 test1()
 test_all()
+test_trans()
+
+-------------------------methods----------------------
+DynamicLSTM.__init__(self, input_size, hidden_size = 100, num_layers = 1, dropout = 0., bidirectional = False)
+DynamicLSTM.forward(self, x, seq_lens)
+QuoraModel.__init__(self, args)
+QuoraModel.forward(self, word_seq, seq_len)
+modelDecoder3.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder3.forward(self, x)
+modelDecoder.__init__(self, seq_len, input_dim = 64, n_features = 1)
+modelDecoder.forward(self, x)
+modelEncoder3.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder3.forward(self, x)
+modelEncoder.__init__(self, seq_len, n_features, embedding_dim = 64)
+modelEncoder.forward(self, x)
+modelRecurrentAutoencoder3.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder3.forward(self, x)
+modelRecurrentAutoencoder.__init__(self, seq_len, n_features, embedding_dim = 64, device = 'cpu')
+modelRecurrentAutoencoder.forward(self, x)
+
+
+utilmy/tseries/torch_outlier_comment.py
+-------------------------functions----------------------
+dataset_ECG5000_fetch_pandas(nrows = 100, dirout = "./ztmp/")
+dataset_ECG5000_prep(df)
+dataset_create(df)
+help()
+model_evaluate(model, test_normal_dataset, device = 'cpu', THRESHOLD = 0.2)
+model_plotLoss(history:dict)
+model_predict(model, dataset, device = 'cpu')
+model_save(model, path)
+model_train(model, train_dataset, val_dataset, n_epochs, device = 'cpu')
+test1()
+test_all()
+test_trans()
 
 -------------------------methods----------------------
 DynamicLSTM.__init__(self, input_size, hidden_size = 100, num_layers = 1, dropout = 0., bidirectional = False)
@@ -4121,13 +4191,15 @@ test_getdata(verbose = True)
 
 
 
-utilmy/viz/track.py
+utilmy/viz/util_map.py
+
+
+utilmy/viz/video.py
 -------------------------functions----------------------
 frames_to_video(pathIn, pathOut, fps, )
+start_video(frames_folder, video_filename, fps = 20, lazy_video = True)
+test_video_creator()
 
-
-
-utilmy/viz/util_map.py
 
 
 utilmy/viz/vizhtml.py

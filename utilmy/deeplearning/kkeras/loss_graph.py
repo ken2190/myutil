@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """nsl_graph_losses.ipynb
+"""nsl_graph_losses.ipynb
 Original file is located at
     https://colab.research.google.com/drive/11BWemRJoxYmz3YpvX4MBxRomOu2IJQa6
 #!pip install neural_structured_learning
@@ -27,7 +27,7 @@ def help():
     """
 
     from utilmy import help_create
-    ss = HELP + help_create("utilmy.deeplearning.keras.Loss_graph")
+    ss = help_create("utilmy.deeplearning.keras.Loss_graph")
     print(ss)
 
 

@@ -294,13 +294,13 @@ def json_codesource_to_json(fpath):
 def os_folder_getfiles(folder, ext, dirlevel=-1, mode="fullpath"):
     """
 
-    :param folder: folder path to be analyzed
+    folder: folder path to be analyzed
     :type folder: string
-    :param ext: file extension hint example: "*.json"
+    ext: file extension hint example: "*.json"
     :type ext: string
-    :param dirlevel: number of levels to be analyzed
+    dirlevel: number of levels to be analyzed
     :type dirlevel: int
-    :param mode: either fullpath or filename
+    mode: either fullpath or filename
     :type mode: string
     :return: list of files paths or names (depending on mode param)
     :rtype: list of str
@@ -338,7 +338,7 @@ def os_folder_getfiles(folder, ext, dirlevel=-1, mode="fullpath"):
 def jsons_to_df(json_paths):
     """
 
-    :param json_paths: list of json paths
+    json_paths: list of json paths
     :type json_paths: list of str
     :return: DataFrame of the jsons
     :rtype: DataFrame
@@ -392,11 +392,11 @@ def jsons_to_df(json_paths):
 
 def dict_update(fields_list, d, value):
     """
-    :param fields_list: list of hierarchically sorted dictionary fields leading to value to be modified
+    fields_list: list of hierarchically sorted dictionary fields leading to value to be modified
     :type fields_list: list of str
-    :param d: dictionary to be modified
+    d: dictionary to be modified
     :type d: dict
-    :param value: new value
+    value: new value
     :type value: any type
     :return: updated dictionary
     :rtype: dict
@@ -417,7 +417,7 @@ def dict_update(fields_list, d, value):
 def json_csv_to_json(file_csv="", out_path="dataset/"):
     """
 
-    :param csv: csv file containing jsons to be normalized
+    csv: csv file containing jsons to be normalized
     :type csv: str
     :return: list of normalized jsons as dictionaries
     :rtype: list of dicts

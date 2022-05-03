@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME="utilmy.deeplearning.keras.util_dataloader_tab"
-HELP="""
+"""# 
+Doc::
+
 
 
 
@@ -27,7 +29,7 @@ from utilmy import log, log2
 
 def help():
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     log(ss)
 
 
@@ -603,15 +605,15 @@ class DataGenerator(keras.utils.Sequence):
                  replacement: bool = False,
                  ):
         """
-        :param dataset (Dataset): Data set to load
-        :param batch_size (int): how many samples in one batch
-        :param shuffle (bool, optional): set to ``True`` to have the data reshuffled
+        dataset (Dataset): Data set to load
+        batch_size (int): how many samples in one batch
+        shuffle (bool, optional): set to ``True`` to have the data reshuffled
             at every epoch (default: ``True``).
-        :param num_workers (int, optional): how many threads to use for data
+        num_workers (int, optional): how many threads to use for data
             loading in one batch. 0 means that the data will be loaded in the main process.
             (default: ``0``)
-        :param replacement (bool): samples are drawn with replacement if ``True``, default=False
-        :param collate_fn (callable, optional):
+        replacement (bool): samples are drawn with replacement if ``True``, default=False
+        collate_fn (callable, optional):
         """
         self.dataset = dataset
         self.shuffle = shuffle
@@ -734,9 +736,9 @@ def Modelcustom(n_wide_cross, n_wide,n_deep, n_feat=8, m_EMBEDDING=10, loss='mse
 
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
     """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:
+    cols_type_received:
+    cols_ref:
     :return:
     """
     if len(cols_ref) < 1 :
@@ -1099,7 +1101,7 @@ def test(config=''):
         Group of columns for the input model
            cols_input_group = [ ]
           for cols in cols_input_group,
-    :param config:
+    config:
     :return:
     """
 

@@ -444,8 +444,8 @@ if __name__ == "__main__":
 
 # def get_dataset(data_pars, task_type="train"):
 #     """
-#     :param data_pars:
-#     :param task_type:
+#     data_pars:
+#     task_type:
 #     :return:
 #     """
 #     clean       = data_pars["data_pars"].get('clean', True)
@@ -585,9 +585,9 @@ if __name__ == "__main__":
 # cols_ref_formodel = ['colcontinuous', 'colsparse']
 # def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
 #     """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
-#     :param Xtrain:
-#     :param cols_type_received:
-#     :param cols_ref:
+#     Xtrain:
+#     cols_type_received:
+#     cols_ref:
 #     :return:
 #     """
 #     if len(cols_ref) <= 1 :

@@ -1,6 +1,8 @@
 ### drift
 # coding=utf-8
-HELP="""
+"""# 
+Doc::
+
 
 
 https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
@@ -34,7 +36,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create("utilmy.tabular") )
+    print( help_create("utilmy.tabular") )
 
     
 #################################################################################################
@@ -263,11 +265,11 @@ def pd_data_drift_detect_alibi(
     """ Detecting drift in the dataset using alibi
     https://docs.seldon.io/projects/alibi-detect/en/latest/api/modules.html
     
-    :param df:    dfframe test dataset to check for drift
-    :param dfnew: dfframe test dataset to check for drift    
-    :param backend: str "tensorflow" or "pytorch"
-    :param model:  trained pytorch or tensorflow model.
-    :param p_val: p value float 
+    df:    dfframe test dataset to check for drift
+    dfnew: dfframe test dataset to check for drift    
+    backend: str "tensorflow" or "pytorch"
+    model:  trained pytorch or tensorflow model.
+    p_val: p value float 
 
     example:
     model = tf.keras.Sequential([InputLayer(input_shape=(input_size)),Dropout(0.3),Dense(1)])
@@ -669,7 +671,7 @@ def estimator_bootstrap(err, custom_stat=None, alpha=0.05, n_iter=10000):
 def np_col_extractname(col_onehot):
     """
     Column extraction from onehot name
-    :param col_onehotp
+    col_onehotp
     :return:
     """
     colnew = []
@@ -716,8 +718,8 @@ def np_list_remove(cols, colsremove, mode="exact"):
 def np_conv_to_one_col(np_array, sep_char="_"):
     """
     converts string/numeric columns to one string column
-    :param np_array: the numpy array with more than one column
-    :param sep_char: the separator character
+    np_array: the numpy array with more than one column
+    sep_char: the separator character
     """
     def row2string(row_):
         return sep_char.join([str(i) for i in row_])

@@ -1,4 +1,6 @@
-HELP="""All related to distributed compute and atomic read/write
+"""# 
+Doc::
+All related to distributed compute and atomic read/write
    Thread Safe
    Process Safe
    Lock Mechanism
@@ -10,7 +12,7 @@ import os, sys, socket, platform, time, gc,logging, random
 from utilmy.utilmy import log, log2, help_create
 
 def help():
-    print(HELP + help_create("utilmy.distributed", prefixs= [ 'test']) )  #### Merge test code
+    print(help_create("utilmy.distributed", prefixs= [ 'test']) )  #### Merge test code
 
 
 def log_mem(*s):

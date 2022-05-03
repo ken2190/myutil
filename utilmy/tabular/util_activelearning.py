@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.tabular.util_activelearning"
-HELP = """ utils for active learning
+""" utils for active learning
 
 
 https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integration.html
@@ -30,7 +30,7 @@ from typing import List, Optional, Tuple, Union
 
 def help():
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 
@@ -497,42 +497,9 @@ def test_data_classifier_diabetes() -> Tuple[ndarray, ndarray, ndarray, ndarray,
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.75) # split
     return X_train, X_test, y_train, y_test, feature_names
-    
 
-def load_function_uri(uri_name="path_norm"):
-    """ Load dynamically function from URI
-    ###### Pandas CSV case : Custom MLMODELS One
-    #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-    ###### External File processor :
-    #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-    """
-    import importlib, sys
-    from pathlib import Path
-    pkg = uri_name.split(":")
 
-    assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-    package, name = pkg[0], pkg[1]
-    
-    try:
-        #### Import from package mlmodels sub-folder
-        return  getattr(importlib.import_module(package), name)
-
-    except Exception as e1:
-        try:
-            ### Add Folder to Path and Load absoluate path module
-            path_parent = str(Path(package).parent.parent.absolute())
-            sys.path.append(path_parent)
-            #log(path_parent)
-
-            #### import Absolute Path model_tf.1_lstm
-            model_name   = Path(package).stem  # remove .py
-            package_name = str(Path(package).parts[-2]) + "." + str(model_name)
-            #log(package_name, model_name)
-            return  getattr(importlib.import_module(package_name), name)
-
-        except Exception as e2:
-            raise NameError(f"Module {pkg} notfound, {e1}, {e2}")
-
+from utilmy.utilmy import load_function_uri
 
 
 

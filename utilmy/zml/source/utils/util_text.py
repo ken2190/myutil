@@ -140,9 +140,9 @@ def pd_coltext_clean_advanced(dfref, colname, fromword, toword):
 
 def pd_coltext_wordfreq(df, coltext, sep=" "):
     """
-    :param df:
-    :param coltext:  text where word frequency should be extracted
-    :param nb_to_show:
+    df:
+    coltext:  text where word frequency should be extracted
+    nb_to_show:
     :return:
     """
     dfres = df[coltext].apply(lambda x: pd.value_counts(x.split(sep))).sum(axis=0).reset_index()
@@ -153,8 +153,8 @@ def pd_coltext_wordfreq(df, coltext, sep=" "):
 
 def pd_fromdict(ddict, colname):
     """
-    :param ddict:
-    :param colname:
+    ddict:
+    colname:
     :return:
     """
     colname = ("c0", "c1") if colname is None else colname
@@ -171,7 +171,7 @@ def pd_coltext_encoder(df):
     """
     https://dirty-cat.github.io/stable/auto_examples/02_fit_predict_plot_employee_salaries.html#sphx-glr-auto-examples-02-fit-predict-plot-employee-salaries-py
 
-    :param df:
+    df:
     :return:
     """
     pass
@@ -279,10 +279,10 @@ def pd_coltext_minhash(dfref, colname, n_component=2, model_pretrain_dict=None,
     """
     dfhash, colcat_hash_param = pd_colcat_minhash(df, colcat, n_component=[2] * len(colcat),
                                               return_val="dataframe,param")
-    :param dfref:
-    :param colname:
-    :param n_component:
-    :param return_val:
+    dfref:
+    colname:
+    n_component:
+    return_val:
     :return:
     """
     from source.bin.column_encoder import MinHashEncoder

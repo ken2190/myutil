@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP = """
+"""
  utils keras for layers
 """
 import os,io, numpy as np, sys, glob, time, copy, json, pandas as pd, functools, sys
@@ -26,7 +26,7 @@ def help():
     Summary: Extract code source from test code
     """
     from utilmy import help_create
-    ss = HELP + help_create("utilmy.deeplearning.keras.util_layers")
+    ss = help_create("utilmy.deeplearning.keras.util_layers")
     print(ss)
 
 

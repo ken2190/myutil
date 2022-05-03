@@ -181,14 +181,14 @@ def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 def transform(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
     """ Geenrate Xtrain  ----> Xtrain_new
-    :param Xpred:
+    Xpred:
         Xpred ==> None            if you want to get generated samples by by SDV models
               ==> tuple of (x, y) if you want to resample dataset with IMBLEARN models
               ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
     global model, session
@@ -315,10 +315,10 @@ def load_info(path=""):
 ############# Dataset ##############################################################################
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split=False):
     """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras)
-    :param Xtrain:
-    :param cols_type_received:
-    :param cols_ref:
-    :param split: 
+    Xtrain:
+    cols_type_received:
+    cols_ref:
+    split: 
         True :  split data to list of dataframe 
         False:  return same input of data
     :return:

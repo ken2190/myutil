@@ -87,8 +87,8 @@ class Model(object):
 
 def get_dataset(data_pars, task_type="train"):
     """
-    :param data_pars:
-    :param task_type:
+    data_pars:
+    task_type:
     :return:
     """
     clean       = data_pars["data_pars"].get('clean', True)
@@ -182,11 +182,11 @@ def encode(Xpred=None, data_pars: dict={}, compute_pars: dict={}, out_pars: dict
 
 def decode(Xpred=None, data_pars: dict={}, compute_pars: dict={}, out_pars: dict={}, **kw):
     """ Specify the format required   due to sampling
-    :param Xpred:
-    :param data_pars:
-    :param compute_pars:
-    :param out_pars:
-    :param kw:
+    Xpred:
+    data_pars:
+    compute_pars:
+    out_pars:
+    kw:
     :return:
     """
     global model, session
@@ -1165,9 +1165,9 @@ class RVAE(nn.Module):
 # cols_ref_formodel = ['colcontinuous', 'colsparse']
 # def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
 #     """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
-#     :param Xtrain:
-#     :param cols_type_received:
-#     :param cols_ref:
+#     Xtrain:
+#     cols_type_received:
+#     cols_ref:
 #     :return:
 #     """
 #     if len(cols_ref) <= 1 :

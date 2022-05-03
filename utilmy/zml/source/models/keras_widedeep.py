@@ -294,9 +294,9 @@ def get_dataset_split(data_pars=None, task_type="train", **kw):
 def get_dataset_split_for_model_pandastuple(Xtrain, ytrain=None, data_pars=None, ):
     """  Split data for moel input/
     Xtrain  ---> Split INTO  tuple of data  Xtuple= (df1, df2, df3) to fit model input.
-    :param Xtrain:
-    :param coldataloader_received:
-    :param colmodel_ref:
+    Xtrain:
+    coldataloader_received:
+    colmodel_ref:
     :return:
     """
     coldataloader_received  = data_pars.get('cols_model_type2', {})
@@ -324,9 +324,9 @@ def get_dataset_split_for_model_petastorm(Xtrain, ytrain=None, pars:dict=None):
     """  Split data for moel input/
     Xtrain  ---> Split INTO  tuple PetaStorm Reader
     https://github.com/uber/petastorm/blob/master/petastorm/reader.py#L61-L134
-    :param Xtrain:  path
-    :param cols_type_received:
-    :param cols_ref:
+    Xtrain:  path
+    cols_type_received:
+    cols_ref:
     :return:
     """
     from petastorm.reader import Reader, make_batch_reader
@@ -527,9 +527,9 @@ class tf_FeatureColumns:
 def get_dataset_split_for_model_tfsparse(Xtrain, ytrain=None, pars:dict=None):
     """  Split data for moel input/
     Xtrain  ---> Split INTO  tuple of data  Xtuple= (df1, df2, df3) to fit model input.
-    :param Xtrain:
-    :param coldataloader_received:
-    :param colmodel_ref:
+    Xtrain:
+    coldataloader_received:
+    colmodel_ref:
     :return:
     """
     log3("Xtrain type", Xtrain)
@@ -854,13 +854,13 @@ def zz_WideDeep_dense(model_pars2):
         #n_wide_cross, n_wide, n_deep, n_feat=8, m_EMBEDDING=10, loss='mse', metric ='mean_squared_error'):
         """
            Dense Model of DeepWide
-        :param n_wide_cross:
-        :param n_wide:
-        :param n_deep:
-        :param n_feat:
-        :param m_EMBEDDING:
-        :param loss:
-        :param metric:
+        n_wide_cross:
+        n_wide:
+        n_deep:
+        n_feat:
+        m_EMBEDDING:
+        loss:
+        metric:
         :return:
         """
 

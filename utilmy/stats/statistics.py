@@ -1,5 +1,7 @@
 # coding=utf-8
-HELP="""  Hypothesis testing easy
+"""# 
+Doc::
+  Hypothesis testing easy
   
 https://github.com/pranab/beymani
 
@@ -32,7 +34,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create("utilmy.stats.statistics") )
+    print( help_create("utilmy.stats.statistics") )
 
 
 #################################################################################################
@@ -539,7 +541,7 @@ def confidence_interval_bootstrap(err:np.ndarray, custom_stat=None, alpha=0.05, 
 def np_col_extractname(col_onehot):
     """
     Column extraction from onehot name
-    :param col_onehotp
+    col_onehotp
     :return:
     """
     colnew = []
@@ -586,8 +588,8 @@ def np_list_remove(cols, colsremove, mode="exact"):
 def np_conv_to_one_col(np_array, sep_char="_"):
     """
     converts string/numeric columns to one string column
-    :param np_array: the numpy array with more than one column
-    :param sep_char: the separator character
+    np_array: the numpy array with more than one column
+    sep_char: the separator character
     """
     def row2string(row_):
         return sep_char.join([str(i) for i in row_])

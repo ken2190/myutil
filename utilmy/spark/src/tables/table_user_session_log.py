@@ -8,8 +8,8 @@ from src.utils import config_load, log, spark_check
 
 def run(spark:SparkSession, config_name='config.yaml' ):
     """  Generate use_session table
-    :param spark: sparksession
-    :param config: config dict
+    spark: sparksession
+    config: config dict
     :return: None
     """
     ##### Load the yaml config file

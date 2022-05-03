@@ -68,10 +68,10 @@ engine = create_engine('sqlite:///  folder/foo.db')
 
 def sql_query(sqlr='SELECT ticker,shortratio,sector1_id, FROM stockfundamental',  dbengine=None, output='df', dburl='sqlite:///aaserialize/store/finviz.db'):
  '''
- :param sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
- :param output:     df   /   file1.csv
- :param dburl:      'sqlite:///aaserialize/store/finviz.db'
- :param dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
+ sqlr:       'SELECT ticker,shortratio,sector1_id, FROM stockfundamental'
+ output:     df   /   file1.csv
+ dburl:      'sqlite:///aaserialize/store/finviz.db'
+ dbengine:   dbengine = sql.create_engine('postgresql+psycopg2://postgres:postgres@localhost/coke')
  :return:
  '''
  if dbengine is None :   dbengine = sql.create_engine(dburl)

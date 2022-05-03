@@ -63,8 +63,8 @@ def reparameter_sampling(sample_size, probabilities):
     """
     r"""
     Faster sampling algorithm, gumbel softmax trick.
-    :param sample_size:
-    :param probabilities:
+    sample_size:
+    probabilities:
     :return:  index of sampled items (unbiased)
     """
     random_values = np.random.uniform(size=probabilities.shape)

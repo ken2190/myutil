@@ -262,9 +262,9 @@ THISMODEL_COLGROUPS = []
 def get_dataset_split_for_model_pandastuple(Xtrain, ytrain=None, data_pars=None, ):
     """  Split data for moel input/
     Xtrain  ---> Split INTO  tuple of data  Xtuple= (df1, df2, df3) to fit model input.
-    :param Xtrain:
-    :param coldataloader_received:
-    :param colmodel_ref:
+    Xtrain:
+    coldataloader_received:
+    colmodel_ref:
     :return:
     """
     from utilmy import pd_read_file

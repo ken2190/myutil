@@ -4084,15 +4084,15 @@ OLD_TO_NEW_PARAMS = {'authtoken': 'api_key', 'trim_start': 'start_date',
 
 def get(dataset, **kwargs):
     """Return dataframe of requested dataset from Quandl.
-    :param dataset: str or list, depending on single dataset usage or multiset usage
+    dataset: str or list, depending on single dataset usage or multiset usage
             Dataset codes are available on the Quandl website
-    :param str api_key: Downloads are limited to 50 unless api_key is specified
-    :param str start_date, end_date: Optional datefilers, otherwise entire dataset is returned
-    :param str collapse: Options are daily, weekly, monthly, quarterly, annual
-    :param str transform: options are diff, rdiff, cumul, and normalize
-    :param int rows: Number of rows which will be returned
-    :param str order: options are asc, desc. Default: `asc`
-    :param str returns: specify what format you wish your dataset returned as,
+    str api_key: Downloads are limited to 50 unless api_key is specified
+    str start_date, end_date: Optional datefilers, otherwise entire dataset is returned
+    str collapse: Options are daily, weekly, monthly, quarterly, annual
+    str transform: options are diff, rdiff, cumul, and normalize
+    int rows: Number of rows which will be returned
+    str order: options are asc, desc. Default: `asc`
+    str returns: specify what format you wish your dataset returned as,
         either `numpy` for a numpy ndarray or `pandas`. Default: `pandas`
     :returns: :class:`pandas.DataFrame` or :class:`numpy.ndarray`
     Any other `kwargs` passed to `get` are sent as field/value params to Quandl

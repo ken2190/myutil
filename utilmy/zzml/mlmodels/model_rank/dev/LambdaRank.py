@@ -50,7 +50,7 @@ class LambdaRank(nn.Module):
     def __init__(self, net_structures, leaky_relu=False, sigma=1.0, double_precision=False):
         """Fully Connected Layers with Sigmoid activation at the last layer
 
-        :param net_structures: list of int for LambdaRank FC width
+        net_structures: list of int for LambdaRank FC width
         """
         super(LambdaRank, self).__init__()
         self.fc_layers = len(net_structures)
