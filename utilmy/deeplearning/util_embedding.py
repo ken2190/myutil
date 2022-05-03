@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.deeplearning.util_embedding'
 """# 
 Doc::
- Embedding utils/ Visualization
 
-https://try2explore.com/questions/10109123
+    Embedding utils/ Visualization
 
-https://mpld3.github.io/examples/index.html
+    https://try2explore.com/questions/10109123
+
+    https://mpld3.github.io/examples/index.html
 
 
 """
@@ -73,7 +73,7 @@ def test1() -> None:
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """Create HTML plot file of embeddings:
+   """Create HTML plot file of embeddings.
    Doc::
 
         dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
@@ -825,8 +825,10 @@ def faiss_load_index(faiss_index_path=""):
 
 
 def faiss_topk_calc(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
-   """ id, dist_list, id_list 
-       ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
+   """#
+   Doc::
+   
+       id, dist_list, id_list 
        
        https://github.com/facebookresearch/faiss/issues/632
        
