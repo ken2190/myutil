@@ -134,10 +134,10 @@ def metrics_calc(dirin:Union[str, pd.DataFrame],
                  popdict:dict=None,
                  topk=5,
                  **kw):
-    """metrics_calc
+    """REC metrics Calculation.
     Doc::
 
-        dirin:  
+        dirin:   Parquet files with column:  colid, colreclist, coltrue, colinfo, colts
         dirout:  = None.
         colid:   ='userid'.
         colrec:  ='reclist'.
@@ -151,6 +151,7 @@ def metrics_calc(dirin:Union[str, pd.DataFrame],
         popdict:   =None.
         topk:   =5.
         Returns: pd.DataFrame 
+
         #### Example:
         from utilmy.recys.util_rec import metrics_calc
         df, popdict, feature_df = test_get_testdata()
