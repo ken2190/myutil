@@ -87,11 +87,11 @@ class Model:
 def fit(model, data_pars=None, compute_pars=None, out_pars=None,   **kw):
   """
 
-  :param model:    Class model
-  :param data_pars:  dict of
-  :param out_pars:
-  :param compute_pars:
-  :param kwargs:
+  model:    Class model
+  data_pars:  dict of
+  out_pars:
+  compute_pars:
+  kwargs:
   :return:
   """
 

@@ -30,10 +30,10 @@ from util_feature import load, load_function_uri, load_dataset
 def model_dict_load(model_dict, config_path, config_name, verbose=True):
     """ Load the model dict from the python config file.
        ### Issue wiht passing function durin pickle on disk
-    :param model_dict:
-    :param config_path:
-    :param config_name:
-    :param verbose:
+    model_dict:
+    config_path:
+    config_name:
+    verbose:
     :return:
     """
     if model_dict is None :
@@ -57,7 +57,7 @@ def model_dict_load(model_dict, config_path, config_name, verbose=True):
 
 def map_model(model_name="model_sklearn:MyClassModel"):
     """ Get the module of the model stored in source/models/
-    :param model_name:   model_sklearn
+    model_name:   model_sklearn
     :return: model module
     """
     ##### Custom folder
@@ -110,10 +110,10 @@ def run_predict_batch(config_name, config_path, n_sample=-1,
 
 def predict(model_dict, dfX, cols_family, post_process_fun=None):
     """
-    :param model_dict:  dict containing params
-    :param dfX:  pd.DataFrame
-    :param cols_family: dict of list containing column names
-    :param post_process_fun:
+    model_dict:  dict containing params
+    dfX:  pd.DataFrame
+    cols_family: dict of list containing column names
+    post_process_fun:
     :return: dfXtrain , dfXval  DataFrame containing prediction
     """
     model_pars, compute_pars = model_dict['model_pars'], model_dict['compute_pars']

@@ -23,7 +23,7 @@ class DataLoader:
 
     def __init__(self, path):
         """
-        :param path: str
+        path: str
         """
         self.path = path
         self.pickle_path = path[:-3] + 'pkl'
@@ -74,7 +74,7 @@ class DataLoader:
 
     def _parse_feature_and_label(self, df):
         """
-        :param df: pandas.DataFrame
+        df: pandas.DataFrame
         :return: pandas.DataFrame
         """
         print(get_time(), "parse dataframe ...", df.shape)
@@ -93,8 +93,8 @@ class DataLoader:
 
     def generate_query_pairs(self, df, qid):
         """
-        :param df: pandas.DataFrame, contains column qid, rel, fid from 1 to self.num_features
-        :param qid: query id
+        df: pandas.DataFrame, contains column qid, rel, fid from 1 to self.num_features
+        qid: query id
         :returns: numpy.ndarray of x_i, y_i, x_j, y_j
         """
         df_qid = df[df.qid == qid]
@@ -113,7 +113,7 @@ class DataLoader:
 
     def generate_query_pair_batch(self, df=None, batchsize=2000):
         """
-        :param df: pandas.DataFrame, contains column qid
+        df: pandas.DataFrame, contains column qid
         :returns: numpy.ndarray of x_i, y_i, x_j, y_j
         """
         if df is None:
@@ -146,7 +146,7 @@ class DataLoader:
 
     def generate_query_batch(self, df, batchsize=100000):
         """
-        :param df: pandas.DataFrame, contains column qid
+        df: pandas.DataFrame, contains column qid
         :returns: numpy.ndarray qid, rel, x_i
         """
         idx = 0
@@ -157,7 +157,7 @@ class DataLoader:
 
     def generate_batch_per_query(self, df=None):
         """
-        :param df: pandas.DataFrame
+        df: pandas.DataFrame
         :return: X for features, y for relavance
         :rtype: numpy.ndarray, numpy.ndarray
         """

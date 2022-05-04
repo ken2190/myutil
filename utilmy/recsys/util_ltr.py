@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.util_ltr"
-HELP = """"
+""""
 All about LTR models
 
 
@@ -29,7 +29,7 @@ from itertools import product
 from utilmy import log, log2
 def help():
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     print(ss)
 
 #################################################################################################

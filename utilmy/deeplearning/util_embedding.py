@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.deeplearning.util_embedding'
-HELP=""" Embedding utils/ Visualization
+"""# 
+Doc::
 
-https://try2explore.com/questions/10109123
-
-https://mpld3.github.io/examples/index.html
+    Embedding utils/ Visualization.
+      https://try2explore.com/questions/10109123
+      https://mpld3.github.io/examples/index.html
 
 
 """
@@ -48,13 +48,13 @@ from utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all   to be used in test.py         """
+    """ python  $utilmy/deeplearning/util_embedding.py test_all         """
     log(MNAME)
     test1()
 
@@ -71,7 +71,8 @@ def test1() -> None:
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """Create HTML plot file of embeddings::
+   """Create HTML plot file of embeddings.
+   Doc::
 
         dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
         embedding_create_vizhtml(dirin="in/model.vec", dirout="zhtmlfile/", dim_reduction='umap', nmax=100, ntrain=10)
@@ -91,9 +92,8 @@ def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction
 
 class EmbeddingViz:
     def __init__(self, path="myembed.parquet", num_clusters=5, sep=";", config:dict=None):
-        """
-        Example:
-           Code::
+        """ Visualize Embedding
+        Doc::
 
                 Many issues with numba, numpy, pyarrow !!!!
                 pip install  pynndescent==0.5.4  numba==0.53.1  umap-learn==0.5.1  llvmlite==0.36.0   numpy==1.19.1   --no-deps
@@ -126,7 +126,9 @@ class EmbeddingViz:
 
 
     def load_data(self,  col_embed='embed', nmax= 5000,  npool=2 ):
-        """  raw data in file into
+        """  Load embedding vector from file.
+        Doc::
+
                 ip_map :     dict  0--N  Integer to  id_label
                 df_labelss : pandas dataframe: id, label1, label2
                 embs  :      list of np array
@@ -151,8 +153,14 @@ class EmbeddingViz:
         self.embs      = embs
 
 
-    def dim_reduction(self, mode="mds", ndim=2, nmax= 5000, dir_out=None, ntrain=10000, npool=2):
+    def dim_reduction(self, mode="mds", ndim=2, nmax= 5000, dirout=None, ntrain=10000, npool=2):
+        """  Reduce dimension of embedding into 2D X,Y for plotting.
+        Doc::
 
+             mode:   'mds', 'umap'  algo reduction.
+             ntrain: 10000, nb of samples to train.
+            
+        """
         pos = None
         if mode == 'mds' :
             ### Co-variance matrix
@@ -188,18 +196,18 @@ class EmbeddingViz:
 
         self.coordinate_xy       = pos
 
-        if dir_out is not None :
+        if dirout is not None :
             os.makedirs(dir_out, exist_ok=True)
             df = pd.DataFrame(pos, columns=['x', 'y'] )
             for ci in [ 'x', 'y' ] :
                df[ ci ] = df[ ci ].astype('float32')
 
             # log(df, df.dtypes)
-            pd_to_file(df.iloc[:100, :],  f"{dir_out}/embs_xy_{mode}.csv" )
-            pd_to_file(df,                f"{dir_out}/embs_xy_{mode}.parquet" , show=1)
+            pd_to_file(df.iloc[:100, :],  f"{dirout}/embs_xy_{mode}.csv" )
+            pd_to_file(df,                f"{dirout}/embs_xy_{mode}.parquet" , show=1)
 
 
-    def create_clusters(self, after_dim_reduction=True):
+    def create_clusters(self, method='kmeans', after_dim_reduction=True):
 
         import hdbscan
         #km = hdbscan.HDBSCAN(min_samples=3, min_cluster_size=10)  #.fit_predict(self.pos)
@@ -216,7 +224,7 @@ class EmbeddingViz:
         self.cluster_names = {i: f'Cluster {i}' for i in range(self.num_clusters)}
 
 
-    def create_visualization(self, dir_out="ztmp/", mode='d3', cols_label=None, show_server=False,  **kw ):
+    def create_visualization(self, dir_out="ztmp/", mode='d3', cols_label=None, start_server=False,  **kw ):
         """
 
         """
@@ -301,18 +309,22 @@ class EmbeddingViz:
 
         ##### Export ############################################################
         mpld3.save_html(fig,  f"{dir_out}/embeds.html")
-        log('Visualization',    f"{dir_out}/embeds.html" )
+        log(f"{dir_out}/embeds.html" )
 
         ### Windows specifc
         if os.name == 'nt': os.system(f'start chrome "{dir_out}/embeds.html" ')
 
 
-        if show_server :
+        if start_server :
            # mpld3.show(fig=None, ip='127.0.0.1', port=8888, n_retries=50, local=True, open_browser=True, http_server=None, **kwargs)[source]
            mpld3.show()  # show the plot
 
 
-    def draw_hiearchy(self):
+    def draw_cluster_hiearchy(self):
+        """  Dendogram from distance
+
+        """
+        from scipy.cluster.hierarchy import ward, dendrogram
         linkage_matrix = ward(self.dist)  # define the linkage_matrix using ward clustering pre-computed distances
         fig, ax = plt.subplots(figsize=(15, 20))  # set size
         ax = dendrogram(linkage_matrix, orientation="right", labels=self.text_labels)
@@ -325,6 +337,41 @@ class EmbeddingViz:
 
 #########################################################################################################
 ############## Loader of embeddings #####################################################################
+def embedding_torchtensor_to_parquet(tensor_list,
+                                     id_list:list, label_list, dirout=None, tag="",  nmax=10 ** 8 ):
+    """ List ofTorch tensor to embedding stored in parquet
+    Doc::
+
+        yemb = model.encode(X)
+        id_list = np.arange(0, len(yemb))
+        ylabel = ytrue
+        embedding_torchtensor_to_parquet(tensor_list= yemb,
+                                     id_list=id_list, label_list=ylabel,
+                                     dirout="./ztmp/", tag="v01"  )
+
+
+    """
+    n          =  len(tensor_list)
+    id_list    = np.arange(0, n) if id_list is None else id_list
+    label_list = [0]*n if label_list is None else id_list
+
+    assert len(id_list) == len(tensor_list)
+
+    df = []
+    for idi, vecti, labeli in zip(id_list,tensor_list, label_list):
+        ss = np_array_to_str(vecti.tonumpy())
+        df.append([ idi, ss, labeli    ])
+
+    df = pd.DataFrame(df, columns= ['id', 'emb', 'label'])
+
+
+    if dirout is not None :
+      log(dirout) ; os_makedirs(dirout)  ; time.sleep(4)
+      dirout2 = dirout + f"/df_emb_{tag}.parquet"
+      pd_to_file(df, dirout2, show=1 )
+    return df
+
+
 def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
                                  is_linevalid_fun=None):   ##   python emb.py   embedding_to_parquet  &
     #### FastText/ Word2Vec to parquet files    9808032 for purhase
@@ -367,8 +414,8 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
 
 
 
-def embedding_load_parquet(dirin="df.parquet",  colid     = 'id', col_embed = 'pred_emb',  nmax = 500):
-    """  id, emb (string , separated)
+def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'emb',  nmax= 500):
+    """  Required columns : id, emb (string , separated)
     
     """
     log('loading', dirin)
@@ -397,9 +444,13 @@ def embedding_load_parquet(dirin="df.parquet",  colid     = 'id', col_embed = 'p
 
 
 def embedding_load_word2vec(dirin=None, skip=0, nmax=10 ** 8,
-                                 is_linevalid_fun=None):   ##   python emb.py   embedding_to_parquet  &
-    """
-       #### FastText/ Word2Vec to parquet files    9808032 for purhase
+                                 is_linevalid_fun=None):
+    """  Parse FastText/ Word2Vec to parquet files.
+    Doc::
+
+       dirin: .parquet files with cols:
+       embs: 2D np.array, id_map: Dict, dflabel: pd.DataFrame
+
 
     """
     if is_linevalid_fun is None : #### Validate line
@@ -426,7 +477,7 @@ def embedding_load_word2vec(dirin=None, skip=0, nmax=10 ** 8,
     ntot   += len(df)
 
 
-    embs   =  np_str_to_array( df['embds'].values  )  ### 2D numpy array
+    embs   =  np_str_to_array( df['emb'].values  )  ### 2D numpy array
     id_map = { i : idi for i, idi in enumerate(df['id'].values)  }
     dflabel      = pd.DataFrame({ 'id' : words }  )
     dflabel['label1'] = 0
@@ -511,6 +562,57 @@ def embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:
 
         bokeh.io.output_notebook()
         bokeh.io.show(p)
+
+
+
+
+
+def embedding_extract_fromtransformer(model,Xinput:list):
+    """ Transformder require Pooling layer to extract word level embedding.
+    Doc::
+
+        https://github.com/Riccorl/transformers-embedder
+        import transformers_embedder as tre
+
+        tokenizer = tre.Tokenizer("bert-base-cased")
+
+        model = tre.TransformersEmbedder(
+            "bert-base-cased", subword_pooling_strategy="sparse", layer_pooling_strategy="mean"
+        )
+
+        example = "This is a sample sentence"
+        inputs = tokenizer(example, return_tensors=True)
+
+
+        class TransformersEmbedder(torch.nn.Module):
+                model: Union[str, tr.PreTrainedModel],
+                subword_pooling_strategy: str = "sparse",
+                layer_pooling_strategy: str = "last",
+                output_layers: Tuple[int] = (-4, -3, -2, -1),
+                fine_tune: bool = True,
+                return_all: bool = True,
+            )
+
+
+    """
+    import transformers_embedder as tre
+
+    tokenizer = tre.Tokenizer("bert-base-cased")
+
+    model = tre.TransformersEmbedder(
+        "bert-base-cased", subword_pooling_strategy="sparse", layer_pooling_strategy="mean"
+    )
+
+    # X = "This is a sample sentence"
+    X2 = tokenizer(Xinput, return_tensors=True)
+    yout = model(X2)
+    emb  = yout.word_embeddings.shape[1:-1]       # remove [CLS] and [SEP]
+    # torch.Size([1, 5, 768])
+    # len(example)
+    return yout
+
+
+
 
 
 
@@ -721,8 +823,10 @@ def faiss_load_index(faiss_index_path=""):
 
 
 def faiss_topk_calc(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
-   """ id, dist_list, id_list 
-       ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
+   """#
+   Doc::
+   
+       id, dist_list, id_list 
        
        https://github.com/facebookresearch/faiss/issues/632
        
@@ -877,17 +981,17 @@ if 'utils_matplotlib':
 
 if 'utils_vector':
     def np_array_to_str(vv, ):
-        """ array/list into  , string """
+        """ array/list into  "," delimited string """
         vv= np.array(vv, dtype='float32')
         vv= [ str(x) for x in vv]
         return ",".join(vv)
 
 
     def np_str_to_array(vv,  l2_norm=True,     mdim = 200):
-        """ Extract list of string into numpy 2D Array
-        #mdim = len(vv[0].split(","))
-        # mdim = 200
-
+        """ Convert list of string into numpy 2D Array
+        Docs::
+             
+             np_str_to_array(vv=[ '3,4,5', '7,8,9'],  l2_norm=True,     mdim = 3)    
 
         """
         from sklearn import preprocessing
@@ -907,7 +1011,15 @@ if 'utils_vector':
         return X
 
 
-    def np_matrix_to_str2(m, map_dict):
+    def np_matrix_to_str2(m, map_dict:dict):
+        """ 2D numpy into list of string and apply map_dict.
+        
+        Doc::
+            map_dict = { 4:'four', 3: 'three' }
+            m= [[ 0,3,4  ], [2,4,5]]
+            np_matrix_to_str2(m, map_dict)
+
+        """
         res = []
         for v in m:
             ss = ""

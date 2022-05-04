@@ -40,7 +40,7 @@ def load_data(dataset_str):
 
     All objects above must be saved using python pickle module.
 
-    :param dataset_str: Dataset name
+    dataset_str: Dataset name
     :return: All data input files loaded (as well the training/test data).
     """
     names = ['x', 'y', 'tx', 'ty', 'allx', 'ally', 'graph']
@@ -113,7 +113,7 @@ def load_corpus(dataset_str):
 
     All objects above must be saved using python pickle module.
 
-    :param dataset_str: Dataset name
+    dataset_str: Dataset name
     :return: All data input files loaded (as well the training/test data).
     """
 
@@ -177,7 +177,7 @@ def load_corpus_multimodal(dataset_str):
 
     All objects above must be saved using python pickle module.
 
-    :param dataset_str: Dataset name
+    dataset_str: Dataset name
     :return: All data input files loaded (as well the training/test data).
     """
 
@@ -244,7 +244,7 @@ def load_corpus_kg(dataset_str):
 
     All objects above must be saved using python pickle module.
 
-    :param dataset_str: Dataset name
+    dataset_str: Dataset name
     :return: All data input files loaded (as well the training/test data).
     """
 

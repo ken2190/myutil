@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.images.util_image"
-HELP=""" utils images
+"""# 
+Doc::
+ utils images
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
@@ -33,7 +35,7 @@ from utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print(HELP + help_create(MNAME))
+    print(help_create(MNAME))
 
 
 
@@ -179,28 +181,19 @@ def test_diskcache():
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
-    Parameters
-    ----------
+    Doc::
 
-    Returns
-    -------
+        python  $utilmy/images/util_image.py   image_cache_create  --dirin myydir  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k"
 
-
-    Notes
-    ----------
-     python  $utildir/images/util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
-
-    ### Not used, Only python?3.7  #####################################
-    import asyncio
-    #TODO: if awaiting, is async helpful?
-    async def set_async(key, val):
-        loop = asyncio.get_running_loop()
-        future = loop.run_in_executor(None, cache.set, key, val)
-        result = await future
-        return result
-    # asyncio.run(set_async('test-key', 'test-value'))
-    ############################################################
-
+        ### Not used, Only python?3.7  #####################################
+        import asyncio
+        #TODO: if awaiting, is async helpful?
+        async def set_async(key, val):
+            loop = asyncio.get_running_loop()
+            future = loop.run_in_executor(None, cache.set, key, val)
+            result = await future
+            return result
+        # asyncio.run(set_async('test-key', 'test-value'))
 
     """
     import cv2, gc, diskcache

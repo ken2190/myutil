@@ -11,11 +11,11 @@ class TorchEASE:
     ):
         """
 
-        :param train: Training DataFrame of user, item, score(optional) values
-        :param user_col: Column name for users
-        :param item_col: Column name for items
-        :param score_col: Column name for scores. Implicit feedback otherwise
-        :param reg: Regularization parameter.
+        train: Training DataFrame of user, item, score(optional) values
+        user_col: Column name for users
+        item_col: Column name for items
+        score_col: Column name for scores. Implicit feedback otherwise
+        reg: Regularization parameter.
                     Change by orders of magnitude to tune (2e1, 2e2, ...,2e4)
         """
         logging.basicConfig(
@@ -100,9 +100,9 @@ class TorchEASE:
 
     def predict_all(self, pred_df, k=5, remove_owned=True):
         """
-        :param pred_df: DataFrame of users that need predictions
-        :param k: Number of items to recommend to each user
-        :param remove_owned: Do you want previously interacted items included?
+        pred_df: DataFrame of users that need predictions
+        k: Number of items to recommend to each user
+        remove_owned: Do you want previously interacted items included?
         :return: DataFrame of users + their predictions in sorted order
         """
         pred_df = pred_df[[self.user_col]].drop_duplicates()

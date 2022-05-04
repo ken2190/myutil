@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.util_sequencepattern"
-HELP = """ utils for sequential pattern discovery
+""" utils for sequential pattern discovery
 
 
 
@@ -21,7 +21,7 @@ import seaborn as sns
 ######## Logger #############################################################################
 from utilmy import log, log2, help_create
 def help():
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 ####### Tests ###############################################################################
@@ -121,11 +121,12 @@ if 'utils':
     def metric_classifier_multilabel_show(y_test, predicted, predicted_prob, figsize=(15,5)):
         '''
         Evaluates a model performance.
-        :parameter
-            :param y_test: array
-            :param predicted: array
-            :param predicted_prob: array
-            :param figsize: tuple - plot setting
+        Doc::
+
+            y_test: array
+            predicted: array
+            predicted_prob: array
+            figsize: tuple - plot setting
         '''
         classes = np.unique(y_test)
         y_test_array = pd.get_dummies(y_test, drop_first=False).values

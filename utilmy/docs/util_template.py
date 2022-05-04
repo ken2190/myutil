@@ -2,7 +2,7 @@
 #### BLOCK HEADER  ###########################
 # -*- coding: utf-8 -*-
 MNAME = "utilmy."
-HELP = """ utils for
+""" utils for
 
 can you see here ?????
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy."
-HELP = """ utils for
+""" utils for
 
 
 
@@ -22,7 +22,7 @@ from utilmy import log, log2
 def help():
     """function help"""
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 def log3():

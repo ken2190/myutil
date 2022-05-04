@@ -31,15 +31,15 @@ class DataGenerator(keras.utils.Sequence):
                  ):
         """
 
-        :param dataset (Dataset): Data set to load
-        :param batch_size (int): how many samples in one batch
-        :param shuffle (bool, optional): set to ``True`` to have the data reshuffled
+        dataset (Dataset): Data set to load
+        batch_size (int): how many samples in one batch
+        shuffle (bool, optional): set to ``True`` to have the data reshuffled
             at every epoch (default: ``True``).
-        :param num_workers (int, optional): how many threads to use for data
+        num_workers (int, optional): how many threads to use for data
             loading in one batch. 0 means that the data will be loaded in the main process.
             (default: ``0``)
-        :param replacement (bool): samples are drawn with replacement if ``True``, default=False
-        :param collate_fn (callable, optional):
+        replacement (bool): samples are drawn with replacement if ``True``, default=False
+        collate_fn (callable, optional):
         """
         self.dataset = dataset
         self.shuffle = shuffle

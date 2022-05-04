@@ -368,9 +368,9 @@ def pd_colnum_quantile_norm(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 def pd_colnum_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
     """  float column into  binned columns
-    :param df:
-    :param col:
-    :param pars:
+    df:
+    col:
+    pars:
     :return:
     """
     from util_feature import  pd_colnum_tocat

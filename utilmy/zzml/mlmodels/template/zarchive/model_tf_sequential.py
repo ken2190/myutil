@@ -43,9 +43,9 @@ def os_file_path(data_path):
 
 def os_package_root_path(filepath, sublevel=0, path_add=""):
   """
-    :param filepath:
-    :param sublevel:  level 0 : current path, level 1 : 1 level above
-    :param path_add:
+    filepath:
+    sublevel:  level 0 : current path, level 1 : 1 level above
+    path_add:
     :return:
     """
   from pathlib import Path
@@ -163,10 +163,10 @@ def metrics(model, sess=None, data_pars=None, out_pars=None):
     # Compute stats on training
     #df = get_dataset(data_pars)
     #arr_out = predict(model, sess, df, get_hidden_state=False, init_value=None)
-    :param model:
-    :param sess:
-    :param data_pars:
-    :param out_pars:
+    model:
+    sess:
+    data_pars:
+    out_pars:
     :return:
     """
   

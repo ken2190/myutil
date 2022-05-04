@@ -1,9 +1,12 @@
-
+# /bin/bash
 
 
 ### source init.sh
 
 ### source init.sh
+
+
+# ~/.bashrc
 
 
 PROMPT=$N$G$S

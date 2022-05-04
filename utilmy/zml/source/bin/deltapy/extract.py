@@ -200,7 +200,7 @@ def has_duplicate_max(x):
     """
     Checks if the maximum value of x is observed more than once
 
-    :param x: the time series to calculate the feature of
+    x: the time series to calculate the feature of
     :type x: numpy.ndarray
     :return: the value of this feature
     :return type: bool

@@ -1,4 +1,6 @@
-HELP="""
+"""# 
+Doc::
+
 pip install datasketch
 https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 https://pypi.org/project/pysie/#description
@@ -26,7 +28,7 @@ def help():
         
     """
     from utilmy.utilmy import help_create
-    ss = HELP + help_create('utilmy.nlp.util_cluster')
+    ss = help_create('utilmy.nlp.util_cluster')
     print(ss)
 
 

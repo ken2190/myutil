@@ -73,7 +73,7 @@ def save_to_ckpt(ckpt_file, epoch, model, optimizer, lr_scheduler):
 
 def load_train_vali_data(data_fold, small_dataset=False):
     """
-    :param data_fold: str, which fold's data was going to use to train
+    data_fold: str, which fold's data was going to use to train
     :return:
     """
     if small_dataset:

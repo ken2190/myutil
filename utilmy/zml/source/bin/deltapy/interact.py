@@ -54,8 +54,8 @@ def lowess(df, cols, y, f=2. / 3., iter=3):
 def autoregression(df, drop=None, settings={"autoreg_lag":4}):
     """
     This function calculates the autoregression for each channel.
-    :param x: the input signal. Its size is (number of channels, samples).
-    :param settings: a dictionary with one attribute, "autoreg_lag", that is the max lag for autoregression.
+    x: the input signal. Its size is (number of channels, samples).
+    settings: a dictionary with one attribute, "autoreg_lag", that is the max lag for autoregression.
     :return: the "final_value" is a matrix (number of channels, autoreg_lag) indicating the parameters of
       autoregression for each channel.
     """

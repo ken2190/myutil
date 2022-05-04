@@ -55,9 +55,9 @@ def os_make_dirs(filename):
 ####################################################################################################
 def save_all(variable_list, folder, globals_main=None):
     """ Pickle saving batch
-    :param variable_list:
-    :param folder:
-    :param globals_main:
+    variable_list:
+    folder:
+    globals_main:
     :return:
     """
     for x in variable_list:
@@ -70,9 +70,9 @@ def save_all(variable_list, folder, globals_main=None):
 
 def save(obj, filename="/folder1/keyname", isabsolutpath=0):
     """ Pickle saving
-    :param obj:
-    :param filename:
-    :param isabsolutpath:
+    obj:
+    filename:
+    isabsolutpath:
     :return:
     """
     try:
@@ -87,9 +87,9 @@ def save(obj, filename="/folder1/keyname", isabsolutpath=0):
 
 def load(filename="/folder1/keyname", isabsolutpath=0, encoding1="utf-8"):
     """ pickle load
-    :param filename:
-    :param isabsolutpath:
-    :param encoding1:
+    filename:
+    isabsolutpath:
+    encoding1:
     :return:
     """
     try:

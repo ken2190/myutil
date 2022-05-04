@@ -37,12 +37,12 @@ def pd_num_segment_limit(
 ):
     """
     Calculate Segmentation of colum using rule based.
-    :param df:
-    :param col_score:
-    :param coldefault:
-    :param ntotal_default:
-    :param def_list:
-    :param nblock:
+    df:
+    col_score:
+    coldefault:
+    ntotal_default:
+    def_list:
+    nblock:
     :return:
     """
 
@@ -82,8 +82,8 @@ def pd_num_segment_limit(
 def fun_get_segmentlimit(x, l1):
     """
     ##### Get Kaiso limit ###############################################################
-    :param x:
-    :param l1:
+    x:
+    l1:
     :return :
     """
     for i in range(0, len(l1)):
@@ -98,7 +98,7 @@ def fun_get_segmentlimit(x, l1):
 
 def np_drop_duplicates(l1):
     """
-    :param l1:
+    l1:
     :return :
     """
     l0 = np.array( list(OrderedDict((x, True) for x in l1).keys()) )
@@ -108,10 +108,10 @@ def np_drop_duplicates(l1):
 def model_logistic_score(clf, df1, cols, coltarget, outype="score"):
     """
 
-    :param clf:
-    :param df1:
-    :param cols:
-    :param outype:
+    clf:
+    df1:
+    cols:
+    outype:
     :return:
     """
 

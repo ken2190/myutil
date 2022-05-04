@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.recsys.ab"
-HELP = """"
+""""
 All about abtest
 
 cd utilmy/recsys/ab
@@ -63,7 +63,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     print(ss)
 
    

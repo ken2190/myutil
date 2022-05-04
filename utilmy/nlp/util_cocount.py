@@ -1,4 +1,4 @@
-HELP = """
+"""
 
 from utilmy.nlp import util_cocount as uc
 uc.run_all()

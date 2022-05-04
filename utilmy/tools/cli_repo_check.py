@@ -66,7 +66,7 @@ def os_system(cmds, stdout_only=True):
     """
     Executes system command and
     Get print output from command line
-    :param cmds a list containing command and its arguments
+    cmds a list containing command and its arguments
     """
     import subprocess
 

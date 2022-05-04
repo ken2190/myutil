@@ -28,11 +28,11 @@ def pd_colnum_tocat_stat(input_data, feature, target_col, bins, cuts=0):
     """
     Bins continuous features into equal sample size buckets and returns the target mean in each bucket. Separates out
     nulls into another bucket.
-    :param input_data: dataframe containg features and target column
-    :param feature: feature column name
-    :param target_col: target column
-    :param bins: Number bins required
-    :param cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
+    input_data: dataframe containg features and target column
+    feature: feature column name
+    target_col: target column
+    bins: Number bins required
+    cuts: if buckets of certain specific cuts are required. Used on test data to use cuts from train.
     :return: If cuts are passed only grouped data is returned, else cuts and grouped data is returned
     """
     has_null = pd.isnull(input_data[feature]).sum() > 0
@@ -97,11 +97,11 @@ def pd_colnum_tocat_stat(input_data, feature, target_col, bins, cuts=0):
 def plot_univariate_plots(data, target_col, features_list=0, bins=10, data_test=0):
     """
     Creates univariate dependence plots for features in the dataset
-    :param data: dataframe containing features and target columns
-    :param target_col: target column name
-    :param features_list: by default creates plots for all features. If list passed, creates plots of only those features.
-    :param bins: number of bins to be created from continuous feature
-    :param data_test: test data which has to be compared with input data for correlation
+    data: dataframe containing features and target columns
+    target_col: target column name
+    features_list: by default creates plots for all features. If list passed, creates plots of only those features.
+    bins: number of bins to be created from continuous feature
+    data_test: test data which has to be compared with input data for correlation
     :return: Draws univariate plots for all columns in data
     """
     if type(features_list) == int:
@@ -120,11 +120,11 @@ def plot_univariate_plots(data, target_col, features_list=0, bins=10, data_test=
 def plot_univariate_histogram(feature, data, target_col, bins=10, data_test=0):
     """
     Calls the draw plot function and editing around the plots
-    :param feature: feature column name
-    :param data: dataframe containing features and target columns
-    :param target_col: target column name
-    :param bins: number of bins to be created from continuous feature
-    :param data_test: test data which has to be compared with input data for correlation
+    feature: feature column name
+    data: dataframe containing features and target columns
+    target_col: target column name
+    bins: number of bins to be created from continuous feature
+    data_test: test data which has to be compared with input data for correlation
     :return: grouped data if only train passed, else (grouped train data, grouped test data)
     """
     print(' {:^100} '.format('Plots for ' + feature))
@@ -158,10 +158,10 @@ def plot_univariate_histogram(feature, data, target_col, bins=10, data_test=0):
 def pd_stat_distribution_trend_correlation(grouped, grouped_test, feature, target_col):
     """
     Calculates correlation between train and test trend of feature wrt target.
-    :param grouped: train grouped data
-    :param grouped_test: test grouped data
-    :param feature: feature column name
-    :param target_col: target column name
+    grouped: train grouped data
+    grouped_test: test grouped data
+    feature: feature column name
+    target_col: target column name
     :return: trend correlation between train and test
     """
     grouped = grouped[grouped[feature] != 'Nulls'].reset_index(drop=True)
@@ -190,10 +190,10 @@ def pd_stat_distribution_trend_correlation(grouped, grouped_test, feature, targe
 def plot_col_univariate(input_data, feature, target_col, trend_correlation=None):
     """
     Draws univariate dependence plots for a feature
-    :param input_data: grouped data contained bins of feature and target mean.
-    :param feature: feature column name
-    :param target_col: target column
-    :param trend_correlation: correlation between train and test trends of feature wrt target
+    input_data: grouped data contained bins of feature and target mean.
+    feature: feature column name
+    target_col: target column
+    trend_correlation: correlation between train and test trends of feature wrt target
     :return: Draws trend plots for feature
     """
     trend_changes = pd_stat_distribution_trend_correlation(grouped_data=input_data,
@@ -245,11 +245,11 @@ def plotxy(
     x, y, color=1, size=1, figsize=(12, 10), title="feature importance", savefile="myfile.png"
 ):
     """
-    :param x:
-    :param y:
-    :param color:
-    :param size:
-    :param title:
+    x:
+    y:
+    color:
+    size:
+    title:
     """
 
     color = np.zeros(len(x)) if type(color) == int else color
@@ -262,10 +262,10 @@ def plotxy(
 
 def plot_col_distribution(df, col_include=None, col_exclude=None, pars={"binsize": 20}):
     """  Retrives all the information of the column
-    :param df:
-    :param col_include:
-    :param col_exclude:
-    :param pars:
+    df:
+    col_include:
+    col_exclude:
+    pars:
     """
     features = list()
 
@@ -304,9 +304,9 @@ def plot_col_distribution(df, col_include=None, col_exclude=None, pars={"binsize
 
 def plot_pair(df, Xcolname=None, Ycoltarget=None):
     """
-    :param df:
-    :param Xcolname:
-    :param Ycoltarget:
+    df:
+    Xcolname:
+    Ycoltarget:
  
     """
     yy = df[Ycoltarget].values
@@ -324,13 +324,13 @@ def plot_pair(df, Xcolname=None, Ycoltarget=None):
 def plot_distance_heatmap(Xmat_dist, Xcolname):
     """
 
-    :param Xmat_dist:
-    :param Xcolname:
+    Xmat_dist:
+    Xcolname:
     :return:
     """
     """
-    :param Xmat_dist:
-    :param Xcolname:
+    Xmat_dist:
+    Xcolname:
     :return:
     """
     import matplotlib.pyplot as pyplot
@@ -351,9 +351,9 @@ def plot_distance_heatmap(Xmat_dist, Xcolname):
 
 def plot_cluster_2D(X_2dim, target_class, target_names):
     """ 
-    :param X_2dim:
-    :param target_class:
-    :param target_names:
+    X_2dim:
+    target_class:
+    target_names:
     :return: 
     Plot 2d of Clustering Class,
     X2d: Nbsample x 2 dim  (projection on 2D sub-space)
@@ -687,9 +687,9 @@ def plot_XY(
 def plot_XY_plotly(xx, yy, towhere="url"):
     """
      Create Interactive Plotly
-    :param xx:
-    :param yy:
-    :param towhere:
+    xx:
+    yy:
+    towhere:
     :return:
     """
     import plotly.plotly as py
@@ -715,9 +715,9 @@ def plot_XY_plotly(xx, yy, towhere="url"):
 
 def plot_XY_seaborn(X, Y, Zcolor=None):
     """
-    :param X:
-    :param Y:
-    :param Zcolor:
+    X:
+    Y:
+    Zcolor:
     :return:
     """
     sns.set_context("poster")
@@ -803,7 +803,7 @@ cf.go_offline()
 cf.set_config_file(offline=False, world_readable=True)
 
 
-    :param df:
+    df:
     :return:
     """
     import cufflinks as cf

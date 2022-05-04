@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.util_colab"
-HELP = """ Colab utils
+""" Colab utils
 
 #### Increase the RAMDISK space
 ! mount -o remount,size=16G /var/colab 
@@ -59,7 +59,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 

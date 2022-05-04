@@ -6,7 +6,7 @@ Tools to debug Keras models, predictions.
 """
 
 # -*- coding: utf-8 -*-
-HELP = """
+"""
   Template models
 """
 import os,io, numpy as np, sys, glob, time, copy, json, pandas as pd, functools, sys

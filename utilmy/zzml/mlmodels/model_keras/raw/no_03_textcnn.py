@@ -262,11 +262,11 @@ class Model:
 
 def fit(model, Xtrain, ytrain, compute_pars=None, **kw):
   """
-  :param model:    Class model
-  :param data_pars:  dict of
-  :param out_pars:
-  :param compute_pars:
-  :param kwargs:
+  model:    Class model
+  data_pars:  dict of
+  out_pars:
+  compute_pars:
+  kwargs:
   :return:
   """
   model = model.fit(Xtrain, ytrain,

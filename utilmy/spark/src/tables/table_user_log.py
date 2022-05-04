@@ -13,8 +13,8 @@ from src.utils import config_load, log, spark_check
 
 def run(spark:SparkSession, config_name:str):
     """ Generate Structured Log table on disk
-    :param spark:
-    :param config_name:
+    spark:
+    config_name:
     :return: Structured Log Spark Dataframe
     """
     #### Load the yaml config file

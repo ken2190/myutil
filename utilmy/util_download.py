@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME='utilmy.util_download'
-HELP=""" Download utilities
+"""# 
+Doc::
+ Download utilities
 
 
 """
@@ -17,7 +19,7 @@ from utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( help_create(MNAME) )
 
 
 
@@ -325,7 +327,7 @@ def to_file(s, filep):
 def download_with_progress(url, fileout):
     """
     Downloads a file with a progress bar
-    :param url: url from which to download from
+    url: url from which to download from
     :fileout: file path for saving data
     """
     import tqdm

@@ -18,7 +18,7 @@ class Attention(Layer):
             3D tensor with shape: `(samples, steps, features)`.
         # Output shape
             2D tensor with shape: `(samples, features)`.
-        :param kwargs:
+        kwargs:
         Just put it on top of an RNN Layer (GRU/LSTM/SimpleRNN) with return_sequences=True.
         The dimensions are inferred based on the output shape of the RNN.
         Example:

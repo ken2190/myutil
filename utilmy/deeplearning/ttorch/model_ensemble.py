@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.deeplearning.torch.rule_encoder"
-HELP = """ utils for model explanation
+""" utils for model explanation
 
 
 https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
@@ -38,7 +38,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = HELP + help_create(MNAME)
+    ss = help_create(MNAME)
     log(ss)
 
 

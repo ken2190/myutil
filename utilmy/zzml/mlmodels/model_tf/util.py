@@ -51,9 +51,9 @@ def os_file_path(data_path):
 
 def os_package_root_path(filepath, sublevel=0, path_add=""):
     """
-    :param filepath:
-    :param sublevel:  level 0 : current path, level 1 : 1 level above
-    :param path_add:
+    filepath:
+    sublevel:  level 0 : current path, level 1 : 1 level above
+    path_add:
     :return:
     """
     from pathlib import Path
