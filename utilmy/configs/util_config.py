@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-# python util_config.py test
+"""#
+Doc::
+
+    # python util_config.py test
 
 
 
@@ -83,16 +85,19 @@ def config_load(
         save_default:   bool = False,
         to_dataclass:   bool = True,
 ) -> Union[dict, Box]:
-    """Load Config file into a dict
-    1) load config_path
-    2) If not, load in USER/.myconfig/.config.yaml
-    3) If not, create default save in USER/.myconfig/.config.yaml
-    Args:
-        config_path:   path of config or 'default' tag value
-        path_default : path of default config
-        config_default: dict value of default config
-        save_default: save default config on disk
-    Returns: dict config
+    """#
+    Doc::
+    
+        Load Config file into a dict
+        1) load config_path
+        2) If not, load in USER/.myconfig/.config.yaml
+        3) If not, create default save in USER/.myconfig/.config.yaml
+        Args:
+            config_path:    path of config or 'default' tag value
+            path_default :  path of default config
+            config_default: dict value of default config
+            save_default: save default config on disk
+        Returns: dict config
     """
     import json, yaml, pathlib
 

@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
-"""
-Usage :
-  from util_log import log
+"""#
+Doc::
 
+    Usage :
+    from util_log import log
 
-# The severity levels
-# Level name    Severity value  Logger method
-# TRACE         5               logger.trace()
-# DEBUG         10              logger.debug()
-# INFO          20              logger.info()
-# SUCCESS       25              logger.success()
-# WARNING       30              logger.warning()
-# ERROR         40              logger.error()
-# CRITICAL      50              logger.critical()
+    # The severity levels
+    # Level name    Severity value  Logger method
+    # TRACE         5               logger.trace()
+    # DEBUG         10              logger.debug()
+    # INFO          20              logger.info()
+    # SUCCESS       25              logger.success()
+    # WARNING       30              logger.warning()
+    # ERROR         40              logger.error()
+    # CRITICAL      50              logger.critical()
 """
-import sys
+import os,sys
 from logging.handlers import SocketHandler
 from pathlib import Path
 
@@ -33,18 +34,17 @@ LOG_TEMPLATE = "debug0"
 #####################################################################################
 def logger_setup(log_config_path: str = None, log_template: str = "default", **kwargs):
     """ Generic Logging setup
-      Overide logging using loguru setup
-      1) Custom config from log_config_path .yaml file
-      2) Use shortname log, log2, logw, loge for logging output
+    Doc::
 
-    Args:
-        log_config_path:
-        template_name:
-        **kwargs:
-    Returns:None
+        Overide logging using loguru setup
+        1) Custom config from log_config_path .yaml file
+        2) Use shortname log, log2, logw, loge for logging output
 
-    TODO:
-
+        Args:
+            log_config_path:
+            template_name:
+            **kwargs:
+        Returns:None
 
     """
     try:
@@ -114,38 +114,23 @@ logger_setup(log_config_path=LOG_CONFIG_PATH, log_template=LOG_TEMPLATE)
 
 def log(*s):
     """function log
-    Args:
-        *s:   
-    Returns:
-        
     """
     logger.opt(depth=1, lazy=True).info(",".join([str(t) for t in s]))
 
 
 def log2(*s):
     """function log2
-    Args:
-        *s:   
-    Returns:
-        
     """
     logger.opt(depth=1, lazy=True).debug(",".join([str(t) for t in s]))
 
 
 def log3(*s):  ### Debuggine level 2
     """function log3
-    Args:
-        *s:   
-    Returns:
-        
     """
 
 
 def logw(*s):
     """function logw
-    Args:
-        *s:   
-    Returns:
         
     """
     logger.opt(depth=1, lazy=True).warning(",".join([str(t) for t in s]))
@@ -163,20 +148,12 @@ def logc(*s):
 
 def loge(*s):
     """function loge
-    Args:
-        *s:   
-    Returns:
-        
     """
     logger.opt(depth=1, lazy=True).exception(",".join([str(t) for t in s]))
 
 
 def logr(*s):
     """function logr
-    Args:
-        *s:   
-    Returns:
-        
     """
     logger.opt(depth=1, lazy=True).error(",".join([str(t) for t in s]))
 

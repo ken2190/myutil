@@ -2,11 +2,9 @@
 """# 
 Doc::
 
-    Embedding utils/ Visualization
-
-    https://try2explore.com/questions/10109123
-
-    https://mpld3.github.io/examples/index.html
+    Embedding utils/ Visualization.
+      https://try2explore.com/questions/10109123
+      https://mpld3.github.io/examples/index.html
 
 
 """
@@ -416,8 +414,8 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
 
 
 
-def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'pred_emb',  nmax= 500):
-    """  id, emb (string , separated)
+def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'emb',  nmax= 500):
+    """  Required columns : id, emb (string , separated)
     
     """
     log('loading', dirin)
