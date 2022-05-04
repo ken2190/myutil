@@ -1,19 +1,15 @@
-MNAME='utilmy.docs.docstring'
 """# 
 Doc::
- Automates Python scripts formatting, linting and Mkdocs documentation.
-
-
-cd myutil
-pip install -e . ## dev install
-
-python utilmy/docs/docstring.py  test1
-
-python docs/docstring.py  --dirin  uitl   --dirout    --overwrite False --test True
-
-
-
-
+    
+    Automates Python scripts formatting, linting and Mkdocs documentation.
+    
+    cd myutil
+    pip install -e . ## dev install
+    
+    python utilmy/docs/docstring.py  test1
+    
+    python docs/docstring.py  --dirin  uitl   --dirout    --overwrite False --test True
+    
 
 """
 import os, sys, ast,re, importlib
@@ -24,35 +20,25 @@ from pprint import pprint
 
 
 ##########################################################################################################
-from code_parser import get_list_function_info, get_list_method_info
+from utilmy.docs.code_parser import get_list_function_info, get_list_method_info
 from utilmy.utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
-    """
+    """function help"""
     from utilmy import help_create
-    print( help_create(MNAME))
+    print( help_create(__file__))
 
 
 ##########################################################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all        
     """
     test1()
 
 
 def test1(mode='test'):
     """function test1
-    Args:
-        mode:   
-    Returns:
-        
+        mode:           
     """
     log(""" generate_docstring """)
     # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
@@ -65,19 +51,15 @@ def test1(mode='test'):
     
     if 'test' in mode :
        # test custom
-       generate_docstring(dirin=python_dir, dirout=python_dir)
+       docstring_generate(dirin=python_dir, dirout=python_dir)
 
     elif 'overwrite' in mode :
        # overwrite scripts
-       generate_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+       docstring_generate(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
 
 
-def run_all(mode='overwrite'):
-    """function run_all
-    Args:
-        mode:   
-    Returns:
-        
+def run_generate_all(mode='overwrite'):
+    """Create new docstring for missing one          
     """
     log(""" generate_docstring """)
     # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
@@ -88,29 +70,31 @@ def run_all(mode='overwrite'):
     python_dir = Path.cwd().joinpath("utilmy/")
     if 'overwrite' in mode :
        # overwrite scripts
-       generate_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+       docstring_generate(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
 
 
 
-def update_all(mode='overwrite'):
-    """function update with Doc::       
+def run_update_all(mode='overwrite', dirin='utilmy/'):
+    """Update Existing docstring      
     """
     log(""" generate_docstring """)
     # python_tips_dir = Path.cwd().joinpath("utilmy/docs")
-
-    # not use
-    # docstring_from_type_hints(python_tips_dir, python_tips_dir, overwrite_script=True, test=True)
     
-    python_dir = Path.cwd().joinpath("utilmy/")
+    dirin = 'utilmy/' 
+    python_dir = Path.cwd().joinpath(dirin)
+    
+    
+    #  docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=True, test=True, nfile=1)
+    
     if 'overwrite' in mode :
        # overwrite scripts
-       update_docstring(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+       docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=True, test=True, nfile=1)
 
 
 
 
 ##########################################################################################################
-def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
+def docstring_generate(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
     """  Generate docstring
     Doc::
 
@@ -283,7 +267,8 @@ def generate_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overw
 
 
 
-def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True):
+def docstring_update1(dirin: Union[str, Path],  dirout: Union[str, Path], overwrite: bool = False, test: bool = True,
+                     nfile=10000):
     """  Autonatically update docstring
     Doc::
 
@@ -297,6 +282,8 @@ def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwri
     # exclude = "*zml*"
     # p = glob_glob_python(dirin, suffix ="*.py", nfile=15000, exclude=exclude)
     scripts = [x for x in p if Path(x).is_file()]
+    
+    scripts = scripts[:nfile]
 
     # print(scripts)
     for script in scripts:
@@ -327,13 +314,15 @@ def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwri
                    
                     ### New Format  #######################################
                     ss1 = []
-                    ss1.append(ss[0] + "." )
-                    ss1.append( f'{function["indent"]}Doc::')
-                    ss1.append( ' '*4 + f'{function["indent"]}')  ### Blank Line
+                    ss1.append(ss[0].replace("\n", ".\n") )
+                    ss1.append( f'{function["indent"]}Doc::\n')
+                    ss1.append( f'{function["indent"]}        \n')  ### Blank Line
                     for line in ss[1:] :
-                        ss1.append( ' '*4 + f'{function["indent"]}' + line )
+                        ss1.append( f'{function["indent"]}      \n' + line )
 
                     new_docstring = ss1
+                    print(ss1)
+                    
 
 
                 else:
@@ -433,9 +422,9 @@ def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwri
 
 
             elif test:
-                script_tmp  = f'{dirout}/ztmp.py'                
-                script_test = f"{dirout}/test_{script.name}"
-                with open(script_test, "w") as script_file:
+                script_tmp  = f'{script.parent}/ztmp.py'                
+                script_test = f"{script.parent}/test_{script.name}"
+                with open(script_tmp, "w") as script_file:
                     script_file.writelines(script_lines)
 
                 isok = os_file_compile_check(script_tmp, verbose=0)   
@@ -445,12 +434,14 @@ def update_docstring(dirin: Union[str, Path],  dirout: Union[str, Path], overwri
                     os.rename(script_tmp, script_test)
                 else :
                     os.remove(script_tmp)
+                log(script_test)    
 
 
         except Exception as e :
             log("\n",e, "\n")
 
-
+ 
+ 
 
 if 'utilties':
     def os_path_norm(diroot:str):
