@@ -343,9 +343,10 @@ def download_with_progress(url, fileout):
 
 
 
-### Aliass
+### Aliass  ###################################################################################################
 unzip_file = os_extract_archive
-
+google_download = download_google
+github_download = download_github
 
 
 
