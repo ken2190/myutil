@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-"""# 
-Doc::
+"""Download utilities
 
-   Download utilities
+
 
 
 """
@@ -15,7 +14,7 @@ from box import Box
 
 
 #############################################################################################
-from utilmy import log, log2
+from utilmy.utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
@@ -346,9 +345,10 @@ def download_with_progress(url, fileout):
 
 
 
-### Aliass
+### Aliass  ###################################################################################################
 unzip_file = os_extract_archive
-
+google_download = download_google
+github_download = download_github
 
 
 
