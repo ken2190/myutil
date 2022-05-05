@@ -63,6 +63,13 @@ def pd_date_split(df, coldate =  'time_key', prefix_col ="",sep="/" ,verbose=Fal
     df['quarter']       = df.apply( lambda x :  int( x['month'] / 4.0) + 1 , axis=1  )
 
     def merge1(x1,x2):
+        '''
+        Return the merge of two parts of date.
+
+        Parameters:
+        x1: First part of date
+        x2:Second part of date.
+        '''
         if sep == "":
             return int(str(x1) + str(x2))
         return str(x1) + sep + str(x2)
@@ -82,6 +89,7 @@ def pd_date_split(df, coldate =  'time_key', prefix_col ="",sep="/" ,verbose=Fal
 def date_to_timezone(tdate,  fmt="%Y%m%d-%H:%M", timezone='Asia/Tokyo'):
     """
        dt = datetime.datetime.now(timz('UTC'))
+
     """
     from pytz import timezone as tzone
     import datetime
@@ -91,6 +99,14 @@ def date_to_timezone(tdate,  fmt="%Y%m%d-%H:%M", timezone='Asia/Tokyo'):
 
 
 def date_now(fmt="%Y-%m-%d %H:%M:%S %Z%z", add_days=0, timezone='Asia/Tokyo'):
+    '''
+    Return  Pacific Daylight Time 
+
+    Parameters:
+    add_days: number of days to add
+    timezone:specific time zone of any part of the world
+    '''
+
     from pytz import timezone as timz
     import datetime
     # Current time in UTC
