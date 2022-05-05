@@ -43,7 +43,7 @@ def test1() -> None:
 def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", 
                    dirout="./ztmp/"):
     """Fetch dataset from a given URL and save it.
-    Code::
+    Doc::
 
         url:  URL https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip   
         dirout: Path to save files
@@ -94,7 +94,7 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
 def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     fileout="./ztmp/", unzip=True ):
       """Download  file from google drive on disk + unzip.
-      Code::
+      Doc::
           url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
           ### Using file
@@ -144,7 +144,7 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
 
 def download_custom_pageimage(query, fileout="query1", genre_en='', id0="", cat="", npage=1) :
     """ Donwload one page
-    Code::
+    Doc::
     
         python  "$utilmy/util_download.py" download_page_image   --query 'メンス+ポロシャツ'    --dirout men_fs_blue
 

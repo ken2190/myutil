@@ -351,7 +351,7 @@ https://modal-python.readthedocs.io/en/latest/content/examples/Pytorch_integrati
 
 def generate_rules_fromdata():
     """"  Helper for Rule Generators.
-    Code::
+    Doc::
 
         from iguanas.rule_generation import RuleGeneratorDT
         from iguanas.rule_optimisation import BayesianOptimiser
