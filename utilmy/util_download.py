@@ -43,7 +43,7 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
                    dirout="./ztmp/"):
     """Fetch dataset from a given URL and save it.
     Doc::
-
+    
         url:  URL https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip   
         dirout: Path to save files
         
