@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.util_download'
-"""# 
-Doc::
-
-   Download utilities
+"""Download utilities
 
 
 """
@@ -20,14 +16,13 @@ from utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 
 #############################################################################################
 def test_all() -> None:
     """function test_all   to be used in test.py         """
-    log(MNAME)
     test1()
 
 
