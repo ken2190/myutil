@@ -2,7 +2,9 @@
 MNAME = "utilmy.images.util_image"
 """# 
 Doc::
- utils images
+
+   Utils image processing
+
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
@@ -372,8 +374,9 @@ def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3,
 ###################################################################################################
 #### Images readers ###############################################################################
 def image_read_iter(dirin_filelist:Union[str, list], **kw):
-    """  Read a file into an image object
-    Args:
+    """  Read a file into an image object.
+    Doc::
+
         dirin: The path to the file, a URL, or any object
             with a `read` method (such as `io.BytesIO`)
     """
@@ -447,11 +450,11 @@ def image_read2(dirin_filelist:Union[str, list], **kw):
 
 
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
-    """
-    Read a file into an image object
-    Args:
-        filepath_or_buffer: The path to the file, a URL, or any object
-            with a `read` method (such as `io.BytesIO`)
+    """Read a file into an numpy object
+    Doc::
+    
+        filepath_or_buffer: path to file, a URL, or any object
+                             with a `read` method (such as `io.BytesIO`)
     """
     import tifffile
     image = None
@@ -894,7 +897,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
 
 def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int=1):
     """ Remove background
-    Code::
+    Doc::
 
         source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
 
@@ -919,7 +922,7 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
 
 def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"", npool=30):
     """  Remove face
-    Code::
+    Doc::
 
         python $utilmy/images/util_image.py  image_face_blank
 
