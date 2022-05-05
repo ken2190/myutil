@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-HELP="""
+"""# 
+Doc::
+
 
 utils in DL
 
@@ -126,7 +128,7 @@ def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,
                  metric_list:list=["mean_squared_error", "mean_absolute_error"],
                  ypred_proba:np.ndarray=None, return_dict:bool=False, metric_pars:dict=None)->pd.DataFrame:
     """ Generic metrics calculation, using sklearn naming pattern.
-    Code::
+    Doc::
     
           dfres = metrics_eval(ypred,  ytrue,
                     metric_lis=["mean_squared_error", "mean_absolute_error"],
@@ -281,7 +283,7 @@ def metrics_eval(ypred:np.ndarray=None,  ytrue:np.ndarray=None,
 
 def metrics_plot(ypred=None,  ytrue=None,  metric_list=["mean_squared_error"], plotname='histo', ypred_proba=None, return_dict=False):
     """ Generic metrics Plotting.
-    Code::
+    Doc::
 
           https://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics
 

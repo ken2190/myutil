@@ -30,6 +30,6 @@ def os_getenv_dict():
   return ddict 
   
   
-VERBOSE = os.getenv('verbose', 1)
+#VERBOSE = os.getenv('verbose', 1)
 
 

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.images.util_image"
-HELP=""" utils images
+"""# 
+Doc::
+
+   Utils image processing
+
 
 """
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
@@ -179,28 +183,19 @@ def test_diskcache():
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
     """function image_cache_create diskcache backend to Store and Read images very very fast/
-    Parameters
-    ----------
+    Doc::
 
-    Returns
-    -------
+        python  $utilmy/images/util_image.py   image_cache_create  --dirin myydir  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k"
 
-
-    Notes
-    ----------
-     python  $utildir/images/util_image.py   image_cache_create  --dirin:  --dirout   --xdim0 256   --ydim0256  --tag0  "train_a_1000k_clean_nobg"
-
-    ### Not used, Only python?3.7  #####################################
-    import asyncio
-    #TODO: if awaiting, is async helpful?
-    async def set_async(key, val):
-        loop = asyncio.get_running_loop()
-        future = loop.run_in_executor(None, cache.set, key, val)
-        result = await future
-        return result
-    # asyncio.run(set_async('test-key', 'test-value'))
-    ############################################################
-
+        ### Not used, Only python?3.7  #####################################
+        import asyncio
+        #TODO: if awaiting, is async helpful?
+        async def set_async(key, val):
+            loop = asyncio.get_running_loop()
+            future = loop.run_in_executor(None, cache.set, key, val)
+            result = await future
+            return result
+        # asyncio.run(set_async('test-key', 'test-value'))
 
     """
     import cv2, gc, diskcache
@@ -379,8 +374,9 @@ def npz_image_dumpsample(path_npz,  keys=['train'], path="", tag="", n_sample=3,
 ###################################################################################################
 #### Images readers ###############################################################################
 def image_read_iter(dirin_filelist:Union[str, list], **kw):
-    """  Read a file into an image object
-    Args:
+    """  Read a file into an image object.
+    Doc::
+
         dirin: The path to the file, a URL, or any object
             with a `read` method (such as `io.BytesIO`)
     """
@@ -454,11 +450,11 @@ def image_read2(dirin_filelist:Union[str, list], **kw):
 
 
 def image_read(filepath_or_buffer: Union[str, io.BytesIO]):
-    """
-    Read a file into an image object
-    Args:
-        filepath_or_buffer: The path to the file, a URL, or any object
-            with a `read` method (such as `io.BytesIO`)
+    """Read a file into an numpy object
+    Doc::
+    
+        filepath_or_buffer: path to file, a URL, or any object
+                             with a `read` method (such as `io.BytesIO`)
     """
     import tifffile
     image = None
@@ -901,7 +897,7 @@ def image_remove_extra_padding(img :npArrayLike, inverse : bool=False, removedot
 
 def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int=1):
     """ Remove background
-    Code::
+    Doc::
 
         source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
 
@@ -926,7 +922,7 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
 
 def image_remove_humanface(dirin:Path_type= "", level ="/*", dirout:Path_type=f"", npool=30):
     """  Remove face
-    Code::
+    Doc::
 
         python $utilmy/images/util_image.py  image_face_blank
 

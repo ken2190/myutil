@@ -1,4 +1,6 @@
-HELP="""
+"""# 
+Doc::
+
 pip install datasketch
 https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 https://pypi.org/project/pysie/#description

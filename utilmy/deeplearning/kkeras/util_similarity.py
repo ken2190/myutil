@@ -1,4 +1,6 @@
-HELP="""
+"""# 
+Doc::
+
 Similarity between tensors
 """
 import numpy as np

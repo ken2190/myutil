@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Doc::
+"""#
+Doc::
 
-    utils for torch training
+    Utils for torch training
     TVM optimizer
     https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
-
-
 
     https://github.com/szymonmaszke/torchlayers
 
     https://github.com/Riccorl/transformers-embedder
 
     https://github.com/szymonmaszke/torchfunc
-
 
 
 """

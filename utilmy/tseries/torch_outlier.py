@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME=""
-HELP=""" Time Series Anomaly Detection using LSTM Autoencoders with PyTorch in Python
+"""# 
+Doc::
+ Time Series Anomaly Detection using LSTM Autoencoders with PyTorch in Python
 pip install -qq arff2pandas watermark
 
 # %reload_ext watermark

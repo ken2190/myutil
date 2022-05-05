@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.util_onnx"
-""" utils for ONNX runtime Optimization
+"""#
+Doc::
+
+    utils for ONNX runtime Optimization
 
 
-cd myutil
-python $utilmy/deeplearning/util_onnx.py    test1
+    cd myutil
+    python $utilmy/deeplearning/util_onnx.py    test1
 
 
-https://cloudblogs.microsoft.com/opensource/2022/04/19/scaling-up-pytorch-inference-serving-billions-of-daily-nlp-inferences-with-onnx-runtime/
+    https://cloudblogs.microsoft.com/opensource/2022/04/19/scaling-up-pytorch-inference-serving-billions-of-daily-nlp-inferences-with-onnx-runtime/
 
-https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
+    https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html
 
 
 

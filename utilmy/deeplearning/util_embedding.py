@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.deeplearning.util_embedding'
-HELP=""" Embedding utils/ Visualization
+"""# 
+Doc::
 
-https://try2explore.com/questions/10109123
-
-https://mpld3.github.io/examples/index.html
+    Embedding utils/ Visualization.
+      https://try2explore.com/questions/10109123
+      https://mpld3.github.io/examples/index.html
 
 
 """
@@ -71,7 +71,7 @@ def test1() -> None:
 #########################################################################################################
 ############### Visualize the embeddings ################################################################
 def embedding_create_vizhtml(dirin="in/model.vec", dirout="ztmp/", dim_reduction='umap', nmax=100, ntrain=10):
-   """Create HTML plot file of embeddings:
+   """Create HTML plot file of embeddings.
    Doc::
 
         dirin= "  .parquet OR  Word2vec .vec  OR  .pkl  file"
@@ -414,8 +414,8 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
 
 
 
-def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'pred_emb',  nmax= 500):
-    """  id, emb (string , separated)
+def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'emb',  nmax= 500):
+    """  Required columns : id, emb (string , separated)
     
     """
     log('loading', dirin)
@@ -621,7 +621,7 @@ def embedding_extract_fromtransformer(model,Xinput:list):
 def sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric=False):
     """ Pairwise Cosinus Sim scores
     Example:
-        Code::
+        Doc::
 
            embs   = np.random.random((10,200))
            idlist = [str(i) for i in range(0,10)]
@@ -689,7 +689,7 @@ def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3, engine='faiss',
 def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_dim=200, tag=None, debug=True):
     """ Get Topk vector per each element vector of dirin
     Example:
-        Code::
+        Doc::
     
            python $utilmy/deeplearning/util_embedding.py  topk_calc   --diremb     --dirout
     
@@ -823,8 +823,10 @@ def faiss_load_index(faiss_index_path=""):
 
 
 def faiss_topk_calc(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
-   """ id, dist_list, id_list 
-       ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
+   """#
+   Doc::
+   
+       id, dist_list, id_list 
        
        https://github.com/facebookresearch/faiss/issues/632
        

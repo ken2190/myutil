@@ -1,13 +1,14 @@
 # coding=utf-8
-HELP="""  Hypothesis testing easy
-  
-https://github.com/pranab/beymani
+"""# 
+Doc::
 
+    Hypothesis testing easy.
 
+    https://github.com/pranab/beymani
 
-https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
+    https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 
-https://pypi.org/project/pysie/#description
+    https://pypi.org/project/pysie/#description
 
 
 
@@ -26,10 +27,7 @@ from scipy import stats
 from utilmy.utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """        
     """
     from utilmy import help_create
     print( help_create("utilmy.stats.statistics") )
@@ -38,7 +36,6 @@ def help():
 #################################################################################################
 def test_all():
     """
-    #### python test.py   test_tabular
     """
     import pandas as pd
     from sklearn.tree import DecisionTreeRegressor
@@ -107,10 +104,7 @@ def test_all():
 
 
 def test0():
-    """function test0
-    Args:
-    Returns:
-        
+    """ 
     """
     df = pd_generate_data(7, 100)
     test_anova(df, 'cat1', 'cat2')
@@ -123,10 +117,7 @@ def test0():
 
 
 def test1():
-    """function test1
-    Args:
-    Returns:
-        
+    """        
     """
     from sklearn.tree import DecisionTreeRegressor
     from sklearn.model_selection import train_test_split
@@ -149,10 +140,7 @@ def test1():
 
 
 def test3():
-    """function test3
-    Args:
-    Returns:
-        
+    """ 
     """
     arr = np.array([[1, 2, 3], [4, 5, 6]])
     np_col_extractname(["aa_","bb-","cc"])
@@ -160,33 +148,61 @@ def test3():
     np_conv_to_one_col(arr)
 
 
+def test_check_mean():
+   
+    n = 100
+    df = pd.DataFrme({'id' :  np.arange(0, n)})
+    df['c1'] = np.random.random(n ) 
+    df['c2'] = np.random.random(n ) 
+    df['c3'] = np.random.random(n ) 
+    df['c4'] = np.random.random(n ) 
+    df['c5'] = np.random.random(n ) 
+
+
+    log("### 2 columns")
+    test_same_mean(df, cols = [ 'c1', 'c2' ], bonferroni_adjuster=False, threshold=0.1, pcritic=0.5 )
+
+
+    log("### 5 columns ")
+    test_same_mean(df, cols=[ 'c1', 'c2', 'c3','c4','c5' ],  bonferroni_adjuster=False, threshold=0.1, pcritic=0.5)
+
+
+    log("### 6 columsn not same")
+    df['d6'] = np.random.random(n ) +0.3     
+    test_same_mean(df, cols=[ 'c1', 'c2', 'c3','c4','d6' ], bonferroni_adjuster=True, threshold=0.1, pcritic=0.5  )
+
+
+
+
+
 
 ###############################################################################################
 ########## Helpers on test  ###################################################################
-def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
+def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1, pcritic=0.5) -> List[float]:
     """Test if same mean for all columns
+    Doc::
 
        https://towardsdatascience.com/why-is-anova-essential-to-data-science-with-a-practical-example-615de10ba310
-
-
     """
     p_values = []
     cols = df.columns  if cols is None else cols
 
     if len(cols) == 2:
-        ## Student test of mean
-        p_values = test_student_mean(df, cols[0], cols[1])
-
+        log("## Student test of mean for 2 variables")
+        p_values = test_student_mean(df, cols[0], cols[1], pcritic=pcritic,)
 
     else :   ##> 3 values
+        log("## ANOVA test of mean for >2 variables")
         p_values = test_anova_mean(df, cols)
-
-
-
-
 
     if bonferroni_adjuster:
         p_values = bonferoni_adjuster(p_values, threshold=threshold)
+
+    pvalue= p_values['p_value']
+    if pvalue < pcritic:
+        print("H0 hypothesis is rejected...", pvalue )
+    else:
+        print("H0 hypothesis is accepted...")
 
     return p_values
 
@@ -194,8 +210,6 @@ def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, thresh
 
 def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
     """Run ANOVA Test of independance
-
-
 
     """
     p_values = []
@@ -239,8 +253,9 @@ def test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX=None, coly='y', 
 
 
 def bonferoni_adjuster(p_values, threshold=0.1):
-    """
-       # bonferroni correction
+    """Bonferroni correction.
+    Doc::
+
         print('Total number of discoveries is: {:,}'  .format(sum([x[1] < threshold / n_trials for x in p_values])))
         print('Percentage of significant results: {:5.2%}'  .format(sum([x[1] < threshold / n_trials for x in p_values]) / n_trials))
 
@@ -270,7 +285,7 @@ def bonferoni_adjuster(p_values, threshold=0.1):
 
 #################################################################################################
 ############ Actual tests########################################################################
-def test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
+def test_chisquare(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
     """ Hypothesis betweeb Obs and true values
 
         https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py

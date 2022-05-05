@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 MNAME = "utilmy.adatasets"
-""" utils for dataset donwloading
+HELP = """ utils for dataset donwloading
 
 
 """
@@ -23,7 +23,7 @@ def help():
         
     """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( HELP + help_create(MNAME) )
 
 
 ##############################################################################################
@@ -269,9 +269,9 @@ if 'utils':
         Currently `github`, `gdrive` and `dropbox` are the only supported sources of
         data. Also only zip files are supported.
 
-        url_dataset:   URL to send
-        path_target:   Path to save dataset
-        file_target:   File to save dataset
+        :param url_dataset:   URL to send
+        :param path_target:   Path to save dataset
+        :param file_target:   File to save dataset
 
         """
         log("###### Download ##################################################")
@@ -360,9 +360,9 @@ if 'utils':
         Currently `github`, `gdrive` and `dropbox` are the only supported sources of
         data. Also only zip files are supported.
 
-        url_dataset:   URL to send
-        path_target:   Path to save dataset
-        file_target:   File to save dataset
+        :param url_dataset:   URL to send
+        :param path_target:   Path to save dataset
+        :param file_target:   File to save dataset
 
         """
         log("###### Download ##################################################")

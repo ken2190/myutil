@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 MNAME= "utilmy.dates"
-HELP=""" dates utilities
+"""# 
+Doc::
+ dates utilities
 
 """
 import os, sys, time, datetime,inspect, json, yaml, gc, numpy as np, pandas as pd
