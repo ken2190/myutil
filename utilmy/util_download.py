@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.util_download'
-"""# 
-Doc::
- Download utilities
+"""Download utilities
 
 
 """
@@ -15,18 +12,17 @@ from box import Box
 
 
 #############################################################################################
-from utilmy import log, log2
+from utilmy.utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 
 #############################################################################################
 def test_all() -> None:
     """function test_all   to be used in test.py         """
-    log(MNAME)
     test1()
 
 
@@ -43,7 +39,7 @@ def test1() -> None:
 def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/titanic/train/features.zip", 
                    dirout="./ztmp/"):
     """Fetch dataset from a given URL and save it.
-    Code::
+    Doc::
 
         url:  URL https://github.com/arita37/dsa2_data/raw/main/input/titanic/train/features.zip   
         dirout: Path to save files
@@ -94,7 +90,7 @@ def download_github(url="https://github.com/arita37/dsa2_data/blob/main/input/ti
 def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
                     fileout="./ztmp/", unzip=True ):
       """Download  file from google drive on disk + unzip.
-      Code::
+      Doc::
           url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
           ### Using file
@@ -144,7 +140,7 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
 
 def download_custom_pageimage(query, fileout="query1", genre_en='', id0="", cat="", npage=1) :
     """ Donwload one page
-    Code::
+    Doc::
     
         python  "$utilmy/util_download.py" download_page_image   --query 'メンス+ポロシャツ'    --dirout men_fs_blue
 
@@ -347,9 +343,10 @@ def download_with_progress(url, fileout):
 
 
 
-### Aliass
+### Aliass  ###################################################################################################
 unzip_file = os_extract_archive
-
+google_download = download_google
+github_download = download_github
 
 
 

@@ -2,11 +2,9 @@
 """# 
 Doc::
 
-    Embedding utils/ Visualization
-
-    https://try2explore.com/questions/10109123
-
-    https://mpld3.github.io/examples/index.html
+    Embedding utils/ Visualization.
+      https://try2explore.com/questions/10109123
+      https://mpld3.github.io/examples/index.html
 
 
 """
@@ -416,8 +414,8 @@ def embedding_rawtext_to_parquet(dirin=None, dirout=None, skip=0, nmax=10 ** 8,
 
 
 
-def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'pred_emb',  nmax= 500):
-    """  id, emb (string , separated)
+def embedding_load_parquet(dirin="df.parquet",  colid= 'id', col_embed= 'emb',  nmax= 500):
+    """  Required columns : id, emb (string , separated)
     
     """
     log('loading', dirin)
@@ -623,7 +621,7 @@ def embedding_extract_fromtransformer(model,Xinput:list):
 def sim_scores_fast(embs:np.ndarray, idlist:list, is_symmetric=False):
     """ Pairwise Cosinus Sim scores
     Example:
-        Code::
+        Doc::
 
            embs   = np.random.random((10,200))
            idlist = [str(i) for i in range(0,10)]
@@ -691,7 +689,7 @@ def topk_nearest_vector(x0:np.ndarray, vector_list:list, topk=3, engine='faiss',
 def topk_calc( diremb="", dirout="", topk=100,  idlist=None, nexample=10, emb_dim=200, tag=None, debug=True):
     """ Get Topk vector per each element vector of dirin
     Example:
-        Code::
+        Doc::
     
            python $utilmy/deeplearning/util_embedding.py  topk_calc   --diremb     --dirout
     
