@@ -100,13 +100,13 @@ def run_update_all(mode='overwrite', dirin='utilmy/'):
     
     # dirin = 'utilmy/' 
     python_dir = Path.cwd().joinpath(dirin)
-    
-    
+        
     #  docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=True, test=True, nfile=1)
     
     if 'overwrite' in mode :
        # overwrite scripts
        docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
+
     elif 'test' in mode:
        docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=False, test=True)
 

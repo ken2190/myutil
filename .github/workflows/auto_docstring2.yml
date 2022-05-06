@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:  
       
-  push:
-    branches:
-    - z_docstring_update
+#  push:
+#    branches:
+#    - z_docstring_update
 
 
 #  schedule:
@@ -101,7 +101,7 @@ jobs:
     - name: Update of docstring
       #vcontinue-on-error: true
       run:  |
-        python  utilmy/docs/docstring.py  update_docstring --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false
+        python  utilmy/docs/docstring.py  docstring_update1  --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false --nfile 100000
 
         git add -A || echo 'nothing'
         git commit -am "docstring" ||   echo 'nothing'
