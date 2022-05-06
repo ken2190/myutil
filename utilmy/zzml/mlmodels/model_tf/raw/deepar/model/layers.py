@@ -5,23 +5,27 @@ from keras.layers import Layer
 
 class GaussianLayer(Layer):
     def __init__(self, output_dim, **kwargs):
-        """ GaussianLayer:__init__
-        Args:
-            output_dim:     
-            **kwargs:     
-        Returns:
-           
+        """ GaussianLayer:__init__.
+        Doc::
+                
+                    Args:
+                        output_dim:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         self.output_dim = output_dim
         self.kernel_1, self.kernel_2, self.bias_1, self.bias_2 = [], [], [], []
         super(GaussianLayer, self).__init__(**kwargs)
 
     def build(self, input_shape):
-        """ GaussianLayer:build
-        Args:
-            input_shape:     
-        Returns:
-           
+        """ GaussianLayer:build.
+        Doc::
+                
+                    Args:
+                        input_shape:     
+                    Returns:
+                       
         """
         n_weight_rows = input_shape[2]
         self.kernel_1 = self.add_weight(name='kernel_1',
@@ -43,11 +47,13 @@ class GaussianLayer(Layer):
         super(GaussianLayer, self).build(input_shape)
 
     def call(self, x):
-        """ GaussianLayer:call
-        Args:
-            x:     
-        Returns:
-           
+        """ GaussianLayer:call.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         output_mu = K.dot(x, self.kernel_1) + self.bias_1
         output_sig = K.dot(x, self.kernel_2) + self.bias_2
@@ -55,7 +61,9 @@ class GaussianLayer(Layer):
         return [output_mu, output_sig_pos]
 
     def compute_output_shape(self, input_shape):
-        """
-        The assumption is the output ts is always one-dimensional
+        """.
+        Doc::
+                
+                    The assumption is the output ts is always one-dimensional
         """
         return [(input_shape[0], self.output_dim), (input_shape[0], self.output_dim)]

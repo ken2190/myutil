@@ -25,12 +25,14 @@ from src.utils import config_load, log, spark_check
 
 
 def run(spark:SparkSession, config_path: str='config.yaml'):
-    """function run
-    Args:
-        spark ( SparkSession ) :   
-        config_path (  str ) :   
-    Returns:
-        
+    """function run.
+    Doc::
+            
+            Args:
+                spark ( SparkSession ) :   
+                config_path (  str ) :   
+            Returns:
+                
     """
     #Load the yaml config file
     global conf_model
@@ -90,10 +92,12 @@ def run(spark:SparkSession, config_path: str='config.yaml'):
 
 ####################################################
 def preprocess(spark, conf, check=True):
-    """ Generate Structured Log table on disk
-    spark:
-    config:
-    :return: Structured Log Spark Dataframe
+    """ Generate Structured Log table on disk.
+    Doc::
+            
+            spark:
+            config:
+            :return: Structured Log Spark Dataframe
     """
     user_sessionDF = spark.read.parquet( conf['FilePaths']['userlog_path'] )
 
@@ -124,13 +128,15 @@ def preprocess(spark, conf, check=True):
 
 
 def model_train(df:object, conf_model:dict, verbose:bool=True):
-    """  Create a moving average model to calculate Upper Bound and Median value.
-    Args:
-        df:  Spark DataFrame of Pandas Dataframe
-        conf_model: Dict conf
-        verbose:  verbsosity
-
-    Returns: None, model is saved on disk
+    """  Create a moving average model to calculate Upper Bound and Median value..
+    Doc::
+            
+            Args:
+                df:  Spark DataFrame of Pandas Dataframe
+                conf_model: Dict conf
+                verbose:  verbsosity
+        
+            Returns: None, model is saved on disk
     """
     if isinstance(df, pyspark.sql.DataFrame):
       #### Temporary solution due to simple model, collect is expensive operations
@@ -181,14 +187,16 @@ def model_train(df:object, conf_model:dict, verbose:bool=True):
 
 
 def model_predict(df:pd.DataFrame,conf_model:dict, verbose:bool=True):
-  """
-  Args:
-      df:  Pandas Dataframe
-      conf_model:  conf Model
-      verbose:
-
-  Returns:
-
+  """.
+  Doc::
+          
+        Args:
+            df:  Pandas Dataframe
+            conf_model:  conf Model
+            verbose:
+      
+        Returns:
+      
   """
   model_path = conf_model['model_path']
   dfmodel = pd.read_parquet(model_path)

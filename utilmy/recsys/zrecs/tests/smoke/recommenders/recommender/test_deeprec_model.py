@@ -35,11 +35,13 @@ except ImportError:
 @pytest.mark.gpu
 @pytest.mark.deeprec
 def test_FFM_iterator(deeprec_resource_path):
-    """function test_FFM_iterator
-    Args:
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_FFM_iterator.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "xdeepfm")
     yaml_file = os.path.join(data_path, "xDeepFM.yaml")
@@ -63,11 +65,13 @@ def test_FFM_iterator(deeprec_resource_path):
 @pytest.mark.gpu
 @pytest.mark.deeprec
 def test_model_xdeepfm(deeprec_resource_path):
-    """function test_model_xdeepfm
-    Args:
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_model_xdeepfm.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "xdeepfm")
     yaml_file = os.path.join(data_path, "xDeepFM.yaml")
@@ -96,11 +100,13 @@ def test_model_xdeepfm(deeprec_resource_path):
 @pytest.mark.gpu
 @pytest.mark.deeprec
 def test_model_dkn(deeprec_resource_path):
-    """function test_model_dkn
-    Args:
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_model_dkn.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "dkn")
     yaml_file = os.path.join(data_path, r"dkn.yaml")
@@ -141,12 +147,14 @@ def test_model_dkn(deeprec_resource_path):
 @pytest.mark.deeprec
 @pytest.mark.sequential
 def test_model_slirec(deeprec_resource_path, deeprec_config_path):
-    """function test_model_slirec
-    Args:
-        deeprec_resource_path:   
-        deeprec_config_path:   
-    Returns:
-        
+    """function test_model_slirec.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+                deeprec_config_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "slirec")
     yaml_file = os.path.join(deeprec_config_path, "sli_rec.yaml")
@@ -214,12 +222,14 @@ def test_model_slirec(deeprec_resource_path, deeprec_config_path):
 @pytest.mark.deeprec
 @pytest.mark.sequential
 def test_model_sum(deeprec_resource_path, deeprec_config_path):
-    """function test_model_sum
-    Args:
-        deeprec_resource_path:   
-        deeprec_config_path:   
-    Returns:
-        
+    """function test_model_sum.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+                deeprec_config_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "slirec")
     yaml_file = os.path.join(deeprec_config_path, "sum.yaml")
@@ -286,12 +296,14 @@ def test_model_sum(deeprec_resource_path, deeprec_config_path):
 @pytest.mark.gpu
 @pytest.mark.deeprec
 def test_model_lightgcn(deeprec_resource_path, deeprec_config_path):
-    """function test_model_lightgcn
-    Args:
-        deeprec_resource_path:   
-        deeprec_config_path:   
-    Returns:
-        
+    """function test_model_lightgcn.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+                deeprec_config_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "dkn")
     yaml_file = os.path.join(deeprec_config_path, "lightgcn.yaml")

@@ -6,11 +6,13 @@ from pyspark import SparkContext
 sc = SparkContext(appName="EstimatePi")
 
 def inside(p):
-    """function inside
-    Args:
-        p:   
-    Returns:
-        
+    """function inside.
+    Doc::
+            
+            Args:
+                p:   
+            Returns:
+                
     """
     x, y = random.random(), random.random()
     return x*x + y*y < 1

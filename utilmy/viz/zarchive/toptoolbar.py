@@ -26,9 +26,11 @@ class TopToolbar(mpld3.plugins.PluginBase):
     """
 
     def __init__(self):
-        """ TopToolbar:__init__
-        Args:
-        Returns:
-           
+        """ TopToolbar:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.dict_ = {"type": "toptoolbar"}

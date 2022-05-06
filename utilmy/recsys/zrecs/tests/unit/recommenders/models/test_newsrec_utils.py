@@ -17,12 +17,14 @@ except ImportError:
 )
 @pytest.mark.gpu
 def test_prepare_hparams(must_exist_attributes, deeprec_resource_path):
-    """function test_prepare_hparams
-    Args:
-        must_exist_attributes:   
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_prepare_hparams.
+    Doc::
+            
+            Args:
+                must_exist_attributes:   
+                deeprec_resource_path:   
+            Returns:
+                
     """
     wordEmb_file = os.path.join(deeprec_resource_path, "mind", "utils", "embedding.npy")
     userDict_file = os.path.join(
@@ -52,11 +54,13 @@ def test_prepare_hparams(must_exist_attributes, deeprec_resource_path):
 
 @pytest.mark.gpu
 def test_load_yaml_file(deeprec_resource_path):
-    """function test_load_yaml_file
-    Args:
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_load_yaml_file.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+            Returns:
+                
     """
     yaml_file = os.path.join(deeprec_resource_path, "mind", "utils", r"nrms.yaml")
 

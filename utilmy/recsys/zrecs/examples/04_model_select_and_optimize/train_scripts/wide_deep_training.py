@@ -31,10 +31,12 @@ OUTPUT_NOTEBOOK = "wide_deep.ipynb"
 
 
 def _log(metric, value):
-    """AzureML log wrapper.
-
-    Record list of int or float as a list metrics so that we can plot it from AzureML workspace portal.
-    Otherwise, record as a single value of the metric.
+    """AzureML log wrapper..
+    Doc::
+            
+        
+            Record list of int or float as a list metrics so that we can plot it from AzureML workspace portal.
+            Otherwise, record as a single value of the metric.
     """
     if run is not None:
         if (

@@ -29,13 +29,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -96,13 +98,15 @@ cols_input_type_1 = {
 #####################################################################################
 ####### y normalization #############################################################
 def y_norm(y, inverse=True, mode='boxcox'):
-    """function y_norm
-    Args:
-        y:   
-        inverse:   
-        mode:   
-    Returns:
-        
+    """function y_norm.
+    Doc::
+            
+            Args:
+                y:   
+                inverse:   
+                mode:   
+            Returns:
+                
     """
     ## Normalize the input/output
     if mode == 'boxcox':
@@ -134,9 +138,11 @@ def y_norm(y, inverse=True, mode='boxcox'):
 ####################################################################################
 ##### Params########################################################################
 def boston_lightgbm(path_model_out="") :
-    """
-        Huber Loss includes L1  regurarlization
-        We test different features combinaison, default params is optimal
+    """.
+    Doc::
+            
+                Huber Loss includes L1  regurarlization
+                We test different features combinaison, default params is optimal
     """
     data_name         = "boston"
     model_name        = 'LGBMRegressor'
@@ -194,9 +200,11 @@ def boston_lightgbm(path_model_out="") :
 
 
 def boston_causalnex(path_model_out="") :
-    """
-       Contains all needed informations for Light GBM Classifier model,
-       used for titanic classification task
+    """.
+    Doc::
+            
+               Contains all needed informations for Light GBM Classifier model,
+               used for titanic classification task
     """
     data_name    = "boston"         ### in data/input/
     model_class  = 'DAGRegressor'  ### ACTUAL Class name for model_sklearn.py

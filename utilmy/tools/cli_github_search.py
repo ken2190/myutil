@@ -29,12 +29,14 @@ import pandas as pd
 
 
 def search_github(args, start_time):
-    """function search_github
-    Args:
-        args:   
-        start_time:   
-    Returns:
-        
+    """function search_github.
+    Doc::
+            
+            Args:
+                args:   
+                start_time:   
+            Returns:
+                
     """
     keywords = args.keyword
     created = args.created
@@ -154,10 +156,12 @@ def search_github(args, start_time):
 
 
 def get_arguments():
-    """function get_arguments
-    Args:
-    Returns:
-        
+    """function get_arguments.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # TODO: Improve default arguments
     p = argparse.ArgumentParser(
@@ -176,10 +180,12 @@ def get_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     start_time = time.time()
     args = get_arguments()

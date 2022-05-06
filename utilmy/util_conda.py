@@ -10,10 +10,12 @@ MNAME = "utilmy.util_conda"
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy import help_create
     print( help_create(MNAME) )
@@ -24,8 +26,10 @@ def help():
 
 #############################################################################################
 def pip_auto_install():
-    """ Auto Install pip package
-
+    """ Auto Install pip package.
+    Doc::
+            
+        
     """
     from importlib import util
     import subprocess

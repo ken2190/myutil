@@ -26,21 +26,25 @@ import numpy as np
 class RandomWeightedAverage(_Merge):
     """Provides a (random) weighted average between real and generated image samples"""
     def _merge_function(self, inputs):
-        """ RandomWeightedAverage:_merge_function
-        Args:
-            inputs:     
-        Returns:
-           
+        """ RandomWeightedAverage:_merge_function.
+        Doc::
+                
+                    Args:
+                        inputs:     
+                    Returns:
+                       
         """
         alpha = K.random_uniform((32, 1, 1, 1))
         return (alpha * inputs[0]) + ((1 - alpha) * inputs[1])
 
 class WGANGP():
     def __init__(self):
-        """ WGANGP:__init__
-        Args:
-        Returns:
-           
+        """ WGANGP:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -115,8 +119,10 @@ class WGANGP():
 
 
     def gradient_penalty_loss(self, y_true, y_pred, averaged_samples):
-        """
-        Computes gradient penalty based on prediction and weighted real / fake samples
+        """.
+        Doc::
+                
+                    Computes gradient penalty based on prediction and weighted real / fake samples
         """
         gradients = K.gradients(y_pred, averaged_samples)[0]
         # compute the euclidean norm by squaring ...
@@ -133,20 +139,24 @@ class WGANGP():
 
 
     def wasserstein_loss(self, y_true, y_pred):
-        """ WGANGP:wasserstein_loss
-        Args:
-            y_true:     
-            y_pred:     
-        Returns:
-           
+        """ WGANGP:wasserstein_loss.
+        Doc::
+                
+                    Args:
+                        y_true:     
+                        y_pred:     
+                    Returns:
+                       
         """
         return K.mean(y_true * y_pred)
 
     def build_generator(self):
-        """ WGANGP:build_generator
-        Args:
-        Returns:
-           
+        """ WGANGP:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -172,10 +182,12 @@ class WGANGP():
         return Model(noise, img)
 
     def build_critic(self):
-        """ WGANGP:build_critic
-        Args:
-        Returns:
-           
+        """ WGANGP:build_critic.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -207,13 +219,15 @@ class WGANGP():
         return Model(img, validity)
 
     def train(self, epochs, batch_size, sample_interval=50):
-        """ WGANGP:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ WGANGP:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -258,11 +272,13 @@ class WGANGP():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ WGANGP:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ WGANGP:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))

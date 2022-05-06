@@ -10,10 +10,12 @@ from scipy.stats import t
 
 
 def test_data():
-    """function test_data
-    Args:
-    Returns:
-        
+    """function test_data.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     datapath = os.path.dirname(os.path.abspath(__file__))
     salaries = pd.read_csv(os.path.join(datapath, 'data/Salaries.csv'))
@@ -22,10 +24,12 @@ def test_data():
 
 
 def test_multiclass_data():
-    """function test_multiclass_data
-    Args:
-    Returns:
-        
+    """function test_multiclass_data.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     datapath = os.path.dirname(os.path.abspath(__file__))
     insectsprays = pd.read_csv(os.path.join(datapath, 'data/InsectSprays.csv'))
@@ -38,10 +42,12 @@ class TestBinomial(object):
     n = 925
 
     def test_binomial_twosided(self):
-        """ TestBinomial:test_binomial_twosided
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_twosided.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(n=self.n, x=self.x)
 
@@ -81,10 +87,12 @@ class TestBinomial(object):
         assert binomial_test.wilson_score_interval == wilson_score_interval
 
     def test_binomial_less(self):
-        """ TestBinomial:test_binomial_less
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_less.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(n=self.n, x=self.x, alternative='less')
 
@@ -128,10 +136,12 @@ class TestBinomial(object):
         assert binomial_test.wilson_score_interval == wilson_score_interval
 
     def test_binomial_greater(self):
-        """ TestBinomial:test_binomial_greater
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_greater.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(n=self.n, x=self.x, alternative='greater')
 
@@ -178,10 +188,12 @@ class TestBinomial(object):
         assert binomial_test.wilson_score_interval == wilson_score_interval
 
     def test_binomial_no_continuity(self):
-        """ TestBinomial:test_binomial_no_continuity
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_no_continuity.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(x=self.x, n=self.n, p=0.7, continuity=False)
 
@@ -196,10 +208,12 @@ class TestBinomial(object):
                                        wilson_score_interval['probability of success'])
 
     def test_binomial_no_continuity_greater(self):
-        """ TestBinomial:test_binomial_no_continuity_greater
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_no_continuity_greater.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(x=self.x, n=self.n, p=0.7, continuity=False, alternative='greater')
 
@@ -214,10 +228,12 @@ class TestBinomial(object):
                                        wilson_score_interval['probability of success'])
 
     def test_binomial_no_continuity_less(self):
-        """ TestBinomial:test_binomial_no_continuity_less
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_no_continuity_less.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         binomial_test = BinomialTest(x=self.x, n=self.n, p=0.7, continuity=False, alternative='less')
 
@@ -232,10 +248,12 @@ class TestBinomial(object):
                                        wilson_score_interval['probability of success'])
 
     def test_binomial_exceptions(self):
-        """ TestBinomial:test_binomial_exceptions
-        Args:
-        Returns:
-           
+        """ TestBinomial:test_binomial_exceptions.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         with pytest.raises(ValueError):
@@ -254,10 +272,12 @@ class Test_tTest(object):
     multiclass_data = test_multiclass_data()
 
     def test_two_sample_welch_test(self):
-        """ Test_tTest:test_two_sample_welch_test
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_two_sample_welch_test.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
@@ -290,10 +310,12 @@ class Test_tTest(object):
         assert test_group_summary['test description'] == "Two-Sample Welch's t-test"
 
     def test_two_sample_students_test(self):
-        """ Test_tTest:test_two_sample_students_test
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_two_sample_students_test.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
@@ -315,10 +337,12 @@ class Test_tTest(object):
         assert len(sal_a) + len(sal_b) - 2 == test_summary['degrees of freedom']
 
     def test_one_sample_test(self):
-        """ Test_tTest:test_one_sample_test
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_one_sample_test.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
 
@@ -349,10 +373,12 @@ class Test_tTest(object):
         assert len(sal_a) - 1 == test_mu_summary['degrees of freedom']
 
     def test_paired_sample_test(self):
-        """ Test_tTest:test_paired_sample_test
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_paired_sample_test.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
         sal_b = self.data.loc[self.data['discipline'] == 'B']['salary']
@@ -373,10 +399,12 @@ class Test_tTest(object):
         assert len(sal_a) - 1 == test_summary['degrees of freedom']
 
     def test_alternatives(self):
-        """ Test_tTest:test_alternatives
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_alternatives.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
         sal_b = self.data.loc[self.data['discipline'] == 'B']['salary']
@@ -399,10 +427,12 @@ class Test_tTest(object):
         assert_almost_equal(test_less_summary['p-value'], 0.0009151540040019292)
 
     def test_ttest_exceptions(self):
-        """ Test_tTest:test_ttest_exceptions
-        Args:
-        Returns:
-           
+        """ Test_tTest:test_ttest_exceptions.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         sal_a = self.data.loc[self.data['discipline'] == 'A']['salary']
         sal_b = self.data.loc[self.data['discipline'] == 'B']['salary']

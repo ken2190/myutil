@@ -2,11 +2,13 @@ import numpy as np
 
 
 def get_vocab(data_location):
-    """function get_vocab
-    Args:
-        data_location:   
-    Returns:
-        
+    """function get_vocab.
+    Doc::
+            
+            Args:
+                data_location:   
+            Returns:
+                
     """
 
     with open(data_location, "r") as fopen:
@@ -27,12 +29,14 @@ def get_vocab(data_location):
 
 
 def embed_to_onehot(data, vocab):
-    """function embed_to_onehot
-    Args:
-        data:   
-        vocab:   
-    Returns:
-        
+    """function embed_to_onehot.
+    Doc::
+            
+            Args:
+                data:   
+                vocab:   
+            Returns:
+                
     """
 
     onehot = np.zeros((len(data), len(vocab)), dtype=np.float32)

@@ -15,11 +15,13 @@ import core_models.parser_arguments as parser_arguments
 
 
 def main(args):
-    """function main
-    Args:
-        args:   
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+                args:   
+            Returns:
+                
     """
 
     # Load datasets

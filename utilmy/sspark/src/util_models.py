@@ -20,17 +20,19 @@ from src.utils import log
 
 ###########################################################################
 def TimeSeriesSplit(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object):
-    """
-    # Splitting data into train and test
-    # we maintain the time-order while splitting
-    # if split ratio = 0.7 then first 70% of data is train data
-    Args:
-        df_m:
-        splitRatio:
-        sparksession:
-
-    Returns: df_train, df_test
-
+    """.
+    Doc::
+            
+            # Splitting data into train and test
+            # we maintain the time-order while splitting
+            # if split ratio = 0.7 then first 70% of data is train data
+            Args:
+                df_m:
+                splitRatio:
+                sparksession:
+        
+            Returns: df_train, df_test
+        
     """
     newSchema  = T.StructType(df_m.schema.fields + \
                 [T.StructField("Row Number", T.LongType(), False)])
@@ -47,20 +49,22 @@ def TimeSeriesSplit(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:o
 
 ##############################################################################
 def Train(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str=None, conf_model:dict=None):
-    """
-    # this performs model training
-    # this calls the machine-learning algorithms of Spark ML library
-    # creating labels for machine-learning
-    Args:
-        spark: Sparksession
-        df_m: Spark Dataframe Vector Assembler
-        features:  column names
-        regressor:  model name
-        path:  model to save
-        conf_model:  config in dict
-
-    Returns: training resuls split
-
+    """.
+    Doc::
+            
+            # this performs model training
+            # this calls the machine-learning algorithms of Spark ML library
+            # creating labels for machine-learning
+            Args:
+                spark: Sparksession
+                df_m: Spark Dataframe Vector Assembler
+                features:  column names
+                regressor:  model name
+                path:  model to save
+                conf_model:  config in dict
+        
+            Returns: training resuls split
+        
     """
     conf_model = {} if conf_model is None else conf_model
     splitratio = 0.7
@@ -114,18 +118,20 @@ def Train(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:
 
 
 def Predict(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str=None, conf_model:dict=None):
-    """
-    # this performs model training
-    # this calls the machine-learning algorithms of Spark ML library
-    # creating labels for machine-learning
-    Args:
-        spark:  SparkSession
-        df:  Spark Dataframe Vector Assembler
-        features: column features
-        regressor:  model name
-        path:  model path
-        conf_model:  conf in dict.
-    Returns:
+    """.
+    Doc::
+            
+            # this performs model training
+            # this calls the machine-learning algorithms of Spark ML library
+            # creating labels for machine-learning
+            Args:
+                spark:  SparkSession
+                df:  Spark Dataframe Vector Assembler
+                features: column features
+                regressor:  model name
+                path:  model path
+                conf_model:  conf in dict.
+            Returns:
     """    
     ##### LINEAR REGRESSOR    #####################################
     if(regressor == 'LinearRegression'):
@@ -153,11 +159,13 @@ def Predict(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, pat
 ####################################################################
 ####################################################################
 def os_makedirs(path:str):
-  """function os_makedirs
-  Args:
-      path ( str ) :   
-  Returns:
-      
+  """function os_makedirs.
+  Doc::
+          
+        Args:
+            path ( str ) :   
+        Returns:
+            
   """
   if 'hdfs:' not in path :
     os.makedirs(path, exist_ok=True)

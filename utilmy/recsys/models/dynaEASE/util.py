@@ -19,9 +19,11 @@ from sklearn.preprocessing import LabelEncoder
 from tqdm import tqdm
 
 def compute_k_core(clicks, user_col='session', item_col='item', user_k=5, item_k=5, i=1):
-    '''
-        Approximate the k-core for the 'clicks' dataframe.
-        i.e. alternatingly drop users and items that appear less than 'k' times, for 'i' iterations.
+    '''.
+    Doc::
+            
+                Approximate the k-core for the 'clicks' dataframe.
+                i.e. alternatingly drop users and items that appear less than 'k' times, for 'i' iterations.
     '''
     def drop_below_k(df, col, k):
         # Count occurence of values in `col`
@@ -38,8 +40,10 @@ def compute_k_core(clicks, user_col='session', item_col='item', user_k=5, item_k
     return clicks
 
 def print_summary(df, cols):
-    '''
-        Print number of unique values for discrete identifiers (users, items, ...)
+    '''.
+    Doc::
+            
+                Print number of unique values for discrete identifiers (users, items, ...)
     '''
     print(f"{len(df):10} unique user-item pairs...")
     for col in cols:
@@ -49,14 +53,18 @@ def print_summary(df, cols):
     
 
 def encode_integer_id(col):
-    '''
-        Encode discrete values with unique integer identifiers
+    '''.
+    Doc::
+            
+                Encode discrete values with unique integer identifiers
     '''
     return LabelEncoder().fit_transform(col)
 
 def generate_csr(df, shape, user_col='session', item_col='item'):
-    '''
-        Encode user-item pairs into a Compressed Sparse Row (CSR) Matrix
+    '''.
+    Doc::
+            
+                Encode user-item pairs into a Compressed Sparse Row (CSR) Matrix
     '''
     data = np.ones(len(df))
     rows, cols = df[user_col].values, df[item_col].values
@@ -64,23 +72,29 @@ def generate_csr(df, shape, user_col='session', item_col='item'):
 
 
 def compute_gramian(X):
-    '''
-        Compute Gramian for user-item matrix X
+    '''.
+    Doc::
+            
+                Compute Gramian for user-item matrix X
     '''
     G = X.T @ X
     return G 
 
 def add_diagonal(G, l2):
-    '''
-        Compute G + l2 * I - this is equivalent to adding l2-regularisation when G is the Gramian in an OLS problem.
+    '''.
+    Doc::
+            
+                Compute G + l2 * I - this is equivalent to adding l2-regularisation when G is the Gramian in an OLS problem.
     '''
     return G + l2 * np.identity(G.shape[0])
 
 def EASEr(X, l2 = 500.0):
-    ''''
-        Compute linear regression solution with Lagrangian multipiers as per (Steck, WWW '19).
-        Note: the final model needs to be computed with B /= -np.diag(B) (Lagrange Multiplier)
-        Dyn-EASEr updates work on B directly, so this step should be done afterwards.
+    ''''.
+    Doc::
+            
+                Compute linear regression solution with Lagrangian multipiers as per (Steck, WWW '19).
+                Note: the final model needs to be computed with B /= -np.diag(B) (Lagrange Multiplier)
+                Dyn-EASEr updates work on B directly, so this step should be done afterwards.
     '''
     G = compute_gramian(X)
     G_with_l2 = add_diagonal(G, l2) 
@@ -88,8 +102,10 @@ def EASEr(X, l2 = 500.0):
     return G, B
 
 def compute_diff(X_curr, G_curr, df, new_ts):
-    '''
-        Compute differences for user-item matrix X and Gramian matrix G.
+    '''.
+    Doc::
+            
+                Compute differences for user-item matrix X and Gramian matrix G.
     '''
     # Filter out all data up to new timestamp; generate X and G
     new_df = df.loc[df.timestamp <= new_ts]
@@ -103,8 +119,10 @@ def compute_diff(X_curr, G_curr, df, new_ts):
     return X_diff, G_diff
 
 def dyngram(new_df, X):
-    '''
-        Incorporate pageviews in `new_df` into the user-item matrix `X` and return a sparse G_{\Delta}.
+    '''.
+    Doc::
+            
+                Incorporate pageviews in `new_df` into the user-item matrix `X` and return a sparse G_{\Delta}.
     '''
     # Placeholder for row and column indices for G_{\Delta}
     r, c = [], []
@@ -124,8 +142,10 @@ def dyngram(new_df, X):
     return X, csr_matrix((np.ones_like(r, dtype=np.float64), (r,c)), shape = (X.shape[1],X.shape[1])) 
 
 def dynEASEr(S, G_diff, k):
-    '''
-        Perform Woodbury update on matrix S = G^{-1}, with G_diff.
+    '''.
+    Doc::
+            
+                Perform Woodbury update on matrix S = G^{-1}, with G_diff.
     '''
     # Compute real eigen-values
     vals, vecs = eigsh(G_diff, k = k)
@@ -139,8 +159,10 @@ def dynEASEr(S, G_diff, k):
     return S - (S @ vecs) @ inv(C + VAinv@vecs, overwrite_a=True, check_finite=False) @ VAinv
 
 def incremental_updates(df, X_init, G_init, S_init, init_ts, num_days, update_minutes, rank='exact'):
-    '''
-        Perform incremental updates on `X_init`, `G_init` and `S_init`, every `update_minutes` for `num_days` after `init_ts`.
+    '''.
+    Doc::
+            
+                Perform incremental updates on `X_init`, `G_init` and `S_init`, every `update_minutes` for `num_days` after `init_ts`.
     '''
     # Initialise loop variables
     X_curr = lil_matrix(X_init)

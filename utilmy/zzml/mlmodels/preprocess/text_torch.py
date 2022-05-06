@@ -9,23 +9,27 @@ from time import sleep
 
 
 def test_pandas_fillna(data, **args):
-    """function test_pandas_fillna
-    Args:
-        data:   
-        **args:   
-    Returns:
-        
+    """function test_pandas_fillna.
+    Doc::
+            
+            Args:
+                data:   
+                **args:   
+            Returns:
+                
     """
     return data.fillna(**args)
 
 
 def test_onehot_sentences(data, max_len):
-    """function test_onehot_sentences
-    Args:
-        data:   
-        max_len:   
-    Returns:
-        
+    """function test_onehot_sentences.
+    Doc::
+            
+            Args:
+                data:   
+                max_len:   
+            Returns:
+                
     """
     return (
         lambda df, max_len: (
@@ -52,22 +56,26 @@ def test_onehot_sentences(data, max_len):
 
 
 def test_word_count(data):
-    """function test_word_count
-    Args:
-        data:   
-    Returns:
-        
+    """function test_word_count.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     return data["Word"].nunique() + 2
 
 
 def test_word_categorical_labels_per_sentence(data, max_len):
-    """function test_word_categorical_labels_per_sentence
-    Args:
-        data:   
-        max_len:   
-    Returns:
-        
+    """function test_word_categorical_labels_per_sentence.
+    Doc::
+            
+            Args:
+                data:   
+                max_len:   
+            Returns:
+                
     """
     return (
         lambda df, max_len: (
@@ -97,9 +105,11 @@ def test_word_categorical_labels_per_sentence(data, max_len):
 
 # textcnn_dataloader
 def clean_str(string):
-    """
-    Tokenization/string cleaning for all datasets except for SST.
-    Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
+    """.
+    Doc::
+            
+            Tokenization/string cleaning for all datasets except for SST.
+            Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
     """
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
     string = re.sub(r"\'s", " 's", string)
@@ -118,12 +128,14 @@ def clean_str(string):
 
 
 def imdb_spacy_tokenizer(text, lang="en"):
-    """function imdb_spacy_tokenizer
-    Args:
-        text:   
-        lang:   
-    Returns:
-        
+    """function imdb_spacy_tokenizer.
+    Doc::
+            
+            Args:
+                text:   
+                lang:   
+            Returns:
+                
     """
     disable = (
         "tagger",

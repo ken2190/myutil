@@ -27,10 +27,12 @@ class A2SVDModel(SequentialBaseModel):
     """
 
     def _build_seq_graph(self):
-        """The main function to create A2SVD model.
-
-        Returns:
-            object: The output of A2SVD section.
+        """The main function to create A2SVD model..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of A2SVD section.
         """
         hparams = self.hparams
         with tf.variable_scope("a2svd"):

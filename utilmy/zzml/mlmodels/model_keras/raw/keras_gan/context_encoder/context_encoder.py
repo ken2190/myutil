@@ -18,10 +18,12 @@ import numpy as np
 
 class ContextEncoder():
     def __init__(self):
-        """ ContextEncoder:__init__
-        Args:
-        Returns:
-           
+        """ ContextEncoder:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 32
         self.img_cols = 32
@@ -63,10 +65,12 @@ class ContextEncoder():
             optimizer=optimizer)
 
     def build_generator(self):
-        """ ContextEncoder:build_generator
-        Args:
-        Returns:
-           
+        """ ContextEncoder:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
 
@@ -107,10 +111,12 @@ class ContextEncoder():
         return Model(masked_img, gen_missing)
 
     def build_discriminator(self):
-        """ ContextEncoder:build_discriminator
-        Args:
-        Returns:
-           
+        """ ContextEncoder:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -134,11 +140,13 @@ class ContextEncoder():
         return Model(img, validity)
 
     def mask_randomly(self, imgs):
-        """ ContextEncoder:mask_randomly
-        Args:
-            imgs:     
-        Returns:
-           
+        """ ContextEncoder:mask_randomly.
+        Doc::
+                
+                    Args:
+                        imgs:     
+                    Returns:
+                       
         """
         y1 = np.random.randint(0, self.img_rows - self.mask_height, imgs.shape[0])
         y2 = y1 + self.mask_height
@@ -159,13 +167,15 @@ class ContextEncoder():
 
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ ContextEncoder:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ ContextEncoder:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -220,12 +230,14 @@ class ContextEncoder():
                 self.sample_images(epoch, imgs)
 
     def sample_images(self, epoch, imgs):
-        """ ContextEncoder:sample_images
-        Args:
-            epoch:     
-            imgs:     
-        Returns:
-           
+        """ ContextEncoder:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                        imgs:     
+                    Returns:
+                       
         """
         r, c = 3, 6
 
@@ -250,10 +262,12 @@ class ContextEncoder():
         plt.close()
 
     def save_model(self):
-        """ ContextEncoder:save_model
-        Args:
-        Returns:
-           
+        """ ContextEncoder:save_model.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         def save(model, model_name):

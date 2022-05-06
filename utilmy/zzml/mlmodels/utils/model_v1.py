@@ -32,11 +32,13 @@ VERBOSE = False
 
 # from mlmodels.util import log, path_norm, get_model_uri
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
@@ -45,12 +47,14 @@ def log(*s):
 global model, session
 
 def init(*kw, **kwargs) :
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model   = Model(*kw, **kwargs)
@@ -59,13 +63,15 @@ def init(*kw, **kwargs) :
     
 class Model(object):
     def __init__(self, model_pars=None,  data_pars=None, compute_pars=None ):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -78,7 +84,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -94,8 +102,10 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
         
 
 def fit_metrics(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     global model, session
     data_pars['train'] = True
@@ -119,14 +129,16 @@ def fit_metrics(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """function predict
-    Args:
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     data_pars['train'] = False
@@ -136,22 +148,26 @@ def predict(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -166,11 +182,13 @@ def save(path=None, info=None):
     
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -185,11 +203,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -202,11 +222,13 @@ def load_info(path=""):
 
 
 def preprocess(prepro_pars):
-    """function preprocess
-    Args:
-        prepro_pars:   
-    Returns:
-        
+    """function preprocess.
+    Doc::
+            
+            Args:
+                prepro_pars:   
+            Returns:
+                
     """
     if prepro_pars['type'] == 'test':
         from sklearn.datasets import  make_classification
@@ -239,9 +261,11 @@ def preprocess(prepro_pars):
 ####################################################################################################
 ############ Do not change #########################################################################
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  : 
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  : 
+              "file" :
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram') 
@@ -268,12 +292,14 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 
 
 def get_params(param_pars={}, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     import json
     #from jsoncomment import JsonComment ; json = JsonComment()
@@ -297,13 +323,15 @@ def get_params(param_pars={}, **kw):
 ################################################################################################
 ########## Tests are normalized Do not Change ##################################################
 def test(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
     global model, session

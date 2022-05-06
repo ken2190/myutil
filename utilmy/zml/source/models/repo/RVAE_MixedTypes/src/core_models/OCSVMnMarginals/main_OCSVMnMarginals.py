@@ -22,11 +22,13 @@ import core_models.utils as utils
 import warnings
 
 def main(args):
-    """function main
-    Args:
-        args:   
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+                args:   
+            Returns:
+                
     """
 
     # Load datasets

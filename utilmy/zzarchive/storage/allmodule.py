@@ -2,10 +2,12 @@
 """  All module here for include  """
 
 def aa_isanaconda():
- """function aa_isanaconda
- Args:
- Returns:
-     
+ """function aa_isanaconda.
+ Doc::
+         
+      Args:
+      Returns:
+          
  """
  import sys; 
  txt= sys.version

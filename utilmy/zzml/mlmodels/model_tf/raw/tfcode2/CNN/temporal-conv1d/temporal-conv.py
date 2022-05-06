@@ -21,14 +21,16 @@ mnist = input_data.read_data_sets("", one_hot=True)
 
 
 def residual_block(x, i, filters, kernel_size):
-    """function residual_block
-    Args:
-        x:   
-        i:   
-        filters:   
-        kernel_size:   
-    Returns:
-        
+    """function residual_block.
+    Doc::
+            
+            Args:
+                x:   
+                i:   
+                filters:   
+                kernel_size:   
+            Returns:
+                
     """
     x_copy = x
     pad_len = (kernel_size - 1) * i
@@ -44,17 +46,19 @@ def residual_block(x, i, filters, kernel_size):
 
 class Model:
     def __init__(self, filters=32, kernel_size=4, dilations=[1, 2, 4, 8], stacks=8):
-        """ Model:__init__
-        Args:
-            filters:     
-            kernel_size:     
-            dilations:     
-            2:     
-            4:     
-            8]:     
-            stacks:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        filters:     
+                        kernel_size:     
+                        dilations:     
+                        2:     
+                        4:     
+                        8]:     
+                        stacks:     
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, [None, 28, 28])
         self.Y = tf.placeholder(tf.float32, [None, 10])

@@ -15,10 +15,12 @@ from src.utils import config_load, log, spark_check
 
 
 def run(spark:SparkSession, config_name:str):
-    """ Generate Structured Log table on disk
-    spark:
-    config_name:
-    :return: Structured Log Spark Dataframe
+    """ Generate Structured Log table on disk.
+    Doc::
+            
+            spark:
+            config_name:
+            :return: Structured Log Spark Dataframe
     """
     #### Load the yaml config file
     conf   = config_load(config_name)
@@ -119,11 +121,13 @@ def run(spark:SparkSession, config_name:str):
 
 
 def create_userid(userlogDF:pyspark.sql.DataFrame):
-    """function create_userid
-    Args:
-        userlogDF ( pyspark.sql.DataFrame ) :   
-    Returns:
-        
+    """function create_userid.
+    Doc::
+            
+            Args:
+                userlogDF ( pyspark.sql.DataFrame ) :   
+            Returns:
+                
     """
     userlogDF = userlogDF.withColumn("user_id", F.concat( 'sourceIP',F.lit('')) )
     return userlogDF

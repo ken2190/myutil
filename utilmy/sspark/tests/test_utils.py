@@ -13,11 +13,13 @@ from tests.test_common import (assert_equal_spark_df_sorted)
 
 @pytest.mark.usefixtures("spark_session", "config")
 def test_spark_check(spark_session: SparkSession, config: dict):
-    """
-    This unit test will verify spark_check
-    @param spark_session:
-    @param config:
-    @return:
+    """.
+    Doc::
+            
+            This unit test will verify spark_check
+            @param spark_session:
+            @param config:
+            @return:
     """
 
     # generate static dataframe

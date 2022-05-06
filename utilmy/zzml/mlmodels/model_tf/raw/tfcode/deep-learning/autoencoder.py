@@ -5,15 +5,17 @@ import tensorflow as tf
 
 
 def reducedimension(input_, dimension=2, learning_rate=0.01, hidden_layer=256, epoch=20):
-    """function reducedimension
-    Args:
-        input_:   
-        dimension:   
-        learning_rate:   
-        hidden_layer:   
-        epoch:   
-    Returns:
-        
+    """function reducedimension.
+    Doc::
+            
+            Args:
+                input_:   
+                dimension:   
+                learning_rate:   
+                hidden_layer:   
+                epoch:   
+            Returns:
+                
     """
 
     input_size = input_.shape[1]

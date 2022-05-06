@@ -4,18 +4,22 @@ import time
 from sub_dir.subsub_dir.helper import goodnight
 
 def foo():
-    """function foo
-    Args:
-    Returns:
-        
+    """function foo.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     time.sleep(0.1)
 
 def bar():
-    """function bar
-    Args:
-    Returns:
-        
+    """function bar.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     time.sleep(0.4)
 

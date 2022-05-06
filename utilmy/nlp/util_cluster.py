@@ -12,20 +12,24 @@ from typing import List
 from utilmy import log, log2
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(s, flush=True)
 
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy.utilmy import help_create
     ss = help_create('utilmy.nlp.util_cluster')
@@ -36,10 +40,12 @@ def help():
 
 ########################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy.nlp import util_cluster as m
     from difflib import SequenceMatcher
@@ -63,10 +69,12 @@ def test_all():
       
 
 def test2():
-    """function test2
-    Args:
-    Returns:
-        
+    """function test2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from difflib import SequenceMatcher
     from pandas._testing import assert_series_equal
@@ -92,10 +100,12 @@ def test2():
 
 #############################################################################
 def test():
-  """function test
-  Args:
-  Returns:
-      
+  """function test.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
 
   column_name = "question1"
@@ -126,10 +136,12 @@ def test():
 
 
 def test_lsh():
-    """function test_lsh
-    Args:
-    Returns:
-        
+    """function test_lsh.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     ll = ['aa bb cc', 'a b c', 'cc bb cc']
@@ -146,8 +158,10 @@ def test_lsh():
 
 #############################################################################
 def pd_text_hash_create_lsh(df, col, sep=" ", threshold=0.7, num_perm=10, npool=1, chunk = 20000):
-    '''
-    For each of the entry create a hash function
+    '''.
+    Doc::
+            
+            For each of the entry create a hash function
     '''
     from datasketch import MinHash, MinHashLSH
     lsh = None
@@ -194,8 +208,10 @@ def pd_text_hash_create_lsh(df, col, sep=" ", threshold=0.7, num_perm=10, npool=
 
 
 def pd_text_getcluster(df:pd.DataFrame, col:str='col', threshold=0.5, num_perm:int=5, npool=1, chunk = 100000):
-    '''
-    For each of the hash function find a cluster and assign unique id to the dataframe cluster_id
+    '''.
+    Doc::
+            
+            For each of the hash function find a cluster and assign unique id to the dataframe cluster_id
     '''
     # MAster cluster ids
     all_cluster_ids = []
@@ -233,15 +249,17 @@ def pd_text_getcluster(df:pd.DataFrame, col:str='col', threshold=0.5, num_perm:i
 
 
 def pd_text_similarity(df: pd.DataFrame, cols=[], algo='') -> pd.DataFrame:
-    '''
-        Return similarities between two columns with 
-        python's SequenceMatcher algorithm
-        Args:
-            df (pd.DataFrame): Pandas Dataframe.
-            algo (String)    : rapidfuzz | editdistance 
-            cols (list[str]) : List of of columns name (2 columns)
-        Returns:
-            pd.DataFrame
+    '''.
+    Doc::
+            
+                Return similarities between two columns with 
+                python's SequenceMatcher algorithm
+                Args:
+                    df (pd.DataFrame): Pandas Dataframe.
+                    algo (String)    : rapidfuzz | editdistance 
+                    cols (list[str]) : List of of columns name (2 columns)
+                Returns:
+                    pd.DataFrame
     '''
     if len(cols) != 2:
         raise Exception("Add two columns")

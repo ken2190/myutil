@@ -14,10 +14,12 @@ import numpy as np
 
 class ACGAN():
     def __init__(self):
-        """ ACGAN:__init__
-        Args:
-        Returns:
-           
+        """ ACGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # Input shape
         self.img_rows = 28
@@ -59,10 +61,12 @@ class ACGAN():
             optimizer=optimizer)
 
     def build_generator(self):
-        """ ACGAN:build_generator
-        Args:
-        Returns:
-           
+        """ ACGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -93,10 +97,12 @@ class ACGAN():
         return Model([noise, label], img)
 
     def build_discriminator(self):
-        """ ACGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ ACGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -132,13 +138,15 @@ class ACGAN():
         return Model(img, [validity, label])
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ ACGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ ACGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -197,11 +205,13 @@ class ACGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ ACGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ ACGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 10, 10
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))
@@ -221,10 +231,12 @@ class ACGAN():
         plt.close()
 
     def save_model(self):
-        """ ACGAN:save_model
-        Args:
-        Returns:
-           
+        """ ACGAN:save_model.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         def save(model, model_name):

@@ -21,10 +21,12 @@ class GRU4RecModel(SequentialBaseModel):
     """
 
     def _build_seq_graph(self):
-        """The main function to create GRU4Rec model.
-
-        Returns:
-            object:the output of GRU4Rec section.
+        """The main function to create GRU4Rec model..
+        Doc::
+                
+            
+                    Returns:
+                        object:the output of GRU4Rec section.
         """
         with tf.variable_scope("gru4rec"):
             # final_state = self._build_lstm()
@@ -34,10 +36,12 @@ class GRU4RecModel(SequentialBaseModel):
             return model_output
 
     def _build_lstm(self):
-        """Apply an LSTM for modeling.
-
-        Returns:
-            object: The output of LSTM section.
+        """Apply an LSTM for modeling..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of LSTM section.
         """
         with tf.name_scope("lstm"):
             self.mask = self.iterator.mask
@@ -56,10 +60,12 @@ class GRU4RecModel(SequentialBaseModel):
             return final_state[1]
 
     def _build_gru(self):
-        """Apply a GRU for modeling.
-
-        Returns:
-            object: The output of GRU section.
+        """Apply a GRU for modeling..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of GRU section.
         """
         with tf.name_scope("gru"):
             self.mask = self.iterator.mask

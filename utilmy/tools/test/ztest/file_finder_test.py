@@ -8,10 +8,12 @@ from src import file_finder
 
 class TestFileFinder(unittest.TestCase):
     def test_corner_cases(self):
-        """ TestFileFinder:test_corner_cases
-        Args:
-        Returns:
-           
+        """ TestFileFinder:test_corner_cases.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         with self.assertRaises(FileNotFoundError):
             file_finder.findVariablesInFile("/nonexistent/path")
@@ -20,10 +22,12 @@ class TestFileFinder(unittest.TestCase):
             file_finder.findVariablesInDir("/nonexistent/path")
 
     def test_findVariablesInFile(self):
-        """ TestFileFinder:test_findVariablesInFile
-        Args:
-        Returns:
-           
+        """ TestFileFinder:test_findVariablesInFile.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         got = file_finder.findVariablesInFile(__file__)
 
@@ -36,10 +40,12 @@ class TestFileFinder(unittest.TestCase):
         self.assertTrue(is_local)
 
     def test_findVariablesInDir(self):
-        """ TestFileFinder:test_findVariablesInDir
-        Args:
-        Returns:
-           
+        """ TestFileFinder:test_findVariablesInDir.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         got = file_finder.findVariablesInDir(os.path.dirname(__file__))
 

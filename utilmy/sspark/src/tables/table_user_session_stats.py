@@ -9,11 +9,13 @@ from src.utils import config_load, log, spark_check
 
 
 def run(spark:SparkSession, config_name: str='config.yaml'):
-    """
-    Args:
-        spark: sparkSession
-        config_name:
-    Returns:
+    """.
+    Doc::
+            
+            Args:
+                spark: sparkSession
+                config_name:
+            Returns:
     """
     #Load the yaml config file
     conf = config_load(config_name)

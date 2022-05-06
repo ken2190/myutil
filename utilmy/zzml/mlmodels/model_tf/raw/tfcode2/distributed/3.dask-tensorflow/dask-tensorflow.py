@@ -28,10 +28,12 @@ client = Client()
 
 
 def get_mnist():
-    """function get_mnist
-    Args:
-    Returns:
-        
+    """function get_mnist.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from tensorflow.examples.tutorials.mnist import input_data
 
@@ -104,11 +106,13 @@ replicas_to_aggregate = len(dask_spec["worker"])
 
 
 def model(server):
-    """function model
-    Args:
-        server:   
-    Returns:
-        
+    """function model.
+    Doc::
+            
+            Args:
+                server:   
+            Returns:
+                
     """
     worker_device = "/job:%s/task:%d" % (server.server_def.job_name, server.server_def.task_index)
     task_index = server.server_def.task_index
@@ -224,10 +228,12 @@ def model(server):
 
 
 def ps_task():
-    """function ps_task
-    Args:
-    Returns:
-        
+    """function ps_task.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with local_client() as c:
         c.worker.tensorflow_server.join()
@@ -237,10 +243,12 @@ def ps_task():
 
 
 def scoring_task():
-    """function scoring_task
-    Args:
-    Returns:
-        
+    """function scoring_task.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with local_client() as c:
         # Scores Channel
@@ -268,10 +276,12 @@ def scoring_task():
 
 
 def worker_task():
-    """function worker_task
-    Args:
-    Returns:
-        
+    """function worker_task.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with local_client() as c:
         scores = c.channel("scores")
@@ -317,11 +327,13 @@ dask_spec
 
 
 def transfer_dask_to_tensorflow(batch):
-    """function transfer_dask_to_tensorflow
-    Args:
-        batch:   
-    Returns:
-        
+    """function transfer_dask_to_tensorflow.
+    Doc::
+            
+            Args:
+                batch:   
+            Returns:
+                
     """
     worker = get_worker()
     worker.tensorflow_queue.put(batch)

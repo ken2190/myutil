@@ -298,11 +298,13 @@ tesla.head()
 
 
 def adf(ts):
-    """function adf
-    Args:
-        ts:   
-    Returns:
-        
+    """function adf.
+    Doc::
+            
+            Args:
+                ts:   
+            Returns:
+                
     """
     rolmean = pd.rolling_mean(ts, window=12)
     rolstd = pd.rolling_std(ts, window=12)

@@ -39,11 +39,13 @@ from dbvector import ClientQdrant
 
 
 def get_data(filename="startups.json"):
-    """function get_data
-    Args:
-        filename:   
-    Returns:
-        
+    """function get_data.
+    Doc::
+            
+            Args:
+                filename:   
+            Returns:
+                
     """
     data =[]
     with open(filename) as f:
@@ -57,10 +59,12 @@ def get_data(filename="startups.json"):
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     print("Connecting to Qdrant")
     client = Client('localhost', 6333)

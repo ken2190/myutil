@@ -25,11 +25,13 @@ VERBOSE = True
 # MODEL_URI = get_model_uri(__file__)
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
@@ -39,12 +41,14 @@ global model, session
 
 
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
@@ -52,16 +56,18 @@ def init(*kw, **kwargs):
 
 
 def Modelcustom(n_wide_cross, n_wide, n_feat=8, m_EMBEDDING=10, loss='mse', metric = 'mean_squared_error'):
-        """function Modelcustom
-        Args:
-            n_wide_cross:   
-            n_wide:   
-            n_feat:   
-            m_EMBEDDING:   
-            loss:   
-            metric :   
-        Returns:
-            
+        """function Modelcustom.
+        Doc::
+                
+                    Args:
+                        n_wide_cross:   
+                        n_wide:   
+                        n_feat:   
+                        m_EMBEDDING:   
+                        loss:   
+                        metric :   
+                    Returns:
+                        
         """
 
         #### Wide model with the functional API
@@ -101,13 +107,15 @@ def Modelcustom(n_wide_cross, n_wide, n_feat=8, m_EMBEDDING=10, loss='mse', metr
 
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
         self.history = None
@@ -121,7 +129,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -136,8 +146,10 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     global model, session
     # data_pars['train'] = True
@@ -164,15 +176,17 @@ def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     """
@@ -191,21 +205,25 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
 
 
 def save(path=None):
-    """function save
-    Args:
-        path:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     os.makedirs(path, exist_ok=True)
@@ -216,11 +234,13 @@ def save(path=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
 
@@ -231,11 +251,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -248,11 +270,13 @@ def load_info(path=""):
 
 
 def preprocess(prepro_pars):
-    """function preprocess
-    Args:
-        prepro_pars:   
-    Returns:
-        
+    """function preprocess.
+    Doc::
+            
+            Args:
+                prepro_pars:   
+            Returns:
+                
     """
     if prepro_pars['type'] == 'test':
         from sklearn.datasets import make_classification
@@ -285,8 +309,10 @@ def preprocess(prepro_pars):
 ####################################################################################################
 ############ Do not change #########################################################################
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      return tuple of dataframes
+    """.
+    Doc::
+            
+              return tuple of dataframes
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -346,16 +372,18 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 
 
 def test(config=''):
-    """
-        Group of columns for the input model
-           cols_input_group = [
-
-          ]
-          for cols in cols_input_group,
-
-
-    config:
-    :return:
+    """.
+    Doc::
+            
+                Group of columns for the input model
+                   cols_input_group = [
+        
+                  ]
+                  for cols in cols_input_group,
+        
+        
+            config:
+            :return:
     """
     global model, session
 
@@ -424,17 +452,19 @@ def test(config=''):
 
 
 def get_dataset2(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  :
-      "file" :
-
-    n_wide_features = data_pars.get('n_wide_features', None)
-    n_deep_features = data_pars.get('n_deep_features', None)
-
-    Xtrain_A, Xtrain_B, Xtrain_C = Xtrain[:, :n_wide_features], Xtrain[:, -n_deep_features:], Xtrain[:, -n_deep_features:]
-    Xtest_A, Xtest_B, Xtest_C    = Xtest[:, :n_wide_features], Xtest[:, -n_deep_features:], Xtest[:, -n_deep_features:]
-
-
+    """.
+    Doc::
+            
+              "ram"  :
+              "file" :
+        
+            n_wide_features = data_pars.get('n_wide_features', None)
+            n_deep_features = data_pars.get('n_deep_features', None)
+        
+            Xtrain_A, Xtrain_B, Xtrain_C = Xtrain[:, :n_wide_features], Xtrain[:, -n_deep_features:], Xtrain[:, -n_deep_features:]
+            Xtest_A, Xtest_B, Xtest_C    = Xtest[:, :n_wide_features], Xtest[:, -n_deep_features:], Xtest[:, -n_deep_features:]
+        
+        
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -483,22 +513,26 @@ def get_dataset2(data_pars=None, task_type="train", **kw):
     raise Exception(f' Requires  Xtrain", "Xtest", "ytrain", "ytest" ')
 
 def get_params_sklearn(deep=False):
-    """function get_params_sklearn
-    Args:
-        deep:   
-    Returns:
-        
+    """function get_params_sklearn.
+    Doc::
+            
+            Args:
+                deep:   
+            Returns:
+                
     """
     return model.model.get_params(deep=deep)
 
 
 def get_params(param_pars={}, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     import json
     # from jsoncomment import JsonComment ; json = JsonComment()
@@ -517,13 +551,15 @@ def get_params(param_pars={}, **kw):
 
 
 def test_helper(model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model, session
 
@@ -558,11 +594,13 @@ def test_helper(model_pars, data_pars, compute_pars):
 #######################################################################################
 
 def test2(config=''):
-    """function test2
-    Args:
-        config:   
-    Returns:
-        
+    """function test2.
+    Doc::
+            
+            Args:
+                config:   
+            Returns:
+                
     """
 
     global model, session

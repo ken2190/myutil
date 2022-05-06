@@ -14,10 +14,12 @@ import torch.utils.data.distributed
 
 class Model(nn.Module):
     def __init__(self):
-        """ Model:__init__
-        Args:
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         super(Model, self).__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
@@ -27,11 +29,13 @@ class Model(nn.Module):
         self.fc2 = nn.Linear(50, 10)
 
     def forward(self, x):
-        """ Model:forward
-        Args:
-            x:     
-        Returns:
-           
+        """ Model:forward.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))

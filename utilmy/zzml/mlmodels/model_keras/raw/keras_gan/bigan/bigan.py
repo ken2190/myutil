@@ -18,10 +18,12 @@ import numpy as np
 
 class BIGAN():
     def __init__(self):
-        """ BIGAN:__init__
-        Args:
-        Returns:
-           
+        """ BIGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -66,10 +68,12 @@ class BIGAN():
 
 
     def build_encoder(self):
-        """ BIGAN:build_encoder
-        Args:
-        Returns:
-           
+        """ BIGAN:build_encoder.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         model = Sequential()
 
@@ -90,10 +94,12 @@ class BIGAN():
         return Model(img, z)
 
     def build_generator(self):
-        """ BIGAN:build_generator
-        Args:
-        Returns:
-           
+        """ BIGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         model = Sequential()
 
@@ -114,10 +120,12 @@ class BIGAN():
         return Model(z, gen_img)
 
     def build_discriminator(self):
-        """ BIGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ BIGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         z = Input(shape=(self.latent_dim, ))
@@ -138,13 +146,15 @@ class BIGAN():
         return Model([z, img], validity)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ BIGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ BIGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -194,11 +204,13 @@ class BIGAN():
                 self.sample_interval(epoch)
 
     def sample_interval(self, epoch):
-        """ BIGAN:sample_interval
-        Args:
-            epoch:     
-        Returns:
-           
+        """ BIGAN:sample_interval.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         z = np.random.normal(size=(25, self.latent_dim))

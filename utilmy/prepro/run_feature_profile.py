@@ -21,13 +21,15 @@ print(root)
 
 
 def log(*s, n=0, m=0):
-    """function log
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sspace = "#" * n
     sjump = "\n" * m
@@ -38,8 +40,10 @@ def log(*s, n=0, m=0):
 
 ############CLI Command ############################################################################
 def run_profile(path_data=None,  path_output="data/out/ztmp/", n_sample=5000):
-    """
-      Use folder , filename are fixed.
+    """.
+    Doc::
+            
+              Use folder , filename are fixed.
     """
     path_output = path_output
     os.makedirs(path_output, exist_ok=True)

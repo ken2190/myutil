@@ -28,10 +28,12 @@ from mlmodels.model_keras.raw.nbeats_keras.model import NBeatsNet
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # https://keras.io/layers/recurrent/
     num_samples, time_steps, input_dim, output_dim = 50_000, 10, 1, 1
@@ -73,13 +75,15 @@ def main():
 ####################################################################################################
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None  ):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         ### Model Structure        ################################
         if model_pars is None :
@@ -108,7 +112,9 @@ class Model:
 
 
 def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
 
     batch_size = compute_pars['batch_size']
@@ -128,8 +134,10 @@ def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def evaluate(model, session=None, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics ofw the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics ofw the model when fitted.
     """
     ddict = {}
 
@@ -137,16 +145,18 @@ def evaluate(model, session=None, data_pars=None, compute_pars=None, out_pars=No
 
 
 def predict(model, session=None, data_pars=None, out_pars=None, compute_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        out_pars:   
-        compute_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                out_pars:   
+                compute_pars:   
+                **kw:   
+            Returns:
+                
     """
     ##### Get Data ###############################################
     data_pars['train'] = False
@@ -163,33 +173,39 @@ def predict(model, session=None, data_pars=None, out_pars=None, compute_pars=Non
 
 
 def reset_model():
-    """function reset_model
-    Args:
-    Returns:
-        
+    """function reset_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
 
 def save(model=None,  save_pars=None, session=None):
-    """function save
-    Args:
-        model:   
-        save_pars:   
-        session:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                save_pars:   
+                session:   
+            Returns:
+                
     """
     from mlmodels.util import save_keras
     save_keras(model, session, save_pars=save_pars)
 
 
 def load(load_pars=None):
-    """function load
-    Args:
-        load_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+            Returns:
+                
     """
     from mlmodels.util import load_keras
     model0 = load_keras(load_pars)
@@ -202,10 +218,12 @@ def load(load_pars=None):
 
 ####################################################################################################
 def get_dataset(data_pars=None, **kw):
-    """
-      JSON data_pars to get dataset
-      "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
-      "size": [0, 0, 6], "output_size": [0, 6] },
+    """.
+    Doc::
+            
+              JSON data_pars to get dataset
+              "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
+              "size": [0, 0, 6], "output_size": [0, 6] },
     """
     from mlmodels.util import path_norm
     
@@ -242,12 +260,14 @@ def get_dataset(data_pars=None, **kw):
 
 
 def get_params(param_pars={}, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     from jsoncomment import JsonComment ; json = JsonComment()
     pp = param_pars
@@ -316,13 +336,15 @@ def get_params(param_pars={}, **kw):
 ################################################################################################
 ########## Tests ###############################################################################
 def test(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
     from mlmodels.util import path_norm

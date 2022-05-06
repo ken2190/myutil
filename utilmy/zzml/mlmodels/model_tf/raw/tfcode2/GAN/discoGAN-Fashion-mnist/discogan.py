@@ -68,11 +68,13 @@ plt.show()
 
 
 def generate_sample(samples):
-    """function generate_sample
-    Args:
-        samples:   
-    Returns:
-        
+    """function generate_sample.
+    Doc::
+            
+            Args:
+                samples:   
+            Returns:
+                
     """
     # take first 16 samples
     idx = [i for i in range(16)]
@@ -112,13 +114,15 @@ image_size = 784
 
 
 def huber_loss(logits, labels, max_gradient=1.0):
-    """function huber_loss
-    Args:
-        logits:   
-        labels:   
-        max_gradient:   
-    Returns:
-        
+    """function huber_loss.
+    Doc::
+            
+            Args:
+                logits:   
+                labels:   
+                max_gradient:   
+            Returns:
+                
     """
     err = tf.abs(labels - logits)
     mg = tf.constant(max_gradient)
@@ -129,14 +133,16 @@ def huber_loss(logits, labels, max_gradient=1.0):
 
 # multi-perceptron encoder
 def generator(z, name, reuse=False, training=True):
-    """function generator
-    Args:
-        z:   
-        name:   
-        reuse:   
-        training:   
-    Returns:
-        
+    """function generator.
+    Doc::
+            
+            Args:
+                z:   
+                name:   
+                reuse:   
+                training:   
+            Returns:
+                
     """
     with tf.variable_scope(name, reuse=reuse):
         conv1 = tf.layers.conv2d(z, 16, (3, 3), padding="same", activation=tf.nn.relu)
@@ -156,13 +162,15 @@ def generator(z, name, reuse=False, training=True):
 
 
 def discriminator(z, name, reuse=False):
-    """function discriminator
-    Args:
-        z:   
-        name:   
-        reuse:   
-    Returns:
-        
+    """function discriminator.
+    Doc::
+            
+            Args:
+                z:   
+                name:   
+                reuse:   
+            Returns:
+                
     """
     with tf.variable_scope(name, reuse=reuse):
         x1 = tf.layers.conv2d(z, 8, 5, strides=2, padding="same")
@@ -181,11 +189,13 @@ def discriminator(z, name, reuse=False):
 class discoGAN:
     # set learning rate here
     def __init__(self, learning_rate=1e-6):
-        """ discoGAN:__init__
-        Args:
-            learning_rate:     
-        Returns:
-           
+        """ discoGAN:__init__.
+        Doc::
+                
+                    Args:
+                        learning_rate:     
+                    Returns:
+                       
         """
         # first domain
         self.X = tf.placeholder(tf.float32, (None, 28, 28, 1))
@@ -260,15 +270,17 @@ class discoGAN:
 
 
 def train(model, X, Y, batch, epoch):
-    """function train
-    Args:
-        model:   
-        X:   
-        Y:   
-        batch:   
-        epoch:   
-    Returns:
-        
+    """function train.
+    Doc::
+            
+            Args:
+                model:   
+                X:   
+                Y:   
+                batch:   
+                epoch:   
+            Returns:
+                
     """
     LOSS_D, LOSS_G = [], []
     for i in range(epoch):

@@ -17,13 +17,15 @@ ABS_TOL = 0.05
 
 @pytest.mark.notebooks
 def test_template_runs(notebooks, output_notebook, kernel_name):
-    """function test_template_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_template_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["template"]
     pm.execute_notebook(
@@ -41,13 +43,15 @@ def test_template_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_sar_single_node_runs(notebooks, output_notebook, kernel_name):
-    """function test_sar_single_node_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_sar_single_node_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["sar_single_node"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -55,13 +59,15 @@ def test_sar_single_node_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_sar_deep_dive_runs(notebooks, output_notebook, kernel_name):
-    """function test_sar_deep_dive_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_sar_deep_dive_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["sar_deep_dive"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -69,13 +75,15 @@ def test_sar_deep_dive_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_baseline_deep_dive_runs(notebooks, output_notebook, kernel_name):
-    """function test_baseline_deep_dive_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_baseline_deep_dive_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["baseline_deep_dive"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -83,13 +91,15 @@ def test_baseline_deep_dive_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_surprise_deep_dive_runs(notebooks, output_notebook, kernel_name):
-    """function test_surprise_deep_dive_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_surprise_deep_dive_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["surprise_svd_deep_dive"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -98,13 +108,15 @@ def test_surprise_deep_dive_runs(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.skip(reason="VW pip package has installation incompatibilities")
 def test_vw_deep_dive_runs(notebooks, output_notebook, kernel_name):
-    """function test_vw_deep_dive_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_vw_deep_dive_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["vowpal_wabbit_deep_dive"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -112,13 +124,15 @@ def test_vw_deep_dive_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_lightgbm(notebooks, output_notebook, kernel_name):
-    """function test_lightgbm
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_lightgbm.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["lightgbm_quickstart"]
     pm.execute_notebook(
@@ -139,14 +153,16 @@ def test_lightgbm(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.skip(reason="Wikidata API is unstable")
 def test_wikidata_runs(notebooks, output_notebook, kernel_name, tmp):
-    """function test_wikidata_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-        tmp:   
-    Returns:
-        
+    """function test_wikidata_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+                tmp:   
+            Returns:
+                
     """
     notebook_path = notebooks["wikidata_knowledge_graph"]
     MOVIELENS_SAMPLE_SIZE = 5
@@ -164,13 +180,15 @@ def test_wikidata_runs(notebooks, output_notebook, kernel_name, tmp):
 
 @pytest.mark.notebooks
 def test_rlrmc_quickstart_runs(notebooks, output_notebook, kernel_name):
-    """function test_rlrmc_quickstart_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_rlrmc_quickstart_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["rlrmc_quickstart"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)
@@ -178,13 +196,15 @@ def test_rlrmc_quickstart_runs(notebooks, output_notebook, kernel_name):
 
 @pytest.mark.notebooks
 def test_cornac_deep_dive_runs(notebooks, output_notebook, kernel_name):
-    """function test_cornac_deep_dive_runs
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_cornac_deep_dive_runs.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["cornac_bpr_deep_dive"]
     pm.execute_notebook(notebook_path, output_notebook, kernel_name=kernel_name)

@@ -5,15 +5,17 @@ from tensorflow.contrib import layers
 
 class vaem_encoders(object):
     def __init__(self,obs_dim,cat_dims,dim_flt,K = 20,latent_dim = 10):
-        """ vaem_encoders:__init__
-        Args:
-            obs_dim:     
-            cat_dims:     
-            dim_flt:     
-            K :     
-            latent_dim :     
-        Returns:
-           
+        """ vaem_encoders:__init__.
+        Doc::
+                
+                    Args:
+                        obs_dim:     
+                        cat_dims:     
+                        dim_flt:     
+                        K :     
+                        latent_dim :     
+                    Returns:
+                       
         """
 
         self._K = K
@@ -23,8 +25,10 @@ class vaem_encoders(object):
         self._dim_flt = dim_flt
 
     def _partial_encoder_local(self,x,mask):
-        """
-        encoders for marginal VAEs
+        """.
+        Doc::
+                
+                    encoders for marginal VAEs
         """
             
         cumsum_cat_dims = np.concatenate( ([0],np.cumsum(self._cat_dims)))
@@ -74,8 +78,10 @@ class vaem_encoders(object):
 
 
     def _partial_encoder_global(self,z,x,mask):
-        """
-        encoders for dependency networks
+        """.
+        Doc::
+                
+                    encoders for dependency networks
         """
         batch_size = tf.shape(x)[0]
         z_bias = tf.get_variable("z_bias",shape=[1, 1],initializer=tf.contrib.layers.xavier_initializer())

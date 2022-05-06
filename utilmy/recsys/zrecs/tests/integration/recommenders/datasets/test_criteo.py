@@ -9,11 +9,13 @@ from recommenders.datasets import criteo
 
 @pytest.mark.integration
 def test_criteo_load_pandas_df(criteo_first_row):
-    """function test_criteo_load_pandas_df
-    Args:
-        criteo_first_row:   
-    Returns:
-        
+    """function test_criteo_load_pandas_df.
+    Doc::
+            
+            Args:
+                criteo_first_row:   
+            Returns:
+                
     """
     df = criteo.load_pandas_df(size="full")
     assert df.shape[0] == 45840617
@@ -24,12 +26,14 @@ def test_criteo_load_pandas_df(criteo_first_row):
 @pytest.mark.spark
 @pytest.mark.integration
 def test_criteo_load_spark_df(spark, criteo_first_row):
-    """function test_criteo_load_spark_df
-    Args:
-        spark:   
-        criteo_first_row:   
-    Returns:
-        
+    """function test_criteo_load_spark_df.
+    Doc::
+            
+            Args:
+                spark:   
+                criteo_first_row:   
+            Returns:
+                
     """
     df = criteo.load_spark_df(spark, size="full")
     assert df.count() == 45840617

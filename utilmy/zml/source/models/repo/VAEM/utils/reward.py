@@ -5,16 +5,18 @@ import utils.process as process
 class lindley(object):
     
     def __init__(self,M,cat_dims,list_discrete, dic_var_type,records_d,):
-        """ lindley:__init__
-        Args:
-            M:     
-            cat_dims:     
-            list_discrete:     
-            dic_var_type:     
-            records_d:     
-            :     
-        Returns:
-           
+        """ lindley:__init__.
+        Doc::
+                
+                    Args:
+                        M:     
+                        cat_dims:     
+                        list_discrete:     
+                        dic_var_type:     
+                        records_d:     
+                        :     
+                    Returns:
+                       
         """
         self._M = M
         self._cat_dims = cat_dims
@@ -24,17 +26,19 @@ class lindley(object):
         
     ### function for computing reward function approximation
     def R_lindley_chain(self, i, x, mask, vae, im, loc):
-        '''
-        function for computing reward function approximation
-        i: indicates the index of x_i
-        x: data matrix
-        mask: mask of missingness
-        M: number of MC samples
-        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        dic_var_type: a list that indicates the whether a variable is continuous.
-        vae: a pre-trained vae
-        im: sampled missing data, a M by N by D matrix, where M is the number of samples.
-        :return:
+        '''.
+        Doc::
+                
+                    function for computing reward function approximation
+                    i: indicates the index of x_i
+                    x: data matrix
+                    mask: mask of missingness
+                    M: number of MC samples
+                    cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+                    dic_var_type: a list that indicates the whether a variable is continuous.
+                    vae: a pre-trained vae
+                    im: sampled missing data, a M by N by D matrix, where M is the number of samples.
+                    :return:
         '''
         im_i = im[:, :, i]
         approx_KL = 0
@@ -51,16 +55,18 @@ class lindley(object):
         return R
 
     def completion(self, x, mask, vae,):
-        '''
-        function to generate new samples conditioned on observations
-        x: underlying partially observed data
-        mask: mask of missingness
-        M: number of MC samples
-        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        dic_var_type: a list that indicates the whether a variable is continuous.
-        vae: a pre-trained vae.
-        list_discrete: list of discrete variables
-        :return: sampled missing data, a M by N by D matrix, where M is the number of samples.
+        '''.
+        Doc::
+                
+                    function to generate new samples conditioned on observations
+                    x: underlying partially observed data
+                    mask: mask of missingness
+                    M: number of MC samples
+                    cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+                    dic_var_type: a list that indicates the whether a variable is continuous.
+                    vae: a pre-trained vae.
+                    list_discrete: list of discrete variables
+                    :return: sampled missing data, a M by N by D matrix, where M is the number of samples.
         '''
         ## decompress mask
         mask_flt = mask[:, np.ndarray.flatten(np.argwhere(self._dic_var_type == 0))]

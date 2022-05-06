@@ -33,11 +33,13 @@ fst = True
 DELIMITER = "/n"
 
 def reinput(user_msg):
-	"""function reinput
-	Args:
-	    user_msg:   
-	Returns:
-	    
+	"""function reinput.
+	Doc::
+	        
+	    	Args:
+	    	    user_msg:   
+	    	Returns:
+	    	    
 	"""
 	global conditioned_tokens; global fst
 	os.system('cls' if os.name == 'nt' else 'clear')
@@ -58,8 +60,10 @@ def reinput(user_msg):
 
 
 def top_p_filtering(logits, top_p=0.9, filter_value=-float('Inf')):
-  """
-  Credit: https://gist.github.com/thomwolf/1a5a29f6962089e871b94cbd09daf317
+  """.
+  Doc::
+          
+        Credit: https://gist.github.com/thomwolf/1a5a29f6962089e871b94cbd09daf317
   """
   assert logits.dim() == 1  # batch size 1 for single word generation
   sorted_logits, sorted_indices = torch.sort(logits, descending=True)
@@ -75,11 +79,13 @@ def top_p_filtering(logits, top_p=0.9, filter_value=-float('Inf')):
 
 
 def recalc(p=None):
-	"""function recalc
-	Args:
-	    p:   
-	Returns:
-	    
+	"""function recalc.
+	Doc::
+	        
+	    	Args:
+	    	    p:   
+	    	Returns:
+	    	    
 	"""
 	global conditioned_tokens
 	global generated_tokens
@@ -102,10 +108,12 @@ def recalc(p=None):
 	return next_token.item()
 
 def generate():
-	"""function generate
-	Args:
-	Returns:
-	    
+	"""function generate.
+	Doc::
+	        
+	    	Args:
+	    	Returns:
+	    	    
 	"""
 	global conditioned_tokens
 	global generated_tokens
@@ -317,10 +325,12 @@ home_page = '''
 
 @app.route("/")
 def home():
-  """function home
-  Args:
-  Returns:
-      
+  """function home.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   return home_page
     # return render_template("home.html")
@@ -328,10 +338,12 @@ def home():
 
 @app.route("/get")
 def get_bot_response():
-    """function get_bot_response
-    Args:
-    Returns:
-        
+    """function get_bot_response.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     userText = request.args.get('msg')
     reinput(userText)

@@ -5,11 +5,13 @@ import os
 
 
 def is_jupyter():
-    """Check if the module is running on Jupyter notebook/console.
-
-    Returns:
-        bool: True if the module is running on Jupyter notebook or Jupyter console,
-        False otherwise.
+    """Check if the module is running on Jupyter notebook/console..
+    Doc::
+            
+        
+            Returns:
+                bool: True if the module is running on Jupyter notebook or Jupyter console,
+                False otherwise.
     """
     try:
         shell_name = get_ipython().__class__.__name__
@@ -22,11 +24,13 @@ def is_jupyter():
 
 
 def is_databricks():
-    """Check if the module is running on Databricks.
-
-    Returns:
-        bool: True if the module is running on Databricks notebook,
-        False otherwise.
+    """Check if the module is running on Databricks..
+    Doc::
+            
+        
+            Returns:
+                bool: True if the module is running on Databricks notebook,
+                False otherwise.
     """
     try:
         if os.path.realpath(".") == "/databricks/driver":

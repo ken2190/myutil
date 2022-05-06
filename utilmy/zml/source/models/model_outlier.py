@@ -10,51 +10,61 @@ from utilmy import global_verbosity, os_makedirs, pd_read_file
 verbosity = global_verbosity(__file__,"/../../config.json", 3 )
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -102,13 +112,15 @@ except Exception as e :
 ####################################################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -125,7 +137,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -144,15 +158,17 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     if Xpred is None:
@@ -183,12 +199,14 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     # import cloudpickle as pickle
@@ -212,11 +230,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     # import cloudpickle as pickle
@@ -241,11 +261,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -260,12 +282,14 @@ def load_info(path=""):
 ####################################################################################################
 THISMODEL_COLGROUPS = []
 def get_dataset_split_for_model_pandastuple(Xtrain, ytrain=None, data_pars=None, ):
-    """  Split data for moel input/
-    Xtrain  ---> Split INTO  tuple of data  Xtuple= (df1, df2, df3) to fit model input.
-    Xtrain:
-    coldataloader_received:
-    colmodel_ref:
-    :return:
+    """  Split data for moel input/.
+    Doc::
+            
+            Xtrain  ---> Split INTO  tuple of data  Xtuple= (df1, df2, df3) to fit model input.
+            Xtrain:
+            coldataloader_received:
+            colmodel_ref:
+            :return:
     """
     from utilmy import pd_read_file
     coldataloader_received  = data_pars.get('cols_model_type2', {})   ### column defined in Data
@@ -291,8 +315,10 @@ def get_dataset_split_for_model_pandastuple(Xtrain, ytrain=None, data_pars=None,
 
 
 def get_dataset2(data_pars=None, task_type="train", **kw):
-    """
-       Raw Data (Path)   --->  Input Object (ie Pandas, ...) for Model training
+    """.
+    Doc::
+            
+               Raw Data (Path)   --->  Input Object (ie Pandas, ...) for Model training
     """
     log3('data_pars', data_pars)
     data_type            = data_pars.get('type', 'pandas')
@@ -316,9 +342,11 @@ def get_dataset2(data_pars=None, task_type="train", **kw):
 
 
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  :
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  :
+              "file" :
     """
     # log(data_pars)
     data_type  = data_pars.get('type', 'ram')

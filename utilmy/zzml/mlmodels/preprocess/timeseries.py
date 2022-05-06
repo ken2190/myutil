@@ -35,12 +35,14 @@ from mlmodels.util import path_norm, log
 from pathlib import Path
 from typing import Dict, List
 def save_to_file(path, data):
-    """function save_to_file
-    Args:
-        path:   
-        data:   
-    Returns:
-        
+    """function save_to_file.
+    Doc::
+            
+            Args:
+                path:   
+                data:   
+            Returns:
+                
     """
     import json
     print(f"saving time-series into {path}")
@@ -58,20 +60,22 @@ def save_to_file(path, data):
 ####################################################################################################
 ####################################################################################################
 def gluonts_dataset_to_pandas(dataset_name_list=["m4_hourly", "m4_daily", "m4_weekly", "m4_monthly", "m4_quarterly", "m4_yearly", ]):
-    """
-     n general, the datasets provided by GluonTS are objects that consists of three main members:
-
-    dataset.train is an iterable collection of data entries used for training. Each entry corresponds to one time series
-    dataset.test is an iterable collection of data entries used for inference. The test dataset is an extended version of the train dataset that contains a window in the end of each time series that was not seen during training. This window has length equal to the recommended prediction length.
-    dataset.metadata contains metadata of the dataset such as the frequency of the time series, a recommended prediction horizon, associated features, etc.
-    In [5]:
-    entry = next(iter(dataset.train))
-    train_series = to_pandas(entry)
-    train_series.plot()
-
-    # datasets = ["m4_hourly", "m4_daily", "m4_weekly", "m4_monthly", "m4_quarterly", "m4_yearly", ]
-
-
+    """.
+    Doc::
+            
+             n general, the datasets provided by GluonTS are objects that consists of three main members:
+        
+            dataset.train is an iterable collection of data entries used for training. Each entry corresponds to one time series
+            dataset.test is an iterable collection of data entries used for inference. The test dataset is an extended version of the train dataset that contains a window in the end of each time series that was not seen during training. This window has length equal to the recommended prediction length.
+            dataset.metadata contains metadata of the dataset such as the frequency of the time series, a recommended prediction horizon, associated features, etc.
+            In [5]:
+            entry = next(iter(dataset.train))
+            train_series = to_pandas(entry)
+            train_series.plot()
+        
+            # datasets = ["m4_hourly", "m4_daily", "m4_weekly", "m4_monthly", "m4_quarterly", "m4_yearly", ]
+        
+        
     """
     from gluonts.dataset.repository.datasets import get_dataset
     from gluonts.dataset.util import to_pandas
@@ -91,11 +95,13 @@ def gluonts_dataset_to_pandas(dataset_name_list=["m4_hourly", "m4_daily", "m4_we
 
 
 def gluonts_to_pandas(ds):
-   """function gluonts_to_pandas
-   Args:
-       ds:   
-   Returns:
-       
+   """function gluonts_to_pandas.
+   Doc::
+           
+          Args:
+              ds:   
+          Returns:
+              
    """
    from gluonts.dataset.util import to_pandas    
    ll =  [ to_pandas( t ) for t in ds ]
@@ -104,66 +110,68 @@ def gluonts_to_pandas(ds):
 
 
 def pandas_to_gluonts(df, pars=None) :
-    """
-       df.index : Should timestamp
-       start date : part of index
-       freq: Multiple of TimeStamp
-          
-    N = 10  # number of time series
-    T = 100  # number of timesteps
-    prediction_length = 24
-    freq = "1H"
-    custom_dataset = np.random.normal(size=(N, T))
-    start = pd.Timestamp("01-01-2019", freq=freq)  # can be different for each time series
-    
-    from gluonts.dataset.common import ListDataset
-
-    # train dataset: cut the last window of length "prediction_length", add "target" and "start" fields
-    train_ds = ListDataset([{'target': x, 'start': start}
-                            for x in custom_dataset[:, :-prediction_length]],
-                           freq=freq)
-
-    # test dataset: use the whole dataset, add "target" and "start" fields
-    test_ds = ListDataset([{'target': x, 'start': start}
-                           for x in custom_dataset],
-                          freq=freq)
-
-    test_target_values = train_target_values.copy()
-    train_target_values = [ts[:-single_prediction_length] for ts in train_df.values]
-
-    m5_dates = [pd.Timestamp("2011-01-29", freq='1D') for _ in range(len(sales_train_validation))]
-
-    train_ds = ListDataset([
-    {
-        FieldName.TARGET: target,
-        FieldName.START: start,
-        FieldName.FEAT_DYNAMIC_REAL: fdr,
-        FieldName.FEAT_STATIC_CAT: fsc
-    }
-    for (target, start, fdr, fsc) in zip(train_target_values,
-                                         m5_dates,
-                                         train_cal_features_list,
-                                         stat_cat)
-    ], freq="D")
-
-   data = common.ListDataset([{"start": df.index[0],
-                            "target": df.value[:"2015-04-05 00:00:00"]}],
-                          freq="5min")
-
-    #ds = ListDataset([{FieldName.TARGET: df.iloc[i].values,  
-    #    FieldName.START:  pars['start']}  
-    #                   for i in range(cols)], 
-    #                   freq = pars['freq'])
-
-    class gluonts.dataset.common.ListDataset(data_iter: Iterable[Dict[str, Any]], freq: str, one_dim_target: bool = True)[source]¶
-    Bases: gluonts.dataset.common.Dataset
-    
-    Dataset backed directly by an array of dictionaries.
-    
-    data_iter Iterable object yielding all items in the dataset. Each item should be a dictionary mapping strings to values. For instance: {“start”: “2014-09-07”, “target”: [0.1, 0.2]}.
-    freq Frequency of the observation in the time series. Must be a valid Pandas frequency.
-    one_dim_target  Whether to accept only univariate target time series.
-
+    """.
+    Doc::
+            
+               df.index : Should timestamp
+               start date : part of index
+               freq: Multiple of TimeStamp
+                  
+            N = 10  # number of time series
+            T = 100  # number of timesteps
+            prediction_length = 24
+            freq = "1H"
+            custom_dataset = np.random.normal(size=(N, T))
+            start = pd.Timestamp("01-01-2019", freq=freq)  # can be different for each time series
+            
+            from gluonts.dataset.common import ListDataset
+        
+            # train dataset: cut the last window of length "prediction_length", add "target" and "start" fields
+            train_ds = ListDataset([{'target': x, 'start': start}
+                                    for x in custom_dataset[:, :-prediction_length]],
+                                   freq=freq)
+        
+            # test dataset: use the whole dataset, add "target" and "start" fields
+            test_ds = ListDataset([{'target': x, 'start': start}
+                                   for x in custom_dataset],
+                                  freq=freq)
+        
+            test_target_values = train_target_values.copy()
+            train_target_values = [ts[:-single_prediction_length] for ts in train_df.values]
+        
+            m5_dates = [pd.Timestamp("2011-01-29", freq='1D') for _ in range(len(sales_train_validation))]
+        
+            train_ds = ListDataset([
+            {
+                FieldName.TARGET: target,
+                FieldName.START: start,
+                FieldName.FEAT_DYNAMIC_REAL: fdr,
+                FieldName.FEAT_STATIC_CAT: fsc
+            }
+            for (target, start, fdr, fsc) in zip(train_target_values,
+                                                 m5_dates,
+                                                 train_cal_features_list,
+                                                 stat_cat)
+            ], freq="D")
+        
+           data = common.ListDataset([{"start": df.index[0],
+                                    "target": df.value[:"2015-04-05 00:00:00"]}],
+                                  freq="5min")
+        
+            #ds = ListDataset([{FieldName.TARGET: df.iloc[i].values,  
+            #    FieldName.START:  pars['start']}  
+            #                   for i in range(cols)], 
+            #                   freq = pars['freq'])
+        
+            class gluonts.dataset.common.ListDataset(data_iter: Iterable[Dict[str, Any]], freq: str, one_dim_target: bool = True)[source]¶
+            Bases: gluonts.dataset.common.Dataset
+            
+            Dataset backed directly by an array of dictionaries.
+            
+            data_iter Iterable object yielding all items in the dataset. Each item should be a dictionary mapping strings to values. For instance: {“start”: “2014-09-07”, “target”: [0.1, 0.2]}.
+            freq Frequency of the observation in the time series. Must be a valid Pandas frequency.
+            one_dim_target  Whether to accept only univariate target time series.
+        
     """
     ### convert to gluont format
     from gluonts.dataset.common import ListDataset
@@ -209,10 +217,12 @@ def pandas_to_gluonts(df, pars=None) :
 
 
 def test_gluonts():    
-    """function test_gluonts
-    Args:
-    Returns:
-        
+    """function test_gluonts.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     df = pd.read_csv(path_norm("dataset/timeseries/TSLA.csv "))
     df = df.set_index("Date")
@@ -251,8 +261,10 @@ def test_gluonts():
 ###################################################################################################################
 ###################################################################################################################
 def gluonts_create_dynamic(df_dynamic, submission=True, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
+    """.
+    Doc::
+            
+                N_cat x N-timseries
     """
     v = df_dynamic.values.T if transpose else df_dynamic.values
     if submission==True:
@@ -270,8 +282,10 @@ def gluonts_create_dynamic(df_dynamic, submission=True, single_pred_length=28, s
 
 
 def gluonts_create_static(df_static, submission=1, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
+    """.
+    Doc::
+            
+                N_cat x N-timseries
     """
     static_cat_list=[]
     static_cat_cardinalities=[]
@@ -295,8 +309,10 @@ def gluonts_create_static(df_static, submission=1, single_pred_length=28, submis
 
     
 def gluonts_create_timeseries(df_timeseries, submission=1, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
+    """.
+    Doc::
+            
+                N_cat x N-timseries
     """
     #### Remove Categories colum
     train_target_values = df_timeseries.values
@@ -318,28 +334,32 @@ def gluonts_create_timeseries(df_timeseries, submission=1, single_pred_length=28
 
 #### Start Dates for each time series
 def create_startdate(date="2011-01-29", freq="1D", n_timeseries=1):
-   """function create_startdate
-   Args:
-       date:   
-       freq:   
-       n_timeseries:   
-   Returns:
-       
+   """function create_startdate.
+   Doc::
+           
+          Args:
+              date:   
+              freq:   
+              n_timeseries:   
+          Returns:
+              
    """
    start_dates_list = [pd.Timestamp(date, freq=freq) for _ in range(n_timeseries)]
    return start_dates_list
 
 
 def gluonts_create_dataset(train_timeseries_list, start_dates_list, train_dynamic_list,  train_static_list, freq="D" ) :
-    """function gluonts_create_dataset
-    Args:
-        train_timeseries_list:   
-        start_dates_list:   
-        train_dynamic_list:   
-        train_static_list:   
-        freq:   
-    Returns:
-        
+    """function gluonts_create_dataset.
+    Doc::
+            
+            Args:
+                train_timeseries_list:   
+                start_dates_list:   
+                train_dynamic_list:   
+                train_static_list:   
+                freq:   
+            Returns:
+                
     """
     from gluonts.dataset.common import load_datasets, ListDataset
     from gluonts.dataset.field_names import FieldName
@@ -360,19 +380,21 @@ def gluonts_create_dataset(train_timeseries_list, start_dates_list, train_dynami
 
 
 def pandas_to_gluonts_multiseries(df_timeseries, df_dynamic, df_static,pars={'submission':True,'single_pred_length':28,'submission_pred_length':10,'n_timeseries':1,'start_date':"2011-01-29",'freq':"1D"}) :
-    """function pandas_to_gluonts_multiseries
-    Args:
-        df_timeseries:   
-        df_dynamic:   
-        df_static:   
-        pars={'submission':   
-        'single_pred_length' ( 28 ) :   
-        'submission_pred_length' ( 10 ) :   
-        'n_timeseries' ( 1 ) :   
-        'start_date' ( "2011-01-29" ) :   
-        'freq' ( "1D"} ) :   
-    Returns:
-        
+    """function pandas_to_gluonts_multiseries.
+    Doc::
+            
+            Args:
+                df_timeseries:   
+                df_dynamic:   
+                df_static:   
+                pars={'submission':   
+                'single_pred_length' ( 28 ) :   
+                'submission_pred_length' ( 10 ) :   
+                'n_timeseries' ( 1 ) :   
+                'start_date' ( "2011-01-29" ) :   
+                'freq' ( "1D"} ) :   
+            Returns:
+                
     """
     ###         NEW CODE    ######################
     submission             = pars['submission']
@@ -407,9 +429,11 @@ def pandas_to_gluonts_multiseries(df_timeseries, df_dynamic, df_static,pars={'su
 
 
 def test_gluonts2():
-    """
-      https://github.com/arita37/mlmodels/blob/dev/mlmodels/example/benchmark_timeseries_m5.py
-
+    """.
+    Doc::
+            
+              https://github.com/arita37/mlmodels/blob/dev/mlmodels/example/benchmark_timeseries_m5.py
+        
     """
 
     ##### load data
@@ -491,21 +515,25 @@ class Preprocess_nbeats:
     """
 
     def __init__(self,backcast_length, forecast_length):
-        """ Preprocess_nbeats:__init__
-        Args:
-            backcast_length:     
-            forecast_length:     
-        Returns:
-           
+        """ Preprocess_nbeats:__init__.
+        Doc::
+                
+                    Args:
+                        backcast_length:     
+                        forecast_length:     
+                    Returns:
+                       
         """
         self.backcast_length = backcast_length
         self.forecast_length = forecast_length
     def compute(self,df):
-        """ SklearnMinMaxScaler:compute
-        Args:
-            df:     
-        Returns:
-           
+        """ SklearnMinMaxScaler:compute.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         """ Preprocess_nbeats:compute
         Args:
@@ -527,10 +555,12 @@ class Preprocess_nbeats:
         self.data = x_train_batch,y
         
     def get_data(self):
-        """ SklearnMinMaxScaler:get_data
-        Args:
-        Returns:
-           
+        """ SklearnMinMaxScaler:get_data.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         """ Preprocess_nbeats:get_data
         Args:
@@ -542,20 +572,37 @@ class Preprocess_nbeats:
 class SklearnMinMaxScaler:
 
     def __init__(self, **args):
-        """ SklearnMinMaxScaler:__init__
-        Args:
-            **args:     
-        Returns:
-           
+        """ SklearnMinMaxScaler:__init__.
+        Doc::
+                
+                    Args:
+                        **args:     
+                    Returns:
+                       
         """
         from sklearn.preprocessing import MinMaxScaler
         self.preprocessor = MinMaxScaler(**args)
 
     def compute(self,df):
+        """ SklearnMinMaxScaler:compute.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
+        """
         self.preprocessor.fit(df)
         self.data = self.preprocessor.transform(df)
         
     def get_data(self):
+        """ SklearnMinMaxScaler:get_data.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
+        """
         return self.data
 
 
@@ -564,11 +611,13 @@ class SklearnMinMaxScaler:
 ####################################################################################################
 ####################################################################################################
 def tofloat(x):
-    """function tofloat
-    Args:
-        x:   
-    Returns:
-        
+    """function tofloat.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     try :
         return float(x)
@@ -578,11 +627,13 @@ def tofloat(x):
 
 
 def pd_load(path) :
-   """function pd_load
-   Args:
-       path:   
-   Returns:
-       
+   """function pd_load.
+   Doc::
+           
+          Args:
+              path:   
+          Returns:
+              
    """
    return pd.read_csv(path_norm(path ))
 
@@ -590,34 +641,36 @@ def pd_load(path) :
 
 
 def pd_interpolate(df, cols, pars={"method": "linear", "limit_area": "inside"  }):
-    """
-        Series.interpolate(self, method='linear', axis=0, limit=None, inplace=False, limit_direction='forward', limit_area=None, downcast=None, **kwargs)[source]¶
-        Please note that only method='linear' is supported for DataFrame/Series with a MultiIndex.
-
-        ‘linear’: Ignore the index and treat the values as equally spaced. This is the only method supported on MultiIndexes.
-        ‘time’: Works on daily and higher resolution data to interpolate given length of interval.
-        ‘index’, ‘values’: use the actual numerical values of the index.
-        ‘pad’: Fill in NaNs using existing values.
-        ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’, ‘spline’, ‘barycentric’, ‘polynomial’: Passed to scipy.interpolate.interp1d. These methods use the numerical values of the index. Both ‘polynomial’ and ‘spline’ require that you also specify an order (int), e.g. df.interpolate(method='polynomial', order=5).
-        ‘krogh’, ‘piecewise_polynomial’, ‘spline’, ‘pchip’, ‘akima’: Wrappers around the SciPy interpolation methods of similar names. See Notes.
-        ‘from_derivatives’: Refers to scipy.interpolate.BPoly.from_derivatives which replaces ‘piecewise_polynomial’ interpolation method in scipy 0.18.
-
-        axis{0 or ‘index’, 1 or ‘columns’, None}, default None
-
-        limitint, optional Maximum number of consecutive NaNs to fill. Must be greater than 0.
-
-        limit_direction{‘forward’, ‘backward’, ‘both’}, default ‘forward’
-        If limit is specified, consecutive NaNs will be filled in this direction.
-
-        limit_area{None, ‘inside’, ‘outside’}, default None
-        If limit is specified, consecutive NaNs will be filled with this restriction.
-        None: No fill restriction.
-        ‘inside’: Only fill NaNs surrounded by valid values (interpolate).
-        ‘outside’: Only fill NaNs outside valid values (extrapolate).
-
-        New in version 0.23.0.
-        downcastoptional, ‘infer’ or None, defaults to None
-        Downcast dtypes if possible.
+    """.
+    Doc::
+            
+                Series.interpolate(self, method='linear', axis=0, limit=None, inplace=False, limit_direction='forward', limit_area=None, downcast=None, **kwargs)[source]¶
+                Please note that only method='linear' is supported for DataFrame/Series with a MultiIndex.
+        
+                ‘linear’: Ignore the index and treat the values as equally spaced. This is the only method supported on MultiIndexes.
+                ‘time’: Works on daily and higher resolution data to interpolate given length of interval.
+                ‘index’, ‘values’: use the actual numerical values of the index.
+                ‘pad’: Fill in NaNs using existing values.
+                ‘nearest’, ‘zero’, ‘slinear’, ‘quadratic’, ‘cubic’, ‘spline’, ‘barycentric’, ‘polynomial’: Passed to scipy.interpolate.interp1d. These methods use the numerical values of the index. Both ‘polynomial’ and ‘spline’ require that you also specify an order (int), e.g. df.interpolate(method='polynomial', order=5).
+                ‘krogh’, ‘piecewise_polynomial’, ‘spline’, ‘pchip’, ‘akima’: Wrappers around the SciPy interpolation methods of similar names. See Notes.
+                ‘from_derivatives’: Refers to scipy.interpolate.BPoly.from_derivatives which replaces ‘piecewise_polynomial’ interpolation method in scipy 0.18.
+        
+                axis{0 or ‘index’, 1 or ‘columns’, None}, default None
+        
+                limitint, optional Maximum number of consecutive NaNs to fill. Must be greater than 0.
+        
+                limit_direction{‘forward’, ‘backward’, ‘both’}, default ‘forward’
+                If limit is specified, consecutive NaNs will be filled in this direction.
+        
+                limit_area{None, ‘inside’, ‘outside’}, default None
+                If limit is specified, consecutive NaNs will be filled with this restriction.
+                None: No fill restriction.
+                ‘inside’: Only fill NaNs surrounded by valid values (interpolate).
+                ‘outside’: Only fill NaNs outside valid values (extrapolate).
+        
+                New in version 0.23.0.
+                downcastoptional, ‘infer’ or None, defaults to None
+                Downcast dtypes if possible.
     """
     for t in cols :
         df[t] = df[t].interpolate( **pars)
@@ -627,13 +680,15 @@ def pd_interpolate(df, cols, pars={"method": "linear", "limit_area": "inside"  }
 
 
 def pd_clean_v1(df, cols=None,  pars=None) :
-  """function pd_clean_v1
-  Args:
-      df:   
-      cols:   
-      pars:   
-  Returns:
-      
+  """function pd_clean_v1.
+  Doc::
+          
+        Args:
+            df:   
+            cols:   
+            pars:   
+        Returns:
+            
   """
   if pars is None :
      pars = {"method" : "linear", "axis": 0,
@@ -647,15 +702,17 @@ def pd_clean_v1(df, cols=None,  pars=None) :
 
 
 def pd_reshape(test, features, target, pred_len, m_feat) :
-    """function pd_reshape
-    Args:
-        test:   
-        features:   
-        target:   
-        pred_len:   
-        m_feat:   
-    Returns:
-        
+    """function pd_reshape.
+    Doc::
+            
+            Args:
+                test:   
+                features:   
+                target:   
+                pred_len:   
+                m_feat:   
+            Returns:
+                
     """
     x_test = test[features]
     x_test = x_test.values.reshape(-1, pred_len, m_feat)
@@ -666,13 +723,15 @@ def pd_reshape(test, features, target, pred_len, m_feat) :
 
 
 def pd_clean(df, cols=None, pars=None ):
-  """function pd_clean
-  Args:
-      df:   
-      cols:   
-      pars:   
-  Returns:
-      
+  """function pd_clean.
+  Doc::
+          
+        Args:
+            df:   
+            cols:   
+            pars:   
+        Returns:
+            
   """
   cols = df.columns if cols is None else cols
 
@@ -688,11 +747,13 @@ def pd_clean(df, cols=None, pars=None ):
 
 
 def time_train_test_split2(df , **kw):
-    """
-       train_data_path
-       test_data_path
-       predict_only 
-
+    """.
+    Doc::
+            
+               train_data_path
+               test_data_path
+               predict_only 
+        
     """
     d = kw
     pred_len = d["prediction_length"]
@@ -734,11 +795,13 @@ def time_train_test_split2(df , **kw):
 
 
 def time_train_test_split(data_pars):
-    """
-       train_data_path
-       test_data_path
-       predict_only
-
+    """.
+    Doc::
+            
+               train_data_path
+               test_data_path
+               predict_only
+        
     """
     d = data_pars
     pred_len = d["prediction_length"]
@@ -784,14 +847,16 @@ def time_train_test_split(data_pars):
 ########################################################################################################
 
 def preprocess_timeseries_m5(data_path=None, dataset_name=None, pred_length=10, item_id=None):
-    """
-
-              arg.data_path    = "dataset/timeseries/"
-        arg.dataset_name = "sales_train_validation.csv"
-        preprocess_timeseries_m5(data_path    = arg.data_path, 
-                                 dataset_name = arg.dataset_name, 
-                                 pred_length  = 100, item_id=arg.item_id) 
-
+    """.
+    Doc::
+            
+        
+                      arg.data_path    = "dataset/timeseries/"
+                arg.dataset_name = "sales_train_validation.csv"
+                preprocess_timeseries_m5(data_path    = arg.data_path, 
+                                         dataset_name = arg.dataset_name, 
+                                         pred_length  = 100, item_id=arg.item_id) 
+        
     """
     data_path = path_norm(data_path)
     df         = pd.read_csv(data_path + dataset_name)
@@ -817,10 +882,12 @@ def preprocess_timeseries_m5(data_path=None, dataset_name=None, pred_length=10, 
 
 
 def benchmark_m4() :
-    """function benchmark_m4
-    Args:
-    Returns:
-        
+    """function benchmark_m4.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # This example shows how to fit a model and evaluate its predictions.
     import pprint
@@ -890,10 +957,12 @@ def benchmark_m4() :
 
 
 def preprocess_timeseries_m5b() :
-    """function preprocess_timeseries_m5b
-    Args:
-    Returns:
-        
+    """function preprocess_timeseries_m5b.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     ########################
     # %matplotlib inline
