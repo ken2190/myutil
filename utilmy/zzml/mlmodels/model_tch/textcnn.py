@@ -45,16 +45,18 @@ MODEL_URI = get_model_uri(__file__)
 ###########################################################################################################
 ###########################################################################################################
 def _train(m, device, train_itr, optimizer, epoch, max_epoch):
-    """function _train
-    Args:
-        m:   
-        device:   
-        train_itr:   
-        optimizer:   
-        epoch:   
-        max_epoch:   
-    Returns:
-        
+    """function _train.
+    Doc::
+            
+            Args:
+                m:   
+                device:   
+                train_itr:   
+                optimizer:   
+                epoch:   
+                max_epoch:   
+            Returns:
+                
     """
     m.train()
     corrects, train_loss = 0.0,0
@@ -81,13 +83,15 @@ def _train(m, device, train_itr, optimizer, epoch, max_epoch):
     return train_loss, accuracy
     
 def _valid(m, device, test_itr):
-    """function _valid
-    Args:
-        m:   
-        device:   
-        test_itr:   
-    Returns:
-        
+    """function _valid.
+    Doc::
+            
+            Args:
+                m:   
+                device:   
+                test_itr:   
+            Returns:
+                
     """
     m.eval()
     corrects, test_loss = 0.0,0
@@ -112,10 +116,12 @@ def _valid(m, device, test_itr):
     return test_loss, accuracy
 
 def _get_device():
-    """function _get_device
-    Args:
-    Returns:
-        
+    """function _get_device.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # use GPU if it is available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -124,10 +130,12 @@ def _get_device():
 
 
 def get_config_file():
-    """function get_config_file
-    Args:
-    Returns:
-        
+    """function get_config_file.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return os.path.join(
         os_package_root_path(__file__, 1),
@@ -135,21 +143,25 @@ def get_config_file():
 
 
 def get_data_file():
-    """function get_data_file
-    Args:
-    Returns:
-        
+    """function get_data_file.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return os.path.join(
         os_package_root_path(__file__), 'dataset', 'IMDB_Dataset.txt')
 
 
 def analyze_datainfo_paths(data_info):
-    """function analyze_datainfo_paths
-    Args:
-        data_info:   
-    Returns:
-        
+    """function analyze_datainfo_paths.
+    Doc::
+            
+            Args:
+                data_info:   
+            Returns:
+                
     """
     data_path  = path_norm(data_info.get("data_path", None))
     dataset    = data_info.get("dataset", None)
@@ -188,12 +200,14 @@ def analyze_datainfo_paths(data_info):
 
 
 def split_train_valid(data_info, **args):
-    """function split_train_valid
-    Args:
-        data_info:   
-        **args:   
-    Returns:
-        
+    """function split_train_valid.
+    Doc::
+            
+            Args:
+                data_info:   
+                **args:   
+            Returns:
+                
     """
     frac= args.get("frac", 0.7)
 
@@ -214,9 +228,11 @@ def split_train_valid(data_info, **args):
 
 
 def clean_str(string):
-    """
-    Tokenization/string cleaning for all datasets except for SST.
-    Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
+    """.
+    Doc::
+            
+            Tokenization/string cleaning for all datasets except for SST.
+            Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
     """
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
     string = re.sub(r"\'s", " \'s", string)
@@ -235,12 +251,14 @@ def clean_str(string):
 
 
 def create_tabular_dataset(data_info, **args):
-    """function create_tabular_dataset
-    Args:
-        data_info:   
-        **args:   
-    Returns:
-        
+    """function create_tabular_dataset.
+    Doc::
+            
+            Args:
+                data_info:   
+                **args:   
+            Returns:
+                
     """
     disable = [
         'tagger', 'parser', 'ner', 'textcat'
@@ -308,14 +326,16 @@ def create_tabular_dataset(data_info, **args):
 
 
 def create_data_iterator(batch_size, tabular_train, tabular_valid, d):
-    """function create_data_iterator
-    Args:
-        batch_size:   
-        tabular_train:   
-        tabular_valid:   
-        d:   
-    Returns:
-        
+    """function create_data_iterator.
+    Doc::
+            
+            Args:
+                batch_size:   
+                tabular_train:   
+                tabular_valid:   
+                d:   
+            Returns:
+                
     """
     # Create the Iterator for datasets (Iterator works like dataloader)
 
@@ -331,14 +351,16 @@ def create_data_iterator(batch_size, tabular_train, tabular_valid, d):
 class TextCNN(nn.Module):
 
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None, **kwargs):
-        """ TextCNN:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            **kwargs:     
-        Returns:
-           
+        """ TextCNN:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         print(model_pars)
         kernel_wins = [int(x) for x in model_pars["kernel_height"]]
@@ -365,11 +387,13 @@ class TextCNN(nn.Module):
 
 
     def rebuild_embed(self, vocab_built):
-        """ TextCNN:rebuild_embed
-        Args:
-            vocab_built:     
-        Returns:
-           
+        """ TextCNN:rebuild_embed.
+        Doc::
+                
+                    Args:
+                        vocab_built:     
+                    Returns:
+                       
         """
         self.embed = nn.Embedding(*vocab_built.vectors.shape)
         self.embed.weight.data.copy_(vocab_built.vectors)
@@ -378,11 +402,13 @@ class TextCNN(nn.Module):
 
 
     def forward(self, x):
-        """ TextCNN:forward
-        Args:
-            x:     
-        Returns:
-           
+        """ TextCNN:forward.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         emb_x = self.embed(x)
         emb_x = emb_x.unsqueeze(1)
@@ -404,13 +430,15 @@ class TextCNN(nn.Module):
 #Model = TextCNN
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None ):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
 
         self.model_pars   = model_pars
@@ -427,16 +455,18 @@ class Model:
 
 
 def evaluate(model, session=None, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
-    """function evaluate
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kwargs:   
-    Returns:
-        
+    """function evaluate.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kwargs:   
+            Returns:
+                
     """
     # return metrics on full dataset
     device = _get_device()
@@ -450,16 +480,18 @@ def evaluate(model, session=None, data_pars=None, compute_pars=None, out_pars=No
 
 
 def fit(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
-    """function fit
-    Args:
-        model:   
-        sess:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kwargs:   
-    Returns:
-        
+    """function fit.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kwargs:   
+            Returns:
+                
     """
 
     model0        = model.model
@@ -524,13 +556,15 @@ def fit(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, **kw
 
 
 def get_dataset(data_pars=None, out_pars=None, **kwargs):
-    """function get_dataset
-    Args:
-        data_pars:   
-        out_pars:   
-        **kwargs:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                data_pars:   
+                out_pars:   
+                **kwargs:   
+            Returns:
+                
     """
     device         = _get_device()
     dataset        = data_pars['data_info'].get('dataset', None)
@@ -559,16 +593,18 @@ def get_dataset(data_pars=None, out_pars=None, **kwargs):
 
 
 def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=None, return_ytrue=1):
-    """function predict
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        return_ytrue:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                return_ytrue:   
+            Returns:
+                
     """
     data_pars = data_pars.copy()
     data_pars.update(frac=1)
@@ -596,13 +632,15 @@ def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=Non
 
 
 def save(model, session=None, save_pars=None):
-    """function save
-    Args:
-        model:   
-        session:   
-        save_pars:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                save_pars:   
+            Returns:
+                
     """
     from mlmodels.util import save_tch
     save_tch(model, save_pars= save_pars )
@@ -610,11 +648,13 @@ def save(model, session=None, save_pars=None):
 
 
 def load(load_pars= None ):
-    """function load
-    Args:
-        load_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+            Returns:
+                
     """
     from mlmodels.util import load_tch
     return load_tch(load_pars), None
@@ -623,12 +663,14 @@ def load(load_pars= None ):
 
 
 def get_params(param_pars=None, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     from jsoncomment import JsonComment ; json = JsonComment()
     pp = param_pars
@@ -685,13 +727,15 @@ def get_params(param_pars=None, **kw):
 ###########################################################################################################
 ###########################################################################################################
 def test(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
     from mlmodels.util import path_norm

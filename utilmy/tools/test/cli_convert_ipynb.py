@@ -19,11 +19,13 @@ import pypandoc as pdoc
 
 
 def scan(data_file):
-    """function scan
-    Args:
-        data_file:   
-    Returns:
-        
+    """function scan.
+    Doc::
+            
+            Args:
+                data_file:   
+            Returns:
+                
     """
     # note: I have checked os_file_listall, I think the following will be better
     files = glob.glob(data_file + "/**/*.ipynb", recursive=True)
@@ -34,13 +36,15 @@ def scan(data_file):
 
 
 def convert2python(source_files, data_file, dirout):
-    """function convert2python
-    Args:
-        source_files:   
-        data_file:   
-        dirout:   
-    Returns:
-        
+    """function convert2python.
+    Doc::
+            
+            Args:
+                source_files:   
+                data_file:   
+                dirout:   
+            Returns:
+                
     """
     dst_files = []
     for filepath in tqdm(source_files):
@@ -66,12 +70,14 @@ def convert2python(source_files, data_file, dirout):
 
 
 def check(file_list, dump=False):
-    """function check
-    Args:
-        file_list:   
-        dump:   
-    Returns:
-        
+    """function check.
+    Doc::
+            
+            Args:
+                file_list:   
+                dump:   
+            Returns:
+                
     """
     print("Checking results...")
     error_list = []
@@ -132,10 +138,12 @@ def check(file_list, dump=False):
 
 
 def load_arguments():
-    """function load_arguments
-    Args:
-    Returns:
-        
+    """function load_arguments.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import argparse
 
@@ -150,10 +158,12 @@ def load_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # if len(sys.argv) != 3:
     #    print('Syntax: %s src_ipny_fold dst_py_fold' % sys.argv[0])

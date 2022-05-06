@@ -27,13 +27,15 @@ import re
 
 
 def check_type(config):
-    """Check that the config parameters are the correct type
-
-    Args:
-        config (dict): Configuration dictionary.
-
-    Raises:
-        TypeError: If the parameters are not the correct type.
+    """Check that the config parameters are the correct type.
+    Doc::
+            
+        
+            Args:
+                config (dict): Configuration dictionary.
+        
+            Raises:
+                TypeError: If the parameters are not the correct type.
     """
 
     int_parameters = [
@@ -95,13 +97,15 @@ def check_type(config):
 
 
 def check_nn_config(f_config):
-    """Check neural networks configuration.
-
-    Args:
-        f_config (dict): Neural network configuration.
-
-    Raises:
-        ValueError: If the parameters are not correct.
+    """Check neural networks configuration..
+    Doc::
+            
+        
+            Args:
+                f_config (dict): Neural network configuration.
+        
+            Raises:
+                ValueError: If the parameters are not correct.
     """
 
     if f_config["model_type"] in ["nrms", "NRMS"]:
@@ -220,13 +224,15 @@ def check_nn_config(f_config):
 
 
 def create_hparams(flags):
-    """Create the model hyperparameters.
-
-    Args:
-        flags (dict): Dictionary with the model requirements.
-
-    Returns:
-        object: Hyperparameter object in TF (tf.contrib.training.HParams).
+    """Create the model hyperparameters..
+    Doc::
+            
+        
+            Args:
+                flags (dict): Dictionary with the model requirements.
+        
+            Returns:
+                object: Hyperparameter object in TF (tf.contrib.training.HParams).
     """
     return tf.contrib.training.HParams(
         # data
@@ -278,13 +284,15 @@ def create_hparams(flags):
 
 
 def prepare_hparams(yaml_file=None, **kwargs):
-    """Prepare the model hyperparameters and check that all have the correct value.
-
-    Args:
-        yaml_file (str): YAML file as configuration.
-
-    Returns:
-        object: Hyperparameter object in TF (tf.contrib.training.HParams).
+    """Prepare the model hyperparameters and check that all have the correct value..
+    Doc::
+            
+        
+            Args:
+                yaml_file (str): YAML file as configuration.
+        
+            Returns:
+                object: Hyperparameter object in TF (tf.contrib.training.HParams).
     """
     if yaml_file is not None:
         config = load_yaml(yaml_file)
@@ -299,12 +307,14 @@ def prepare_hparams(yaml_file=None, **kwargs):
 
 
 def word_tokenize(sent):
-    """Split sentence into word list using regex.
-    Args:
-        sent (str): Input sentence
-
-    Return:
-        list: word list
+    """Split sentence into word list using regex..
+    Doc::
+            
+            Args:
+                sent (str): Input sentence
+        
+            Return:
+                list: word list
     """
     pat = re.compile(r"[\w]+|[.,!?;|]")
     if isinstance(sent, str):
@@ -314,15 +324,17 @@ def word_tokenize(sent):
 
 
 def newsample(news, ratio):
-    """Sample ratio samples from news list.
-    If length of news is less than ratio, pad zeros.
-
-    Args:
-        news (list): input news list
-        ratio (int): sample number
-
-    Returns:
-        list: output of sample list.
+    """Sample ratio samples from news list..
+    Doc::
+            
+            If length of news is less than ratio, pad zeros.
+        
+            Args:
+                news (list): input news list
+                ratio (int): sample number
+        
+            Returns:
+                list: output of sample list.
     """
     if ratio > len(news):
         return news + [0] * (ratio - len(news))
@@ -331,13 +343,15 @@ def newsample(news, ratio):
 
 
 def get_mind_data_set(type):
-    """Get MIND dataset address
-
-    Args:
-        type (str): type of mind dataset, must be in ['large', 'small', 'demo']
-
-    Returns:
-        list: data url and train valid dataset name
+    """Get MIND dataset address.
+    Doc::
+            
+        
+            Args:
+                type (str): type of mind dataset, must be in ['large', 'small', 'demo']
+        
+            Returns:
+                list: data url and train valid dataset name
     """
     assert type in ["large", "small", "demo"]
 

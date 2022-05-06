@@ -18,13 +18,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -77,11 +79,13 @@ cols_input_type_1 = {
 
 ####################################################################################
 def airline_lightgbm(path_model_out=""):
-    """function airline_lightgbm
-    Args:
-        path_model_out:   
-    Returns:
-        
+    """function airline_lightgbm.
+    Doc::
+            
+            Args:
+                path_model_out:   
+            Returns:
+                
     """
     data_name = "airline"  # in data/input/
     # 'LGBMClassifier_optuna' ACTUAL Class name for model_sklearn.py
@@ -189,10 +193,12 @@ from core_run import train
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 

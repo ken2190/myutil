@@ -6,9 +6,11 @@ from src.functions.GetFamiliesFromUserAgent import getall_families_from_useragen
 
 @pytest.mark.usefixtures("spark_session")
 def test_getall_families_from_useragent(spark_session: SparkSession):
-    """
-    This function will verify getall_families_from_useragent function
-    @param spark_session:
+    """.
+    Doc::
+            
+            This function will verify getall_families_from_useragent function
+            @param spark_session:
     """
     # generate static dataframe
     test_df = spark_session.createDataFrame(

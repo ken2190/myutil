@@ -7,10 +7,12 @@ TEST_CONFIG_FILE = 'config/config_test_unit.yaml'
 
 
 def assert_equal_spark_df_sorted(expected_sorted_df: DataFrame, actual_sorted_df: DataFrame, df_name: str):
-    """ Compares two spark dataframe based on values assuming its already sorted
-    @param expected_sorted_df: Expected spark dataframe sorted
-    @param actual_sorted_df: Actual spark output dataframe sorted
-    @param df_name: Dataframe name for logging purpose
+    """ Compares two spark dataframe based on values assuming its already sorted.
+    Doc::
+            
+            @param expected_sorted_df: Expected spark dataframe sorted
+            @param actual_sorted_df: Actual spark output dataframe sorted
+            @param df_name: Dataframe name for logging purpose
     """
     missing_rows_df = expected_sorted_df.subtract(actual_sorted_df)
     additional_rows_df = actual_sorted_df.subtract(expected_sorted_df)
@@ -29,10 +31,12 @@ def assert_equal_spark_df_sorted(expected_sorted_df: DataFrame, actual_sorted_df
 
 
 def assert_equal_spark_df(expected_df: DataFrame, actual_df: DataFrame, df_name: str):
-    """ Compares two spark dataframe based on values
-    @param expected_df: Expected spark dataframe
-    @param actual_df: Actual spark output dataframe
-    @param df_name: Dataframe name for logging purpose
+    """ Compares two spark dataframe based on values.
+    Doc::
+            
+            @param expected_df: Expected spark dataframe
+            @param actual_df: Actual spark output dataframe
+            @param df_name: Dataframe name for logging purpose
     """
     expected_cols = expected_df.columns
     expected_sorted_df = expected_df.sort(expected_cols)
@@ -41,10 +45,12 @@ def assert_equal_spark_df(expected_df: DataFrame, actual_df: DataFrame, df_name:
 
 
 def assert_equal_spark_df_schema(expected_schema: [tuple], actual_schema: [tuple], df_name: str):
-    """ Compares schemas (as list of tuples (name, datatype)
-    @param expected_schema: Expected spark dataframe schema as list of tuple (name, data type)
-    @param actual_schema: Actual output spark dataframe schema as list of tuple (name, data type)
-    @param df_name: Dataframe name for logging purpose
+    """ Compares schemas (as list of tuples (name, datatype).
+    Doc::
+            
+            @param expected_schema: Expected spark dataframe schema as list of tuple (name, data type)
+            @param actual_schema: Actual output spark dataframe schema as list of tuple (name, data type)
+            @param df_name: Dataframe name for logging purpose
     """
     expected_schema.sort()
     actual_schema.sort()

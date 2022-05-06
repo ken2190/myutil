@@ -27,20 +27,24 @@ except :
 verbosity =2
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 :
       print(*s, flush=True)
@@ -50,12 +54,14 @@ def log2(*s):
 global model, session
 
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
@@ -65,17 +71,19 @@ def init(*kw, **kwargs):
 cols_ref_formodel = ['cols_cross_input', 'cols_deep_input', 'cols_deep_input']
 
 def Modelcustom(n_wide_cross, n_wide,n_deep, n_feat=8, m_EMBEDDING=10, loss='mse', metric = 'mean_squared_error'):
-        """function Modelcustom
-        Args:
-            n_wide_cross:   
-            n_wide:   
-            n_deep:   
-            n_feat:   
-            m_EMBEDDING:   
-            loss:   
-            metric :   
-        Returns:
-            
+        """function Modelcustom.
+        Doc::
+                
+                    Args:
+                        n_wide_cross:   
+                        n_wide:   
+                        n_deep:   
+                        n_feat:   
+                        m_EMBEDDING:   
+                        loss:   
+                        metric :   
+                    Returns:
+                        
         """
 
         #### Wide model with the functional API
@@ -113,11 +121,13 @@ def Modelcustom(n_wide_cross, n_wide,n_deep, n_feat=8, m_EMBEDDING=10, loss='mse
 
 
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
-    """  Split into Tuples to feed  Xyuple = (df1, df2, df3)
-    Xtrain:
-    cols_type_received:
-    cols_ref:
-    :return:
+    """  Split into Tuples to feed  Xyuple = (df1, df2, df3).
+    Doc::
+            
+            Xtrain:
+            cols_type_received:
+            cols_ref:
+            :return:
     """
     if len(cols_ref) < 1 :
         return Xtrain
@@ -135,8 +145,10 @@ def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
 
 
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      return tuple of dataframes
+    """.
+    Doc::
+            
+              return tuple of dataframes
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -182,10 +194,12 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 ########################################################################################################
 ########################### Using Sparse Tensor  #######################################################
 def ModelCustom2():
-    """function ModelCustom2
-    Args:
-    Returns:
-        
+    """function ModelCustom2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # Build a wide-and-deep model.
     def wide_and_deep_classifier(inputs, linear_feature_columns, dnn_feature_columns, dnn_hidden_units):
@@ -215,12 +229,14 @@ def ModelCustom2():
 
 
 def input_template_feed_keras(Xtrain, cols_type_received, cols_ref, **kw):
-    """
-       Create sparse data struccture in KERAS  To plug with MODEL:
-       No data, just virtual data
-    https://github.com/GoogleCloudPlatform/data-science-on-gcp/blob/master/09_cloudml/flights_model_tf2.ipynb
-
-    :return:
+    """.
+    Doc::
+            
+               Create sparse data struccture in KERAS  To plug with MODEL:
+               No data, just virtual data
+            https://github.com/GoogleCloudPlatform/data-science-on-gcp/blob/master/09_cloudml/flights_model_tf2.ipynb
+        
+            :return:
     """
     from tensorflow.feature_column import (categorical_column_with_hash_bucket,
         numeric_column, embedding_column, bucketized_column, crossed_column, indicator_column)
@@ -271,9 +287,11 @@ def input_template_feed_keras(Xtrain, cols_type_received, cols_ref, **kw):
 
 
 def get_dataset_tuple_keras(pattern, batch_size, mode=tf.estimator.ModeKeys.TRAIN, truncate=None):
-    """  ACTUAL Data reading :
-           Dataframe ---> TF Dataset  --> feed Keras model
-
+    """  ACTUAL Data reading :.
+    Doc::
+            
+                   Dataframe ---> TF Dataset  --> feed Keras model
+        
     """
     import os, json, math, shutil
     import tensorflow as tf
@@ -325,8 +343,10 @@ def get_dataset_tuple_keras(pattern, batch_size, mode=tf.estimator.ModeKeys.TRAI
 
 
 def get_dataset2(data_pars=None, task_type="train", **kw):
-    """
-      return tuple of Tensoflow
+    """.
+    Doc::
+            
+              return tuple of Tensoflow
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -371,13 +391,15 @@ def get_dataset2(data_pars=None, task_type="train", **kw):
 
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
         self.history = None
@@ -403,7 +425,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -422,15 +446,17 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars=None, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     if Xpred is None:
@@ -449,22 +475,26 @@ def predict(Xpred=None, data_pars=None, compute_pars={}, out_pars={}, **kw):
 
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     import dill as pickle, copy
     global model, session
@@ -484,11 +514,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import dill as pickle
@@ -505,11 +537,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -524,13 +558,15 @@ def load_info(path=""):
 ####################################################################################################
 ############ Do not change #########################################################################
 def test(config=''):
-    """
-        Group of columns for the input model
-           cols_input_group = [ ]
-          for cols in cols_input_group,
-
-    config:
-    :return:
+    """.
+    Doc::
+            
+                Group of columns for the input model
+                   cols_input_group = [ ]
+                  for cols in cols_input_group,
+        
+            config:
+            :return:
     """
 
     X = pd.DataFrame( np.random.rand(100,30), columns= [ 'col_' +str(i) for i in range(30)] )
@@ -597,13 +633,15 @@ def test(config=''):
 
 
 def test_helper(model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model, session
     root  = "ztmp/"
@@ -659,10 +697,12 @@ if __name__ == "__main__":
 
 
 def Modelsparse2():
-    """
-    https://github.com/GoogleCloudPlatform/data-science-on-gcp/blob/master/09_cloudml/flights_model_tf2.ipynb
-
-    :return:
+    """.
+    Doc::
+            
+            https://github.com/GoogleCloudPlatform/data-science-on-gcp/blob/master/09_cloudml/flights_model_tf2.ipynb
+        
+            :return:
     """
     import tensorflow as tf
     NBUCKETS = 10

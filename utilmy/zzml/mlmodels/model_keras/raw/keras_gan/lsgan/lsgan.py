@@ -16,10 +16,12 @@ import numpy as np
 
 class LSGAN():
     def __init__(self):
-        """ LSGAN:__init__
-        Args:
-        Returns:
-           
+        """ LSGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -55,10 +57,12 @@ class LSGAN():
         self.combined.compile(loss='mse', optimizer=optimizer)
 
     def build_generator(self):
-        """ LSGAN:build_generator
-        Args:
-        Returns:
-           
+        """ LSGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -83,10 +87,12 @@ class LSGAN():
         return Model(noise, img)
 
     def build_discriminator(self):
-        """ LSGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ LSGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -106,13 +112,15 @@ class LSGAN():
         return Model(img, validity)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ LSGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ LSGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -162,11 +170,13 @@ class LSGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ LSGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ LSGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))

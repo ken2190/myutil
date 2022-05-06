@@ -146,12 +146,14 @@ packages = ["mlmodels"] + ["mlmodels." + p for p in find_packages("mlmodels")]
 
 #########################################################################################
 def os_package_root_path(add_path="",n=0):
-  """function os_package_root_path
-  Args:
-      add_path:   
-      n:   
-  Returns:
-      
+  """function os_package_root_path.
+  Doc::
+          
+        Args:
+            add_path:   
+            n:   
+        Returns:
+            
   """
   from pathlib import Path
   add_path = os.path.join(Path(__file__).parent.absolute(), add_path)
@@ -160,12 +162,14 @@ def os_package_root_path(add_path="",n=0):
 
 
 def get_recursive_files(folderPath, ext='/*model*/*.py'):
-  """function get_recursive_files
-  Args:
-      folderPath:   
-      ext:   
-  Returns:
-      
+  """function get_recursive_files.
+  Doc::
+          
+        Args:
+            folderPath:   
+            ext:   
+        Returns:
+            
   """
   import glob
   files = glob.glob( folderPath + ext, recursive=True) 

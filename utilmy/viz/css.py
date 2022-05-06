@@ -45,11 +45,13 @@ grey = """
         }
 """
 def fontsize_css(size):
-    """function fontsize_css
-    Args:
-        size:   
-    Returns:
-        
+    """function fontsize_css.
+    Doc::
+            
+            Args:
+                size:   
+            Returns:
+                
     """
     css_8px = base + """
             body,table th,table td,text,

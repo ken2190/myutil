@@ -31,12 +31,14 @@ except ImportError:
 )
 @pytest.mark.gpu
 def test_prepare_hparams(deeprec_resource_path, must_exist_attributes):
-    """function test_prepare_hparams
-    Args:
-        deeprec_resource_path:   
-        must_exist_attributes:   
-    Returns:
-        
+    """function test_prepare_hparams.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+                must_exist_attributes:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "xdeepfm")
     yaml_file = os.path.join(data_path, "xDeepFM.yaml")
@@ -52,11 +54,13 @@ def test_prepare_hparams(deeprec_resource_path, must_exist_attributes):
 
 @pytest.mark.gpu
 def test_load_yaml_file(deeprec_resource_path):
-    """function test_load_yaml_file
-    Args:
-        deeprec_resource_path:   
-    Returns:
-        
+    """function test_load_yaml_file.
+    Doc::
+            
+            Args:
+                deeprec_resource_path:   
+            Returns:
+                
     """
     data_path = os.path.join(deeprec_resource_path, "xdeepfm")
     yaml_file = os.path.join(data_path, "xDeepFM.yaml")

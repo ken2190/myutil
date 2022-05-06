@@ -3,18 +3,22 @@ import time
 from tests.goodnight import sleep_five_seconds
 
 def sleep_one_seconds():
-    """function sleep_one_seconds
-    Args:
-    Returns:
-        
+    """function sleep_one_seconds.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     time.sleep(1)
 
 def sleep_two_seconds():
-    """function sleep_two_seconds
-    Args:
-    Returns:
-        
+    """function sleep_two_seconds.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     time.sleep(2)
 

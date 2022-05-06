@@ -120,10 +120,17 @@ jobs:
         
 
 
-    ################################################################
-    - name: test_deeplearning
-      run: python test.py test_deeplearning_torch
 
+    ################################################################
+    - name: test_images
+      continue-on-error: true    
+      run: |
+          python test.py test_images
+
+    - name: test_deeplearning
+      continue-on-error: true    
+      run: |
+          python test.py test_deeplearning_torch
 
     - name: test_recsys  
       continue-on-error: true
@@ -136,8 +143,8 @@ jobs:
     - name: test_docs_cli 
       run: python test.py test_docs_cli
     
-    - name: test_text
-      run: python test.py test_text
+    - name: test_nlp
+      run: python test.py test_nlp
 
     - name: test_distributed
       run: python test.py test_distributed
@@ -173,6 +180,8 @@ jobs:
 
     - name: test_parallel  
       run:  python test.py   test_parallel
+
+
 
 
 

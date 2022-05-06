@@ -5,10 +5,12 @@ from utilmy.stats.hypothesis._lib import _build_des_mat
 
 
 def test_array():
-    """function test_array
-    Args:
-    Returns:
-        
+    """function test_array.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     d = np.array([[1., 1.11, 2.569, 3.58, 0.76],
                   [1., 1.19, 2.928, 3.75, 0.821],
@@ -63,10 +65,12 @@ def test_array():
 
 
 def test_build_design_matrix():
-    """function test_build_design_matrix
-    Args:
-    Returns:
-        
+    """function test_build_design_matrix.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     dat = test_array()
     dat_df = pd.DataFrame(dat)
@@ -94,10 +98,12 @@ def test_build_design_matrix():
 
 
 def test_build_matrix():
-    """function test_build_matrix
-    Args:
-    Returns:
-        
+    """function test_build_matrix.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     arr1 = [4, 4, 5, 5, 3, 2, 5]
     arr2 = [2, 3, 3, 3, 3, 3, 3]

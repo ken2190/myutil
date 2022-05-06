@@ -75,14 +75,16 @@ from sklearn.metrics import r2_score
 
 
 def r_score(y_true, y_pred, sample_weight=None, multioutput=None):
-    """function r_score
-    Args:
-        y_true:   
-        y_pred:   
-        sample_weight:   
-        multioutput:   
-    Returns:
-        
+    """function r_score.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+                sample_weight:   
+                multioutput:   
+            Returns:
+                
     """
     r2 = r2_score(y_true, y_pred, sample_weight=sample_weight,    multioutput=multioutput)
     r = (np.sign(r2)*np.sqrt(np.abs(r2)))
@@ -94,13 +96,15 @@ def r_score(y_true, y_pred, sample_weight=None, multioutput=None):
 
 class Observation(object):
     def __init__(self, train, target, features):
-        """ Observation:__init__
-        Args:
-            train:     
-            target:     
-            features:     
-        Returns:
-           
+        """ Observation:__init__.
+        Doc::
+                
+                    Args:
+                        train:     
+                        target:     
+                        features:     
+                    Returns:
+                       
         """
         self.train = train
         self.target = target
@@ -109,10 +113,12 @@ class Observation(object):
 
 class Environment(object):
     def __init__(self):
-        """ Environment:__init__
-        Args:
-        Returns:
-           
+        """ Environment:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         with pd.HDFStore("F:/_data/kaggle/twosigma/train.h5", "r") as hfdata:
             self.timestamp = 0
@@ -135,10 +141,12 @@ class Environment(object):
             self.temp_test_y = None
 
     def reset(self):
-        """ Environment:reset
-        Args:
-        Returns:
-           
+        """ Environment:reset.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         timesplit = self.unique_timestamp[self.unique_idx]
 
@@ -160,11 +168,13 @@ class Environment(object):
         return observation
 
     def step(self, target):
-        """ Environment:step
-        Args:
-            target:     
-        Returns:
-           
+        """ Environment:step.
+        Doc::
+                
+                    Args:
+                        target:     
+                    Returns:
+                       
         """
         timesplit = self.unique_timestamp[self.unique_idx-1]
         # Since full and target have a different index we need
@@ -202,18 +212,22 @@ class Environment(object):
         return observation, reward, done, info
 
     def __str__(self):
-        """ Environment:__str__
-        Args:
-        Returns:
-           
+        """ Environment:__str__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return "Environment()"
 
 
 def make():
-    """function make
-    Args:
-    Returns:
-        
+    """function make.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return Environment()

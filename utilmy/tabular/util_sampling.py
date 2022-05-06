@@ -8,10 +8,12 @@ Various samplers
 """
 
 def test():
-  """function test
-  Args:
-  Returns:
-      
+  """function test.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   def matrix_source(): 
       for i in range(0, 1000, 10): 
@@ -28,10 +30,12 @@ def test():
     
 
 def reservoir_sampling(src, nsample, temp_fac=1.5, rs=None): 
-    """  When having a inifinte stream of data
-    samples nsample vectors from an iterator src that yields matrices
-    nsample * temp_fac is the max size of the temporary buffer.
-    rs is a RandomState object   
+    """  When having a inifinte stream of data.
+    Doc::
+            
+            samples nsample vectors from an iterator src that yields matrices
+            nsample * temp_fac is the max size of the temporary buffer.
+            rs is a RandomState object   
     """
     if rs is None: 
         rs = np.random

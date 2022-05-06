@@ -113,57 +113,72 @@ logger_setup(log_config_path=LOG_CONFIG_PATH, log_template=LOG_TEMPLATE)
 ##### Alias ###########################################################################
 
 def log(*s):
-    """function log
+    """function log.
+    Doc::
+            
     """
     logger.opt(depth=1, lazy=True).info(",".join([str(t) for t in s]))
 
 
 def log2(*s):
-    """function log2
+    """function log2.
+    Doc::
+            
     """
     logger.opt(depth=1, lazy=True).debug(",".join([str(t) for t in s]))
 
 
 def log3(*s):  ### Debuggine level 2
-    """function log3
+    """function log3.
+    Doc::
+            
     """
 
-
 def logw(*s):
-    """function logw
-        
+    """function logw.
+    Doc::
+            
+                
     """
     logger.opt(depth=1, lazy=True).warning(",".join([str(t) for t in s]))
 
 
 def logc(*s):
-    """function logc
-    Args:
-        *s:   
-    Returns:
-        
+    """function logc.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.opt(depth=1, lazy=True).critical(",".join([str(t) for t in s]))
 
 
 def loge(*s):
-    """function loge
+    """function loge.
+    Doc::
+            
     """
     logger.opt(depth=1, lazy=True).exception(",".join([str(t) for t in s]))
 
 
 def logr(*s):
-    """function logr
+    """function logr.
+    Doc::
+            
     """
     logger.opt(depth=1, lazy=True).error(",".join([str(t) for t in s]))
 
 
 #########################################################################################
 def test():
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log3("debug2")
     log2("debug")
@@ -182,8 +197,10 @@ def test():
 #######################################################################################
 #######################################################################################
 def z_logger_stdout_override():
-    """ Redirect stdout --> logger
-    Returns:
+    """ Redirect stdout --> logger.
+    Doc::
+            
+            Returns:
     """
     import contextlib
     import sys
@@ -207,10 +224,12 @@ def z_logger_stdout_override():
 
 
 def z_logger_custom_1():
-    """function z_logger_custom_1
-    Args:
-    Returns:
-        
+    """function z_logger_custom_1.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import logging
     import sys

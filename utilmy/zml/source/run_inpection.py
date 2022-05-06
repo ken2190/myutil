@@ -18,13 +18,15 @@ from util_feature import   load, save_list, load_function_uri, save
 from run_preprocess import  preprocess, preprocess_load
 
 def log(*s, n=0, m=0):
-    """function log
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sspace = "#" * n
     sjump = "\n" * m
@@ -33,13 +35,15 @@ def log(*s, n=0, m=0):
 
 
 def save_features(df, name, path):
-    """function save_features
-    Args:
-        df:   
-        name:   
-        path:   
-    Returns:
-        
+    """function save_features.
+    Doc::
+            
+            Args:
+                df:   
+                name:   
+                path:   
+            Returns:
+                
     """
     if path is not None :
        os.makedirs( f"{path}/{name}", exist_ok=True)
@@ -47,13 +51,15 @@ def save_features(df, name, path):
 
 
 def model_dict_load(model_dict, config_path, config_name, verbose=True):
-    """
-       load the model dict from the python config file.
-    model_dict:
-    config_path:
-    config_name:
-    verbose:
-    :return:
+    """.
+    Doc::
+            
+               load the model dict from the python config file.
+            model_dict:
+            config_path:
+            config_name:
+            verbose:
+            :return:
     """
     if model_dict is None :
        log("#### Model Params Dynamic loading  ###############################################")

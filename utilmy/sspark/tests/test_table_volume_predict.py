@@ -9,10 +9,12 @@ from tests.test_common import (assert_equal_spark_df, assert_equal_spark_df_sche
 
 @pytest.mark.usefixtures("spark_session", "config")
 def test_preprocess(spark_session: SparkSession, config: dict):
-    """
-    This function will verify functionality of preprocess of table_predict_volume
-    @param spark_session:
-    @param config:
+    """.
+    Doc::
+            
+            This function will verify functionality of preprocess of table_predict_volume
+            @param spark_session:
+            @param config:
     """
     ####### Act
     actual_df = preprocess(spark_session, config)

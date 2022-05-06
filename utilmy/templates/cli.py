@@ -3,9 +3,11 @@ import os
 
 
 def run_cli():
-    """ USage
-    
-    template  copy  --repo_dir utilmy/
+    """ USage.
+    Doc::
+            
+            
+            template  copy  --repo_dir utilmy/
     """
     p   = argparse.ArgumentParser()
     add = p.add_argument
@@ -24,10 +26,12 @@ def run_cli():
 
 
 def template_show():
-    """function template_show
-    Args:
-    Returns:
-        
+    """function template_show.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import glob
     this_repo = os.path.abspath(__file__).replace("\\", "/")
@@ -36,12 +40,14 @@ def template_show():
 
 
 def template_copy(name, dirout):
-    """function template_copy
-    Args:
-        name:   
-        dirout:   
-    Returns:
-        
+    """function template_copy.
+    Doc::
+            
+            Args:
+                name:   
+                dirout:   
+            Returns:
+                
     """
     from utilmy import os_copy
     import glob

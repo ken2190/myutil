@@ -43,13 +43,15 @@ MODEL_URI = get_model_uri(__file__)
 ####################################################################################################
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         ### Model Structure        ################################
         if model_pars is None:
@@ -183,7 +185,9 @@ class Model:
 
 
 def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     batch_size = compute_pars['batch_size']
     epochs     = compute_pars['epochs']
@@ -215,8 +219,10 @@ def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def evaluate(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     ddict = {}
 
@@ -224,16 +230,18 @@ def evaluate(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        sess:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     ##### Get Data ###############################################
     sentence1 = ['where can i find a book on machine learning']
@@ -257,22 +265,26 @@ def predict(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, 
 
 
 def reset_model():
-    """function reset_model
-    Args:
-    Returns:
-        
+    """function reset_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
 
 def save(model=None, session=None, save_pars={}):
-    """function save
-    Args:
-        model:   
-        session:   
-        save_pars:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                save_pars:   
+            Returns:
+                
     """
     from mlmodels.util import save_tf
     print(save_pars)
@@ -280,11 +292,13 @@ def save(model=None, session=None, save_pars={}):
 
 
 def load(load_pars={}):
-    """function load
-    Args:
-        load_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+            Returns:
+                
     """
     from mlmodels.util import load_tf
     print(load_pars)
@@ -299,8 +313,10 @@ def load(load_pars={}):
 
 ####################################################################################################
 def get_dataset(data_pars=None, **kw):
-    """
-      JSON data_pars to get dataset
+    """.
+    Doc::
+            
+              JSON data_pars to get dataset
     """
 
     texts = []
@@ -327,12 +343,14 @@ def get_dataset(data_pars=None, **kw):
 
 
 def get_params(param_pars={}, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     pp = param_pars
     choice = pp['choice']
@@ -362,13 +380,15 @@ def get_params(param_pars={}, **kw):
 ################################################################################################
 ########## Tests are normalized Do not Change ##################################################
 def test(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
 

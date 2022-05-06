@@ -32,10 +32,12 @@ import keras.backend as K
 
 class SRGAN():
     def __init__(self):
-        """ SRGAN:__init__
-        Args:
-        Returns:
-           
+        """ SRGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # Input shape
         self.channels = 3
@@ -104,9 +106,11 @@ class SRGAN():
 
 
     def build_vgg(self):
-        """
-        Builds a pre-trained VGG19 model that outputs image features extracted at the
-        third block of the model
+        """.
+        Doc::
+                
+                    Builds a pre-trained VGG19 model that outputs image features extracted at the
+                    third block of the model
         """
         vgg = VGG19(weights="imagenet")
         # Set outputs to outputs of last conv. layer in block 3
@@ -121,10 +125,12 @@ class SRGAN():
         return Model(img, img_features)
 
     def build_generator(self):
-        """ SRGAN:build_generator
-        Args:
-        Returns:
-           
+        """ SRGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         def residual_block(layer_input, filters):
@@ -171,10 +177,12 @@ class SRGAN():
         return Model(img_lr, gen_hr)
 
     def build_discriminator(self):
-        """ SRGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ SRGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         def d_block(layer_input, filters, strides=1, bn=True):
@@ -204,13 +212,15 @@ class SRGAN():
         return Model(d0, validity)
 
     def train(self, epochs, batch_size=1, sample_interval=50):
-        """ SRGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ SRGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         start_time = datetime.datetime.now()
@@ -260,11 +270,13 @@ class SRGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ SRGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ SRGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         os.makedirs('images/%s' % self.dataset_name, exist_ok=True)
         r, c = 2, 2

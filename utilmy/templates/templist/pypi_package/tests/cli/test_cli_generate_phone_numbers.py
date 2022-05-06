@@ -12,13 +12,15 @@ from mygenerator.validate import image_padding_load
 
 # @pytest.mark.parametrize("size", (1, 5))
 def test_run_cli(tmp_path):
-    """
-      TODO: Use fixtures for hanling all cases
-    Args:
-        tmp_path:
-
-    Returns:
-
+    """.
+    Doc::
+            
+              TODO: Use fixtures for hanling all cases
+            Args:
+                tmp_path:
+        
+            Returns:
+        
     """
     output_path = tmp_path / "output"
     output_path.mkdir()

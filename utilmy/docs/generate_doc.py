@@ -20,19 +20,21 @@ import fire
 
 
 def markdown_create_function(uri, name, type, args_name, args_type, args_value, start_line, list_docs, prefix=""):
-    """function markdown_create_function
-    Args:
-        uri:   
-        name:   
-        type:   
-        args_name:   
-        args_type:   
-        args_value:   
-        start_line:   
-        list_docs:   
-        prefix:   
-    Returns:
-        
+    """function markdown_create_function.
+    Doc::
+            
+            Args:
+                uri:   
+                name:   
+                type:   
+                args_name:   
+                args_type:   
+                args_value:   
+                start_line:   
+                list_docs:   
+                prefix:   
+            Returns:
+                
     """
     rsp = '''
     <details>
@@ -70,12 +72,14 @@ def markdown_create_function(uri, name, type, args_name, args_type, args_value, 
 
 
 def markdown_create_file(list_info, prefix=''):
-    """function markdown_create_file
-    Args:
-        list_info:   
-        prefix:   
-    Returns:
-        
+    """function markdown_create_file.
+    Doc::
+            
+            Args:
+                list_info:   
+                prefix:   
+            Returns:
+                
     """
     rsp = '''
 <details>
@@ -98,12 +102,14 @@ def markdown_create_file(list_info, prefix=''):
 
 
 def markdown_createall(dfi, prefix=""):
-    """function markdown_createall
-    Args:
-        dfi:   
-        prefix:   
-    Returns:
-        
+    """function markdown_createall.
+    Doc::
+            
+            Args:
+                dfi:   
+                prefix:   
+            Returns:
+                
     """
     result = [markdown_create_function(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], prefix) for row in zip(
                dfi['uri'], dfi['name'], dfi['type'], dfi['arg_name'], 
@@ -117,16 +123,18 @@ def markdown_createall(dfi, prefix=""):
 #############################################################################
 ############ TABLE
 def table_create_row(uri, name, type, start_line, list_funtions, prefix):
-    """function table_create_row
-    Args:
-        uri:   
-        name:   
-        type:   
-        start_line:   
-        list_funtions:   
-        prefix:   
-    Returns:
-        
+    """function table_create_row.
+    Doc::
+            
+            Args:
+                uri:   
+                name:   
+                type:   
+                start_line:   
+                list_funtions:   
+                prefix:   
+            Returns:
+                
     """
     rsp  = "| <a name='{}' href='{}'>{}</a> | {} | <a href='{}#L{}'>{}</a> | {} |"
     list_funtions = literal_eval(list_funtions)
@@ -139,11 +147,13 @@ def table_create_row(uri, name, type, start_line, list_funtions, prefix):
 
 
 def table_all_row(list_rows):
-    """function table_all_row
-    Args:
-        list_rows:   
-    Returns:
-        
+    """function table_all_row.
+    Doc::
+            
+            Args:
+                list_rows:   
+            Returns:
+                
     """
     rsp = '''
 | file | type | name  | List functions |
@@ -155,12 +165,14 @@ def table_all_row(list_rows):
 
 
 def table_create(dfi, prefix):
-    """function table_create
-    Args:
-        dfi:   
-        prefix:   
-    Returns:
-        
+    """function table_create.
+    Doc::
+            
+            Args:
+                dfi:   
+                prefix:   
+            Returns:
+                
     """
     list_rows = [table_create_row(row[0], row[1], row[2], row[3], row[4], prefix)
                  for row in zip(dfi['uri'], dfi['name'], dfi['type'], dfi['line'], dfi['list_functions'])]
@@ -170,9 +182,11 @@ def table_create(dfi, prefix):
 
 ################################################################################
 def run_markdown(repo_stat_file, output='docs/doc_main.md', prefix="https://github.com/user/repo/tree/a"):
-    """ 
-        python generate_doc.py run_all <in_file> <out_file> <prefix>
-    Returns:
+    """ .
+    Doc::
+            
+                python generate_doc.py run_all <in_file> <out_file> <prefix>
+            Returns:
     """
     print(f"Start generate readme file {output} ... ")
     print(f'Prefix: {prefix}')
@@ -187,9 +201,11 @@ def run_markdown(repo_stat_file, output='docs/doc_main.md', prefix="https://gith
 
 
 def run_table(repo_stat_file, output='docs/doc_table.md', prefix="https://github.com/user/repo/tree/a"):
-    """ 
-        python generate_doc.py run_table <in_file> <out_file> <prefix>
-    Returns:
+    """ .
+    Doc::
+            
+                python generate_doc.py run_table <in_file> <out_file> <prefix>
+            Returns:
     """
     print(f"Start generate readme file {output} ... ")
     print(f'Prefix: {prefix}')
@@ -205,10 +221,12 @@ def run_table(repo_stat_file, output='docs/doc_table.md', prefix="https://github
 
 ################################################################################    
 def test():
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     input_file = 'parser/output/output_repo.csv'
     output_file = "test.md"

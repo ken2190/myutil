@@ -13,11 +13,13 @@ import tensorflow as tf
 
 
 def load_pkl(path):
-    """function load_pkl
-    Args:
-        path:   
-    Returns:
-        
+    """function load_pkl.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     with open(path) as f:
         obj = cPickle.load(f)
@@ -26,15 +28,17 @@ def load_pkl(path):
 
 class TLSTM(object):
     def init_weights(self, input_dim, output_dim, name, std=0.1, reg=None):
-        """ TLSTM:init_weights
-        Args:
-            input_dim:     
-            output_dim:     
-            name:     
-            std:     
-            reg:     
-        Returns:
-           
+        """ TLSTM:init_weights.
+        Doc::
+                
+                    Args:
+                        input_dim:     
+                        output_dim:     
+                        name:     
+                        std:     
+                        reg:     
+                    Returns:
+                       
         """
         return tf.get_variable(
             name,
@@ -44,45 +48,53 @@ class TLSTM(object):
         )
 
     def init_bias(self, output_dim, name):
-        """ TLSTM:init_bias
-        Args:
-            output_dim:     
-            name:     
-        Returns:
-           
+        """ TLSTM:init_bias.
+        Doc::
+                
+                    Args:
+                        output_dim:     
+                        name:     
+                    Returns:
+                       
         """
         return tf.get_variable(name, shape=[output_dim], initializer=tf.constant_initializer(1.0))
 
     def no_init_weights(self, input_dim, output_dim, name):
-        """ TLSTM:no_init_weights
-        Args:
-            input_dim:     
-            output_dim:     
-            name:     
-        Returns:
-           
+        """ TLSTM:no_init_weights.
+        Doc::
+                
+                    Args:
+                        input_dim:     
+                        output_dim:     
+                        name:     
+                    Returns:
+                       
         """
         return tf.get_variable(name, shape=[input_dim, output_dim])
 
     def no_init_bias(self, output_dim, name):
-        """ TLSTM:no_init_bias
-        Args:
-            output_dim:     
-            name:     
-        Returns:
-           
+        """ TLSTM:no_init_bias.
+        Doc::
+                
+                    Args:
+                        output_dim:     
+                        name:     
+                    Returns:
+                       
         """
         return tf.get_variable(name, shape=[output_dim])
 
     def __init__(self, input_dim, output_dim, hidden_dim, fc_dim):
-        """ TLSTM:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            hidden_dim:     
-            fc_dim:     
-        Returns:
-           
+        """ TLSTM:__init__.
+        Doc::
+                
+                    Args:
+                        input_dim:     
+                        output_dim:     
+                        hidden_dim:     
+                        fc_dim:     
+                    Returns:
+                       
         """
 
         self.input_dim = input_dim
@@ -131,12 +143,14 @@ class TLSTM(object):
         self.b_softmax = self.init_bias(output_dim, name="Output_Layer_bias")
 
     def TLSTM_Unit(self, prev_hidden_memory, concat_input):
-        """ TLSTM:TLSTM_Unit
-        Args:
-            prev_hidden_memory:     
-            concat_input:     
-        Returns:
-           
+        """ TLSTM:TLSTM_Unit.
+        Doc::
+                
+                    Args:
+                        prev_hidden_memory:     
+                        concat_input:     
+                    Returns:
+                       
         """
         prev_hidden_state, prev_cell = tf.unstack(prev_hidden_memory)
 
@@ -170,18 +184,21 @@ class TLSTM(object):
         return tf.stack([current_hidden_state, Ct])
 
     def get_states(self):  # Returns all hidden states for the samples in a batch
-        """ TLSTM:get_states
-        Args:
-        Returns:
-           
+        """ TLSTM:get_states.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
-
     def get_output(self, state):
-        """ TLSTM:get_output
-        Args:
-            state:     
-        Returns:
-           
+        """ TLSTM:get_output.
+        Doc::
+                
+                    Args:
+                        state:     
+                    Returns:
+                       
         """
         output = tf.nn.relu(tf.matmul(state, self.Wo) + self.bo)
         output = tf.nn.dropout(output, self.keep_prob)
@@ -189,10 +206,12 @@ class TLSTM(object):
         return output
 
     def get_outputs(self):
-        """ TLSTM:get_outputs
-        Args:
-        Returns:
-           
+        """ TLSTM:get_outputs.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         all_states = self.get_states()
         all_outputs = tf.map_fn(self.get_output, all_states)
@@ -200,10 +219,12 @@ class TLSTM(object):
         return output
 
     def get_cost_acc(self):
-        """ TLSTM:get_cost_acc
-        Args:
-        Returns:
-           
+        """ TLSTM:get_cost_acc.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         logits = self.get_outputs()
         cross_entropy = tf.reduce_mean(
@@ -214,11 +235,13 @@ class TLSTM(object):
         return cross_entropy, y_pred, y, logits, self.labels
 
     def map_elapse_time(self, t):
-        """ TLSTM:map_elapse_time
-        Args:
-            t:     
-        Returns:
-           
+        """ TLSTM:map_elapse_time.
+        Doc::
+                
+                    Args:
+                        t:     
+                    Returns:
+                       
         """
         c1 = tf.constant(1, dtype=tf.float32)
         c2 = tf.constant(2.7183, dtype=tf.float32)

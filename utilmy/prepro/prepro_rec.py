@@ -28,12 +28,14 @@ if tf.__version__ >= '2.0.0':
 
 ##################################################################################################
 def _preprocess_criteo(df, **kw):
-    """function _preprocess_criteo
-    Args:
-        df:   
-        **kw:   
-    Returns:
-        
+    """function _preprocess_criteo.
+    Doc::
+            
+            Args:
+                df:   
+                **kw:   
+            Returns:
+                
     """
     hash_feature = kw.get('hash_feature')
     sparse_col = ['C' + str(i) for i in range(1, 27)]
@@ -71,12 +73,14 @@ def _preprocess_criteo(df, **kw):
 
 
 def _preprocess_movielens(df, **kw):
-    """function _preprocess_movielens
-    Args:
-        df:   
-        **kw:   
-    Returns:
-        
+    """function _preprocess_movielens.
+    Doc::
+            
+            Args:
+                df:   
+                **kw:   
+            Returns:
+                
     """
     multiple_value = kw.get('multiple_value')
     sparse_col = ["movie_id", "user_id", "gender", "age", "occupation", "zip"]

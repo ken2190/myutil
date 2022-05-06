@@ -17,13 +17,15 @@ ABS_TOL = 0.05
 @pytest.mark.smoke
 @pytest.mark.spark
 def test_als_pyspark_smoke(notebooks, output_notebook, kernel_name):
-    """function test_als_pyspark_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_als_pyspark_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["als_pyspark"]
     pm.execute_notebook(
@@ -51,13 +53,15 @@ def test_als_pyspark_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.spark
 @pytest.mark.skipif(sys.platform == "win32", reason="Not implemented on Windows")
 def test_mmlspark_lightgbm_criteo_smoke(notebooks, output_notebook, kernel_name):
-    """function test_mmlspark_lightgbm_criteo_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_mmlspark_lightgbm_criteo_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["mmlspark_lightgbm_criteo"]
     pm.execute_notebook(

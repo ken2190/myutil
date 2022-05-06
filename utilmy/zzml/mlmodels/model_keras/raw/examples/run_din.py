@@ -6,10 +6,12 @@ from deepctr.models import DIN
 
 
 def get_xy_fd():
-    """function get_xy_fd
-    Args:
-    Returns:
-        
+    """function get_xy_fd.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     feature_columns = [SparseFeat('user',3,embedding_dim=10),SparseFeat(

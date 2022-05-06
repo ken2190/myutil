@@ -12,9 +12,11 @@ from tests.test_common import (TEST_CONFIG_FILE, assert_equal_spark_df, assert_e
 @pytest.fixture(scope="module")
 @pytest.mark.usefixtures("spark_session")
 def test_table_user_session_stats_run(spark_session: SparkSession):
-    """
-    This will run table_user_session_stats's run method to verify it
-    @param spark_session:
+    """.
+    Doc::
+            
+            This will run table_user_session_stats's run method to verify it
+            @param spark_session:
     """
     print("Going to execute table_user_session_stats_run")
     table_user_session_stats_run(spark_session, TEST_CONFIG_FILE)
@@ -25,10 +27,12 @@ def test_table_user_session_stats_run(spark_session: SparkSession):
 
 @pytest.mark.usefixtures("spark_session", "config", "test_table_user_session_stats_run")
 def test_table_user_session_stats(spark_session: SparkSession, config: dict):
-    """
-    This will verify user session stats output
-    @param spark_session:
-    @param config:
+    """.
+    Doc::
+            
+            This will verify user session stats output
+            @param spark_session:
+            @param config:
     """
     expected_df = spark_session.read.parquet(config['Test']['expected_usersessionstats_aggtotal'])
 
@@ -53,10 +57,12 @@ def test_table_user_session_stats(spark_session: SparkSession, config: dict):
 
 @pytest.mark.usefixtures("spark_session", "config", "test_table_user_session_stats_run")
 def test_table_user_session_stats_ip(spark_session: SparkSession, config: dict):
-    """
-    This will verify user session stats per ip output
-    @param spark_session:
-    @param config:
+    """.
+    Doc::
+            
+            This will verify user session stats per ip output
+            @param spark_session:
+            @param config:
     """
     expected_df = spark_session.read.parquet(config['Test']['expected_usersessionstats_per_ip'])
 

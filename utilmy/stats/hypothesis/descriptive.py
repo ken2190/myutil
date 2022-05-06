@@ -80,13 +80,15 @@ from utilmy.stats.hypothesis._lib import _build_summary_matrix
 
 
 def add_noise(cor, epsilon=None, m=None):
-    """function add_noise
-    Args:
-        cor:   
-        epsilon:   
-        m:   
-    Returns:
-        
+    """function add_noise.
+    Doc::
+            
+            Args:
+                cor:   
+                epsilon:   
+                m:   
+            Returns:
+                
     """
     if isinstance(cor, pd.DataFrame):
         cor = cor.values
@@ -108,13 +110,15 @@ def add_noise(cor, epsilon=None, m=None):
 
 
 def covar(x, y=None, method=None):
-    """function covar
-    Args:
-        x:   
-        y:   
-        method:   
-    Returns:
-        
+    """function covar.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+                method:   
+            Returns:
+                
     """
     r"""
     Computes the covariance matrix.

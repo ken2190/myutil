@@ -3,11 +3,13 @@
 import argparse
 
 def getArgs(argv=None):
-    """function getArgs
-    Args:
-        argv:   
-    Returns:
-        
+    """function getArgs.
+    Doc::
+            
+            Args:
+                argv:   
+            Returns:
+                
     """
     parser = argparse.ArgumentParser(description="VAE Models",)
 

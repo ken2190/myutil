@@ -5,24 +5,28 @@ import matplotlib.pyplot as plt
 
 class DataLoader():
     def __init__(self, dataset_name, img_res=(128, 128)):
-        """ DataLoader:__init__
-        Args:
-            dataset_name:     
-            img_res:     
-            128:     
-        Returns:
-           
+        """ DataLoader:__init__.
+        Doc::
+                
+                    Args:
+                        dataset_name:     
+                        img_res:     
+                        128:     
+                    Returns:
+                       
         """
         self.dataset_name = dataset_name
         self.img_res = img_res
 
     def load_data(self, batch_size=1, is_testing=False):
-        """ DataLoader:load_data
-        Args:
-            batch_size:     
-            is_testing:     
-        Returns:
-           
+        """ DataLoader:load_data.
+        Doc::
+                
+                    Args:
+                        batch_size:     
+                        is_testing:     
+                    Returns:
+                       
         """
         data_type = "train" if not is_testing else "test"
         
@@ -56,10 +60,12 @@ class DataLoader():
 
 
     def imread(self, path):
-        """ DataLoader:imread
-        Args:
-            path:     
-        Returns:
-           
+        """ DataLoader:imread.
+        Doc::
+                
+                    Args:
+                        path:     
+                    Returns:
+                       
         """
         return scipy.misc.imread(path, mode='RGB').astype(np.float)

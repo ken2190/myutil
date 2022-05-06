@@ -21,8 +21,10 @@ from box import Box
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all
-
+    """function test_all.
+    Doc::
+            
+        
     """
     log(MNAME)
     test1()
@@ -30,10 +32,12 @@ def test_all() -> None:
 
 
 def test1() -> None:
-    """function test1
-    Args:
-    Returns:
-
+    """function test1.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     pass
 
@@ -41,10 +45,12 @@ def test1() -> None:
 
 
 def test2() -> None:
-    """function test2
-    Args:
-    Returns:
-
+    """function test2.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     pass
 
@@ -52,16 +58,48 @@ def test2() -> None:
 
 
 def core1(sasas):
+    """function core1.
+    Doc::
+            
+            Args:
+                sasas:   
+            Returns:
+                
+    """
     pass
 
 
 def core2(sasas):
+    """function core2.
+    Doc::
+            
+            Args:
+                sasas:   
+            Returns:
+                
+    """
     pass
 
 def core3(sasas):
+    """function core3.
+    Doc::
+            
+            Args:
+                sasas:   
+            Returns:
+                
+    """
     pass
 
 def core4(sasas):
+    """function core4.
+    Doc::
+            
+            Args:
+                sasas:   
+            Returns:
+                
+    """
     pass
 
 

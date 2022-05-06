@@ -10,51 +10,61 @@ from utilmy import global_verbosity, os_makedirs, pd_read_file
 verbosity = global_verbosity(__file__,"/../../config.json", 3 )
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -80,13 +90,15 @@ except :
 ####################################################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -109,7 +121,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -154,8 +168,10 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     global model, session
     data_pars['train'] = True
@@ -174,15 +190,17 @@ def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     post_process_fun = model.model_pars.get('post_process_fun', None)
@@ -208,12 +226,14 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -227,11 +247,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -246,11 +268,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -263,9 +287,11 @@ def load_info(path=""):
 
 ####################################################################################################
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  :
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  :
+              "file" :
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -293,11 +319,13 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 ####################################################################################################
 ############ Test ##################################################################################
 def test(n_sample = 100):
-    """function test
-    Args:
-        n_sample :   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                n_sample :   
+            Returns:
+                
     """
     from adatasets import test_data_classifier_fake
     df, d = test_data_classifier_fake(nrows=500)
@@ -406,13 +434,15 @@ def test(n_sample = 100):
 
 
 def test_helper(model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model, session
     root  = "ztmp/"
@@ -452,8 +482,10 @@ def test_helper(model_pars, data_pars, compute_pars):
 
 ####################################################################################################
 def pd_colcat_get_catcount(df, colcat, coly, continuous_ids=None):
-    """  Learns the number of categories in each variable and standardizes the df.
-        ncat: numpy m The number of categories of each variable. One if the variable is continuous.
+    """  Learns the number of categories in each variable and standardizes the df..
+    Doc::
+            
+                ncat: numpy m The number of categories of each variable. One if the variable is continuous.
     """
     data = data.copy()
     ncat = np.ones(data.shape[1])
@@ -470,7 +502,9 @@ def pd_colcat_get_catcount(df, colcat, coly, continuous_ids=None):
 
 
 def is_continuous(v_array):
-    """ Returns true if df was sampled from a continuous variables, and false
+    """ Returns true if df was sampled from a continuous variables, and false.
+    Doc::
+            
     """
     observed = v_array[~np.isnan(v_array)]  # not consider missing values for this.
     rules    = [np.min(observed) < -1,
@@ -483,10 +517,12 @@ def is_continuous(v_array):
 
 
 def test2():
-    """function test2
-    Args:
-    Returns:
-        
+    """function test2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # Load toy dataset
     df   = pd.read_csv('https://raw.githubusercontent.com/arita37/GeFs/master/data/winequality_white.csv', sep=',')
@@ -530,11 +566,13 @@ import pandas as pd
 
 # Auxiliary functions
 def get_dummies(data):
-    """function get_dummies
-    Args:
-        data:   
-    Returns:
-        
+    """function get_dummies.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     data = data.copy()
     if isinstance(data, pd.Series):
@@ -546,18 +584,20 @@ def get_dummies(data):
 
 
 def learncats(data, classcol=None, continuous_ids=[]):
-    """
-        Learns the number of categories in each variable and standardizes the data.
-        ----------
-        data: numpy n x m
-            Numpy array comprising n realisations (instances) of m variables.
-        classcol: int  The column index of the class variables (if any).
-        continuous_ids: list of ints
-            List containing the indices of known continuous variables. Useful for
-            discrete data like age, which is better modeled as continuous.
-        Returns
-        -------
-        ncat: numpy m  The number of categories of each variable. One if the variable is  continuous.
+    """.
+    Doc::
+            
+                Learns the number of categories in each variable and standardizes the data.
+                ----------
+                data: numpy n x m
+                    Numpy array comprising n realisations (instances) of m variables.
+                classcol: int  The column index of the class variables (if any).
+                continuous_ids: list of ints
+                    List containing the indices of known continuous variables. Useful for
+                    discrete data like age, which is better modeled as continuous.
+                Returns
+                -------
+                ncat: numpy m  The number of categories of each variable. One if the variable is  continuous.
     """
     data = data.copy()
     ncat = np.ones(data.shape[1])
@@ -572,8 +612,10 @@ def learncats(data, classcol=None, continuous_ids=[]):
     return ncat
 
 def gef_is_continuous(data):
-    """
-        Returns true if data was sampled from a continuous variables, and false
+    """.
+    Doc::
+            
+                Returns true if data was sampled from a continuous variables, and false
     """
     observed = data[~np.isnan(data)]  # not consider missing values for this.
     rules = [np.min(observed) < 0,
@@ -587,8 +629,10 @@ def gef_is_continuous(data):
 
 
 def gef_get_stats(data, ncat=None):
-    """
-        Compute univariate statistics for continuous variables.
+    """.
+    Doc::
+            
+                Compute univariate statistics for continuous variables.
     """
     data = data.copy()
     maxv = np.ones(data.shape[1])
@@ -617,8 +661,10 @@ def gef_get_stats(data, ncat=None):
 
 
 def gef_normalize_data(data, maxv, minv):
-    """
-        Normalizes the data given the maximum and minimum values of each variable.
+    """.
+    Doc::
+            
+                Normalizes the data given the maximum and minimum values of each variable.
     """
     data = data.copy()
     for v in range(data.shape[1]):
@@ -628,8 +674,10 @@ def gef_normalize_data(data, maxv, minv):
 
 
 def gef_standardize_data(data, mean, std):
-    """
-        Standardizes the data given the mean and standard deviations values of
+    """.
+    Doc::
+            
+                Standardizes the data given the mean and standard deviations values of
     """
     data = data.copy()
     for v in range(data.shape[1]):
@@ -644,14 +692,16 @@ def gef_standardize_data(data, mean, std):
 
 
 def train_test_split2(data, ncat, train_ratio=0.7, prep='std'):
-    """function train_test_split2
-    Args:
-        data:   
-        ncat:   
-        train_ratio:   
-        prep:   
-    Returns:
-        
+    """function train_test_split2.
+    Doc::
+            
+            Args:
+                data:   
+                ncat:   
+                train_ratio:   
+                prep:   
+            Returns:
+                
     """
     assert train_ratio >= 0
     assert train_ratio <= 1
@@ -686,24 +736,26 @@ if __name__ == "__main__":
 
 
 def test_converion():
-    """
-    General comments on the API¶
-    There are four different functions to do classification with GeFs.
-
-    classify
-    classify_avg
-    classify_lspn
-    classify_avg_lspn
-    The first two, classify and classify_avg, exploit class factorised leaves to run inference faster
-    (propagate the probabilities of all classes at once). That, of course, only works if the leaves
-    are class factorised (e.g. learnsp=np.Inf). Otherwise, one should use classify_lspn and classify_avg_lspn which work
-     with any PC (in particular those with a LearnSPN network at the leaves, hence the name).
-
-    The other important distinction is that avg methods assume a model learned as an ensemble and performs inference by 'averaging' the distribution of each of the base models. These are the methods that match the original Random Forest in terms of classification (with complete data, and class factorised leaves). In contrast, the other methods run inference as if the model is a single PC. One can interpret that as giving different weights to each of the base models according to the likelihood of the instance to be classified (base models under which the instance is more likely are given higher weights).
-    This inference method is referred to as GeF+ in the paper, as it defines a mixture over the base models.
-
-
-    :return:
+    """.
+    Doc::
+            
+            General comments on the API¶
+            There are four different functions to do classification with GeFs.
+        
+            classify
+            classify_avg
+            classify_lspn
+            classify_avg_lspn
+            The first two, classify and classify_avg, exploit class factorised leaves to run inference faster
+            (propagate the probabilities of all classes at once). That, of course, only works if the leaves
+            are class factorised (e.g. learnsp=np.Inf). Otherwise, one should use classify_lspn and classify_avg_lspn which work
+             with any PC (in particular those with a LearnSPN network at the leaves, hence the name).
+        
+            The other important distinction is that avg methods assume a model learned as an ensemble and performs inference by 'averaging' the distribution of each of the base models. These are the methods that match the original Random Forest in terms of classification (with complete data, and class factorised leaves). In contrast, the other methods run inference as if the model is a single PC. One can interpret that as giving different weights to each of the base models according to the likelihood of the instance to be classified (base models under which the instance is more likely are given higher weights).
+            This inference method is referred to as GeF+ in the paper, as it defines a mixture over the base models.
+        
+        
+            :return:
     """
     ### RF ---> GeFs model
     from sklearn.ensemble import RandomForestClassifier
@@ -735,14 +787,16 @@ def test_converion():
 
 
 def train_test_split(data, ncat, train_ratio=0.7, prep='std'):
-    """function train_test_split
-    Args:
-        data:   
-        ncat:   
-        train_ratio:   
-        prep:   
-    Returns:
-        
+    """function train_test_split.
+    Doc::
+            
+            Args:
+                data:   
+                ncat:   
+                train_ratio:   
+                prep:   
+            Returns:
+                
     """
     assert train_ratio >= 0
     assert train_ratio <= 1
@@ -765,11 +819,13 @@ def train_test_split(data, ncat, train_ratio=0.7, prep='std'):
 
 # Preprocessing functions
 def adult(data):
-    """function adult
-    Args:
-        data:   
-    Returns:
-        
+    """function adult.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['workclass', 'education', 'education-num', 'marital-status', 'occupation',
                'relationship', 'race', 'sex', 'native-country', 'y']
@@ -781,11 +837,13 @@ def adult(data):
 
 
 def australia(data):
-    """function australia
-    Args:
-        data:   
-    Returns:
-        
+    """function australia.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['A1', 'A4', 'A5', 'A6', 'A7', 'A9', 'A10', 'A12', 'A13', 'class']
     cont_cols = ['A2', 'A3', 'A8', 'A11', 'A14', 'A15']
@@ -796,11 +854,13 @@ def australia(data):
 
 
 def bank(data):
-    """function bank
-    Args:
-        data:   
-    Returns:
-        
+    """function bank.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['job', 'marital', 'education', 'default', 'housing', 'loan',
        'contact', 'month', 'day_of_week', 'poutcome', 'y']
@@ -813,11 +873,13 @@ def bank(data):
 
 
 def credit(data):
-    """function credit
-    Args:
-        data:   
-    Returns:
-        
+    """function credit.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['SEX', 'EDUCATION', 'MARRIAGE', 'default payment next month']
     cont_cols = ['LIMIT_BAL', 'AGE', 'PAY_0', 'PAY_2',
@@ -830,11 +892,13 @@ def credit(data):
 
 
 def electricity(data):
-    """function electricity
-    Args:
-        data:   
-    Returns:
-        
+    """function electricity.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['day', 'class']
     cont_cols = ['date', 'period', 'nswprice', 'nswdemand', 'vicprice',
@@ -845,11 +909,13 @@ def electricity(data):
 
 
 def segment(data):
-    """function segment
-    Args:
-        data:   
-    Returns:
-        
+    """function segment.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     data = data.drop(columns=['region.centroid.col', 'region.pixel.count'])
     cat_cols = ['short.line.density.5', 'short.line.density.2', 'class']
@@ -862,11 +928,13 @@ def segment(data):
 
 
 def german(data):
-    """function german
-    Args:
-        data:   
-    Returns:
-        
+    """function german.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = [0, 2, 3, 5, 6, 8, 9, 11, 13, 14, 16, 18, 19, 20]
     cont_cols = [1, 4, 7, 10, 12, 15, 17]
@@ -876,11 +944,13 @@ def german(data):
 
 
 def vowel(data):
-    """function vowel
-    Args:
-        data:   
-    Returns:
-        
+    """function vowel.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['Speaker_Number', 'Sex', 'Class']
     data.loc[:, cat_cols] = get_dummies(data[cat_cols])
@@ -889,11 +959,13 @@ def vowel(data):
 
 
 def cmc(data):
-    """function cmc
-    Args:
-        data:   
-    Returns:
-        
+    """function cmc.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['Wifes_education', 'Husbands_education', 'Wifes_religion', 'Wifes_now_working%3F',
             'Husbands_occupation', 'Standard-of-living_index', 'Media_exposure', 'Contraceptive_method_used']
@@ -904,11 +976,13 @@ def cmc(data):
 
 
 def get_data(name):
-    """function get_data
-    Args:
-        name:   
-    Returns:
-        
+    """function get_data.
+    Doc::
+            
+            Args:
+                name:   
+            Returns:
+                
     """
     if 'wine' in name:
         data_red = pd.read_csv('../data/winequality_red.csv')

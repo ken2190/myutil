@@ -50,15 +50,17 @@ future_day = 50
 
 class Model:
     def __init__(self, learning_rate, num_layers, size, size_layer, output_size):
-        """ Model:__init__
-        Args:
-            learning_rate:     
-            num_layers:     
-            size:     
-            size_layer:     
-            output_size:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        learning_rate:     
+                        num_layers:     
+                        size:     
+                        size_layer:     
+                        output_size:     
+                    Returns:
+                       
         """
         def lstm_cell(size_layer):
             return tf.contrib.rnn.ResidualWrapper(
@@ -171,12 +173,14 @@ date_ori = pd.Series(date_ori).dt.strftime(date_format="%Y-%m-%d").tolist()
 
 
 def anchor(signal, weight):
-    """function anchor
-    Args:
-        signal:   
-        weight:   
-    Returns:
-        
+    """function anchor.
+    Doc::
+            
+            Args:
+                signal:   
+                weight:   
+            Returns:
+                
     """
     buffer = []
     last = signal[0]

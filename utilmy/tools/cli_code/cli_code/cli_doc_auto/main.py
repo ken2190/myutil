@@ -23,10 +23,12 @@ from ..cli_doc_auto.pyreg import home
 
 
 def get_arguments():
-    """function get_arguments
-    Args:
-    Returns:
-        
+    """function get_arguments.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     p = argparse.ArgumentParser(
         description="Produces documentation of python modules given a directory")
@@ -48,10 +50,12 @@ def get_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     VERBOSITY = [

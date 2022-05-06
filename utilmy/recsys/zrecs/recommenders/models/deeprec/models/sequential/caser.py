@@ -20,11 +20,13 @@ class CaserModel(SequentialBaseModel):
     """
 
     def __init__(self, hparams, iterator_creator, seed=None):
-        """Initialization of variables for caser
-
-        Args:
-            hparams (object): A tf.contrib.training.HParams object, hold the entire set of hyperparameters.
-            iterator_creator (object): An iterator to load the data.
+        """Initialization of variables for caser.
+        Doc::
+                
+            
+                    Args:
+                        hparams (object): A tf.contrib.training.HParams object, hold the entire set of hyperparameters.
+                        iterator_creator (object): An iterator to load the data.
         """
         self.hparams = hparams
         self.L = hparams.L  # history sequence that involved in convolution shape
@@ -37,10 +39,12 @@ class CaserModel(SequentialBaseModel):
         super().__init__(hparams, iterator_creator, seed=seed)
 
     def _build_seq_graph(self):
-        """The main function to create caser model.
-
-        Returns:
-            object: The output of caser section.
+        """The main function to create caser model..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of caser section.
         """
         with tf.variable_scope("caser"):
             cnn_output = self._caser_cnn()
@@ -49,15 +53,17 @@ class CaserModel(SequentialBaseModel):
             return model_output
 
     def _add_cnn(self, hist_matrix, vertical_dim, scope):
-        """The main function to use CNN at both vertical and horizonal aspects.
-
-        Args:
-            hist_matrix (object): The output of history sequential embeddings
-            vertical_dim (int): The shape of embeddings of input
-            scope (object): The scope of CNN input.
-
-        Returns:
-            object: The output of CNN layers.
+        """The main function to use CNN at both vertical and horizonal aspects..
+        Doc::
+                
+            
+                    Args:
+                        hist_matrix (object): The output of history sequential embeddings
+                        vertical_dim (int): The shape of embeddings of input
+                        scope (object): The scope of CNN input.
+            
+                    Returns:
+                        object: The output of CNN layers.
         """
         with tf.variable_scope(scope):
             with tf.variable_scope("vertical"):
@@ -76,10 +82,12 @@ class CaserModel(SequentialBaseModel):
         return tf.concat([out_v, out_h], 1)
 
     def _caser_cnn(self):
-        """The main function to use CNN at both item and category aspects.
-
-        Returns:
-            object: The concatenated output of two parts of item and category.
+        """The main function to use CNN at both item and category aspects..
+        Doc::
+                
+            
+                    Returns:
+                        object: The concatenated output of two parts of item and category.
         """
         item_out = self._add_cnn(
             self.item_history_embedding, self.item_embedding_dim, "item"
@@ -94,10 +102,12 @@ class CaserModel(SequentialBaseModel):
         return cnn_output
 
     def _build_cnn(self, history_matrix, nums, shape):
-        """Call a CNN layer.
-
-        Returns:
-            object: The output of cnn section.
+        """Call a CNN layer..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of cnn section.
         """
         return tf.layers.conv1d(
             history_matrix,

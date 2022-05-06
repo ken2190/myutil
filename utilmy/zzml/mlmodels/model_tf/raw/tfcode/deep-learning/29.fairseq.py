@@ -53,13 +53,15 @@ output_size = df_log.shape[1]
 
 
 def encoder_block(inp, n_hidden, filter_size):
-    """function encoder_block
-    Args:
-        inp:   
-        n_hidden:   
-        filter_size:   
-    Returns:
-        
+    """function encoder_block.
+    Doc::
+            
+            Args:
+                inp:   
+                n_hidden:   
+                filter_size:   
+            Returns:
+                
     """
     inp = tf.expand_dims(inp, 2)
     inp = tf.pad(
@@ -71,13 +73,15 @@ def encoder_block(inp, n_hidden, filter_size):
 
 
 def decoder_block(inp, n_hidden, filter_size):
-    """function decoder_block
-    Args:
-        inp:   
-        n_hidden:   
-        filter_size:   
-    Returns:
-        
+    """function decoder_block.
+    Doc::
+            
+            Args:
+                inp:   
+                n_hidden:   
+                filter_size:   
+            Returns:
+                
     """
     inp = tf.expand_dims(inp, 2)
     inp = tf.pad(inp, [[0, 0], [filter_size[0] - 1, 0], [0, 0], [0, 0]])
@@ -87,25 +91,29 @@ def decoder_block(inp, n_hidden, filter_size):
 
 
 def glu(x):
-    """function glu
-    Args:
-        x:   
-    Returns:
-        
+    """function glu.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     return tf.multiply(x[:, :, : tf.shape(x)[2] // 2], tf.sigmoid(x[:, :, tf.shape(x)[2] // 2 :]))
 
 
 def layer(inp, conv_block, kernel_width, n_hidden, residual=None):
-    """function layer
-    Args:
-        inp:   
-        conv_block:   
-        kernel_width:   
-        n_hidden:   
-        residual:   
-    Returns:
-        
+    """function layer.
+    Doc::
+            
+            Args:
+                inp:   
+                conv_block:   
+                kernel_width:   
+                n_hidden:   
+                residual:   
+            Returns:
+                
     """
     z = conv_block(inp, n_hidden, (kernel_width, 1))
     return glu(z) + (residual if residual is not None else 0)
@@ -113,10 +121,12 @@ def layer(inp, conv_block, kernel_width, n_hidden, residual=None):
 
 class Fairseq:
     def __init__(self):
-        """ Fairseq:__init__
-        Args:
-        Returns:
-           
+        """ Fairseq:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, (None, None, size))
         self.Y = tf.placeholder(tf.float32, (None, output_size))
@@ -234,12 +244,14 @@ date_ori = pd.Series(date_ori).dt.strftime(date_format="%Y-%m-%d").tolist()
 
 
 def anchor(signal, weight):
-    """function anchor
-    Args:
-        signal:   
-        weight:   
-    Returns:
-        
+    """function anchor.
+    Doc::
+            
+            Args:
+                signal:   
+                weight:   
+            Returns:
+                
     """
     buffer = []
     last = signal[0]

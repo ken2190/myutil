@@ -16,56 +16,68 @@ class URLData:
     post_id: str
 
     def fixed_post_id(self):
-        """ URLData:fixed_post_id
-        Args:
-        Returns:
-           
+        """ URLData:fixed_post_id.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return f"t3_{self.post_id}"
 
     def completed_url(self):
-        """ URLData:completed_url
-        Args:
-        Returns:
-           
+        """ URLData:completed_url.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return f"http://old.reddit.com{self.url}"
 
     def new_url(self):
-        """ URLData:new_url
-        Args:
-        Returns:
-           
+        """ URLData:new_url.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return f"http://www.reddit.com{self.url}"
 
     def sanitized_title(self):
-        """ URLData:sanitized_title
-        Args:
-        Returns:
-           
+        """ URLData:sanitized_title.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.title.replace("/", "\u2215")
 
 
 class RedditPageScraper:
     def __init__(self, path_txt):
-        """ RedditPageScraper:__init__
-        Args:
-            path_txt:     
-        Returns:
-           
+        """ RedditPageScraper:__init__.
+        Doc::
+                
+                    Args:
+                        path_txt:     
+                    Returns:
+                       
         """
         self.url_list = []
         self.path_txt = path_txt
 
     def parse(self, url, nposts):
-        """ RedditPageScraper:parse
-        Args:
-            url:     
-            nposts:     
-        Returns:
-           
+        """ RedditPageScraper:parse.
+        Doc::
+                
+                    Args:
+                        url:     
+                        nposts:     
+                    Returns:
+                       
         """
         page_count = 0
         while nposts > 0:
@@ -90,11 +102,13 @@ class RedditPageScraper:
         return self.url_list
 
     def extract(self, url_data: URLData):
-        """ RedditPageScraper:extract
-        Args:
-            url_data (function["arg_type"][i]) :     
-        Returns:
-           
+        """ RedditPageScraper:extract.
+        Doc::
+                
+                    Args:
+                        url_data (function["arg_type"][i]) :     
+                    Returns:
+                       
         """
         print(f'Scraping "{url_data.sanitized_title()}" from {url_data.new_url()}')
         page_content = self.request(url_data.completed_url()).content
@@ -104,11 +118,13 @@ class RedditPageScraper:
             out_file.write(text_data)
 
     def request(self, url):
-        """ RedditPageScraper:request
-        Args:
-            url:     
-        Returns:
-           
+        """ RedditPageScraper:request.
+        Doc::
+                
+                    Args:
+                        url:     
+                    Returns:
+                       
         """
         print(f'REQUESTING URL {url}')
         time.sleep(2)
@@ -119,12 +135,14 @@ class RedditPageScraper:
         return requests.get(url, headers=headers)
 
     def replace_url(self, url, page_count):
-        """ RedditPageScraper:replace_url
-        Args:
-            url:     
-            page_count:     
-        Returns:
-           
+        """ RedditPageScraper:replace_url.
+        Doc::
+                
+                    Args:
+                        url:     
+                        page_count:     
+                    Returns:
+                       
         """
         url = url.replace("www", "old")
         if page_count > 0:
@@ -135,13 +153,15 @@ class RedditPageScraper:
 
 class RedditScraper:
     def __init__(self, url="", nposts=20, path_txt=""):
-        """ RedditScraper:__init__
-        Args:
-            url:     
-            nposts:     
-            path_txt:     
-        Returns:
-           
+        """ RedditScraper:__init__.
+        Doc::
+                
+                    Args:
+                        url:     
+                        nposts:     
+                        path_txt:     
+                    Returns:
+                       
         """
         self.url = url
         self.nposts = nposts
@@ -154,10 +174,12 @@ class RedditScraper:
         print(f"Trying to read URL {url}...")
 
     def run(self):
-        """ RedditScraper:run
-        Args:
-        Returns:
-           
+        """ RedditScraper:run.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         post_url_list = self.page_parser.parse(self.url, self.nposts)
         post_url_list_len = len(post_url_list)

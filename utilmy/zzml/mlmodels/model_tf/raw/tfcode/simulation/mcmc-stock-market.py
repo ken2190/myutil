@@ -25,12 +25,14 @@ df.head()
 
 
 def moving_average(signal, period):
-    """function moving_average
-    Args:
-        signal:   
-        period:   
-    Returns:
-        
+    """function moving_average.
+    Doc::
+            
+            Args:
+                signal:   
+                period:   
+            Returns:
+                
     """
     buffer = [np.nan] * period
     for i in range(period, len(signal)):
@@ -76,11 +78,13 @@ plt.show()
 
 
 def prior(x):
-    """function prior
-    Args:
-        x:   
-    Returns:
-        
+    """function prior.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     if any([val <= 0 for val in x]):
         return 1e-7
@@ -92,45 +96,53 @@ transition_model_gamma = lambda x: np.random.normal(x, [0.05, 5], (2,))
 
 
 def log_norm(x, data):
-    """function log_norm
-    Args:
-        x:   
-        data:   
-    Returns:
-        
+    """function log_norm.
+    Doc::
+            
+            Args:
+                x:   
+                data:   
+            Returns:
+                
     """
     return np.sum(np.log(norm(x[0], x[1]).pdf(data)))
 
 
 def log_skewnorm(x, data):
-    """function log_skewnorm
-    Args:
-        x:   
-        data:   
-    Returns:
-        
+    """function log_skewnorm.
+    Doc::
+            
+            Args:
+                x:   
+                data:   
+            Returns:
+                
     """
     return np.sum(np.log(skewnorm(x[0], x[1]).pdf(data)))
 
 
 def log_gamma(x, data):
-    """function log_gamma
-    Args:
-        x:   
-        data:   
-    Returns:
-        
+    """function log_gamma.
+    Doc::
+            
+            Args:
+                x:   
+                data:   
+            Returns:
+                
     """
     return np.sum(np.log(gamma(a=x[0], scale=x[1], loc=0).pdf(data)))
 
 
 def acceptance(x, x_new):
-    """function acceptance
-    Args:
-        x:   
-        x_new:   
-    Returns:
-        
+    """function acceptance.
+    Doc::
+            
+            Args:
+                x:   
+                x_new:   
+            Returns:
+                
     """
     if x_new > x:
         return True
@@ -143,15 +155,17 @@ def acceptance(x, x_new):
 
 
 def metropolis_hastings(pdf, trans_model, param_init, iterations, data):
-    """function metropolis_hastings
-    Args:
-        pdf:   
-        trans_model:   
-        param_init:   
-        iterations:   
-        data:   
-    Returns:
-        
+    """function metropolis_hastings.
+    Doc::
+            
+            Args:
+                pdf:   
+                trans_model:   
+                param_init:   
+                iterations:   
+                data:   
+            Returns:
+                
     """
     x = param_init
     accepted = []
@@ -245,12 +259,14 @@ plt.show()
 
 
 def pct_change(x, period=1):
-    """function pct_change
-    Args:
-        x:   
-        period:   
-    Returns:
-        
+    """function pct_change.
+    Doc::
+            
+            Args:
+                x:   
+                period:   
+            Returns:
+                
     """
     x = np.array(x)
     return (x[period:] - x[:-period]) / x[:-period]

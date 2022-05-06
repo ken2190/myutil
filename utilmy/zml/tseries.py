@@ -18,13 +18,15 @@ sys.path.append(root_repo)
 from source.util_feature import save,os_get_function_name
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -85,7 +87,9 @@ cols_input_type_1 = {
 
 ####################################################################################
 def config1() :
-    """  ONE SINGLE DICT Contains all needed informations forused for tseries_demand
+    """  ONE SINGLE DICT Contains all needed informations forused for tseries_demand.
+    Doc::
+            
     """
     data_name    = "tseries_demand"         ### in data/input/
     model_class  = "source/models/model_tseries.py:LGBMRegressor"  ### ACTUAL Class name
@@ -160,11 +164,13 @@ def config1() :
 
 
 def pd_dsa2_custom(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-    Example of custom Processor Combining
-    Usage :
-    ,{"uri":  THIS_FILEPATH + "::pd_dsa2_custom",   "pars": {'coldate': 'date'}, "cols_family": "coldate",   "cols_out": "coldate_features1",  "type": "" },
-
+    """.
+    Doc::
+            
+            Example of custom Processor Combining
+            Usage :
+            ,{"uri":  THIS_FILEPATH + "::pd_dsa2_custom",   "pars": {'coldate': 'date'}, "cols_family": "coldate",   "cols_out": "coldate_features1",  "type": "" },
+        
     """
     prefix = "tseries_feat"  ### Used acolumn index
     #### Inference time LOAD previous pars  ###########################################

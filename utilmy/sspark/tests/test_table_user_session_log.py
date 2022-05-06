@@ -13,9 +13,11 @@ from src.utils import log
 @pytest.fixture(scope="module")
 @pytest.mark.usefixtures("spark_session")
 def test_table_user_session_log_run(spark_session: SparkSession):
-    """
-    Test table_user_session's run method
-    @param spark_session:
+    """.
+    Doc::
+            
+            Test table_user_session's run method
+            @param spark_session:
     """
     log("Execute table_user_session_log_run")
     table_user_session_log_run(spark_session, TEST_CONFIG_FILE)
@@ -23,10 +25,12 @@ def test_table_user_session_log_run(spark_session: SparkSession):
 
 @pytest.mark.usefixtures("spark_session", "config", "test_table_user_session_log_run")
 def test_table_user_session_log(spark_session: SparkSession, config: dict):
-    """
-    Test user session log output
-    @param spark_session:
-    @param config:
+    """.
+    Doc::
+            
+            Test user session log output
+            @param spark_session:
+            @param config:
     """
     expected_df = spark_session.read.parquet(config['Test']['expected_usersession_path'])
 
@@ -81,10 +85,12 @@ def test_table_user_session_log(spark_session: SparkSession, config: dict):
 
 @pytest.mark.usefixtures("spark_session", "config", "test_table_user_session_log_run")
 def test_table_usersession_log_stats(spark_session: SparkSession, config: dict):
-    """
-    test user session log stats
-    @param spark_session:
-    @param config:
+    """.
+    Doc::
+            
+            test user session log stats
+            @param spark_session:
+            @param config:
     """
     expected_df = spark_session.read.parquet(config['Test']['expected_usersessionstats_path'])
 

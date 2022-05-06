@@ -9,12 +9,14 @@ import wget, yaml
 ##########################################################################################
 ################### donwload  ############################################################
 def unzip(dirin, dirout):
-    """function unzip
-    Args:
-        dirin:   
-        dirout:   
-    Returns:
-        
+    """function unzip.
+    Doc::
+            
+            Args:
+                dirin:   
+                dirout:   
+            Returns:
+                
     """
     # !/usr/bin/env python3
     import sys
@@ -24,12 +26,14 @@ def unzip(dirin, dirout):
 
 
 def gzip(dirin='/mydir', dirout="./"):
-    """function gzip
-    Args:
-        dirin:   
-        dirout:   
-    Returns:
-        
+    """function gzip.
+    Doc::
+            
+            Args:
+                dirin:   
+                dirout:   
+            Returns:
+                
     """
     #  python prepro.py gzip
     name = "_".join(dirin.split("/")[-2:])
@@ -39,23 +43,27 @@ def gzip(dirin='/mydir', dirout="./"):
 
 
 def dir_size(dirin="mypath", dirout="./save.txt"):
-    """function dir_size
-    Args:
-        dirin:   
-        dirout:   
-    Returns:
-        
+    """function dir_size.
+    Doc::
+            
+            Args:
+                dirin:   
+                dirout:   
+            Returns:
+                
     """
     os.system( f" du -h --max-depth  13   '{dirin}'  | sort -hr  > '{dirout}'  ")
 
     
 def dataset_donwload(url, path_target):
-    """Donwload on disk the tar.gz file
-    Args:
-        url:
-        path_target:
-    Returns:
-
+    """Donwload on disk the tar.gz file.
+    Doc::
+            
+            Args:
+                url:
+                path_target:
+            Returns:
+        
     """
     log(f"Donwloading mnist dataset in {path_target}")
     os.makedirs(path_target, exist_ok=True)
@@ -67,11 +75,13 @@ def dataset_donwload(url, path_target):
 
 
 def dataset_get_path(cfg: dict):
-    """function dataset_get_path
-    Args:
-        cfg (  dict ) :   
-    Returns:
-        
+    """function dataset_get_path.
+    Doc::
+            
+            Args:
+                cfg (  dict ) :   
+            Returns:
+                
     """
     #### Donaload dataset
     # cfg = config_load()
@@ -102,18 +112,20 @@ def dataset_get_path(cfg: dict):
 
 
 def os_extract_archive(file_path, path=".", archive_format="auto"):
-    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
-    Args:
-        file_path: path to the archive file
-        path: path to extract the archive file
-        archive_format: Archive format to try for extracting the file.
-            Options are 'auto', 'tar', 'zip', and None.
-            'tar' includes tar, tar.gz, and tar.bz files.
-            The default 'auto' is ['tar', 'zip'].
-            None or an empty list will return no matches found.
-    Returns:
-        True if a match was found and an archive extraction was completed,
-        False otherwise.
+    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats..
+    Doc::
+            
+            Args:
+                file_path: path to the archive file
+                path: path to extract the archive file
+                archive_format: Archive format to try for extracting the file.
+                    Options are 'auto', 'tar', 'zip', and None.
+                    'tar' includes tar, tar.gz, and tar.bz files.
+                    The default 'auto' is ['tar', 'zip'].
+                    None or an empty list will return no matches found.
+            Returns:
+                True if a match was found and an archive extraction was completed,
+                False otherwise.
     """
     if archive_format is None:
         return False
@@ -149,12 +161,14 @@ def os_extract_archive(file_path, path=".", archive_format="auto"):
 
 
 def to_file(s, filep):
-    """function to_file
-    Args:
-        s:   
-        filep:   
-    Returns:
-        
+    """function to_file.
+    Doc::
+            
+            Args:
+                s:   
+                filep:   
+            Returns:
+                
     """
     with open(filep, mode="a") as fp:
         fp.write(str(s) + "\n")

@@ -106,14 +106,16 @@ MODEL_URI = get_model_uri(__file__)
 ####################################################################################################
 class Model:
   def __init__(self, model_pars=None, data_pars=None, compute_pars=None, **kwargs):
-    """ Model:__init__
-    Args:
-        model_pars:     
-        data_pars:     
-        compute_pars:     
-        **kwargs:     
-    Returns:
-       
+    """ Model:__init__.
+    Doc::
+            
+            Args:
+                model_pars:     
+                data_pars:     
+                compute_pars:     
+                **kwargs:     
+            Returns:
+               
     """
     self.model_pars = model_pars
     self.model_pars = compute_pars
@@ -137,7 +139,9 @@ class Model:
 
 
 def fit(model, data_pars=None, model_pars=None, compute_pars=None, out_pars=None, *args, **kw):
-    """
+    """.
+    Doc::
+            
     """
 
     log("############ Dataloader setup  #############################")
@@ -185,24 +189,28 @@ def fit(model, data_pars=None, model_pars=None, compute_pars=None, out_pars=None
 
 
 def evaluate(model, session=None, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     ddict = model.fit_metrics    
     return ddict
 
 
 def predict(model, session=None, data_pars=None, out_pars=None, compute_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        out_pars:   
-        compute_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                out_pars:   
+                compute_pars:   
+                **kw:   
+            Returns:
+                
     """
 
     reader      = get_dataset(data_pars)
@@ -222,32 +230,38 @@ def predict(model, session=None, data_pars=None, out_pars=None, compute_pars=Non
 
   
 def reset_model():
-    """function reset_model
-    Args:
-    Returns:
-        
+    """function reset_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
 
 def save(model, session=None, save_pars=None):
-    """function save
-    Args:
-        model:   
-        session:   
-        save_pars:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                save_pars:   
+            Returns:
+                
     """
     return torch.save(model.modl, save_pars['path'])
 
 
 def load(load_pars=None):
-    """function load
-    Args:
-        load_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+            Returns:
+                
     """
     model = Model(skip_create=True)
     model.model = torch.load(load_pars['path'])
@@ -257,10 +271,12 @@ def load(load_pars=None):
 
 ####################################################################################################
 def get_dataset(data_pars=None, **kw):
-    """
-    JSON data_pars to get dataset
-    "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
-    "size": [0, 0, 6], "output_size": [0, 6] },
+    """.
+    Doc::
+            
+            JSON data_pars to get dataset
+            "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
+            "size": [0, 0, 6], "output_size": [0, 6] },
     """
     data_path = path_norm(data_pars["data_path"])
 
@@ -293,7 +309,9 @@ def get_dataset(data_pars=None, **kw):
 
 ############# Refactor ###########################################################################
 def fit2(model, data_pars=None, model_pars=None, compute_pars=None, out_pars=None, *args, **kw):
-    """
+    """.
+    Doc::
+            
     """
     log("############ Dataloader setup  ###########################")
     data_pars['is_train'] = 1
@@ -326,16 +344,18 @@ def fit2(model, data_pars=None, model_pars=None, compute_pars=None, out_pars=Non
 
 
 def predict2(model, session=None, data_pars=None, out_pars=None, compute_pars=None, **kw):
-    """function predict2
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        out_pars:   
-        compute_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict2.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                out_pars:   
+                compute_pars:   
+                **kw:   
+            Returns:
+                
     """
     data_pars['is_train'] = 1
     reader, pars      = get_dataset2(data_pars, model=model)
@@ -356,10 +376,12 @@ def predict2(model, session=None, data_pars=None, out_pars=None, compute_pars=No
 
 
 def get_dataset2(data_pars=None, model=None, **kw):
-    """
-    JSON data_pars to get dataset
-    "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
-    "size": [0, 0, 6], "output_size": [0, 6] },
+    """.
+    Doc::
+            
+            JSON data_pars to get dataset
+            "data_pars":    { "data_path": "dataset/GOOG-year.csv", "data_type": "pandas",
+            "size": [0, 0, 6], "output_size": [0, 6] },
     """
     # data_path = path_norm(data_pars["data_path"])
 
@@ -428,12 +450,14 @@ def get_dataset2(data_pars=None, model=None, **kw):
 
 
 def get_params(param_pars, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     choice      = param_pars['choice']
     config_mode = param_pars['config_mode']
@@ -487,13 +511,15 @@ def get_params(param_pars, **kw):
 
 ##################################################################################################
 def test(data_path="dataset/", pars_choice="test01", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
     from mlmodels.util import path_norm

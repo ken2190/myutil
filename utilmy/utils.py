@@ -17,12 +17,14 @@ from loguru import logger
 
 #####################################################################
 def load_function(package="mlmodels.util", name="path_norm"):
-  """function load_function
-  Args:
-      package:   
-      name:   
-  Returns:
-      
+  """function load_function.
+  Doc::
+          
+        Args:
+            package:   
+            name:   
+        Returns:
+            
   """
   import importlib
   return  getattr(importlib.import_module(package), name)
@@ -30,14 +32,16 @@ def load_function(package="mlmodels.util", name="path_norm"):
 
 
 def load_function_uri(uri_name="path_norm"):
-    """ Load dynamically function from URI
-
-    ###### Pandas CSV case : Custom MLMODELS One
-    #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-
-    ###### External File processor :
-    #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-
+    """ Load dynamically function from URI.
+    Doc::
+            
+        
+            ###### Pandas CSV case : Custom MLMODELS One
+            #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
+        
+            ###### External File processor :
+            #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
+        
     """
     
     import importlib, sys
@@ -69,11 +73,13 @@ def load_function_uri(uri_name="path_norm"):
 
 
 def load_callable_from_uri(uri):
-    """function load_callable_from_uri
-    Args:
-        uri:   
-    Returns:
-        
+    """function load_callable_from_uri.
+    Doc::
+            
+            Args:
+                uri:   
+            Returns:
+                
     """
     assert(len(uri)>0 and ('::' in uri or '.' in uri))
     if '::' in uri:
@@ -91,12 +97,14 @@ def load_callable_from_uri(uri):
         
 
 def load_callable_from_dict(function_dict, return_other_keys=False):
-    """function load_callable_from_dict
-    Args:
-        function_dict:   
-        return_other_keys:   
-    Returns:
-        
+    """function load_callable_from_dict.
+    Doc::
+            
+            Args:
+                function_dict:   
+                return_other_keys:   
+            Returns:
+                
     """
     function_dict = function_dict.copy()
     uri = function_dict.pop('uri')
@@ -116,8 +124,10 @@ def load_callable_from_dict(function_dict, return_other_keys=False):
 
 #####################################################################
 def test_all():
-    """
-    #### python test.py   test_utils
+    """.
+    Doc::
+            
+            #### python test.py   test_utils
     """
     def test_logs(): 
         from utilmy.utils import log,log2, logw, loge, logger_setup
@@ -152,10 +162,12 @@ def test_all():
 
 
 def test0(): 
-    """function test0
-    Args:
-    Returns:
-        
+    """function test0.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     logger_setup()
     log("simple log ")
@@ -164,10 +176,12 @@ def test0():
     loge("error log")
     
 def test1():
-    """function test1
-    Args:
-    Returns:
-        
+    """function test1.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     config_load()
     dataset_donwload("https://github.com/arita37/mnist_png/raw/master/mnist_png.tar.gz", './testdata/tmp/test/dataset/')
@@ -177,50 +191,60 @@ def test1():
 ##########################################################################################
 ################### Logs Wrapper #########################################################
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.info(",".join([str(t) for t in s]))
 
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.debug(",".join([str(t) for t in s]))
 
 
 def logw(*s):
-    """function logw
-    Args:
-        *s:   
-    Returns:
-        
+    """function logw.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.warning(",".join([str(t) for t in s]))
 
 
 def loge(*s):
-    """function loge
-    Args:
-        *s:   
-    Returns:
-        
+    """function loge.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.error(",".join([str(t) for t in s]))
 
 
 def logger_setup():
-    """function logger_setup
-    Args:
-    Returns:
-        
+    """function logger_setup.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     config = {
         "handlers": [
@@ -239,15 +263,17 @@ logger_setup()
 ##########################################################################################
 ################### donwload  ############################################################
 def config_load(config_path: Optional[Union[str, pathlib.Path]] = None):
-    """Load Config file into a dict
-    1) load config_path
-    2) If not, load in HOME USER
-    3) If not, create default one
-    # config_default = yaml.load(os.path.join(os.path.dirname(__file__), 'config', 'config.yaml'))
-
-    Args:
-        config_path: path of config or 'default' tag value
-    Returns: dict config
+    """Load Config file into a dict.
+    Doc::
+            
+            1) load config_path
+            2) If not, load in HOME USER
+            3) If not, create default one
+            # config_default = yaml.load(os.path.join(os.path.dirname(__file__), 'config', 'config.yaml'))
+        
+            Args:
+                config_path: path of config or 'default' tag value
+            Returns: dict config
     """
     path_default = pathlib.Path.home() / ".mygenerator"
     config_path_default = path_default / "config.yaml"
@@ -287,12 +313,14 @@ def config_load(config_path: Optional[Union[str, pathlib.Path]] = None):
 ##########################################################################################
 ################### donwload  ############################################################
 def dataset_donwload(url, path_target):
-    """Donwload on disk the tar.gz file
-    Args:
-        url:
-        path_target:
-    Returns:
-
+    """Donwload on disk the tar.gz file.
+    Doc::
+            
+            Args:
+                url:
+                path_target:
+            Returns:
+        
     """
     import wget
     log(f"Donwloading mnist dataset in {path_target}")
@@ -306,18 +334,20 @@ def dataset_donwload(url, path_target):
   
 
 def os_extract_archive(file_path, path=".", archive_format="auto"):
-    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
-    Args:
-        file_path: path to the archive file
-        path: path to extract the archive file
-        archive_format: Archive format to try for extracting the file.
-            Options are 'auto', 'tar', 'zip', and None.
-            'tar' includes tar, tar.gz, and tar.bz files.
-            The default 'auto' is ['tar', 'zip'].
-            None or an empty list will return no matches found.
-    Returns:
-        True if a match was found and an archive extraction was completed,
-        False otherwise.
+    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats..
+    Doc::
+            
+            Args:
+                file_path: path to the archive file
+                path: path to extract the archive file
+                archive_format: Archive format to try for extracting the file.
+                    Options are 'auto', 'tar', 'zip', and None.
+                    'tar' includes tar, tar.gz, and tar.bz files.
+                    The default 'auto' is ['tar', 'zip'].
+                    None or an empty list will return no matches found.
+            Returns:
+                True if a match was found and an archive extraction was completed,
+                False otherwise.
     """
     if archive_format is None:
         return False
@@ -353,12 +383,14 @@ def os_extract_archive(file_path, path=".", archive_format="auto"):
 
 
 def to_file(s, filep):
-    """function to_file
-    Args:
-        s:   
-        filep:   
-    Returns:
-        
+    """function to_file.
+    Doc::
+            
+            Args:
+                s:   
+                filep:   
+            Returns:
+                
     """
     with open(filep, mode="a") as fp:
         fp.write(str(s) + "\n")

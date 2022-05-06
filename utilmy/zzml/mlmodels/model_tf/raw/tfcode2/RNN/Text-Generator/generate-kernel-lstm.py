@@ -20,12 +20,14 @@ sns.set()
 
 
 def get_vocab(file, lower=False):
-    """function get_vocab
-    Args:
-        file:   
-        lower:   
-    Returns:
-        
+    """function get_vocab.
+    Doc::
+            
+            Args:
+                file:   
+                lower:   
+            Returns:
+                
     """
     with open(file, "r") as fopen:
         data = fopen.read()
@@ -36,12 +38,14 @@ def get_vocab(file, lower=False):
 
 
 def embed_to_onehot(data, vocab):
-    """function embed_to_onehot
-    Args:
-        data:   
-        vocab:   
-    Returns:
-        
+    """function embed_to_onehot.
+    Doc::
+            
+            Args:
+                data:   
+                vocab:   
+            Returns:
+                
     """
     onehot = np.zeros((len(data), len(vocab)), dtype=np.float32)
     for i in range(len(data)):
@@ -73,15 +77,17 @@ possible_batch_id = range(len(text) - sequence_length - 1)
 
 class Model:
     def __init__(self, num_layers, size_layer, dimension, sequence_length, learning_rate):
-        """ Model:__init__
-        Args:
-            num_layers:     
-            size_layer:     
-            dimension:     
-            sequence_length:     
-            learning_rate:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        num_layers:     
+                        size_layer:     
+                        dimension:     
+                        sequence_length:     
+                        learning_rate:     
+                    Returns:
+                       
         """
         def lstm_cell():
             return tf.nn.rnn_cell.LSTMCell(size_layer, sequence_length, state_is_tuple=False)
@@ -132,10 +138,12 @@ print(tag)
 
 
 def train_random_batch():
-    """function train_random_batch
-    Args:
-    Returns:
-        
+    """function train_random_batch.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     LOST, ACCURACY = [], []
     for i in range(epoch):
@@ -179,10 +187,12 @@ def train_random_batch():
 
 
 def train_random_sequence():
-    """function train_random_sequence
-    Args:
-    Returns:
-        
+    """function train_random_sequence.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     LOST, ACCURACY = [], []
     for i in range(epoch):
@@ -225,12 +235,14 @@ def train_random_sequence():
 
 
 def generate_based_length(length_sentence, argmax=False):
-    """function generate_based_length
-    Args:
-        length_sentence:   
-        argmax:   
-    Returns:
-        
+    """function generate_based_length.
+    Doc::
+            
+            Args:
+                length_sentence:   
+                argmax:   
+            Returns:
+                
     """
     sentence_generated = tag
     init_value = np.zeros((1, num_layers * 2 * size_layer))
@@ -268,12 +280,14 @@ def generate_based_length(length_sentence, argmax=False):
 
 
 def generate_based_sequence(length_sentence, argmax=False):
-    """function generate_based_sequence
-    Args:
-        length_sentence:   
-        argmax:   
-    Returns:
-        
+    """function generate_based_sequence.
+    Doc::
+            
+            Args:
+                length_sentence:   
+                argmax:   
+            Returns:
+                
     """
     sentence_generated = tag
     onehot = embed_to_onehot(tag, text_vocab)

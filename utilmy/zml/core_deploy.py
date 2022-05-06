@@ -14,8 +14,10 @@ from source.run_inference import predict,model_dict_load
 from core_run import get_global_pars,get_config_path
 ##################################################################################
 def load_arguments():
-    """
-    Get arguments from command line.
+    """.
+    Doc::
+            
+            Get arguments from command line.
     """
     p = argparse.ArgumentParser()
     p.add_argument("--config_path", "-c", type=str, default="titanic_classifier.py", help="Input file")
