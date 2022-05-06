@@ -108,7 +108,7 @@ def run_update_all(mode='overwrite', dirin='utilmy/'):
        # overwrite scripts
        docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=True, test=False)
     elif 'test' in mode:
-       docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=False, test=True, nfile=1)
+       docstring_update1(dirin=python_dir, dirout=python_dir, overwrite=False, test=True)
 
 
 
@@ -201,10 +201,22 @@ def docstring_generate(dirin: Union[str, Path],  dirout: Union[str, Path], overw
             log2('########## Process methods  ###############################') 
             list_methods = get_list_method_info(file_temp)
             for method in list_methods:
+                # print('--------')
+                # print(method['name'])
+                # print(method['line'])
+                # print(method['start_idx'])
+                # print(method['arg_name'])
+                # print(method['arg_type'])
+                # print(method['arg_value'])
+                # print(method['docs'])
+                # print(method['indent'])
+                # print(method['line'])
+                # print(method['start_idx'])
+                # print('--------')
                 new_docstring = []
                 # auto generate docstring
                 if method['docs']:
-                    # function already have docstring, will not update it
+                    # method already have docstring, will not update it
                     pass
                 else:
                     # list of new docstring
@@ -399,6 +411,19 @@ def docstring_update1(dirin: Union[str, Path],  dirout: Union[str, Path], overwr
             log2('########## Process methods  ###############################')  
             list_methods = get_list_method_info(file_temp)
             for method in list_methods:
+                # print('--------')
+                # print(method['name'])
+                # print(method['line'])
+                # print(method['start_idx'])
+                # print(method['arg_name'])
+                # print(method['arg_type'])
+                # print(method['arg_value'])
+                # print(method['docs'])
+                # print(method['indent'])
+                # print(method['line'])
+                # print(method['start_idx'])
+                # print('--------')
+
                 new_docstring = []
                 # auto generate docstring
                 if method['docs']:
@@ -431,36 +456,38 @@ def docstring_update1(dirin: Union[str, Path],  dirout: Union[str, Path], overwr
                 else:
                     method["new_docs"] = method['docs']
         
-                # # auto generate docstring
-                # if method['new_docs']:
-                #     # method already have docstring, update it
-                #     # list of new docstring
-                #     ss = method['new_docs']
-                #     if len(ss) >= 2 and ("Doc::" in ss[0] or "Doc::" in ss[1]):
-                #         continue
+                # auto generate docstring
+                if method['new_docs']:
+                    # method already have docstring, update it
+                    # list of new docstring
+                    ss = method['new_docs']
+                    if len(ss) >= 2 and ("Doc::" in ss[0] or "Doc::" in ss[1]):
+                        continue
                    
-                #     ### New Format  #######################################
-                #     ss1 = []
-                #     ss1.append(ss[0].replace("\n", ".\n") )
-                #     ss1.append( f'{method["indent"]}Doc::\n')
-                #     ss1.append( f'{method["indent"]}        \n')  ### Blank Line
-                #     for line in ss[1:-1] :
-                #         ss1.append( f'{method["indent"]}    ' + line )
-                #     ss1.append(ss[-1])  ### END
+                    ### New Format  #######################################
+                    ss1 = []
+                    ss1.append(ss[0].replace("\n", ".\n") )
+                    ss1.append( f'{method["indent"]}Doc::\n')
+                    ss1.append( f'{method["indent"]}        \n')  ### Blank Line
+                    for line in ss[1:-1] :
+                        ss1.append( f'{method["indent"]}    ' + line )
+                    ss1.append(ss[-1])  ### END
 
-                #     # print(ss1)
-                #     method["new_docs"] = ss1
-                #     print(method["new_docs"])
+                    # print(ss1)
+                    method["new_docs"] = ss1
+                    # print(method["new_docs"])
 
 
             # 2. Update the file with new update docstring for methods
             # print(len(list_methods))
             list_methods.sort(key=lambda x: x['line'], reverse=True)
             # for method in list_methods:
-            #     print(method)
+                # print(method['name'])
+                # print(method['line'])
+                # print(method['start_idx'])
             with open(file_temp, "r") as file:
                 script_lines = file.readlines()
-            # os.remove(file_temp)
+            os.remove(file_temp)
 
             for method in list_methods:
                 if method["new_docs"]:
@@ -468,8 +495,10 @@ def docstring_update1(dirin: Union[str, Path],  dirout: Union[str, Path], overwr
                         script_lines[: method["line"]]
                         # + [f'{function["new_docs"]}\n']
                         + method["new_docs"]
-                        + script_lines[method["line"] + method['start_idx'] -1:]
+                        + script_lines[method["line"] + len(method["docs"]) + method['start_idx'] -1:]
                     )
+                # if method['name'] == 'IndexLock:save_isok':
+                #     break
         
 
             log2('########## Write on Disk ################################') 
@@ -495,12 +524,13 @@ def docstring_update1(dirin: Union[str, Path],  dirout: Union[str, Path], overwr
 
                 isok = os_file_compile_check(script_tmp, verbose=0)   
                 log('compile', isok)
-                os.rename(script_tmp, script_test)
+                # os.rename(script_tmp, script_test)
                 if isok :
                     if os.path.exists(script_test): os.remove(script_test)
                     os.rename(script_tmp, script_test)
                 else :
-                    os.remove(script_tmp)
+                    # os.remove(script_tmp)
+                    pass
 
 
         except Exception as e :
