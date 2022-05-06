@@ -33,8 +33,10 @@ import logging
 
 
 def get_logger():
-    """
-    Instantiate a logger for this module
+    """.
+    Doc::
+            
+            Instantiate a logger for this module
     """
     logfile = "repo_check_logs.txt"
     log_format = (
@@ -55,18 +57,22 @@ logger = get_logger()
 
 
 def get_os():
-    """
-    Get the operating system information for the machine running this script.
+    """.
+    Doc::
+            
+            Get the operating system information for the machine running this script.
     """
     curr_os = "linux" if "Linux" in platform.platform() else "win"
     return curr_os
 
 
 def os_system(cmds, stdout_only=True):
-    """
-    Executes system command and
-    Get print output from command line
-    cmds a list containing command and its arguments
+    """.
+    Doc::
+            
+            Executes system command and
+            Get print output from command line
+            cmds a list containing command and its arguments
     """
     import subprocess
 
@@ -80,11 +86,13 @@ def os_system(cmds, stdout_only=True):
 
 
 def scan_dir(folder):
-    """function scan_dir
-    Args:
-        folder:   
-    Returns:
-        
+    """function scan_dir.
+    Doc::
+            
+            Args:
+                folder:   
+            Returns:
+                
     """
     # note: I have checked os_file_listall, I think the following will be better
     files = glob.glob(folder + "**/*.py")
@@ -96,8 +104,10 @@ def scan_dir(folder):
 
 
 def git_clone(url, dirout=None):
-    """
-    Clone a git repository from its url.
+    """.
+    Doc::
+            
+            Clone a git repository from its url.
     """
     if dirout != None:
         _, stderr, errcode = os_system(
@@ -118,8 +128,10 @@ def git_clone(url, dirout=None):
 
 
 def repo_build_conda(in_folder, conda_env=None):
-    """
-    Auto-generate a conda environment for the files in a given repo.
+    """.
+    Doc::
+            
+            Auto-generate a conda environment for the files in a given repo.
     """
     from cli_code import cli_env_autoinstall
 
@@ -134,9 +146,11 @@ def repo_build_conda(in_folder, conda_env=None):
 
 
 def repo_check_root_files(folder, conda_env):
-    """
-    Launch all files in root (main.py) with subprocess to check if running
-    Log error messages on disk
+    """.
+    Doc::
+            
+            Launch all files in root (main.py) with subprocess to check if running
+            Log error messages on disk
     """
     # Only root file
     logger.info("Checking files in root of repo.")
@@ -151,8 +165,10 @@ def repo_check_root_files(folder, conda_env):
 
 
 def repo_generate_signature(folder):
-    """
-    Generate signature from the code
+    """.
+    Doc::
+            
+            Generate signature from the code
     """
     from cli_code.cli_module_parser import findVariablesInDir, writeCSV
     variables = findVariablesInDir(folder)
@@ -162,8 +178,10 @@ def repo_generate_signature(folder):
 
 
 def load_arguments():
-    """
-    Get arguments from command line.
+    """.
+    Doc::
+            
+            Get arguments from command line.
     """
     # cur_path = os.path.dirname(os.path.realpath(__file__))
     p = argparse.ArgumentParser()
@@ -182,10 +200,12 @@ def load_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     args = load_arguments()
     # this will be used for the repo name if no name was specified

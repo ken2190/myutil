@@ -6,10 +6,12 @@ from mygenerator.validate import image_padding_get
 
 
 def test_image_padding_get():
-    """function test_image_padding_get
-    Args:
-    Returns:
-        
+    """function test_image_padding_get.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     img = np.zeros((5, 30, 3), dtype=np.uint8)

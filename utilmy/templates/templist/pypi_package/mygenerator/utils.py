@@ -17,50 +17,60 @@ from loguru import logger
 ##########################################################################################
 ################### Logs Wrapper #########################################################
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.info(",".join([str(t) for t in s]))
 
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.debug(",".join([str(t) for t in s]))
 
 
 def logw(*s):
-    """function logw
-    Args:
-        *s:   
-    Returns:
-        
+    """function logw.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.warning(",".join([str(t) for t in s]))
 
 
 def loge(*s):
-    """function loge
-    Args:
-        *s:   
-    Returns:
-        
+    """function loge.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     logger.error(",".join([str(t) for t in s]))
 
 
 def logger_setup():
-    """function logger_setup
-    Args:
-    Returns:
-        
+    """function logger_setup.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     config = {
         "handlers": [
@@ -79,13 +89,15 @@ logger_setup()
 ##########################################################################################
 ################### donwload  ############################################################
 def config_load(config_path: Optional[Union[str, pathlib.Path]] = None):
-    """Load Config file into a dict
-    1) load config_path
-    2) If not, load in HOME USER
-    3) If not, create default one
-    Args:
-        config_path: path of config or 'default' tag value
-    Returns: dict config
+    """Load Config file into a dict.
+    Doc::
+            
+            1) load config_path
+            2) If not, load in HOME USER
+            3) If not, create default one
+            Args:
+                config_path: path of config or 'default' tag value
+            Returns: dict config
     """
     path_default = pathlib.Path.home() / ".mygenerator"
     config_path_default = path_default / "config.yaml"
@@ -123,12 +135,14 @@ def config_load(config_path: Optional[Union[str, pathlib.Path]] = None):
 ##########################################################################################
 ################### donwload  ############################################################
 def dataset_donwload(url, path_target):
-    """Donwload on disk the tar.gz file
-    Args:
-        url:
-        path_target:
-    Returns:
-
+    """Donwload on disk the tar.gz file.
+    Doc::
+            
+            Args:
+                url:
+                path_target:
+            Returns:
+        
     """
     log(f"Donwloading mnist dataset in {path_target}")
     os.makedirs(path_target, exist_ok=True)
@@ -140,11 +154,13 @@ def dataset_donwload(url, path_target):
 
 
 def dataset_get_path(cfg: dict):
-    """function dataset_get_path
-    Args:
-        cfg (  dict ) :   
-    Returns:
-        
+    """function dataset_get_path.
+    Doc::
+            
+            Args:
+                cfg (  dict ) :   
+            Returns:
+                
     """
     #### Donaload dataset
     # cfg = config_load()
@@ -175,18 +191,20 @@ def dataset_get_path(cfg: dict):
 
 
 def os_extract_archive(file_path, path=".", archive_format="auto"):
-    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
-    Args:
-        file_path: path to the archive file
-        path: path to extract the archive file
-        archive_format: Archive format to try for extracting the file.
-            Options are 'auto', 'tar', 'zip', and None.
-            'tar' includes tar, tar.gz, and tar.bz files.
-            The default 'auto' is ['tar', 'zip'].
-            None or an empty list will return no matches found.
-    Returns:
-        True if a match was found and an archive extraction was completed,
-        False otherwise.
+    """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats..
+    Doc::
+            
+            Args:
+                file_path: path to the archive file
+                path: path to extract the archive file
+                archive_format: Archive format to try for extracting the file.
+                    Options are 'auto', 'tar', 'zip', and None.
+                    'tar' includes tar, tar.gz, and tar.bz files.
+                    The default 'auto' is ['tar', 'zip'].
+                    None or an empty list will return no matches found.
+            Returns:
+                True if a match was found and an archive extraction was completed,
+                False otherwise.
     """
     if archive_format is None:
         return False
@@ -222,12 +240,14 @@ def os_extract_archive(file_path, path=".", archive_format="auto"):
 
 
 def to_file(s, filep):
-    """function to_file
-    Args:
-        s:   
-        filep:   
-    Returns:
-        
+    """function to_file.
+    Doc::
+            
+            Args:
+                s:   
+                filep:   
+            Returns:
+                
     """
     with open(filep, mode="a") as fp:
         fp.write(str(s) + "\n")

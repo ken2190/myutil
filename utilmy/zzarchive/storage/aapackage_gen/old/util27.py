@@ -18,12 +18,14 @@ import global01 as global01 #as global varaibles   global01.varname
 #####################################################################################
 #-------- Python-------------------------------------------------------------------
 def getmodule_doc(module1, fileout=''):
-  """function getmodule_doc
-  Args:
-      module1:   
-      fileout:   
-  Returns:
-      
+  """function getmodule_doc.
+  Doc::
+          
+        Args:
+            module1:   
+            fileout:   
+        Returns:
+            
   """
   from automaton import codeanalysis as ca
   ca.getmodule_doc(module1, fileout)

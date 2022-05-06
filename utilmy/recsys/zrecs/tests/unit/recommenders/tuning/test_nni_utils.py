@@ -22,33 +22,39 @@ from recommenders.tuning.nni.nni_utils import (
 class MockResponse:
     # Class that mocks requests.models.Response
     def __init__(self, content, error):
-        """ MockResponse:__init__
-        Args:
-            content:     
-            error:     
-        Returns:
-           
+        """ MockResponse:__init__.
+        Doc::
+                
+                    Args:
+                        content:     
+                        error:     
+                    Returns:
+                       
         """
         self._content = content
         self._error = error
 
     def json(self):
-        """ MockResponse:json
-        Args:
-        Returns:
-           
+        """ MockResponse:json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return {"status": self._content, "errors": [self._error]}
 
 
 def mocked_status_get(url, content, error):
-    """function mocked_status_get
-    Args:
-        url:   
-        content:   
-        error:   
-    Returns:
-        
+    """function mocked_status_get.
+    Doc::
+            
+            Args:
+                url:   
+                content:   
+                error:   
+            Returns:
+                
     """
     assert url.startswith(NNI_STATUS_URL)
     return MockResponse(content, error)
@@ -57,45 +63,60 @@ def mocked_status_get(url, content, error):
 class MockResponseTrials:
     # Class that mocks requests.models.Response
     def __init__(self, content):
-        """ MockResponseTrials:__init__
-        Args:
-            content:     
-        Returns:
-           
+        """ MockResponseTrials:__init__.
+        Doc::
+                
+                    Args:
+                        content:     
+                    Returns:
+                       
         """
         self._content = content
 
     def json(self):
+        """ MockResponseTrials:json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
+        """
         return self._content
 
 
 def mocked_trials_get(url, content):
-    """function mocked_trials_get
-    Args:
-        url:   
-        content:   
-    Returns:
-        
+    """function mocked_trials_get.
+    Doc::
+            
+            Args:
+                url:   
+                content:   
+            Returns:
+                
     """
     assert url.startswith(NNI_TRIAL_JOBS_URL)
     return MockResponseTrials(content)
 
 
 def mock_exception():
-    """function mock_exception
-    Args:
-    Returns:
-        
+    """function mock_exception.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     raise Exception()
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_get_experiment_status():
-    """function test_get_experiment_status
-    Args:
-    Returns:
-        
+    """function test_get_experiment_status.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "some_status"
     error = ""
@@ -109,10 +130,12 @@ def test_get_experiment_status():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_experiment_status_done():
-    """function test_check_experiment_status_done
-    Args:
-    Returns:
-        
+    """function test_check_experiment_status_done.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "DONE"
     error = ""
@@ -124,10 +147,12 @@ def test_check_experiment_status_done():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_experiment_status_tuner_no_more_trial():
-    """function test_check_experiment_status_tuner_no_more_trial
-    Args:
-    Returns:
-        
+    """function test_check_experiment_status_tuner_no_more_trial.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "TUNER_NO_MORE_TRIAL"
     error = ""
@@ -139,10 +164,12 @@ def test_check_experiment_status_tuner_no_more_trial():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_experiment_status_running():
-    """function test_check_experiment_status_running
-    Args:
-    Returns:
-        
+    """function test_check_experiment_status_running.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "RUNNING"
     error = ""
@@ -157,10 +184,12 @@ def test_check_experiment_status_running():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_experiment_status_no_more_trial():
-    """function test_check_experiment_status_no_more_trial
-    Args:
-    Returns:
-        
+    """function test_check_experiment_status_no_more_trial.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "NO_MORE_TRIAL"
     error = ""
@@ -175,10 +204,12 @@ def test_check_experiment_status_no_more_trial():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_experiment_status_failed():
-    """function test_check_experiment_status_failed
-    Args:
-    Returns:
-        
+    """function test_check_experiment_status_failed.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "some_failed_status"
     error = "NNI_ERROR"
@@ -196,10 +227,12 @@ def test_check_experiment_status_failed():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_stopped_timeout():
-    """function test_check_stopped_timeout
-    Args:
-    Returns:
-        
+    """function test_check_stopped_timeout.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = "some_status"
     error = ""
@@ -214,10 +247,12 @@ def test_check_stopped_timeout():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_stopped():
-    """function test_check_stopped
-    Args:
-    Returns:
-        
+    """function test_check_stopped.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with patch("requests.get", side_effect=mock_exception):
         check_stopped(wait=0.1, max_retries=1)
@@ -225,10 +260,12 @@ def test_check_stopped():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_metrics_written():
-    """function test_check_metrics_written
-    Args:
-    Returns:
-        
+    """function test_check_metrics_written.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = [{"finalMetricData": None}, {"finalMetricData": None}]
     with patch("requests.get", side_effect=lambda url: mocked_trials_get(url, content)):
@@ -237,10 +274,12 @@ def test_check_metrics_written():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_check_metrics_written_timeout():
-    """function test_check_metrics_written_timeout
-    Args:
-    Returns:
-        
+    """function test_check_metrics_written_timeout.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     content = [{"logPath": "/p"}, {"logPath": "/q"}]
     with pytest.raises(TimeoutError) as excinfo:
@@ -253,10 +292,12 @@ def test_check_metrics_written_timeout():
 
 @pytest.mark.skipif(sys.platform == "win32", reason="nni not installable on windows")
 def test_get_trials():
-    """function test_get_trials
-    Args:
-    Returns:
-        
+    """function test_get_trials.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with TemporaryDirectory() as tmp_dir1, TemporaryDirectory() as tmp_dir2:
 

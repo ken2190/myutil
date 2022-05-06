@@ -64,20 +64,24 @@ import torch
 VERBOSE = True
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
@@ -85,12 +89,14 @@ def log2(*s):
 global model, session
 
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
@@ -99,13 +105,15 @@ def init(*kw, **kwargs):
 
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -155,7 +163,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     # global model, session
     session = None  # Session type for compute
@@ -178,15 +188,17 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars: dict={}, compute_pars: dict={}, out_pars: dict={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars (  dict ) :   
-        compute_pars (  dict ) :   
-        out_pars (  dict ) :   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars (  dict ) :   
+                compute_pars (  dict ) :   
+                out_pars (  dict ) :   
+                **kw:   
+            Returns:
+                
     """
     global model, session
 
@@ -208,16 +220,20 @@ def predict(Xpred=None, data_pars: dict={}, compute_pars: dict={}, out_pars: dic
 
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
 
 def save(path=None, info=None):
-    """ Custom saving
+    """ Custom saving.
+    Doc::
+            
     """
     global model, session
     import cloudpickle as pickle
@@ -233,11 +249,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -257,11 +275,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -274,9 +294,11 @@ def load_info(path=""):
 
 
 def get_dataset2(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  :
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  :
+              "file" :
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -303,11 +325,13 @@ def get_dataset2(data_pars=None, task_type="train", **kw):
 # cols_ref_formodel = ['cols_single_group']
 cols_ref_formodel = ['colcontinuous', 'colsparse']
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
-    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe
-    Xtrain:
-    cols_type_received:
-    cols_ref:
-    :return:
+    """  Split into Tuples to feed  Xyuple = (df1, df2, df3) OR single dataframe.
+    Doc::
+            
+            Xtrain:
+            cols_type_received:
+            cols_ref:
+            :return:
     """
     if len(cols_ref) <= 1 :
         return Xtrain
@@ -326,8 +350,10 @@ def get_dataset_tuple(Xtrain, cols_type_received, cols_ref):
 
 
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      return tuple of dataframes
+    """.
+    Doc::
+            
+              return tuple of dataframes
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -372,11 +398,13 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 ####################################################################################################
 ############ Test  #################################################################################
 def test_dataset_covtype(nrows=1000):
-    """function test_dataset_covtype
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_covtype.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
 
     # Dense features
@@ -412,8 +440,10 @@ def test_dataset_covtype(nrows=1000):
 
 
 def test(nrows=1000):
-    """
-        nrows : take first nrows from dataset
+    """.
+    Doc::
+            
+                nrows : take first nrows from dataset
     """
     df, colnum, colcat, coly = test_dataset_covtype()
 
@@ -567,18 +597,22 @@ def test(nrows=1000):
 
 
 def test3():
-    """function test3
-    Args:
-    Returns:
-        
+    """function test3.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
 
 def test2(nrows=10000):
-    """
-       python source/models/torch_tabular.py test
-
+    """.
+    Doc::
+            
+               python source/models/torch_tabular.py test
+        
     """
     global model, session
 

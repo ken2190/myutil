@@ -12,8 +12,10 @@ import scipy.sparse as sp
 
 
 def _get_movielens_path():
-    """
-    Get path to the movielens dataset file.
+    """.
+    Doc::
+            
+            Get path to the movielens dataset file.
     """
 
     return os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -21,8 +23,10 @@ def _get_movielens_path():
 
 
 def _download_movielens(dest_path):
-    """
-    Download the dataset.
+    """.
+    Doc::
+            
+            Download the dataset.
     """
 
     url = 'http://files.grouplens.org/datasets/movielens/ml-100k.zip'
@@ -36,8 +40,10 @@ def _download_movielens(dest_path):
 
 
 def _get_raw_movielens_data():
-    """
-    Return the raw lines of the train and test files.
+    """.
+    Doc::
+            
+            Return the raw lines of the train and test files.
     """
 
     path = _get_movielens_path()
@@ -51,8 +57,10 @@ def _get_raw_movielens_data():
 
 
 def _parse(data):
-    """
-    Parse movielens dataset lines.
+    """.
+    Doc::
+            
+            Parse movielens dataset lines.
     """
 
     for line in data:
@@ -66,13 +74,15 @@ def _parse(data):
 
 
 def _build_interaction_matrix(rows, cols, data):
-    """function _build_interaction_matrix
-    Args:
-        rows:   
-        cols:   
-        data:   
-    Returns:
-        
+    """function _build_interaction_matrix.
+    Doc::
+            
+            Args:
+                rows:   
+                cols:   
+                data:   
+            Returns:
+                
     """
 
     mat = sp.lil_matrix((rows, cols), dtype=np.int32)
@@ -86,8 +96,10 @@ def _build_interaction_matrix(rows, cols, data):
 
 
 def _get_movie_raw_metadata():
-    """
-    Get raw lines of the genre file.
+    """.
+    Doc::
+            
+            Get raw lines of the genre file.
     """
 
     path = _get_movielens_path()
@@ -100,10 +112,12 @@ def _get_movie_raw_metadata():
 
 
 def get_movielens_item_metadata(use_item_ids):
-    """
-    Build a matrix of genre features (no_items, no_features).
-
-    If use_item_ids is True, per-item feeatures will also be used.
+    """.
+    Doc::
+            
+            Build a matrix of genre features (no_items, no_features).
+        
+            If use_item_ids is True, per-item feeatures will also be used.
     """
 
     features = {}
@@ -142,15 +156,17 @@ def get_movielens_item_metadata(use_item_ids):
 
 
 def get_dense_triplets(uids, pids, nids, num_users, num_items):
-    """function get_dense_triplets
-    Args:
-        uids:   
-        pids:   
-        nids:   
-        num_users:   
-        num_items:   
-    Returns:
-        
+    """function get_dense_triplets.
+    Doc::
+            
+            Args:
+                uids:   
+                pids:   
+                nids:   
+                num_users:   
+                num_items:   
+            Returns:
+                
     """
 
     user_identity = np.identity(num_users)
@@ -160,19 +176,23 @@ def get_dense_triplets(uids, pids, nids, num_users, num_items):
 
 
 def get_triplets(mat):
-    """function get_triplets
-    Args:
-        mat:   
-    Returns:
-        
+    """function get_triplets.
+    Doc::
+            
+            Args:
+                mat:   
+            Returns:
+                
     """
 
     return mat.row, mat.col, np.random.randint(mat.shape[1], size=len(mat.row))
 
 
 def get_movielens_data():
-    """
-    Return (train_interactions, test_interactions).
+    """.
+    Doc::
+            
+            Return (train_interactions, test_interactions).
     """
 
     train_data, test_data = _get_raw_movielens_data()

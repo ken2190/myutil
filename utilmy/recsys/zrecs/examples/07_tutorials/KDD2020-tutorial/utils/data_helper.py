@@ -10,11 +10,13 @@ import os
 
 
 def load_paper_reference(infile):
-    """function load_paper_reference
-    Args:
-        infile:   
-    Returns:
-        
+    """function load_paper_reference.
+    Doc::
+            
+            Args:
+                infile:   
+            Returns:
+                
     """
     r"""
     Returns:

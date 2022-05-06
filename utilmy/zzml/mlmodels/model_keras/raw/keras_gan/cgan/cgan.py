@@ -14,10 +14,12 @@ import numpy as np
 
 class CGAN():
     def __init__(self):
-        """ CGAN:__init__
-        Args:
-        Returns:
-           
+        """ CGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # Input shape
         self.img_rows = 28
@@ -58,10 +60,12 @@ class CGAN():
             optimizer=optimizer)
 
     def build_generator(self):
-        """ CGAN:build_generator
-        Args:
-        Returns:
-           
+        """ CGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -90,10 +94,12 @@ class CGAN():
         return Model([noise, label], img)
 
     def build_discriminator(self):
-        """ CGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ CGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -122,13 +128,15 @@ class CGAN():
         return Model([img, label], validity)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ CGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ CGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -182,11 +190,13 @@ class CGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ CGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ CGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 2, 5
         noise = np.random.normal(0, 1, (r * c, 100))

@@ -15,47 +15,57 @@ class URLData:
     url: str
 
     def title_normalized(self) -> str:
-        """ URLData:title_normalized
-        Args:
-        Returns:
-           
+        """ URLData:title_normalized.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.title.strip().replace("/", "\u2215")
 
     def pdf_title(self) -> str:
-        """ URLData:pdf_title
-        Args:
-        Returns:
-           
+        """ URLData:pdf_title.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return f"{self.title_normalized()}.pdf"
 
     def txt_title(self) -> str:
-        """ URLData:txt_title
-        Args:
-        Returns:
-           
+        """ URLData:txt_title.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return f"{self.title_normalized()}.txt"
 
 
 class PageParser:
     def __init__(self):
-        """ PageParser:__init__
-        Args:
-        Returns:
-           
+        """ PageParser:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.url_list = []
         self.page_count = 0
 
     def parse(self, url, page_limit):
-        """ PageParser:parse
-        Args:
-            url:     
-            page_limit:     
-        Returns:
-           
+        """ PageParser:parse.
+        Doc::
+                
+                    Args:
+                        url:     
+                        page_limit:     
+                    Returns:
+                       
         """
         api_url = self.construct_api_url(url)
         print(f"API URL: {api_url}")
@@ -81,21 +91,25 @@ class PageParser:
         return self.url_list
 
     def construct_api_url(self, url):
-        """ PageParser:construct_api_url
-        Args:
-            url:     
-        Returns:
-           
+        """ PageParser:construct_api_url.
+        Doc::
+                
+                    Args:
+                        url:     
+                    Returns:
+                       
         """
         needle = url.replace("https://openreview.net/group?id=", "")
         return f"""https://api.openreview.net/notes?invitation={needle}/-/Blind_Submission&details=replyCount%2Cinvitation%2Coriginal&includeCount=true&offset=0&limit=50"""
 
     def process_api_response(self, response):
-        """ PageParser:process_api_response
-        Args:
-            response:     
-        Returns:
-           
+        """ PageParser:process_api_response.
+        Doc::
+                
+                    Args:
+                        response:     
+                    Returns:
+                       
         """
         response_data = response.json()
         if not response_data.get("notes"):
@@ -106,11 +120,13 @@ class PageParser:
         return result
 
     def generate_next_url(self, current_url):
-        """ PageParser:generate_next_url
-        Args:
-            current_url:     
-        Returns:
-           
+        """ PageParser:generate_next_url.
+        Doc::
+                
+                    Args:
+                        current_url:     
+                    Returns:
+                       
         """
         new_url = current_url.split("offset")[0]
         new_url = f"{new_url}&offset={50 * self.page_count}&limit=50"
@@ -118,33 +134,39 @@ class PageParser:
 
     @staticmethod
     def construct_pdf_url(note):
-        """ PageParser:construct_pdf_url
-        Args:
-            note:     
-        Returns:
-           
+        """ PageParser:construct_pdf_url.
+        Doc::
+                
+                    Args:
+                        note:     
+                    Returns:
+                       
         """
         return f"https://openreview.net/pdf?id={note['id']}"
 
 
 class PDFExtractor:
     def __init__(self, pdf_path, txt_path):
-        """ PDFExtractor:__init__
-        Args:
-            pdf_path:     
-            txt_path:     
-        Returns:
-           
+        """ PDFExtractor:__init__.
+        Doc::
+                
+                    Args:
+                        pdf_path:     
+                        txt_path:     
+                    Returns:
+                       
         """
         self.pdf_path = pdf_path
         self.txt_path = txt_path
 
     def extract(self, url_data: URLData):
-        """ PDFExtractor:extract
-        Args:
-            url_data (function["arg_type"][i]) :     
-        Returns:
-           
+        """ PDFExtractor:extract.
+        Doc::
+                
+                    Args:
+                        url_data (function["arg_type"][i]) :     
+                    Returns:
+                       
         """
         print(f'Scraping "{url_data.title_normalized()}" from URL {url_data.url}...')
         pdf_data = requests.get(url_data.url).content
@@ -159,14 +181,16 @@ class OpenreviewScraper:
     page_parser = PageParser()
 
     def __init__(self, url="", npage_max=1, path_pdf="", path_txt=""):
-        """ OpenreviewScraper:__init__
-        Args:
-            url:     
-            npage_max:     
-            path_pdf:     
-            path_txt:     
-        Returns:
-           
+        """ OpenreviewScraper:__init__.
+        Doc::
+                
+                    Args:
+                        url:     
+                        npage_max:     
+                        path_pdf:     
+                        path_txt:     
+                    Returns:
+                       
         """
         self.url = url
         self.npage_max = npage_max
@@ -180,10 +204,12 @@ class OpenreviewScraper:
         print(f"Trying to read URL {url}...")
 
     def run(self):
-        """ OpenreviewScraper:run
-        Args:
-        Returns:
-           
+        """ OpenreviewScraper:run.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         url_list = self.page_parser.parse(self.url, self.npage_max)
         url_list_len = len(url_list)

@@ -26,13 +26,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -116,13 +118,15 @@ cols_input_type_1 = {
 #####################################################################################
 ####### y normalization #############################################################
 def y_norm(y, inverse=True, mode='boxcox'):
-    """function y_norm
-    Args:
-        y:   
-        inverse:   
-        mode:   
-    Returns:
-        
+    """function y_norm.
+    Doc::
+            
+            Args:
+                y:   
+                inverse:   
+                mode:   
+            Returns:
+                
     """
     ## Normalize the input/output
     if mode == 'boxcox':
@@ -154,9 +158,11 @@ def y_norm(y, inverse=True, mode='boxcox'):
 ####################################################################################
 ##### Params########################################################################
 def house_price_lightgbm(path_model_out="") :
-    """
-        Huber Loss includes L1  regurarlization
-        We test different features combinaison, default params is optimal
+    """.
+    Doc::
+            
+                Huber Loss includes L1  regurarlization
+                We test different features combinaison, default params is optimal
     """
     data_name         = 'house_price'
     model_name        = 'LGBMRegressor'
@@ -211,11 +217,13 @@ def house_price_lightgbm(path_model_out="") :
 
 
 def house_price_elasticnetcv(path_model_out=""):
-    """function house_price_elasticnetcv
-    Args:
-        path_model_out:   
-    Returns:
-        
+    """function house_price_elasticnetcv.
+    Doc::
+            
+            Args:
+                path_model_out:   
+            Returns:
+                
     """
     model_name   = 'ElasticNetCV'
     config_name  = 'house_price_elasticnetcv'
@@ -274,10 +282,12 @@ globals()[config_name]()
 ###################################################################################
 ########## Profile data #############################################################
 def data_profile():
-   """function data_profile
-   Args:
-   Returns:
-       
+   """function data_profile.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    from source.run_feature_profile import run_profile
    run_profile(path_data   = path_data_train,
@@ -290,10 +300,12 @@ def data_profile():
 ###################################################################################
 ########## Preprocess #############################################################
 def preprocess():
-    """function preprocess
-    Args:
-    Returns:
-        
+    """function preprocess.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from source import run_preprocess_old
     run_preprocess_old.run_preprocess(model_name =  config_name,
@@ -307,10 +319,12 @@ def preprocess():
 ############################################################################
 ########## Train ###########################################################
 def train():
-    """function train
-    Args:
-    Returns:
-        
+    """function train.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from source import run_train
     run_train.run_train(config_name=  config_name,
@@ -322,10 +336,12 @@ def train():
 ###################################################################################
 ######### Check model #############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 
@@ -333,10 +349,12 @@ def check():
 ########################################################################################
 ####### Inference ######################################################################
 def predict():
-    """function predict
-    Args:
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from source import run_inference
     run_inference.run_predict(model_name,
@@ -347,10 +365,12 @@ def predict():
 
 
 def run_all():
-    """function run_all
-    Args:
-    Returns:
-        
+    """function run_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     data_profile()
     preprocess()

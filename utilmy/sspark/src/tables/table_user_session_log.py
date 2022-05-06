@@ -10,10 +10,12 @@ from src.utils import config_load, log, spark_check
 
 
 def run(spark:SparkSession, config_name='config.yaml' ):
-    """  Generate use_session table
-    spark: sparksession
-    config: config dict
-    :return: None
+    """  Generate use_session table.
+    Doc::
+            
+            spark: sparksession
+            config: config dict
+            :return: None
     """
     ##### Load the yaml config file
     conf           = config_load(config_name)

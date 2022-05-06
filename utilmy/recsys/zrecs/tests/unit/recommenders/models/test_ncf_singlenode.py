@@ -27,13 +27,15 @@ N_NEG_TEST = 10
     "model_type, n_users, n_items", [("NeuMF", 1, 1), ("GMF", 10, 10), ("MLP", 4, 8)]
 )
 def test_init(model_type, n_users, n_items):
-    """function test_init
-    Args:
-        model_type:   
-        n_users:   
-        n_items:   
-    Returns:
-        
+    """function test_init.
+    Doc::
+            
+            Args:
+                model_type:   
+                n_users:   
+                n_items:   
+            Returns:
+                
     """
     model = NCF(
         n_users=n_users, n_items=n_items, model_type=model_type, n_epochs=1, seed=SEED
@@ -61,13 +63,15 @@ def test_init(model_type, n_users, n_items):
     "model_type, n_users, n_items", [("NeuMF", 5, 5), ("GMF", 5, 5), ("MLP", 5, 5)]
 )
 def test_regular_save_load(model_type, n_users, n_items):
-    """function test_regular_save_load
-    Args:
-        model_type:   
-        n_users:   
-        n_items:   
-    Returns:
-        
+    """function test_regular_save_load.
+    Doc::
+            
+            Args:
+                model_type:   
+                n_users:   
+                n_items:   
+            Returns:
+                
     """
     ckpt = ".%s" % model_type
     if os.path.exists(ckpt):
@@ -116,12 +120,14 @@ def test_regular_save_load(model_type, n_users, n_items):
 @pytest.mark.gpu
 @pytest.mark.parametrize("n_users, n_items", [(5, 5), (4, 8)])
 def test_neumf_save_load(n_users, n_items):
-    """function test_neumf_save_load
-    Args:
-        n_users:   
-        n_items:   
-    Returns:
-        
+    """function test_neumf_save_load.
+    Doc::
+            
+            Args:
+                n_users:   
+                n_items:   
+            Returns:
+                
     """
     model_type = "gmf"
     ckpt_gmf = ".%s" % model_type
@@ -169,12 +175,14 @@ def test_neumf_save_load(n_users, n_items):
 @pytest.mark.gpu
 @pytest.mark.parametrize("model_type", ["NeuMF", "GMF", "MLP"])
 def test_fit(python_dataset_ncf, model_type):
-    """function test_fit
-    Args:
-        python_dataset_ncf:   
-        model_type:   
-    Returns:
-        
+    """function test_fit.
+    Doc::
+            
+            Args:
+                python_dataset_ncf:   
+                model_type:   
+            Returns:
+                
     """
     train, test = python_dataset_ncf
     data = Dataset(train=train, test=test, n_neg=N_NEG, n_neg_test=N_NEG_TEST)
@@ -187,12 +195,14 @@ def test_fit(python_dataset_ncf, model_type):
 @pytest.mark.gpu
 @pytest.mark.parametrize("model_type", ["NeuMF", "GMF", "MLP"])
 def test_predict(python_dataset_ncf, model_type):
-    """function test_predict
-    Args:
-        python_dataset_ncf:   
-        model_type:   
-    Returns:
-        
+    """function test_predict.
+    Doc::
+            
+            Args:
+                python_dataset_ncf:   
+                model_type:   
+            Returns:
+                
     """
     # test data format
     train, test = python_dataset_ncf

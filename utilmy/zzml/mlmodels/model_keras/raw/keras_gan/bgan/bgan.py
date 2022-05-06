@@ -21,10 +21,12 @@ out_path = ""
 class BGAN():
     """Reference: https://wiseodd.github.io/techblog/2017/03/07/boundary-seeking-gan/"""
     def __init__(self):
-        """ BGAN:__init__
-        Args:
-        Returns:
-           
+        """ BGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -59,10 +61,12 @@ class BGAN():
         self.combined.compile(loss=self.boundary_loss, optimizer=optimizer)
 
     def build_generator(self):
-        """ BGAN:build_generator
-        Args:
-        Returns:
-           
+        """ BGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -87,10 +91,12 @@ class BGAN():
         return Model(noise, img)
 
     def build_discriminator(self):
-        """ BGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ BGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -109,20 +115,24 @@ class BGAN():
         return Model(img, validity)
 
     def boundary_loss(self, y_true, y_pred):
-        """
-        Boundary seeking loss.
-        Reference: https://wiseodd.github.io/techblog/2017/03/07/boundary-seeking-gan/
+        """.
+        Doc::
+                
+                    Boundary seeking loss.
+                    Reference: https://wiseodd.github.io/techblog/2017/03/07/boundary-seeking-gan/
         """
         return 0.5 * K.mean((K.log(y_pred) - K.log(1 - y_pred))**2)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ BGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ BGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -171,11 +181,13 @@ class BGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ BGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ BGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))

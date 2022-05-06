@@ -177,11 +177,13 @@ best_aic
 
 
 def reverse_close(array):
-    """function reverse_close
-    Args:
-        array:   
-    Returns:
-        
+    """function reverse_close.
+    Doc::
+            
+            Args:
+                array:   
+            Returns:
+                
     """
     return minmax.inverse_transform(array.reshape((-1, 1))).reshape((-1))
 

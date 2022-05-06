@@ -7,10 +7,12 @@ import os
 
 
 def test_data():
-    """function test_data
-    Args:
-    Returns:
-        
+    """function test_data.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     datapath = os.path.dirname(os.path.abspath(__file__))
     plants = pd.read_csv(os.path.join(datapath, 'data/PlantGrowth.csv'))
@@ -19,10 +21,12 @@ def test_data():
 
 
 def multivariate_test_data():
-    """function multivariate_test_data
-    Args:
-    Returns:
-        
+    """function multivariate_test_data.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     d = np.array([[1., 1.11, 2.569, 3.58, 0.76],
                   [1., 1.19, 2.928, 3.75, 0.821],
@@ -79,10 +83,12 @@ def multivariate_test_data():
 data = test_data()
 
 def test_anova_oneway():
-    """ TestAnovaOneWay:test_anova_oneway
-    Args:
-    Returns:
-
+    """ TestAnovaOneWay:test_anova_oneway.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     anov = AnovaOneWay(data['weight'],
                        group=data['group'])
@@ -134,10 +140,12 @@ def test_anova_oneway():
 data = multivariate_test_data()
 
 def test_manova_oneway():
-    """ TestManovaOneWay:test_manova_oneway
-    Args:
-    Returns:
-
+    """ TestManovaOneWay:test_manova_oneway.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     dat_shape = data.shape
     manov = ManovaOneWay(data[:, 1],

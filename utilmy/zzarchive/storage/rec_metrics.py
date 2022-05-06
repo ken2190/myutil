@@ -4,13 +4,15 @@ from sklearn.metrics import roc_auc_score
 
 
 def predict(model, uid, pids):
-    """function predict
-    Args:
-        model:   
-        uid:   
-        pids:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                uid:   
+                pids:   
+            Returns:
+                
     """
 
     scores = (np.dot(model.nodes['user_latent'].get_weights()[0][uid],
@@ -20,16 +22,18 @@ def predict(model, uid, pids):
 
 
 def precision_at_k(model, ground_truth, k, user_features=None, item_features=None):
-    """
-    Measure precision at k for model and ground truth.
-
-    Arguments:
-    - lightFM instance model
-    - sparse matrix ground_truth (no_users, no_items)
-    - int k
-
-    Returns:
-    - float precision@k
+    """.
+    Doc::
+            
+            Measure precision at k for model and ground truth.
+        
+            Arguments:
+            - lightFM instance model
+            - sparse matrix ground_truth (no_users, no_items)
+            - int k
+        
+            Returns:
+            - float precision@k
     """
 
     ground_truth = ground_truth.tocsr()
@@ -58,11 +62,13 @@ def precision_at_k(model, ground_truth, k, user_features=None, item_features=Non
 
 
 def full_auc(model, ground_truth):
-    """
-    Measure AUC for model and ground truth on all items.
-
-    Returns:
-    - float AUC
+    """.
+    Doc::
+            
+            Measure AUC for model and ground truth on all items.
+        
+            Returns:
+            - float AUC
     """
 
     ground_truth = ground_truth.tocsr()

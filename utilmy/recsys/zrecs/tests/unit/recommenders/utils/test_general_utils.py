@@ -6,10 +6,12 @@ from recommenders.utils.general_utils import invert_dictionary, get_number_proce
 
 
 def test_invert_dictionary():
-    """function test_invert_dictionary
-    Args:
-    Returns:
-        
+    """function test_invert_dictionary.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     d = {"a": 1, "b": 2}
     d_inv = invert_dictionary(d)
@@ -17,9 +19,11 @@ def test_invert_dictionary():
 
 
 def test_get_number_processors():
-    """function test_get_number_processors
-    Args:
-    Returns:
-        
+    """function test_get_number_processors.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     assert get_number_processors() >= 1

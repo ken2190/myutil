@@ -14,6 +14,13 @@ import torch.nn.functional as F
 
 
 def check_lstm():
+    """function check_lstm.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
 
     #############################################################################
     #### Internal LSTM parameters

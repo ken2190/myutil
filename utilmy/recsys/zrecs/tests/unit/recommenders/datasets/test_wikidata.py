@@ -15,10 +15,12 @@ from recommenders.datasets.wikidata import (
 
 @pytest.fixture(scope="module")
 def q():
-    """function q
-    Args:
-    Returns:
-        
+    """function q.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return {
         "correct": "the lord of the rings",
@@ -28,11 +30,13 @@ def q():
 
 
 def test_find_wikidata_id(q):
-    """function test_find_wikidata_id
-    Args:
-        q:   
-    Returns:
-        
+    """function test_find_wikidata_id.
+    Doc::
+            
+            Args:
+                q:   
+            Returns:
+                
     """
     assert find_wikidata_id(q["correct"]) == "Q15228"
     assert find_wikidata_id(q["not_correct"]) == "entityNotFound"
@@ -40,11 +44,13 @@ def test_find_wikidata_id(q):
 
 @pytest.mark.skip(reason="Wikidata API is unstable")
 def test_query_entity_links(q):
-    """function test_query_entity_links
-    Args:
-        q:   
-    Returns:
-        
+    """function test_query_entity_links.
+    Doc::
+            
+            Args:
+                q:   
+            Returns:
+                
     """
     resp = query_entity_links(q["entity_id"])
     assert "head" in resp
@@ -53,11 +59,13 @@ def test_query_entity_links(q):
 
 @pytest.mark.skip(reason="Wikidata API is unstable")
 def test_read_linked_entities(q):
-    """function test_read_linked_entities
-    Args:
-        q:   
-    Returns:
-        
+    """function test_read_linked_entities.
+    Doc::
+            
+            Args:
+                q:   
+            Returns:
+                
     """
     resp = query_entity_links(q["entity_id"])
     related_links = read_linked_entities(resp)
@@ -66,21 +74,25 @@ def test_read_linked_entities(q):
 
 @pytest.mark.skip(reason="Wikidata API is unstable")
 def test_query_entity_description(q):
-    """function test_query_entity_description
-    Args:
-        q:   
-    Returns:
-        
+    """function test_query_entity_description.
+    Doc::
+            
+            Args:
+                q:   
+            Returns:
+                
     """
     desc = query_entity_description(q["entity_id"])
     assert desc == "1954–1955 fantasy novel by J. R. R. Tolkien"
 
 
 def test_search_wikidata():
-    """function test_search_wikidata
-    Args:
-    Returns:
-        
+    """function test_search_wikidata.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     # TODO
     pass

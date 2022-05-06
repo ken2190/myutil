@@ -15,10 +15,12 @@ from recommenders.utils.gpu_utils import get_number_gpus
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_gpu_vm():
-    """function test_gpu_vm
-    Args:
-    Returns:
-        
+    """function test_gpu_vm.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     assert get_number_gpus() >= 1
 
@@ -26,13 +28,15 @@ def test_gpu_vm():
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_fastai(notebooks, output_notebook, kernel_name):
-    """function test_fastai
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_fastai.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["fastai"]
     pm.execute_notebook(
@@ -46,13 +50,15 @@ def test_fastai(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_ncf(notebooks, output_notebook, kernel_name):
-    """function test_ncf
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_ncf.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["ncf"]
     pm.execute_notebook(
@@ -68,13 +74,15 @@ def test_ncf(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_ncf_deep_dive(notebooks, output_notebook, kernel_name):
-    """function test_ncf_deep_dive
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_ncf_deep_dive.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["ncf_deep_dive"]
     pm.execute_notebook(
@@ -90,13 +98,15 @@ def test_ncf_deep_dive(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_xdeepfm(notebooks, output_notebook, kernel_name):
-    """function test_xdeepfm
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_xdeepfm.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["xdeepfm_quickstart"]
     pm.execute_notebook(
@@ -115,14 +125,16 @@ def test_xdeepfm(notebooks, output_notebook, kernel_name):
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_wide_deep(notebooks, output_notebook, kernel_name, tmp):
-    """function test_wide_deep
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-        tmp:   
-    Returns:
-        
+    """function test_wide_deep.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+                tmp:   
+            Returns:
+                
     """
     notebook_path = notebooks["wide_deep"]
 
@@ -163,13 +175,15 @@ def test_wide_deep(notebooks, output_notebook, kernel_name, tmp):
 @pytest.mark.notebooks
 @pytest.mark.gpu
 def test_dkn_quickstart(notebooks, output_notebook, kernel_name):
-    """function test_dkn_quickstart
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_dkn_quickstart.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["dkn_quickstart"]
     pm.execute_notebook(

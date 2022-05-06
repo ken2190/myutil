@@ -13,10 +13,12 @@ class GlassDoor(scrapy.Spider):
     csv_file = "ruru_fix.csv"
 
     def start_requests(self):
-        """ GlassDoor:start_requests
-        Args:
-        Returns:
-           
+        """ GlassDoor:start_requests.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         a = csv.DictReader(open(self.csv_file, 'r', encoding='utf-8'))
         for row in a:
@@ -27,11 +29,13 @@ class GlassDoor(scrapy.Spider):
             yield request
 
     def parse(self, response):
-        """ GlassDoor:parse
-        Args:
-            response:     
-        Returns:
-           
+        """ GlassDoor:parse.
+        Doc::
+                
+                    Args:
+                        response:     
+                    Returns:
+                       
         """
         item = {}
         date_ = response.meta["date"]

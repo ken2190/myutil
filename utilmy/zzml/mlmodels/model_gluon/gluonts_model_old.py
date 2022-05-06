@@ -64,14 +64,16 @@ MODELS_DICT = {
 ####################################################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None,  compute_pars=None, **kwargs):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            **kwargs:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         self.compute_pars = compute_pars
         self.model_pars   = model_pars
@@ -98,14 +100,16 @@ class Model(object):
 
 
 def get_params(choice="", data_path="dataset/timeseries/", config_mode="test", **kw):
-    """function get_params
-    Args:
-        choice:   
-        data_path:   
-        config_mode:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                choice:   
+                data_path:   
+                config_mode:   
+                **kw:   
+            Returns:
+                
     """
     if choice == "json":
       data_path = path_norm( data_path )
@@ -120,11 +124,13 @@ def get_params(choice="", data_path="dataset/timeseries/", config_mode="test", *
 
 
 def get_dataset(data_pars):    
-    """function get_dataset
-    Args:
-        data_pars:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                data_pars:   
+            Returns:
+                
     """
 
     from mlmodels.preprocess.timeseries import pandas_to_gluonts, pd_clean_v1
@@ -156,8 +162,10 @@ def get_dataset(data_pars):
 
 
 def fit(model, sess=None, data_pars=None, model_pars=None, compute_pars=None, out_pars=None, session=None, **kwargs):
-        """
-          Classe Model --> model,   model.model contains thte sub-model
+        """.
+        Doc::
+                
+                      Classe Model --> model,   model.model contains thte sub-model
         """
         data_pars['train'] = True
         model_gluon        = model.model
@@ -168,16 +176,18 @@ def fit(model, sess=None, data_pars=None, model_pars=None, compute_pars=None, ou
 
 
 def predict(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        sess:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     
     data_pars['train'] = False
@@ -212,15 +222,17 @@ def predict(model, sess=None, data_pars=None, compute_pars=None, out_pars=None, 
 
 
 def metrics(ypred, data_pars, compute_pars=None, out_pars=None, **kw):
-        """function metrics
-        Args:
-            ypred:   
-            data_pars:   
-            compute_pars:   
-            out_pars:   
-            **kw:   
-        Returns:
-            
+        """function metrics.
+        Doc::
+                
+                    Args:
+                        ypred:   
+                        data_pars:   
+                        compute_pars:   
+                        out_pars:   
+                        **kw:   
+                    Returns:
+                        
         """
         ## load test dataset
         data_pars['train'] = False
@@ -238,15 +250,17 @@ def metrics(ypred, data_pars, compute_pars=None, out_pars=None, **kw):
 
 
 def evaluate(ypred, data_pars, compute_pars=None, out_pars=None, **kw):
-        """function evaluate
-        Args:
-            ypred:   
-            data_pars:   
-            compute_pars:   
-            out_pars:   
-            **kw:   
-        Returns:
-            
+        """function evaluate.
+        Doc::
+                
+                    Args:
+                        ypred:   
+                        data_pars:   
+                        compute_pars:   
+                        out_pars:   
+                        **kw:   
+                    Returns:
+                        
         """
         ### load test dataset
         data_pars['train'] = False
@@ -264,12 +278,14 @@ def evaluate(ypred, data_pars, compute_pars=None, out_pars=None, **kw):
 
 
 def save(model, path):
-    """function save
-    Args:
-        model:   
-        path:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                path:   
+            Returns:
+                
     """
     import pickle
     path = path_norm(path + "/gluonts_model/")
@@ -285,11 +301,13 @@ def save(model, path):
 
 
 def load(path):
-    """function load
-    Args:
-        path:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import pickle
     path = path_norm(path  + "/gluonts_model/" )
@@ -307,12 +325,14 @@ def load(path):
 
 
 def plot_prob_forecasts(ypred, out_pars=None):
-    """function plot_prob_forecasts
-    Args:
-        ypred:   
-        out_pars:   
-    Returns:
-        
+    """function plot_prob_forecasts.
+    Doc::
+            
+            Args:
+                ypred:   
+                out_pars:   
+            Returns:
+                
     """
     forecast_entry = ypred["forecasts"][0]
     ts_entry = ypred["tss"][0]
@@ -330,12 +350,14 @@ def plot_prob_forecasts(ypred, out_pars=None):
 
 
 def plot_predict(item_metrics, out_pars=None):
-    """function plot_predict
-    Args:
-        item_metrics:   
-        out_pars:   
-    Returns:
-        
+    """function plot_predict.
+    Doc::
+            
+            Args:
+                item_metrics:   
+                out_pars:   
+            Returns:
+                
     """
     item_metrics.plot(x='MSIS', y='MASE', kind='scatter')
     plt.grid(which="both")
@@ -349,13 +371,15 @@ def plot_predict(item_metrics, out_pars=None):
 
 ####################################################################################################
 def test_single(data_path="dataset/", choice="", config_mode="test"):
-    """function test_single
-    Args:
-        data_path:   
-        choice:   
-        config_mode:   
-    Returns:
-        
+    """function test_single.
+    Doc::
+            
+            Args:
+                data_path:   
+                choice:   
+                config_mode:   
+            Returns:
+                
     """
     model_uri = MODEL_URI
     log("#### Loading params   ##############################################")
@@ -397,10 +421,12 @@ def test_single(data_path="dataset/", choice="", config_mode="test"):
 
 
 def test() :
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     ll = [ "deepar" , "deepfactor" , "transformer"  ,"wavenet", "feedforward",
            "gp_forecaster", "deepstate" ]

@@ -20,12 +20,14 @@ import time
 
 class cAbstractAR:
     def __init__(self , cycle_residue_name, iExogenousInfo = None):
-        """ cAbstractAR:__init__
-        Args:
-            cycle_residue_name:     
-            iExogenousInfo :     
-        Returns:
-           
+        """ cAbstractAR:__init__.
+        Doc::
+                
+                    Args:
+                        cycle_residue_name:     
+                        iExogenousInfo :     
+                    Returns:
+                       
         """
         self.mTimeInfo = tsti.cTimeInfo()
         self.mCycleFrame = pd.DataFrame()
@@ -38,27 +40,33 @@ class cAbstractAR:
         self.mExogenousInfo = iExogenousInfo;
 
     def plot(self):
-        """ cAbstractAR:plot
-        Args:
-        Returns:
-           
+        """ cAbstractAR:plot.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         tsplot.decomp_plot(self.mARFrame, self.mTimeInfo.mNormalizedTimeColumn,
                            self.mCycleResidueName, self.mOutName , self.mOutName + '_residue');
 
     def dumpCoefficients(self):
-        """ cAbstractAR:dumpCoefficients
-        Args:
-        Returns:
-           
+        """ cAbstractAR:dumpCoefficients.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         pass
 
     def computePerf(self):
-        """ cAbstractAR:computePerf
-        Args:
-        Returns:
-           
+        """ cAbstractAR:computePerf.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mARFitPerf= tsperf.cPerf();
         self.mARForecastPerf= tsperf.cPerf();
@@ -69,13 +77,15 @@ class cAbstractAR:
             lFrameForecast[self.mCycleResidueName], lFrameForecast[self.mOutName], self.mOutName)
 
     def shift_series(self, series, p, idefault):
-        """ cAbstractAR:shift_series
-        Args:
-            series:     
-            p:     
-            idefault:     
-        Returns:
-           
+        """ cAbstractAR:shift_series.
+        Doc::
+                
+                    Args:
+                        series:     
+                        p:     
+                        idefault:     
+                    Returns:
+                       
         """
         N = series.shape[0];
         lType = np.dtype(series);
@@ -84,23 +94,27 @@ class cAbstractAR:
         return new_values;
 
     def getDefaultValue(self, series):
-        """ cAbstractAR:getDefaultValue
-        Args:
-            series:     
-        Returns:
-           
+        """ cAbstractAR:getDefaultValue.
+        Doc::
+                
+                    Args:
+                        series:     
+                    Returns:
+                       
         """
         return self.mDefaultValues[series];
 
     def addLagForForecast(self, df, lag_df, series, p):
-        """ cAbstractAR:addLagForForecast
-        Args:
-            df:     
-            lag_df:     
-            series:     
-            p:     
-        Returns:
-           
+        """ cAbstractAR:addLagForForecast.
+        Doc::
+                
+                    Args:
+                        df:     
+                        lag_df:     
+                        series:     
+                        p:     
+                    Returns:
+                       
         """
         name = series+'_Lag' + str(p);
         if(name not in self.mInputNames):
@@ -110,11 +124,13 @@ class cAbstractAR:
         lag_df[name] = lShiftedSeries;
         
     def generateLagsForForecast(self, df):
-        """ cAbstractAR:generateLagsForForecast
-        Args:
-            df:     
-        Returns:
-           
+        """ cAbstractAR:generateLagsForForecast.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lag_df = pd.DataFrame()
         lag_df[self.mCycleResidueName] = df[self.mCycleResidueName]
@@ -133,11 +149,13 @@ class cAbstractAR:
 
 class cZeroAR(cAbstractAR):
     def __init__(self , cycle_residue_name):
-        """ cZeroAR:__init__
-        Args:
-            cycle_residue_name:     
-        Returns:
-           
+        """ cZeroAR:__init__.
+        Doc::
+                
+                    Args:
+                        cycle_residue_name:     
+                    Returns:
+                       
         """
         super().__init__(cycle_residue_name, None)
         self.mOutName = self.mCycleResidueName +  '_NoAR'
@@ -146,10 +164,12 @@ class cZeroAR(cAbstractAR):
         self.mComplexity = 0;
         
     def fit(self):
-        """ cZeroAR:fit
-        Args:
-        Returns:
-           
+        """ cZeroAR:fit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         series = self.mCycleResidueName; 
         self.mTime = self.mTimeInfo.mTime;
@@ -161,12 +181,14 @@ class cZeroAR(cAbstractAR):
                 
 
     def transformDataset(self, df, horizon_index = 1):
-        """ cZeroAR:transformDataset
-        Args:
-            df:     
-            horizon_index :     
-        Returns:
-           
+        """ cZeroAR:transformDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                        horizon_index :     
+                    Returns:
+                       
         """
         series = self.mCycleResidueName; 
         df[self.mOutName] = 0.0;
@@ -178,10 +200,12 @@ class cZeroAR(cAbstractAR):
 
 class cAutoRegressiveEstimator:
     def __init__(self):
-        """ cAutoRegressiveEstimator:__init__
-        Args:
-        Returns:
-           
+        """ cAutoRegressiveEstimator:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mTimeInfo = tsti.cTimeInfo()
         self.mCycleFrame = pd.DataFrame()
@@ -190,10 +214,12 @@ class cAutoRegressiveEstimator:
         self.mExogenousInfo = None;
         
     def plotAR(self):
-        """ cAutoRegressiveEstimator:plotAR
-        Args:
-        Returns:
-           
+        """ cAutoRegressiveEstimator:plotAR.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         for trend in self.mTrendList:
             for cycle in self.mCycleList[trend]:
@@ -202,11 +228,13 @@ class cAutoRegressiveEstimator:
                     autoreg.plot(); 
 
     def is_not_constant(self, iSeries):
-        """ cAutoRegressiveEstimator:is_not_constant
-        Args:
-            iSeries:     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:is_not_constant.
+        Doc::
+                
+                    Args:
+                        iSeries:     
+                    Returns:
+                       
         """
         lFirst = iSeries[0];
         for lValue in iSeries[1:]:
@@ -215,12 +243,14 @@ class cAutoRegressiveEstimator:
         return False;
 
     def shift_series(self, series, p):
-        """ cAutoRegressiveEstimator:shift_series
-        Args:
-            series:     
-            p:     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:shift_series.
+        Doc::
+                
+                    Args:
+                        series:     
+                        p:     
+                    Returns:
+                       
         """
         N = series.shape[0];
         lType = np.dtype(series);
@@ -229,15 +259,17 @@ class cAutoRegressiveEstimator:
         return new_values;
 
     def addLagForTraining(self, df, lag_df, series, autoreg, p):
-        """ cAutoRegressiveEstimator:addLagForTraining
-        Args:
-            df:     
-            lag_df:     
-            series:     
-            autoreg:     
-            p:     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:addLagForTraining.
+        Doc::
+                
+                    Args:
+                        df:     
+                        lag_df:     
+                        series:     
+                        autoreg:     
+                        p:     
+                    Returns:
+                       
         """
         name = series+'_Lag' + str(p);
         if(name in lag_df.columns):
@@ -257,13 +289,15 @@ class cAutoRegressiveEstimator:
         return lag_df;
 
     def addLagsForTraining(self, df, cycle_residue, iNeedExogenous = False):
-        """ cAutoRegressiveEstimator:addLagsForTraining
-        Args:
-            df:     
-            cycle_residue:     
-            iNeedExogenous :     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:addLagsForTraining.
+        Doc::
+                
+                    Args:
+                        df:     
+                        cycle_residue:     
+                        iNeedExogenous :     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         add_lag_start_time = time.time()
@@ -298,11 +332,13 @@ class cAutoRegressiveEstimator:
 
     # @profile
     def estimate_ar_models_for_cycle(self, cycle_residue):
-        """ cAutoRegressiveEstimator:estimate_ar_models_for_cycle
-        Args:
-            cycle_residue:     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:estimate_ar_models_for_cycle.
+        Doc::
+                
+                    Args:
+                        cycle_residue:     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         self.mARFrame = pd.DataFrame();
@@ -357,12 +393,14 @@ class cAutoRegressiveEstimator:
                       " " +  str(len(autoreg.mInputNames)) + " " + str(lTrainingTime));
 
     def check_not_nan(self, sig , name):
-        """ cAutoRegressiveEstimator:check_not_nan
-        Args:
-            sig:     
-            name:     
-        Returns:
-           
+        """ cAutoRegressiveEstimator:check_not_nan.
+        Doc::
+                
+                    Args:
+                        sig:     
+                        name:     
+                    Returns:
+                       
         """
         #print("check_not_nan");
         if(np.isnan(sig).any()):
@@ -376,10 +414,12 @@ class cAutoRegressiveEstimator:
         
     # @profile
     def estimate(self):
-        """ cAutoRegressiveEstimator:estimate
-        Args:
-        Returns:
-           
+        """ cAutoRegressiveEstimator:estimate.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         from . import Keras_Models as tskeras
         from . import Scikit_Models as tsscikit

@@ -22,13 +22,15 @@ from source.util_feature import save, os_get_function_name
 
 
 def global_pars_update(model_dict, data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data = root_repo + "/data/";
@@ -87,9 +89,11 @@ cols_input_type_1 = {
 
 ####################################################################################
 def titanic_lightgbm():
-    """
-       ONE SINGLE DICT Contains all needed informations for
-       used for titanic classification task
+    """.
+    Doc::
+            
+               ONE SINGLE DICT Contains all needed informations for
+               used for titanic classification task
     """
     data_name = "titanic"  ### in data/input/
     model_class = 'LGBMClassifier'  ### ACTUAL Class name for model_sklearn.py
@@ -182,8 +186,10 @@ def titanic_lightgbm():
 
 
 def pd_col_myfun(df=None, col=None, pars={}):
-    """
-         Example of custom Processor
+    """.
+    Doc::
+            
+                 Example of custom Processor
     """
     from source.util_feature import save, load
     prefix = 'col_myfun`'
@@ -271,10 +277,12 @@ def train(config=None, nsample=None):
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-    """function check
-    Args:
-    Returns:
-        
+    """function check.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 

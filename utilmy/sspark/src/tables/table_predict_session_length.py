@@ -22,13 +22,15 @@ from src.util_models import Train, Predict
 
 
 def run(spark:SparkSession, config_path: str='config.yaml', mode:str='train,pred'):
-    """  Predict the session length
-    Args:
-        spark:
-        config_path:
-        mode:
-    Returns:
-
+    """  Predict the session length.
+    Doc::
+            
+            Args:
+                spark:
+                config_path:
+                mode:
+            Returns:
+        
     """
     prefix = 'sessionlength_pred'
 
@@ -62,11 +64,13 @@ def run(spark:SparkSession, config_path: str='config.yaml', mode:str='train,pred
 
 
 def preprocess(spark, conf, check=True):
-    """ Generate Structured Log table on disk
-    spark:
-    config:
-    :return: Structured Log Spark Dataframe
-    df.columns
+    """ Generate Structured Log table on disk.
+    Doc::
+            
+            spark:
+            config:
+            :return: Structured Log Spark Dataframe
+            df.columns
     """
     log("########## Load userssionsta  ###############################################")
     df   = spark.read.parquet(  conf['FilePaths']['usersessionstats_path'] )

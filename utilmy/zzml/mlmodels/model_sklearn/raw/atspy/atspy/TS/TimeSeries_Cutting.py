@@ -11,27 +11,33 @@ from . import Utils as tsutil
 
 class cCuttingInfo:
     def __init__(self):
-        """ cCuttingInfo:__init__
-        Args:
-        Returns:
-           
+        """ cCuttingInfo:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         pass
 
 
     def estimate(self):
-        """ cCuttingInfo:estimate
-        Args:
-        Returns:
-           
+        """ cCuttingInfo:estimate.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.defineCuttingParameters();
 
     def set_default_split(self):
-        """ cCuttingInfo:set_default_split
-        Args:
-        Returns:
-           
+        """ cCuttingInfo:set_default_split.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mTrainSize = self.mSignalFrame.shape[0];
         assert(self.mTrainSize > 0);
@@ -58,11 +64,13 @@ class cCuttingInfo:
             self.mTestEnd = self.mTrainSize;
 
     def check_split(self, iSplit):
-        """ cCuttingInfo:check_split
-        Args:
-            iSplit:     
-        Returns:
-           
+        """ cCuttingInfo:check_split.
+        Doc::
+                
+                    Args:
+                        iSplit:     
+                    Returns:
+                       
         """
         if(len(iSplit) != 3):
             raise tsutil.PyAF_Error('Invalid Split ' + str(iSplit));
@@ -78,11 +86,13 @@ class cCuttingInfo:
 
             
     def set_split(self, iSplit):
-        """ cCuttingInfo:set_split
-        Args:
-            iSplit:     
-        Returns:
-           
+        """ cCuttingInfo:set_split.
+        Doc::
+                
+                    Args:
+                        iSplit:     
+                    Returns:
+                       
         """
         self.mTrainSize = self.mSignalFrame.shape[0];
         assert(self.mTrainSize > 0);
@@ -99,10 +109,12 @@ class cCuttingInfo:
         self.mTestEnd = self.mTestStart + lTestSize;
         
     def defineCuttingParameters(self):
-        """ cCuttingInfo:defineCuttingParameters
-        Args:
-        Returns:
-           
+        """ cCuttingInfo:defineCuttingParameters.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lStr = "CUTTING_START SignalVariable='" + self.mSignal +"'";
         # print(lStr);
@@ -120,11 +132,13 @@ class cCuttingInfo:
         pass
 
     def cutFrame(self, df):
-        """ cCuttingInfo:cutFrame
-        Args:
-            df:     
-        Returns:
-           
+        """ cCuttingInfo:cutFrame.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lFrameFit = df[self.mEstimStart : self.mEstimEnd];
         lFrameForecast = df[self.mValidStart : self.mValidEnd];
@@ -132,31 +146,37 @@ class cCuttingInfo:
         return (lFrameFit, lFrameForecast, lFrameTest)
 
     def getEstimPart(self, df):
-        """ cCuttingInfo:getEstimPart
-        Args:
-            df:     
-        Returns:
-           
+        """ cCuttingInfo:getEstimPart.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lFrameFit = df[self.mEstimStart : self.mEstimEnd];
         return lFrameFit;
 
     def getValidPart(self, df):
-        """ cCuttingInfo:getValidPart
-        Args:
-            df:     
-        Returns:
-           
+        """ cCuttingInfo:getValidPart.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lFrameValid = df[self.mValidStart : self.mValidEnd];
         return lFrameValid;
 
 
     def info(self):
-        """ cCuttingInfo:info
-        Args:
-        Returns:
-           
+        """ cCuttingInfo:info.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lStr2 += " Estimation = (" + str(self.mEstimStart) + " , " + str(self.mEstimEnd) + ")";
         lStr2 += " Validation = (" + str(self.mValidStart) + " , " + str(self.mValidEnd) + ")";

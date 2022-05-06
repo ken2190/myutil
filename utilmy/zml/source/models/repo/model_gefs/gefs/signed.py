@@ -12,8 +12,10 @@ from .utils import isin
 ])
 class signed:
     def __init__(self, value, sign=None):
-        """ If sign is None, init from value in 'linear' space, possibly negative.
-            Else, init from value in log-space.
+        """ If sign is None, init from value in 'linear' space, possibly negative..
+        Doc::
+                
+                        Else, init from value in log-space.
         """
         if sign is None:
             self.value = np.log(np.absolute(value))
@@ -25,50 +27,62 @@ class signed:
         self.sign[self.value==-np.Inf] = 0.
 
     def exp(self, exp):
-        """ Exponentiate signed value by exp.
-            Operates in log-space.
+        """ Exponentiate signed value by exp..
+        Doc::
+                
+                        Operates in log-space.
         """
         value = self.value*exp
         return signed(value, self.sign)
 
     def nonpositive(self):
-        """ signed:nonpositive
-        Args:
-        Returns:
-           
+        """ signed:nonpositive.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.sign <= 0
 
     def nonnegative(self):
-        """ signed:nonnegative
-        Args:
-        Returns:
-           
+        """ signed:nonnegative.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.sign >= 0
 
     def nonzero(self):
-        """ signed:nonzero
-        Args:
-        Returns:
-           
+        """ signed:nonzero.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return (self.value > -np.Inf) & (self.sign != 0)
 
     def linear(self):
-        """ signed:linear
-        Args:
-        Returns:
-           
+        """ signed:linear.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.sign * np.exp(self.value)
 
     def argsort(self, increasing=True):
-        """ signed:argsort
-        Args:
-            increasing:     
-        Returns:
-           
+        """ signed:argsort.
+        Doc::
+                
+                    Args:
+                        increasing:     
+                    Returns:
+                       
         """
         negatives = np.zeros(self.size, dtype=boolean)
         order_positives = []
@@ -91,22 +105,26 @@ class signed:
             return np.concatenate((order_positives, order_negatives))
 
     def get(self, i):
-        """ signed:get
-        Args:
-            i:     
-        Returns:
-           
+        """ signed:get.
+        Doc::
+                
+                    Args:
+                        i:     
+                    Returns:
+                       
         """
         assert i < self.size, "Index out of range."
         return signed(self.value[i:i+1], self.sign[i:i+1])
 
     def insert(self, sig, i):
-        """ signed:insert
-        Args:
-            sig:     
-            i:     
-        Returns:
-           
+        """ signed:insert.
+        Doc::
+                
+                    Args:
+                        sig:     
+                        i:     
+                    Returns:
+                       
         """
         assert i < self.size, "Index out of range."
         assert sig.size == 1, "Can only insert signed with size 1."
@@ -114,10 +132,12 @@ class signed:
         self.sign[i] = sig.sign[0]
 
     def reduce(self):
-        """ signed:reduce
-        Args:
-        Returns:
-           
+        """ signed:reduce.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         if self.size == 1:
             return self
@@ -135,12 +155,14 @@ class signed:
 
 @njit
 def signed_join(x, y):
-    """function signed_join
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_join.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     if x is None:
         return y
@@ -152,12 +174,14 @@ def signed_join(x, y):
 
 @njit
 def signed_prod(x, y):
-    """function signed_prod
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_prod.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     res = signed(x.value + y.value, x.sign * y.sign)
     if res.value[0] == -np.Inf: res.sign[0] = 0.
@@ -166,12 +190,14 @@ def signed_prod(x, y):
 
 @njit
 def signed_sum_vec(x, y):
-    """function signed_sum_vec
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_sum_vec.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     if x.size == y.size:
         values = np.zeros(x.size)
@@ -198,12 +224,14 @@ def signed_sum_vec(x, y):
 
 @njit
 def signed_sum(x, y):
-    """function signed_sum
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_sum.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     assert (x.size == 1) & (y.size == 1), "Arrays must be one-dimensional."
     max_value = max(x.value[0], y.value[0])
@@ -223,12 +251,14 @@ def signed_sum(x, y):
 
 @njit
 def signed_max_vec(x, y):
-    """function signed_max_vec
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_max_vec.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     assert x.size == y.size, "Both arrays should have the same size."
     values = np.zeros(x.size)
@@ -241,12 +271,14 @@ def signed_max_vec(x, y):
 
 @njit
 def signed_min_vec(x, y):
-    """function signed_min_vec
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_min_vec.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     assert x.size == y.size, "Both arrays should have the same size."
     values = np.zeros(x.size)
@@ -259,12 +291,14 @@ def signed_min_vec(x, y):
 
 @njit
 def signed_max(x, y):
-    """function signed_max
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_max.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     xs = x.sign[0]
     ys = y.sign[0]
@@ -276,12 +310,14 @@ def signed_max(x, y):
 
 @njit
 def signed_min(x, y):
-    """function signed_min
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function signed_min.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     xs = x.sign[0]
     ys = y.sign[0]
@@ -293,14 +329,16 @@ def signed_min(x, y):
 
 @njit
 def signed_econtaminate(vec, signed_logprs, eps, ismax):
-    """function signed_econtaminate
-    Args:
-        vec:   
-        signed_logprs:   
-        eps:   
-        ismax:   
-    Returns:
-        
+    """function signed_econtaminate.
+    Doc::
+            
+            Args:
+                vec:   
+                signed_logprs:   
+                eps:   
+                ismax:   
+            Returns:
+                
     """
     econt = np.asarray(vec) * (1-eps)
     room = 1 - np.sum(econt)

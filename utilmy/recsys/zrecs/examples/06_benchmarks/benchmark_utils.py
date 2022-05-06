@@ -48,12 +48,14 @@ from recommenders.evaluation.python_evaluation import rmse, mae, rsquared, exp_v
 
 
 def prepare_training_als(train, test):
-    """function prepare_training_als
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_als.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     schema = StructType(
         (
@@ -68,12 +70,14 @@ def prepare_training_als(train, test):
 
 
 def train_als(params, data):
-    """function train_als
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_als.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     symbol = ALS(**params)
     with Timer() as t:
@@ -82,12 +86,14 @@ def train_als(params, data):
 
 
 def prepare_metrics_als(train, test):
-    """function prepare_metrics_als
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_metrics_als.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     schema = StructType(
         (
@@ -102,12 +108,14 @@ def prepare_metrics_als(train, test):
 
 
 def predict_als(model, test):
-    """function predict_als
-    Args:
-        model:   
-        test:   
-    Returns:
-        
+    """function predict_als.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+            Returns:
+                
     """
     with Timer() as t:
         preds = model.transform(test)
@@ -115,15 +123,17 @@ def predict_als(model, test):
 
 
 def recommend_k_als(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_als
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_als.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         # Get the cross join of all user-item pairs and score them.
@@ -150,12 +160,14 @@ def recommend_k_als(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def prepare_training_svd(train, test):
-    """function prepare_training_svd
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_svd.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     reader = surprise.Reader("ml-100k", rating_scale=(1, 5))
     return surprise.Dataset.load_from_df(
@@ -164,12 +176,14 @@ def prepare_training_svd(train, test):
 
 
 def train_svd(params, data):
-    """function train_svd
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_svd.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = surprise.SVD(**params)
     with Timer() as t:
@@ -178,12 +192,14 @@ def train_svd(params, data):
 
 
 def predict_svd(model, test):
-    """function predict_svd
-    Args:
-        model:   
-        test:   
-    Returns:
-        
+    """function predict_svd.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+            Returns:
+                
     """
     with Timer() as t:
         preds = predict(
@@ -197,15 +213,17 @@ def predict_svd(model, test):
 
 
 def recommend_k_svd(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_svd
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_svd.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         topk_scores = compute_ranking_predictions(
@@ -220,12 +238,14 @@ def recommend_k_svd(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def prepare_training_fastai(train, test):
-    """function prepare_training_fastai
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_fastai.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     data = train.copy()
     data[DEFAULT_USER_COL] = data[DEFAULT_USER_COL].astype("str")
@@ -241,12 +261,14 @@ def prepare_training_fastai(train, test):
 
 
 def train_fastai(params, data):
-    """function train_fastai
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_fastai.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = collab_learner(
         data, n_factors=params["n_factors"], y_range=params["y_range"], wd=params["wd"]
@@ -257,12 +279,14 @@ def train_fastai(params, data):
 
 
 def prepare_metrics_fastai(train, test):
-    """function prepare_metrics_fastai
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_metrics_fastai.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     data = test.copy()
     data[DEFAULT_USER_COL] = data[DEFAULT_USER_COL].astype("str")
@@ -271,12 +295,14 @@ def prepare_metrics_fastai(train, test):
 
 
 def predict_fastai(model, test):
-    """function predict_fastai
-    Args:
-        model:   
-        test:   
-    Returns:
-        
+    """function predict_fastai.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+            Returns:
+                
     """
     with Timer() as t:
         preds = score(
@@ -290,15 +316,17 @@ def predict_fastai(model, test):
 
 
 def recommend_k_fastai(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_fastai
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_fastai.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         total_users, total_items = model.data.train_ds.x.classes.values()
@@ -331,12 +359,14 @@ def recommend_k_fastai(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def prepare_training_ncf(train, test):
-    """function prepare_training_ncf
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_ncf.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     return NCFDataset(
         train=train,
@@ -349,12 +379,14 @@ def prepare_training_ncf(train, test):
 
 
 def train_ncf(params, data):
-    """function train_ncf
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_ncf.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = NCF(n_users=data.n_users, n_items=data.n_items, **params)
     with Timer() as t:
@@ -363,15 +395,17 @@ def train_ncf(params, data):
 
 
 def recommend_k_ncf(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_ncf
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_ncf.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         users, items, preds = [], [], []
@@ -398,12 +432,14 @@ def recommend_k_ncf(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def prepare_training_cornac(train, test):
-    """function prepare_training_cornac
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_cornac.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     return cornac.data.Dataset.from_uir(
         train.drop(DEFAULT_TIMESTAMP_COL, axis=1).itertuples(index=False), seed=SEED
@@ -411,15 +447,17 @@ def prepare_training_cornac(train, test):
 
 
 def recommend_k_cornac(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_cornac
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_cornac.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         topk_scores = predict_ranking(
@@ -434,12 +472,14 @@ def recommend_k_cornac(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def train_bpr(params, data):
-    """function train_bpr
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_bpr.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = cornac.models.BPR(**params)
     with Timer() as t:
@@ -448,12 +488,14 @@ def train_bpr(params, data):
 
 
 def train_bivae(params, data):
-    """function train_bivae
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_bivae.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = cornac.models.BiVAECF(**params)
     with Timer() as t:
@@ -462,23 +504,27 @@ def train_bivae(params, data):
 
 
 def prepare_training_sar(train, test):
-    """function prepare_training_sar
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_sar.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     return train
 
 
 def train_sar(params, data):
-    """function train_sar
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_sar.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     model = SARSingleNode(**params)
     model.set_index(data)
@@ -488,15 +534,17 @@ def train_sar(params, data):
 
 
 def recommend_k_sar(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_sar
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_sar.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         topk_scores = model.recommend_k_items(
@@ -506,23 +554,27 @@ def recommend_k_sar(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def prepare_training_lightgcn(train, test):
-    """function prepare_training_lightgcn
-    Args:
-        train:   
-        test:   
-    Returns:
-        
+    """function prepare_training_lightgcn.
+    Doc::
+            
+            Args:
+                train:   
+                test:   
+            Returns:
+                
     """
     return ImplicitCF(train=train, test=test)
 
 
 def train_lightgcn(params, data):
-    """function train_lightgcn
-    Args:
-        params:   
-        data:   
-    Returns:
-        
+    """function train_lightgcn.
+    Doc::
+            
+            Args:
+                params:   
+                data:   
+            Returns:
+                
     """
     hparams = prepare_hparams(**params)
     model = LightGCN(hparams, data)
@@ -532,15 +584,17 @@ def train_lightgcn(params, data):
 
 
 def recommend_k_lightgcn(model, test, train, top_k=DEFAULT_K, remove_seen=True):
-    """function recommend_k_lightgcn
-    Args:
-        model:   
-        test:   
-        train:   
-        top_k:   
-        remove_seen:   
-    Returns:
-        
+    """function recommend_k_lightgcn.
+    Doc::
+            
+            Args:
+                model:   
+                test:   
+                train:   
+                top_k:   
+                remove_seen:   
+            Returns:
+                
     """
     with Timer() as t:
         topk_scores = model.recommend_k_items(
@@ -550,12 +604,14 @@ def recommend_k_lightgcn(model, test, train, top_k=DEFAULT_K, remove_seen=True):
 
 
 def rating_metrics_pyspark(test, predictions):
-    """function rating_metrics_pyspark
-    Args:
-        test:   
-        predictions:   
-    Returns:
-        
+    """function rating_metrics_pyspark.
+    Doc::
+            
+            Args:
+                test:   
+                predictions:   
+            Returns:
+                
     """
     rating_eval = SparkRatingEvaluation(test, predictions, **COL_DICT)
     return {
@@ -567,13 +623,15 @@ def rating_metrics_pyspark(test, predictions):
 
 
 def ranking_metrics_pyspark(test, predictions, k=DEFAULT_K):
-    """function ranking_metrics_pyspark
-    Args:
-        test:   
-        predictions:   
-        k:   
-    Returns:
-        
+    """function ranking_metrics_pyspark.
+    Doc::
+            
+            Args:
+                test:   
+                predictions:   
+                k:   
+            Returns:
+                
     """
     rank_eval = SparkRankingEvaluation(
         test, predictions, k=k, relevancy_method="top_k", **COL_DICT
@@ -587,12 +645,14 @@ def ranking_metrics_pyspark(test, predictions, k=DEFAULT_K):
 
 
 def rating_metrics_python(test, predictions):
-    """function rating_metrics_python
-    Args:
-        test:   
-        predictions:   
-    Returns:
-        
+    """function rating_metrics_python.
+    Doc::
+            
+            Args:
+                test:   
+                predictions:   
+            Returns:
+                
     """
     return {
         "RMSE": rmse(test, predictions, **COL_DICT),
@@ -603,13 +663,15 @@ def rating_metrics_python(test, predictions):
 
 
 def ranking_metrics_python(test, predictions, k=DEFAULT_K):
-    """function ranking_metrics_python
-    Args:
-        test:   
-        predictions:   
-        k:   
-    Returns:
-        
+    """function ranking_metrics_python.
+    Doc::
+            
+            Args:
+                test:   
+                predictions:   
+                k:   
+            Returns:
+                
     """
     return {
         "MAP": map_at_k(test, predictions, k=k, **COL_DICT),

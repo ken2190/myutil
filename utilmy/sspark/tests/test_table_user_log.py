@@ -10,9 +10,11 @@ from tests.test_common import (TEST_CONFIG_FILE, assert_equal_spark_df, assert_e
 
 @pytest.mark.usefixtures("spark_session", "config")
 def test_table_user_log_run(spark_session: SparkSession, config: dict):
-    """ Unit test for src.tables.table_user_log
-    @param spark_session: Spark Session
-    @param config:  Configuration
+    """ Unit test for src.tables.table_user_log.
+    Doc::
+            
+            @param spark_session: Spark Session
+            @param config:  Configuration
     """
     table_user_run(spark_session, TEST_CONFIG_FILE)
 

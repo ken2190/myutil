@@ -32,15 +32,17 @@ tesla.head()
 
 
 def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
-    """function df_shift
-    Args:
-        df:   
-        lag:   
-        start:   
-        skip:   
-        rejected_columns:   
-    Returns:
-        
+    """function df_shift.
+    Doc::
+            
+            Args:
+                df:   
+                lag:   
+                start:   
+                skip:   
+                rejected_columns:   
+            Returns:
+                
     """
     df = df.copy()
     if not lag:
@@ -257,12 +259,14 @@ df["cluster"].value_counts()
 
 
 def getDistanceByPoint(data, model):
-    """function getDistanceByPoint
-    Args:
-        data:   
-        model:   
-    Returns:
-        
+    """function getDistanceByPoint.
+    Doc::
+            
+            Args:
+                data:   
+                model:   
+            Returns:
+                
     """
     distance = pd.Series()
     for i in range(0, len(data)):

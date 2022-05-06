@@ -18,10 +18,12 @@ import numpy as np
 
 class WGAN():
     def __init__(self):
-        """ WGAN:__init__
-        Args:
-        Returns:
-           
+        """ WGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -60,20 +62,24 @@ class WGAN():
             metrics=['accuracy'])
 
     def wasserstein_loss(self, y_true, y_pred):
-        """ WGAN:wasserstein_loss
-        Args:
-            y_true:     
-            y_pred:     
-        Returns:
-           
+        """ WGAN:wasserstein_loss.
+        Doc::
+                
+                    Args:
+                        y_true:     
+                        y_pred:     
+                    Returns:
+                       
         """
         return K.mean(y_true * y_pred)
 
     def build_generator(self):
-        """ WGAN:build_generator
-        Args:
-        Returns:
-           
+        """ WGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -99,10 +105,12 @@ class WGAN():
         return Model(noise, img)
 
     def build_critic(self):
-        """ WGAN:build_critic
-        Args:
-        Returns:
-           
+        """ WGAN:build_critic.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -134,13 +142,15 @@ class WGAN():
         return Model(img, validity)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ WGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ WGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -198,11 +208,13 @@ class WGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ WGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ WGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))

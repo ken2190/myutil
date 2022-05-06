@@ -16,11 +16,13 @@ BATCH_SIZE = 32
 
 
 def test_data_preprocessing(python_dataset_ncf):
-    """function test_data_preprocessing
-    Args:
-        python_dataset_ncf:   
-    Returns:
-        
+    """function test_data_preprocessing.
+    Doc::
+            
+            Args:
+                python_dataset_ncf:   
+            Returns:
+                
     """
     train, test = python_dataset_ncf
     data = Dataset(
@@ -46,11 +48,13 @@ def test_data_preprocessing(python_dataset_ncf):
 
 
 def test_train_loader(python_dataset_ncf):
-    """function test_train_loader
-    Args:
-        python_dataset_ncf:   
-    Returns:
-        
+    """function test_train_loader.
+    Doc::
+            
+            Args:
+                python_dataset_ncf:   
+            Returns:
+                
     """
     train, test = python_dataset_ncf
     data = Dataset(
@@ -100,11 +104,13 @@ def test_train_loader(python_dataset_ncf):
 
 
 def test_test_loader(python_dataset_ncf):
-    """function test_test_loader
-    Args:
-        python_dataset_ncf:   
-    Returns:
-        
+    """function test_test_loader.
+    Doc::
+            
+            Args:
+                python_dataset_ncf:   
+            Returns:
+                
     """
     train, test = python_dataset_ncf
     data = Dataset(train=train, test=test, n_neg=N_NEG, n_neg_test=N_NEG_TEST)

@@ -19,10 +19,12 @@ from zlocal import root
 
 ####################################################################################################
 def cli_load_argument(config_file=None):
-    """ arg = to_namespace({ "do": root + "/data/pos/",   
-                           "config" : "offline.config.prod.itemid_model" ,
-                           "mode" : "prod", "verbose": True })    
-         vars(arg)      
+    """ arg = to_namespace({ "do": root + "/data/pos/",   .
+    Doc::
+            
+                                   "config" : "offline.config.prod.itemid_model" ,
+                                   "mode" : "prod", "verbose": True })    
+                 vars(arg)      
     """
     import argparse
     p = argparse.ArgumentParser()

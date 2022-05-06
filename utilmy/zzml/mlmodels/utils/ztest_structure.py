@@ -15,12 +15,14 @@ import mlmodels
 
 ####################################################################################################
 def get_recursive_files(folderPath, ext='/*model*/*.py'):
-  """function get_recursive_files
-  Args:
-      folderPath:   
-      ext:   
-  Returns:
-      
+  """function get_recursive_files.
+  Doc::
+          
+        Args:
+            folderPath:   
+            ext:   
+        Returns:
+            
   """
   import glob
   files = glob.glob( folderPath + ext, recursive=True) 
@@ -28,13 +30,15 @@ def get_recursive_files(folderPath, ext='/*model*/*.py'):
 
 
 def log(*s, n=0, m=1):
-    """function log
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sspace = "#" * n
     sjump = "\n" * m
@@ -44,8 +48,10 @@ def log(*s, n=0, m=1):
 
 ####################################################################################################
 def os_package_root_path(filepath, sublevel=0, path_add=""):
-    """
-       get the module package root folder
+    """.
+    Doc::
+            
+               get the module package root folder
     """
     from pathlib import Path
     path = Path(os.path.realpath(filepath)).parent
@@ -58,10 +64,12 @@ def os_package_root_path(filepath, sublevel=0, path_add=""):
 
 
 def os_file_current_path():
-  """function os_file_current_path
-  Args:
-  Returns:
-      
+  """function os_file_current_path.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   val = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
   # val = Path().absolute()
@@ -73,12 +81,14 @@ def os_file_current_path():
 
 
 def model_get_list(folder=None, block_list=[]):
-  """function model_get_list
-  Args:
-      folder:   
-      block_list:   
-  Returns:
-      
+  """function model_get_list.
+  Doc::
+          
+        Args:
+            folder:   
+            block_list:   
+        Returns:
+            
   """
   # Get all the model.py into folder  
   folder = os_package_root_path(__file__) if folder is None else folder
@@ -104,12 +114,14 @@ def model_get_list(folder=None, block_list=[]):
 
  
 def find_in_list(x, llist) :
-   """function find_in_list
-   Args:
-       x:   
-       llist:   
-   Returns:
-       
+   """function find_in_list.
+   Doc::
+           
+          Args:
+              x:   
+              llist:   
+          Returns:
+              
    """
    flag = False
    for l in llist :
@@ -119,8 +131,10 @@ def find_in_list(x, llist) :
 
 
 def code_check(sign_list=None, model_list=None) :
-  """
-    Signatures check
+  """.
+  Doc::
+          
+          Signatures check
   """
   flag0 = None
   for m in model_list :
@@ -138,10 +152,12 @@ def code_check(sign_list=None, model_list=None) :
 
 
 def main():
-  """function main
-  Args:
-  Returns:
-      
+  """function main.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   print("os.getcwd", os.getcwd())
   print(np, np.__version__) 

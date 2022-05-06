@@ -3,10 +3,12 @@
 
     
 def test_use_operon():    
-    """function test_use_operon
-    Args:
-    Returns:
-        
+    """function test_use_operon.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import pandas as pd
     import numpy as np

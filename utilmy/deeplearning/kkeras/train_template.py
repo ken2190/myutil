@@ -23,14 +23,16 @@ cc = Box({})
 
 
 def param_set():
-    """
-        Summarry: Defines the parameter set
-  
-        Parameters:
+    """.
+    Doc::
+            
+                Summarry: Defines the parameter set
+          
+                Parameters:
+                
         
-
-        Returns:
-        
+                Returns:
+                
     """
     ### Output naming  ##################################################
     #cc.dname       = 'fashion_64_44k'
@@ -158,12 +160,14 @@ def param_set():
 
 
 def params_set2():
-    """
-        Summarry: Defines Parameter set
-  
-        Parameters:
-
-        Returns:
+    """.
+    Doc::
+            
+                Summarry: Defines Parameter set
+          
+                Parameters:
+        
+                Returns:
     """
     import diskcache as dc
     db_path    = cc.data_train + f"/{cc.dname}"
@@ -313,9 +317,11 @@ os_path_copy(dirin= cc.code_source  , path= cc.model_dir2 + "/code/")
 
 
 def pd_get_dummies(df, cols_cat, cat_dict:dict, only_onehot=True):
-   """ dfi_onehot = pd_get_dummies( df, cols_cat = ['articleType'  ], cat_dict= cc.labels_map, only_onehot= False)
-      dfi_onehot.sum()
-      dfi_onehot.dtypes
+   """ dfi_onehot = pd_get_dummies( df, cols_cat = ['articleType'  ], cat_dict= cc.labels_map, only_onehot= False).
+   Doc::
+           
+             dfi_onehot.sum()
+             dfi_onehot.dtypes
    """ 
    dfall      =  None
    #cols_cat   = list(cat_dict.keys() )
@@ -352,13 +358,15 @@ def pd_get_dummies(df, cols_cat, cat_dict:dict, only_onehot=True):
 #################################################################################################
 #### Code for generating custom data from the Kaggle dataset   ##################################
 def label_get_data():
-    """
-        Summarry: Code for generating custom data from the Kaggle dataset 
-  
-        Parameters:
-
-        Returns:
-        df (dataframe):
+    """.
+    Doc::
+            
+                Summarry: Code for generating custom data from the Kaggle dataset 
+          
+                Parameters:
+        
+                Returns:
+                df (dataframe):
     """
     
     #### Labels  ##############################
@@ -426,16 +434,18 @@ log('N test batches:',     len(val_data))
 """## Train"""
 @tf.function
 def train_step(x, model, y_label_list=None):
-    """
-    Summary: Function defining train steps
-
-    Parameter:
-    x (np.array):
-    model (keras_model):
-    y_label (np.array):
-    
-    Returns:
-    loss (float):
+    """.
+    Doc::
+            
+            Summary: Function defining train steps
+        
+            Parameter:
+            x (np.array):
+            model (keras_model):
+            y_label (np.array):
+            
+            Returns:
+            loss (float):
     """
 
     with tf.GradientTape() as tape:
@@ -454,18 +464,20 @@ def train_step(x, model, y_label_list=None):
 
 @tf.function
 def validation_step(x, model, y_label_list=None):
-    """
-    Summary: Function defining train steps
-
-    Parameter:
-    x (np.array):
-    model (keras_model):
-    y_label (np.array):
-    
-    Returns:
-    loss (float):
-    x_recon (data_type):
-    out_classes (data_type):
+    """.
+    Doc::
+            
+            Summary: Function defining train steps
+        
+            Parameter:
+            x (np.array):
+            model (keras_model):
+            y_label (np.array):
+            
+            Returns:
+            loss (float):
+            x_recon (data_type):
+            out_classes (data_type):
     """
     z_mean, z_logsigma, x_recon, out_classes = model(x, training=False)  #Forward pass through the VAE
     loss = perceptual_loss_function(x[0], x_recon, z_mean, z_logsigma,

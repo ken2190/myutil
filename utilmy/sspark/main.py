@@ -24,10 +24,12 @@ from utilmy.spark.src.utils import config_load, log
 
 ################################################################################
 def config_default():
-  """function config_default
-  Args:
-  Returns:
-      
+  """function config_default.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   ss ="""
 - sparkconfig:
@@ -60,9 +62,11 @@ def config_default():
   
     
 def pd_to_spark_hive_format(df, dirout):
-  """
-     To export into Spark/Hive format, Issue with pyarrow.
-  
+  """.
+  Doc::
+          
+           To export into Spark/Hive format, Issue with pyarrow.
+        
   """
   import fastparquet as fp
   fp.write(dirout, df, )
@@ -70,18 +74,22 @@ def pd_to_spark_hive_format(df, dirout):
   
 
 def config_getdefault():
-    """function config_getdefault
-    Args:
-    Returns:
-        
+    """function config_getdefault.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
     
 def test():    
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from pyspark.sql import SparkSession
     spark = SparkSession.builder\
@@ -95,10 +103,12 @@ def test():
 
 
 def spark_init(config:dict=None, appname='app1', local="local[*]")->SparkSession:
-    """  from utilmy.spark import spark_init
-    Args:
-        config: config dict
-    Returns: SparkSession
+    """  from utilmy.spark import spark_init.
+    Doc::
+            
+            Args:
+                config: config dict
+            Returns: SparkSession
     """
     if config is None :
         spark = SparkSession.builder\
@@ -129,10 +139,12 @@ def spark_init(config:dict=None, appname='app1', local="local[*]")->SparkSession
 
 
 def main():
-    """ Execute all processing
-        python main.py  --config_path  config/config.yaml         ### full
-        python main.py  --config_path  config/config_test.yaml    ### test
-        config_path = "config/config.yaml"
+    """ Execute all processing.
+    Doc::
+            
+                python main.py  --config_path  config/config.yaml         ### full
+                python main.py  --config_path  config/config_test.yaml    ### test
+                config_path = "config/config.yaml"
     """
     pars = argparse.ArgumentParser(description='Process')
     pars.add_argument('--config_path',type=str, nargs='?', const='config/config_test.yaml',

@@ -11,10 +11,12 @@ from mygenerator.utils import log, log2
 
 ###############################################################################################
 def test_chars_to_images_transform():
-    """function test_chars_to_images_transform
-    Args:
-    Returns:
-        
+    """function test_chars_to_images_transform.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     uris = ["a.png", "b.png", "c.png"]
 
@@ -53,10 +55,12 @@ def test_chars_to_images_transform():
 
 
 def test_combine_images_horizontally_transform():
-    """function test_combine_images_horizontally_transform
-    Args:
-    Returns:
-        
+    """function test_combine_images_horizontally_transform.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     np.random.seed(42)
 
@@ -96,10 +100,12 @@ def test_combine_images_horizontally_transform():
 
 
 def test_scale_image_transform():
-    """function test_scale_image_transform
-    Args:
-    Returns:
-        
+    """function test_scale_image_transform.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     def _get_image_fn(idx):
         img = [
@@ -156,11 +162,13 @@ def test_scale_image_transform():
 
 
 def create_font_files(font_dir):
-    """
-    Args:
-        font_dir:  image directory
-    Returns:
-
+    """.
+    Doc::
+            
+            Args:
+                font_dir:  image directory
+            Returns:
+        
     """
     font = cv2.FONT_HERSHEY_SIMPLEX
     bottom_left_corner_of_text = (0, 24)
@@ -182,11 +190,13 @@ def create_font_files(font_dir):
 
 
 def test_text_to_image_transform(tmp_path):
-    """function test_text_to_image_transform
-    Args:
-        tmp_path:   
-    Returns:
-        
+    """function test_text_to_image_transform.
+    Doc::
+            
+            Args:
+                tmp_path:   
+            Returns:
+                
     """
     text_0 = "012345678901"
     text_1 = "123456789012"

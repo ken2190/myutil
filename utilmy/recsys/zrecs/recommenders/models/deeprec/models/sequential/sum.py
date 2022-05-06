@@ -22,10 +22,12 @@ class SUMModel(SequentialBaseModel):
     """
 
     def _build_seq_graph(self):
-        """The main function to create SUM model.
-
-        Returns:
-            object: The output of SUM section, which is a concatenation of user vector and target item vector.
+        """The main function to create SUM model..
+        Doc::
+                
+            
+                    Returns:
+                        object: The output of SUM section, which is a concatenation of user vector and target item vector.
         """
         hparams = self.hparams
         with tf.variable_scope("sum"):
@@ -52,14 +54,16 @@ class SUMModel(SequentialBaseModel):
         return model_output
 
     def _attention_query_by_state(self, seq_output, query):
-        """Merge a user's memory states conditioned by a query item.
-
-        Params:
-            seq_output: A flatten representation of SUM memory states for (a batch of) users
-            query: (a batch of) target item candidates
-
-        Returns:
-            tf.Tensor, tf.Tensor: Merged user representation. Attention weights of each memory channel.
+        """Merge a user's memory states conditioned by a query item..
+        Doc::
+                
+            
+                    Params:
+                        seq_output: A flatten representation of SUM memory states for (a batch of) users
+                        query: (a batch of) target item candidates
+            
+                    Returns:
+                        tf.Tensor, tf.Tensor: Merged user representation. Attention weights of each memory channel.
         """
         dim_q = query.shape[-1].value
         att_weights = tf.constant(1.0, dtype=tf.float32)
@@ -97,10 +101,12 @@ class SUMModel(SequentialBaseModel):
         return att_res, att_weights
 
     def _create_sumcell(self):
-        """Create a SUM cell
-
-        Returns:
-            object: An initialized SUM cell
+        """Create a SUM cell.
+        Doc::
+                
+            
+                    Returns:
+                        object: An initialized SUM cell
         """
         hparams = self.hparams
         input_embedding_dim = self.history_embedding.shape[-1]
@@ -120,13 +126,15 @@ class SUMModel(SequentialBaseModel):
         return res
 
     def _build_sum(self, cell):
-        """Generate  user memory states from behavior sequence
-
-        Args:
-            object: An initialied SUM cell.
-
-        Returns:
-            object: A flatten representation of user memory states, in the shape of (BatchSize, SlotsNum x HiddenSize)
+        """Generate  user memory states from behavior sequence.
+        Doc::
+                
+            
+                    Args:
+                        object: An initialied SUM cell.
+            
+                    Returns:
+                        object: A flatten representation of user memory states, in the shape of (BatchSize, SlotsNum x HiddenSize)
         """
         hparams = self.hparams
         with tf.variable_scope("sum"):

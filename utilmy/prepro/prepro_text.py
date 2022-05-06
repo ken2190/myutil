@@ -25,13 +25,15 @@ DEBUG_=True
 ####################################################################################################
 ####################################################################################################
 def log(*s, n=0, m=1):
-    """function log
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sspace = "#" * n
     sjump = "\n" * m
@@ -39,25 +41,29 @@ def log(*s, n=0, m=1):
     print(sjump, sspace, s, sspace, flush=True)
 
 def logs(*s):
-    """function logs
-    Args:
-        *s:   
-    Returns:
-        
+    """function logs.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if DEBUG_:
         print(*s, flush=True)
 
 
 def log_pd(df, *s, n=0, m=1):
-    """function log_pd
-    Args:
-        df:   
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log_pd.
+    Doc::
+            
+            Args:
+                df:   
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sjump = "\n" * m
     ### Implement pseudo Logging
@@ -69,14 +75,16 @@ from util_feature import  save, load_function_uri, load, save_features
 ####################################################################################################
 
 def pd_coltext_clean( df, col, stopwords= None , pars=None):
-    """function pd_coltext_clean
-    Args:
-        df:   
-        col:   
-        stopwords:   
-        pars:   
-    Returns:
-        
+    """function pd_coltext_clean.
+    Doc::
+            
+            Args:
+                df:   
+                col:   
+                stopwords:   
+                pars:   
+            Returns:
+                
     """
     import string, re
     ntoken= pars.get('n_token', 1)
@@ -109,11 +117,13 @@ def pd_coltext_clean( df, col, stopwords= None , pars=None):
 
 
 def pd_coltext_wordfreq(df, col, stopwords, ntoken=100):
-    """
-    df:
-    coltext:  text where word frequency should be extracted
-    nb_to_show:
-    :return:
+    """.
+    Doc::
+            
+            df:
+            coltext:  text where word frequency should be extracted
+            nb_to_show:
+            :return:
     """
     sep=" "
     logs('----col-----\n', col)
@@ -129,10 +139,12 @@ def pd_coltext_wordfreq(df, col, stopwords, ntoken=100):
 
 
 def nlp_get_stopwords():
-    """function nlp_get_stopwords
-    Args:
-    Returns:
-        
+    """function nlp_get_stopwords.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import json
     import string
@@ -147,11 +159,13 @@ def nlp_get_stopwords():
 
 
 def pd_coltext(df, col, pars={}):
-    """
-    df : Datframe
-    col : list of columns
-    pars : dict of pars
-
+    """.
+    Doc::
+            
+            df : Datframe
+            col : list of columns
+            pars : dict of pars
+        
     """
     from utils import util_text, util_model
 
@@ -217,22 +231,24 @@ def pd_coltext(df, col, pars={}):
 
 
 def pd_coltext_universal_google(df, col, pars={}):
-    """
-     # Universal sentence encoding from Tensorflow
-       Text ---> Vectors
-    from source.preprocessors import  pd_coltext_universal_google
-    https://tfhub.dev/google/universal-sentence-encoder-multilingual/3
-
-    #latest Tensorflow that supports sentencepiece is 1.13.1
-    !pip uninstall --quiet --yes tensorflow
-    !pip install --quiet tensorflow-gpu==1.13.1
-    !pip install --quiet tensorflow-hub
-    pip install --quiet tf-sentencepiece, simpleneighbors
-    !pip install --quiet simpleneighbors
-
-    # df : dataframe
-    # col : list of text colnum names
-    pars
+    """.
+    Doc::
+            
+             # Universal sentence encoding from Tensorflow
+               Text ---> Vectors
+            from source.preprocessors import  pd_coltext_universal_google
+            https://tfhub.dev/google/universal-sentence-encoder-multilingual/3
+        
+            #latest Tensorflow that supports sentencepiece is 1.13.1
+            !pip uninstall --quiet --yes tensorflow
+            !pip install --quiet tensorflow-gpu==1.13.1
+            !pip install --quiet tensorflow-hub
+            pip install --quiet tf-sentencepiece, simpleneighbors
+            !pip install --quiet simpleneighbors
+        
+            # df : dataframe
+            # col : list of text colnum names
+            pars
     """
     prefix = "coltext_universal_google"
     if 'path_pipeline' in  pars  :   ### Load during Inference

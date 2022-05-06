@@ -9,9 +9,11 @@ Hadoop, hive related
 
 
 def hdfs_down(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
-  """  Read file in parallel from disk : very Fast
-  path_glob: list of pattern, or sep by ";"
-  :return:
+  """  Read file in parallel from disk : very Fast.
+  Doc::
+          
+        path_glob: list of pattern, or sep by ";"
+        :return:
   """
   from_dir = ""
   to_dir   = ""  

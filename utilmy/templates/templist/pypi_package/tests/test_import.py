@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=C0415
 def test_import():
-    """function test_import
-    Args:
-    Returns:
-        
+    """function test_import.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import pandas
     import numpy

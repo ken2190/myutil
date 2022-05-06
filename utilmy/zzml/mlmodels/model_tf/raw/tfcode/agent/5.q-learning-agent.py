@@ -29,15 +29,17 @@ df.head()
 
 class Agent:
     def __init__(self, state_size, window_size, trend, skip, batch_size):
-        """ Agent:__init__
-        Args:
-            state_size:     
-            window_size:     
-            trend:     
-            skip:     
-            batch_size:     
-        Returns:
-           
+        """ Agent:__init__.
+        Doc::
+                
+                    Args:
+                        state_size:     
+                        window_size:     
+                        trend:     
+                        skip:     
+                        batch_size:     
+                    Returns:
+                       
         """
         self.state_size = state_size
         self.window_size = window_size
@@ -65,22 +67,26 @@ class Agent:
         self.sess.run(tf.global_variables_initializer())
 
     def act(self, state):
-        """ Agent:act
-        Args:
-            state:     
-        Returns:
-           
+        """ Agent:act.
+        Doc::
+                
+                    Args:
+                        state:     
+                    Returns:
+                       
         """
         if random.random() <= self.epsilon:
             return random.randrange(self.action_size)
         return np.argmax(self.sess.run(self.logits, feed_dict={self.X: state})[0])
 
     def get_state(self, t):
-        """ Agent:get_state
-        Args:
-            t:     
-        Returns:
-           
+        """ Agent:get_state.
+        Doc::
+                
+                    Args:
+                        t:     
+                    Returns:
+                       
         """
         window_size = self.window_size + 1
         d = t - window_size + 1
@@ -91,11 +97,13 @@ class Agent:
         return np.array([res])
 
     def replay(self, batch_size):
-        """ Agent:replay
-        Args:
-            batch_size:     
-        Returns:
-           
+        """ Agent:replay.
+        Doc::
+                
+                    Args:
+                        batch_size:     
+                    Returns:
+                       
         """
         mini_batch = []
         l = len(self.memory)
@@ -122,11 +130,13 @@ class Agent:
         return cost
 
     def buy(self, initial_money):
-        """ Agent:buy
-        Args:
-            initial_money:     
-        Returns:
-           
+        """ Agent:buy.
+        Doc::
+                
+                    Args:
+                        initial_money:     
+                    Returns:
+                       
         """
         starting_money = initial_money
         states_sell = []
@@ -169,13 +179,15 @@ class Agent:
         return states_buy, states_sell, total_gains, invest
 
     def train(self, iterations, checkpoint, initial_money):
-        """ Agent:train
-        Args:
-            iterations:     
-            checkpoint:     
-            initial_money:     
-        Returns:
-           
+        """ Agent:train.
+        Doc::
+                
+                    Args:
+                        iterations:     
+                        checkpoint:     
+                        initial_money:     
+                    Returns:
+                       
         """
         for i in range(iterations):
             total_profit = 0

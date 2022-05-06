@@ -11,11 +11,13 @@ import gc
 
 
 def unpackbits(x, num_bits):
-    """Convert a decimal value numpy.ndarray into multi-binary value numpy.ndarray ([1,2]->[[0,1],[1,0]])
-
-    Args:
-        x (numpy.ndarray): Decimal array.
-        num_bits (int): The max length of the converted binary value.
+    """Convert a decimal value numpy.ndarray into multi-binary value numpy.ndarray ([1,2]->[[0,1],[1,0]]).
+    Doc::
+            
+        
+            Args:
+                x (numpy.ndarray): Decimal array.
+                num_bits (int): The max length of the converted binary value.
     """
     xshape = list(x.shape)
     x = x.reshape([-1, 1])
@@ -29,15 +31,17 @@ class NumEncoder(object):
     """
 
     def __init__(self, cate_cols, nume_cols, label_col, threshold=10, thresrate=0.99):
-        """Constructor.
-        
-        Args:
-            cate_cols (list): The columns of categorical features.
-            nume_cols (list): The columns of numerical features.
-            label_col (object): The column of Label.
-            threshold (int): The categories whose frequency is lower than the threshold will be filtered (be treated 
-                as "<LESS>").
-            thresrate (float): The (1.0 - thersrate, default 1%) lowest-frequency categories will also be filtered.
+        """Constructor..
+        Doc::
+                
+                    
+                    Args:
+                        cate_cols (list): The columns of categorical features.
+                        nume_cols (list): The columns of numerical features.
+                        label_col (object): The column of Label.
+                        threshold (int): The categories whose frequency is lower than the threshold will be filtered (be treated 
+                            as "<LESS>").
+                        thresrate (float): The (1.0 - thersrate, default 1%) lowest-frequency categories will also be filtered.
         """
         logging.basicConfig(level=logging.INFO, format="%(asctime)s [INFO] %(message)s")
         self.label_name = label_col
@@ -60,13 +64,15 @@ class NumEncoder(object):
         self.samples = 0
 
     def fit_transform(self, df):
-        """Input a training set (pandas.DataFrame) and return the converted 2 numpy.ndarray (x,y).
-
-        Args:
-            df (pandas.DataFrame): Input dataframe
-
-        Returns:
-            numpy.ndarray, numpy.ndarray: New features and labels.
+        """Input a training set (pandas.DataFrame) and return the converted 2 numpy.ndarray (x,y)..
+        Doc::
+                
+            
+                    Args:
+                        df (pandas.DataFrame): Input dataframe
+            
+                    Returns:
+                        numpy.ndarray, numpy.ndarray: New features and labels.
         """
         df = df.astype(dtype=self.dtype_dict)
         self.samples = df.shape[0]
@@ -148,13 +154,15 @@ class NumEncoder(object):
 
     # for test dataset
     def transform(self, df):
-        """Input a testing / validation set (pandas.DataFrame) and return the converted 2 numpy.ndarray (x,y).
-
-        Args:
-            df (pandas.DataFrame): Input dataframe
-
-        Returns:
-            numpy.ndarray, numpy.ndarray: New features and labels.
+        """Input a testing / validation set (pandas.DataFrame) and return the converted 2 numpy.ndarray (x,y)..
+        Doc::
+                
+            
+                    Args:
+                        df (pandas.DataFrame): Input dataframe
+            
+                    Returns:
+                        numpy.ndarray, numpy.ndarray: New features and labels.
         """
         df = df.astype(dtype=self.dtype_dict)
         samples = df.shape[0]

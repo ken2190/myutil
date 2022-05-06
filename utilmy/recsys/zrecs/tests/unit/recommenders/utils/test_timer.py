@@ -12,42 +12,50 @@ TOL = 0.03
 
 @pytest.fixture(scope="function")
 def t():
-    """function t
-    Args:
-    Returns:
-        
+    """function t.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return Timer()
 
 
 def test_no_time(t):
-    """function test_no_time
-    Args:
-        t:   
-    Returns:
-        
+    """function test_no_time.
+    Doc::
+            
+            Args:
+                t:   
+            Returns:
+                
     """
     assert t.interval == 0
     assert t.running is False
 
 
 def test_stop_before_start(t):
-    """function test_stop_before_start
-    Args:
-        t:   
-    Returns:
-        
+    """function test_stop_before_start.
+    Doc::
+            
+            Args:
+                t:   
+            Returns:
+                
     """
     with pytest.raises(ValueError):
         t.stop()
 
 
 def test_interval_before_stop(t):
-    """function test_interval_before_stop
-    Args:
-        t:   
-    Returns:
-        
+    """function test_interval_before_stop.
+    Doc::
+            
+            Args:
+                t:   
+            Returns:
+                
     """
     t.start()
     with pytest.raises(ValueError):
@@ -55,11 +63,13 @@ def test_interval_before_stop(t):
 
 
 def test_timer(t):
-    """function test_timer
-    Args:
-        t:   
-    Returns:
-        
+    """function test_timer.
+    Doc::
+            
+            Args:
+                t:   
+            Returns:
+                
     """
     t.start()
     assert t.running is True
@@ -75,11 +85,13 @@ def test_timer(t):
 
 
 def test_timer_format(t):
-    """function test_timer_format
-    Args:
-        t:   
-    Returns:
-        
+    """function test_timer_format.
+    Doc::
+            
+            Args:
+                t:   
+            Returns:
+                
     """
     assert str(t) == "0.0000"
     assert str(t.interval) == "0"

@@ -26,10 +26,12 @@ ITEM_FEAT_COL = "itemFeat"
 
 @pytest.fixture(scope="module")
 def pd_df():
-    """function pd_df
-    Args:
-    Returns:
-        
+    """function pd_df.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     df = pd.DataFrame(
         {
@@ -53,12 +55,14 @@ def pd_df():
 
 @pytest.mark.gpu
 def test_wide_model(pd_df, tmp):
-    """function test_wide_model
-    Args:
-        pd_df:   
-        tmp:   
-    Returns:
-        
+    """function test_wide_model.
+    Doc::
+            
+            Args:
+                pd_df:   
+                tmp:   
+            Returns:
+                
     """
     data, users, items = pd_df
 
@@ -94,12 +98,14 @@ def test_wide_model(pd_df, tmp):
 
 @pytest.mark.gpu
 def test_deep_model(pd_df, tmp):
-    """function test_deep_model
-    Args:
-        pd_df:   
-        tmp:   
-    Returns:
-        
+    """function test_deep_model.
+    Doc::
+            
+            Args:
+                pd_df:   
+                tmp:   
+            Returns:
+                
     """
     data, users, items = pd_df
 
@@ -125,12 +131,14 @@ def test_deep_model(pd_df, tmp):
 
 @pytest.mark.gpu
 def test_wide_deep_model(pd_df, tmp):
-    """function test_wide_deep_model
-    Args:
-        pd_df:   
-        tmp:   
-    Returns:
-        
+    """function test_wide_deep_model.
+    Doc::
+            
+            Args:
+                pd_df:   
+                tmp:   
+            Returns:
+                
     """
     data, users, items = pd_df
 

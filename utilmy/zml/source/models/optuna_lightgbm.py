@@ -14,38 +14,46 @@ except Exception as e : verbosity = 2
 #raise Exception(f"{e}")
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 1 : print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 def os_makedirs(dir_or_file):
-    """function os_makedirs
-    Args:
-        dir_or_file:   
-    Returns:
-        
+    """function os_makedirs.
+    Doc::
+            
+            Args:
+                dir_or_file:   
+            Returns:
+                
     """
     if os.path.isfile(dir_or_file) :os.makedirs(os.path.dirname(os.path.abspath(dir_or_file)), exist_ok=True)
     else : os.makedirs(os.path.abspath(dir_or_file), exist_ok=True)
@@ -53,22 +61,26 @@ def os_makedirs(dir_or_file):
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -83,13 +95,15 @@ import optuna.integration.lightgbm as LGBMModel_optuna
 ####################################################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
         if model_pars is None:
@@ -117,7 +131,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -160,15 +176,17 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     ## optuna_model = model.model_pars.get('optuna_model', None)   #### NO model is saved in model.model
@@ -185,12 +203,14 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -207,11 +227,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -228,11 +250,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -245,7 +269,9 @@ def load_info(path=""):
 
 ####################################################################################################
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
+    """.
+    Doc::
+            
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -270,11 +296,13 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 
 ####################################################################################################################
 def test_dataset_classi_fake(nrows=500):
-    """function test_dataset_classi_fake
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_classi_fake.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
     from sklearn import datasets as sklearn_datasets
     ndim=11
@@ -294,11 +322,13 @@ def test_dataset_classi_fake(nrows=500):
 
 
 def test(config=''):
-    """function test
-    Args:
-        config:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                config:   
+            Returns:
+                
     """
     global model, session
     df, colnum, colcat, coly = test_dataset_classi_fake(nrows=500)
@@ -390,13 +420,15 @@ def test(config=''):
 
 
 def test_helper(model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model,session
     root  = "ztmp/"
@@ -419,10 +451,12 @@ def test_helper(model_pars, data_pars, compute_pars):
     # model_summary()
 
 def benchmark():
-    """function benchmark
-    Args:
-    Returns:
-        
+    """function benchmark.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model
     try:
@@ -444,12 +478,14 @@ def benchmark():
         
 
 def benchmark_helper(train_df, test_df):
-    """function benchmark_helper
-    Args:
-        train_df:   
-        test_df:   
-    Returns:
-        
+    """function benchmark_helper.
+    Doc::
+            
+            Args:
+                train_df:   
+                test_df:   
+            Returns:
+                
     """
     global model, session
     # plmb has no meta data available with the datasets

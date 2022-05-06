@@ -16,10 +16,12 @@ from metrics import NDCG
 
 
 def get_device():
-    """function get_device
-    Args:
-    Returns:
-        
+    """function get_device.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     if torch.cuda.is_available():
         device = "cuda:{}".format(np.random.randint(torch.cuda.device_count()))
@@ -30,13 +32,15 @@ def get_device():
 
 
 def get_ckptdir(net_name, net_structure, sigma=None):
-    """function get_ckptdir
-    Args:
-        net_name:   
-        net_structure:   
-        sigma:   
-    Returns:
-        
+    """function get_ckptdir.
+    Doc::
+            
+            Args:
+                net_name:   
+                net_structure:   
+                sigma:   
+            Returns:
+                
     """
     net_name = '{}-{}'.format(net_name, '-'.join([str(x) for x in net_structure]))
     if sigma:
@@ -50,15 +54,17 @@ def get_ckptdir(net_name, net_structure, sigma=None):
 
 
 def save_to_ckpt(ckpt_file, epoch, model, optimizer, lr_scheduler):
-    """function save_to_ckpt
-    Args:
-        ckpt_file:   
-        epoch:   
-        model:   
-        optimizer:   
-        lr_scheduler:   
-    Returns:
-        
+    """function save_to_ckpt.
+    Doc::
+            
+            Args:
+                ckpt_file:   
+                epoch:   
+                model:   
+                optimizer:   
+                lr_scheduler:   
+            Returns:
+                
     """
     ckpt_file = ckpt_file + '_{}'.format(epoch)
     print(get_time(), 'save to ckpt {}'.format(ckpt_file))
@@ -72,9 +78,11 @@ def save_to_ckpt(ckpt_file, epoch, model, optimizer, lr_scheduler):
 
 
 def load_train_vali_data(data_fold, small_dataset=False):
-    """
-    data_fold: str, which fold's data was going to use to train
-    :return:
+    """.
+    Doc::
+            
+            data_fold: str, which fold's data was going to use to train
+            :return:
     """
     if small_dataset:
         train_file, valid_file = "vali.txt", "test.txt"
@@ -93,11 +101,13 @@ def load_train_vali_data(data_fold, small_dataset=False):
 
 
 def init_weights(m):
-    """function init_weights
-    Args:
-        m:   
-    Returns:
-        
+    """function init_weights.
+    Doc::
+            
+            Args:
+                m:   
+            Returns:
+                
     """
     if type(m) == nn.Linear:
         nn.init.xavier_uniform_(m.weight)
@@ -105,13 +115,15 @@ def init_weights(m):
 
 
 def eval_cross_entropy_loss(model, device, loader, phase="Eval", sigma=1.0):
-    """
-    formula in https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/MSR-TR-2010-82.pdf
-
-    C = 0.5 * (1 - S_ij) * sigma * (si - sj) + log(1 + exp(-sigma * (si - sj)))
-    when S_ij = 1:  C = log(1 + exp(-sigma(si - sj)))
-    when S_ij = -1: C = log(1 + exp(-sigma(sj - si)))
-    sigma can change the shape of the curve
+    """.
+    Doc::
+            
+            formula in https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/MSR-TR-2010-82.pdf
+        
+            C = 0.5 * (1 - S_ij) * sigma * (si - sj) + log(1 + exp(-sigma * (si - sj)))
+            when S_ij = 1:  C = log(1 + exp(-sigma(si - sj)))
+            when S_ij = -1: C = log(1 + exp(-sigma(sj - si)))
+            sigma can change the shape of the curve
     """
     print(get_time(), "{} Phase evaluate pairwise cross entropy loss".format(phase))
     model.eval()
@@ -158,17 +170,19 @@ def eval_cross_entropy_loss(model, device, loader, phase="Eval", sigma=1.0):
 
 
 def eval_ndcg_at_k(inference_model, device, df_valid, valid_loader, batch_size, k_list, phase="Eval"):
-    """function eval_ndcg_at_k
-    Args:
-        inference_model:   
-        device:   
-        df_valid:   
-        valid_loader:   
-        batch_size:   
-        k_list:   
-        phase:   
-    Returns:
-        
+    """function eval_ndcg_at_k.
+    Doc::
+            
+            Args:
+                inference_model:   
+                device:   
+                df_valid:   
+                valid_loader:   
+                batch_size:   
+                k_list:   
+                phase:   
+            Returns:
+                
     """
     # print("Eval Phase evaluate NDCG @ {}".format(k_list))
     ndcg_metrics = {k: NDCG(k) for k in k_list}
@@ -205,11 +219,13 @@ def eval_ndcg_at_k(inference_model, device, df_valid, valid_loader, batch_size, 
 
 
 def str2bool(v):
-    """function str2bool
-    Args:
-        v:   
-    Returns:
-        
+    """function str2bool.
+    Doc::
+            
+            Args:
+                v:   
+            Returns:
+                
     """
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
         return True
@@ -220,8 +236,10 @@ def str2bool(v):
 
 
 def get_args_parser():
-    """Common Args needed for different Learn to Rank training method.
-    :rtype: ArgumentParser
+    """Common Args needed for different Learn to Rank training method..
+    Doc::
+            
+            :rtype: ArgumentParser
     """
     parser = ArgumentParser(description="additional training specification")
     parser.add_argument("--start_epoch", dest="start_epoch", type=int, default=0)
