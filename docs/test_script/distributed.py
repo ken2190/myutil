@@ -180,11 +180,11 @@ class IndexLock(object):
         self.ntry =ntry
 
 
-    def read(self,): ### alias
+    def read(self,):
         return self.get()
 
 
-    def save_isok(self, flist:list):   ### Alias
+    def save_isok(self, flist:list):
         return put(self, val)
 
     def save_filter(self, val:list=None):

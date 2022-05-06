@@ -7,17 +7,21 @@ from utilmy.debug import log
 
 
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     test_decorators()	
     test_decorators2()
 
 def test_decorators():
-    """
-    #### python test.py   test_decorators
+    """.
+    Doc::
+            
+            #### python test.py   test_decorators
     """
     from utilmy.decorators import thread_decorator, timeout_decorator, profiler_context,profiler_decorator, profiler_decorator_base
 
@@ -41,10 +45,12 @@ def test_decorators():
 
 
 def test_decorators2():
-    """function test_decorators2
-    Args:
-    Returns:
-        
+    """function test_decorators2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy.decorators import profiler_decorator, profiler_context
 
@@ -86,9 +92,11 @@ def test_decorators2():
 ########################################################################################################################
 ########################################################################################################################
 def thread_decorator(func):
-    """ A decorator to run function in background on thread
-	Return:
-		background_thread: ``Thread``
+    """ A decorator to run function in background on thread.
+    Doc::
+            
+        	Return:
+        		background_thread: ``Thread``
     """
     @wraps(func)
     def wrapper(*args, **kwags):
@@ -111,13 +119,15 @@ class _TimeoutError(Exception):
 
 ########################################################################################################################
 def timeout_decorator(seconds=10, error_message=os.strerror(errno.ETIME)):
-    """Decorator to throw timeout error, if function doesnt complete in certain time
-    Args:
-        seconds:``int``
-            No of seconds to wait
-        error_message:``str``
-            Error message
+    """Decorator to throw timeout error, if function doesnt complete in certain time.
+    Doc::
             
+            Args:
+                seconds:``int``
+                    No of seconds to wait
+                error_message:``str``
+                    Error message
+                    
     """
     def decorator(func):
         def _handle_timeout(signum, frame):
@@ -138,8 +148,10 @@ def timeout_decorator(seconds=10, error_message=os.strerror(errno.ETIME)):
 
 
 def timer_decorator(func):
-    """
-    Decorator to show the execution time of a function or a method in a class.
+    """.
+    Doc::
+            
+            Decorator to show the execution time of a function or a method in a class.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -156,12 +168,14 @@ def timer_decorator(func):
 ########################################################################################################################
 @contextmanager
 def profiler_context():
-    """
-    Context Manager the will profile code inside it's bloc.
-    And print the result of profiler.
-    Example:
-        with profiler_context():
-            # code to profile here
+    """.
+    Doc::
+            
+            Context Manager the will profile code inside it's bloc.
+            And print the result of profiler.
+            Example:
+                with profiler_context():
+                    # code to profile here
     """
     from pyinstrument import Profiler
     profiler = Profiler()
@@ -176,9 +190,11 @@ def profiler_context():
 
 
 def profiler_decorator(func):
-    """
-    A decorator that will profile a function
-    And print the result of profiler.
+    """.
+    Doc::
+            
+            A decorator that will profile a function
+            And print the result of profiler.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -194,9 +210,11 @@ def profiler_decorator(func):
 
 
 def profiler_decorator_base(fnc):
-    """
-    A decorator that uses cProfile to profile a function
-    And print the result
+    """.
+    Doc::
+            
+            A decorator that uses cProfile to profile a function
+            And print the result
     """
     def inner(*args, **kwargs):
         pr = cProfile.Profile()
@@ -215,10 +233,12 @@ def profiler_decorator_base(fnc):
 
 
 def test0():
-    """function test0
-    Args:
-    Returns:
-        
+    """function test0.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     with profiler_context():
         x = sum(range(1000000))
@@ -230,46 +250,56 @@ def test0():
 
 @thread_decorator
 def thread_decorator_test():
-    """function thread_decorator_test
-    Args:
-    Returns:
-        
+    """function thread_decorator_test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log("thread decorator")
 
 @profiler_decorator_base
 def profiler_decorator_base_test():
-    """function profiler_decorator_base_test
-    Args:
-    Returns:
-        
+    """function profiler_decorator_base_test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log("profiler decorator")
 
 @timeout_decorator(10)
 def timeout_decorator_test():
-    """function timeout_decorator_test
-    Args:
-    Returns:
-        
+    """function timeout_decorator_test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log("timeout decorator")
 
 
 @profiler_decorator
 def profiled_sum():
-    """function profiled_sum
-    Args:
-    Returns:
-        
+    """function profiled_sum.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return sum(range(100000))
 
 @timer_decorator
 def dummy_func():
-    """function dummy_func
-    Args:
-    Returns:
-        
+    """function dummy_func.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     time.sleep(2)
