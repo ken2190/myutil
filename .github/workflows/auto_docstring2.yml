@@ -1,4 +1,4 @@
-name: Auto docstring - zdocstring branch 
+name: Auto docstring - Update zdocstring branch
 
 ###  https://github.com/arita37/awesome-actions#static-analysis
 
@@ -60,13 +60,6 @@ jobs:
       run: |
            pip install -r  py36_min.txt
 
-
-    - name: Install utilmy
-      run:  |
-        pip install -e .
-        python -c "import utilmy"
-
-           
     - name: Install repo requirements   2
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
@@ -75,12 +68,17 @@ jobs:
         #pip install -r install/requirements_fake.txt
 
 
+    - name: Install utilmy
+      run:  |
+        pip install -e .
+        python -c "import utilmy"
+
+
     - name: test_import
       run: |
            python -c "import os, pandas as pd; print(os)"
            python -c "import utilmy"        
         
-
 
     - name: Reset zdocstring branch
       #continue-on-error: true
@@ -101,7 +99,7 @@ jobs:
     - name: Update of docstring
       #vcontinue-on-error: true
       run:  |
-        python  utilmy/docs/docstring.py  update_docstring --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false
+        python  utilmy/docs/docstring.py  docstring_update1  --dirin utilmy/  --dirout utilmy/  --overwrite true   --test false --nfile 100000
 
         git add -A || echo 'nothing'
         git commit -am "docstring" ||   echo 'nothing'

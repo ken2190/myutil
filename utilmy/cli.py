@@ -1,4 +1,11 @@
-""" Command Line for utilmy
+""" Command Line for utilmy.
+Doc::
+
+        utilmy   gpu_usage
+        utilmy   gpu_available
+
+
+
 
 """
 HELP1 ="""
@@ -12,6 +19,9 @@ $utilmy/images/util_image.py image_remove_background
 """
 import fire, argparse, os, sys
 
+#############################################################################################
+dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 #############################################################################################
@@ -23,8 +33,13 @@ def log(*s):
 
 #############################################################################################
 def run_cli():
-    """
-        utilmy   deeplearning.keras.util_my
+    """ utilmy command line
+    Doc::
+
+        utilmy   gpu_usage
+        utilmy   gpu_available
+
+        utilmy   check   myfile.parquet   
 
 
 
@@ -34,9 +49,10 @@ def run_cli():
     p   = argparse.ArgumentParser()
     add = p.add_argument
 
-    add('task',  metavar='task', type=str, nargs=1, help='colab')
+    add('task',  metavar='task', type=str,  nargs=1, help='gpu_usage')
+    add('task2', metavar='task2', type=str, nargs=2, help='')
+    add('task3', metavar='task2', type=str, nargs=3, help='')
 
-    add('task2', metavar='task2', type=str, nargs=2, help='colab')
 
     add("--dirin",    type=str, default=None,     help = "repo_url")
     add("--repo_dir",    type=str, default="./",     help = "repo_dir")
@@ -46,6 +62,19 @@ def run_cli():
     add("--prefix",      type=str, default=None,     help = "https://github.com/user/repo/tree/a")
   
     args = p.parse_args()
+
+
+    if args.task == 'gpu_usage': 
+        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_usage")
+
+    if args.task == 'gpu_available': 
+        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
+
+    if args.task == 'check': 
+        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{arg.task2}'  ")
+
+    if args.task == 'find': 
+        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{arg.task2}' --dirin '{arg.task3}'  ")
 
 
     if args.task == 'help':
@@ -66,7 +95,6 @@ def run_cli():
         fun_name = args.task2
 
         cmd = f"{utilmy_dir)/{dirfile}  {fun_name}  {args_values}" 
-
 
 
 
