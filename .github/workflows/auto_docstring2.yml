@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:  
       
-#  push:
-#    branches:
-#    - z_docstring_update
+  push:
+    branches:
+    - z_docstring_update
 
 
 #  schedule:
