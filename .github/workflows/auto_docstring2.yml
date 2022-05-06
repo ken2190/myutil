@@ -64,7 +64,7 @@ jobs:
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
         ls .
-        pip install -r  py36_full.txt
+        pip install -r  py36.txt
         #pip install -r install/requirements_fake.txt
 
 
