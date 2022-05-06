@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-MNAME='utilmy.util_download'
-"""# 
-Doc::
-
-   Download utilities
+"""Download utilities
 
 
 """
@@ -16,18 +12,17 @@ from box import Box
 
 
 #############################################################################################
-from utilmy import log, log2
+from utilmy.utilmy import log, log2
 def help():
     """function help        """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 
 #############################################################################################
 def test_all() -> None:
     """function test_all   to be used in test.py         """
-    log(MNAME)
     test1()
 
 
@@ -348,9 +343,10 @@ def download_with_progress(url, fileout):
 
 
 
-### Aliass
+### Aliass  ###################################################################################################
 unzip_file = os_extract_archive
-
+google_download = download_google
+github_download = download_github
 
 
 

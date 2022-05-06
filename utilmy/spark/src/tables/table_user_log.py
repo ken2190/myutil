@@ -6,6 +6,9 @@ from pyspark.sql import functions as F
 from pyspark.sql import SparkSession
 
 ##### Custom import
+import sys,os
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir))
+
 from src.functions.GetFamiliesFromUserAgent import getall_families_from_useragent
 from src.utils import config_load, log, spark_check
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-HELP= """
+""" Main entry
 
 
 
@@ -353,6 +353,17 @@ def pip_install(pkg_str=" pandas "):
     subprocess.check_call(clist)
 
 
+def sys_path_append(path="__file__", level_above=2):
+   """ Add parent folder as path for import """ 
+   import sys,os
+
+   fi   = os.path.abspath(path)
+   diri = os.path.dirname(fi)
+   for i in range(1,level_above):
+       diri = os.path.join(os.path.dirname(fi),os.pardir)
+
+   sys.path.append(diri)
+
 
 
 def load_function_uri(uri_name: str="MyFolder/myfile.py:my_function"):
@@ -408,64 +419,7 @@ def test_load_function_uri():
 
 
 
-
-def google_download(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing" , 
-                    dirout="./ztmp/", unzip=True ):
-  """download  file from google drive on disk + unzip
-  import gdown
-  url_or_id = "16MIleqoIr1vYxlGk4GKnGmrsCPuWkkpT"  
-  dirout="./ztmp/"
-      # a file
-      url = "https://drive.google.com/uc?id=1l_5RK28JRL19wpT22B-DY9We3TVXnnQQ"
-      output = "fcn8s_from_caffe.npz"
-      gdown.download(url, output, quiet=False)
-
-      # same as the above, but with the file ID
-      id = "0B9P1L--7Wd2vNm9zMTJWOGxobkU"
-      gdown.download(id=id, output=output, quiet=False)
-
-      # same as the above, and you can copy-and-paste a URL from Google Drive with fuzzy=True
-      url = "https://drive.google.com/file/d/0B9P1L--7Wd2vNm9zMTJWOGxobkU/view?usp=sharing"
-      gdown.download(url=url, output=output, quiet=False, fuzzy=True)
-
-
-      # a folder
-      url = "https://drive.google.com/drive/folders/15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl"
-      gdown.download_folder(url, quiet=True, use_cookies=False)
-
-      # same as the above, but with the folder ID
-      id = "15uNXeRBIhVvZJIhL4yTw4IsStMhUaaxl"
-      gdown.download_folder(id=id, quiet=True, use_cookies=False)
-
-  """
-  import gdown, shutil, os, glob
-  dirout = os.path.abspath(dirout)
-  dirout = dirout.replace("\\","/")
-
-  tag = url_or_id
-  if "https:"in  url_or_id:
-    tag = str(hash(url_or_id))
-
-  dirout2 = dirout + f"/gdown_{tag}/"
-  os.makedirs(dirout2, exist_ok=True)
-  dir_cur = os.getcwd()
-
-  os.chdir(dirout2)
-
-  isfuzzy = True if '?usp=sharing' in url_or_id else False
-
-  try :
-    gdown.download(url_or_id,  quiet=False, fuzzy=isfuzzy)
-    flist = glob.glob(dirout2 + "/*")
-    print('Files downloaded', flist)
-    if unzip:
-      for fi in flist :
-        shutil.unpack_archive(fi, dirout)
-  except Exception as e:
-    print(e)
-  os.chdir(dir_cur) 
-  return dirout 
-
+from utilmy.util_download import google_download, download_google
 
 ###################################################################################################
 def pd_random(ncols=7, nrows=100):

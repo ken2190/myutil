@@ -3,6 +3,9 @@ from pyspark.sql import SparkSession, functions as F
 from pyspark.sql.window import Window
 
 ##### Custom import
+import sys,os
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir))
+
 from src.utils import config_load, log, spark_check
 
 
