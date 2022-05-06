@@ -8,12 +8,14 @@ import sys
 
 
 def is_signal_intermittent(iSeries, iOptions):
-    """function is_signal_intermittent
-    Args:
-        iSeries:   
-        iOptions:   
-    Returns:
-        
+    """function is_signal_intermittent.
+    Doc::
+            
+            Args:
+                iSeries:   
+                iOptions:   
+            Returns:
+                
     """
     series = iSeries - iSeries.min()
     zero_values = series[abs(series) < 1e-8]
@@ -25,13 +27,15 @@ def is_signal_intermittent(iSeries, iOptions):
 
 class cCroston_Model(tsar.cAbstractAR):
     def __init__(self , cycle_residue_name, P , iExogenousInfo = None):
-        """ cCroston_Model:__init__
-        Args:
-            cycle_residue_name:     
-            P:     
-            iExogenousInfo :     
-        Returns:
-           
+        """ cCroston_Model:__init__.
+        Doc::
+                
+                    Args:
+                        cycle_residue_name:     
+                        P:     
+                        iExogenousInfo :     
+                    Returns:
+                       
         """
         super().__init__(cycle_residue_name, iExogenousInfo)
         self.mNbLags = 1
@@ -39,11 +43,13 @@ class cCroston_Model(tsar.cAbstractAR):
         
 
     def dumpCoefficients(self, iMax=10):
-        """ cCroston_Model:dumpCoefficients
-        Args:
-            iMax:     
-        Returns:
-           
+        """ cCroston_Model:dumpCoefficients.
+        Doc::
+                
+                    Args:
+                        iMax:     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         logger.info("CROSTON_ALPHA " + str(self.mAlpha));
@@ -51,21 +57,25 @@ class cCroston_Model(tsar.cAbstractAR):
         pass
 
     def set_name(self):
-        """ cCroston_Model:set_name
-        Args:
-        Returns:
-           
+        """ cCroston_Model:set_name.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mOutName = self.mCycleResidueName +  '_CROSTON(' + str(self.mOptions.mCrostonOptions.mAlpha) + ')';
         self.mFormula = "CROSTON"
 
     def get_coeff(self, alpha , croston_type):
-        """ cCroston_Model:get_coeff
-        Args:
-            alpha:     
-            croston_type:     
-        Returns:
-           
+        """ cCroston_Model:get_coeff.
+        Doc::
+                
+                    Args:
+                        alpha:     
+                        croston_type:     
+                    Returns:
+                       
         """
         if(croston_type == "SBA"):
             return 1.0-(alpha/2.0)
@@ -76,11 +86,13 @@ class cCroston_Model(tsar.cAbstractAR):
 
 
     def estimate_alpha(self, df):
-        """ cCroston_Model:estimate_alpha
-        Args:
-            df:     
-        Returns:
-           
+        """ cCroston_Model:estimate_alpha.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         # print("CROSTON_OPTIONS" , self.mOptions.mCrostonOptions.__dict__)
         method = self.mOptions.mCrostonOptions.mMethod
@@ -104,12 +116,14 @@ class cCroston_Model(tsar.cAbstractAR):
             return
     
     def croston(self, df, horizon_index = 1):
-        """ cCroston_Model:croston
-        Args:
-            df:     
-            horizon_index :     
-        Returns:
-           
+        """ cCroston_Model:croston.
+        Doc::
+                
+                    Args:
+                        df:     
+                        horizon_index :     
+                    Returns:
+                       
         """
         alpha =  self.mAlpha
         method = self.mOptions.mCrostonOptions.mMethod
@@ -117,14 +131,16 @@ class cCroston_Model(tsar.cAbstractAR):
         return df
 
     def compute_forecast(self, df, alpha, method, horizon_index = 1):
-        """ cCroston_Model:compute_forecast
-        Args:
-            df:     
-            alpha:     
-            method:     
-            horizon_index :     
-        Returns:
-           
+        """ cCroston_Model:compute_forecast.
+        Doc::
+                
+                    Args:
+                        df:     
+                        alpha:     
+                        method:     
+                        horizon_index :     
+                    Returns:
+                       
         """
         # print(df.shape)
         # print(df.columns)
@@ -170,10 +186,12 @@ class cCroston_Model(tsar.cAbstractAR):
         return df4
         
     def fit(self):
-        """ cCroston_Model:fit
-        Args:
-        Returns:
-           
+        """ cCroston_Model:fit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         #  print("ESTIMATE_CROSTON_MODEL_START" , self.mCycleResidueName);
 
@@ -197,12 +215,14 @@ class cCroston_Model(tsar.cAbstractAR):
 
 
     def transformDataset(self, df, horizon_index = 1):
-        """ cCroston_Model:transformDataset
-        Args:
-            df:     
-            horizon_index :     
-        Returns:
-           
+        """ cCroston_Model:transformDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                        horizon_index :     
+                    Returns:
+                       
         """
         series = self.mCycleResidueName;
         pred = self.croston(df, horizon_index)

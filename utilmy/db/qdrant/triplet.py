@@ -3,11 +3,13 @@ import time
 import pandas as pd
 
 def new_algo(df):
-    """function new_algo
-    Args:
-        df:   
-    Returns:
-        
+    """function new_algo.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     ddict3 = {}
     df = df[['userid', 'genre_id']]

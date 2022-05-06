@@ -9,12 +9,14 @@ import numpy as np
 
 
 def create_weight_variable(name, shape):
-    """function create_weight_variable
-    Args:
-        name:   
-        shape:   
-    Returns:
-        
+    """function create_weight_variable.
+    Doc::
+            
+            Args:
+                name:   
+                shape:   
+            Returns:
+                
     """
     initializer = tf.contrib.layers.xavier_initializer_conv2d()
     variable = tf.Variable(initializer(shape=shape), name=name)
@@ -22,24 +24,28 @@ def create_weight_variable(name, shape):
 
 
 def create_bias_variable(name, shape):
-    """function create_bias_variable
-    Args:
-        name:   
-        shape:   
-    Returns:
-        
+    """function create_bias_variable.
+    Doc::
+            
+            Args:
+                name:   
+                shape:   
+            Returns:
+                
     """
     initializer = tf.constant_initializer(value=0.0, dtype=tf.float32)
     return tf.Variable(initializer(shape=shape), name)
 
 
 def create_adam_optimizer(learning_rate, momentum):
-    """function create_adam_optimizer
-    Args:
-        learning_rate:   
-        momentum:   
-    Returns:
-        
+    """function create_adam_optimizer.
+    Doc::
+            
+            Args:
+                learning_rate:   
+                momentum:   
+            Returns:
+                
     """
     return tf.train.AdamOptimizer(learning_rate=learning_rate, epsilon=1e-4)
 
@@ -47,10 +53,12 @@ def create_adam_optimizer(learning_rate, momentum):
 
 
 def tf_check():
-   """function tf_check
-   Args:
-   Returns:
-       
+   """function tf_check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    print("Checking TF package");   print(tf)
    from tensorflow.examples.tutorials.mnist import input_data
@@ -83,12 +91,14 @@ def tf_check():
 
 
 def parse_args(ppa=None, args= {}) :
-  """function parse_args
-  Args:
-      ppa:   
-      args:   
-  Returns:
-      
+  """function parse_args.
+  Doc::
+          
+        Args:
+            ppa:   
+            args:   
+        Returns:
+            
   """
   if ppa is None :  ppa = argparse.ArgumentParser()
   for key, x in args.items() :
@@ -101,11 +111,13 @@ def parse_args(ppa=None, args= {}) :
 
 ########### Argument parsing ###########################################################################
 def parse_args2(ppa=None) :
- """function parse_args2
- Args:
-     ppa:   
- Returns:
-     
+ """function parse_args2.
+ Doc::
+         
+      Args:
+          ppa:   
+      Returns:
+          
  """
  if ppa is None :
     try :
@@ -145,9 +157,11 @@ def parse_args2(ppa=None) :
 
 # Smart initialize for versions < 0.12.0   ##############################################################
 def tf_global_variables_initializer(sess=None):
-    """Initializes all uninitialized variables in correct order. Initializers
-    are only run for uninitialized variables, so it's safe to run this multiple times.
-    Args:   sess: session to use. Use default session if None.
+    """Initializes all uninitialized variables in correct order. Initializers.
+    Doc::
+            
+            are only run for uninitialized variables, so it's safe to run this multiple times.
+            Args:   sess: session to use. Use default session if None.
     """
     from tensorflow.contrib import graph_editor as ge
 
@@ -189,13 +203,15 @@ def tf_global_variables_initializer(sess=None):
 
 class TextLoader(object):
     def __init__(self, data_dir, batch_size, seq_length):
-        """ TextLoader:__init__
-        Args:
-            data_dir:     
-            batch_size:     
-            seq_length:     
-        Returns:
-           
+        """ TextLoader:__init__.
+        Doc::
+                
+                    Args:
+                        data_dir:     
+                        batch_size:     
+                        seq_length:     
+                    Returns:
+                       
         """
         self.data_dir = data_dir
         self.batch_size = batch_size
@@ -215,13 +231,15 @@ class TextLoader(object):
         self.reset_batch_pointer()
 
     def preprocess(self, input_file, vocab_file, tensor_file):
-        """ TextLoader:preprocess
-        Args:
-            input_file:     
-            vocab_file:     
-            tensor_file:     
-        Returns:
-           
+        """ TextLoader:preprocess.
+        Doc::
+                
+                    Args:
+                        input_file:     
+                        vocab_file:     
+                        tensor_file:     
+                    Returns:
+                       
         """
         with codecs.open(input_file, "r") as f:
             data = f.read()
@@ -236,12 +254,14 @@ class TextLoader(object):
         np.save(tensor_file, self.tensor)
 
     def load_preprocessed(self, vocab_file, tensor_file):
-        """ TextLoader:load_preprocessed
-        Args:
-            vocab_file:     
-            tensor_file:     
-        Returns:
-           
+        """ TextLoader:load_preprocessed.
+        Doc::
+                
+                    Args:
+                        vocab_file:     
+                        tensor_file:     
+                    Returns:
+                       
         """
         with open(vocab_file, 'rb') as f:
             self.chars = pickle.load(f)
@@ -251,10 +271,12 @@ class TextLoader(object):
         self.num_batches = self.tensor.size // (self.batch_size * self.seq_length)
 
     def create_batches(self):
-        """ TextLoader:create_batches
-        Args:
-        Returns:
-           
+        """ TextLoader:create_batches.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.num_batches = self.tensor.size // (self.batch_size * self.seq_length)
         self.tensor = self.tensor[:self.num_batches * self.batch_size * self.seq_length]
@@ -272,20 +294,24 @@ class TextLoader(object):
         self.num_batches -= validation_batches
 
     def next_batch(self):
-        """ TextLoader:next_batch
-        Args:
-        Returns:
-           
+        """ TextLoader:next_batch.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         x, y = self.x_batches[self.pointer], self.y_batches[self.pointer]
         self.pointer += 1
         return x, y
 
     def reset_batch_pointer(self):
-        """ TextLoader:reset_batch_pointer
-        Args:
-        Returns:
-           
+        """ TextLoader:reset_batch_pointer.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.pointer = 0
 
@@ -293,10 +319,12 @@ class TextLoader(object):
 
 
 def visualize_result():
-    """function visualize_result
-    Args:
-    Returns:
-        
+    """function visualize_result.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import pandas as pd
     import matplotlib.pyplot as plt

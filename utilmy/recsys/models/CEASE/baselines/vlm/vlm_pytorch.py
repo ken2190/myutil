@@ -9,11 +9,13 @@ from torch import nn
 
 class VLM_PyTorch(nn.Module):
     def __init__(self, args):
-        """ VLM_PyTorch:__init__
-        Args:
-            args:     
-        Returns:
-           
+        """ VLM_PyTorch:__init__.
+        Doc::
+                
+                    Args:
+                        args:     
+                    Returns:
+                       
         """
         super(VLM_PyTorch, self).__init__()
 
@@ -43,12 +45,14 @@ class VLM_PyTorch(nn.Module):
         self.Mu_Zv = nn.Embedding(self.num_items, self.num_factors) # Mean latent factors for items
 
     def forward(self, user_ids, add_noise = True):
-        """ VLM_PyTorch:forward
-        Args:
-            user_ids:     
-            add_noise :     
-        Returns:
-           
+        """ VLM_PyTorch:forward.
+        Doc::
+                
+                    Args:
+                        user_ids:     
+                        add_noise :     
+                    Returns:
+                       
         """
         # Get mean and log(std-dev) for users in this batch
         Mu_Zu_batch, lsdev_Zu_batch = self.Mu_Zu(user_ids), self.lsdev_Zu(user_ids)

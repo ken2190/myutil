@@ -77,10 +77,12 @@ initial_learning_rate = 1e-2
 
 class Model:
     def __init__(self):
-        """ Model:__init__
-        Args:
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, [None, image_height, image_width, image_channel])
         self.Y = tf.sparse_placeholder(tf.int32)
@@ -138,16 +140,18 @@ class Model:
         self.dense_decoded = tf.sparse_tensor_to_dense(self.decoded[0], default_value=-1)
 
     def conv2d(self, x, name, filter_size, channel_in, channel_out, strides):
-        """ Model:conv2d
-        Args:
-            x:     
-            name:     
-            filter_size:     
-            channel_in:     
-            channel_out:     
-            strides:     
-        Returns:
-           
+        """ Model:conv2d.
+        Doc::
+                
+                    Args:
+                        x:     
+                        name:     
+                        filter_size:     
+                        channel_in:     
+                        channel_out:     
+                        strides:     
+                    Returns:
+                       
         """
         with tf.variable_scope(name):
             kernel = tf.get_variable(
@@ -165,12 +169,14 @@ class Model:
             return tf.nn.conv2d(x, kernel, [1, strides, strides, 1], padding="SAME") + b
 
     def batch_norm(self, name, x):
-        """ Model:batch_norm
-        Args:
-            name:     
-            x:     
-        Returns:
-           
+        """ Model:batch_norm.
+        Doc::
+                
+                    Args:
+                        name:     
+                        x:     
+                    Returns:
+                       
         """
         with tf.variable_scope(name):
             params_shape = [x.get_shape()[-1]]
@@ -192,23 +198,27 @@ class Model:
             return x_bn
 
     def leaky_relu(self, x, leak=0):
-        """ Model:leaky_relu
-        Args:
-            x:     
-            leak:     
-        Returns:
-           
+        """ Model:leaky_relu.
+        Doc::
+                
+                    Args:
+                        x:     
+                        leak:     
+                    Returns:
+                       
         """
         return tf.where(tf.less(x, 0.0), leak * x, x, name="leaky_relu")
 
     def max_pool(self, x, size, strides):
-        """ Model:max_pool
-        Args:
-            x:     
-            size:     
-            strides:     
-        Returns:
-           
+        """ Model:max_pool.
+        Doc::
+                
+                    Args:
+                        x:     
+                        size:     
+                        strides:     
+                    Returns:
+                       
         """
         return tf.nn.max_pool(
             x,
@@ -223,13 +233,15 @@ class Model:
 
 
 def accuracy_calculation(original_seq, decoded_seq, ignore_value=-1):
-    """function accuracy_calculation
-    Args:
-        original_seq:   
-        decoded_seq:   
-        ignore_value:   
-    Returns:
-        
+    """function accuracy_calculation.
+    Doc::
+            
+            Args:
+                original_seq:   
+                decoded_seq:   
+                ignore_value:   
+            Returns:
+                
     """
     count = 0
     for i, origin_label in enumerate(original_seq):
@@ -240,12 +252,14 @@ def accuracy_calculation(original_seq, decoded_seq, ignore_value=-1):
 
 
 def sparse_tuple_from_label(sequences, dtype=np.int32):
-    """function sparse_tuple_from_label
-    Args:
-        sequences:   
-        dtype:   
-    Returns:
-        
+    """function sparse_tuple_from_label.
+    Doc::
+            
+            Args:
+                sequences:   
+                dtype:   
+            Returns:
+                
     """
     indices, values = [], []
     for n, seq in enumerate(sequences):

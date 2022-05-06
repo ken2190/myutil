@@ -18,15 +18,17 @@ import pandas as pd
 from keras.datasets import mnist
 
 def load_mnist_data(label_data_rate):
-  """MNIST data loading.
-  
-  Args:
-    - label_data_rate: ratio of labeled data
-  
-  Returns:
-    - x_label, y_label: labeled dataset
-    - x_unlab: unlabeled dataset
-    - x_test, y_test: test dataset
+  """MNIST data loading..
+  Doc::
+          
+        
+        Args:
+          - label_data_rate: ratio of labeled data
+        
+        Returns:
+          - x_label, y_label: labeled dataset
+          - x_unlab: unlabeled dataset
+          - x_test, y_test: test dataset
   """
   # Import mnist data
   (x_train, y_train), (x_test, y_test) = mnist.load_data()

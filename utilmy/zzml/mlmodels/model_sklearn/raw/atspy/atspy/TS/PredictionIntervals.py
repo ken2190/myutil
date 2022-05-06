@@ -15,10 +15,12 @@ from . import Utils as tsutil
 class cPredictionIntervalsEstimator:
     
     def __init__(self):
-        """ cPredictionIntervalsEstimator:__init__
-        Args:
-        Returns:
-           
+        """ cPredictionIntervalsEstimator:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mModel = None;
         self.mSignalFrame = pd.DataFrame()
@@ -28,10 +30,12 @@ class cPredictionIntervalsEstimator:
         self.mTestPerformances = {}
 
     def computePerformances(self):
-        """ cPredictionIntervalsEstimator:computePerformances
-        Args:
-        Returns:
-           
+        """ cPredictionIntervalsEstimator:computePerformances.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mTime = self.mModel.mTime;
         self.mSignal = self.mModel.mOriginalSignal;
@@ -61,10 +65,12 @@ class cPredictionIntervalsEstimator:
         # self.dump_detailed();
 
     def dump_detailed(self):
-        """ cPredictionIntervalsEstimator:dump_detailed
-        Args:
-        Returns:
-           
+        """ cPredictionIntervalsEstimator:dump_detailed.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         lForecastColumn = str(self.mSignal) + "_Forecast";
@@ -77,10 +83,12 @@ class cPredictionIntervalsEstimator:
 
 
     def dump(self):
-        """ cPredictionIntervalsEstimator:dump
-        Args:
-        Returns:
-           
+        """ cPredictionIntervalsEstimator:dump.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         lForecastColumn = str(self.mSignal) + "_Forecast";

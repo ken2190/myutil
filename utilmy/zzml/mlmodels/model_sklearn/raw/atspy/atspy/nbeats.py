@@ -12,12 +12,14 @@ CHECKPOINT_NAME = 'nbeats-training-checkpoint.th'
 ## NBEATS UTILS
 # plot utils.
 def plot_scatter(*args, **kwargs):
-    """function plot_scatter
-    Args:
-        *args:   
-        **kwargs:   
-    Returns:
-        
+    """function plot_scatter.
+    Doc::
+            
+            Args:
+                *args:   
+                **kwargs:   
+            Returns:
+                
     """
     plt.plot(*args, **kwargs)
     plt.scatter(*args, **kwargs)
@@ -25,13 +27,15 @@ def plot_scatter(*args, **kwargs):
 
 # simple batcher.
 def data_generator(x_full, y_full, bs):
-    """function data_generator
-    Args:
-        x_full:   
-        y_full:   
-        bs:   
-    Returns:
-        
+    """function data_generator.
+    Doc::
+            
+            Args:
+                x_full:   
+                y_full:   
+                bs:   
+            Returns:
+                
     """
     def split(arr, size):
         arrays = []
@@ -48,14 +52,16 @@ def data_generator(x_full, y_full, bs):
 
 # trainer
 def train_100_grad_steps(data, device, net, optimiser):
-    """function train_100_grad_steps
-    Args:
-        data:   
-        device:   
-        net:   
-        optimiser:   
-    Returns:
-        
+    """function train_100_grad_steps.
+    Doc::
+            
+            Args:
+                data:   
+                device:   
+                net:   
+                optimiser:   
+            Returns:
+                
     """
     global_step = load(net, optimiser)
     for x_train_batch, y_train_batch in data:
@@ -75,12 +81,14 @@ def train_100_grad_steps(data, device, net, optimiser):
 
 # loader/saver for checkpoints.
 def load(model, optimiser):
-    """function load
-    Args:
-        model:   
-        optimiser:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                model:   
+                optimiser:   
+            Returns:
+                
     """
     if os.path.exists(CHECKPOINT_NAME):
         checkpoint = torch.load(CHECKPOINT_NAME)
@@ -92,13 +100,15 @@ def load(model, optimiser):
     return 0
 
 def save(model, optimiser, grad_step):
-    """function save
-    Args:
-        model:   
-        optimiser:   
-        grad_step:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                optimiser:   
+                grad_step:   
+            Returns:
+                
     """
     torch.save({
         'grad_step': grad_step,
@@ -108,17 +118,19 @@ def save(model, optimiser, grad_step):
 
 # evaluate model on test data and produce some plots.
 def eval_test(backcast_length, forecast_length, net, norm_constant, test_losses, x_test, y_test):
-    """function eval_test
-    Args:
-        backcast_length:   
-        forecast_length:   
-        net:   
-        norm_constant:   
-        test_losses:   
-        x_test:   
-        y_test:   
-    Returns:
-        
+    """function eval_test.
+    Doc::
+            
+            Args:
+                backcast_length:   
+                forecast_length:   
+                net:   
+                norm_constant:   
+                test_losses:   
+                x_test:   
+                y_test:   
+            Returns:
+                
     """
     net.eval()
     _, forecast = net(torch.tensor(x_test, dtype=torch.float))

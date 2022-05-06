@@ -30,10 +30,12 @@ class ModelServiceStub(object):
   """
 
     def __init__(self, channel):
-        """Constructor.
-
-    Args:
-      channel: A grpc.Channel.
+        """Constructor..
+        Doc::
+                
+            
+                Args:
+                  channel: A grpc.Channel.
     """
         self.GetModelStatus = channel.unary_unary(
             "/tensorflow.serving.ModelService/GetModelStatus",
@@ -48,10 +50,12 @@ class ModelServiceServicer(object):
   """
 
     def GetModelStatus(self, request, context):
-        """Gets status of model. If the ModelSpec in the request does not specify
-    version, information about all versions of the model will be returned. If
-    the ModelSpec in the request does specify a version, the status of only
-    that version will be returned.
+        """Gets status of model. If the ModelSpec in the request does not specify.
+        Doc::
+                
+                version, information about all versions of the model will be returned. If
+                the ModelSpec in the request does specify a version, the status of only
+                that version will be returned.
     """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details("Method not implemented!")
@@ -59,12 +63,14 @@ class ModelServiceServicer(object):
 
 
 def add_ModelServiceServicer_to_server(servicer, server):
-    """function add_ModelServiceServicer_to_server
-    Args:
-        servicer:   
-        server:   
-    Returns:
-        
+    """function add_ModelServiceServicer_to_server.
+    Doc::
+            
+            Args:
+                servicer:   
+                server:   
+            Returns:
+                
     """
     rpc_method_handlers = {
         "GetModelStatus": grpc.unary_unary_rpc_method_handler(

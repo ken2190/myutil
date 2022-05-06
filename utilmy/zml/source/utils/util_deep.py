@@ -5,11 +5,13 @@ import tensorflow as tf
 from graphviz import Digraph
 
 def tf_to_dot(graph):
-    """function tf_to_dot
-    Args:
-        graph:   
-    Returns:
-        
+    """function tf_to_dot.
+    Doc::
+            
+            Args:
+                graph:   
+            Returns:
+                
     """
     "Visualize TensorFlow graphs on jupyter notebook"
 

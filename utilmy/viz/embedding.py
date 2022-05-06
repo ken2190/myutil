@@ -32,11 +32,13 @@ from viz.zarchive.toptoolbar import TopToolbar
 
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, exist_ok=True)
 
@@ -55,19 +57,21 @@ CSS = """
 ################################################################################################################
 class vizEmbedding:
     def __init__(self, path="myembed.parquet", num_clusters=5, sep=";", config:dict=None):
-        """
-           self = Box({})
-           self.path = "C:/D/gitdev/cpa/data/model.vec"
-
-           from utilmy.viz.embedding import vizEmbedding
-           myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
-           myviz.run_all(nsample=100)
-
-
-           myviz.dim_reduction(mode='mds')
-           myviz.create_visualization(dir_out="ztmp/vis/")        
-        
-
+        """.
+        Doc::
+                
+                       self = Box({})
+                       self.path = "C:/D/gitdev/cpa/data/model.vec"
+            
+                       from utilmy.viz.embedding import vizEmbedding
+                       myviz = vizEmbedding(path = "C:/D/gitdev/cpa/data/model.vec")
+                       myviz.run_all(nsample=100)
+            
+            
+                       myviz.dim_reduction(mode='mds')
+                       myviz.create_visualization(dir_out="ztmp/vis/")        
+                    
+            
         """
         self.path         = path
         self.sep          = sep
@@ -75,15 +79,17 @@ class vizEmbedding:
         self.dist         = None
 
     def run_all(self, mode="mds", col_embed='embed', ndim=2, nmax= 5000, dir_out="ztmp/"):
-       """ vizEmbedding:run_all
-       Args:
-           mode:     
-           col_embed:     
-           ndim:     
-           nmax:     
-           dir_out:     
-       Returns:
-          
+       """ vizEmbedding:run_all.
+       Doc::
+               
+                  Args:
+                      mode:     
+                      col_embed:     
+                      ndim:     
+                      nmax:     
+                      dir_out:     
+                  Returns:
+                     
        """
        self.dim_reduction( mode, col_embed, ndim=ndim, nmax= nmax, dir_out=dir_out)
        self.create_clusters(after_dim_reduction=True)
@@ -91,15 +97,17 @@ class vizEmbedding:
 
 
     def dim_reduction(self, mode="mds", col_embed='embed', ndim=2, nmax= 5000, dir_out=None): 
-        """ vizEmbedding:dim_reduction
-        Args:
-            mode:     
-            col_embed:     
-            ndim:     
-            nmax:     
-            dir_out:     
-        Returns:
-           
+        """ vizEmbedding:dim_reduction.
+        Doc::
+                
+                    Args:
+                        mode:     
+                        col_embed:     
+                        ndim:     
+                        nmax:     
+                        dir_out:     
+                    Returns:
+                       
         """
         
         if ".vec"     in self.path :        
@@ -152,11 +160,13 @@ class vizEmbedding:
 
         
     def create_clusters(self, after_dim_reduction=True):        
-        """ vizEmbedding:create_clusters
-        Args:
-            after_dim_reduction:     
-        Returns:
-           
+        """ vizEmbedding:create_clusters.
+        Doc::
+                
+                    Args:
+                        after_dim_reduction:     
+                    Returns:
+                       
         """
         km = KMeans(n_clusters=self.num_clusters)
 
@@ -173,8 +183,10 @@ class vizEmbedding:
         
 
     def create_visualization(self, dir_out="ztmp/", mode='d3', cols_label=None, show_server=False,  **kw ):
-        """
-
+        """.
+        Doc::
+                
+            
         """
         os.makedirs(dir_out, exist_ok=True)
 
@@ -272,10 +284,12 @@ class vizEmbedding:
 
 
     def draw_hiearchy(self):
-        """ vizEmbedding:draw_hiearchy
-        Args:
-        Returns:
-           
+        """ vizEmbedding:draw_hiearchy.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         linkage_matrix = ward(self.dist)  # define the linkage_matrix using ward clustering pre-computed distances
         fig, ax = plt.subplots(figsize=(15, 20))  # set size
@@ -291,12 +305,14 @@ class vizEmbedding:
 #########################################################################################################
 
 def embedding_load_word2vec(model_vector_path="model.vec", nmax = 500):
-    """function embedding_load_word2vec
-    Args:
-        model_vector_path:   
-        nmax :   
-    Returns:
-        
+    """function embedding_load_word2vec.
+    Doc::
+            
+            Args:
+                model_vector_path:   
+                nmax :   
+            Returns:
+                
     """
     from gensim.models import KeyedVectors    
     from collections import OrderedDict
@@ -328,12 +344,14 @@ def embedding_load_word2vec(model_vector_path="model.vec", nmax = 500):
 
 
 def embedding_load_parquet(path="df.parquet", nmax = 500):
-    """function embedding_load_parquet
-    Args:
-        path:   
-        nmax :   
-    Returns:
-        
+    """function embedding_load_parquet.
+    Doc::
+            
+            Args:
+                path:   
+                nmax :   
+            Returns:
+                
     """
     col_embed = "emb"
     colid     = 'id'
@@ -358,11 +376,13 @@ def embedding_load_parquet(path="df.parquet", nmax = 500):
 
 
 def tokenize_text(text):
-    """function tokenize_text
-    Args:
-        text:   
-    Returns:
-        
+    """function tokenize_text.
+    Doc::
+            
+            Args:
+                text:   
+            Returns:
+                
     """
     return [
         token.lemma_
@@ -378,13 +398,15 @@ def tokenize_text(text):
 
 
 def run(dir_in="in/model.vec", dir_out="ztmp/", nmax=100):
-   """function run
-   Args:
-       dir_in:   
-       dir_out:   
-       nmax:   
-   Returns:
-       
+   """function run.
+   Doc::
+           
+          Args:
+              dir_in:   
+              dir_out:   
+              nmax:   
+          Returns:
+              
    """
    myviz = vizEmbedding(path = dir_in, dir_out= dir_out)
    myviz.run_all(nmax=nmax)

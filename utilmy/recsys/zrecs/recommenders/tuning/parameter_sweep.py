@@ -7,33 +7,35 @@ from itertools import product
 
 
 def generate_param_grid(params):
-    """Generator of parameter grids.
-    Generate parameter lists from a parameter dictionary in the form of:
-
-    .. code-block:: python
-       
-       {
-           "param1": [value1, value2],
-           "param2": [value1, value2]
-       }
-    
-    to:
-    
-    .. code-block:: python
+    """Generator of parameter grids..
+    Doc::
+            
+            Generate parameter lists from a parameter dictionary in the form of:
         
-       [
-           {"param1": value1, "param2": value1},
-           {"param1": value2, "param2": value1},
-           {"param1": value1, "param2": value2},
-           {"param1": value2, "param2": value2}
-       ]
-
-    Args:
-        param_dict (dict): dictionary of parameters and values (in a list).
-
-    Return:
-        list: A list of parameter dictionary string that can be fed directly into
-        model builder as keyword arguments.
+            .. code-block:: python
+               
+               {
+                   "param1": [value1, value2],
+                   "param2": [value1, value2]
+               }
+            
+            to:
+            
+            .. code-block:: python
+                
+               [
+                   {"param1": value1, "param2": value1},
+                   {"param1": value2, "param2": value1},
+                   {"param1": value1, "param2": value2},
+                   {"param1": value2, "param2": value2}
+               ]
+        
+            Args:
+                param_dict (dict): dictionary of parameters and values (in a list).
+        
+            Return:
+                list: A list of parameter dictionary string that can be fed directly into
+                model builder as keyword arguments.
     """
     param_new = {}
     param_fixed = {}

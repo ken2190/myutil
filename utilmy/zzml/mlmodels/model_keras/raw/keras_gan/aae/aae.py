@@ -18,10 +18,12 @@ import numpy as np
 
 class AdversarialAutoencoder():
     def __init__(self):
-        """ AdversarialAutoencoder:__init__
-        Args:
-        Returns:
-           
+        """ AdversarialAutoencoder:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -61,10 +63,12 @@ class AdversarialAutoencoder():
 
 
     def build_encoder(self):
-        """ AdversarialAutoencoder:build_encoder
-        Args:
-        Returns:
-           
+        """ AdversarialAutoencoder:build_encoder.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # Encoder
 
@@ -84,10 +88,12 @@ class AdversarialAutoencoder():
         return Model(img, latent_repr)
 
     def build_decoder(self):
-        """ AdversarialAutoencoder:build_decoder
-        Args:
-        Returns:
-           
+        """ AdversarialAutoencoder:build_decoder.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -107,10 +113,12 @@ class AdversarialAutoencoder():
         return Model(z, img)
 
     def build_discriminator(self):
-        """ AdversarialAutoencoder:build_discriminator
-        Args:
-        Returns:
-           
+        """ AdversarialAutoencoder:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -128,13 +136,15 @@ class AdversarialAutoencoder():
         return Model(encoded_repr, validity)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ AdversarialAutoencoder:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ AdversarialAutoencoder:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -181,11 +191,13 @@ class AdversarialAutoencoder():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ AdversarialAutoencoder:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ AdversarialAutoencoder:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
 
@@ -205,10 +217,12 @@ class AdversarialAutoencoder():
         plt.close()
 
     def save_model(self):
-        """ AdversarialAutoencoder:save_model
-        Args:
-        Returns:
-           
+        """ AdversarialAutoencoder:save_model.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         def save(model, model_name):

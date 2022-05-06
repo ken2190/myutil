@@ -12,11 +12,13 @@ class GlassDoor(scrapy.Spider):
     start_urls = [urll]
 
     def parse(self, response):
-        """ GlassDoor:parse
-        Args:
-            response:     
-        Returns:
-           
+        """ GlassDoor:parse.
+        Doc::
+                
+                    Args:
+                        response:     
+                    Returns:
+                       
         """
         item = {}
         try:

@@ -16,30 +16,36 @@ import datetime
 class cMissingDataImputer:
 
     def __init__(self):
-        """ cMissingDataImputer:__init__
-        Args:
-        Returns:
-           
+        """ cMissingDataImputer:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mOptions = None;
 
 
     def has_missing_data(self, iSeries):
-        """ cMissingDataImputer:has_missing_data
-        Args:
-            iSeries:     
-        Returns:
-           
+        """ cMissingDataImputer:has_missing_data.
+        Doc::
+                
+                    Args:
+                        iSeries:     
+                    Returns:
+                       
         """
         return iSeries.isnull().values.any()
 
     def interpolate_time_if_needed(self, iInputDS , iTime):
-        """ cMissingDataImputer:interpolate_time_if_needed
-        Args:
-            iInputDS:     
-            iTime:     
-        Returns:
-           
+        """ cMissingDataImputer:interpolate_time_if_needed.
+        Doc::
+                
+                    Args:
+                        iInputDS:     
+                        iTime:     
+                    Returns:
+                       
         """
         if(not self.has_missing_data(iInputDS[iTime])):
             return iInputDS[iTime]
@@ -63,12 +69,14 @@ class cMissingDataImputer:
             return lTime
             
     def interpolate_signal_if_needed(self, iInputDS , iSignal):
-        """ cMissingDataImputer:interpolate_signal_if_needed
-        Args:
-            iInputDS:     
-            iSignal:     
-        Returns:
-           
+        """ cMissingDataImputer:interpolate_signal_if_needed.
+        Doc::
+                
+                    Args:
+                        iInputDS:     
+                        iSignal:     
+                    Returns:
+                       
         """
         if(not self.has_missing_data(iInputDS[iSignal])):
             return iInputDS[iSignal]

@@ -22,51 +22,61 @@ from utilmy import global_verbosity, os_makedirs, pd_read_file
 verbosity = global_verbosity(__file__,"/../../config.json", 3 )
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -118,13 +128,15 @@ MODEL_LIST      = {'TVAE'           : TVAE,
 ############### Model #########################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -140,7 +152,9 @@ class Model(object):
 
 
 def fit(data_pars: dict=None, compute_pars: dict=None, out_pars: dict=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -156,8 +170,10 @@ def fit(data_pars: dict=None, compute_pars: dict=None, out_pars: dict=None, **kw
 
 
 def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     global model, session
     from sdv.evaluation import evaluate
@@ -180,16 +196,18 @@ def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def transform(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """ Geenrate Xtrain  ----> Xtrain_new
-    Xpred:
-        Xpred ==> None            if you want to get generated samples by by SDV models
-              ==> tuple of (x, y) if you want to resample dataset with IMBLEARN models
-              ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
-    data_pars:
-    compute_pars:
-    out_pars:
-    kw:
-    :return:
+    """ Geenrate Xtrain  ----> Xtrain_new.
+    Doc::
+            
+            Xpred:
+                Xpred ==> None            if you want to get generated samples by by SDV models
+                      ==> tuple of (x, y) if you want to resample dataset with IMBLEARN models
+                      ==> dataframe       if you want to transorm by sklearn models like TruncatedSVD
+            data_pars:
+            compute_pars:
+            out_pars:
+            kw:
+            :return:
     """
     global model, session
     name = model.model_pars['model_class']
@@ -241,15 +259,17 @@ def transform(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
     pass
@@ -258,12 +278,14 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 #################### util #############################################################
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -277,11 +299,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -296,11 +320,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -314,14 +340,16 @@ def load_info(path=""):
 
 ############# Dataset ##############################################################################
 def get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split=False):
-    """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras)
-    Xtrain:
-    cols_type_received:
-    cols_ref:
-    split: 
-        True :  split data to list of dataframe 
-        False:  return same input of data
-    :return:
+    """  Split into Tuples = (df1, df2, df3) to feed model, (ie Keras).
+    Doc::
+            
+            Xtrain:
+            cols_type_received:
+            cols_ref:
+            split: 
+                True :  split data to list of dataframe 
+                False:  return same input of data
+            :return:
     """
     if len(cols_ref) <= 1  or not split :
         return Xtrain
@@ -336,8 +364,10 @@ def get_dataset_tuple(Xtrain, cols_type_received, cols_ref, split=False):
 
 
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      return tuple of dataframes OR single dataframe
+    """.
+    Doc::
+            
+              return tuple of dataframes OR single dataframe
     """
     #### log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -386,10 +416,12 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 ##################################################################################################################
 ###################### test ######################################################################################
 def test():
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
@@ -493,11 +525,13 @@ def test():
 
 
 def test2(n_sample = 1000):
-    """function test2
-    Args:
-        n_sample :   
-    Returns:
-        
+    """function test2.
+    Doc::
+            
+            Args:
+                n_sample :   
+            Returns:
+                
     """
     #df, colnum, colcat, coly = test_dataset_classi_fake(nrows= n_sample)
     #X,y, X_train, X_valid, y_train, y_valid, X_test,  y_test, num_classes  = train_test_split2(df, coly)
@@ -565,13 +599,15 @@ def test2(n_sample = 1000):
 
 
 def test_helper(model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model, session
     root  = "ztmp/"
@@ -659,8 +695,10 @@ def train_test_split2(df, coly):
 #########################  Second Part ###############################
 ######################### Useful Funciton ###############################
 def zz_pd_sample_imblearn(df=None, col=None, pars=None):
-    """
-        Over-sample
+    """.
+    Doc::
+            
+                Over-sample
     """
     params_check(pars, ['model_name', 'pars_resample', 'coly']) # , 'dfy'
     prefix = '_sample_imblearn'
@@ -706,21 +744,23 @@ def zz_pd_sample_imblearn(df=None, col=None, pars=None):
 
 
 def zz_pd_augmentation_sdv(df, col=None, pars={})  :
-    '''
-    Using SDV Variation Autoencoders, the function augments more data into the dataset
-    params:
-            df          : (pandas dataframe) original dataframe
-            col : column name for data enancement
-            pars        : (dict - optional) contains:
-                n_samples     : (int - optional) number of samples you would like to add, defaul is 10%
-                primary_key   : (String - optional) the primary key of dataframe
-                aggregate  : (boolean - optional) if False, prints SVD metrics, else it averages them
-                path_model_save: saving location if save_model is set to True
-                path_model_load: saved model location to skip training
-                path_data_new  : new data where saved
-    returns:
-            df_new      : (pandas dataframe) df with more augmented data
-            col         : (list of strings) same columns
+    '''.
+    Doc::
+            
+            Using SDV Variation Autoencoders, the function augments more data into the dataset
+            params:
+                    df          : (pandas dataframe) original dataframe
+                    col : column name for data enancement
+                    pars        : (dict - optional) contains:
+                        n_samples     : (int - optional) number of samples you would like to add, defaul is 10%
+                        primary_key   : (String - optional) the primary key of dataframe
+                        aggregate  : (boolean - optional) if False, prints SVD metrics, else it averages them
+                        path_model_save: saving location if save_model is set to True
+                        path_model_load: saved model location to skip training
+                        path_data_new  : new data where saved
+            returns:
+                    df_new      : (pandas dataframe) df with more augmented data
+                    col         : (list of strings) same columns
     '''
     n_samples       = pars.get('n_samples', max(1, int(len(df) * 0.10) ) )   ## Add 10% or 1 sample by default value
     primary_key     = pars.get('colid', None)  ### Custom can be created on the fly
@@ -782,15 +822,17 @@ def zz_pd_augmentation_sdv(df, col=None, pars={})  :
 from util_feature import load_function_uri, load, save_features, params_check
 
 def zz_pd_covariate_shift_adjustment():
-    """
-    https://towardsdatascience.com/understanding-dataset-shift-f2a5a262a766
-     Covariate shift has been extensively studied in the literature, and a number of proposals to work under it have been published. Some of the most important ones include:
-        Weighting the log-likelihood function (Shimodaira, 2000)
-        Importance weighted cross-validation (Sugiyama et al, 2007 JMLR)
-        Integrated optimization problem. Discriminative learning. (Bickel et al, 2009 JMRL)
-        Kernel mean matching (Gretton et al., 2009)
-        Adversarial search (Globerson et al, 2009)
-        Frank-Wolfe algorithm (Wen et al., 2015)
+    """.
+    Doc::
+            
+            https://towardsdatascience.com/understanding-dataset-shift-f2a5a262a766
+             Covariate shift has been extensively studied in the literature, and a number of proposals to work under it have been published. Some of the most important ones include:
+                Weighting the log-likelihood function (Shimodaira, 2000)
+                Importance weighted cross-validation (Sugiyama et al, 2007 JMLR)
+                Integrated optimization problem. Discriminative learning. (Bickel et al, 2009 JMRL)
+                Kernel mean matching (Gretton et al., 2009)
+                Adversarial search (Globerson et al, 2009)
+                Frank-Wolfe algorithm (Wen et al., 2015)
     """
     import numpy as np
     from scipy import sparse
@@ -841,10 +883,12 @@ def zz_pd_covariate_shift_adjustment():
 ########################################################################################
 ########################################################################################
 def zz_test():
-    """function zz_test
-    Args:
-    Returns:
-        
+    """function zz_test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from util_feature import test_get_classification_data
     dfX, dfy = test_get_classification_data()

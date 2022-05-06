@@ -8,11 +8,13 @@ from deepctr.models import DeepFM
 
 
 def split(x):
-    """function split
-    Args:
-        x:   
-    Returns:
-        
+    """function split.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     key_ans = x.split('|')
     for key in key_ans:

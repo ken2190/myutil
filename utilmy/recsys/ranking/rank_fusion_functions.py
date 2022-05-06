@@ -2,12 +2,14 @@ import math
 import sys
 
 def isr(result_list,params):
-    """function isr
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function isr.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     size = len(result_list)
@@ -16,12 +18,14 @@ def isr(result_list,params):
     return size * score
  
 def log_isr(result_list,params):
-    """function log_isr
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function log_isr.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     size = len(result_list)
@@ -30,12 +34,14 @@ def log_isr(result_list,params):
     return math.log(size) * score
     
 def logn_isr(result_list,params):
-    """function logn_isr
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function logn_isr.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     size = len(result_list)
@@ -44,12 +50,14 @@ def logn_isr(result_list,params):
     return math.log(size+0.01) * score
 
 def expn_isr(result_list,params):
-    """function expn_isr
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function expn_isr.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     if len(params) > 0:
         k = float(params[0])
@@ -67,12 +75,14 @@ def expn_isr(result_list,params):
 
 
 def logn_rrf(result_list,params):
-    """function logn_rrf
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function logn_rrf.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     if len(params) > 0:
         k = float(params[0])
@@ -85,12 +95,14 @@ def logn_rrf(result_list,params):
     return math.log(size+0.01) * score
 
 def expn_rrf(result_list,params):
-    """function expn_rrf
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function expn_rrf.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     if len(params) > 0:
         k = float(params[0])
@@ -108,12 +120,14 @@ def expn_rrf(result_list,params):
 
     
 def rrf(result_list,params):
-    """function rrf
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function rrf.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     if len(params) > 0:
         k = float(params[0])
@@ -125,12 +139,14 @@ def rrf(result_list,params):
     return score
     
 def rr(result_list,params):
-    """function rr
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function rr.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     for doc_score, rank, engine in result_list:
@@ -140,24 +156,28 @@ def rr(result_list,params):
 ###############################################################  
 
 def votes(result_list,params):
-    """function votes
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function votes.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     return len(result_list)
     
 ###############################################################  
 
 def mnz(result_list,params):
-    """function mnz
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function mnz.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     for doc_score, rank, engine in result_list:
@@ -165,12 +185,14 @@ def mnz(result_list,params):
     return score * len(result_list)
     
 def sum(result_list,params):
-    """function sum
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function sum.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = 0
     for doc_score, rank, engine in result_list:
@@ -178,12 +200,14 @@ def sum(result_list,params):
     return score
 
 def max(result_list,params):
-    """function max
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function max.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = -sys.maxsize - 1
     for doc_score, rank, engine in result_list:
@@ -192,12 +216,14 @@ def max(result_list,params):
     return score
 
 def min(result_list,params):
-    """function min
-    Args:
-        result_list:   
-        params:   
-    Returns:
-        
+    """function min.
+    Doc::
+            
+            Args:
+                result_list:   
+                params:   
+            Returns:
+                
     """
     score = sys.maxsize
     for doc_score, rank, engine in result_list:
@@ -208,11 +234,13 @@ def min(result_list,params):
 ###############################################################  
 
 def condor(doc_id_scores):
-    """function condor
-    Args:
-        doc_id_scores:   
-    Returns:
-        
+    """function condor.
+    Doc::
+            
+            Args:
+                doc_id_scores:   
+            Returns:
+                
     """
     ranks = []
     for doc_id in doc_id_scores:
@@ -229,12 +257,14 @@ def condor(doc_id_scores):
     return c_ranks
 
 def compareCondor(item1, item2):
-    """function compareCondor
-    Args:
-        item1:   
-        item2:   
-    Returns:
-        
+    """function compareCondor.
+    Doc::
+            
+            Args:
+                item1:   
+                item2:   
+            Returns:
+                
     """
     (doc_id1, score1) = item1
     (doc_id2, score2) = item2

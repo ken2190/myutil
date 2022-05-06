@@ -6,12 +6,14 @@ from torch import nn
 # https://github.com/yifanclifford/cVAE
 
 def trace(A=None, B=None):
-    """function trace
-    Args:
-        A:   
-        B:   
-    Returns:
-        
+    """function trace.
+    Doc::
+            
+            Args:
+                A:   
+                B:   
+            Returns:
+                
     """
     if A is None:
         print('Expecting PyTorch tensor')
@@ -24,11 +26,13 @@ def trace(A=None, B=None):
 
 class VAE(nn.Module):
     def __init__(self, args):
-        """ VAE:__init__
-        Args:
-            args:     
-        Returns:
-           
+        """ VAE:__init__.
+        Doc::
+                
+                    Args:
+                        args:     
+                    Returns:
+                       
         """
         super(VAE, self).__init__()
         self.l = len(args['layers'])
@@ -44,11 +48,13 @@ class VAE(nn.Module):
             self.gnet.append(nn.Linear(darray[self.l - i], darray[self.l - i - 1]))
 
     def encode(self, x):
-        """ VAE:encode
-        Args:
-            x:     
-        Returns:
-           
+        """ VAE:encode.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         h = x
         for i in range(self.l - 1):
@@ -56,11 +62,13 @@ class VAE(nn.Module):
         return self.mu(h), self.sigma(h)
 
     def decode(self, z):
-        """ VAE:decode
-        Args:
-            z:     
-        Returns:
-           
+        """ VAE:decode.
+        Doc::
+                
+                    Args:
+                        z:     
+                    Returns:
+                       
         """
         h = z
         for i in range(self.l - 1):
@@ -68,12 +76,14 @@ class VAE(nn.Module):
         return self.gnet[self.l - 1](h)
 
     def reparameterize(self, mu, logvar):
-        """ VAE:reparameterize
-        Args:
-            mu:     
-            logvar:     
-        Returns:
-           
+        """ VAE:reparameterize.
+        Doc::
+                
+                    Args:
+                        mu:     
+                        logvar:     
+                    Returns:
+                       
         """
         if self.training:
             std = torch.exp(0.5 * logvar)
@@ -83,21 +93,25 @@ class VAE(nn.Module):
             return mu
 
     def forward(self, x):
-        """ VAE:forward
-        Args:
-            x:     
-        Returns:
-           
+        """ VAE:forward.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         mu, logvar = self.encode(x)
         z = self.reparameterize(mu, logvar)
         return self.decode(z), mu, logvar
 
     def infer_reg(self):
-        """ VAE:infer_reg
-        Args:
-        Returns:
-           
+        """ VAE:infer_reg.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         reg = 0
         for infer in self.inet:
@@ -106,10 +120,12 @@ class VAE(nn.Module):
         return reg
 
     def gen_reg(self):
-        """ VAE:gen_reg
-        Args:
-        Returns:
-           
+        """ VAE:gen_reg.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         reg = 0
         for infer in self.gnet:

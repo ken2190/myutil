@@ -13,11 +13,13 @@ TAB_SPACE = None
 
 
 def _exact_filepath(path):
-    """function _exact_filepath
-    Args:
-        path:   
-    Returns:
-        
+    """function _exact_filepath.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     if not isinstance(path, str):
         return None
@@ -29,11 +31,13 @@ def _exact_filepath(path):
 
 
 def init(cliargs):
-    """function init
-    Args:
-        cliargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                cliargs:   
+            Returns:
+                
     """
     global SRCDIR
     global EXT

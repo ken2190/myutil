@@ -24,23 +24,27 @@ print(root, dir_data)
 
 
 def os_get_function_name():
-    """function os_get_function_name
-    Args:
-    Returns:
-        
+    """function os_get_function_name.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import sys
     return sys._getframe(1).f_code.co_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     m                      = {}
     m['config_path']       = root + f"/{config_file}"
@@ -92,43 +96,45 @@ cols_input_type_2 = {
 
 ####################################################################################
 def titanic_pyod(path_model_out="") :
-    """ All Models  :    https://pyod.readthedocs.io/en/latest/pyod.html
-        pyod.models.abod 
-        pyod.models.auto_encoder 
-        pyod.models.cblof 
-        pyod.models.cof 
-        pyod.models.combination 
-        pyod.models.copod 
-        pyod.models.feature_bagging 
-        pyod.models.hbos 
-        pyod.models.iforest 
-        pyod.models.knn 
-        pyod.models.lmdd 
-        pyod.models.loda 
-        pyod.models.lof 
-        pyod.models.loci 
-        pyod.models.lscp 
-        pyod.models.mad 
-        pyod.models.mcd 
-        pyod.models.mo_gaal 
-        pyod.models.ocsvm 
-        pyod.models.pca 
-        pyod.models.sod 
-        pyod.models.so_gaal 
-        pyod.models.sos 
-        pyod.models.vae 
-        pyod.models.xgbod 
-         contents
-        Utility Functions
-        pyod.utils.data 
-        pyod.utils.example 
-        pyod.utils.stat_models 
-        pyod.utils.utility 
-
-        clf.fit(X)
-        scores_pred = clf.decision_function(X) * -1
-        y_pred = clf.predict(X)
-
+    """ All Models  :    https://pyod.readthedocs.io/en/latest/pyod.html.
+    Doc::
+            
+                pyod.models.abod 
+                pyod.models.auto_encoder 
+                pyod.models.cblof 
+                pyod.models.cof 
+                pyod.models.combination 
+                pyod.models.copod 
+                pyod.models.feature_bagging 
+                pyod.models.hbos 
+                pyod.models.iforest 
+                pyod.models.knn 
+                pyod.models.lmdd 
+                pyod.models.loda 
+                pyod.models.lof 
+                pyod.models.loci 
+                pyod.models.lscp 
+                pyod.models.mad 
+                pyod.models.mcd 
+                pyod.models.mo_gaal 
+                pyod.models.ocsvm 
+                pyod.models.pca 
+                pyod.models.sod 
+                pyod.models.so_gaal 
+                pyod.models.sos 
+                pyod.models.vae 
+                pyod.models.xgbod 
+                 contents
+                Utility Functions
+                pyod.utils.data 
+                pyod.utils.example 
+                pyod.utils.stat_models 
+                pyod.utils.utility 
+        
+                clf.fit(X)
+                scores_pred = clf.decision_function(X) * -1
+                y_pred = clf.predict(X)
+        
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -205,13 +211,15 @@ def titanic_pyod(path_model_out="") :
 #####################################################################################
 ########## Profile data #############################################################
 def data_profile(path_data_train="", path_model="", n_sample= 5000):
-   """function data_profile
-   Args:
-       path_data_train:   
-       path_model:   
-       n_sample:   
-   Returns:
-       
+   """function data_profile.
+   Doc::
+           
+          Args:
+              path_data_train:   
+              path_model:   
+              n_sample:   
+          Returns:
+              
    """
    from source.run_feature_profile import run_profile
    run_profile(path_data   = path_data_train,
@@ -237,10 +245,12 @@ from core_run import train
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 

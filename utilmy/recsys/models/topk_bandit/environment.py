@@ -8,32 +8,32 @@ import json
 # This class uses user and playlist features datasets to simulate users responses to a list of recommendations
 class ContextualEnvironment():
     def __init__(self, user_features, playlist_features, user_segment, n_recos, gamma = 1.0): # Originally, Gamma = 1.0
-        """ ContextualEnvironment:__init__
-        Args:
-            user_features:     
-            playlist_features:     
-            user_segment:     
-            n_recos:     
-            gamma :     
-        Returns:
-           
+        """ ContextualEnvironment:__init__.
+        Doc::
+                
+                    Args:
+                        user_features:     
+                        playlist_features:     
+                        user_segment:     
+                        n_recos:     
+                        gamma :     
+                    Returns:
+                       
         """
-        self.optimal_recos = np.argsort(-self.P_relevant)[:, :self.n_recos]
-
-        # Compute expected number of clicks given optimal recommendations (with respect to P(R = 1))
-        self.optimal_reward, self.optimal_H, self.optimal_KL, self.optimal_TV = self.compute_expected_clicks(np.arange(self.P_relevant.shape[0]), self.optimal_recos, dump=True)
 
         print('Optimal E_clicks: \t', self.optimal_reward.mean())
 
     # Computes expected reward for each user given their recommendations
     def compute_expected_clicks(self, users, recommendations, dump=False):
-        """ ContextualEnvironment:compute_expected_clicks
-        Args:
-            users:     
-            recommendations:     
-            dump:     
-        Returns:
-           
+        """ ContextualEnvironment:compute_expected_clicks.
+        Doc::
+                
+                    Args:
+                        users:     
+                        recommendations:     
+                        dump:     
+                    Returns:
+                       
         """
         # If the batch of users is not equal to all users -- first filter the correct rows
         # P(R = 1) for sampled users and all items
@@ -116,12 +116,14 @@ class ContextualEnvironment():
     # Given a list of users and their respective list of recos (each of size self.n_recos), computes
     # corresponding simulated reward and Expected Exposure Disparity (EE-D)
     def simulate_batch_users_reward(self, batch_user_ids, batch_recos):
-        """ ContextualEnvironment:simulate_batch_users_reward
-        Args:
-            batch_user_ids:     
-            batch_recos:     
-        Returns:
-           
+        """ ContextualEnvironment:simulate_batch_users_reward.
+        Doc::
+                
+                    Args:
+                        batch_user_ids:     
+                        batch_recos:     
+                    Returns:
+                       
         """
         
         # First, compute probability of streaming each reco and draw rewards accordingly

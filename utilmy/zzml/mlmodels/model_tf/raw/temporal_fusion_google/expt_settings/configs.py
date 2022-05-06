@@ -45,11 +45,13 @@ class ExperimentConfig(object):
   default_experiments = ['volatility', 'electricity', 'traffic', 'favorita']
 
   def __init__(self, experiment='volatility', root_folder=None):
-    """Creates configs based on default experiment chosen.
-
-    Args:
-      experiment: Name of experiment.
-      root_folder: Root folder to save all outputs of training.
+    """Creates configs based on default experiment chosen..
+    Doc::
+            
+        
+            Args:
+              experiment: Name of experiment.
+              root_folder: Root folder to save all outputs of training.
     """
 
     if experiment not in self.default_experiments:
@@ -77,10 +79,12 @@ class ExperimentConfig(object):
 
   @property
   def data_csv_path(self):
-    """ ExperimentConfig:data_csv_path
-    Args:
-    Returns:
-       
+    """ ExperimentConfig:data_csv_path.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
     csv_map = {
         'volatility': 'formatted_omi_vol.csv',
@@ -93,19 +97,23 @@ class ExperimentConfig(object):
 
   @property
   def hyperparam_iterations(self):
-    """ ExperimentConfig:hyperparam_iterations
-    Args:
-    Returns:
-       
+    """ ExperimentConfig:hyperparam_iterations.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
 
     return 240 if self.experiment == 'volatility' else 60
 
   def make_data_formatter(self):
-    """Gets a data formatter object for experiment.
-
-    Returns:
-      Default DataFormatter per experiment.
+    """Gets a data formatter object for experiment..
+    Doc::
+            
+        
+            Returns:
+              Default DataFormatter per experiment.
     """
 
     data_formatter_class = {

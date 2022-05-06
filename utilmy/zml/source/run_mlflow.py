@@ -6,13 +6,15 @@ from source.util_feature import load, log
 
 
 def register(run_name, params, metrics, signature, model_class, tracking_uri= "sqlite:///local.db"):
-    """
-    :run_name: Name of model
-    :log_params: dict with model params
-    :metrics: dict with model evaluation metrics
-    :signature: Its a signature that describes model input and output Schema
-    :model_class: Type of class model
-    :return:
+    """.
+    Doc::
+            
+            :run_name: Name of model
+            :log_params: dict with model params
+            :metrics: dict with model evaluation metrics
+            :signature: Its a signature that describes model input and output Schema
+            :model_class: Type of class model
+            :return:
     """
     mlflow.set_tracking_uri(tracking_uri)
     with mlflow.start_run(run_name=run_name) as run:

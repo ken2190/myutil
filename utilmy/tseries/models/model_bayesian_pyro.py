@@ -13,51 +13,61 @@ from utilmy import global_verbosity, os_makedirs
 verbosity = global_verbosity(__file__, "/../../config.json" ,default= 5)
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -78,12 +88,14 @@ from torch import nn
 ####################################################################################################
 class BayesianRegression(PyroModule):
     def __init__(self, X_dim:int=17, y_dim:int=1):
-        """ BayesianRegression:__init__
-        Args:
-            X_dim (function["arg_type"][i]) :     
-            y_dim (function["arg_type"][i]) :     
-        Returns:
-           
+        """ BayesianRegression:__init__.
+        Doc::
+                
+                    Args:
+                        X_dim (function["arg_type"][i]) :     
+                        y_dim (function["arg_type"][i]) :     
+                    Returns:
+                       
         """
         super().__init__()
         self.linear = PyroModule[nn.Linear](X_dim, y_dim)
@@ -94,12 +106,14 @@ class BayesianRegression(PyroModule):
         self.linear.bias   = PyroSample(dist.Normal(0., 10.).expand([y_dim]).to_event(1))
 
     def forward(self, x, y=None):
-        """ BayesianRegression:forward
-        Args:
-            x:     
-            y:     
-        Returns:
-           
+        """ BayesianRegression:forward.
+        Doc::
+                
+                    Args:
+                        x:     
+                        y:     
+                    Returns:
+                       
         """
         sigma = pyro.sample("sigma", dist.Uniform(0., 10.))
         mean = self.linear(x).squeeze(-1)
@@ -113,12 +127,14 @@ MODEL_LIST = [ BayesianRegression ]
 
 # Map model_name to class : [model_bayesian_pyro.py::BayesianRegression] -> Model Class
 def model_class_loader(m_name='BayesianRegression', class_list:list=None):
-  """function model_class_loader
-  Args:
-      m_name:   
-      class_list ( list ) :   
-  Returns:
-      
+  """function model_class_loader.
+  Doc::
+          
+        Args:
+            m_name:   
+            class_list ( list ) :   
+        Returns:
+            
   """
   class_list_dict = { myclass.__name__ : myclass for myclass in class_list }
   class_name = m_name.split("::")[-1]
@@ -128,13 +144,15 @@ def model_class_loader(m_name='BayesianRegression', class_list:list=None):
 ####################################################################################################
 class Model(object):
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         self.model_pars, self.compute_pars, self.data_pars = model_pars, compute_pars, data_pars
 
@@ -157,7 +175,9 @@ class Model(object):
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -199,15 +219,17 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars=None, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
 
@@ -267,12 +289,14 @@ def predict(Xpred=None, data_pars={}, compute_pars=None, out_pars={}, **kw):
 
 
 def save(path=None, info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -286,11 +310,13 @@ def save(path=None, info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import cloudpickle as pickle
@@ -305,11 +331,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -322,9 +350,11 @@ def load_info(path=""):
 
 
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  : 
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  : 
+              "file" :
     """
     data_type = data_pars.get('type', 'ram')
     if data_type == "ram":
@@ -349,13 +379,15 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 ########################################################################################################################
 ########################################################################################################################
 def y_norm(y, inverse=True, mode='boxcox'):
-    """function y_norm
-    Args:
-        y:   
-        inverse:   
-        mode:   
-    Returns:
-        
+    """function y_norm.
+    Doc::
+            
+            Args:
+                y:   
+                inverse:   
+                mode:   
+            Returns:
+                
     """
     ## Normalize the input/output
     if mode == 'boxcox':
@@ -386,11 +418,13 @@ def y_norm(y, inverse=True, mode='boxcox'):
 
 
 def test_dataset_regress_fake(nrows=500):
-    """function test_dataset_regress_fake
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_regress_fake.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
     from sklearn import datasets as sklearn_datasets
     coly   = ['y']
@@ -413,8 +447,10 @@ def test_dataset_regress_fake(nrows=500):
 
 
 def test(nrows=1000):
-    """
-        nrows : take first nrows from dataset
+    """.
+    Doc::
+            
+                nrows : take first nrows from dataset
     """
     global model, session
 

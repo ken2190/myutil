@@ -1,27 +1,45 @@
-MNAME="utilmy.cli"
-HELP ="""
+""" Command Line for utilmy.
+Doc::
+
+        utilmy   gpu_usage
+        utilmy   gpu_available
+
+
+
+
+"""
+HELP1 ="""
+utilmy  init
+
+utilmy  help
+
+$utilmy/images/util_image.py image_remove_background 
 
 
 """
 import fire, argparse, os, sys
+
+#############################################################################################
+dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 
 #############################################################################################
 def log(*s):
     """function log
-    Args:
-        *s:   
-    Returns:
-        
     """
     print(*s, flush=True)
 
 
 #############################################################################################
 def run_cli():
-    """
-        utilmy   deeplearning.keras.util_my
+    """ utilmy command line
+    Doc::
+
+        utilmy   gpu_usage
+        utilmy   gpu_available
+
+        utilmy   check   myfile.parquet   
 
 
 
@@ -31,7 +49,10 @@ def run_cli():
     p   = argparse.ArgumentParser()
     add = p.add_argument
 
-    add('task', metavar='task', type=str, nargs=1, help='colab')
+    add('task',  metavar='task', type=str,  nargs=1, help='gpu_usage')
+    add('task2', metavar='task2', type=str, nargs=2, help='')
+    add('task3', metavar='task2', type=str, nargs=3, help='')
+
 
     add("--dirin",    type=str, default=None,     help = "repo_url")
     add("--repo_dir",    type=str, default="./",     help = "repo_dir")
@@ -43,18 +64,37 @@ def run_cli():
     args = p.parse_args()
 
 
+    if args.task == 'gpu_usage': 
+        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_usage")
+
+    if args.task == 'gpu_available': 
+        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
+
+    if args.task == 'check': 
+        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{arg.task2}'  ")
+
+    if args.task == 'find': 
+        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{arg.task2}' --dirin '{arg.task3}'  ")
+
+
+    if args.task == 'help':
+        print(HELP1)
+
+    if args.task == 'init':
+        pass
+
     if args.task == 'colab':
         from utilmy import util_colab as mm
         mm.help()
 
 
-    if args.task =='module':
-        import importlib
-        myfun = load_function_uri(uri_name="utilmy.ppandas::test")
-        myfun()
-        #fire.Fire(myfun)
+    if "utilmy." in args.task or "utilmy/" in args.task :
+        from utilmy.utilmy import load_function_uri
+        uri = arg.task.replace(".", "/")  ### "utilmy.ppandas::test"
+        dirfile  = "utilmy/" + args.task if 'utilmy/' not in args.task else args.task
+        fun_name = args.task2
 
-
+        cmd = f"{utilmy_dir)/{dirfile}  {fun_name}  {args_values}" 
 
 
 
@@ -62,46 +102,6 @@ def run_cli():
 
 
 #############################################################################################
-
-def load_function_uri(uri_name="myfolder/myfile.py::myFunction"):
-    """
-    #load dynamically function from URI pattern
-    #"dataset"        : "mlmodels.preprocess.generic:pandasDataset"
-    ###### External File processor :
-    #"dataset"        : "MyFolder/preprocess/myfile.py:pandasDataset"
-    """
-
-    import importlib, sys
-    from pathlib import Path
-    pkg = uri_name.split("::")
-
-    assert len(pkg) > 1, "  Missing :   in  uri_name module_name:function_or_class "
-    package_path, class_name = pkg[0], pkg[1]
-
-    package = package_path.replace("/", ".").replace(".py", "")
-
-    try:
-        #### Import from package mlmodels sub-folder
-        return  getattr(importlib.import_module(package), class_name)
-
-    except Exception as e1:
-        try:
-            ### Add Folder to Path and Load absoluate path module
-            path_parent = str(Path(package_path).parent.parent.absolute())
-            sys.path.append(path_parent)
-            log(path_parent)
-
-            #### import Absolute Path model_tf.1_lstm
-            model_name   = Path(package_path).stem  # remove .py
-            package_name = str(Path(package_path).parts[-2]) + "." + str(model_name)
-
-            #log(package_name, config_name)
-            return  getattr(importlib.import_module(package_name), class_name)
-
-        except Exception as e2:
-            raise NameError(  f"Module {pkg} notfound, {e1}, {e2}, os.cwd: {os.getcwd()}")
-
-
 
 
 

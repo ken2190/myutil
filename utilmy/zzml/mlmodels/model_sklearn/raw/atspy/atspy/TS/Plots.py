@@ -21,12 +21,14 @@ LOWER_COLOR='black'
 
 
 def add_patched_legend(ax , names):
-    """function add_patched_legend
-    Args:
-        ax:   
-        names:   
-    Returns:
-        
+    """function add_patched_legend.
+    Doc::
+            
+            Args:
+                ax:   
+                names:   
+            Returns:
+                
     """
     # matplotlib does not like labels starting with '_'
     patched_names = []
@@ -38,18 +40,20 @@ def add_patched_legend(ax , names):
     ax.legend(patched_names)
 
 def decomp_plot(df, time, signal, estimator, residue, name = None, format='png', max_length = 1000) :
-    """function decomp_plot
-    Args:
-        df:   
-        time:   
-        signal:   
-        estimator:   
-        residue:   
-        name :   
-        format:   
-        max_length :   
-    Returns:
-        
+    """function decomp_plot.
+    Doc::
+            
+            Args:
+                df:   
+                time:   
+                signal:   
+                estimator:   
+                residue:   
+                name :   
+                format:   
+                max_length :   
+            Returns:
+                
     """
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -86,17 +90,19 @@ def decomp_plot(df, time, signal, estimator, residue, name = None, format='png',
         plt.close(fig)
 
 def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None, max_length = 1000) :
-    """function decomp_plot_as_png_base64
-    Args:
-        df:   
-        time:   
-        signal:   
-        estimator:   
-        residue:   
-        name :   
-        max_length :   
-    Returns:
-        
+    """function decomp_plot_as_png_base64.
+    Doc::
+            
+            Args:
+                df:   
+                time:   
+                signal:   
+                estimator:   
+                residue:   
+                name :   
+                max_length :   
+            Returns:
+                
     """
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -133,19 +139,21 @@ def decomp_plot_as_png_base64(df, time, signal, estimator, residue, name = None,
     
 
 def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = None, format='png', max_length = 1000) :
-    """function prediction_interval_plot
-    Args:
-        df:   
-        time:   
-        signal:   
-        estimator:   
-        lower:   
-        upper:   
-        name :   
-        format:   
-        max_length :   
-    Returns:
-        
+    """function prediction_interval_plot.
+    Doc::
+            
+            Args:
+                df:   
+                time:   
+                signal:   
+                estimator:   
+                lower:   
+                upper:   
+                name :   
+                format:   
+                max_length :   
+            Returns:
+                
     """
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -192,18 +200,20 @@ def prediction_interval_plot(df, time, signal, estimator, lower, upper, name = N
     
 
 def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, upper, name = None, max_length = 1000) :
-    """function prediction_interval_plot_as_png_base64
-    Args:
-        df:   
-        time:   
-        signal:   
-        estimator:   
-        lower:   
-        upper:   
-        name :   
-        max_length :   
-    Returns:
-        
+    """function prediction_interval_plot_as_png_base64.
+    Doc::
+            
+            Args:
+                df:   
+                time:   
+                signal:   
+                estimator:   
+                lower:   
+                upper:   
+                name :   
+                max_length :   
+            Returns:
+                
     """
     assert(df.shape[0] > 0)
     assert(df.shape[1] > 0)
@@ -251,21 +261,25 @@ def prediction_interval_plot_as_png_base64(df, time, signal, estimator, lower, u
 
 
 def qqplot_residues(df , residue):
-    """function qqplot_residues
-    Args:
-        df:   
-        residue:   
-    Returns:
-        
+    """function qqplot_residues.
+    Doc::
+            
+            Args:
+                df:   
+                residue:   
+            Returns:
+                
     """
     pass
 
 def build_record_label(labels_list):
-    """function build_record_label
-    Args:
-        labels_list:   
-    Returns:
-        
+    """function build_record_label.
+    Doc::
+            
+            Args:
+                labels_list:   
+            Returns:
+                
     """
     out = "<f0>" + str(labels_list[0]);
     i = 1;
@@ -276,13 +290,15 @@ def build_record_label(labels_list):
 
 
 def plot_hierarchy(structure , iAnnotations, name):
-    """function plot_hierarchy
-    Args:
-        structure:   
-        iAnnotations:   
-        name:   
-    Returns:
-        
+    """function plot_hierarchy.
+    Doc::
+            
+            Args:
+                structure:   
+                iAnnotations:   
+                name:   
+            Returns:
+                
     """
     import pydot
     graph = pydot.Dot(graph_type='graph', rankdir='LR', fontsize="12.0");

@@ -7,10 +7,12 @@ python test.py  test2
 
 """
 def test1():
-    """function test1
-    Args:
-    Returns:
-        
+    """function test1.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from util_log import log3, log2, log, logw, loge, logc, logr
     log3("debug2")
@@ -31,10 +33,12 @@ def test1():
 
 
 def test2():
-    """function test2
-    Args:
-    Returns:
-        
+    """function test2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     print("\n\n\n########## Test 2############################")
@@ -74,10 +78,12 @@ from loguru import logger
 
 class LoggingStreamHandler(socketserver.StreamRequestHandler):
     def handle(self):
-        """ LoggingStreamHandler:handle
-        Args:
-        Returns:
-           
+        """ LoggingStreamHandler:handle.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         while True:
             chunk = self.connection.recv(4)
@@ -94,13 +100,15 @@ class LoggingStreamHandler(socketserver.StreamRequestHandler):
 
 
 def test_launch_server():
-	'''
-	Server code from loguru.readthedocs.io
-	Use to test network logging
-
-     python   test.py test_launch_server
-
-
+	'''.
+	Doc::
+	        
+	    	Server code from loguru.readthedocs.io
+	    	Use to test network logging
+	    
+	         python   test.py test_launch_server
+	    
+	    
 	'''
 	PORT = 5000 #Make sure to set the same port defined in logging template	
 	server = socketserver.TCPServer(('localhost', PORT), LoggingStreamHandler)
@@ -108,10 +116,12 @@ def test_launch_server():
 
 
 def test_server():
-    """function test_server
-    Args:
-    Returns:
-        
+    """function test_server.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     print("\n\n\n########## Test 2############################")

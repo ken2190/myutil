@@ -27,7 +27,9 @@ from scipy import stats
 from utilmy.utilmy import log, log2
 
 def help():
-    """        
+    """        .
+    Doc::
+            
     """
     from utilmy import help_create
     print( help_create("utilmy.stats.statistics") )
@@ -35,7 +37,9 @@ def help():
 
 #################################################################################################
 def test_all():
-    """
+    """.
+    Doc::
+            
     """
     import pandas as pd
     from sklearn.tree import DecisionTreeRegressor
@@ -104,7 +108,9 @@ def test_all():
 
 
 def test0():
-    """ 
+    """ .
+    Doc::
+            
     """
     df = pd_generate_data(7, 100)
     test_anova(df, 'cat1', 'cat2')
@@ -117,7 +123,9 @@ def test0():
 
 
 def test1():
-    """        
+    """        .
+    Doc::
+            
     """
     from sklearn.tree import DecisionTreeRegressor
     from sklearn.model_selection import train_test_split
@@ -140,7 +148,9 @@ def test1():
 
 
 def test3():
-    """ 
+    """ .
+    Doc::
+            
     """
     arr = np.array([[1, 2, 3], [4, 5, 6]])
     np_col_extractname(["aa_","bb-","cc"])
@@ -149,6 +159,13 @@ def test3():
 
 
 def test_check_mean():
+    """function test_check_mean.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
    
     n = 100
     df = pd.DataFrme({'id' :  np.arange(0, n)})
@@ -209,8 +226,10 @@ def test_same_mean(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, thresh
 
 
 def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, threshold=0.1) -> List[float]:
-    """Run ANOVA Test of independance
-
+    """Run ANOVA Test of independance.
+    Doc::
+            
+        
     """
     p_values = []
     cols = df.columns  if cols is None else cols
@@ -227,11 +246,13 @@ def test_independance(df: pd.DataFrame, cols=None, bonferroni_adjuster=True, thr
 
 
 def test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX=None, coly='y', bonferroni_adjuster=True, threshold=0.1) -> List[float]:
-    """Run multiple T tests of Independance
-       p_values = multiple_comparisons(data)
-       
-
-
+    """Run multiple T tests of Independance.
+    Doc::
+            
+               p_values = multiple_comparisons(data)
+               
+        
+        
     """
     p_values = []
     colsX = df.columns  if colsX is None else colsX
@@ -286,9 +307,11 @@ def bonferoni_adjuster(p_values, threshold=0.1):
 #################################################################################################
 ############ Actual tests########################################################################
 def test_chisquare(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare', **kw):
-    """ Hypothesis betweeb Obs and true values
-
-        https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
+    """ Hypothesis betweeb Obs and true values.
+    Doc::
+            
+        
+                https://github.com/aschleg/hypothetical/blob/master/tests/test_contingency.py
     """
     try:
        from utilmy.stats.hypothesis.contingency import (ChiSquareContingency, CochranQ, McNemarTest,
@@ -303,9 +326,11 @@ def test_chisquare(df_obs:pd.DataFrame, df_true:pd.DataFrame, method='chisquare'
 
 
 def test_anova(df:pd.DataFrame, col1, col2):
-    """
-    ANOVA test two categorical features
-    Input dfframe, 1st feature and 2nd feature
+    """.
+    Doc::
+            
+            ANOVA test two categorical features
+            Input dfframe, 1st feature and 2nd feature
     """
     import scipy.stats as stats
 
@@ -335,17 +360,19 @@ def test_anova(df:pd.DataFrame, col1, col2):
 
 
 def test_normality2(df:pd.DataFrame, column, test_type):
-    """
-    Function to check Normal Distribution of a Feature by 3 methods
-    Input dfframe, feature name, and a test type
-    Three types of test
-    1)'Shapiro'
-    2)'Normal'
-    3)'Anderson'
-
-    output the statistical test score and result whether accept or reject
-    Accept mean the feature is Gaussain
-    Reject mean the feature is not Gaussain
+    """.
+    Doc::
+            
+            Function to check Normal Distribution of a Feature by 3 methods
+            Input dfframe, feature name, and a test type
+            Three types of test
+            1)'Shapiro'
+            2)'Normal'
+            3)'Anderson'
+        
+            output the statistical test score and result whether accept or reject
+            Accept mean the feature is Gaussain
+            Reject mean the feature is not Gaussain
     """
     from scipy.stats import shapiro
     from scipy.stats import normaltest
@@ -383,8 +410,10 @@ def test_normality2(df:pd.DataFrame, column, test_type):
 
 
 def test_plot_qqplot(df:pd.DataFrame, col_name):
-    """
-    Function to plot boxplot, histplot and qqplot for numerical feature analyze
+    """.
+    Doc::
+            
+            Function to plot boxplot, histplot and qqplot for numerical feature analyze
     """
     import matplotlib.pyplot as plt
     import seaborn as sns
@@ -399,10 +428,12 @@ def test_plot_qqplot(df:pd.DataFrame, col_name):
 
 
 def test_mutualinfo(error, Xtest, colname=None, bins=5):
-    """
-       Test  Error vs Input Variable Independance byt Mutual ifno
-       sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
-
+    """.
+    Doc::
+            
+               Test  Error vs Input Variable Independance byt Mutual ifno
+               sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
+        
     """
     from sklearn.feature_selection import mutual_info_classif
     error = pd.DataFrame({"error": error})
@@ -419,13 +450,15 @@ def test_mutualinfo(error, Xtest, colname=None, bins=5):
 ####################################################################################################
 ############ Residual error ########################################################################
 def error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_only=1):
-    """function test_heteroscedacity
-    Args:
-        ytrue:   
-        ypred:   
-        pred_value_only:   
-    Returns:
-        
+    """function test_heteroscedacity.
+    Doc::
+            
+            Args:
+                ytrue:   
+                ypred:   
+                pred_value_only:   
+            Returns:
+                
     """
     ss = """
        Test  Heteroscedacity :  Residual**2  = Linear(X, Pred, Pred**2)
@@ -448,10 +481,12 @@ def error_test_heteroscedacity(ypred: np.ndarray, ytrue: np.ndarray, pred_value_
 
 
 def error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="norm", test_size_limit=5000):
-    """
-       Test  Is Normal distribution
-       F pvalues < 0.01 : Rejected
-
+    """.
+    Doc::
+            
+               Test  Is Normal distribution
+               F pvalues < 0.01 : Rejected
+        
     """
     from scipy.stats import shapiro, anderson, kstest
     
@@ -474,10 +509,12 @@ def error_test_normality(ypred: np.ndarray, ytrue: np.ndarray, distribution="nor
 
 
 def error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: np.ndarray, colsX=None, bins=5):
-    """
-       Test  Error vs Input X Variable Independance byt Mutual ifno
-       sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
-
+    """.
+    Doc::
+            
+               Test  Error vs Input X Variable Independance byt Mutual ifno
+               sklearn.feature_selection.mutual_info_classif(X, y, discrete_features='auto', n_neighbors=3, copy=True, random_state=None)
+        
     """
     from sklearn.feature_selection import mutual_info_classif
     dferror = pd.DataFrame({"error": ypred - ytrue })
@@ -498,13 +535,15 @@ def error_test_residual_mutualinfo(dfX:pd.DataFrame, ypred: np.ndarray, ytrue: n
 ####################################################################################################
 ######### Confidence interval ######################################################################
 def confidence_interval_normal_std(err:np.ndarray, alpha=0.05, ):
-    """function estimator_std_normal
-    Args:
-        err:   
-        alpha:   confidence level
-        :   
-    Returns:   std_err, 
-        
+    """function estimator_std_normal.
+    Doc::
+            
+            Args:
+                err:   
+                alpha:   confidence level
+                :   
+            Returns:   std_err, 
+                
     """
     # estimate_std( err, alpha=0.05, )
     from scipy import stats
@@ -518,13 +557,15 @@ def confidence_interval_normal_std(err:np.ndarray, alpha=0.05, ):
 
 
 def confidence_interval_boostrap_bayes(err:np.ndarray, alpha=0.05, ):
-    """function estimator_boostrap_bayes
-    Args:
-        err:   
-        alpha:   
-        :   
-    Returns:
-        
+    """function estimator_boostrap_bayes.
+    Doc::
+            
+            Args:
+                err:   
+                alpha:   
+                :   
+            Returns:
+                
     """
     from scipy.stats import bayes_mvs
     mean, var, std = bayes_mvs(err, alpha=alpha)
@@ -532,12 +573,14 @@ def confidence_interval_boostrap_bayes(err:np.ndarray, alpha=0.05, ):
 
 
 def confidence_interval_bootstrap(err:np.ndarray, custom_stat=None, alpha=0.05, n_iter=10000):
-    """
-      def custom_stat(values, axis=1):
-      # stat_val = np.mean(np.asmatrix(values),axis=axis)
-      # stat_val = np.std(np.asmatrix(values),axis=axis)p.mean
-      stat_val = np.sqrt(np.mean(np.asmatrix(values*values),axis=axis))
-      return stat_val
+    """.
+    Doc::
+            
+              def custom_stat(values, axis=1):
+              # stat_val = np.mean(np.asmatrix(values),axis=axis)
+              # stat_val = np.std(np.asmatrix(values),axis=axis)p.mean
+              stat_val = np.sqrt(np.mean(np.asmatrix(values*values),axis=axis))
+              return stat_val
     """
     try :
        import bootstrapped.bootstrap as bs
@@ -552,10 +595,12 @@ def confidence_interval_bootstrap(err:np.ndarray, custom_stat=None, alpha=0.05, 
 ####################################################################################################
 ####### Utils ######################################################################################
 def np_col_extractname(col_onehot):
-    """
-    Column extraction from onehot name
-    col_onehotp
-    :return:
+    """.
+    Doc::
+            
+            Column extraction from onehot name
+            col_onehotp
+            :return:
     """
     colnew = []
     for x in col_onehot:
@@ -575,7 +620,9 @@ def np_col_extractname(col_onehot):
 
 
 def np_list_remove(cols, colsremove, mode="exact"):
-    """
+    """.
+    Doc::
+            
     """
     if mode == "exact":
         for x in colsremove:
@@ -599,10 +646,12 @@ def np_list_remove(cols, colsremove, mode="exact"):
 
 
 def np_conv_to_one_col(np_array, sep_char="_"):
-    """
-    converts string/numeric columns to one string column
-    np_array: the numpy array with more than one column
-    sep_char: the separator character
+    """.
+    Doc::
+            
+            converts string/numeric columns to one string column
+            np_array: the numpy array with more than one column
+            sep_char: the separator character
     """
     def row2string(row_):
         return sep_char.join([str(i) for i in row_])

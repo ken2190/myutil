@@ -17,10 +17,12 @@ from utilmy import (os_makedirs, os_system, global_verbosity,  git_repo_root )
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy import help_create
     print( HELP + help_create(MNAME) )
@@ -28,10 +30,12 @@ def help():
 
 ##############################################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log(MNAME)
     test()
@@ -39,10 +43,12 @@ def test_all():
 
 
 def test():
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     test_dataset_regression_fake(nrows=500, n_features=17)
     test_dataset_classifier_fake(nrows=10)
@@ -52,10 +58,12 @@ def test():
 
 
 def test1():
-    """function test1
-    Args:
-    Returns:
-        
+    """function test1.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     fetch_dataset("https://github.com/arita37/mnist_png/raw/master/mnist_png.tar.gz",path_target="./testdata/tmp/test")
     df = pd.read_csv("./testdata/tmp/test/crop.data.csv")
@@ -66,8 +74,10 @@ def test1():
 
 ####################################################################################################
 def template_dataset_classifier_XXXXX(nrows=500, **kw):
-    """
-
+    """.
+    Doc::
+            
+        
     """
     colnum = []
     colcat = []
@@ -80,11 +90,13 @@ def template_dataset_classifier_XXXXX(nrows=500, **kw):
 ####################################################################################################
 ########## Classification ##########################################################################
 def test_dataset_classifier_fake(nrows=500):
-    """function test_dataset_classifier_fake
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_classifier_fake.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
     from sklearn import datasets as sklearn_datasets
     ndim    =11
@@ -104,12 +116,14 @@ def test_dataset_classifier_fake(nrows=500):
 
 
 def test_dataset_classifier_pmlb(name='', return_X_y=False):
-    """function test_dataset_classifier_pmlb
-    Args:
-        name:   
-        return_X_y:   
-    Returns:
-        
+    """function test_dataset_classifier_pmlb.
+    Doc::
+            
+            Args:
+                name:   
+                return_X_y:   
+            Returns:
+                
     """
     from pmlb import fetch_data, classification_dataset_names
     ds = classification_dataset_names[name]
@@ -124,11 +138,13 @@ def test_dataset_classifier_pmlb(name='', return_X_y=False):
 
 
 def test_dataset_classifier_covtype(nrows=500):
-    """function test_dataset_classifier_covtype
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_classifier_covtype.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
     log("start")
 
@@ -159,11 +175,13 @@ def test_dataset_classifier_covtype(nrows=500):
 
 
 def test_dataset_classifier_petfinder(nrows=1000):
-    """function test_dataset_classifier_petfinder
-    Args:
-        nrows:   
-    Returns:
-        
+    """function test_dataset_classifier_petfinder.
+    Doc::
+            
+            Args:
+                nrows:   
+            Returns:
+                
     """
     # Dense features
     import wget
@@ -203,7 +221,9 @@ def test_dataset_classifier_petfinder(nrows=1000):
 
 
 def test_dataset_classifier_diabetes_traintest():
-    '''load (classification) data on diabetes
+    '''load (classification) data on diabetes.
+    Doc::
+            
     '''
     data = loadarff("content/imodels/imodels/tests/test_data/diabetes.arff")
     data_np = np.array(list(map(lambda x: np.array(list(x)), data[0])))
@@ -220,12 +240,14 @@ def test_dataset_classifier_diabetes_traintest():
 #####################################################################################################
 ######  Regression ##################################################################################
 def test_dataset_regression_fake(nrows=500, n_features=17):
-    """function test_dataset_regression_fake
-    Args:
-        nrows:   
-        n_features:   
-    Returns:
-        
+    """function test_dataset_regression_fake.
+    Doc::
+            
+            Args:
+                nrows:   
+                n_features:   
+            Returns:
+                
     """
     from sklearn import datasets as sklearn_datasets
     coly   = 'y'
@@ -244,7 +266,9 @@ def test_dataset_regression_fake(nrows=500, n_features=17):
 
 
 def test_dataset_regression_boston_traintest():
-    '''load (regression) data on boston housing prices
+    '''load (regression) data on boston housing prices.
+    Doc::
+            
     '''
     X_reg, y_reg = load_boston(return_X_y=True)
     feature_names = load_boston()['feature_names']

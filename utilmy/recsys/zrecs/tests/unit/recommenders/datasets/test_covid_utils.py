@@ -17,10 +17,12 @@ import pandas as pd
 
 @pytest.fixture(scope="module")
 def df():
-    """function df
-    Args:
-    Returns:
-        
+    """function df.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     mock_metadata = {
         "cord_uid": ["ej795nks", "", np.nan, "adygntbe", "adygntbe"],
@@ -51,43 +53,51 @@ def df():
 
 
 def test_remove_duplicates(df):
-    """function test_remove_duplicates
-    Args:
-        df:   
-    Returns:
-        
+    """function test_remove_duplicates.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     output = remove_duplicates(df, cols=["cord_uid", "doi", "title", "license", "url"])
     assert True not in output.duplicated(["cord_uid"]).values
 
 
 def test_remove_nan(df):
-    """function test_remove_nan
-    Args:
-        df:   
-    Returns:
-        
+    """function test_remove_nan.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     output = remove_nan(df, cols=["cord_uid", "doi", "title", "license", "url"])
     assert np.nan not in output["cord_uid"].values
 
 
 def test_clean_dataframe(df):
-    """function test_clean_dataframe
-    Args:
-        df:   
-    Returns:
-        
+    """function test_clean_dataframe.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     output = clean_dataframe(df)
     assert len(df) > len(output)
 
 
 def test_retrieve_text():
-    """function test_retrieve_text
-    Args:
-    Returns:
-        
+    """function test_retrieve_text.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     def mock_get(uri, headers):
         class MockResponse:
@@ -102,11 +112,13 @@ def test_retrieve_text():
 
 
 def test_get_public_domain_text(df):
-    """function test_get_public_domain_text
-    Args:
-        df:   
-    Returns:
-        
+    """function test_get_public_domain_text.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     df["publish_time"] = ""
     df["authors"] = ""

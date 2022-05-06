@@ -18,16 +18,18 @@ log = logging.getLogger(__name__)
 
 @retry(wait_random_min=1000, wait_random_max=5000, stop_max_attempt_number=5)
 def maybe_download(url, filename=None, work_directory=".", expected_bytes=None):
-    """Download a file if it is not already downloaded.
-
-    Args:
-        filename (str): File name.
-        work_directory (str): Working directory.
-        url (str): URL of the file to download.
-        expected_bytes (int): Expected file size in bytes.
-
-    Returns:
-        str: File path of the file downloaded.
+    """Download a file if it is not already downloaded..
+    Doc::
+            
+        
+            Args:
+                filename (str): File name.
+                work_directory (str): Working directory.
+                url (str): URL of the file to download.
+                expected_bytes (int): Expected file size in bytes.
+        
+            Returns:
+                str: File path of the file downloaded.
     """
     if filename is None:
         filename = url.split("/")[-1]
@@ -64,19 +66,21 @@ def maybe_download(url, filename=None, work_directory=".", expected_bytes=None):
 
 @contextmanager
 def download_path(path=None):
-    """Return a path to download data. If `path=None`, then it yields a temporal path that is eventually deleted,
-    otherwise the real path of the input.
-
-    Args:
-        path (str): Path to download data.
-
-    Returns:
-        str: Real path where the data is stored.
-
-    Examples:
-        >>> with download_path() as path:
-        >>> ... maybe_download(url="http://example.com/file.zip", work_directory=path)
-
+    """Return a path to download data. If `path=None`, then it yields a temporal path that is eventually deleted,.
+    Doc::
+            
+            otherwise the real path of the input.
+        
+            Args:
+                path (str): Path to download data.
+        
+            Returns:
+                str: Real path where the data is stored.
+        
+            Examples:
+                >>> with download_path() as path:
+                >>> ... maybe_download(url="http://example.com/file.zip", work_directory=path)
+        
     """
     if path is None:
         tmp_dir = TemporaryDirectory()
@@ -90,12 +94,14 @@ def download_path(path=None):
 
 
 def unzip_file(zip_src, dst_dir, clean_zip_file=False):
-    """Unzip a file
-
-    Args:
-        zip_src (str): Zip file.
-        dst_dir (str): Destination folder.
-        clean_zip_file (bool): Whether or not to clean the zip file.
+    """Unzip a file.
+    Doc::
+            
+        
+            Args:
+                zip_src (str): Zip file.
+                dst_dir (str): Destination folder.
+                clean_zip_file (bool): Whether or not to clean the zip file.
     """
     fz = zipfile.ZipFile(zip_src, "r")
     for file in fz.namelist():

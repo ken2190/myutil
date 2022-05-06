@@ -16,10 +16,12 @@ import numpy as np
 
 class DCGAN():
     def __init__(self):
-        """ DCGAN:__init__
-        Args:
-        Returns:
-           
+        """ DCGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # Input shape
         self.img_rows = 28
@@ -55,10 +57,12 @@ class DCGAN():
         self.combined.compile(loss='binary_crossentropy', optimizer=optimizer)
 
     def build_generator(self):
-        """ DCGAN:build_generator
-        Args:
-        Returns:
-           
+        """ DCGAN:build_generator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -84,10 +88,12 @@ class DCGAN():
         return Model(noise, img)
 
     def build_discriminator(self):
-        """ DCGAN:build_discriminator
-        Args:
-        Returns:
-           
+        """ DCGAN:build_discriminator.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         model = Sequential()
@@ -119,13 +125,15 @@ class DCGAN():
         return Model(img, validity)
 
     def train(self, epochs, batch_size=128, save_interval=50):
-        """ DCGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            save_interval:     
-        Returns:
-           
+        """ DCGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        save_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -173,11 +181,13 @@ class DCGAN():
                 self.save_imgs(epoch)
 
     def save_imgs(self, epoch):
-        """ DCGAN:save_imgs
-        Args:
-            epoch:     
-        Returns:
-           
+        """ DCGAN:save_imgs.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))

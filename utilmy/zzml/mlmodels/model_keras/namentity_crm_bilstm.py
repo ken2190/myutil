@@ -58,14 +58,16 @@ MODEL_URI = (
 ####################################################################################################
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None, **kwargs):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            **kwargs:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         ### Model Structure        ################################
         if model_pars is None:
@@ -104,7 +106,9 @@ class Model:
 
 
 def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
 
     batch_size = compute_pars["batch_size"]
@@ -140,8 +144,10 @@ def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def evaluate(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics ofw the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics ofw the model when fitted.
     """
     history = model.metrics
 
@@ -149,16 +155,18 @@ def evaluate(model, data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(model, sess=None, data_pars=None, out_pars=None, compute_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        sess:   
-        data_pars:   
-        out_pars:   
-        compute_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_pars:   
+                out_pars:   
+                compute_pars:   
+                **kw:   
+            Returns:
+                
     """
     ##### Get Data ###############################################
     data_pars["train"] = False
@@ -176,22 +184,26 @@ def predict(model, sess=None, data_pars=None, out_pars=None, compute_pars=None, 
 
 
 def reset_model():
-    """function reset_model
-    Args:
-    Returns:
-        
+    """function reset_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
 
 def save(model=None, session=None, save_pars=None):
-    """function save
-    Args:
-        model:   
-        session:   
-        save_pars:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                save_pars:   
+            Returns:
+                
     """
     from mlmodels.util import save_keras
 
@@ -200,11 +212,13 @@ def save(model=None, session=None, save_pars=None):
 
 
 def load(load_pars):
-    """function load
-    Args:
-        load_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+            Returns:
+                
     """
     from mlmodels.util import load_keras
 
@@ -218,11 +232,13 @@ def load(load_pars):
 
 
 def get_dataset(data_pars):
-    """function get_dataset
-    Args:
-        data_pars:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                data_pars:   
+            Returns:
+                
     """
     loader = DataLoader(data_pars)
     loader.compute()
@@ -230,12 +246,14 @@ def get_dataset(data_pars):
 
 
 def get_params(param_pars={}, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     from jsoncomment import JsonComment ; json = JsonComment()
 
@@ -285,13 +303,15 @@ def get_params(param_pars={}, **kw):
 ################################################################################################
 ########## Tests are  ##########################################################################
 def test(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
 

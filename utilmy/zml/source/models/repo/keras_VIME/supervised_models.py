@@ -31,14 +31,16 @@ from vime_utils import convert_matrix_to_vector, convert_vector_to_matrix
 
 #%% 
 def logit(x_train, y_train, x_test):
-  """Logistic Regression.
-  
-  Args: 
-    - x_train, y_train: training dataset
-    - x_test: testing feature
-    
-  Returns:
-    - y_test_hat: predicted values for x_test
+  """Logistic Regression..
+  Doc::
+          
+        
+        Args: 
+          - x_train, y_train: training dataset
+          - x_test: testing feature
+          
+        Returns:
+          - y_test_hat: predicted values for x_test
   """
   # Convert labels into proper format
   if len(y_train.shape) > 1:
@@ -55,14 +57,16 @@ def logit(x_train, y_train, x_test):
 
 #%% 
 def xgb_model(x_train, y_train, x_test):
-  """XGBoost.
-  
-  Args: 
-    - x_train, y_train: training dataset
-    - x_test: testing feature
-    
-  Returns:
-    - y_test_hat: predicted values for x_test
+  """XGBoost..
+  Doc::
+          
+        
+        Args: 
+          - x_train, y_train: training dataset
+          - x_test: testing feature
+          
+        Returns:
+          - y_test_hat: predicted values for x_test
   """  
   # Convert labels into proper format
   if len(y_train.shape) > 1:
@@ -80,15 +84,17 @@ def xgb_model(x_train, y_train, x_test):
   
 #%% 
 def mlp(x_train, y_train, x_test, parameters):
-  """Multi-layer perceptron (MLP).
-  
-  Args: 
-    - x_train, y_train: training dataset
-    - x_test: testing feature
-    - parameters: hidden_dim, epochs, activation, batch_size
-    
-  Returns:
-    - y_test_hat: predicted values for x_test
+  """Multi-layer perceptron (MLP)..
+  Doc::
+          
+        
+        Args: 
+          - x_train, y_train: training dataset
+          - x_test: testing feature
+          - parameters: hidden_dim, epochs, activation, batch_size
+          
+        Returns:
+          - y_test_hat: predicted values for x_test
   """  
   
   # Convert labels into proper format

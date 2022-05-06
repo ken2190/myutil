@@ -20,35 +20,39 @@ obj_fun
 DEBUG = True
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s)
 
 import copy, optuna
 
 def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, ntrials=3):
-    """
-      pars_dict_init =  {  'boosting_type':'gbdt',
-						'importance_type':'split', 'learning_rate':0.001, 'max_depth':10,
-						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
-	  pars_dict_range =   {  'boosting_type':  ( 'categorical',  ['gbdt', 'gbdt']      ) ,
-						 'importance_type':'split',
-						 'learning_rate':  ('log_uniform' , 0.001, 0.1,  ),
-						 'max_depth':      ('int',  1, 10, 'uniform')
-						 'n_estimators':   ('int', 0, 10,  'uniform' )
-						 'n_jobs':-1,
-						 'num_leaves':31 }
-      obj_fun(pars_dict) :  Objective function
-      engine_pars :    {   }  optuna parameters
-      
-      
-      API interface integration :
-           https://optuna.readthedocs.io/en/stable/reference/generated/optuna.storages.RDBStorage.html
-      
+    """.
+    Doc::
+            
+              pars_dict_init =  {  'boosting_type':'gbdt',
+        						'importance_type':'split', 'learning_rate':0.001, 'max_depth':10,
+        						'n_estimators': 50, 'n_jobs':-1, 'num_leaves':31 }
+        	  pars_dict_range =   {  'boosting_type':  ( 'categorical',  ['gbdt', 'gbdt']      ) ,
+        						 'importance_type':'split',
+        						 'learning_rate':  ('log_uniform' , 0.001, 0.1,  ),
+        						 'max_depth':      ('int',  1, 10, 'uniform')
+        						 'n_estimators':   ('int', 0, 10,  'uniform' )
+        						 'n_jobs':-1,
+        						 'num_leaves':31 }
+              obj_fun(pars_dict) :  Objective function
+              engine_pars :    {   }  optuna parameters
+              
+              
+              API interface integration :
+                   https://optuna.readthedocs.io/en/stable/reference/generated/optuna.storages.RDBStorage.html
+              
     """
     import os
     print(pars_dict_init)
@@ -130,10 +134,12 @@ def run_hyper_optuna(obj_fun, pars_dict_init,  pars_dict_range,  engine_pars, nt
 
 
 def test_hyper():
-    """function test_hyper
-    Args:
-    Returns:
-        
+    """function test_hyper.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     model_pars ={
 
@@ -164,10 +170,12 @@ def test_hyper():
 
 
 def test_hyper3():
-    """function test_hyper3
-    Args:
-    Returns:
-        
+    """function test_hyper3.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import pandas as pd
     import numpy as np
@@ -193,10 +201,12 @@ def test_hyper3():
 
 
 def test_hyper2():
-    """function test_hyper2
-    Args:
-    Returns:
-        
+    """function test_hyper2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import pandas as pd
     import numpy as np
@@ -254,12 +264,14 @@ if __name__ == "__main__":
 
 
 def eval_dict(src, dst={}):
-    """function eval_dict
-    Args:
-        src:   
-        dst:   
-    Returns:
-        
+    """function eval_dict.
+    Doc::
+            
+            Args:
+                src:   
+                dst:   
+            Returns:
+                
     """
     import pandas as pd
     for key, value in src.items():

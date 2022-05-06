@@ -15,13 +15,15 @@ from source.util_feature import os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -76,8 +78,10 @@ colnum =   [ "Age","SibSp", "Parch","Fare"]
 
 ####################################################################################
 def config1() :
-    """
-        source/models/model_vaemdn.py  test2
+    """.
+    Doc::
+            
+                source/models/model_vaemdn.py  test2
     """
     data_name    = "titanic"         ### in data/input/
     model_class  = "source/models/model_vaemdn.py.py::VAEMDN"  ### ACTUAL Class name for model

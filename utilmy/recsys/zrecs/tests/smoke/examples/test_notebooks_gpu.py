@@ -20,10 +20,12 @@ ABS_TOL = 0.05
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_gpu_vm():
-    """function test_gpu_vm
-    Args:
-    Returns:
-        
+    """function test_gpu_vm.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     assert get_number_gpus() >= 1
 
@@ -32,13 +34,15 @@ def test_gpu_vm():
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_ncf_smoke(notebooks, output_notebook, kernel_name):
-    """function test_ncf_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_ncf_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["ncf"]
     pm.execute_notebook(
@@ -61,13 +65,15 @@ def test_ncf_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_ncf_deep_dive_smoke(notebooks, output_notebook, kernel_name):
-    """function test_ncf_deep_dive_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_ncf_deep_dive_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["ncf_deep_dive"]
     pm.execute_notebook(
@@ -97,13 +103,15 @@ def test_ncf_deep_dive_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_fastai_smoke(notebooks, output_notebook, kernel_name):
-    """function test_fastai_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_fastai_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["fastai"]
     pm.execute_notebook(
@@ -130,13 +138,15 @@ def test_fastai_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_xdeepfm_smoke(notebooks, output_notebook, kernel_name):
-    """function test_xdeepfm_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_xdeepfm_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["xdeepfm_quickstart"]
     pm.execute_notebook(
@@ -165,14 +175,16 @@ def test_xdeepfm_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_wide_deep_smoke(notebooks, output_notebook, kernel_name, tmp):
-    """function test_wide_deep_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-        tmp:   
-    Returns:
-        
+    """function test_wide_deep_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+                tmp:   
+            Returns:
+                
     """
     notebook_path = notebooks["wide_deep"]
 
@@ -203,13 +215,15 @@ def test_wide_deep_smoke(notebooks, output_notebook, kernel_name, tmp):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_naml_smoke(notebooks, output_notebook, kernel_name):
-    """function test_naml_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_naml_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["naml_quickstart"]
     pm.execute_notebook(
@@ -232,13 +246,15 @@ def test_naml_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_nrms_smoke(notebooks, output_notebook, kernel_name):
-    """function test_nrms_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_nrms_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["nrms_quickstart"]
     pm.execute_notebook(
@@ -261,13 +277,15 @@ def test_nrms_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_npa_smoke(notebooks, output_notebook, kernel_name):
-    """function test_npa_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_npa_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["npa_quickstart"]
     pm.execute_notebook(
@@ -290,13 +308,15 @@ def test_npa_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_lstur_smoke(notebooks, output_notebook, kernel_name):
-    """function test_lstur_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_lstur_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["lstur_quickstart"]
     pm.execute_notebook(
@@ -319,13 +339,15 @@ def test_lstur_smoke(notebooks, output_notebook, kernel_name):
 @pytest.mark.smoke
 @pytest.mark.gpu
 def test_cornac_bivae_smoke(notebooks, output_notebook, kernel_name):
-    """function test_cornac_bivae_smoke
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_cornac_bivae_smoke.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["cornac_bivae_deep_dive"]
     pm.execute_notebook(

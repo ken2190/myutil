@@ -21,23 +21,27 @@ print(dir_data)
 
 
 def os_get_function_name():
-    """function os_get_function_name
-    Args:
-    Returns:
-        
+    """function os_get_function_name.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import sys
     return sys._getframe(1).f_code.co_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     m                      = {}
     m['config_path']       = root + f"/{config_file}"
@@ -100,9 +104,11 @@ cols_input_type_2 = {
 
 ####################################################################################
 def titanic1(path_model_out="") :
-    """
-       Contains all needed informations for Light GBM Classifier model,
-       used for titanic classification task
+    """.
+    Doc::
+            
+               Contains all needed informations for Light GBM Classifier model,
+               used for titanic classification task
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -199,13 +205,15 @@ def titanic1(path_model_out="") :
 #####################################################################################
 ########## Profile data #############################################################
 def data_profile(path_data_train="", path_model="", n_sample= 5000):
-   """function data_profile
-   Args:
-       path_data_train:   
-       path_model:   
-       n_sample:   
-   Returns:
-       
+   """function data_profile.
+   Doc::
+           
+          Args:
+              path_data_train:   
+              path_model:   
+              n_sample:   
+          Returns:
+              
    """
    from source.run_feature_profile import run_profile
    run_profile(path_data   = path_data_train,
@@ -217,12 +225,14 @@ def data_profile(path_data_train="", path_model="", n_sample= 5000):
 ###################################################################################
 ########## Preprocess #############################################################
 def preprocess(config=None, nsample=None):
-    """function preprocess
-    Args:
-        config:   
-        nsample:   
-    Returns:
-        
+    """function preprocess.
+    Doc::
+            
+            Args:
+                config:   
+                nsample:   
+            Returns:
+                
     """
     config_name  = config  if config is not None else config_default
     mdict        = globals()[config_name]()
@@ -241,12 +251,14 @@ def preprocess(config=None, nsample=None):
 ##################################################################################
 ########## Train #################################################################
 def train(config=None, nsample=None):
-    """function train
-    Args:
-        config:   
-        nsample:   
-    Returns:
-        
+    """function train.
+    Doc::
+            
+            Args:
+                config:   
+                nsample:   
+            Returns:
+                
     """
 
     config_name  = config  if config is not None else config_default
@@ -264,10 +276,12 @@ def train(config=None, nsample=None):
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 
@@ -277,12 +291,14 @@ def check():
 ####################################################################################
 ####### Inference ##################################################################
 def predict(config=None, nsample=None):
-    """function predict
-    Args:
-        config:   
-        nsample:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                config:   
+                nsample:   
+            Returns:
+                
     """
     config_name  = config  if config is not None else config_default
     mdict        = globals()[config_name]()
@@ -302,10 +318,12 @@ def predict(config=None, nsample=None):
 
 
 def run_all():
-    """function run_all
-    Args:
-    Returns:
-        
+    """function run_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     data_profile()
     preprocess()

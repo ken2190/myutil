@@ -7,10 +7,12 @@ from box import Box
  
       
 def test_getdata(verbose=True):
-    """data = test_get_data()
-    df   = data['housing.csv']
-    df.head(3)
-    https://github.com/szrlee/Stock-Time-Series-Analysis/tree/master/data
+    """data = test_get_data().
+    Doc::
+            
+            df   = data['housing.csv']
+            df.head(3)
+            https://github.com/szrlee/Stock-Time-Series-Analysis/tree/master/data
     """
     import pandas as pd
     flist = [
@@ -33,11 +35,13 @@ def test_getdata(verbose=True):
     return data
 
 def test1(verbose=False):
-    """function test1
-    Args:
-        verbose:   
-    Returns:
-        
+    """function test1.
+    Doc::
+            
+            Args:
+                verbose:   
+            Returns:
+                
     """
     ####  Test Datatable
     doc = vi.htmlDoc(dir_out="", title="hello", format='myxxxx', cfg={})
@@ -53,10 +57,12 @@ def test1(verbose=False):
     doc.open_browser()  # Open myfile.html
 
 def test2(verbose=False):
-    """
-      # pip install --upgrade utilmy
-      from util.viz import vizhtml as vi
-      vi.test2()
+    """.
+      Doc::
+              
+                # pip install --upgrade utilmy
+                from util.viz import vizhtml as vi
+                vi.test2()
     """
     data = test_getdata(verbose=verbose)
     doc = vi.htmlDoc(title='Weather report', dir_out="", cfg={} )

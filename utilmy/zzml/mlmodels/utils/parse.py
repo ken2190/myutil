@@ -12,8 +12,10 @@ from pathlib import Path
 
 
 def cli_load_arguments(config_file=None):
-    """
-        Load CLI input, load config.toml , overwrite config.toml by CLI Input
+    """.
+    Doc::
+            
+                Load CLI input, load config.toml , overwrite config.toml by CLI Input
     """
     if config_file is None:
         cur_path = os.path.dirname(os.path.realpath(__file__))
@@ -35,12 +37,14 @@ def cli_load_arguments(config_file=None):
 
 
 def extract_args(txt, outfile):
-    """function extract_args
-    Args:
-        txt:   
-        outfile:   
-    Returns:
-        
+    """function extract_args.
+    Doc::
+            
+            Args:
+                txt:   
+                outfile:   
+            Returns:
+                
     """
     ddict ={}
     for ll in txt :

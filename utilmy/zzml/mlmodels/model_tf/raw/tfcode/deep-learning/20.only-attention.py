@@ -46,14 +46,16 @@ future_day = 50
 
 
 def sinusoidal_positional_encoding(inputs, num_units, zero_pad=False, scale=False):
-    """function sinusoidal_positional_encoding
-    Args:
-        inputs:   
-        num_units:   
-        zero_pad:   
-        scale:   
-    Returns:
-        
+    """function sinusoidal_positional_encoding.
+    Doc::
+            
+            Args:
+                inputs:   
+                num_units:   
+                zero_pad:   
+                scale:   
+            Returns:
+                
     """
     T = inputs.get_shape().as_list()[1]
     position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [tf.shape(inputs)[0], 1])
@@ -73,14 +75,16 @@ def sinusoidal_positional_encoding(inputs, num_units, zero_pad=False, scale=Fals
 
 class Model:
     def __init__(self, seq_len, learning_rate, dimension_input, dimension_output):
-        """ Model:__init__
-        Args:
-            seq_len:     
-            learning_rate:     
-            dimension_input:     
-            dimension_output:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        seq_len:     
+                        learning_rate:     
+                        dimension_input:     
+                        dimension_output:     
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, [None, seq_len, dimension_input])
         self.Y = tf.placeholder(tf.float32, [None, dimension_output])
@@ -165,12 +169,14 @@ date_ori = pd.Series(date_ori).dt.strftime(date_format="%Y-%m-%d").tolist()
 
 
 def anchor(signal, weight):
-    """function anchor
-    Args:
-        signal:   
-        weight:   
-    Returns:
-        
+    """function anchor.
+    Doc::
+            
+            Args:
+                signal:   
+                weight:   
+            Returns:
+                
     """
     buffer = []
     last = signal[0]

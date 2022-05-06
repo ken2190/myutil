@@ -28,6 +28,13 @@ from itertools import product
 ##################################################################################################
 from utilmy import log, log2
 def help():
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     from utilmy import help_create
     ss = help_create(MNAME)
     print(ss)
@@ -35,9 +42,23 @@ def help():
 #################################################################################################
 
 def test_all():
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     test_metrics()
 
 def test_metrics():
+    """function test_metrics.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     pass
 
 
@@ -50,10 +71,12 @@ from utilmy.adatasets import fetch_dataset
 
 
 def test_lambdarank():
-    """
-      dataset here :
-         https://github.com/microsoft/LightGBM/tree/master/examples/lambdarank
-
+    """.
+    Doc::
+            
+              dataset here :
+                 https://github.com/microsoft/LightGBM/tree/master/examples/lambdarank
+        
     """
     url = "https://github.com/microsoft/LightGBM/tree/master/examples/lambdarank"
     dirlocal = os.getcwd() + "/ztmp/examples/lambdarank/" 

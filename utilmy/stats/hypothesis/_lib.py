@@ -5,12 +5,14 @@ from scipy.stats import rankdata
 
 
 def _build_des_mat(*args, group=None):
-    """function _build_des_mat
-    Args:
-        *args:   
-        group:   
-    Returns:
-        
+    """function _build_des_mat.
+    Doc::
+            
+            Args:
+                *args:   
+                group:   
+            Returns:
+                
     """
     arg_list = []
 
@@ -36,12 +38,14 @@ def _build_des_mat(*args, group=None):
 
 
 def _build_summary_matrix(x, y=None):
-    """function _build_summary_matrix
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function _build_summary_matrix.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     if isinstance(x, pd.DataFrame):
         x = x.values
@@ -60,11 +64,13 @@ def _build_summary_matrix(x, y=None):
 
 
 def _rank(design_matrix):
-    """function _rank
-    Args:
-        design_matrix:   
-    Returns:
-        
+    """function _rank.
+    Doc::
+            
+            Args:
+                design_matrix:   
+            Returns:
+                
     """
 
     ranks = rankdata(design_matrix[:, 1], 'average')
@@ -75,11 +81,13 @@ def _rank(design_matrix):
 
 
 def _group_rank_sums(ranked_matrix):
-    """function _group_rank_sums
-    Args:
-        ranked_matrix:   
-    Returns:
-        
+    """function _group_rank_sums.
+    Doc::
+            
+            Args:
+                ranked_matrix:   
+            Returns:
+                
     """
     rank_sums = npi.group_by(ranked_matrix[:, 0],
                              ranked_matrix[:, 2],

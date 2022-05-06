@@ -25,14 +25,16 @@ class NPAModel(BaseModel):
     """
 
     def __init__(self, hparams, iterator_creator, seed=None):
-        """Initialization steps for MANL.
-        Compared with the BaseModel, NPA need word embedding.
-        After creating word embedding matrix, BaseModel's __init__ method will be called.
-
-        Args:
-            hparams (object): Global hyper-parameters. Some key setttings such as filter_num are there.
-            iterator_creator_train (object): NPA data loader class for train data.
-            iterator_creator_test (object): NPA data loader class for test and validation data
+        """Initialization steps for MANL..
+        Doc::
+                
+                    Compared with the BaseModel, NPA need word embedding.
+                    After creating word embedding matrix, BaseModel's __init__ method will be called.
+            
+                    Args:
+                        hparams (object): Global hyper-parameters. Some key setttings such as filter_num are there.
+                        iterator_creator_train (object): NPA data loader class for train data.
+                        iterator_creator_test (object): NPA data loader class for test and validation data
         """
 
         self.word2vec_embedding = self._init_embedding(hparams.wordEmb_file)
@@ -41,11 +43,13 @@ class NPAModel(BaseModel):
         super().__init__(hparams, iterator_creator, seed=seed)
 
     def _get_input_label_from_iter(self, batch_data):
-        """ NPAModel:_get_input_label_from_iter
-        Args:
-            batch_data:     
-        Returns:
-           
+        """ NPAModel:_get_input_label_from_iter.
+        Doc::
+                
+                    Args:
+                        batch_data:     
+                    Returns:
+                       
         """
         input_feat = [
             batch_data["user_index_batch"],
@@ -56,24 +60,28 @@ class NPAModel(BaseModel):
         return input_feat, input_label
 
     def _build_graph(self):
-        """Build NPA model and scorer.
-
-        Returns:
-            object: a model used to train.
-            object: a model used to evaluate and inference.
+        """Build NPA model and scorer..
+        Doc::
+                
+            
+                    Returns:
+                        object: a model used to train.
+                        object: a model used to evaluate and inference.
         """
 
         model, scorer = self._build_npa()
         return model, scorer
 
     def _build_userencoder(self, titleencoder, user_embedding_layer):
-        """The main function to create user encoder of NPA.
-
-        Args:
-            titleencoder (object): the news encoder of NPA.
-
-        Return:
-            object: the user encoder of NPA.
+        """The main function to create user encoder of NPA..
+        Doc::
+                
+            
+                    Args:
+                        titleencoder (object): the news encoder of NPA.
+            
+                    Return:
+                        object: the user encoder of NPA.
         """
         hparams = self.hparams
 
@@ -104,13 +112,15 @@ class NPAModel(BaseModel):
         return model
 
     def _build_newsencoder(self, embedding_layer, user_embedding_layer):
-        """The main function to create news encoder of NPA.
-
-        Args:
-            embedding_layer (object): a word embedding layer.
-
-        Return:
-            object: the news encoder of NPA.
+        """The main function to create news encoder of NPA..
+        Doc::
+                
+            
+                    Args:
+                        embedding_layer (object): a word embedding layer.
+            
+                    Return:
+                        object: the news encoder of NPA.
         """
         hparams = self.hparams
         sequence_title_uindex = keras.Input(
@@ -152,12 +162,14 @@ class NPAModel(BaseModel):
         return model
 
     def _build_npa(self):
-        """The main function to create NPA's logic. The core of NPA
-        is a user encoder and a news encoder.
-
-        Returns:
-            object: a model used to train.
-            object: a model used to evaluate and predict.
+        """The main function to create NPA's logic. The core of NPA.
+        Doc::
+                
+                    is a user encoder and a news encoder.
+            
+                    Returns:
+                        object: a model used to train.
+                        object: a model used to evaluate and predict.
         """
         hparams = self.hparams
 
