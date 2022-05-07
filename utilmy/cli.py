@@ -39,7 +39,7 @@ def run_cli():
         utilmy   gpu_usage
         utilmy   gpu_available
 
-        utilmy   check   myfile.parquet   
+        utilmy   show   myfile.parquet
 
 
 
@@ -71,11 +71,11 @@ def run_cli():
     if do == 'gpu_available': 
         os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
 
-    if do == 'check': 
+    if do == 'show':
         os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.task2}'  ")
 
     if do == 'find': 
-        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --padoern  '{args.task2}' --dirin '{args.task3}'  ")
+        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.task2}' --dirin '{args.task3}'  ")
 
 
     if do == 'help':
