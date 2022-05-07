@@ -30,20 +30,21 @@ starting index.
 
 
 # A O(n ^ 2) time and O(1) space program to find the# longest palindromic substring
-# This function prints the longest palindrome substring (LPS)
-# of str[]. It also returns the length of the longest palindrome
 
 def longestPalSubstr(string):
     n = len(string) # calculating size of string
     if (n < 2):
-        return n # if string is empty then size will be 0.
-                  # if n==1 then, answer will be 1(single
-                  # character will always palindrome)
+        return n # if string is empty then size will be 0. # if n==1 then, answer will be 1(single
+
+
+
     start=0
     maxLength = 1 
     for i in range(n):
-        low = i - 1
+        low  = i - 1
         high = i + 1
+
+        
         while (high < n and string[high] == string[i] ):                               
             high=high+1
       
@@ -69,7 +70,9 @@ def longestPalSubstr(string):
 string = ("forgeeksskeegfor")
 print("Length is: " + str(longestPalSubstr(string)))
 
-#This is code is contributed by saurabh yadav
+
+
+
 
 
 
