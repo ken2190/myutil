@@ -19,13 +19,12 @@ Commands:
 
 """
 import fire, argparse, os, sys
+from utilmy.parallel import pd_read_file
 
 
 #############################################################################################
-def log(*s):
-    """function log"""
-    print(*s, flush=True)
-
+from utilmy.utilmy import log
+from utilmy.utilmy import os_system   
 
 #############################################################################################
 try :
@@ -50,8 +49,7 @@ def run_cli():
 
 
     """
-    import argparse
-    from utilmy.utilmy import os_system    
+    import argparse 
     p   = argparse.ArgumentParser()
     add = p.add_argument
 
@@ -60,13 +58,12 @@ def run_cli():
     add('arg3', metavar='arg3', type=str, nargs="?", help='')
 
 
-    add("--dirin",    type=str, default='gpu',     help = "repo_url")
-    add("--repo_dir",    type=str, default="./",     help = "repo_dir")
-    add("--dirout",     type=str, default="docs/",  help = "doc_dir")
-    add("--out_file",     type=str, default="",      help = "out_file")
-    add("--exclude_dir", type=str, default="",       help = "path1,path2")
-    add("--prefix",      type=str, default=None,     help = "hdops://github.com/user/repo/tree/a")
-    add("--verbose",      type=int, default=0,     help = "hdops://github.com/user/repo/tree/a")
+    add("--dirin",        type=str, default='gpu',     help = "repo_url")
+    add("--repo_dir",     type=str, default="./",      help = "repo_dir")
+    add("--dirout",       type=str, default="docs/",   help = "doc_dir")
+    add("--fileout",      type=str, default="",        help = "out_file")
+    add("--dir_exclude",  type=str, default="",        help = "path1,path2")
+    add("--verbose",      type=int, default=0,         help = "hdops://github.com/user/repo/tree/a")
   
     args = p.parse_args()
     do = args.task
@@ -89,7 +86,7 @@ def run_cli():
         # log(ss[0])
 
     if do == 'show':
-        ss = os_system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.arg2}'  ",doprint=True)
+        ss = os_system( f"python {dir_utilmy}/cli.py  run_show  --dirin '{args.arg2}'  ",doprint=True)
         log(ss)
 
     if do == 'find': 
@@ -109,6 +106,17 @@ def run_cli():
 
         cmd = f"{dir_utilmy}/{dirfile}  {fun_name}  "
         os.system(cmd)
+
+
+#############################################################################################
+def run_show(dirin:str):
+   if ".py" in dirin :
+       os_system( f'cat {dirin}', doprint=True)
+   
+   if ".parquet" in dirin :
+       from utilmy import pd_read_file
+       df = pd_read_file(dirin)
+       print(df)
 
 
 
