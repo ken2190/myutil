@@ -58,8 +58,8 @@ if 'import':
         T_MIN, T_MAX = 18000, 18566
 
         tag_coo      =  f'n{N_BUCKET}'
-        path_data    =  f"/a/adigcb301/ipsvols05/pydata/{data_type}_ran_v14/*/*"
-        out_path_coo =  f"/a/adigcb301/ipsvols05/pydata/zranking_l3/out/baseline/{data_type}/{tag_coo}/"
+        path_data    =  f"/301/s05/pydata/{data_type}_ran_v14/*/*"
+        out_path_coo =  f"/301/s05/pydata/zranking_l3/out/baseline/{data_type}/{tag_coo}/"
 
 
 
@@ -83,11 +83,11 @@ if 'path':
     sc_imp_dir   = "/a/pydata/sc_widget_imp/"  ###   ~last 120 days of impression
 
 
-    dir_scitems = "/a/adigcb301/ipsvols05/pydata/sc_items/sc_campaign_items.tsv"
+    dir_scitems = "/301/s05/pydata/sc_items/sc_campaign_items.tsv"
     dir_pydata  = "/a/pydata/"
 
     dir_ngsiid  = "//a/pydata/sc_block_user_item/"
-    dir_ngsiid2 = "/a/gfs101/ipsvols07/ndata/cpa/hdfs/sc_block_user_item/"
+    dir_ngsiid2 = "/a/gfs101/s07/ndata/cpa/hdfs/sc_block_user_item/"
 
 
     #dir_rec = zlocal.dir_rec
@@ -108,13 +108,13 @@ if 'path':
 
 
 if 'path_ca':
-    dir_ca       = '/a/gfs101/ipsvols07/ndata/cpa/ca_check/'
+    dir_ca       = '/a/gfs101/s07/ndata/cpa/ca_check/'
     dir_ca_hdfs  = dir_ca + "/hdfs//"
     dir_ca_stats = dir_ca + "/stats/"
     dir_ca_daily = dir_ca + "/daily/"
 
     ### New items daily
-    dir_ca_dailyitem = "/a/adigcb301/ipsvols05/pydata/sc_items/sc_campaign_items.tsv"
+    dir_ca_dailyitem = "/301/s05/pydata/sc_items/sc_campaign_items.tsv"
 
     table_ca_all_100d = "nono3.ca_daily_coupons10c"  ### 100 recent days ranid
     table_ca_all_300d = "nono3.ca_daily_coupons11c"  ### all days with ranid
@@ -122,10 +122,10 @@ if 'path_ca':
     table_ca_100d = "nono3.ca_daily_coupons10b"  ### 100 recent days NO ranid
     table_ca_300d = "nono3.ca_daily_coupons11"   ### all days with   NO ranid
 
-    dir_export = "/a/gfs101/ipsvols07/ntmp/export/ca/rec/"
+    dir_export = "/a/gfs101/s07/ntmp/export/ca/rec/"
     dir_ca_prod = "/a/sc-coupon-advance-batches/"
 
-    flog_warning = "/a/gfs101/ipsvols07/ndata/cpa/log/log_gpu/aaa_Warning.py"
+    flog_warning = "/a/gfs101/s07/ndata/cpa/log/log_gpu/aaa_Warning.py"
 
 
 
@@ -805,7 +805,7 @@ if 'utils' :
 
 
     def schema():   ###   python prepro.py test   |& tee -a schema0.sh
-        dir_hive = "/a/adigcb201/ipsvols03/ndata/cpa/input/"
+        dir_hive = "/201/s03/ndata/cpa/input/"
         dir_in   = dir_hive  + "/ichiba_hist_202101_20210812_agg2b/"
 
         flist = glob.glob( dir_hive + "/*/000000_0*" )
@@ -820,7 +820,7 @@ if 'utils' :
 
 
     def test():   ## python prepro.py test
-        dir_hive = "/a/adigcb201/ipsvols03/ndata/cpa/input/"
+        dir_hive = "/201/s03/ndata/cpa/input/"
         dir_in   = dir_hive  + "/ichiba_hist_202101_20210812_agg2b/"
 
         flist = glob.glob( dir_in + "/*" )
@@ -884,7 +884,7 @@ if 'utils' :
 ########  Word2vec  ########################################################################
 if 'word2vec' :
     def c():
-        dir_in =  "/a/adigcb201/ipsvols03/ndata/cpa/input/ichiba_clk_202102_202108_itemtagb2_202106_08/000000_0.parquet"
+        dir_in =  "/201/s03/ndata/cpa/input/ichiba_clk_202102_202108_itemtagb2_202106_08/000000_0.parquet"
         df = pd.read_parquet(dir_in  )
         log(df, df.dtypes)
         log(df.easy_id.nunique() , )
@@ -1110,7 +1110,7 @@ if 'word2vec' :
           -saveOutput         whether output params should be saved [0]
 
 
-          /a/gfs101/ipsvols07/ndata/cpa/emb/seq/ichiba_order_20210901b_itemtagb2/ccountlog_ranid
+          /a/gfs101/s07/ndata/cpa/emb/seq/ichiba_order_20210901b_itemtagb2/ccountlog_ranid
 
         """
         dim_vec = 200    ###95000 tokens
@@ -1127,10 +1127,10 @@ if 'word2vec' :
         #fname = "/ichiba_order_20210901b_itemtagb2/ccountlog_ranid/seq_pur_manual_ccount.txt"   ## 10 mio lines, 12gb
         fname = "/ichiba_order_20210901b_itemtagb2/ccount_ranid_merge/seq_pur_manual_ccount.txt"   ## 10 mio lines, 12gb
 
-        #dir_data = "/a/adigcb204/ipsvolh03/ndata/cpa/emb/"
+        #dir_data = "/204/h03/ndata/cpa/emb/"
         #dir_out  = "/data/workspaces/takos01/cpa/"
 
-        dir_data = "/a/gfs101/ipsvols07/ndata/cpa/emb/"
+        dir_data = "/a/gfs101/s07/ndata/cpa/emb/"
         dir_out  = "/data/workspaces/takos01/cpa/"
 
         tag = "v16merge_50n"
@@ -1324,7 +1324,7 @@ if 'word2vec' :
 
     def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
        """ id, dist_list, id_list
-           ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
+           ## cb201/h03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
 
            https://github.com/facebookresearch/faiss/issues/632
 
@@ -1580,7 +1580,7 @@ if 'word2vec' :
 
 ###########################################################################################
 if 'backup' :
-    cmd_mountgs = "umount /a/adigcb201/ipsvolh03  &&  mount -t glusterfs -o log-level=WARNING,backup-volfile-servers=adigcb202.prod.hnd2.bdd.local:adigcb203.prod.hnd2.bdd.local adigcb201.prod.hnd2.bdd.local:/ipsvolh03 /a/adigcb201/ipsvolh03   "
+    cmd_mountgs = "umount /201/h03  &&  mount -t glusterfs -o log-level=WARNING,backup-volfile-servers=adigcb202.prod.hnd2.bdd.local:adigcb203.prod.hnd2.bdd.local adigcb201.prod.hnd2.bdd.local:/h03 /201/h03   "
 
 
     def os_copy_safe(dirin=None, dirout=None,  nlevel=5, nfile=5000, logdir="./", pattern="*", cmd_fallback=""):  ### python prepro.py os_copy_safe
@@ -1589,9 +1589,9 @@ if 'backup' :
         """
         import shutil, time, os, glob
         # dirin  = "/data/workspaces/takos01/cpa/emb/"
-        # dirout = "/a/adigcb204/ipsvolh03/ndata/cpa/emb/emb/"
+        # dirout = "/204/h03/ndata/cpa/emb/emb/"
         if dirin is None :
-           dirin  = "/a/adigcb201/ipsvolh03/ndata/cpa/emb/emb/ichiba_order_20210901b_itemtagb2/aseq_full_hash3v24full/topk_ranid/"
+           dirin  = "/201/h03/ndata/cpa/emb/emb/ichiba_order_20210901b_itemtagb2/aseq_full_hash3v24full/topk_ranid/"
            dirout = "/a/ndata/cpa/cpa/topk/ichiba_pur/topk_ranid/"
 
         flist = [] ; dirinj = dirin
@@ -1632,7 +1632,7 @@ if 'backup' :
 
 
     def os_merge_safe(dirin_list=None, dirout=None, nlevel=5, nfile=5000, nrows=10**8,  cmd_fallback=""):
-        cmd_fallback = "    umount /a/adigcb201/ipsvols03  && mount -t glusterfs -o log-level=WARNING,backup-volfile-servers=adigcb202.prod.hnd2.bdd.local:adigcb203.prod.hnd2.bdd.local adigcb201.prod.hnd2.bdd.local:/ipsvols03 /a/adigcb201/ipsvols03  "
+        cmd_fallback = "    umount /201/s03  && mount -t glusterfs -o log-level=WARNING,backup-volfile-servers=adigcb202.prod.hnd2.bdd.local:adigcb203.prod.hnd2.bdd.local adigcb201.prod.hnd2.bdd.local:/s03 /201/s03  "
 
         nrows = 10**8
         flist = []
@@ -1667,7 +1667,7 @@ if 'backup' :
 
         dirin  = [ "/data/workspaces/takos01/cpa/emb/seq/ichiba_order_20210901b_itemtagb2/ccount_log2/*.txt" ]
 
-        dirout = "/a/gfs101/ipsvols07/ndata/cpa/emb/seq/ichiba_order_20210901b_itemtagb2/ccountlog_ranid/seq_pur_manual_ccount.txt"
+        dirout = "/a/gfs101/s07/ndata/cpa/emb/seq/ichiba_order_20210901b_itemtagb2/ccountlog_ranid/seq_pur_manual_ccount.txt"
 
         os_merge_safe(dirin_list= dirin, dirout= dirout, nlevel=5, nfile=5000,  cmd_fallback="")
 
@@ -1675,13 +1675,13 @@ if 'backup' :
 
     def backup_emb():   # python prepro.py backup_emb &
         dirin  = "/data/workspaces/takos01/cpa/emb/"
-        dirout = "/a/gfs101/ipsvols07/ndata/cpa/emb/"
+        dirout = "/a/gfs101/s07/ndata/cpa/emb/"
 
         os_copy_safe(dirin, dirout, nlevel=15, nfile=500000, logdir="./", cmd_fallback= cmd_mountgs )
 
     def backup_img():   # python prepro.py backup_img &
         dirin  = "/data/workspaces/img/models/"
-        dirout = "/a/gfs101/ipsvols07/ndata/cpa/img/models/"
+        dirout = "/a/gfs101/s07/ndata/cpa/img/models/"
 
         os_copy_safe(dirin, dirout, nlevel=20, nfile=500000, logdir="./", cmd_fallback= cmd_mountgs )
 
@@ -1690,8 +1690,8 @@ if 'backup' :
         ### OS rename
         t0      = str(date_now_jp() )
         dirin   = "/sys/fs/cgroup/cpa/db"
-        #dirout = "/a/adigcb201/ipsvolh03/ndata/cpa/db/db"
-        dirout  = "/a/gfs101/ipsvols07/ndata/cpa/db/db"
+        #dirout = "/201/h03/ndata/cpa/db/db"
+        dirout  = "/a/gfs101/s07/ndata/cpa/db/db"
         log(t0, dirin, dirout)
         os.system( f"mv   {dirout}  {dirout + t0}   ")     ### Rename
 
@@ -1701,8 +1701,8 @@ if 'backup' :
     def backup_code():   # py backup_code &
         t0      = str(date_now_jp() )
         dirin   = "/home/test_code"
-        dirout1 = "/a/gfs101/ipsvols07/ndata/zbackup/cd/latest/"
-        dirout2 = "/a/gfs101/ipsvols07/ndata/zbackup/cd/" + str(t0) + "/"
+        dirout1 = "/a/gfs101/s07/ndata/zbackup/cd/latest/"
+        dirout2 = "/a/gfs101/s07/ndata/zbackup/cd/" + str(t0) + "/"
         log(t0, dirin, dirout2)
         try :
           os.rename( dirout1, dirout2)
@@ -1844,8 +1844,8 @@ if 'utils daily' :
 
     def dict_load(dirin=None, colval='itemtag', colkey='siid', nrows = 1005999000):  ###   python  prepro.py  dict_load   > zlog_dictload.txt
         cols = None
-        if dirin is None :     dirin = "/a/adigcb201/ipsvols03/ndata/cpa/input/itemaster_cat_tag_02_20210901b_orc/*"
-        if dirin == 'itemtag': dirin = "/a/adigcb201/ipsvols03/ndata/cpa/map/siid_itemtag_full.parquet"
+        if dirin is None :     dirin = "/201/s03/ndata/cpa/input/itemaster_cat_tag_02_20210901b_orc/*"
+        if dirin == 'itemtag': dirin = "/201/s03/ndata/cpa/map/siid_itemtag_full.parquet"
         if 'raw3am' in dirin : cols = ['shop_id', 'item_id', 'genre_id_path']
 
         df = pd_read_file( dirin, cols= cols )
@@ -2185,8 +2185,8 @@ if 'daily_check':
         (f'/log/log_gpu/*{today}*db*topg_pur*.py', 'DB easyid topmerge'),
 
 
-        (f'/a/gfs101/ipsvols07/ndata/cpa/input/*genre_brw*{today2}*', 'HIVE genre BRW'),
-        (f'/a/gfs101/ipsvols07/ndata/cpa/input/*genre_pur*{today2}*', 'HIVE genre PUR'),
+        (f'/a/gfs101/s07/ndata/cpa/input/*genre_brw*{today2}*', 'HIVE genre BRW'),
+        (f'/a/gfs101/s07/ndata/cpa/input/*genre_pur*{today2}*', 'HIVE genre PUR'),
 
 
         ('', "\nCA"),
@@ -2201,7 +2201,7 @@ if 'daily_check':
         ('', "\ntopk"),
         (f'/hdfs/daily_usertopk/m001/{tk}/daily_user_eod/',       'topk all eod'),
         (f'/hdfs/daily_usertopk/m001/{tk}/daily_user_eod_genre/', 'topk all eod genre'),
-        (f'/a/gfs101/ipsvols07/ndata/export/ca/rec/{today}/', 'Neil Export'),
+        (f'/a/gfs101/s07/ndata/export/ca/rec/{today}/', 'Neil Export'),
 
         ('', "\ntopk valid"),
         (f'/hdfs/daily_usertopk/m001/{tk}/daily_user_eod_eval/',       'topk eod valid'),
@@ -3721,7 +3721,7 @@ if 'rec_genre':
 
         ##### Input Data in T-1
         tk = get_timekey() - 1 + add_days
-        if 'new' in tag :    dirin_list = [f"/a/gfs101/ipsvols07/ndata/cpa/hdfs/daily_user_eod/", ]
+        if 'new' in tag :    dirin_list = [f"/a/gfs101/s07/ndata/cpa/hdfs/daily_user_eod/", ]
         elif tag == 'sc':    dirin_list = [f"/a/pydata/sc_widget_pur/"]
         else:  return 'no tag early finish'
         log('users', dirin_list);  # time.sleep(1)
@@ -4135,7 +4135,7 @@ if 'daily_batch':
         tmin,tmax = get_timekey() - 2, get_timekey()
 
         tag    = "a"
-        dirout = '/a/gfs101/ipsvols07/ndata/cpa/map/'    ;  os.makedirs(dirout, exist_ok=True)
+        dirout = '/a/gfs101/s07/ndata/cpa/map/'    ;  os.makedirs(dirout, exist_ok=True)
         cols   = ['shop_id', 'item_id', 'ran_id']
 
         if mode == 'pur':  dirin = dir_pydata  + "/pur_ran_v15/"
@@ -5274,7 +5274,7 @@ if 'daily_rec_topk':
 
          if tag in ['all', 'new'] and len( os_process_find("python prepro_prod.py daily_eod_user --ii 0 ") ) > 0 :
             log('process Already running, terminating', ); return 1
-         # logfile = f"/a/gfs101/ipsvols07/ndata/cpa/log/log_gpu/log_{today}_daily_ca_02_user_topk_0.py"
+         # logfile = f"/a/gfs101/s07/ndata/cpa/log/log_gpu/log_{today}_daily_ca_02_user_topk_0.py"
 
          if 'rename' in tag:  ## Rename previous folder
             tk = get_timekey()
@@ -5301,7 +5301,7 @@ if 'daily_rec_topk':
         tk_list = [ t for t in range(t0-0  , t0 + 1 , 1)  ]   ### Past 5 day ONLY
         tmax = t0
 
-        if    'new' in tag :   dirin_list = [ f"/a/gfs101/ipsvols07/ndata/cpa/hdfs/daily_user_eod/",   ]
+        if    'new' in tag :   dirin_list = [ f"/a/gfs101/s07/ndata/cpa/hdfs/daily_user_eod/",   ]
         elif  'all' in tag :   dirin_list = [ f"/a/pydata/brw_ran_v15/",   ]
         elif tag == 'sc'  :    dirin_list = [ f"/a/pydata/sc_widget_pur/"  ]
         elif tag == 'sclk'  :  dirin_list = [ f"/a/pydata/sc_widget_clk/"  ]
@@ -5770,7 +5770,7 @@ if 'intraday, easyid topk':
 
     def intra_i_jax(today=None):   intraday_item_vec_calc(today)
     def intraday_item_vec_calc(today= None):    ### py intraday_item_vec_calc     ### every 10mins
-        ### */5 * * * * /python prepro_prod.py intraday_item_vec_calc  > "/a/gfs101/ipsvols07/ndata/cpa/log/log_gpu/1hour.py"  2>&1   &
+        ### */5 * * * * /python prepro_prod.py intraday_item_vec_calc  > "/a/gfs101/s07/ndata/cpa/log/log_gpu/1hour.py"  2>&1   &
         ###   in  daily_1hour.sh
         today = date_now_jp("%Y%m%d", timezone='jp' ) if today is None else today
         log(' Intraday  Item updater', today)
@@ -7077,7 +7077,7 @@ if 'daily_eval':
 
 
     def itemrec_getrec_k8s(path):
-        dir_in = "/a/adigcb201/ipsvols03/ndata/cpa/res/couch/*full*82*simple*"
+        dir_in = "/201/s03/ndata/cpa/res/couch/*full*82*simple*"
         df     = pd_read_file(dir_in, n_pool=10, verbose=True)
         df     = df.drop_duplicates('easy_id')
         # log('k8s', df) ; time.sleep(3)
@@ -7752,7 +7752,7 @@ if 'ab_test':
     def user_tohtml(dfa1, add_days=0):
         tk     = get_timekey() + add_days
         dirout  = dir_cpa3 + f"/hdfs/daily_usertopk/m001/{tk}/easyid_eval/"
-        dirout2 = f"/a/gfs101/ipsvols07/offline/backend_data/log/ztmp/check/{tk}/"
+        dirout2 = f"/a/gfs101/s07/offline/backend_data/log/ztmp/check/{tk}/"
 
 
         def conv2(ll):

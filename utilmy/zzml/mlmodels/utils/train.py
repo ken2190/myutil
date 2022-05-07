@@ -571,8 +571,8 @@ python offline/amodel_train.py --do mae_summary --config offline.config.prod.ite
 CLI Params: {'do': 'mae_summary', 'mode': 'prod', 'config': 'offline.config.prod.itemid_model', 'verbose': True}
 Importing:,agg_level_data,agg_level_model,colsX,compute_pars,date_now_jp,debug,exp_save_all_params,iimax,iimin,metric_name,metrics,metrics_cols,model_date,model_group,model_name,model_pars,model_tag,modelx,path_key_all,pd,pos_path,pred_date,pred_end,pred_group,pred_path,pred_path_input,pred_path_output,pred_prefix,pred_start,pred_tag,root,root_model,shop_list,test_period,train_path,train_path_X,train_path_y,verbose,ytarget,zlocal,
 ###### Paths ###################################################################
-Train Input:  /a/adigcb301/ipsvols05/offline/test//data/train/all/
-Model Output:  /a/adigcb301/ipsvols05/offline/test//model//itemid_20200802/shop_id-RandomForestRegressordaily/
+Train Input:  /301/s05/offline/test//data/train/all/
+Model Output:  /301/s05/offline/test//model//itemid_20200802/shop_id-RandomForestRegressordaily/
 
 
 
