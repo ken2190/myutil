@@ -19,16 +19,20 @@ $utilmy/images/util_image.py image_remove_background
 """
 import fire, argparse, os, sys
 
-#############################################################################################
-dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)).replace("\\","/") )
-
-
 
 #############################################################################################
 def log(*s):
-    """function log
-    """
+    """function log"""
     print(*s, flush=True)
+
+
+#############################################################################################
+try :
+   import utilmy 
+   dir_utilmy =  utilmy.__path__[0].replace("\\","/")  + "/"
+except:   
+   dir_utilmy = os.path.dirname(os.path.abspath(__file__)).replace("\\","/") 
+
 
 
 #############################################################################################
@@ -37,7 +41,7 @@ def run_cli():
     Doc::
 
         utilmy   gpu_usage
-        utilmy   gpu_available
+        utilmy   gpu
 
         utilmy   show   myfile.parquet
 
@@ -46,36 +50,41 @@ def run_cli():
 
     """
     import argparse
+    from utilmy.utilmy import os_system    
     p   = argparse.ArgumentParser()
     add = p.add_argument
 
-    add('task',  metavar='task', type=str,  nargs=1, help='gpu_usage')
-    add('task2', metavar='task2', type=str, nargs=2, help='')
-    add('task3', metavar='task2', type=str, nargs=3, help='')
+    add('task',  metavar='task',  type=str,  nargs="?", help='gpu,gpu_usage')
+    add('arg2', metavar='arg2', type=str, nargs="?", help='')
+    add('arg3', metavar='arg3', type=str, nargs="?", help='')
 
 
-    add("--dirin",    type=str, default=None,     help = "repo_url")
+    add("--dirin",    type=str, default='gpu',     help = "repo_url")
     add("--repo_dir",    type=str, default="./",     help = "repo_dir")
     add("--dirout",     type=str, default="docs/",  help = "doc_dir")
     add("--out_file",     type=str, default="",      help = "out_file")
     add("--exclude_dir", type=str, default="",       help = "path1,path2")
     add("--prefix",      type=str, default=None,     help = "hdops://github.com/user/repo/tree/a")
+    add("--verbose",      type=int, default=0,     help = "hdops://github.com/user/repo/tree/a")
   
     args = p.parse_args()
     do = args.task
 
+    if args.verbose > 0 : log(dir_utilmy)
 
     if do == 'gpu_usage': 
-        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_usage")
+        ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
 
-    if do == 'gpu_available': 
-        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
+    if do == 'gpu': 
+        ss = os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_available",doprint=True)
+        # log(ss[0])
 
     if do == 'show':
-        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.task2}'  ")
+        ss = os_system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.arg2}'  ",doprint=True)
+        log(ss)
 
     if do == 'find': 
-        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.task2}' --dirin '{args.task3}'  ")
+        os_system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.arg2}' --dirin '{args.arg3}'  ")
 
 
     if do == 'help':
@@ -109,7 +118,7 @@ def run_cli():
 
 ###################################################################################################
 if __name__ == "__main__":
-
-    fire.Fire()
+    run_cli()
+    # fire.Fire()
 
 
