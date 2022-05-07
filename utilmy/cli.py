@@ -71,10 +71,10 @@ def run_cli():
         os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
 
     if args.task == 'check': 
-        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{arg.task2}'  ")
+        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.task2}'  ")
 
     if args.task == 'find': 
-        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{arg.task2}' --dirin '{arg.task3}'  ")
+        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.task2}' --dirin '{args.task3}'  ")
 
 
     if args.task == 'help':
@@ -90,11 +90,12 @@ def run_cli():
 
     if "utilmy." in args.task or "utilmy/" in args.task :
         from utilmy.utilmy import load_function_uri
-        uri = arg.task.replace(".", "/")  ### "utilmy.ppandas::test"
+        uri = args.task.replace(".", "/")  ### "utilmy.ppandas::test"
         dirfile  = "utilmy/" + args.task if 'utilmy/' not in args.task else args.task
         fun_name = args.task2
 
-        cmd = f"{utilmy_dir)/{dirfile}  {fun_name}  {args_values}" 
+        cmd = f"{dir_utilmy}/{dirfile}  {fun_name}  "
+        os.system(cmd)
 
 
 
