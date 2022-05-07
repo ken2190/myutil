@@ -1,6 +1,7 @@
 # coding=utf-8
-"""tabular data. 
+"""Data Drift
 Doc::
+
 
     https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
 
@@ -9,12 +10,9 @@ Doc::
 
     https://pkghosh.wordpress.com/2020/12/24/concept-drift-detection-techniques-with-python-implementation-for-supervised-machine-learning-models/
 
-
-
     https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 
     https://pypi.org/project/pysie/#description
-
 
 
 """

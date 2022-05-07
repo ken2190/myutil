@@ -5,6 +5,30 @@ Hadoop, hive related
 
 """
 
+def log(*s):
+  print(*s, flush=True)
+
+
+def print_env_variable(dirout=None):
+  """ Print configuration variable for Hadoop, Spark
+
+
+  """
+  names =[
+    'SPARK_HOME',
+    'HADOOP_HOME'
+
+
+  ]
+
+  dd= []
+  for ni in names:
+    dd.append( [ni, os.environ.get(ni, '') ] )
+
+  ### Print configuration files on disk
+  ### SPARK_HOME/conf/spark_env.sh
+  
+   
 
 
 
