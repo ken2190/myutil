@@ -1,19 +1,20 @@
 """ Command Line for utilmy.
 Doc::
 
-        utilmy   gpu_usage
-        utilmy   gpu_available
+        utilmy  help
+        utilmy  gpu_usage
+        utilmy  gpu
 
 
 
 
 """
 HELP1 ="""
-utilmy  init
+Commands:
 
-utilmy  help
-
-$utilmy/images/util_image.py image_remove_background 
+    utilmy  gpu
+    utilmy  gpu_usage
+    python $utilmy/images/util_image.py image_remove_background 
 
 
 """
@@ -73,6 +74,13 @@ def run_cli():
     if args.verbose > 0 : 
         log(dir_utilmy)
 
+    if do == 'help':
+        print(HELP1)
+
+    if do == 'init':
+        pass
+
+    #################################################################################################
     if do == 'gpu_usage': 
         ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
 
@@ -87,12 +95,6 @@ def run_cli():
     if do == 'find': 
         os_system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.arg2}' --dirin '{args.arg3}'  ")
 
-
-    if do == 'help':
-        print(HELP1)
-
-    if do == 'init':
-        pass
 
     if do == 'colab':
         from utilmy import util_colab as mm
