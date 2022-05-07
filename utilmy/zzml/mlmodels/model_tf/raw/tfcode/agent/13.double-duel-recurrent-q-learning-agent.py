@@ -29,15 +29,17 @@ df.head()
 
 class Model:
     def __init__(self, input_size, output_size, layer_size, learning_rate, name):
-        """ Model:__init__
-        Args:
-            input_size:     
-            output_size:     
-            layer_size:     
-            learning_rate:     
-            name:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        input_size:     
+                        output_size:     
+                        layer_size:     
+                        learning_rate:     
+                        name:     
+                    Returns:
+                       
         """
         with tf.variable_scope(name):
             self.X = tf.placeholder(tf.float32, (None, None, input_size))
@@ -73,14 +75,16 @@ class Agent:
     MEMORY_SIZE = 300
 
     def __init__(self, state_size, window_size, trend, skip):
-        """ Agent:__init__
-        Args:
-            state_size:     
-            window_size:     
-            trend:     
-            skip:     
-        Returns:
-           
+        """ Agent:__init__.
+        Doc::
+                
+                    Args:
+                        state_size:     
+                        window_size:     
+                        trend:     
+                        skip:     
+                    Returns:
+                       
         """
         self.state_size = state_size
         self.window_size = window_size
@@ -100,12 +104,14 @@ class Agent:
         self.trainable = tf.trainable_variables()
 
     def _assign(self, from_name, to_name):
-        """ Agent:_assign
-        Args:
-            from_name:     
-            to_name:     
-        Returns:
-           
+        """ Agent:_assign.
+        Doc::
+                
+                    Args:
+                        from_name:     
+                        to_name:     
+                    Returns:
+                       
         """
         from_w = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=from_name)
         to_w = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=to_name)
@@ -114,27 +120,31 @@ class Agent:
             self.sess.run(assign_op)
 
     def _memorize(self, state, action, reward, new_state, dead, rnn_state):
-        """ Agent:_memorize
-        Args:
-            state:     
-            action:     
-            reward:     
-            new_state:     
-            dead:     
-            rnn_state:     
-        Returns:
-           
+        """ Agent:_memorize.
+        Doc::
+                
+                    Args:
+                        state:     
+                        action:     
+                        reward:     
+                        new_state:     
+                        dead:     
+                        rnn_state:     
+                    Returns:
+                       
         """
         self.MEMORIES.append((state, action, reward, new_state, dead, rnn_state))
         if len(self.MEMORIES) > self.MEMORY_SIZE:
             self.MEMORIES.popleft()
 
     def _select_action(self, state):
-        """ Agent:_select_action
-        Args:
-            state:     
-        Returns:
-           
+        """ Agent:_select_action.
+        Doc::
+                
+                    Args:
+                        state:     
+                    Returns:
+                       
         """
         if np.random.rand() < self.EPSILON:
             action = np.random.randint(self.OUTPUT_SIZE)
@@ -143,11 +153,13 @@ class Agent:
         return action
 
     def _construct_memories(self, replay):
-        """ Agent:_construct_memories
-        Args:
-            replay:     
-        Returns:
-           
+        """ Agent:_construct_memories.
+        Doc::
+                
+                    Args:
+                        replay:     
+                    Returns:
+                       
         """
         states = np.array([a[0] for a in replay])
         new_states = np.array([a[3] for a in replay])
@@ -183,11 +195,13 @@ class Agent:
         return X, Y, INIT_VAL
 
     def get_state(self, t):
-        """ Agent:get_state
-        Args:
-            t:     
-        Returns:
-           
+        """ Agent:get_state.
+        Doc::
+                
+                    Args:
+                        t:     
+                    Returns:
+                       
         """
         window_size = self.window_size + 1
         d = t - window_size + 1
@@ -198,11 +212,13 @@ class Agent:
         return np.array(res)
 
     def buy(self, initial_money):
-        """ Agent:buy
-        Args:
-            initial_money:     
-        Returns:
-           
+        """ Agent:buy.
+        Doc::
+                
+                    Args:
+                        initial_money:     
+                    Returns:
+                       
         """
         starting_money = initial_money
         states_sell = []
@@ -252,13 +268,15 @@ class Agent:
         return states_buy, states_sell, total_gains, invest
 
     def train(self, iterations, checkpoint, initial_money):
-        """ Agent:train
-        Args:
-            iterations:     
-            checkpoint:     
-            initial_money:     
-        Returns:
-           
+        """ Agent:train.
+        Doc::
+                
+                    Args:
+                        iterations:     
+                        checkpoint:     
+                        initial_money:     
+                    Returns:
+                       
         """
         for i in range(iterations):
             total_profit = 0

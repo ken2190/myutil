@@ -40,13 +40,15 @@ test_X.shape
 
 
 def _pairwise_distances(embeddings, squared=False):
-    """Compute the 2D matrix of distances between all the embeddings.
-    Args:
-        embeddings: tensor of shape (batch_size, embed_dim)
-        squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.
-                 If false, output is the pairwise euclidean distance matrix.
-    Returns:
-        pairwise_distances: tensor of shape (batch_size, batch_size)
+    """Compute the 2D matrix of distances between all the embeddings..
+    Doc::
+            
+            Args:
+                embeddings: tensor of shape (batch_size, embed_dim)
+                squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.
+                         If false, output is the pairwise euclidean distance matrix.
+            Returns:
+                pairwise_distances: tensor of shape (batch_size, batch_size)
     """
     # Get the dot product between all embeddings
     # shape (batch_size, batch_size)
@@ -80,11 +82,13 @@ def _pairwise_distances(embeddings, squared=False):
 
 
 def _get_anchor_positive_triplet_mask(labels):
-    """Return a 2D mask where mask[a, p] is True iff a and p are distinct and have same label.
-    Args:
-        labels: tf.int32 `Tensor` with shape [batch_size]
-    Returns:
-        mask: tf.bool `Tensor` with shape [batch_size, batch_size]
+    """Return a 2D mask where mask[a, p] is True iff a and p are distinct and have same label..
+    Doc::
+            
+            Args:
+                labels: tf.int32 `Tensor` with shape [batch_size]
+            Returns:
+                mask: tf.bool `Tensor` with shape [batch_size, batch_size]
     """
     # Check that i and j are distinct
     indices_equal = tf.cast(tf.eye(tf.shape(labels)[0]), tf.bool)
@@ -101,11 +105,13 @@ def _get_anchor_positive_triplet_mask(labels):
 
 
 def _get_anchor_negative_triplet_mask(labels):
-    """Return a 2D mask where mask[a, n] is True iff a and n have distinct labels.
-    Args:
-        labels: tf.int32 `Tensor` with shape [batch_size]
-    Returns:
-        mask: tf.bool `Tensor` with shape [batch_size, batch_size]
+    """Return a 2D mask where mask[a, n] is True iff a and n have distinct labels..
+    Doc::
+            
+            Args:
+                labels: tf.int32 `Tensor` with shape [batch_size]
+            Returns:
+                mask: tf.bool `Tensor` with shape [batch_size, batch_size]
     """
     # Check if labels[i] != labels[k]
     # Uses broadcasting where the 1st argument has shape (1, batch_size) and the 2nd (batch_size, 1)
@@ -117,12 +123,14 @@ def _get_anchor_negative_triplet_mask(labels):
 
 
 def _get_triplet_mask(labels):
-    """Return a 3D mask where mask[a, p, n] is True iff the triplet (a, p, n) is valid.
-    A triplet (i, j, k) is valid if:
-        - i, j, k are distinct
-        - labels[i] == labels[j] and labels[i] != labels[k]
-    Args:
-        labels: tf.int32 `Tensor` with shape [batch_size]
+    """Return a 3D mask where mask[a, p, n] is True iff the triplet (a, p, n) is valid..
+    Doc::
+            
+            A triplet (i, j, k) is valid if:
+                - i, j, k are distinct
+                - labels[i] == labels[j] and labels[i] != labels[k]
+            Args:
+                labels: tf.int32 `Tensor` with shape [batch_size]
     """
     # Check that i, j and k are distinct
     indices_equal = tf.cast(tf.eye(tf.shape(labels)[0]), tf.bool)
@@ -147,16 +155,18 @@ def _get_triplet_mask(labels):
 
 
 def batch_hard_triplet_loss(labels, embeddings, margin, squared=False):
-    """Build the triplet loss over a batch of embeddings.
-    For each anchor, we get the hardest positive and hardest negative to form a triplet.
-    Args:
-        labels: labels of the batch, of size (batch_size,)
-        embeddings: tensor of shape (batch_size, embed_dim)
-        margin: margin for triplet loss
-        squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.
-                 If false, output is the pairwise euclidean distance matrix.
-    Returns:
-        triplet_loss: scalar tensor containing the triplet loss
+    """Build the triplet loss over a batch of embeddings..
+    Doc::
+            
+            For each anchor, we get the hardest positive and hardest negative to form a triplet.
+            Args:
+                labels: labels of the batch, of size (batch_size,)
+                embeddings: tensor of shape (batch_size, embed_dim)
+                margin: margin for triplet loss
+                squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.
+                         If false, output is the pairwise euclidean distance matrix.
+            Returns:
+                triplet_loss: scalar tensor containing the triplet loss
     """
     # Get the pairwise distance matrix
     pairwise_dist = _pairwise_distances(embeddings, squared=squared)
@@ -199,35 +209,41 @@ def batch_hard_triplet_loss(labels, embeddings, margin, squared=False):
 
 
 def convolutionize(x, conv_w, h=1):
-    """function convolutionize
-    Args:
-        x:   
-        conv_w:   
-        h:   
-    Returns:
-        
+    """function convolutionize.
+    Doc::
+            
+            Args:
+                x:   
+                conv_w:   
+                h:   
+            Returns:
+                
     """
     return tf.nn.conv2d(input=x, filter=conv_w, strides=[1, h, h, 1], padding="SAME")
 
 
 def pooling(wx):
-    """function pooling
-    Args:
-        wx:   
-    Returns:
-        
+    """function pooling.
+    Doc::
+            
+            Args:
+                wx:   
+            Returns:
+                
     """
     return tf.nn.max_pool(wx, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME")
 
 
 def create_network(X, scope="conv", reuse=False):
-    """function create_network
-    Args:
-        X:   
-        scope:   
-        reuse:   
-    Returns:
-        
+    """function create_network.
+    Doc::
+            
+            Args:
+                X:   
+                scope:   
+                reuse:   
+            Returns:
+                
     """
     with tf.variable_scope(scope, reuse=reuse):
         w1 = tf.Variable(tf.random_normal([3, 3, 1, 2], stddev=0.5))
@@ -248,10 +264,12 @@ def create_network(X, scope="conv", reuse=False):
 
 class Siamese:
     def __init__(self):
-        """ Siamese:__init__
-        Args:
-        Returns:
-           
+        """ Siamese:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, [None, 28, 28, 1])
         self.Y = tf.placeholder(tf.int64, [None])

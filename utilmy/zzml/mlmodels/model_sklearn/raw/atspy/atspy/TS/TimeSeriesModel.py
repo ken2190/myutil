@@ -16,14 +16,16 @@ from . import Utils as tsutil
 class cTimeSeriesModel:
     
     def __init__(self, transf, trend, cycle, autoreg):
-        """ cTimeSeriesModel:__init__
-        Args:
-            transf:     
-            trend:     
-            cycle:     
-            autoreg:     
-        Returns:
-           
+        """ cTimeSeriesModel:__init__.
+        Doc::
+                
+                    Args:
+                        transf:     
+                        trend:     
+                        cycle:     
+                        autoreg:     
+                    Returns:
+                       
         """
         self.mTransformation = transf;
         self.mTrend = trend;
@@ -40,10 +42,12 @@ class cTimeSeriesModel:
         self.mTrainingVersionInfo = self.getVersions();
 
     def signal_info(self):
-        """ cTimeSeriesModel:signal_info
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:signal_info.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lSignal = self.mTrend.mSignalFrame[self.mOriginalSignal];
         lStr1 = "SignalVariable='" + self.mOriginalSignal +"'";
@@ -56,10 +60,12 @@ class cTimeSeriesModel:
         return (lStr1 , lStr2);
 
     def get_model_category(self):
-        """ cTimeSeriesModel:get_model_category
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:get_model_category.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lModelCategory = (self.mTransformation.__class__.__name__,
                           self.mTrend.__class__.__name__,
@@ -69,20 +75,24 @@ class cTimeSeriesModel:
         return str(lModelCategory)
         
     def getComplexity(self):
-        """ cTimeSeriesModel:getComplexity
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getComplexity.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lComplexity = 32 * self.mTransformation.mComplexity +  16 * self.mTrend.mComplexity + 4 * self.mCycle.mComplexity + 1 * self.mAR.mComplexity;
         return lComplexity;     
 
     def updatePerfs(self, compute_all_indicators = False):
-        """ cTimeSeriesModel:updatePerfs
-        Args:
-            compute_all_indicators :     
-        Returns:
-           
+        """ cTimeSeriesModel:updatePerfs.
+        Doc::
+                
+                    Args:
+                        compute_all_indicators :     
+                    Returns:
+                       
         """
         self.mModelFrame = pd.DataFrame();
         lSignal = self.mTrend.mSignalFrame[self.mSignal]
@@ -128,10 +138,12 @@ class cTimeSeriesModel:
         # print("PERF_COMPUTATION" , self.mOutName, self.mFitPerf.mMAPE);
         
     def computePredictionIntervals(self):
-        """ cTimeSeriesModel:computePredictionIntervals
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:computePredictionIntervals.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # prediction intervals
         if(self.mTimeInfo.mOptions.mAddPredictionIntervals):
@@ -141,10 +153,12 @@ class cTimeSeriesModel:
         pass
 
     def getFormula(self):
-        """ cTimeSeriesModel:getFormula
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getFormula.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lFormula = self.mTrend.mFormula + " + ";
         lFormula += self.mCycle.mFormula + " + ";
@@ -153,10 +167,12 @@ class cTimeSeriesModel:
 
 
     def getInfo(self):
-        """ cTimeSeriesModel:getInfo
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getInfo.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         logger.info("TIME_DETAIL " + self.mTrend.mTimeInfo.info());
@@ -181,13 +197,15 @@ class cTimeSeriesModel:
 
 
     def forecastOneStepAhead(self , df , horizon_index = 1, perf_mode = False):
-        """ cTimeSeriesModel:forecastOneStepAhead
-        Args:
-            df:     
-            horizon_index :     
-            perf_mode :     
-        Returns:
-           
+        """ cTimeSeriesModel:forecastOneStepAhead.
+        Doc::
+                
+                    Args:
+                        df:     
+                        horizon_index :     
+                        perf_mode :     
+                    Returns:
+                       
         """
         assert(self.mTime in df.columns)
         assert(self.mOriginalSignal in df.columns)
@@ -243,12 +261,14 @@ class cTimeSeriesModel:
 
 
     def forecast(self , df , iHorizon):
-        """ cTimeSeriesModel:forecast
-        Args:
-            df:     
-            iHorizon:     
-        Returns:
-           
+        """ cTimeSeriesModel:forecast.
+        Doc::
+                
+                    Args:
+                        df:     
+                        iHorizon:     
+                    Returns:
+                       
         """
         N0 = df.shape[0];
         df1 = self.forecastOneStepAhead(df, 1)
@@ -287,11 +307,13 @@ class cTimeSeriesModel:
         return df1
 
     def applyForecastRectifier(self, df):
-        """ cTimeSeriesModel:applyForecastRectifier
-        Args:
-            df:     
-        Returns:
-           
+        """ cTimeSeriesModel:applyForecastRectifier.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         df1 = df;
         if(self.mTimeInfo.mOptions.mForecastRectifier == "relu"):
@@ -300,13 +322,15 @@ class cTimeSeriesModel:
         return df1
 
     def addPredictionIntervals(self, iInputDS, iForecastFrame, iHorizon):
-        """ cTimeSeriesModel:addPredictionIntervals
-        Args:
-            iInputDS:     
-            iForecastFrame:     
-            iHorizon:     
-        Returns:
-           
+        """ cTimeSeriesModel:addPredictionIntervals.
+        Doc::
+                
+                    Args:
+                        iInputDS:     
+                        iForecastFrame:     
+                        iHorizon:     
+                    Returns:
+                       
         """
         lSignalColumn = self.mOriginalSignal;
 
@@ -330,11 +354,13 @@ class cTimeSeriesModel:
 
 
     def plotForecasts(self, df):
-        """ cTimeSeriesModel:plotForecasts
-        Args:
-            df:     
-        Returns:
-           
+        """ cTimeSeriesModel:plotForecasts.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lPrefix = self.mSignal + "_";
         lTime = self.mTimeInfo.mNormalizedTimeColumn;            
@@ -343,10 +369,12 @@ class cTimeSeriesModel:
                            lPrefix + 'Forecast' , lPrefix + 'Residue');
 
     def to_json(self):
-        """ cTimeSeriesModel:to_json
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:to_json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         dict1 = {};
         d1 = { "Time" : self.mTimeInfo.to_json(),
@@ -371,22 +399,26 @@ class cTimeSeriesModel:
 
 
     def getForecastDatasetForPlots(self):
-        """ cTimeSeriesModel:getForecastDatasetForPlots
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getForecastDatasetForPlots.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lInput = self.mTrend.mSignalFrame;
         lOutput = self.forecast(lInput ,  self.mTimeInfo.mHorizon);
         return lOutput
 
     def plotResidues(self, name = None, format = 'png'):
-        """ cTimeSeriesModel:plotResidues
-        Args:
-            name :     
-            format :     
-        Returns:
-           
+        """ cTimeSeriesModel:plotResidues.
+        Doc::
+                
+                    Args:
+                        name :     
+                        format :     
+                    Returns:
+                       
         """
         df = self.getForecastDatasetForPlots();
         lTime = self.mTimeInfo.mTime; # NormalizedTimeColumn;
@@ -406,12 +438,14 @@ class cTimeSeriesModel:
             tsplot.decomp_plot(df, lTime, self.mOriginalSignal, lPrefix2 + 'Forecast' , lPrefix2 + 'Residue');
         
     def standardPlots(self, name = None, format = 'png'):
-        """ cTimeSeriesModel:standardPlots
-        Args:
-            name :     
-            format :     
-        Returns:
-           
+        """ cTimeSeriesModel:standardPlots.
+        Doc::
+                
+                    Args:
+                        name :     
+                        format :     
+                    Returns:
+                       
         """
         self.plotResidues(name = name, format=format);
         lInput = self.mTrend.mSignalFrame;
@@ -432,10 +466,12 @@ class cTimeSeriesModel:
         #lOutput.plot()
         
     def getPlotsAsDict(self):
-        """ cTimeSeriesModel:getPlotsAsDict
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getPlotsAsDict.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lDict = {};
         df = self.getForecastDatasetForPlots();
@@ -465,10 +501,12 @@ class cTimeSeriesModel:
 
 
     def getVersions(self):
-        """ cTimeSeriesModel:getVersions
-        Args:
-        Returns:
-           
+        """ cTimeSeriesModel:getVersions.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         
         import os, platform, pyaf

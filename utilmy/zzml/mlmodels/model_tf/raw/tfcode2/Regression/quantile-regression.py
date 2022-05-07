@@ -30,15 +30,17 @@ accel = np.expand_dims(mcycle.accel.values, 1)
 
 class q_model:
     def __init__(self, sess, quantiles, in_shape=1, out_shape=1, batch_size=32):
-        """ q_model:__init__
-        Args:
-            sess:     
-            quantiles:     
-            in_shape:     
-            out_shape:     
-            batch_size:     
-        Returns:
-           
+        """ q_model:__init__.
+        Doc::
+                
+                    Args:
+                        sess:     
+                        quantiles:     
+                        in_shape:     
+                        out_shape:     
+                        batch_size:     
+                    Returns:
+                       
         """
 
         self.sess = sess
@@ -57,12 +59,14 @@ class q_model:
         self.build_model()
 
     def build_model(self, scope="q_model", reuse=tf.AUTO_REUSE):
-        """ q_model:build_model
-        Args:
-            scope:     
-            reuse:     
-        Returns:
-           
+        """ q_model:build_model.
+        Doc::
+                
+                    Args:
+                        scope:     
+                        reuse:     
+                    Returns:
+                       
         """
         with tf.variable_scope(scope, reuse=reuse) as scope:
             self.x = tf.placeholder(tf.float32, shape=(None, self.in_shape))
@@ -86,13 +90,15 @@ class q_model:
             self.train_step = tf.train.AdamOptimizer().minimize(self.combined_loss)
 
     def fit(self, x, y, epochs=100):
-        """ q_model:fit
-        Args:
-            x:     
-            y:     
-            epochs:     
-        Returns:
-           
+        """ q_model:fit.
+        Doc::
+                
+                    Args:
+                        x:     
+                        y:     
+                        epochs:     
+                    Returns:
+                       
         """
         for epoch in range(epochs):
             epoch_losses = []
@@ -111,11 +117,13 @@ class q_model:
                 print("Epoch {}: {}".format(epoch, epoch_loss))
 
     def predict(self, x):
-        """ q_model:predict
-        Args:
-            x:     
-        Returns:
-           
+        """ q_model:predict.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         feed_dict = {self.x: x}
         predictions = sess.run(self.outputs, feed_dict)

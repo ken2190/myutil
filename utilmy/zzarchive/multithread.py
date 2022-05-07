@@ -6,10 +6,12 @@ from threading import Thread
 
 
 def multithread_run(fun_async, input_list:list, n_pool=5, start_delay=0.1, verbose=True, **kw):
-    """  input is as list of tuples  [(x1,x2,x3), (y1,y2,y3) ]
-    def fun_async(xlist):
-      for x in xlist :
-            hdfs.upload(x[0], x[1])
+    """  input is as list of tuples  [(x1,x2,x3), (y1,y2,y3) ].
+    Doc::
+            
+            def fun_async(xlist):
+              for x in xlist :
+                    hdfs.upload(x[0], x[1])
     """
     import time
     #### Input xi #######################################
@@ -46,10 +48,12 @@ def multithread_run(fun_async, input_list:list, n_pool=5, start_delay=0.1, verbo
 
 
 def multithread_run_list(**kwargs):
-    """ Creating n number of threads:  1 thread per function,    starting them and waiting for their subsequent completion
-    os_multithread(function1=(test_print, ("some text",)),
-                          function2=(test_print, ("bbbbb",)),
-                          function3=(test_print, ("ccccc",)))
+    """ Creating n number of threads:  1 thread per function,    starting them and waiting for their subsequent completion.
+    Doc::
+            
+            os_multithread(function1=(test_print, ("some text",)),
+                                  function2=(test_print, ("bbbbb",)),
+                                  function3=(test_print, ("ccccc",)))
     """
     class ThreadWithResult(Thread):
         def __init__(self, group=None, target=None, name=None, args=(), kwargs={}, *, daemon=None):

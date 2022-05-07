@@ -41,20 +41,24 @@ from mlmodels.util import (get_recursive_files, load_config, log, os_package_roo
 
 ####################################################################################################
 def get_all_json_path(json_path):
-    """function get_all_json_path
-    Args:
-        json_path:   
-    Returns:
-        
+    """function get_all_json_path.
+    Doc::
+            
+            Args:
+                json_path:   
+            Returns:
+                
     """
     return get_recursive_files(json_path, ext='/*.json')
 
 def config_model_list(folder=None):
-    """function config_model_list
-    Args:
-        folder:   
-    Returns:
-        
+    """function config_model_list.
+    Doc::
+            
+            Args:
+                folder:   
+            Returns:
+                
     """
     # Get all the model.py into folder
     folder = os_package_root_path() if folder is None else folder
@@ -69,13 +73,15 @@ def config_model_list(folder=None):
 
 ####################################################################################################
 def metric_eval(actual=None, pred=None, metric_name="mean_absolute_error"):
-    """function metric_eval
-    Args:
-        actual:   
-        pred:   
-        metric_name:   
-    Returns:
-        
+    """function metric_eval.
+    Doc::
+            
+            Args:
+                actual:   
+                pred:   
+                metric_name:   
+            Returns:
+                
     """
     metric = getattr(importlib.import_module("sklearn.metrics"), metric_name)
     return metric(actual, pred)
@@ -90,13 +96,15 @@ def metric_eval(actual=None, pred=None, metric_name="mean_absolute_error"):
 
 ####################################################################################################
 def benchmark_run(bench_pars=None, args=None, config_mode="test"):
-    """function benchmark_run
-    Args:
-        bench_pars:   
-        args:   
-        config_mode:   
-    Returns:
-        
+    """function benchmark_run.
+    Doc::
+            
+            Args:
+                bench_pars:   
+                args:   
+                config_mode:   
+            Returns:
+                
     """
       
     dataset_uri  = args.data_path + f"/{args.item_id}.csv"
@@ -190,8 +198,10 @@ def benchmark_run(bench_pars=None, args=None, config_mode="test"):
 ####################################################################################################
 ############CLI Command ############################################################################
 def cli_load_arguments(config_file=None):
-    """
-        Load CLI input, load config.toml , overwrite config.toml by CLI Input
+    """.
+    Doc::
+            
+                Load CLI input, load config.toml , overwrite config.toml by CLI Input
     """
     if config_file is None:
         cur_path = os.path.dirname(os.path.realpath(__file__))
@@ -227,10 +237,12 @@ def cli_load_arguments(config_file=None):
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     arg = cli_load_arguments()
     """

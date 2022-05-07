@@ -22,8 +22,10 @@ from recommenders.models.surprise.surprise_utils import (
 
 
 def svd_training(args):
-    """
-    Train Surprise SVD using the given hyper-parameters
+    """.
+    Doc::
+            
+            Train Surprise SVD using the given hyper-parameters
     """
     print("Start training...")
     train_data = pd.read_pickle(path=os.path.join(args.datastore, args.train_datapath))
@@ -94,10 +96,12 @@ def svd_training(args):
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     parser = argparse.ArgumentParser()
     # Data path

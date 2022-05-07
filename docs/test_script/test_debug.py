@@ -16,20 +16,24 @@ import itertools, time, multiprocessing, pandas as pd, numpy as np, pickle, gc
 
 #################################################################################################
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     ss  = ""
     ss += HELP
@@ -38,8 +42,10 @@ def help():
 
 
 def print_everywhere():
-    """
-    https://github.com/alexmojaki/snoop
+    """.
+    Doc::
+            
+            https://github.com/alexmojaki/snoop
     """
     txt ="""
     import snoop; snoop.install()  ### can be used anywhere
@@ -57,8 +63,10 @@ def print_everywhere():
 
 
 def log10(*s, nmax=60):
-    """ Display variable name, type when showing,  pip install varname
-
+    """ Display variable name, type when showing,  pip install varname.
+    Doc::
+            
+        
     """
     from varname import varname, nameof
     for x in s :
@@ -66,24 +74,28 @@ def log10(*s, nmax=60):
 
 
 def log5(*s):
-    """    ### Equivalent of print, but more :  https://github.com/gruns/icecream
-    pip install icrecream
-    ic()  --->  ic| example.py:4 in foo()
-    ic(var)  -->   ic| d['key'][1]: 'one'
-
+    """    ### Equivalent of print, but more :  https://github.com/gruns/icecream.
+    Doc::
+            
+            pip install icrecream
+            ic()  --->  ic| example.py:4 in foo()
+            ic(var)  -->   ic| d['key'][1]: 'one'
+        
     """
     from icecream import ic
     return ic(*s)
 
 
 def log_trace(msg="", dump_path="", globs=None):
-    """function log_trace
-    Args:
-        msg:   
-        dump_path:   
-        globs:   
-    Returns:
-        
+    """function log_trace.
+    Doc::
+            
+            Args:
+                msg:   
+                dump_path:   
+                globs:   
+            Returns:
+                
     """
     print(msg)
     import pdb;
@@ -91,10 +103,12 @@ def log_trace(msg="", dump_path="", globs=None):
 
 
 def profiler_start():
-    """function profiler_start
-    Args:
-    Returns:
-        
+    """function profiler_start.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     ### Code profiling
     from pyinstrument import Profiler
@@ -104,10 +118,12 @@ def profiler_start():
 
 
 def profiler_stop():
-    """function profiler_stop
-    Args:
-    Returns:
-        
+    """function profiler_stop.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global profiler
     profiler.stop()

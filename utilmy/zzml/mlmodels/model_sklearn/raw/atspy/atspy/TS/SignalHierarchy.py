@@ -19,10 +19,12 @@ import time
 class cSignalHierarchy:
 
     def __init__(self):
-        """ cSignalHierarchy:__init__
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mHierarchy = None;
         self.mHierarchy = None;
@@ -39,20 +41,24 @@ class cSignalHierarchy:
         self.mModels = None;
         
     def info(self):
-        """ cSignalHierarchy:info
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:info.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lStr2 = ""
         return lStr2;
 
 
     def to_json(self):
-        """ cSignalHierarchy:to_json
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:to_json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lDict = {};
         lDict['Structure'] = self.mStructure;
@@ -64,10 +70,12 @@ class cSignalHierarchy:
         return lDict;
 
     def create_HierarchicalStructure(self):
-        """ cSignalHierarchy:create_HierarchicalStructure
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:create_HierarchicalStructure.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mLevels = self.mHierarchy['Levels'];
         self.mStructure = {};
@@ -87,10 +95,12 @@ class cSignalHierarchy:
         pass
     
     def create_SummingMatrix(self):
-        """ cSignalHierarchy:create_SummingMatrix
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:create_SummingMatrix.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lNbNodes = sum([len(self.mStructure[level]) for level in self.mStructure.keys()]);
         lBaseLevelCount = len(self.mStructure[0]);
@@ -115,11 +125,13 @@ class cSignalHierarchy:
         # print(self.mSummingMatrixInverse);
 
     def checkData(self , df):
-        """ cSignalHierarchy:checkData
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:checkData.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         if(self.mHorizon != int(self.mHorizon)):
             raise tsutil.PyAF_Error("PYAF_ERROR_NON_INTEGER_HORIZON " + str(self.mHorizon));
@@ -154,11 +166,13 @@ class cSignalHierarchy:
 
 
     def create_all_levels_dataset(self, df):
-        """ cSignalHierarchy:create_all_levels_dataset
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:create_all_levels_dataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         self.checkData(df);
         lAllLevelsDataset = df.copy();
@@ -188,34 +202,40 @@ class cSignalHierarchy:
 
 
     def addVars(self, df):
-        """ cSignalHierarchy:addVars
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:addVars.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lAllLevelsDataset = self.create_all_levels_dataset(df);
         return lAllLevelsDataset;
 
     def transformDataset(self, df):
-        """ cSignalHierarchy:transformDataset
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:transformDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         df = self.addVars(df);
         return df;
 
 
     def create_all_levels_models(self, iAllLevelsDataset, H, iDateColumn):
-        """ cSignalHierarchy:create_all_levels_models
-        Args:
-            iAllLevelsDataset:     
-            H:     
-            iDateColumn:     
-        Returns:
-           
+        """ cSignalHierarchy:create_all_levels_models.
+        Doc::
+                
+                    Args:
+                        iAllLevelsDataset:     
+                        H:     
+                        iDateColumn:     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_hierarchical_logger();
         self.mModels = {};
@@ -233,10 +253,12 @@ class cSignalHierarchy:
 
 
     def fit(self):
-        """ cSignalHierarchy:fit
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:fit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         logger.info("START_HIERARCHICAL_TRAINING")
@@ -254,10 +276,12 @@ class cSignalHierarchy:
 
 
     def getModelInfo(self):
-        """ cSignalHierarchy:getModelInfo
-        Args:
-        Returns:
-           
+        """ cSignalHierarchy:getModelInfo.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
@@ -265,11 +289,13 @@ class cSignalHierarchy:
                 lEngine.getModelInfo();
 
     def plot(self , name = None):
-        """ cSignalHierarchy:plot
-        Args:
-            name :     
-        Returns:
-           
+        """ cSignalHierarchy:plot.
+        Doc::
+                
+                    Args:
+                        name :     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         logger.info("START_HIERARCHICAL_PLOTTING")
@@ -293,11 +319,13 @@ class cSignalHierarchy:
 
     
     def standardPlots(self , name = None):
-        """ cSignalHierarchy:standardPlots
-        Args:
-            name :     
-        Returns:
-           
+        """ cSignalHierarchy:standardPlots.
+        Doc::
+                
+                    Args:
+                        name :     
+                    Returns:
+                       
         """
         for level in sorted(self.mModels.keys()):
             for signal in sorted(self.mModels[level].keys()):
@@ -306,13 +334,15 @@ class cSignalHierarchy:
 
 
     def forecastAllModels(self, iAllLevelsDataset, H, iDateColumn):
-        """ cSignalHierarchy:forecastAllModels
-        Args:
-            iAllLevelsDataset:     
-            H:     
-            iDateColumn:     
-        Returns:
-           
+        """ cSignalHierarchy:forecastAllModels.
+        Doc::
+                
+                    Args:
+                        iAllLevelsDataset:     
+                        H:     
+                        iDateColumn:     
+                    Returns:
+                       
         """
         lForecast_DF = pd.DataFrame();
         for level in sorted(self.mModels.keys()):
@@ -332,11 +362,13 @@ class cSignalHierarchy:
         return lForecast_DF;
 
     def getEstimPart(self, df):
-        """ cSignalHierarchy:getEstimPart
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:getEstimPart.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         level = 0;
         signal = list(self.mModels[level].keys())[0];
@@ -345,11 +377,13 @@ class cSignalHierarchy:
         return lFrameFit;
 
     def getValidPart(self, df):
-        """ cSignalHierarchy:getValidPart
-        Args:
-            df:     
-        Returns:
-           
+        """ cSignalHierarchy:getValidPart.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         level = 0;
         signal = list(self.mModels[level].keys())[0];
@@ -359,11 +393,13 @@ class cSignalHierarchy:
 
 
     def computeTopDownHistoricalProportions(self, iAllLevelsDataset):
-        """ cSignalHierarchy:computeTopDownHistoricalProportions
-        Args:
-            iAllLevelsDataset:     
-        Returns:
-           
+        """ cSignalHierarchy:computeTopDownHistoricalProportions.
+        Doc::
+                
+                    Args:
+                        iAllLevelsDataset:     
+                    Returns:
+                       
         """
         self.mAvgHistProp = {};
         self.mPropHistAvg = {};
@@ -382,11 +418,13 @@ class cSignalHierarchy:
         pass
         
     def computeTopDownForecastedProportions(self, iForecast_DF):
-        """ cSignalHierarchy:computeTopDownForecastedProportions
-        Args:
-            iForecast_DF:     
-        Returns:
-           
+        """ cSignalHierarchy:computeTopDownForecastedProportions.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                    Returns:
+                       
         """
         self.mForecastedProp = {};
         for level in  sorted(self.mStructure.keys()):
@@ -399,14 +437,16 @@ class cSignalHierarchy:
         pass
 
     def computeBottomUpForecast(self, iForecast_DF, level, signal, iPrefix = "BU"):
-        """ cSignalHierarchy:computeBottomUpForecast
-        Args:
-            iForecast_DF:     
-            level:     
-            signal:     
-            iPrefix :     
-        Returns:
-           
+        """ cSignalHierarchy:computeBottomUpForecast.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                        level:     
+                        signal:     
+                        iPrefix :     
+                    Returns:
+                       
         """
         new_BU_forecast = None;
         for col1 in sorted(self.mStructure[level][signal]):
@@ -419,11 +459,13 @@ class cSignalHierarchy:
         return new_BU_forecast;
 
     def computeBottomUpForecasts(self, iForecast_DF):
-        """ cSignalHierarchy:computeBottomUpForecasts
-        Args:
-            iForecast_DF:     
-        Returns:
-           
+        """ cSignalHierarchy:computeBottomUpForecasts.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                    Returns:
+                       
         """
         lForecast_DF_BU = iForecast_DF;
         # print("STRUCTURE " , self.mStructure.keys());
@@ -439,11 +481,13 @@ class cSignalHierarchy:
 
 
     def computePerfOnCombinedForecasts(self, iForecast_DF):
-        """ cSignalHierarchy:computePerfOnCombinedForecasts
-        Args:
-            iForecast_DF:     
-        Returns:
-           
+        """ cSignalHierarchy:computePerfOnCombinedForecasts.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
 
@@ -483,13 +527,15 @@ class cSignalHierarchy:
 
 
     def computeTopDownForecasts(self, iForecast_DF , iProp , iPrefix):
-        """ cSignalHierarchy:computeTopDownForecasts
-        Args:
-            iForecast_DF:     
-            iProp:     
-            iPrefix:     
-        Returns:
-           
+        """ cSignalHierarchy:computeTopDownForecasts.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                        iProp:     
+                        iPrefix:     
+                    Returns:
+                       
         """
         lForecast_DF_TD = iForecast_DF;
         lLevelsReversed = sorted(self.mStructure.keys(), reverse=True);
@@ -511,13 +557,15 @@ class cSignalHierarchy:
         return lForecast_DF_TD;
 
     def computeMiddleOutForecasts(self, iForecast_DF , iProp, iPrefix):
-        """ cSignalHierarchy:computeMiddleOutForecasts
-        Args:
-            iForecast_DF:     
-            iProp:     
-            iPrefix:     
-        Returns:
-           
+        """ cSignalHierarchy:computeMiddleOutForecasts.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                        iProp:     
+                        iPrefix:     
+                    Returns:
+                       
         """
         lLevels = self.mStructure.keys();
         lMidLevel = len(lLevels) // 2;
@@ -549,11 +597,13 @@ class cSignalHierarchy:
 
 
     def computeOptimalCombination(self, iForecast_DF):
-        """ cSignalHierarchy:computeOptimalCombination
-        Args:
-            iForecast_DF:     
-        Returns:
-           
+        """ cSignalHierarchy:computeOptimalCombination.
+        Doc::
+                
+                    Args:
+                        iForecast_DF:     
+                    Returns:
+                       
         """
         lBaseNames = [];
         for level in  sorted(self.mStructure.keys()):
@@ -578,12 +628,14 @@ class cSignalHierarchy:
         return lForecast_DF_OC;
 
     def internal_forecast(self , iInputDS, iHorizon):
-        """ cSignalHierarchy:internal_forecast
-        Args:
-            iInputDS:     
-            iHorizon:     
-        Returns:
-           
+        """ cSignalHierarchy:internal_forecast.
+        Doc::
+                
+                    Args:
+                        iInputDS:     
+                        iHorizon:     
+                    Returns:
+                       
         """
 
         lAllLevelsDataset = self.create_all_levels_dataset(iInputDS);
@@ -616,12 +668,14 @@ class cSignalHierarchy:
         return lForecast_DF
 
     def forecast(self , iInputDS, iHorizon):
-        """ cSignalHierarchy:forecast
-        Args:
-            iInputDS:     
-            iHorizon:     
-        Returns:
-           
+        """ cSignalHierarchy:forecast.
+        Doc::
+                
+                    Args:
+                        iInputDS:     
+                        iHorizon:     
+                    Returns:
+                       
         """
         logger = tsutil.get_pyaf_logger();
         logger.info("START_HIERARCHICAL_FORECASTING")

@@ -3,21 +3,23 @@ from mygenerator.pipeline import run_generate_phone_numbers
 
 
 def run_cli():
-    """
-    installed as `generate-phone-numbers`, is used to
-    generate a dataset of images containing random sequences looking like
-    phone numbers. All sequences should be unique and the script should accept the
-    following parameters:
-    * min spacing: minimum spacing between consecutive digits
-    * max spacing: maximum spacing between consecutive digits
-    * image width: width of the generated images
-    * num images: number of images to generate
-    * output path: where to store the generated images
-    Note that besides these interfaces, you are free to implement the package as
-    you wish.
-        Example :
-            123  456  567
-            234  123  456
+    """.
+    Doc::
+            
+            installed as `generate-phone-numbers`, is used to
+            generate a dataset of images containing random sequences looking like
+            phone numbers. All sequences should be unique and the script should accept the
+            following parameters:
+            * min spacing: minimum spacing between consecutive digits
+            * max spacing: maximum spacing between consecutive digits
+            * image width: width of the generated images
+            * num images: number of images to generate
+            * output path: where to store the generated images
+            Note that besides these interfaces, you are free to implement the package as
+            you wish.
+                Example :
+                    123  456  567
+                    234  123  456
     """
     p = argparse.ArgumentParser(description="Generate dataset of phone number images")
     add = p.add_argument

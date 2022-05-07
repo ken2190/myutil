@@ -42,51 +42,61 @@ from utilmy import global_verbosity, os_makedirs
 verbosity = global_verbosity(__file__, "/../../config.json" ,default= 5)
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
 ####################################################################################################
 global model, session
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
     session = None
 
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
@@ -172,14 +182,16 @@ MODEL_PARAMS = {
 
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None, **kwargs):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            **kwargs:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         if model_pars is None :
           return self
@@ -223,7 +235,9 @@ class Model:
 
 
 def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
+    """.
+    Doc::
+            
     """
     global model, session
     session = None  # Session type for compute
@@ -243,8 +257,10 @@ def fit(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
-    """
-       Return metrics of the model when fitted.
+    """.
+    Doc::
+            
+               Return metrics of the model when fitted.
     """
     global model, session
     # data_pars['train'] = True
@@ -255,15 +271,17 @@ def eval(data_pars=None, compute_pars=None, out_pars=None, **kw):
 
 
 def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
-    """function predict
-    Args:
-        Xpred:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                Xpred:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kw:   
+            Returns:
+                
     """
     global model, session
 
@@ -277,12 +295,14 @@ def predict(Xpred=None, data_pars={}, compute_pars={}, out_pars={}, **kw):
 
 
 def save(path=None, save_weight=False):
-    """function save
-    Args:
-        path:   
-        save_weight:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                save_weight:   
+            Returns:
+                
     """
     global model, session
     os.makedirs(path, exist_ok=True)
@@ -298,12 +318,14 @@ def save(path=None, save_weight=False):
 
 
 def load_model(path="", load_weight=False):
-    """function load_model
-    Args:
-        path:   
-        load_weight:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+                load_weight:   
+            Returns:
+                
     """
     global model, session
 
@@ -318,11 +340,13 @@ def load_model(path="", load_weight=False):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -335,11 +359,13 @@ def load_info(path=""):
 
 
 def preprocess(prepro_pars):
-    """function preprocess
-    Args:
-        prepro_pars:   
-    Returns:
-        
+    """function preprocess.
+    Doc::
+            
+            Args:
+                prepro_pars:   
+            Returns:
+                
     """
     if prepro_pars['type'] == 'test':
         from sklearn.datasets import make_classification
@@ -372,9 +398,11 @@ def preprocess(prepro_pars):
 ####################################################################################################
 ############ Do not change #########################################################################
 def get_dataset(data_pars=None, task_type="train", **kw):
-    """
-      "ram"  :
-      "file" :
+    """.
+    Doc::
+            
+              "ram"  :
+              "file" :
     """
     # log(data_pars)
     data_type = data_pars.get('type', 'ram')
@@ -444,13 +472,15 @@ def get_dataset(data_pars=None, task_type="train", **kw):
 
 ########################################################################################################################
 def get_xy_random2(X, y, cols_family={}):
-    """function get_xy_random2
-    Args:
-        X:   
-        y:   
-        cols_family:   
-    Returns:
-        
+    """function get_xy_random2.
+    Doc::
+            
+            Args:
+                X:   
+                y:   
+                cols_family:   
+            Returns:
+                
     """
     # X = np.random.rand(100,30)
     # y = np.random.binomial(n=1, p=0.5, size=[100])
@@ -492,10 +522,12 @@ def get_xy_random2(X, y, cols_family={}):
 
 
 def get_xy_random():
-    """function get_xy_random
-    Args:
-    Returns:
-        
+    """function get_xy_random.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     X = np.random.rand(100,30)
     y = np.random.binomial(n=1, p=0.5, size=[100])
@@ -546,13 +578,15 @@ def get_xy_random():
 
 
 def get_xy_fd(use_neg=False, hash_flag=False, use_session=False):
-    """function get_xy_fd
-    Args:
-        use_neg:   
-        hash_flag:   
-        use_session:   
-    Returns:
-        
+    """function get_xy_fd.
+    Doc::
+            
+            Args:
+                use_neg:   
+                hash_flag:   
+                use_session:   
+            Returns:
+                
     """
     feature_col = [SparseFeat('user', 3, embedding_dim=10, use_hash=hash_flag),
                        SparseFeat('gender'   , 2     , embedding_dim=4 , use_hash=hash_flag) ,
@@ -621,11 +655,13 @@ def get_xy_fd(use_neg=False, hash_flag=False, use_session=False):
 
 
 def get_xy_dataset(data_sample=None):
-    """function get_xy_dataset
-    Args:
-        data_sample:   
-    Returns:
-        
+    """function get_xy_dataset.
+    Doc::
+            
+            Args:
+                data_sample:   
+            Returns:
+                
     """
     if data_sample == "avazu":
         df         = pd.read_csv('https://raw.githubusercontent.com/shenweichen/DeepCTR/master/examples/avazu_sample.txt')
@@ -721,11 +757,13 @@ def get_xy_dataset(data_sample=None):
 
 
 def test(config=''):
-    """function test
-    Args:
-        config:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                config:   
+            Returns:
+                
     """
     global model, session
 
@@ -822,14 +860,16 @@ def test(config=''):
 
 
 def test_helper(model_name, model_pars, data_pars, compute_pars):
-    """function test_helper
-    Args:
-        model_name:   
-        model_pars:   
-        data_pars:   
-        compute_pars:   
-    Returns:
-        
+    """function test_helper.
+    Doc::
+            
+            Args:
+                model_name:   
+                model_pars:   
+                data_pars:   
+                compute_pars:   
+            Returns:
+                
     """
     global model, session
     model = Model(model_pars=model_pars, data_pars=data_pars, compute_pars=compute_pars)

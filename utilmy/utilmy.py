@@ -353,6 +353,17 @@ def pip_install(pkg_str=" pandas "):
     subprocess.check_call(clist)
 
 
+def sys_path_append(path="__file__", level_above=2):
+   """ Add parent folder as path for import """ 
+   import sys,os
+
+   fi   = os.path.abspath(path)
+   diri = os.path.dirname(fi)
+   for i in range(1,level_above):
+       diri = os.path.join(os.path.dirname(fi),os.pardir)
+
+   sys.path.append(diri)
+
 
 
 def load_function_uri(uri_name: str="MyFolder/myfile.py:my_function"):

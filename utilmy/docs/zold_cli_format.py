@@ -22,8 +22,10 @@ import datetime
 
 
 def format_comments(text="default", line_size=90):
-    """
-    Takes a string of text and formats it based on rule 1 (see docs).
+    """.
+    Doc::
+            
+            Takes a string of text and formats it based on rule 1 (see docs).
     """
     # rules to detect fancy comments, if not text
     regex1 = r"^ *?####*$"
@@ -45,8 +47,10 @@ def format_comments(text="default", line_size=90):
 
 
 def format_logs(text="default", line_size=90):
-    """
-    Takes a string of text and formats it based on rule 2 (see docs).
+    """.
+    Doc::
+            
+            Takes a string of text and formats it based on rule 2 (see docs).
     """
     # rule to find log statemets
     regex3 = r"log\(\"#+(.*?)#*(\".*)"
@@ -63,8 +67,10 @@ def format_logs(text="default", line_size=90):
 
 
 def format_imports(text):
-    """
-    Takes a string of text and formats it based on rule 3 (see docs).
+    """.
+    Doc::
+            
+            Takes a string of text and formats it based on rule 3 (see docs).
     """
     # rule to find consective imports
     regex4 = r"^import[\s\w]+?(?=from|^\s*$)"
@@ -81,8 +87,10 @@ def format_imports(text):
 
 
 def format_assignments(text):
-    """
-    Aligns assignment statements in the source file and return a text.
+    """.
+    Doc::
+            
+            Aligns assignment statements in the source file and return a text.
     """
     lines = text.split("\n")
 
@@ -139,8 +147,10 @@ def format_assignments(text):
 
 ######################################################################################
 def os_glob(dirin):
-    """
-    os_glob a given directory for all .py files and returns a list of source files.
+    """.
+    Doc::
+            
+            os_glob a given directory for all .py files and returns a list of source files.
     """
     files = glob.glob(dirin + "/**/*.py", recursive=True)
     # remove .ipynb_checkpoints
@@ -150,12 +160,14 @@ def os_glob(dirin):
 
 
 def format_file(in_file, dirout):
-    """function format_file
-    Args:
-        in_file:   
-        dirout:   
-    Returns:
-        
+    """function format_file.
+    Doc::
+            
+            Args:
+                in_file:   
+                dirout:   
+            Returns:
+                
     """
     # if input is a file and make sure it exits
     if os.path.isfile(in_file):
@@ -180,12 +192,14 @@ def format_file(in_file, dirout):
 
 
 def format_dir(dirin, dirout):
-    """function format_dir
-    Args:
-        dirin:   
-        dirout:   
-    Returns:
-        
+    """function format_dir.
+    Doc::
+            
+            Args:
+                dirin:   
+                dirout:   
+            Returns:
+                
     """
     src_files = os_glob(dirin)
 
@@ -197,11 +211,13 @@ def format_dir(dirin, dirout):
 
 
 def mod_period(in_file):
-    """function mod_period
-    Args:
-        in_file:   
-    Returns:
-        
+    """function mod_period.
+    Doc::
+            
+            Args:
+                in_file:   
+            Returns:
+                
     """
     file_stats = os.stat(in_file)
     mod_date = datetime.datetime.fromtimestamp(file_stats.st_mtime)
@@ -215,8 +231,10 @@ def mod_period(in_file):
 
 
 def load_arguments():
-    """
-    Parse the arguments
+    """.
+    Doc::
+            
+            Parse the arguments
     """
     import argparse
 
@@ -233,10 +251,12 @@ def load_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     args = load_arguments()
 

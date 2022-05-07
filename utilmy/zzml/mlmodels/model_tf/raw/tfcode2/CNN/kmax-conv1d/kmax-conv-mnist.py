@@ -20,14 +20,16 @@ mnist = input_data.read_data_sets("", one_hot=True)
 
 
 def add_conv1d(x, n_filters, kernel_size, strides=1):
-    """function add_conv1d
-    Args:
-        x:   
-        n_filters:   
-        kernel_size:   
-        strides:   
-    Returns:
-        
+    """function add_conv1d.
+    Doc::
+            
+            Args:
+                x:   
+                n_filters:   
+                kernel_size:   
+                strides:   
+            Returns:
+                
     """
     return tf.layers.conv1d(
         inputs=x,
@@ -42,13 +44,15 @@ def add_conv1d(x, n_filters, kernel_size, strides=1):
 
 class Model:
     def __init__(self, learning_rate=1e-4, top_k=5, n_filters=250):
-        """ Model:__init__
-        Args:
-            learning_rate:     
-            top_k:     
-            n_filters:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        learning_rate:     
+                        top_k:     
+                        n_filters:     
+                    Returns:
+                       
         """
         self.n_filters = n_filters
         self.kernels = [3, 4, 5]
@@ -75,11 +79,13 @@ class Model:
         self.accuracy = tf.reduce_mean(tf.cast(self.correct_pred, tf.float32))
 
     def add_kmax_pooling(self, x):
-        """ Model:add_kmax_pooling
-        Args:
-            x:     
-        Returns:
-           
+        """ Model:add_kmax_pooling.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         Y = tf.transpose(x, [0, 2, 1])
         Y = tf.nn.top_k(Y, self.top_k, sorted=False).values

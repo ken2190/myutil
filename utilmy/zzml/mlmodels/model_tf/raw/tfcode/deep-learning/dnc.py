@@ -38,19 +38,21 @@ class DNC(snt.RNNCore):
   """
 
     def __init__(self, access_config, controller_config, output_size, clip_value=None, name="dnc"):
-        """Initializes the DNC core.
-
-    Args:
-      access_config: dictionary of access module configurations.
-      controller_config: dictionary of controller (LSTM) module configurations.
-      output_size: output dimension size of core.
-      clip_value: clips controller and core output values to between
-          `[-clip_value, clip_value]` if specified.
-      name: module name (default 'dnc').
-
-    Raises:
-      TypeError: if direct_input_size is not None for any access module other
-        than KeyValueMemory.
+        """Initializes the DNC core..
+        Doc::
+                
+            
+                Args:
+                  access_config: dictionary of access module configurations.
+                  controller_config: dictionary of controller (LSTM) module configurations.
+                  output_size: output dimension size of core.
+                  clip_value: clips controller and core output values to between
+                      `[-clip_value, clip_value]` if specified.
+                  name: module name (default 'dnc').
+            
+                Raises:
+                  TypeError: if direct_input_size is not None for any access module other
+                    than KeyValueMemory.
     """
         super(DNC, self).__init__(name=name)
 
@@ -70,11 +72,13 @@ class DNC(snt.RNNCore):
         )
 
     def _clip_if_enabled(self, x):
-        """ DNC:_clip_if_enabled
-        Args:
-            x:     
-        Returns:
-           
+        """ DNC:_clip_if_enabled.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         if self._clip_value > 0:
             return tf.clip_by_value(x, -self._clip_value, self._clip_value)
@@ -82,20 +86,22 @@ class DNC(snt.RNNCore):
             return x
 
     def _build(self, inputs, prev_state):
-        """Connects the DNC core into the graph.
-
-    Args:
-      inputs: Tensor input.
-      prev_state: A `DNCState` tuple containing the fields `access_output`,
-          `access_state` and `controller_state`. `access_state` is a 3-D Tensor
-          of shape `[batch_size, num_reads, word_size]` containing read words.
-          `access_state` is a tuple of the access module's state, and
-          `controller_state` is a tuple of controller module's state.
-
-    Returns:
-      A tuple `(output, next_state)` where `output` is a tensor and `next_state`
-      is a `DNCState` tuple containing the fields `access_output`,
-      `access_state`, and `controller_state`.
+        """Connects the DNC core into the graph..
+        Doc::
+                
+            
+                Args:
+                  inputs: Tensor input.
+                  prev_state: A `DNCState` tuple containing the fields `access_output`,
+                      `access_state` and `controller_state`. `access_state` is a 3-D Tensor
+                      of shape `[batch_size, num_reads, word_size]` containing read words.
+                      `access_state` is a tuple of the access module's state, and
+                      `controller_state` is a tuple of controller module's state.
+            
+                Returns:
+                  A tuple `(output, next_state)` where `output` is a tensor and `next_state`
+                  is a `DNCState` tuple containing the fields `access_output`,
+                  `access_state`, and `controller_state`.
     """
 
         prev_access_output = prev_state.access_output
@@ -130,12 +136,14 @@ class DNC(snt.RNNCore):
         )
 
     def initial_state(self, batch_size, dtype=tf.float32):
-        """ DNC:initial_state
-        Args:
-            batch_size:     
-            dtype:     
-        Returns:
-           
+        """ DNC:initial_state.
+        Doc::
+                
+                    Args:
+                        batch_size:     
+                        dtype:     
+                    Returns:
+                       
         """
         return DNCState(
             controller_state=self._controller.initial_state(batch_size, dtype),
@@ -145,18 +153,22 @@ class DNC(snt.RNNCore):
 
     @property
     def state_size(self):
-        """ DNC:state_size
-        Args:
-        Returns:
-           
+        """ DNC:state_size.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self._state_size
 
     @property
     def output_size(self):
-        """ DNC:output_size
-        Args:
-        Returns:
-           
+        """ DNC:output_size.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self._output_size

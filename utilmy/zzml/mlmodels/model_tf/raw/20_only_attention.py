@@ -21,14 +21,16 @@ sns.set()
 
 
 def sinusoidal_positional_encoding(inputs, num_units, zero_pad=False, scale=False):
-    """function sinusoidal_positional_encoding
-    Args:
-        inputs:   
-        num_units:   
-        zero_pad:   
-        scale:   
-    Returns:
-        
+    """function sinusoidal_positional_encoding.
+    Doc::
+            
+            Args:
+                inputs:   
+                num_units:   
+                zero_pad:   
+                scale:   
+            Returns:
+                
     """
     T = inputs.get_shape().as_list()[1]
     position_idx = tf.tile(tf.expand_dims(tf.range(T), 0), [tf.shape(inputs)[0], 1])
@@ -48,15 +50,17 @@ def sinusoidal_positional_encoding(inputs, num_units, zero_pad=False, scale=Fals
 
 class Model:
     def __init__(self, seq_len, learning_rate, dimension_input, dimension_output, epoch=100):
-        """ Model:__init__
-        Args:
-            seq_len:     
-            learning_rate:     
-            dimension_input:     
-            dimension_output:     
-            epoch:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        seq_len:     
+                        learning_rate:     
+                        dimension_input:     
+                        dimension_output:     
+                        epoch:     
+                    Returns:
+                       
         """
         self.epoch = epoch
         self.timestep = seq_len
@@ -76,12 +80,14 @@ class Model:
 
 
 def fit(model, data_frame):
-    """function fit
-    Args:
-        model:   
-        data_frame:   
-    Returns:
-        
+    """function fit.
+    Doc::
+            
+            Args:
+                model:   
+                data_frame:   
+            Returns:
+                
     """
     sess = tf.InteractiveSession()
     sess.run(tf.global_variables_initializer())
@@ -102,13 +108,15 @@ def fit(model, data_frame):
 
 
 def predict(model, sess, data_frame):
-    """function predict
-    Args:
-        model:   
-        sess:   
-        data_frame:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_frame:   
+            Returns:
+                
     """
     output_predict = np.zeros((data_frame.shape[0], data_frame.shape[1]))
     upper_b = (data_frame.shape[0] // model.timestep) * model.timestep
@@ -130,11 +138,13 @@ def predict(model, sess, data_frame):
 
 
 def test(filename="dataset/GOOG-year.csv"):
-    """function test
-    Args:
-        filename:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                filename:   
+            Returns:
+                
     """
     import os, sys, inspect
 

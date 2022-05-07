@@ -21,13 +21,15 @@ from source.util_feature import save, os_get_function_name
 
 
 def global_pars_update(model_dict, data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data = root_repo + "/data/";
@@ -90,9 +92,11 @@ cols_input_type_2 = {
 
 ####################################################################################
 def online_lightgbm():
-    """
-       Contains all needed informations for Light GBM Classifier model,
-       used for titanic classification task
+    """.
+    Doc::
+            
+               Contains all needed informations for Light GBM Classifier model,
+               used for titanic classification task
     """
     data_name = "online_shopping"  ### in data/input/
     model_class = 'LGBMClassifier'  ### ACTUAL Class name for model_sklearn.py
@@ -230,10 +234,12 @@ def train(config=None, nsample=None):
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-    """function check
-    Args:
-    Returns:
-        
+    """function check.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 

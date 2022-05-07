@@ -7,10 +7,12 @@ from deepar.dataset.time_series import TimeSeries
 
 class TestRecurrentTs(unittest.TestCase):
     def setUp(self):
-        """ TestRecurrentTs:setUp
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:setUp.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         self.data_to_pad = pd.DataFrame({'feature_1': [i for i in range(6)],
@@ -34,10 +36,12 @@ class TestRecurrentTs(unittest.TestCase):
                                                                    'target': [i for i in range(6)]})
 
     def test_len_padding(self):
-        """ TestRecurrentTs:test_len_padding
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:test_len_padding.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         rec_instance = TimeSeries(pandas_df=self.data_to_pad)
         results = rec_instance._pad_ts(pandas_df=self.data_to_pad,
@@ -45,10 +49,12 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(results.shape[0], 10)
 
     def test_zero_len_padding(self):
-        """ TestRecurrentTs:test_zero_len_padding
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:test_zero_len_padding.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         rec_instance = TimeSeries(pandas_df=self.data_to_pad)
         results = rec_instance._pad_ts(pandas_df=self.data_to_pad,
@@ -56,10 +62,12 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(results.shape[0], 6)
 
     def test_next_batch_production(self):
-        """ TestRecurrentTs:test_next_batch_production
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:test_next_batch_production.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         rec_ts = TimeSeries(self.input_data)
         X_feature_space, y_target = rec_ts.next_batch(batch_size=4, n_steps=10)
@@ -69,10 +77,12 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(X_feature_space[3][0][0], y_target[3][0][0])
 
     def test_padding_with_one_hot(self):
-        """ TestRecurrentTs:test_padding_with_one_hot
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:test_padding_with_one_hot.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         rec_ts = TimeSeries(pandas_df=self.data_to_pad_with_categorical,
                             one_hot_root_list=['one_hot'])
@@ -84,10 +94,12 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(results.one_hot_no.values[0], 0)
 
     def test_padding_with_one_hot_multiple(self):
-        """ TestRecurrentTs:test_padding_with_one_hot_multiple
-        Args:
-        Returns:
-           
+        """ TestRecurrentTs:test_padding_with_one_hot_multiple.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         rec_ts = TimeSeries(pandas_df=self.data_to_pad_with_categorical,
                             one_hot_root_list=['one_hot', 'other'])
@@ -102,8 +114,10 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(results.other_no.values[0], 0)
 
     def test_next_batch_covariates(self):
-        """
-        Feature space is supplied in input if target_only is False (no need to lag y dataset)
+        """.
+        Doc::
+                
+                    Feature space is supplied in input if target_only is False (no need to lag y dataset)
         """
         rec_ts = TimeSeries(self.input_data)
         X_feature_space, y_target = rec_ts.next_batch(batch_size=1, n_steps=10)
@@ -111,9 +125,11 @@ class TestRecurrentTs(unittest.TestCase):
         self.assertEqual(len(X_feature_space[0][0]), 2)
 
     def test_sample_ts(self):
-        """
-        When the length of the pandas df is longer than required length the function should sample
-        from the time series and return that sample
+        """.
+        Doc::
+                
+                    When the length of the pandas df is longer than required length the function should sample
+                    from the time series and return that sample
         """
         rec_instance = TimeSeries(pandas_df=self.data_to_pad)
         results = rec_instance._sample_ts(pandas_df=self.data_to_pad,

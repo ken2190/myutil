@@ -16,10 +16,12 @@ from torchvision import datasets, transforms
 
 
 def model_create(modelname="", params=None, modelonly=1):
-    """
-      modelname:  model_tch.mlp.py
-      model_tch/****
-      
+    """.
+    Doc::
+            
+              modelname:  model_tch.mlp.py
+              model_tch/****
+              
     """
     modelname = modelname.replace(".py", "")
     print(modelname)
@@ -33,12 +35,14 @@ def model_create(modelname="", params=None, modelonly=1):
 
 
 def model_instance(name="net", params={}):
-    """function model_instance
-    Args:
-        name:   
-        params:   
-    Returns:
-        
+    """function model_instance.
+    Doc::
+            
+            Args:
+                name:   
+                params:   
+            Returns:
+                
     """
     if name == "net":
         return Net()
@@ -52,10 +56,12 @@ def model_instance(name="net", params={}):
 ####################################################################################################
 class Net(nn.Module):
     def __init__(self):
-        """ Net:__init__
-        Args:
-        Returns:
-           
+        """ Net:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
@@ -65,11 +71,13 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(50, 10)
 
     def forward(self, x):
-        """ Net:forward
-        Args:
-            x:     
-        Returns:
-           
+        """ Net:forward.
+        Doc::
+                
+                    Args:
+                        x:     
+                    Returns:
+                       
         """
         x = F.relu(F.max_pool2d(self.conv1(x), 2))
         x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))

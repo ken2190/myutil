@@ -23,10 +23,12 @@ MODEL_URI = get_model_uri(__file__)
 
 
 def get_config_file():
-    """function get_config_file
-    Args:
-    Returns:
-        
+    """function get_config_file.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return os.path.join(os_package_root_path(__file__, 1), 'config', 'model_keras', 'Imagecnn.json')
 
@@ -35,14 +37,16 @@ def get_config_file():
 ###########################################################################################################
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None, out_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            out_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        out_pars:     
+                    Returns:
+                       
         """
         ### Model Structure        ################################
 
@@ -64,12 +68,14 @@ class Model:
 
 
 def get_params(param_pars=None, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     pp = param_pars
     choice = pp['choice']
@@ -92,11 +98,13 @@ def get_params(param_pars=None, **kw):
 
 
 def get_dataset_imbd(data_pars):
-    """function get_dataset_imbd
-    Args:
-        data_pars:   
-    Returns:
-        
+    """function get_dataset_imbd.
+    Doc::
+            
+            Args:
+                data_pars:   
+            Returns:
+                
     """
 
     # Load the integer sequence the IMDB dataset with Keras.
@@ -122,11 +130,13 @@ def get_dataset_imbd(data_pars):
     return x_train, y_train, x_test, y_test
 
 def get_dataset_titanic(data_pars): 
-    """function get_dataset_titanic
-    Args:
-        data_pars:   
-    Returns:
-        
+    """function get_dataset_titanic.
+    Doc::
+            
+            Args:
+                data_pars:   
+            Returns:
+                
     """
     # Preparing training data.
     train_data_path  = data_pars['train_data_path']
@@ -143,11 +153,13 @@ def get_dataset_titanic(data_pars):
 
 
 def get_dataset(data_pars=None):
-    """function get_dataset
-    Args:
-        data_pars:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                data_pars:   
+            Returns:
+                
     """
 
     if data_pars['dataset'] == 'IMDB':
@@ -166,15 +178,17 @@ def get_dataset(data_pars=None):
 
 
 def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
-    """function fit
-    Args:
-        model:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kwargs:   
-    Returns:
-        
+    """function fit.
+    Doc::
+            
+            Args:
+                model:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kwargs:   
+            Returns:
+                
     """
     x_train, y_train, _, _ = get_dataset(data_pars)
     print(type(x_train))
@@ -191,15 +205,17 @@ def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
 
 
 def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=None):
-    """function predict
-    Args:
-        model:   
-        session:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+            Returns:
+                
     """
     # get a batch of data
     _, _, x_test, y_test = get_dataset(data_pars)
@@ -208,39 +224,45 @@ def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=Non
 
 
 def evaluate(model, data_pars=None, compute_pars=None, out_pars=None):
-    """function evaluate
-    Args:
-        model:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-    Returns:
-        
+    """function evaluate.
+    Doc::
+            
+            Args:
+                model:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+            Returns:
+                
     """
     _, _, x_test, y_test = get_dataset(data_pars)
     return model.evaluate(x_test, y_test)
 
 
 def save(model, session=None, save_pars=None,config_mode="test"):
-    """function save
-    Args:
-        model:   
-        session:   
-        save_pars:   
-        config_mode:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                session:   
+                save_pars:   
+                config_mode:   
+            Returns:
+                
     """
     model.save(os.path.join(save_pars["checkpointdir"],f'{config_mode}.h5'))
 
 
 def load(load_pars,config_mode="test"):
-    """function load
-    Args:
-        load_pars:   
-        config_mode:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                load_pars:   
+                config_mode:   
+            Returns:
+                
     """
     return load_model(os.path.join(load_pars["checkpointdir"],f'{config_mode}.h5'), custom_objects=ak.CUSTOM_OBJECTS)
 
@@ -248,13 +270,15 @@ def load(load_pars,config_mode="test"):
 ###########################################################################################################
 ###########################################################################################################
 def test_single(data_path="dataset/", pars_choice="json", config_mode="test"):
-    """function test_single
-    Args:
-        data_path:   
-        pars_choice:   
-        config_mode:   
-    Returns:
-        
+    """function test_single.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                config_mode:   
+            Returns:
+                
     """
     ### Local test
 
@@ -293,10 +317,12 @@ def test_single(data_path="dataset/", pars_choice="json", config_mode="test"):
     
 
 def test() :
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     ll = [ "vision" , "text" , "tabular_classifier" ]
 

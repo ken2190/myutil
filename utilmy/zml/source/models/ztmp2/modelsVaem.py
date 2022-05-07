@@ -31,20 +31,24 @@ import utils.reward as reward
 verbosity =2
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 :
       print(*s, flush=True)
@@ -54,12 +58,14 @@ def log2(*s):
 global model, session
 
 def init(*kw, **kwargs):
-    """function init
-    Args:
-        *kw:   
-        **kwargs:   
-    Returns:
-        
+    """function init.
+    Doc::
+            
+            Args:
+                *kw:   
+                **kwargs:   
+            Returns:
+                
     """
     global model, session
     model = Model(*kw, **kwargs)
@@ -79,18 +85,20 @@ cols_ref_formodel = ['none']  ### No column group
 
 ########## Loading Of Data #########################################################################
 def load_data(filePath,categories,cat_col,num_cols,discrete_cols,targetCol,nsample,delimiter):
-    """function load_data
-    Args:
-        filePath:   
-        categories:   
-        cat_col:   
-        num_cols:   
-        discrete_cols:   
-        targetCol:   
-        nsample:   
-        delimiter:   
-    Returns:
-        
+    """function load_data.
+    Doc::
+            
+            Args:
+                filePath:   
+                categories:   
+                cat_col:   
+                num_cols:   
+                discrete_cols:   
+                targetCol:   
+                nsample:   
+                delimiter:   
+            Returns:
+                
     """
     global Data_decompressed, Mask_decompressed
     '''
@@ -174,14 +182,16 @@ def load_data(filePath,categories,cat_col,num_cols,discrete_cols,targetCol,nsamp
 
 
 def encode2(data_decode,list_discrete,records_d,fast_plot):
-    """function encode2
-    Args:
-        data_decode:   
-        list_discrete:   
-        records_d:   
-        fast_plot:   
-    Returns:
-        
+    """function encode2.
+    Doc::
+            
+            Args:
+                data_decode:   
+                list_discrete:   
+                records_d:   
+                fast_plot:   
+            Returns:
+                
     """
     # Extracting Masked Decompressed Data from data_decode function obtained from load_data function
     Data_train_decomp,Data_train_comp, Data_train_noisy_decomp,mask_train_decomp,Data_test_decomp,mask_test_comp,mask_test_decomp,cat_dims,DIM_FLT,dic_var_type = data_decode
@@ -241,15 +251,17 @@ def encode2(data_decode,list_discrete,records_d,fast_plot):
 
 
 def decode2(data_decode,scaling_factor,list_discrete,records_d,plot=False):
-    """function decode2
-    Args:
-        data_decode:   
-        scaling_factor:   
-        list_discrete:   
-        records_d:   
-        plot:   
-    Returns:
-        
+    """function decode2.
+    Doc::
+            
+            Args:
+                data_decode:   
+                scaling_factor:   
+                list_discrete:   
+                records_d:   
+                plot:   
+            Returns:
+                
     """
     args = params.Params('hyperparameters/bank_SAIA.json')
 
@@ -290,33 +302,37 @@ def decode2(data_decode,scaling_factor,list_discrete,records_d,plot=False):
     return vae
 
 def save_model2(model,output_dir):
-    """function save_model2
-    Args:
-        model:   
-        output_dir:   
-    Returns:
-        
+    """function save_model2.
+    Doc::
+            
+            Args:
+                model:   
+                output_dir:   
+            Returns:
+                
     """
     model.save(output_dir)
 
 def p_vae_active_learning(Data_train_compressed, Data_train,mask_train,Data_test,mask_test_compressed,mask_test,cat_dims,dim_flt,dic_var_type,args,list_discrete,records_d, estimation_method=1):
-    """function p_vae_active_learning
-    Args:
-        Data_train_compressed:   
-        Data_train:   
-        mask_train:   
-        Data_test:   
-        mask_test_compressed:   
-        mask_test:   
-        cat_dims:   
-        dim_flt:   
-        dic_var_type:   
-        args:   
-        list_discrete:   
-        records_d:   
-        estimation_method:   
-    Returns:
-        
+    """function p_vae_active_learning.
+    Doc::
+            
+            Args:
+                Data_train_compressed:   
+                Data_train:   
+                mask_train:   
+                Data_test:   
+                mask_test_compressed:   
+                mask_test:   
+                cat_dims:   
+                dim_flt:   
+                dic_var_type:   
+                args:   
+                list_discrete:   
+                records_d:   
+                estimation_method:   
+            Returns:
+                
     """
     global mask
     list_stage = args.list_stage
@@ -496,25 +512,27 @@ def p_vae_active_learning(Data_train_compressed, Data_train,mask_train,Data_test
 
 
 def train_p_vae(stage, x_train, Data_train,mask_train, epochs, latent_dim,cat_dims,dim_flt,batch_size, p, K,iteration,list_discrete,records_d,args):
-    """function train_p_vae
-    Args:
-        stage:   
-        x_train:   
-        Data_train:   
-        mask_train:   
-        epochs:   
-        latent_dim:   
-        cat_dims:   
-        dim_flt:   
-        batch_size:   
-        p:   
-        K:   
-        iteration:   
-        list_discrete:   
-        records_d:   
-        args:   
-    Returns:
-        
+    """function train_p_vae.
+    Doc::
+            
+            Args:
+                stage:   
+                x_train:   
+                Data_train:   
+                mask_train:   
+                epochs:   
+                latent_dim:   
+                cat_dims:   
+                dim_flt:   
+                batch_size:   
+                p:   
+                K:   
+                iteration:   
+                list_discrete:   
+                records_d:   
+                args:   
+            Returns:
+                
     """
     global obs_dim
     '''
@@ -671,21 +689,25 @@ def train_p_vae(stage, x_train, Data_train,mask_train, epochs, latent_dim,cat_di
 
 ##################################################################################################################################
 def reset():
-    """function reset
-    Args:
-    Returns:
-        
+    """function reset.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     global model, session
     model, session = None, None
 
 def save(path='', info=None):
-    """function save
-    Args:
-        path:   
-        info:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                path:   
+                info:   
+            Returns:
+                
     """
     import dill as pickle, copy
     global model, session
@@ -705,11 +727,13 @@ def save(path='', info=None):
 
 
 def load_model(path=""):
-    """function load_model
-    Args:
-        path:   
-    Returns:
-        
+    """function load_model.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     global model, session
     import dill as pickle
@@ -732,11 +756,13 @@ def load_model(path=""):
 
 
 def load_info(path=""):
-    """function load_info
-    Args:
-        path:   
-    Returns:
-        
+    """function load_info.
+    Doc::
+            
+            Args:
+                path:   
+            Returns:
+                
     """
     import cloudpickle as pickle, glob
     dd = {}
@@ -751,10 +777,12 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 class Model(object):
     def __init__(self):
-        """ Model:__init__
-        Args:
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         
         ### Dynamic Dimension : data_pars  ---> model_pars dimension  ###############
@@ -765,18 +793,20 @@ class Model(object):
         #self.model.summary()
 
     def fit(self,filePath, categories,cat_cols,num_cols,discrete_cols,targetCol,nsample = -1,delimiter=',',plot=False):
-        """
-        This Function will load the data and fit the preprocessing technique into it
-        params:
-            filePath: CSV File path relative to file
-            categories: Categorical feature list
-            cat_cols: category_columns
-            nums_cols: Numerical Columns list
-            discrete_cols: discrete cols list
-            target_cols: Column name of Target Variable
-            nsample: No of Sample for Encoding-Decoding
-            delimiter: Delimiter in CSV File,Default=','
-
+        """.
+        Doc::
+                
+                    This Function will load the data and fit the preprocessing technique into it
+                    params:
+                        filePath: CSV File path relative to file
+                        categories: Categorical feature list
+                        cat_cols: category_columns
+                        nums_cols: Numerical Columns list
+                        discrete_cols: discrete cols list
+                        target_cols: Column name of Target Variable
+                        nsample: No of Sample for Encoding-Decoding
+                        delimiter: Delimiter in CSV File,Default=','
+            
         """
         global model, session
         session = None  # Session type for compute
@@ -802,10 +832,12 @@ class Model(object):
 
 
     def decode(self):
-        """ Model:decode
-        Args:
-        Returns:
-           
+        """ Model:decode.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         global Data_decompressed,Mask_decompressed
         '''
@@ -826,10 +858,12 @@ class Model(object):
         
 
     def encode(self):
-        """ Model:encode
-        Args:
-        Returns:
-           
+        """ Model:encode.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         global Data_decompressed
         '''

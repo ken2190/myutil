@@ -11,10 +11,12 @@ from recommenders.models.vowpal_wabbit.vw import VW
 
 @pytest.fixture(scope="module")
 def df():
-    """function df
-    Args:
-    Returns:
-        
+    """function df.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return pd.DataFrame(
         dict(user=[1, 3, 2], item=[8, 7, 7], rating=[1, 5, 3], timestamp=[1, 2, 3])
@@ -23,10 +25,12 @@ def df():
 
 @pytest.fixture(scope="function")
 def model():
-    """function model
-    Args:
-    Returns:
-        
+    """function model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     model = VW(col_user="user", col_item="item", col_prediction="prediction", q="ui")
     yield model
@@ -35,10 +39,12 @@ def model():
 
 @pytest.mark.vw
 def test_vw_init_del():
-    """function test_vw_init_del
-    Args:
-    Returns:
-        
+    """function test_vw_init_del.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     model = VW()
     tempdir = model.tempdir.name
@@ -50,10 +56,12 @@ def test_vw_init_del():
 
 @pytest.mark.vw
 def test_to_vw_cmd():
-    """function test_to_vw_cmd
-    Args:
-    Returns:
-        
+    """function test_to_vw_cmd.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     expected = [
         "vw",
@@ -82,11 +90,13 @@ def test_to_vw_cmd():
 
 @pytest.mark.vw
 def test_parse_train_cmd(model):
-    """function test_parse_train_cmd
-    Args:
-        model:   
-    Returns:
-        
+    """function test_parse_train_cmd.
+    Doc::
+            
+            Args:
+                model:   
+            Returns:
+                
     """
     expected = [
         "vw",
@@ -105,11 +115,13 @@ def test_parse_train_cmd(model):
 
 @pytest.mark.vw
 def test_parse_test_cmd(model):
-    """function test_parse_test_cmd
-    Args:
-        model:   
-    Returns:
-        
+    """function test_parse_test_cmd.
+    Doc::
+            
+            Args:
+                model:   
+            Returns:
+                
     """
     expected = [
         "vw",
@@ -132,12 +144,14 @@ def test_parse_test_cmd(model):
 
 @pytest.mark.vw
 def test_to_vw_file(model, df):
-    """function test_to_vw_file
-    Args:
-        model:   
-        df:   
-    Returns:
-        
+    """function test_to_vw_file.
+    Doc::
+            
+            Args:
+                model:   
+                df:   
+            Returns:
+                
     """
     expected = ["1 0|user 1 |item 8", "5 1|user 3 |item 7", "3 2|user 2 |item 7"]
     model.to_vw_file(df, train=True)
@@ -148,12 +162,14 @@ def test_to_vw_file(model, df):
 
 @pytest.mark.vw
 def test_fit_and_predict(model, df):
-    """function test_fit_and_predict
-    Args:
-        model:   
-        df:   
-    Returns:
-        
+    """function test_fit_and_predict.
+    Doc::
+            
+            Args:
+                model:   
+                df:   
+            Returns:
+                
     """
     # generate fake predictions
     with open(model.prediction_file, "w") as f:

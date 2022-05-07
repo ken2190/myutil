@@ -137,7 +137,7 @@ def faiss_create_index(df_or_path=None, col='emb', dir_out="",  db_type = "IVF40
                 
 def faiss_topk(df=None, root=None, colid='id', colemb='emb', faiss_index=None, topk=200, npool=1, nrows=10**7, nfile=1000) :  ##  python prepro.py  faiss_topk   2>&1 | tee -a zlog_faiss_topk.txt
    """ id, dist_list, id_list 
-       ## a/adigcb201/ipsvolh03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
+       ## cb201/h03/ndata/cpa//emb/emb//ichiba_order_20210901b_itemtagb2/seq_1000000000/faiss//faiss_trained_9808032.index
        
        https://github.com/facebookresearch/faiss/issues/632
        

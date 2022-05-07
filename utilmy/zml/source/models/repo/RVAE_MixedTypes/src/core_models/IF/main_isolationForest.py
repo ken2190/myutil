@@ -15,11 +15,13 @@ from sklearn.metrics import average_precision_score as avpr_compute
 
 
 def main(args):
-    """function main
-    Args:
-        args:   
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+                args:   
+            Returns:
+                
     """
 
     # Load datasets

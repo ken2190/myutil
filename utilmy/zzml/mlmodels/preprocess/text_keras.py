@@ -8,21 +8,25 @@ import numpy as np
 
 class Preprocess_namentity:
     def __init__(self,max_len,**args):
-        """ Preprocess_namentity:__init__
-        Args:
-            max_len:     
-            **args:     
-        Returns:
-           
+        """ Preprocess_namentity:__init__.
+        Doc::
+                
+                    Args:
+                        max_len:     
+                        **args:     
+                    Returns:
+                       
         """
         self.max_len = max_len
     
     def compute(self,df):
-        """ Preprocess_namentity:compute
-        Args:
-            df:     
-        Returns:
-           
+        """ Preprocess_namentity:compute.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         df = df.fillna(method='ffill')
         ##### Get sentences
@@ -67,24 +71,28 @@ class Preprocess_namentity:
         self.data = {"X": X, "y":y,"word_count":len(df['Word'].unique())+2}
 
     def get_data(self):
-        """ Preprocess_namentity:get_data
-        Args:
-        Returns:
-           
+        """ Preprocess_namentity:get_data.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         return self.data
 
 
 def _remove_long_seq(maxlen, seq, label):
-    """Removes sequences that exceed the maximum length.
-
-    # Arguments
-        maxlen: Int, maximum length of the output sequences.
-        seq: List of lists, where each sublist is a sequence.
-        label: List where each element is an integer.
-
-    # Returns
-        new_seq, new_label: shortened lists for `seq` and `label`.
+    """Removes sequences that exceed the maximum length..
+    Doc::
+            
+        
+            # Arguments
+                maxlen: Int, maximum length of the output sequences.
+                seq: List of lists, where each sublist is a sequence.
+                label: List where each element is an integer.
+        
+            # Returns
+                new_seq, new_label: shortened lists for `seq` and `label`.
     """
     new_seq, new_label = [], []
     for x, y in zip(seq, label):
@@ -97,12 +105,14 @@ def _remove_long_seq(maxlen, seq, label):
 class IMDBDataset:
 
     def __init__(self, *args, **kwargs):
-        """ IMDBDataset:__init__
-        Args:
-            *args:     
-            **kwargs:     
-        Returns:
-           
+        """ IMDBDataset:__init__.
+        Doc::
+                
+                    Args:
+                        *args:     
+                        **kwargs:     
+                    Returns:
+                       
         """
         self.start_char = kwargs.get("start_char", 1)
         self.oov_char = kwargs.get("oov_char", 2)
@@ -112,11 +122,13 @@ class IMDBDataset:
         self.skip_top = kwargs.get("skip_top", 0)
 
     def compute(self, data):
-        """ IMDBDataset:compute
-        Args:
-            data:     
-        Returns:
-           
+        """ IMDBDataset:compute.
+        Doc::
+                
+                    Args:
+                        data:     
+                    Returns:
+                       
         """
         x_test, x_train, labels_test, labels_train = data
         indices = np.arange(len(x_train))
@@ -163,4 +175,11 @@ class IMDBDataset:
         self.data = x_train, y_train, x_test, y_test
 
     def get_data(self):
+        """ IMDBDataset:get_data.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
+        """
         return self.data

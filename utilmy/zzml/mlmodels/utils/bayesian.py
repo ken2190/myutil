@@ -1,11 +1,11 @@
 """
-ui_dir=/a/adigcb301/ipsvols05/offline/maruichi/UI/
-raw_dir=/a/adigcb301/ipsvols05/offline/maruichi/data/
-pos_dir=/a/adigcb301/ipsvols05/offline/maruichi/data/pos/
-genre_dir=/a/adigcb301/ipsvols05/offline/maruichi/data/genre/
-daily_dir=/a/adigcb301/ipsvols05/offline/maruichi/data/daily_summary/
-model_dir=/a/adigcb301/ipsvols05/offline/maruichi/model/
-optimization_dir=/a/adigcb301/ipsvols05/offline/maruichi/optimization/
+ui_dir=/301/s05/offline/maruichi/UI/
+raw_dir=/301/s05/offline/maruichi/data/
+pos_dir=/301/s05/offline/maruichi/data/pos/
+genre_dir=/301/s05/offline/maruichi/data/genre/
+daily_dir=/301/s05/offline/maruichi/data/daily_summary/
+model_dir=/301/s05/offline/maruichi/model/
+optimization_dir=/301/s05/offline/maruichi/optimization/
 
 
 
@@ -2417,7 +2417,7 @@ import os, pandas as pd
 if path[0] = "/"  :
        full_path = path       
 else :
-    full_path = "a/adigcb301/ipsvols05/offline/test/pred/export/" + path
+    full_path = "cb301/s05/offline/test/pred/export/" + path
 
 
 
@@ -3419,7 +3419,7 @@ dfi = df2[ (df2.shop_id == 16 ) & (df2.l1_genre_id != -1) ]
 
 
 FYI, have put a sample shople, gathering raw elasticity calc
-/a/adigcb301/ipsvols05/offline/test/price/elastic_all_20200715.parquet
+/301/s05/offline/test/price/elastic_all_20200715.parquet
 ( using basic  log-log reg. (daily Vol-Price)) :
 
 elastic_6m_itemid         :  per  itemid (all shops)

@@ -140,15 +140,17 @@ df.head()
 
 
 def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
-    """function df_shift
-    Args:
-        df:   
-        lag:   
-        start:   
-        skip:   
-        rejected_columns:   
-    Returns:
-        
+    """function df_shift.
+    Doc::
+            
+            Args:
+                df:   
+                lag:   
+                start:   
+                skip:   
+                rejected_columns:   
+            Returns:
+                
     """
     df = df.copy()
     if not lag:
@@ -284,12 +286,14 @@ std_selling = (selling - np.mean(selling)) / np.std(selling)
 
 
 def detect(signal, treshold=2.0):
-    """function detect
-    Args:
-        signal:   
-        treshold:   
-    Returns:
-        
+    """function detect.
+    Doc::
+            
+            Args:
+                signal:   
+                treshold:   
+            Returns:
+                
     """
     detected = []
     for i in range(len(signal)):
@@ -479,16 +483,18 @@ plt.show()
 
 class Model:
     def __init__(self, learning_rate, num_layers, size, size_layer, output_size, forget_bias=0.1):
-        """ Model:__init__
-        Args:
-            learning_rate:     
-            num_layers:     
-            size:     
-            size_layer:     
-            output_size:     
-            forget_bias:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        learning_rate:     
+                        num_layers:     
+                        size:     
+                        size_layer:     
+                        output_size:     
+                        forget_bias:     
+                    Returns:
+                       
         """
         def lstm_cell(size_layer):
             return tf.nn.rnn_cell.LSTMCell(size_layer, state_is_tuple=False)
@@ -638,12 +644,14 @@ plt.show()
 
 
 def calculate_accuracy(real, predict):
-    """function calculate_accuracy
-    Args:
-        real:   
-        predict:   
-    Returns:
-        
+    """function calculate_accuracy.
+    Doc::
+            
+            Args:
+                real:   
+                predict:   
+            Returns:
+                
     """
     r2 = r2_score(real, predict)
     if r2 < 0:
@@ -669,12 +677,14 @@ def calculate_accuracy(real, predict):
 
 
 def calculate_distance(real, predict):
-    """function calculate_distance
-    Args:
-        real:   
-        predict:   
-    Returns:
-        
+    """function calculate_distance.
+    Doc::
+            
+            Args:
+                real:   
+                predict:   
+            Returns:
+                
     """
     mse = ((real - predict) ** 2).mean()
     rmse = np.sqrt(mse)

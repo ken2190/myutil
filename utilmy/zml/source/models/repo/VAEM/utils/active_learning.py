@@ -5,21 +5,23 @@ import models.model as model
 import utils.reward as reward
 
 def p_vae_active_learning(Data_train_compressed, Data_train,mask_train,Data_test,mask_test_compressed,mask_test,cat_dims,dim_flt,dic_var_type,args, estimation_method=1):
-    """function p_vae_active_learning
-    Args:
-        Data_train_compressed:   
-        Data_train:   
-        mask_train:   
-        Data_test:   
-        mask_test_compressed:   
-        mask_test:   
-        cat_dims:   
-        dim_flt:   
-        dic_var_type:   
-        args:   
-        estimation_method:   
-    Returns:
-        
+    """function p_vae_active_learning.
+    Doc::
+            
+            Args:
+                Data_train_compressed:   
+                Data_train:   
+                mask_train:   
+                Data_test:   
+                mask_test_compressed:   
+                mask_test:   
+                cat_dims:   
+                dim_flt:   
+                dic_var_type:   
+                args:   
+                estimation_method:   
+            Returns:
+                
     """
     
     list_stage = args.list_stage
@@ -199,21 +201,23 @@ def p_vae_active_learning(Data_train_compressed, Data_train,mask_train,Data_test
     return vae
 
 def train_p_vae(stage, x_train, Data_train,mask_train, epochs, latent_dim,cat_dims,dim_flt,batch_size, p, K,iteration):
-    '''
-        This function trains the partial VAE.
-        stage: stage of training 
-        x_train: initial inducing points
-        Data_train: training Data matrix, N by D
-        mask_train: mask matrix that indicates the missingness. 1=observed, 0 = missing
-        epochs: number of epochs of training
-        LATENT_DIM: latent dimension for partial VAE model
-        cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
-        dim_flt: number of continuous variables.
-        batch_size: batch_size.
-        p: dropout rate for creating additional missingness during training
-        K: dimension of feature map of PNP encoder
-        iteration: how many mini-batches are used each epoch. set to -1 to run the full epoch.
-        :return: trained VAE, together with the test data used for testing.
+    '''.
+    Doc::
+            
+                This function trains the partial VAE.
+                stage: stage of training 
+                x_train: initial inducing points
+                Data_train: training Data matrix, N by D
+                mask_train: mask matrix that indicates the missingness. 1=observed, 0 = missing
+                epochs: number of epochs of training
+                LATENT_DIM: latent dimension for partial VAE model
+                cat_dims: a list that indicates the number of potential outcomes for non-continuous variables.
+                dim_flt: number of continuous variables.
+                batch_size: batch_size.
+                p: dropout rate for creating additional missingness during training
+                K: dimension of feature map of PNP encoder
+                iteration: how many mini-batches are used each epoch. set to -1 to run the full epoch.
+                :return: trained VAE, together with the test data used for testing.
         '''
     # we have three stages of training.
     # stage 1 = training marginal VAEs, stage 2 = training dependency network, (see Section 2 in our paper)

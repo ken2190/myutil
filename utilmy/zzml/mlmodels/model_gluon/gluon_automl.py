@@ -25,12 +25,14 @@ from mlmodels.util import path_norm, os_package_root_path, log
 #### Model defintion
 class Model(object):
     def __init__(self, model_pars=None, compute_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         ## Empty model for Seaialization
         if model_pars is None and compute_pars is None:
@@ -43,13 +45,15 @@ class Model(object):
 
 ########################################################################################################################
 def path_setup(out_folder="", sublevel=0, data_path="dataset/"):
-    """function path_setup
-    Args:
-        out_folder:   
-        sublevel:   
-        data_path:   
-    Returns:
-        
+    """function path_setup.
+    Doc::
+            
+            Args:
+                out_folder:   
+                sublevel:   
+                data_path:   
+            Returns:
+                
     """
     data_path = os_package_root_path(path_add=data_path)
     out_path = os.getcwd() + "/" + out_folder
@@ -62,11 +66,13 @@ def path_setup(out_folder="", sublevel=0, data_path="dataset/"):
 
 
 def _config_process(config):
-    """function _config_process
-    Args:
-        config:   
-    Returns:
-        
+    """function _config_process.
+    Doc::
+            
+            Args:
+                config:   
+            Returns:
+                
     """
     data_pars = config["data_pars"]
 
@@ -96,14 +102,16 @@ def _config_process(config):
 
 
 def get_params(choice="", data_path="dataset/", config_mode="test", **kw):
-    """function get_params
-    Args:
-        choice:   
-        data_path:   
-        config_mode:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                choice:   
+                data_path:   
+                config_mode:   
+                **kw:   
+            Returns:
+                
     """
     if choice == "json":
         data_path = Path(os.path.realpath(
@@ -141,12 +149,14 @@ def get_params(choice="", data_path="dataset/", config_mode="test", **kw):
 
 ########################################################################################################################
 def test(data_path="dataset/", pars_choice="json"):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+            Returns:
+                
     """
     ### Local test
 

@@ -25,32 +25,38 @@ import platform
 
 
 def get_os():
-    """function get_os
-    Args:
-    Returns:
-        
+    """function get_os.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     curr_os = "linux" if "Linux" in platform.platform() else "win"
     return curr_os
 
 
 def os_exec(x):
-    """function os_exec
-    Args:
-        x:   
-    Returns:
-        
+    """function os_exec.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     ret_value = os.system(x)
     return ret_value
 
 
 def scan(data_file):
-    """function scan
-    Args:
-        data_file:   
-    Returns:
-        
+    """function scan.
+    Doc::
+            
+            Args:
+                data_file:   
+            Returns:
+                
     """
     # note: I have checked os_file_listall, I think the following will be better
     files = glob.glob(data_file + "/**/*.py", recursive=True)
@@ -62,9 +68,11 @@ def scan(data_file):
 
 
 def get_packages(file):
-    """
-    Get all required packages to run a given module,
-    both from standard library and from 3rd party.
+    """.
+    Doc::
+            
+            Get all required packages to run a given module,
+            both from standard library and from 3rd party.
     """
     with open(file, "r") as fp:
         contents = fp.read()
@@ -119,10 +127,12 @@ def get_packages(file):
 
 
 def get_missing(all_packages, env_name="test"):
-    """
-    Take a list of packages that are required, try to import packages
-    one by one and if any package throws an error, it will mark it missing.
-    Finally returns the list of missing packages.
+    """.
+    Doc::
+            
+            Take a list of packages that are required, try to import packages
+            one by one and if any package throws an error, it will mark it missing.
+            Finally returns the list of missing packages.
     """
     conda_env = env_name
     # # form import XX,XX,XX
@@ -148,11 +158,13 @@ def get_missing(all_packages, env_name="test"):
 
 
 def get_required_packages(source_files, conda_env="test"):
-    """
-    Takes a list of python modules and calls get_packages function
-    on each module, get missing packages using get_missing function,
-    removes the white listed packages and finally returns a list of packages
-    that are needed to be installed in our environment.
+    """.
+    Doc::
+            
+            Takes a list of python modules and calls get_packages function
+            on each module, get missing packages using get_missing function,
+            removes the white listed packages and finally returns a list of packages
+            that are needed to be installed in our environment.
     """
     # Not to install
     white_lists = ["resnet", "mobilenet", "inception",
@@ -189,11 +201,13 @@ def get_required_packages(source_files, conda_env="test"):
 
 
 def conda_env_exits(conda_env):
-    """function conda_env_exits
-    Args:
-        conda_env:   
-    Returns:
-        
+    """function conda_env_exits.
+    Doc::
+            
+            Args:
+                conda_env:   
+            Returns:
+                
     """
     cmds = ['conda.bat', 'env', 'list']
     p = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -203,10 +217,12 @@ def conda_env_exits(conda_env):
 
 
 def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
-    """
-    Function that creates the conda environment.
-    :param: folder_input folder containg the repo.
-    :param: conda_env 
+    """.
+    Doc::
+            
+            Function that creates the conda environment.
+            :param: folder_input folder containg the repo.
+            :param: conda_env 
     """
 
     # get conda activate handle, depending on os
@@ -245,8 +261,10 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
 
 
 def load_arguments():
-    """
-    Parse the arguments for the cli_env_autoinstall.py module.
+    """.
+    Doc::
+            
+            Parse the arguments for the cli_env_autoinstall.py module.
     """
     import argparse
 
@@ -271,10 +289,12 @@ def load_arguments():
 
 
 def main():
-    """function main
-    Args:
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     args = load_arguments()
     create_env(

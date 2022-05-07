@@ -19,14 +19,16 @@ logger = logging.getLogger("ncf")
 
 
 def _update_metrics(metrics_dict, metric, params, result):
-    """function _update_metrics
-    Args:
-        metrics_dict:   
-        metric:   
-        params:   
-        result:   
-    Returns:
-        
+    """function _update_metrics.
+    Doc::
+            
+            Args:
+                metrics_dict:   
+                metric:   
+                params:   
+                result:   
+            Returns:
+                
     """
     logger.debug("%s@%d = %g", metric, params["k"], result)
     if metric == params["primary_metric"]:
@@ -37,8 +39,10 @@ def _update_metrics(metrics_dict, metric, params, result):
 
 
 def ncf_training(params):
-    """
-    Train NCF using the given hyper-parameters
+    """.
+    Doc::
+            
+            Train NCF using the given hyper-parameters
     """
     logger.debug("Start training...")
     train_data = pd.read_pickle(
@@ -129,10 +133,12 @@ def ncf_training(params):
 
 
 def get_params():
-    """function get_params
-    Args:
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     parser = argparse.ArgumentParser()
     # Data path
@@ -166,11 +172,13 @@ def get_params():
 
 
 def main(params):
-    """function main
-    Args:
-        params:   
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+                params:   
+            Returns:
+                
     """
     logger.debug("Args: %s", str(params))
     logger.debug("Number of epochs %d", params["n_epochs"])

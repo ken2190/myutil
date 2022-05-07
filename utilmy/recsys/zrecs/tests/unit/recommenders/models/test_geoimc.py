@@ -40,12 +40,14 @@ _IMC_TEST_DATA = [
 # `geoimc_data` tests
 @pytest.mark.parametrize("data, entities", _IMC_TEST_DATA)
 def test_dataptr(data, entities):
-    """function test_dataptr
-    Args:
-        data:   
-        entities:   
-    Returns:
-        
+    """function test_dataptr.
+    Doc::
+            
+            Args:
+                data:   
+                entities:   
+            Returns:
+                
     """
     ptr = DataPtr(data, entities)
     assert (ptr.get_data() != data).nnz == 0
@@ -62,11 +64,13 @@ def test_dataptr(data, entities):
     ],
 )
 def test_length_normalize(matrix):
-    """function test_length_normalize
-    Args:
-        matrix:   
-    Returns:
-        
+    """function test_length_normalize.
+    Doc::
+            
+            Args:
+                matrix:   
+            Returns:
+                
     """
     assert np.allclose(
         np.sqrt(np.sum(length_normalize(matrix) ** 2, axis=1)),
@@ -83,11 +87,13 @@ def test_length_normalize(matrix):
     ],
 )
 def test_mean_center(matrix):
-    """function test_mean_center
-    Args:
-        matrix:   
-    Returns:
-        
+    """function test_mean_center.
+    Doc::
+            
+            Args:
+                matrix:   
+            Returns:
+                
     """
     mean_center(matrix)
     assert np.allclose(
@@ -96,10 +102,12 @@ def test_mean_center(matrix):
 
 
 def test_reduce_dims():
-    """function test_reduce_dims
-    Args:
-    Returns:
-        
+    """function test_reduce_dims.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     matrix = np.random.rand(100, 100)
     assert reduce_dims(matrix, 50).shape[1] == 50
@@ -114,12 +122,14 @@ def test_reduce_dims():
     ],
 )
 def test_imcproblem(dataPtr, rank):
-    """function test_imcproblem
-    Args:
-        dataPtr:   
-        rank:   
-    Returns:
-        
+    """function test_imcproblem.
+    Doc::
+            
+            Args:
+                dataPtr:   
+                rank:   
+            Returns:
+                
     """
 
     # Test init
@@ -145,10 +155,12 @@ def test_imcproblem(dataPtr, rank):
 
 # `geoimc_predict` tests
 def test_inferer_init():
-    """function test_inferer_init
-    Args:
-    Returns:
-        
+    """function test_inferer_init.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     assert Inferer(method="dot").method.__name__ == "PlainScalarProduct"
 
@@ -161,11 +173,13 @@ def test_inferer_init():
     ],
 )
 def test_inferer_infer(dataPtr):
-    """function test_inferer_infer
-    Args:
-        dataPtr:   
-    Returns:
-        
+    """function test_inferer_infer.
+    Doc::
+            
+            Args:
+                dataPtr:   
+            Returns:
+                
     """
     test_data = dataPtr
 

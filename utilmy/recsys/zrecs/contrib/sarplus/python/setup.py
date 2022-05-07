@@ -6,19 +6,23 @@ from setuptools.extension import Extension
 
 class get_pybind_include(object):
     def __init__(self, user=False):
-        """ get_pybind_include:__init__
-        Args:
-            user:     
-        Returns:
-           
+        """ get_pybind_include:__init__.
+        Doc::
+                
+                    Args:
+                        user:     
+                    Returns:
+                       
         """
         self.user = user
 
     def __str__(self):
-        """ get_pybind_include:__str__
-        Args:
-        Returns:
-           
+        """ get_pybind_include:__str__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         import pybind11
 

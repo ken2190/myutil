@@ -6,10 +6,12 @@ from main.EASE import TorchEASE
 
 class TestBasicFunction(unittest.TestCase):
     def setUp(self):
-        """ TestBasicFunction:setUp
-        Args:
-        Returns:
-           
+        """ TestBasicFunction:setUp.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         self.df = pd.DataFrame(
@@ -39,10 +41,12 @@ class TestBasicFunction(unittest.TestCase):
         )
 
     def test_torch_implicit(self):
-        """ TestBasicFunction:test_torch_implicit
-        Args:
-        Returns:
-           
+        """ TestBasicFunction:test_torch_implicit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.tei = TorchEASE(self.df, user_col="user", item_col="item", reg=0.05)
         self.tei.fit()
@@ -61,10 +65,12 @@ class TestBasicFunction(unittest.TestCase):
         )
 
     def test_torch_explicit(self):
-        """ TestBasicFunction:test_torch_explicit
-        Args:
-        Returns:
-           
+        """ TestBasicFunction:test_torch_explicit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.tee = TorchEASE(
             self.df, user_col="user", item_col="item", score_col="score", reg=0.05

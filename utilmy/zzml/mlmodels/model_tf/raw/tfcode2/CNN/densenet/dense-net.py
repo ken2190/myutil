@@ -43,15 +43,17 @@ sess = tf.InteractiveSession()
 
 
 def conv_layer(input, filter, kernel, stride=1, layer_name="conv"):
-    """function conv_layer
-    Args:
-        input:   
-        filter:   
-        kernel:   
-        stride:   
-        layer_name:   
-    Returns:
-        
+    """function conv_layer.
+    Doc::
+            
+            Args:
+                input:   
+                filter:   
+                kernel:   
+                stride:   
+                layer_name:   
+            Returns:
+                
     """
     with tf.name_scope(layer_name):
         network = tf.layers.conv2d(
@@ -61,24 +63,28 @@ def conv_layer(input, filter, kernel, stride=1, layer_name="conv"):
 
 
 def global_average_pooling(x, stride=1):
-    """function global_average_pooling
-    Args:
-        x:   
-        stride:   
-    Returns:
-        
+    """function global_average_pooling.
+    Doc::
+            
+            Args:
+                x:   
+                stride:   
+            Returns:
+                
     """
     return global_avg_pool(x, name="gop")
 
 
 def batch_normalization(x, training, scope):
-    """function batch_normalization
-    Args:
-        x:   
-        training:   
-        scope:   
-    Returns:
-        
+    """function batch_normalization.
+    Doc::
+            
+            Args:
+                x:   
+                training:   
+                scope:   
+            Returns:
+                
     """
     with arg_scope(
         [batch_norm],
@@ -97,27 +103,31 @@ def batch_normalization(x, training, scope):
 
 
 def drop_out(x, rate, training):
-    """function drop_out
-    Args:
-        x:   
-        rate:   
-        training:   
-    Returns:
-        
+    """function drop_out.
+    Doc::
+            
+            Args:
+                x:   
+                rate:   
+                training:   
+            Returns:
+                
     """
     return tf.layers.dropout(inputs=x, rate=rate, training=training)
 
 
 def average_pooling(x, pool_size=[2, 2], stride=2, padding="VALID"):
-    """function average_pooling
-    Args:
-        x:   
-        pool_size:   
-        2]:   
-        stride:   
-        padding:   
-    Returns:
-        
+    """function average_pooling.
+    Doc::
+            
+            Args:
+                x:   
+                pool_size:   
+                2]:   
+                stride:   
+                padding:   
+            Returns:
+                
     """
     return tf.layers.average_pooling2d(
         inputs=x, pool_size=pool_size, strides=stride, padding=padding
@@ -125,49 +135,57 @@ def average_pooling(x, pool_size=[2, 2], stride=2, padding="VALID"):
 
 
 def max_pooling(x, pool_size=[3, 3], stride=2, padding="VALID"):
-    """function max_pooling
-    Args:
-        x:   
-        pool_size:   
-        3]:   
-        stride:   
-        padding:   
-    Returns:
-        
+    """function max_pooling.
+    Doc::
+            
+            Args:
+                x:   
+                pool_size:   
+                3]:   
+                stride:   
+                padding:   
+            Returns:
+                
     """
     return tf.layers.max_pooling2d(inputs=x, pool_size=pool_size, strides=stride, padding=padding)
 
 
 def concatenation(layers):
-    """function concatenation
-    Args:
-        layers:   
-    Returns:
-        
+    """function concatenation.
+    Doc::
+            
+            Args:
+                layers:   
+            Returns:
+                
     """
     return tf.concat(layers, axis=3)
 
 
 def linear(x):
-    """function linear
-    Args:
-        x:   
-    Returns:
-        
+    """function linear.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     return tf.layers.dense(inputs=x, units=class_num, name="linear")
 
 
 class DenseNet:
     def __init__(self, x, nb_blocks, filters, training):
-        """ DenseNet:__init__
-        Args:
-            x:     
-            nb_blocks:     
-            filters:     
-            training:     
-        Returns:
-           
+        """ DenseNet:__init__.
+        Doc::
+                
+                    Args:
+                        x:     
+                        nb_blocks:     
+                        filters:     
+                        training:     
+                    Returns:
+                       
         """
         self.nb_blocks = nb_blocks
         self.filters = filters
@@ -175,12 +193,14 @@ class DenseNet:
         self.model = self.Dense_net(x)
 
     def bottleneck_layer(self, x, scope):
-        """ DenseNet:bottleneck_layer
-        Args:
-            x:     
-            scope:     
-        Returns:
-           
+        """ DenseNet:bottleneck_layer.
+        Doc::
+                
+                    Args:
+                        x:     
+                        scope:     
+                    Returns:
+                       
         """
         with tf.name_scope(scope):
             x = batch_normalization(x, training=self.training, scope=scope + "_batch1")
@@ -195,12 +215,14 @@ class DenseNet:
             return x
 
     def transition_layer(self, x, scope):
-        """ DenseNet:transition_layer
-        Args:
-            x:     
-            scope:     
-        Returns:
-           
+        """ DenseNet:transition_layer.
+        Doc::
+                
+                    Args:
+                        x:     
+                        scope:     
+                    Returns:
+                       
         """
         with tf.name_scope(scope):
             x = batch_normalization(x, training=self.training, scope=scope + "_batch1")
@@ -212,13 +234,15 @@ class DenseNet:
             return x
 
     def dense_block(self, input_x, nb_layers, layer_name):
-        """ DenseNet:dense_block
-        Args:
-            input_x:     
-            nb_layers:     
-            layer_name:     
-        Returns:
-           
+        """ DenseNet:dense_block.
+        Doc::
+                
+                    Args:
+                        input_x:     
+                        nb_layers:     
+                        layer_name:     
+                    Returns:
+                       
         """
         with tf.name_scope(layer_name):
             layers_concat = list()
@@ -237,11 +261,13 @@ class DenseNet:
             return x
 
     def Dense_net(self, input_x):
-        """ DenseNet:Dense_net
-        Args:
-            input_x:     
-        Returns:
-           
+        """ DenseNet:Dense_net.
+        Doc::
+                
+                    Args:
+                        input_x:     
+                    Returns:
+                       
         """
         x = conv_layer(
             input_x, filter=2 * self.filters, kernel=[7, 7], stride=2, layer_name="conv0"

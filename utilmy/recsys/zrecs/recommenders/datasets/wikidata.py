@@ -16,13 +16,15 @@ SESSION = None
 
 
 def get_session(session=None):
-    """Get session object
-
-    Args:
-        session (requests.Session): request session object
-
-    Returns:
-        requests.Session: request session object
+    """Get session object.
+    Doc::
+            
+        
+            Args:
+                session (requests.Session): request session object
+        
+            Returns:
+                requests.Session: request session object
     """
 
     if session is None:
@@ -36,15 +38,17 @@ def get_session(session=None):
 
 @retry(wait_random_min=1000, wait_random_max=5000, stop_max_attempt_number=5)
 def find_wikidata_id(name, limit=1, session=None):
-    """Find the entity ID in wikidata from a title string.
-
-    Args:
-        name (str): A string with search terms (eg. "Batman (1989) film")
-        limit (int): Number of results to return
-        session (requests.Session): requests session to reuse connections
-
-    Returns:
-        str: wikidata entityID corresponding to the title string. 'entityNotFound' will be returned if no page is found
+    """Find the entity ID in wikidata from a title string..
+    Doc::
+            
+        
+            Args:
+                name (str): A string with search terms (eg. "Batman (1989) film")
+                limit (int): Number of results to return
+                session (requests.Session): requests session to reuse connections
+        
+            Returns:
+                str: wikidata entityID corresponding to the title string. 'entityNotFound' will be returned if no page is found
     """
 
     session = get_session(session=session)
@@ -89,14 +93,16 @@ def find_wikidata_id(name, limit=1, session=None):
 
 @retry(wait_random_min=1000, wait_random_max=5000, stop_max_attempt_number=5)
 def query_entity_links(entity_id, session=None):
-    """Query all linked pages from a wikidata entityID
-
-    Args:
-        entity_id (str): A wikidata entity ID
-        session (requests.Session): requests session to reuse connections
-
-    Returns:
-        json: Dictionary with linked pages.
+    """Query all linked pages from a wikidata entityID.
+    Doc::
+            
+        
+            Args:
+                entity_id (str): A wikidata entity ID
+                session (requests.Session): requests session to reuse connections
+        
+            Returns:
+                json: Dictionary with linked pages.
     """
     query = (
         """
@@ -146,15 +152,17 @@ def query_entity_links(entity_id, session=None):
 
 
 def read_linked_entities(data):
-    """Obtain lists of liken entities (IDs and names) from dictionary
-
-    Args:
-        data (json): dictionary with linked pages
-
-    Returns:
-        list, list:
-        - List of liked entityIDs.
-        - List of liked entity names.
+    """Obtain lists of liken entities (IDs and names) from dictionary.
+    Doc::
+            
+        
+            Args:
+                data (json): dictionary with linked pages
+        
+            Returns:
+                list, list:
+                - List of liked entityIDs.
+                - List of liked entity names.
     """
 
     return [
@@ -168,15 +176,17 @@ def read_linked_entities(data):
 
 @retry(wait_random_min=1000, wait_random_max=5000, stop_max_attempt_number=5)
 def query_entity_description(entity_id, session=None):
-    """Query entity wikidata description from entityID
-
-    Args:
-        entity_id (str): A wikidata page ID.
-        session (requests.Session): requests session to reuse connections
-
-    Returns:
-        str: Wikidata short description of the entityID
-        descriptionNotFound' will be returned if no description is found
+    """Query entity wikidata description from entityID.
+    Doc::
+            
+        
+            Args:
+                entity_id (str): A wikidata page ID.
+                session (requests.Session): requests session to reuse connections
+        
+            Returns:
+                str: Wikidata short description of the entityID
+                descriptionNotFound' will be returned if no description is found
     """
     query = (
         """
@@ -207,17 +217,19 @@ def query_entity_description(entity_id, session=None):
 
 
 def search_wikidata(names, extras=None, describe=True, verbose=False):
-    """Create DataFrame of Wikidata search results
-
-    Args:
-        names (list[str]): List of names to search for
-        extras (dict(str: list)): Optional extra items to assign to results for corresponding name
-        describe (bool): Optional flag to include description of entity
-        verbose (bool): Optional flag to print out intermediate data
-
-    Returns:
-        pandas.DataFrame: Wikipedia results for all names with found entities
-
+    """Create DataFrame of Wikidata search results.
+    Doc::
+            
+        
+            Args:
+                names (list[str]): List of names to search for
+                extras (dict(str: list)): Optional extra items to assign to results for corresponding name
+                describe (bool): Optional flag to include description of entity
+                verbose (bool): Optional flag to print out intermediate data
+        
+            Returns:
+                pandas.DataFrame: Wikipedia results for all names with found entities
+        
     """
 
     results = []

@@ -26,10 +26,12 @@ from mlmodels.preprocess.generic import get_dataset_torch, torch_datasets_wrappe
 ###############################################################################################################
 ############### Custom Code ###################################################################################
 def torch_transform_mnist():
-    """function torch_transform_mnist
-    Args:
-    Returns:
-        
+    """function torch_transform_mnist.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from torchvision import datasets, transforms
     transform=transforms.Compose([
@@ -42,12 +44,14 @@ def torch_transform_mnist():
 
 
 def torchvision_dataset_MNIST_load(path, **args):
-    """function torchvision_dataset_MNIST_load
-    Args:
-        path:   
-        **args:   
-    Returns:
-        
+    """function torchvision_dataset_MNIST_load.
+    Doc::
+            
+            Args:
+                path:   
+                **args:   
+            Returns:
+                
     """
     ### only used in Refactoring part
     from torchvision import datasets, transforms
@@ -67,15 +71,17 @@ def torchvision_dataset_MNIST_load(path, **args):
 
 
 def torch_transform_data_augment(fixed_scale = 256, train = False):
-    """
-    Options:
-    1.RandomCrop
-    2.CenterCrop
-    3.RandomHorizontalFlip
-    4.Normalize
-    5.ToTensor
-    6.FixedResize
-    7.RandomRotate
+    """.
+    Doc::
+            
+            Options:
+            1.RandomCrop
+            2.CenterCrop
+            3.RandomHorizontalFlip
+            4.Normalize
+            5.ToTensor
+            6.FixedResize
+            7.RandomRotate
     """
     from torchvision import  transforms
     size = fixed_scale - 2
@@ -97,12 +103,14 @@ def torch_transform_data_augment(fixed_scale = 256, train = False):
 
 
 def torch_transform_generic(fixed_scale = 256, train = False):
-    """function torch_transform_generic
-    Args:
-        fixed_scale :   
-        train :   
-    Returns:
-        
+    """function torch_transform_generic.
+    Doc::
+            
+            Args:
+                fixed_scale :   
+                train :   
+            Returns:
+                
     """
     from torchvision import  transforms
     size = fixed_scale - 2

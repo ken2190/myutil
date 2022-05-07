@@ -41,10 +41,12 @@ from typing import List, Optional, Tuple, Union
 
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy import help_create
     print( help_create(MNAME) )
@@ -55,13 +57,37 @@ def help():
 # coding: utf-8
 class UnpicklableCallback:
     def __reduce__(self):
+        """ UnpicklableCallback:__reduce__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
+        """
         raise Exception("This class in not picklable")
 
     def __call__(self, env):
+        """ UnpicklableCallback:__call__.
+        Doc::
+                
+                    Args:
+                        env:     
+                    Returns:
+                       
+        """
         env.model.set_attr(attr_set_inside_callback=str(env.iteration * 10))
 
 
 def custom_asymmetric_obj(y_true, y_pred):
+    """function custom_asymmetric_obj.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     residual = (y_true - y_pred).astype(np.float64)
     grad = np.where(residual < 0, -2 * 10.0 * residual, -2 * residual)
     hess = np.where(residual < 0, 2 * 10.0, 2.0)
@@ -69,12 +95,30 @@ def custom_asymmetric_obj(y_true, y_pred):
 
 
 def objective_ls(y_true, y_pred):
+    """function objective_ls.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     grad = (y_pred - y_true)
     hess = np.ones(len(y_true))
     return grad, hess
 
 
 def logregobj(y_true, y_pred):
+    """function logregobj.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     y_pred = 1.0 / (1.0 + np.exp(-y_pred))
     grad = y_pred - y_true
     hess = y_pred * (1.0 - y_pred)
@@ -82,34 +126,104 @@ def logregobj(y_true, y_pred):
 
 
 def custom_dummy_obj(y_true, y_pred):
+    """function custom_dummy_obj.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return np.ones(y_true.shape), np.ones(y_true.shape)
 
 
 def constant_metric(y_true, y_pred):
+    """function constant_metric.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return 'error', 0, False
 
 
 def decreasing_metric(y_true, y_pred):
+    """function decreasing_metric.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return ('decreasing_metric', next(decreasing_generator), False)
 
 
 def mse(y_true, y_pred):
+    """function mse.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return 'custom MSE', mean_squared_error(y_true, y_pred), False
 
 
 def binary_error(y_true, y_pred):
+    """function binary_error.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return np.mean((y_pred > 0.5) != y_true)
 
 
 def multi_error(y_true, y_pred):
+    """function multi_error.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return np.mean(y_true != y_pred)
 
 
 def multi_logloss(y_true, y_pred):
+    """function multi_logloss.
+    Doc::
+            
+            Args:
+                y_true:   
+                y_pred:   
+            Returns:
+                
+    """
     return np.mean([-math.log(y_pred[i][y]) for i, y in enumerate(y_true)])
 
 
 def test_binary():
+    """function test_binary.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_breast_cancer(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMClassifier(n_estimators=50, verbose=-1)
@@ -120,6 +234,13 @@ def test_binary():
 
 
 def test_regression():
+    """function test_regression.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_boston(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMRegressor(n_estimators=50, verbose=-1)
@@ -130,6 +251,13 @@ def test_regression():
 
 
 def test_multiclass():
+    """function test_multiclass.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_digits(n_class=10, return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMClassifier(n_estimators=50, verbose=-1)
@@ -142,6 +270,13 @@ def test_multiclass():
 
 
 def test_lambdarank():
+    """function test_lambdarank.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     rank_example_dir = Path(__file__).absolute().parents[2] / 'examples' / 'lambdarank'
     X_train, y_train = load_svmlight_file(str(rank_example_dir / 'rank.train'))
     X_test, y_test = load_svmlight_file(str(rank_example_dir / 'rank.test'))
@@ -166,6 +301,13 @@ def test_lambdarank():
 
 
 def test_xendcg():
+    """function test_xendcg.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     xendcg_example_dir = Path(__file__).absolute().parents[2] / 'examples' / 'xendcg'
     X_train, y_train = load_svmlight_file(str(xendcg_example_dir / 'rank.train'))
     X_test, y_test = load_svmlight_file(str(xendcg_example_dir / 'rank.test'))
@@ -191,6 +333,13 @@ def test_xendcg():
 
 
 def test_eval_at_aliases():
+    """function test_eval_at_aliases.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     rank_example_dir = Path(__file__).absolute().parents[2] / 'examples' / 'lambdarank'
     X_train, y_train = load_svmlight_file(str(rank_example_dir / 'rank.train'))
     X_test, y_test = load_svmlight_file(str(rank_example_dir / 'rank.test'))
@@ -205,6 +354,14 @@ def test_eval_at_aliases():
 
 @pytest.mark.parametrize("custom_objective", [True, False])
 def test_objective_aliases(custom_objective):
+    """function test_objective_aliases.
+    Doc::
+            
+            Args:
+                custom_objective:   
+            Returns:
+                
+    """
     X, y = make_synthetic_regression()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     if custom_objective:
@@ -232,6 +389,13 @@ def test_objective_aliases(custom_objective):
 
 
 def test_regression_with_custom_objective():
+    """function test_regression_with_custom_objective.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_boston(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMRegressor(n_estimators=50, verbose=-1, objective=objective_ls)
@@ -242,6 +406,13 @@ def test_regression_with_custom_objective():
 
 
 def test_binary_classification_with_custom_objective():
+    """function test_binary_classification_with_custom_objective.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_digits(n_class=2, return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMClassifier(n_estimators=50, verbose=-1, objective=logregobj)
@@ -255,6 +426,13 @@ def test_binary_classification_with_custom_objective():
 
 
 def test_dart():
+    """function test_dart.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_boston(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMRegressor(boosting_type='dart', n_estimators=50)
@@ -265,6 +443,13 @@ def test_dart():
 
 
 def test_stacking_classifier():
+    """function test_stacking_classifier.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_iris(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
     classifiers = [('gbm1', lgb.LGBMClassifier(n_estimators=3)),
@@ -286,6 +471,13 @@ def test_stacking_classifier():
 
 
 def test_stacking_regressor():
+    """function test_stacking_regressor.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_boston(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
     regressors = [('gbm1', lgb.LGBMRegressor(n_estimators=3)),
@@ -305,6 +497,13 @@ def test_stacking_regressor():
 
 
 def test_grid_search():
+    """function test_grid_search.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_iris(return_X_y=True)
     y = y.astype(str)  # utilize label encoder at it's max power
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
@@ -339,6 +538,13 @@ def test_grid_search():
 
 
 def test_random_search():
+    """function test_random_search.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_iris(return_X_y=True)
     y = y.astype(str)  # utilize label encoder at it's max power
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1,
@@ -371,6 +577,13 @@ def test_random_search():
 
 
 def test_multioutput_classifier():
+    """function test_multioutput_classifier.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     n_outputs = 3
     X, y = make_multilabel_classification(n_samples=100, n_features=20,
                                           n_classes=n_outputs, random_state=0)
@@ -390,6 +603,13 @@ def test_multioutput_classifier():
 
 
 def test_multioutput_regressor():
+    """function test_multioutput_regressor.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     bunch = load_linnerud(as_frame=True)  # returns a Bunch instance
     X, y = bunch['data'], bunch['target']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1,
@@ -406,6 +626,13 @@ def test_multioutput_regressor():
 
 
 def test_classifier_chain():
+    """function test_classifier_chain.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     n_outputs = 3
     X, y = make_multilabel_classification(n_samples=100, n_features=20,
                                           n_classes=n_outputs, random_state=0)
@@ -427,6 +654,13 @@ def test_classifier_chain():
 
 
 def test_regressor_chain():
+    """function test_regressor_chain.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     bunch = load_linnerud(as_frame=True)  # returns a Bunch instance
     X, y = bunch['data'], bunch['target']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
@@ -445,6 +679,13 @@ def test_regressor_chain():
 
 
 def test_clone_and_property():
+    """function test_clone_and_property.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = make_synthetic_regression()
     gbm = lgb.LGBMRegressor(n_estimators=10, verbose=-1)
     gbm.fit(X, y)
@@ -463,6 +704,13 @@ def test_clone_and_property():
 
 
 def test_joblib():
+    """function test_joblib.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = make_synthetic_regression()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMRegressor(n_estimators=10, objective=custom_asymmetric_obj,
@@ -499,6 +747,14 @@ def test_joblib():
 
 
 def test_non_serializable_objects_in_callbacks(tmp_path):
+    """function test_non_serializable_objects_in_callbacks.
+    Doc::
+            
+            Args:
+                tmp_path:   
+            Returns:
+                
+    """
     unpicklable_callback = UnpicklableCallback()
 
     with pytest.raises(Exception, match="This class in not picklable"):
@@ -511,6 +767,13 @@ def test_non_serializable_objects_in_callbacks(tmp_path):
 
 
 def test_random_state_object():
+    """function test_random_state_object.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_iris(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     state1 = np.random.RandomState(123)
@@ -542,6 +805,13 @@ def test_random_state_object():
 
 
 def test_feature_importances_single_leaf():
+    """function test_feature_importances_single_leaf.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     data = load_iris(return_X_y=False)
     clf = lgb.LGBMClassifier(n_estimators=10)
     clf.fit(data.data, data.target)
@@ -550,6 +820,13 @@ def test_feature_importances_single_leaf():
 
 
 def test_feature_importances_type():
+    """function test_feature_importances_type.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     data = load_iris(return_X_y=False)
     clf = lgb.LGBMClassifier(n_estimators=10)
     clf.fit(data.data, data.target)
@@ -564,6 +841,13 @@ def test_feature_importances_type():
 
 
 def test_pandas_categorical():
+    """function test_pandas_categorical.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     pd = pytest.importorskip("pandas")
     np.random.seed(42)  # sometimes there is no difference how cols are treated (cat or not cat)
     X = pd.DataFrame({"A": np.random.permutation(['a', 'b', 'c', 'd'] * 75),  # str
@@ -622,6 +906,13 @@ def test_pandas_categorical():
 
 
 def test_pandas_sparse():
+    """function test_pandas_sparse.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     pd = pytest.importorskip("pandas")
     X = pd.DataFrame({"A": pd.arrays.SparseArray(np.random.permutation([0, 1, 2] * 100)),
                       "B": pd.arrays.SparseArray(np.random.permutation([0.0, 0.1, 0.2, -0.1, 0.2] * 60)),
@@ -642,6 +933,13 @@ def test_pandas_sparse():
 
 
 def test_predict():
+    """function test_predict.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     # With default params
     iris = load_iris(return_X_y=False)
     X_train, X_test, y_train, _ = train_test_split(iris.data, iris.target,
@@ -722,6 +1020,13 @@ def test_predict():
 
 
 def test_predict_with_params_from_init():
+    """function test_predict_with_params_from_init.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_iris(return_X_y=True)
     X_train, X_test, y_train, _ = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -757,6 +1062,13 @@ def test_predict_with_params_from_init():
 
 
 def test_evaluate_train_set():
+    """function test_evaluate_train_set.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = make_synthetic_regression()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     gbm = lgb.LGBMRegressor(n_estimators=10, verbose=-1)
@@ -771,6 +1083,13 @@ def test_evaluate_train_set():
 
 
 def test_metrics():
+    """function test_metrics.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_boston(return_X_y=True)
     params = {'n_estimators': 2, 'verbose': -1}
     params_fit = {'X': X, 'y': y, 'eval_set': (X, y)}
@@ -1035,6 +1354,13 @@ def test_metrics():
 
 
 def test_multiple_eval_metrics():
+    """function test_multiple_eval_metrics.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
 
     X, y = load_breast_cancer(return_X_y=True)
 
@@ -1073,6 +1399,13 @@ def test_multiple_eval_metrics():
 
 
 def test_inf_handle():
+    """function test_inf_handle.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     nrows = 100
     ncols = 10
     X = np.random.randn(nrows, ncols)
@@ -1086,6 +1419,13 @@ def test_inf_handle():
 
 
 def test_nan_handle():
+    """function test_nan_handle.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     nrows = 100
     ncols = 10
     X = np.random.randn(nrows, ncols)
@@ -1099,6 +1439,13 @@ def test_nan_handle():
 
 
 def test_first_metric_only():
+    """function test_first_metric_only.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
 
     def fit_and_check(eval_set_names, metric_names, assumed_iteration, first_metric_only):
         params['first_metric_only'] = first_metric_only
@@ -1201,6 +1548,13 @@ def test_first_metric_only():
 
 
 def test_class_weight():
+    """function test_class_weight.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_digits(n_class=10, return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     y_train_str = y_train.astype('str')
@@ -1234,6 +1588,13 @@ def test_class_weight():
 
 
 def test_continue_training_with_model():
+    """function test_continue_training_with_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_digits(n_class=3, return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
     init_gbm = lgb.LGBMClassifier(n_estimators=5).fit(X_train, y_train, eval_set=(X_test, y_test))
@@ -1245,6 +1606,13 @@ def test_continue_training_with_model():
 
 
 def test_actual_number_of_trees():
+    """function test_actual_number_of_trees.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X = [[1, 2, 3], [1, 2, 3]]
     y = [1, 1]
     n_estimators = 5
@@ -1256,6 +1624,13 @@ def test_actual_number_of_trees():
 
 
 def test_check_is_fitted():
+    """function test_check_is_fitted.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     X, y = load_digits(n_class=2, return_X_y=True)
     est = lgb.LGBMModel(n_estimators=5, objective="binary")
     clf = lgb.LGBMClassifier(n_estimators=5)
@@ -1275,12 +1650,29 @@ def test_check_is_fitted():
 
 @parametrize_with_checks([lgb.LGBMClassifier(), lgb.LGBMRegressor()])
 def test_sklearn_integration(estimator, check):
+    """function test_sklearn_integration.
+    Doc::
+            
+            Args:
+                estimator:   
+                check:   
+            Returns:
+                
+    """
     estimator.set_params(min_child_samples=1, min_data_in_bin=1)
     check(estimator)
 
 
 @pytest.mark.parametrize('task', ['classification', 'ranking', 'regression'])
 def test_training_succeeds_when_data_is_dataframe_and_label_is_column_array(task):
+    """function test_training_succeeds_when_data_is_dataframe_and_label_is_column_array.
+    Doc::
+            
+            Args:
+                task:   
+            Returns:
+                
+    """
     pd = pytest.importorskip("pandas")
     if task == 'ranking':
         X, y, g = make_ranking()
@@ -1313,6 +1705,13 @@ def test_training_succeeds_when_data_is_dataframe_and_label_is_column_array(task
 
 
 def test_multiclass_custom_objective():
+    """function test_multiclass_custom_objective.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     centers = [[-4, -4], [4, 4], [-4, 4]]
     X, y = make_blobs(n_samples=1_000, centers=centers, random_state=42)
     params = {'n_estimators': 10, 'num_leaves': 7}

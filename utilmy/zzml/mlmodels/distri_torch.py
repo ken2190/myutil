@@ -36,8 +36,10 @@ from util import load_config, val
 
 #####################################################################################
 def load_arguments():
-    """
-     Load CLI input, load config.toml , overwrite config.toml by CLI Input
+    """.
+    Doc::
+            
+             Load CLI input, load config.toml , overwrite config.toml by CLI Input
     """
     import argparse
 
@@ -145,11 +147,13 @@ optimizer = hvd.DistributedOptimizer(
 
 
 def train(epoch):
-    """function train
-    Args:
-        epoch:   
-    Returns:
-        
+    """function train.
+    Doc::
+            
+            Args:
+                epoch:   
+            Returns:
+                
     """
     model.train()
     # Horovod: set epoch to sampler for shuffling.
@@ -178,12 +182,14 @@ def train(epoch):
 
 
 def metric_average(val, name):
-    """function metric_average
-    Args:
-        val:   
-        name:   
-    Returns:
-        
+    """function metric_average.
+    Doc::
+            
+            Args:
+                val:   
+                name:   
+            Returns:
+                
     """
     tensor = torch.tensor(val)
     avg_tensor = hvd.allreduce(tensor, name=name)
@@ -191,10 +197,12 @@ def metric_average(val, name):
 
 
 def test():
-    """function test
-    Args:
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     model.eval()
     test_loss = 0.0

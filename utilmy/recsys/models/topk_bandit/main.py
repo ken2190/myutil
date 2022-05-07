@@ -9,14 +9,16 @@ import time
 
 # List of implemented policies
 def set_policies(policies_name, user_segment, user_features, n_playlists):
-    """function set_policies
-    Args:
-        policies_name:   
-        user_segment:   
-        user_features:   
-        n_playlists:   
-    Returns:
-        
+    """function set_policies.
+    Doc::
+            
+            Args:
+                policies_name:   
+                user_segment:   
+                user_features:   
+                n_playlists:   
+            Returns:
+                
     """
     # Please see section 3.3 of RecSys paper for a description of policies
     POLICIES_SETTINGS = {

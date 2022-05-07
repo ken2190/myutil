@@ -199,6 +199,13 @@ import polars as pl
 from utilmy.utilmy import log, log2
 
 def help():
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     from utilmy import help_create
     ss = help_create("utilmy.ppolars") + HELP
     print(ss)
@@ -206,11 +213,25 @@ def help():
 
 ###################################################################################
 def test_all():
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     os.makedirs("testdata/ppolars", exist_ok=True)
 
 
 
 def test2():
+    """function test2.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     nmin = 2
     nmax=5000
     # df = pd_create_random(nmax=5000000)
@@ -247,6 +268,13 @@ def test2():
 
 
 def test_create_parquet():
+    """function test_create_parquet.
+    Doc::
+            
+            Args:
+            Returns:
+                
+    """
     nmin = 2
     nmax=5000
     # df = pd_create_random(nmax=5000000)
@@ -265,10 +293,12 @@ def test_create_parquet():
 ###################################################################################################
 ###### Polars #####################################################################################
 def pl_split(df,  col='colstr', sep=",",  colnew="colstr_split", ):
-    """
-      dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
-      df['new1'] = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
-
+    """.
+    Doc::
+            
+              dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
+              df['new1'] = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
+        
     """
     df[ colnew ] = df.select(["*",  pl.col(col).apply(lambda x : x.split(",") ).alias(colnew )])[colnew ]
     return df
@@ -276,10 +306,12 @@ def pl_split(df,  col='colstr', sep=",",  colnew="colstr_split", ):
 
 
 def pl_groupby_join(df,  colgroup="colgroup", col='colstr', sep=",",   ):
-    """
-      dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
-      df['new1']  = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
-
+    """.
+    Doc::
+            
+              dfp['new1'] = dfp.apply(lambda x :  min( x['str1'].split(","))   , axis=1)
+              df['new1']  = df.select(["*",  pl.col("str1").apply(lambda x : min(x.split(",")) ).alias("booknew")])['booknew']
+        
     """
     df.groupby(colgroup ).agg(pl.col(col)).select([pl.col(colgroup ), pl.col(col).arr.join(sep)])
     return df
@@ -289,6 +321,19 @@ def pl_groupby_join(df,  colgroup="colgroup", col='colstr', sep=",",   ):
 
 
 def pl_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
+  """function pl_to_file.
+  Doc::
+          
+        Args:
+            df:   
+            filei:   
+            check:   
+            verbose:   
+            show:   
+            **kw:   
+        Returns:
+            
+  """
   import os, gc
   from pathlib import Path
   parent = Path(filei).parent
@@ -313,7 +358,9 @@ def pl_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
 
 
 def test1() -> None:
-    """function test1
+    """function test1.
+    Doc::
+            
     """
     # make dataset
     N_ROWS = 50
@@ -383,6 +430,19 @@ def test1() -> None:
 
 #############################################################################################
 def pivot_table_polars(df_or_path, columns:list, index:list, values:list, aggfunc:str='sum', dirout="./mypivot.parquet"):
+    """function pivot_table_polars.
+    Doc::
+            
+            Args:
+                df_or_path:   
+                columns ( list ) :   
+                index ( list ) :   
+                values ( list ) :   
+                aggfunc ( str ) :   
+                dirout:   
+            Returns:
+                
+    """
 
     if isinstance(df_or_path, str):
         df_or_path = pl.read_parquet(df_or_path)

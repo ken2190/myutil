@@ -10,9 +10,11 @@ Need log generator
 
 """
 def os_getenv_dict():
-  """
-    utilmy
-    set utilmy_pars = "$utilmy_pars;  verbose:1"  
+  """.
+  Doc::
+          
+          utilmy
+          set utilmy_pars = "$utilmy_pars;  verbose:1"  
   """
   import os
   def to_int(x, val=-1):

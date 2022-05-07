@@ -446,7 +446,9 @@ def get_list_class_methods(file_path):
                 # class_info["listMethods"].append(re_response.group(1))
                 info = {}
                 info['method_name'] = re_response.group(1)
-                info['line'] = all_lines.index(line)+1
+                # print(class_lines[0])
+                # print(all_lines.index(class_lines[0]))
+                info['line'] = all_lines.index(line, all_lines.index(class_lines[0]))+1  # type: ignore
                 class_info["listMethods"].append(info)
         class_info["listMethods"] = sorted(class_info["listMethods"], key=lambda d: d['method_name']) 
         list_names.append(class_info)
