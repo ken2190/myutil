@@ -1,21 +1,19 @@
 # coding=utf-8
-"""# 
+"""tabular data. 
 Doc::
 
+    https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
+
+    https://github.com/pranab/beymani
 
 
-https://thirdeyedata.io/unsupervised-concept-drift-detection-techniques-for-machine-learning-models-with-examples-in-python/
-
-https://github.com/pranab/beymani
-
-
-https://pkghosh.wordpress.com/2020/12/24/concept-drift-detection-techniques-with-python-implementation-for-supervised-machine-learning-models/
+    https://pkghosh.wordpress.com/2020/12/24/concept-drift-detection-techniques-with-python-implementation-for-supervised-machine-learning-models/
 
 
 
-https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
+    https://github.com/topics/hypothesis-testing?l=python&o=desc&s=stars
 
-https://pypi.org/project/pysie/#description
+    https://pypi.org/project/pysie/#description
 
 
 
@@ -36,8 +34,7 @@ def help():
     
 #################################################################################################
 def test_all():
-    """
-    #### python test.py   test_tabular
+    """ python test.py   test_tabular
     """
     import pandas as pd
     from sklearn.tree import DecisionTreeRegressor
@@ -115,8 +112,6 @@ def test_all():
 
 
 
-
-
 def test1():
     from sklearn.tree import DecisionTreeRegressor
     from sklearn.model_selection import train_test_split
@@ -167,11 +162,11 @@ def test3():
 #############################################################################
 #############################################################################
 def y_adjuster_log(y_true, y_pred_log, error_func, **kwargs):
-    """
-       Adjustment of log, exp transfrmation for yt= y + error
-       https://www.inovex.de/de/blog/honey-i-shrunk-the-target-variable/
-       
-       log(y) = u =sigma**2
+    """Adjustment of log, exp transfrmation for yt= y + error
+    Doc::
+
+       https://www.inovex.de/de/blog/honey-i-shrunk-the-target-variable/       
+       log(y) = u =sigma**2 due to convexity
     
     """
     import scipy as sp
@@ -203,10 +198,9 @@ def pd_train_test_split_time(df, test_period = 40, cols=None , coltime ="time_ke
 
 
 def pd_to_scipy_sparse_matrix(df):
-    """
-    Converts a sparse pandas data frame to sparse scipy csr_matrix.
-    df: pandas data frame
-    :return: csr_matrix
+    """Converts a sparse pandas data frame to sparse scipy csr_matrix.
+        df: pandas data frame
+        :return: csr_matrix
     """
     import numpy as np
     from scipy.sparse import lil_matrix
@@ -482,25 +476,27 @@ def pd_data_drift_detect_alibi(
     model=None,  ### Pre-trained model
     p_val=0.05,  **kwargs):
     
-    """ Detecting drift in the dataset using alibi
-    https://docs.seldon.io/projects/alibi-detect/en/latest/api/modules.html
-    
-    df:    dfframe test dataset to check for drift
-    dfnew: dfframe test dataset to check for drift    
-    backend: str "tensorflow" or "pytorch"
-    model:  trained pytorch or tensorflow model.
-    p_val: p value float 
+    """ Detecting drift in the dataset using alibi.
+    Doc::
 
-    example:
-    model = tf.keras.Sequential([InputLayer(input_shape=(input_size)),Dropout(0.3),Dense(1)])
-    model.compile(optimizer='adam',loss='mse')
-    model.fit(X_train,y_train,epochs=1)
+        https://docs.seldon.io/projects/alibi-detect/en/latest/api/modules.html
+        
+        df:      dfframe test dataset to check for drift
+        dfnew:   dfframe test dataset to check for drift    
+        backend: str "tensorflow" or "pytorch"
+        model:   trained pytorch or tensorflow model.
+        p_val:   p value float 
 
-    cd, is_drift_preds = pd_data_drift_detect(X_train, X_test,'regressoruncertaintydrift','tensorflow',model=model)
+        example:
+        model = tf.keras.Sequential([InputLayer(input_shape=(input_size)),Dropout(0.3),Dense(1)])
+        model.compile(optimizer='adam',loss='mse')
+        model.fit(X_train,y_train,epochs=1)
 
-    from utilmy import import_function
-    myclass = import_function(fun_name='KSDrift', module_name='alibi_detect.cd')  
-    mdrift = myclass(df.values,p_val=p_val,**kwargs)
+        cd, is_drift_preds = pd_data_drift_detect(X_train, X_test,'regressoruncertaintydrift','tensorflow',model=model)
+
+        from utilmy import import_function
+        myclass = import_function(fun_name='KSDrift', module_name='alibi_detect.cd')  
+        mdrift = myclass(df.values,p_val=p_val,**kwargs)
     
     
     """
