@@ -70,7 +70,8 @@ def run_cli():
     args = p.parse_args()
     do = args.task
 
-    if args.verbose > 0 : log(dir_utilmy)
+    if args.verbose > 0 : 
+        log(dir_utilmy)
 
     if do == 'gpu_usage': 
         ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
