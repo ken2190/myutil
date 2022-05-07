@@ -1,8 +1,94 @@
 # -*- coding: utf-8 -*-
 
 
-#################################################################################
-###############################################################################
+
+##############################################################################################
+##############################################################################################
+Given a string S, find the longest palindromic substring in S. 
+Substring of string S: S[ i . . . . j ] where 0 ≤ i ≤ j < len(S). 
+Palindrome string: A string which reads the same backwards. 
+More formally, S is palindrome if reverse(S) = S. Incase of conflict, 
+return the substring which occurs first ( with the least starting index).
+
+
+Example 1:
+
+Input:
+S = "aaaabbaa"
+Output: aabbaa
+Explanation: The longest Palindromic
+substring is "aabbaa".
+Example 2:
+
+Input: 
+S = "abc"
+Output: a
+Explanation: "a", "b" and "c" are the 
+longest palindromes with same length.
+The result is the one with the least
+starting index.
+
+
+# A O(n ^ 2) time and O(1) space program to find the# longest palindromic substring
+
+def longestPalSubstr(string):
+    n = len(string) # calculating size of string
+    if (n < 2):
+        return n # if string is empty then size will be 0. # if n==1 then, answer will be 1(single
+
+
+
+    start=0
+    maxLength = 1 
+    for i in range(n):
+        low  = i - 1
+        high = i + 1
+
+        
+        while (high < n and string[high] == string[i] ):                               
+            high=high+1
+      
+        while (low >= 0 and string[low] == string[i] ):                 
+            low=low-1
+      
+        while (low >= 0 and high < n and string[low] == string[high] ):
+          low=low-1
+          high=high+1 
+        
+    
+        length = high - low - 1
+        if (maxLength < length):
+            maxLength = length
+            start=low+1
+            
+    print ("Longest palindrome substring is:",end=" ")
+    print (string[start:start + maxLength])
+    
+    return maxLength
+    
+# Driver program to test above functions
+string = ("forgeeksskeegfor")
+print("Length is: " + str(longestPalSubstr(string)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
 ###  1
 You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part.
 

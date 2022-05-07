@@ -1,34 +1,39 @@
 """ Command Line for utilmy.
 Doc::
 
-        utilmy   gpu_usage
-        utilmy   gpu_available
+        utilmy  help
+        utilmy  gpu_usage
+        utilmy  gpu
 
 
 
 
 """
 HELP1 ="""
-utilmy  init
+Commands:
 
-utilmy  help
-
-$utilmy/images/util_image.py image_remove_background 
+    utilmy  gpu
+    utilmy  gpu_usage
+    python $utilmy/images/util_image.py image_remove_background 
 
 
 """
 import fire, argparse, os, sys
 
-#############################################################################################
-dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-
 
 #############################################################################################
 def log(*s):
-    """function log
-    """
+    """function log"""
     print(*s, flush=True)
+
+
+#############################################################################################
+try :
+   import utilmy 
+   dir_utilmy =  utilmy.__path__[0].replace("\\","/")  + "/"
+except:   
+   dir_utilmy = os.path.dirname(os.path.abspath(__file__)).replace("\\","/") 
+
 
 
 #############################################################################################
@@ -37,62 +42,70 @@ def run_cli():
     Doc::
 
         utilmy   gpu_usage
-        utilmy   gpu_available
+        utilmy   gpu
 
-        utilmy   check   myfile.parquet   
+        utilmy   show   myfile.parquet
 
 
 
 
     """
     import argparse
+    from utilmy.utilmy import os_system    
     p   = argparse.ArgumentParser()
     add = p.add_argument
 
-    add('task',  metavar='task', type=str,  nargs=1, help='gpu_usage')
-    add('task2', metavar='task2', type=str, nargs=2, help='')
-    add('task3', metavar='task2', type=str, nargs=3, help='')
+    add('task',  metavar='task',  type=str,  nargs="?", help='gpu,gpu_usage')
+    add('arg2', metavar='arg2', type=str, nargs="?", help='')
+    add('arg3', metavar='arg3', type=str, nargs="?", help='')
 
 
-    add("--dirin",    type=str, default=None,     help = "repo_url")
+    add("--dirin",    type=str, default='gpu',     help = "repo_url")
     add("--repo_dir",    type=str, default="./",     help = "repo_dir")
     add("--dirout",     type=str, default="docs/",  help = "doc_dir")
     add("--out_file",     type=str, default="",      help = "out_file")
     add("--exclude_dir", type=str, default="",       help = "path1,path2")
-    add("--prefix",      type=str, default=None,     help = "https://github.com/user/repo/tree/a")
+    add("--prefix",      type=str, default=None,     help = "hdops://github.com/user/repo/tree/a")
+    add("--verbose",      type=int, default=0,     help = "hdops://github.com/user/repo/tree/a")
   
     args = p.parse_args()
+    do = args.task
 
+    if args.verbose > 0 : 
+        log(dir_utilmy)
 
-    if args.task == 'gpu_usage': 
-        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_usage")
-
-    if args.task == 'gpu_available': 
-        os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
-
-    if args.task == 'check': 
-        os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.task2}'  ")
-
-    if args.task == 'find': 
-        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.task2}' --dirin '{args.task3}'  ")
-
-
-    if args.task == 'help':
+    if do == 'help':
         print(HELP1)
 
-    if args.task == 'init':
+    if do == 'init':
         pass
 
-    if args.task == 'colab':
+    #################################################################################################
+    if do == 'gpu_usage': 
+        ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
+
+    if do == 'gpu': 
+        ss = os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_available",doprint=True)
+        # log(ss[0])
+
+    if do == 'show':
+        ss = os_system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.arg2}'  ",doprint=True)
+        log(ss)
+
+    if do == 'find': 
+        os_system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.arg2}' --dirin '{args.arg3}'  ")
+
+
+    if do == 'colab':
         from utilmy import util_colab as mm
         mm.help()
 
 
-    if "utilmy." in args.task or "utilmy/" in args.task :
+    if "utilmy." in do or "utilmy/" in do :
         from utilmy.utilmy import load_function_uri
-        uri = args.task.replace(".", "/")  ### "utilmy.ppandas::test"
-        dirfile  = "utilmy/" + args.task if 'utilmy/' not in args.task else args.task
-        fun_name = args.task2
+        uri = do.replace(".", "/")  ### "utilmy.ppandas::test"
+        dirfile  = "utilmy/" + do if 'utilmy/' not in do else do
+        fun_name = args.task
 
         cmd = f"{dir_utilmy}/{dirfile}  {fun_name}  "
         os.system(cmd)
@@ -108,7 +121,7 @@ def run_cli():
 
 ###################################################################################################
 if __name__ == "__main__":
-
-    fire.Fire()
+    run_cli()
+    # fire.Fire()
 
 
