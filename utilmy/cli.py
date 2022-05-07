@@ -20,7 +20,7 @@ $utilmy/images/util_image.py image_remove_background
 import fire, argparse, os, sys
 
 #############################################################################################
-dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+dir_utilmy = sys.path.append(os.path.dirname(os.path.abspath(__file__)).replace("\\","/") )
 
 
 
@@ -59,40 +59,41 @@ def run_cli():
     add("--dirout",     type=str, default="docs/",  help = "doc_dir")
     add("--out_file",     type=str, default="",      help = "out_file")
     add("--exclude_dir", type=str, default="",       help = "path1,path2")
-    add("--prefix",      type=str, default=None,     help = "https://github.com/user/repo/tree/a")
+    add("--prefix",      type=str, default=None,     help = "hdops://github.com/user/repo/tree/a")
   
     args = p.parse_args()
+    do = args.task
 
 
-    if args.task == 'gpu_usage': 
+    if do == 'gpu_usage': 
         os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_usage")
 
-    if args.task == 'gpu_available': 
+    if do == 'gpu_available': 
         os.system( f"{dir_utilmy}/deeplearning/util_dl.py   gpu_available")
 
-    if args.task == 'check': 
+    if do == 'check': 
         os.system( f"{dir_utilmy}/ppandas.py  pd_check_file  --dirin '{args.task2}'  ")
 
-    if args.task == 'find': 
-        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.task2}' --dirin '{args.task3}'  ")
+    if do == 'find': 
+        os.system( f"{dir_utilmy}/oos.py  os_find_infile   --padoern  '{args.task2}' --dirin '{args.task3}'  ")
 
 
-    if args.task == 'help':
+    if do == 'help':
         print(HELP1)
 
-    if args.task == 'init':
+    if do == 'init':
         pass
 
-    if args.task == 'colab':
+    if do == 'colab':
         from utilmy import util_colab as mm
         mm.help()
 
 
-    if "utilmy." in args.task or "utilmy/" in args.task :
+    if "utilmy." in do or "utilmy/" in do :
         from utilmy.utilmy import load_function_uri
-        uri = args.task.replace(".", "/")  ### "utilmy.ppandas::test"
-        dirfile  = "utilmy/" + args.task if 'utilmy/' not in args.task else args.task
-        fun_name = args.task2
+        uri = do.replace(".", "/")  ### "utilmy.ppandas::test"
+        dirfile  = "utilmy/" + do if 'utilmy/' not in do else do
+        fun_name = args.task
 
         cmd = f"{dir_utilmy}/{dirfile}  {fun_name}  "
         os.system(cmd)
