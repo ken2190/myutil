@@ -1,17 +1,20 @@
+"""Hadoop, hive related
+Doc:
+
+    python $utilmy/sspark/src/util_hadoop.py  print_env_variable
+    utilmy spark print_config
+
+
+
 """
-
-Hadoop, hive related
-
-
-"""
-import os
+import os,sys
 
 
 def log(*s):
   print(*s, flush=True)
 
 
-def print_env_variable(dirout=None):
+def print_config(dirout=None):
   """ Print configuration variable for Hadoop, Spark
 
 
@@ -34,15 +37,13 @@ def print_env_variable(dirout=None):
 
 
 
-def hdfs_down(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
-  """  Read file in parallel from disk : very Fast.
+def hdfs_download(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
+  """  Donwload files in parallel using pyarrow
   Doc::
-          
-        path_glob: list of pattern, or sep by ";"
+
+        path_glob: list of HDFS pattern, or sep by ";"
         :return:
   """
-  from_dir = ""
-  to_dir   = ""  
   import glob, gc,os
   from multiprocessing.pool import ThreadPool
 
@@ -51,15 +52,15 @@ def hdfs_down(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
 
   #### File ############################################
   import pyarrow as pa
-  hdfs  = pa.hdfs.connect()  
-  flist = [ t for t in hdfs.ls(from_dir) ] 
+  hdfs  = pa.hdfs.connect()
+  flist = [ t for t in hdfs.ls(from_dir) ]
 
   def fun_async(x):
       hdfs.download(x[0], x[1])
 
 
-  ######################################################    
-  file_list = sorted(list(set(file_list)))
+  ######################################################
+  file_list = sorted(list(set(flist)))
   n_file    = len(file_list)
   if verbose: log(file_list)
 
@@ -75,6 +76,7 @@ def hdfs_down(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
 
   pool   = ThreadPool(processes=n_pool)
 
+  res_list=[]
   for j in range(0, m_job ) :
       if verbose : log("Pool", j, end=",")
       job_list = []
@@ -91,11 +93,18 @@ def hdfs_down(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
         if i >= len(job_list): break
         res_list.append( job_list[ i].get() )
 
-                
+
   pool.close()
-  pool.join()  
-  pool = None          
+  pool.join()
+  pool = None
   if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
-  return rest_list
-        
+  return res_list
+
  
+
+
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
+
