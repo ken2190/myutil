@@ -4,6 +4,8 @@ Hadoop, hive related
 
 
 """
+import os
+
 
 def log(*s):
   print(*s, flush=True)
