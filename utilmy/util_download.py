@@ -305,7 +305,7 @@ def upload_google(src_folder_name , dst_folder_name, auth_key ):
         folder.Upload()
 
         # Return folder informations
-        print('title: %s, id: %s' % (folder['title'], folder['id'])
+        print('title: %s, id: %s' % (folder['title'], folder['id']))
         return folder['id']
 
 
@@ -339,7 +339,7 @@ def upload_google(src_folder_name , dst_folder_name, auth_key ):
 
         #src_folder_name = args.source
         #dst_folder_name = args.destination
-        parent_folder_name = args.parent
+        parent_folder_name =  dst_folder_name.split("/")[-2]
 
         # Authenticate to Google API
         drive = authenticate()
