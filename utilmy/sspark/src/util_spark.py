@@ -132,7 +132,7 @@ def spark_under_sample_df(df,major_label, minor_label, ratio, label_col_name):
 from pyspark.mllib.evaluation import MulticlassMetrics
 from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
-def print_metrics_summary(labels_and_predictions_df):
+def spark_metrics_summary(labels_and_predictions_df):
     labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
     metrics = MulticlassMetrics(labels_and_predictions_rdd)
     # Overall statistics
@@ -153,7 +153,7 @@ def print_metrics_summary(labels_and_predictions_df):
     print("Weighted false positive rate = %s" % metrics.weightedFalsePositiveRate)
 
 
-def print_auc_roc_summary(labels_and_predictions_df):
+def spark_metrics_roc_summary(labels_and_predictions_df):
     labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
     metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
     # Area under precision-recall curve
@@ -206,6 +206,48 @@ def hdfs_dir_isexists(ip_path):
 def hdfs_copy_to_local_from_hdfs(hdfs_path, local_path):
     cat = subprocess.call(["hadoop", "fs", "-copyToLocal", hdfs_path , local_path])
 
+
+
+
+
+
+
+##################################################################################
+def pa_read_file(path=  'hdfs://user/test/myfile.parquet/', 
+                 cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
+    """ Requied HDFS connection
+       conda install libhdfs3 pyarrow
+       os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
+    """
+    import pyarrow as pa, gc
+    import pyarrow.parquet as pq
+    hdfs = pa.hdfs.connect()    
+    
+    n_rows = 999999999 if n_rows < 0  else n_rows
+    
+    flist = hdfs.ls( path )  
+    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
+    flist = flist[file_start:file_end]  #### Allow batch load by partition
+    if verbose : print(flist)
+    dfall = None
+    for pfile in flist:
+        if not "parquet" in pfile and not ".db" in pfile :
+            continue
+        if verbose > 0 :print( pfile )            
+                    
+        arr_table = pq.read_table(pfile, columns=cols)
+        df        = arr_table.to_pandas()
+        del arr_table; gc.collect()
+        
+        dfall = pd.concat((dfall, df)) if dfall is None else df
+        del df
+        if len(dfall) > n_rows :
+            break
+
+    if dfall is None : return None        
+    if verbose > 0 : print( dfall.head(2), dfall.shape )          
+    dfall = dfall.iloc[:n_rows, :]            
+    return dfall
 
 
 
