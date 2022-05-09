@@ -164,9 +164,6 @@ def os_makedirs(path:str):
 
 
 
-
-
-
 ##################################################################################
 def pa_read_file(path=  'hdfs://user/test/myfile.parquet/', 
                  cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
@@ -221,6 +218,12 @@ def date_format(datestr="":str, fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
         datestr: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
+        date_format(timezone='Asia/Tokyo')    -->  "20200519" 
+        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d', add_days=-1)    -->  "2020-05-18" 
+
+
+
     """
     from pytz import timezone as tzone
     import datetime
@@ -246,16 +249,7 @@ def date_get_month_days(time):
     _, days = calendar.monthrange(time.year, time.month)
     return days
 
-def date_get_intdate(seconds_adjust=0):
-    """
-    based on JST
-    seconds_adjust = number of seconds in the future
-    """
-    t = time.time()
-    t_struct = time.gmtime(t+9*3600+seconds_adjust)
-    return time.strftime('%Y%m%d',t_struct)
-
-def date_get_time_key(unix_ts):
+def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
 
 def date_get_unix_ts_from_datetime(dt_with_timezone):
@@ -270,11 +264,6 @@ def date_get_hour_range(dt, offset, output_format):
         hour_range.append((dt + datetime.timedelta(hours=hr)).strftime(output_format))
     return hour_range
 
-def date_get_time_now_with_timezone(timezone):
-    return datetime.datetime.now(timezone)
-
-def date_get_date_with_delta(time, days_delta):
-    return time + datetime.timedelta(days=days_delta)
 
 def date_get_start_of_month(time):
     return time.replace(day=1)
