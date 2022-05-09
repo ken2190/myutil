@@ -346,7 +346,6 @@ def spark_df_under_sample(df,major_label, minor_label, ratio, label_col_name):
     return combined_df
 
 
-
 def spark_df_timeseries_split(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object):
     """.
     Doc::
