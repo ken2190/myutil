@@ -28,20 +28,6 @@ def spark_get_session(config:dict, verbose=0):
 
     return spark
 
-
-def spark_execute_sqlfile(spark_session=None, spark_config=None:dict,sql_path:dir)->pyspark.sql.DataFrame:
-    """ Execute SQL
-
-
-    """
-    sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
-    with open(sql_path) as fr:
-        query = fr.read()
-        df_results = sp_session.sql(query)
-        return df_results
-
-
-
 class SparkEnv(object):
 
     def __init__(self, config=None):
@@ -79,6 +65,19 @@ class SparkEnv(object):
 
 
 ########################################################################################
+def spark_execute_sqlfile(spark_session=None, spark_config=None:dict,sql_path:dir)->pyspark.sql.DataFrame:
+    """ Execute SQL
+
+
+    """
+    sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
+    with open(sql_path) as fr:
+        query = fr.read()
+        df_results = sp_session.sql(query)
+        return df_results
+
+
+
 def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                           save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
@@ -244,7 +243,6 @@ def date_format(datestr="":str, fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
     else:                        return now_new.strftime(fmt)
 
 
-
 def date_get_month_days(time):
     _, days = calendar.monthrange(time.year, time.month)
     return days
@@ -252,11 +250,11 @@ def date_get_month_days(time):
 def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
 
-def date_get_unix_ts_from_datetime(dt_with_timezone):
+def date_get_unix_from_datetime(dt_with_timezone):
     return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(get_unix_ts_from_datetime(dt_with_timezone)) / TimeConstants.SECONDS_PER_DAY
+    return int(date_get_unix_from_datetime(dt_with_timezone)) / TimeConstants.SECONDS_PER_DAY
 
 def date_get_hour_range(dt, offset, output_format):
     hour_range = []
@@ -376,10 +374,10 @@ def spark_df_timeseries_split(df_m:pyspark.sql.DataFrame, splitRatio:float, spar
 
 
 ##################################################################################
-from pyspark.mllib.evaluation import MulticlassMetrics
-from pyspark.mllib.evaluation import BinaryClassificationMetrics
+def spark_metrics_classifier_summary(labels_and_predictions_df):
+    from pyspark.mllib.evaluation import MulticlassMetrics
+    from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
-def spark_metrics_summary(labels_and_predictions_df):
     labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
     metrics = MulticlassMetrics(labels_and_predictions_rdd)
     # Overall statistics
