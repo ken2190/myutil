@@ -5,6 +5,7 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
+import pandas  as pd
 
 import pyspark
 from pyspark import SparkConf
@@ -18,7 +19,7 @@ def log(*s):
 
 ##################################################################################
 def spark_get_session(config:dict, verbose=0):
-    assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config))
+    assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
@@ -65,7 +66,7 @@ class SparkEnv(object):
 
 
 ########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config=None:dict,sql_path:dir)->pyspark.sql.DataFrame:
+def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="")->pyspark.sql.DataFrame:
     """ Execute SQL
 
 
@@ -125,7 +126,7 @@ def hdfs_mkdir(op_path):
 
 
 def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
-    if overwrite: rm_dir_hdfs(hdfs_path)
+    if overwrite: hdfs_rm_dir(hdfs_path)
     res = os_system( f"hdfs dfs -copyFromLocal '{local_path}'  '{hdfs_path}' ", doprint=True)
 
 
@@ -133,7 +134,7 @@ def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
     res = os_system( f"hdfs dfs -copyToLocal '{hdfs_path}'  '{local_path}' ", doprint=True)
 
 def hdfs_rm_dir(ip_path):
-    if test_dir_exists_hdfs(ip_path):
+    if hdfs_dir_exists(ip_path):
         print("removing old file "+ip_path)
         cat = subprocess.call(["hadoop", "fs", "-rm", ip_path ])
 
@@ -210,7 +211,7 @@ class TimeConstants:
     UTC_TO_JST_SHIFT = 9 * 3600
 
 
-def date_format(datestr="":str, fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", returnval='str,int,datetime'):
+def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
 
@@ -238,8 +239,8 @@ def date_format(datestr="":str, fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
         now_new = now_new.astimezone(tzone(timezone))
 
 
-    if   returval == 'datetime': return now_new ### datetime
-    elif returval == 'int':      return int(now_new.strftime(fmt))
+    if   returnval == 'datetime': return now_new ### datetime
+    elif returnval == 'int':      return int(now_new.strftime(fmt))
     else:                        return now_new.strftime(fmt)
 
 
@@ -258,7 +259,7 @@ def date_get_unix_day_from_datetime(dt_with_timezone):
 
 def date_get_hour_range(dt, offset, output_format):
     hour_range = []
-    for hr in xrange(offset):
+    for hr in range(offset):
         hour_range.append((dt + datetime.timedelta(hours=hr)).strftime(output_format))
     return hour_range
 
