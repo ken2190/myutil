@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
+"""Util for debugging
+Doc::
 
+    https://eliot.readthedocs.io/en/stable/
 
-https://eliot.readthedocs.io/en/stable/
-
-
-
-pip install filprofiler
+    pip install filprofiler
 
 
 
@@ -16,24 +14,13 @@ import itertools, time, multiprocessing, pandas as pd, numpy as np, pickle, gc
 
 #################################################################################################
 def log(*s):
-    """function log.
-    Doc::
-            
-            Args:
-                *s:   
-            Returns:
-                
+    """function log.         
     """
     print(*s, flush=True)
 
 
 def help():
     """function help.
-    Doc::
-            
-            Args:
-            Returns:
-                
     """
     ss  = ""
     ss += HELP
@@ -73,7 +60,7 @@ def log10(*s, nmax=60):
         print(nameof(x, frame=2), ":", type(x), "\n",  str(x)[:nmax], "\n")
 
 
-def log5(*s):
+def logic(*s):
     """    ### Equivalent of print, but more :  https://github.com/gruns/icecream.
     Doc::
             
@@ -90,12 +77,6 @@ def log_trace(msg="", dump_path="", globs=None):
     """function log_trace.
     Doc::
             
-            Args:
-                msg:   
-                dump_path:   
-                globs:   
-            Returns:
-                
     """
     print(msg)
     import pdb;
@@ -106,8 +87,10 @@ def profiler_start():
     """function profiler_start.
     Doc::
             
-            Args:
-            Returns:
+        from utilmy.util_debug import profiler_start, profiler_stop
+        profiler_start()
+        ...
+        profiler_stop() 
                 
     """
     ### Code profiling
@@ -121,11 +104,39 @@ def profiler_stop():
     """function profiler_stop.
     Doc::
             
-            Args:
-            Returns:
+        from utilmy.util_debug import profiler_start, profiler_stop
+        profiler_start()
+        ...
+        profiler_stop()        
                 
     """
     global profiler
     profiler.stop()
     print(profiler.output_text(unicode=True, color=True))
+
+
+
+
+#####################################################################################
+def os_get_function_name():
+    import traceback
+    try :
+       return traceback.extract_stack(None, 2)[0][2]
+    except : return ''
+
+
+def os_get_function_parameters_and_values():
+    import inspect 
+    try :
+        frame = inspect.currentframe().f_back
+        args, _, _, values = inspect.getargvalues(frame)
+        return ([(i, values[i]) for i in args])
+    except: return ''    
+
+
+def test2():
+    def my_func(a, b, c=None):
+        log('Running ' + get_function_name() + '(' + str(get_function_parameters_and_values()) +')')
+
+
 
