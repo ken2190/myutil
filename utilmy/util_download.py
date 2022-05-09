@@ -305,8 +305,8 @@ def upload_google(src_folder_name , dst_folder_name, auth_key ):
         folder.Upload()
 
         # Return folder informations
-        print('title: %s, id: %s' % (folder['title'], folder['id])
-        return folder[(id']
+        print('title: %s, id: %s' % (folder['title'], folder['id'])
+        return folder['id']
 
 
     def upload_files(drive, folder_id, src_folder_name):
