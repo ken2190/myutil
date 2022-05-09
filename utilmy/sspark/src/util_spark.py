@@ -17,6 +17,31 @@ def log(*s):
 
 
 ##################################################################################
+def spark_print_config(include='spark,hadoop,hive', dirout=None, doprint=True, return_dict=False, ):
+  """ Print configuration variable for Hadoop, Spark
+
+
+  """
+  names =[
+    'SPARK_HOME',
+    'HADOOP_HOME'
+
+
+  ]
+
+  dd= []
+  for ni in names:
+    dd.append( [ni, os.environ.get(ni, '') ] )
+
+  ### Print configuration files on disk
+  ### SPARK_HOME/conf/spark_env.sh
+
+  if return_dict:
+     return dd
+   
+
+
+
 def spark_get_session(config:dict, verbose=0):
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config))
     conf = SparkConf()
