@@ -239,8 +239,7 @@ def upload_google(src_folder_name , dst_folder_name, auth_key ):
         https://gist.github.com/jmlrt/f524e1a45205a0b9f169eb713a223330
 
     """
-    from __future__ import (unicode_literals, absolute_import, print_function,
-                            division)
+
     # Import Google libraries
     from pydrive.auth import GoogleAuth
     from pydrive.drive import GoogleDrive
