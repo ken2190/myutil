@@ -84,19 +84,19 @@ jobs:
           tags: artia37/spark243-hdp27:v1
 
 
-  docker-test-1:
-    runs-on: ubuntu-latest
-    needs: docker-build
-    container: 
-      image: artia37/spark243-hdp27:v1
-      options: --user root
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          ls
-          #python3.7 -m pip install pybind11
-          ##python3.7 setup.py install
-          #python3.7 runtests.py -u
+  # docker-test-1:
+  #   runs-on: ubuntu-latest
+  #   needs: docker-build
+  #   container: 
+  #     image: artia37/spark243-hdp27:v1
+  #     options: --user root
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: |
+  #         ls
+  #         #python3.7 -m pip install pybind11
+  #         ##python3.7 setup.py install
+  #         #python3.7 runtests.py -u
 
 
 
