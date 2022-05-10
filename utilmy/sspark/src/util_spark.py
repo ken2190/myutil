@@ -168,6 +168,7 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
             Returns: df_train, df_test
         
     """
+    from pyspark.sql import types as T
     newSchema  = T.StructType(df_m.schema.fields + \
                 [T.StructField("Row Number", T.LongType(), False)])
     new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
