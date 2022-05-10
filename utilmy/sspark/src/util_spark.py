@@ -33,9 +33,35 @@ from util_hadoop import (
 )
 
 
-##################################################################################
-def spark_print_config():
-    pass
+##################################################################################    
+def spark_printconfig(sparksession):
+    log('\n####### Spark Conf') 
+    conft = sparksession.sparkContext.getConf().getAll()
+    for x in conft: 
+        print(x)    
+
+    log('\n####### Env Variables') 
+    for key,val in os.environ.items():
+        print(key,val)    
+
+    log('\n####### Spark Conf files:  spark-env.sh ')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ') 
+
+    log('\n####### Spark Conf:  spark-defaults.conf')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ') 
+
+
+
+def spark_checkconfig():
+    """
+
+
+    """
+    env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
 
 
 def spark_get_session(config:dict, verbose=0):
@@ -72,6 +98,19 @@ def spark_get_session(config:dict, verbose=0):
 
     return spark
 
+
+
+def spark_add_jar(sparksession, hive_jar_cmd=None):
+    try :  
+      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; " 
+      if hive_jar_cmd is not None:
+          ss= hive_jar_cmd
+
+      sparksession.sql(ss)
+      log('JAR added')
+
+    except: Exception as e :
+        log(e)
 
 
 ########################################################################################
@@ -125,6 +164,37 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
     if returnval :
         return df1
 
+
+
+def spark_write_hdfs(df, dirout, show=0):
+    pass
+
+
+
+def hive_check_table(config, tables, add_jar_cmd=""):    
+  """ Check Hive table using Hive
+  Doc::
+      
+       tables = [  'myhive.mytable'   ]
+
+
+  """  
+  if isinstance(table, str):
+      ### Parse YAML file
+      ss = ss.split("\n")
+      ss = [t for t in ss if len(t) > 5  ]  
+      ss = [  t.split(":") for t in ss]
+      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
+      print(ss)  
+
+  elif isinstance(tables, list):
+      ss = [ [ ti, ti] for ti in tables  ]    
+    
+  for x in ss :
+    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
+    log(x[0])
+    log( os.system( cmd ) )
+    
 
 
 ##################################################################################
@@ -366,6 +436,48 @@ def os_system(cmd, doprint=False):
   except Exception as e :
     print( f"Error {cmd}, {e}")
 
+    
+
+def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
+    """ Replace text in config files.
+        
+    """
+    import glob 
+
+    txt1= textold ##  "/usr/local/old/"
+    txt2=textnew  ## "/new/"
+
+  
+    flist = [] 
+    for diri in dirins 
+       flist = glob.glob( diri , recursive= True )
+
+    flist = [ fi for fi in flist if 'backup' not in fi] 
+    log(flist)
+
+    for fi in flist :
+      flag = False
+      with open(fi,'r') as fp:
+        lines = fp.readlines()
+
+      ss = []
+      for li in lines :
+        if txt1 in li :
+          flag = True
+          li = li.replace(txt1, txt2)
+        ss.append(li)
+
+      if flag  :
+        log('update', fi)
+        # log(ss)
+        # break
+        if test == 0 :
+          with open(fi, mode='w') as fp :
+             fp.writelines("".join(ss))   
+        # break 
+
+
+    
 
 
 ###############################################################################################################

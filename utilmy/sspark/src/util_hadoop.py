@@ -40,7 +40,11 @@ def hadoop_print_config(dirout=None):
 
 
 
-############################################################################################################### 
+###############################################################################################################
+def hdfs_isok(path):
+    import os
+    print( os.system( f'hdfs dfs -ls {path}' ) )
+     
 def hdfs_mkdir(op_path):
     res = os_system( f"hdfs dfs -mkdir -p '{local_path}'  '{hdfs_path}' ", doprint=True)
 
