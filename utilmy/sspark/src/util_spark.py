@@ -39,7 +39,21 @@ def spark_print_config():
 
 
 def spark_get_session(config:dict, verbose=0):
+    """  Generic Spark session creation
+    Doc::
+
+         config:  path on disk OR dictionnary
+
+
+    """
+    if isinstance(config, str):  
+        from utilmy.configs.util_config import load_config
+        config_path = config
+        config = load_config(config_path)  ### Universal config loader
+
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
+
+
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
