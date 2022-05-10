@@ -10,6 +10,7 @@ import pandas  as pd
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
+from typing import Union 
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -42,24 +43,7 @@ def spark_get_session(config:dict, verbose=0):
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
-
-    if verbose>0:
-        print(spark)
-
-    return spark
-
-class SparkEnv(object):
-
-    def __init__(self, config=None):
-        if config is not None:
-            self.set_spark_config(config)
-
-    @property
-    def spark(self):
-        if not hasattr(self, '_spark'):
-            if not hasattr(self, '_spark_config'):
-                raise Exception('No spark config specified')
-
+    """
             conf = SparkConf()
             conf.setAll(self._spark_config.get('extra_options').items())
             builder = SparkSession.builder.config(conf=conf)
@@ -68,18 +52,11 @@ class SparkEnv(object):
             self._spark = builder.getOrCreate()
             for file in self._spark_config.get('extra_files', []) or []:
                 self._spark.sparkContext.addPyFile(file)
-        return self._spark
+    """            
+    if verbose>0:
+        print(spark)
 
-    def set_spark_config(self, config):
-        self._spark_config = config
-
-    def destroy_spark(self):
-        if hasattr(self, '_spark'):
-            self.spark.stop()
-            delattr(self, '_spark')
-        else:
-            raise Exception('spark session was not initialized')
-
+    return spark
 
 
 
