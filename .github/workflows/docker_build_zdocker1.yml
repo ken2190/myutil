@@ -1,4 +1,7 @@
 name: Docker build 1
+##### Target registry is 
+### https://hub.docker.com/u/artia37
+
 
 on:
   workflow_dispatch:
@@ -12,7 +15,7 @@ on:
 jobs:
 #############################################################################
 #####  Centos 8 #############################################################
-  # docker-build-1:
+  # docker-build-centos:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Set up QEMU
@@ -96,7 +99,7 @@ jobs:
 
 
 
-############################################################################
+##################################################################################
 ####  Google Drive OCAML #########################################################
   docker-build-googledrive:
     runs-on: ubuntu-latest
@@ -122,7 +125,7 @@ jobs:
         with:
           push: true
           file: dockers/docker-google-drive/Dockerfile
-          tags: artia37/ubuntu-google-drive:v1
+          tags: artia37/centos-google-drive:v1
 
 
 
