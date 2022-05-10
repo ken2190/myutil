@@ -1,6 +1,7 @@
 name: Docker build 1
 ##### Target registry is 
-### https://hub.docker.com/u/artia37
+####     https://hub.docker.com/u/artia37
+####     https://github.com/arita37/myutil/tree/zdocker2/dockers
 
 
 on:
@@ -126,13 +127,6 @@ jobs:
           push: true
           file: dockers/docker-google-drive/Dockerfile
           tags: artia37/centos-google-drive:v1
-
-
-
-
-
-
-
 
 
 
