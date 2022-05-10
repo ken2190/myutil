@@ -34,7 +34,7 @@ from util_hadoop import (
 
 
 ##################################################################################    
-def spark_printconfig(sparksession):
+def spark_configprint(sparksession):
     log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
     for x in conft: 
@@ -52,12 +52,22 @@ def spark_printconfig(sparksession):
 
 
 
-def spark_checkconfig():
+def spark_configcheck():
     """ Check if files are misisng !!! Very useful for new spark install.
 
 
     """
     env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
+def spark_configcreate(dirout):
+    """ Dump template Spark config into a folder.
+
+
+    """
+    pass
 
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
 
