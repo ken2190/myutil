@@ -53,7 +53,7 @@ jobs:
 
 ############################################################################
 ####  Spark Docker #########################################################
-  docker-build-1:
+  docker-build-spark:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -93,6 +93,37 @@ jobs:
           #python3.7 -m pip install pybind11
           ##python3.7 setup.py install
           #python3.7 runtests.py -u
+
+
+
+############################################################################
+####  Google Drive OCAML #########################################################
+  docker-build-googledrive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: dockers/docker-google-drive/Dockerfile
+          tags: artia37/ubuntu-google-drive:v1
+
 
 
 
