@@ -120,6 +120,9 @@ def date_now(fmt="%Y-%m-%d %H:%M:%S %Z%z", add_days=0, timezone='Asia/Tokyo'):
 
 def date_is_holiday(array):
     """
+    Return array containing 0s and 1s.
+    0 and 1 in array indicates holiday and not holiday respectively.
+
       is_holiday([ pd.to_datetime("2015/1/1") ] * 10)
     """
     import holidays , numpy as np
