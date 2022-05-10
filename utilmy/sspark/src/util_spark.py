@@ -13,13 +13,30 @@ from pyspark.sql import SparkSession
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
-
 def log(*s):
     print(*s, flush=True)
 
 
 
 ##################################################################################
+from util_hadoop import (
+   hdfs_copy_hdfs_to_local, 
+   hdfs_copy_local_to_hdfs, 
+   hdfs_dir_exists,
+   hdfs_file_exists,
+   hdfs_mkdir,
+   hdfs_rm_dir,
+   hdfs_pd_read_parquet,
+   hdfs_download_parallel
+
+)
+
+
+##################################################################################
+def spark_print_config():
+    pass
+
+
 def spark_get_session(config:dict, verbose=0):
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
     conf = SparkConf()
@@ -62,7 +79,6 @@ class SparkEnv(object):
             delattr(self, '_spark')
         else:
             raise Exception('spark session was not initialized')
-
 
 
 
@@ -120,88 +136,94 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
-
-
-
 ##################################################################################
-def hdfs_mkdir(op_path):
-    res = os_system( f"hdfs dfs -mkdir -p '{local_path}'  '{hdfs_path}' ", doprint=True)
+from pyspark.sql.functions import col, explode, array, lit
 
-def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
-    if overwrite: hdfs_rm_dir(hdfs_path)
-    res = os_system( f"hdfs dfs -copyFromLocal '{local_path}'  '{hdfs_path}' ", doprint=True)
-
-def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
-    res = os_system( f"hdfs dfs -copyToLocal '{hdfs_path}'  '{local_path}' ", doprint=True)
-
-def hdfs_rm_dir(path):
-    if hdfs_dir_exists(path):
-        print("removing old file "+path)
-        cat = subprocess.call(["hadoop", "fs", "-rm", path ])
-
-def hdfs_dir_exists(path):
-    return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", path ])]
-
-def hdfs_file_exists(filename):
-    ''' Return True when indicated file exists on HDFS.
-    '''
-    proc = subprocess.Popen(['hadoop', 'fs', '-test', '-e', filename])
-    proc.communicate()
-
-    if proc.returncode == 0:
-        return True
-    else:
-        return False
-
-def os_makedirs(path:str):
-  """function os_makedirs in HDFS or local
-  """
-  if 'hdfs:' not in path :
-    os.makedirs(path, exist_ok=True)
-  else :
-    os.system(f"hdfs dfs mkdir -p '{path}'")
+def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+    print("Count of df before over sampling is  "+ str(df.count()))
+    major_df = df.filter(col(label_col_name) == major_label)
+    minor_df = df.filter(col(label_col_name) == minor_label)
+    a = range(ratio)
+    # duplicate the minority rows
+    oversampled_df = minor_df.withColumn("dummy", explode(array([lit(x) for x in a]))).drop('dummy')
+    # combine both oversampled minority rows and previous majority rows
+    combined_df = major_df.unionAll(oversampled_df)
+    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
+    return combined_df
 
 
+def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+    print("Count of df before under sampling is  "+ str(df.count()))
+    major_df = df.filter(col(label_col_name) == major_label)
+    minor_df = df.filter(col(label_col_name) == minor_label)
+    sampled_majority_df = major_df.sample(False, ratio,seed=33)
+    combined_df = sampled_majority_df.unionAll(minor_df)
+    print("Count of combined df after under sampling is  " + str(combined_df.count()))
+    return combined_df
 
-##################################################################################
-def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/', 
-                 cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
-    """ Single Thread parquet file reading in HDFS
+
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+    """.
     Doc::
-    
-       Required HDFS connection
-       conda install libhdfs3 pyarrow
-       os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
-    """
-    import pyarrow as pa, gc
-    import pyarrow.parquet as pq
-    hdfs = pa.hdfs.connect()    
-    
-    n_rows = 999999999 if n_rows < 0  else n_rows
-    
-    flist = hdfs.ls( path )  
-    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
-    flist = flist[file_start:file_end]  #### Allow batch load by partition
-    if verbose : print(flist)
-    dfall = None
-    for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
-        if verbose > 0 :print( pfile )            
-                    
-        arr_table = pq.read_table(pfile, columns=cols)
-        df        = arr_table.to_pandas()
-        del arr_table; gc.collect()
+            
+            # Splitting data into train and test
+            # we maintain the time-order while splitting
+            # if split ratio = 0.7 then first 70% of data is train data
+            Args:
+                df_m:
+                splitRatio:
+                sparksession:
         
-        dfall = pd.concat((dfall, df)) if dfall is None else df
-        del df
-        if len(dfall) > n_rows :
-            break
+            Returns: df_train, df_test
+        
+    """
+    newSchema  = T.StructType(df_m.schema.fields + \
+                [T.StructField("Row Number", T.LongType(), False)])
+    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
+    df_m2          = sparksession.createDataFrame(new_rdd, newSchema)
+    total_rows     = df_m2.count()
+    splitFraction  =int(total_rows*splitRatio)
+    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
+                          .where(df_m2["Row Number"] <= splitFraction)
+    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
+    return df_train, df_test
 
-    if dfall is None : return None        
-    if verbose > 0 : print( dfall.head(2), dfall.shape )          
-    dfall = dfall.iloc[:n_rows, :]            
-    return dfall
+
+
+
+##################################################################################
+def spark_metrics_classifier_summary(labels_and_predictions_df):
+    from pyspark.mllib.evaluation import MulticlassMetrics
+    from pyspark.mllib.evaluation import BinaryClassificationMetrics
+
+    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    metrics = MulticlassMetrics(labels_and_predictions_rdd)
+    # Overall statistics
+    precision = metrics.precision()
+    recall = metrics.recall()
+    f1Score = metrics.fMeasure()
+    confusion_metric = metrics.confusionMatrix
+    print("Summary Stats")
+    print("Precision = %s" % precision)
+    print("Recall = %s" % recall)
+    print("F1 Score = %s" % f1Score)
+    print("Confusion Metrics = %s " %confusion_metric)
+    # Weighted stats
+    print("Weighted recall = %s" % metrics.weightedRecall)
+    print("Weighted precision = %s" % metrics.weightedPrecision)
+    print("Weighted F(1) Score = %s" % metrics.weightedFMeasure())
+    print("Weighted F(0.5) Score = %s" % metrics.weightedFMeasure(beta=0.5))
+    print("Weighted false positive rate = %s" % metrics.weightedFalsePositiveRate)
+
+
+def spark_metrics_roc_summary(labels_and_predictions_df):
+    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
+    # Area under precision-recall curve
+    print("Area under PR = %s" % metrics.areaUnderPR)
+    # Area under ROC curve
+    print("Area under ROC = %s" % metrics.areaUnderROC)
+
 
 
 
@@ -319,98 +341,6 @@ class ReportDateTime(object):
     @property
     def last_monday(self):
         return self.this_monday - datetime.timedelta(7)
-
-
-
-
-##################################################################################
-from pyspark.sql.functions import col, explode, array, lit
-
-def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
-    print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(col(label_col_name) == major_label)
-    minor_df = df.filter(col(label_col_name) == minor_label)
-    a = range(ratio)
-    # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", explode(array([lit(x) for x in a]))).drop('dummy')
-    # combine both oversampled minority rows and previous majority rows
-    combined_df = major_df.unionAll(oversampled_df)
-    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
-    print("Count of df before under sampling is  "+ str(df.count()))
-    major_df = df.filter(col(label_col_name) == major_label)
-    minor_df = df.filter(col(label_col_name) == minor_label)
-    sampled_majority_df = major_df.sample(False, ratio,seed=33)
-    combined_df = sampled_majority_df.unionAll(minor_df)
-    print("Count of combined df after under sampling is  " + str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
-    """.
-    Doc::
-            
-            # Splitting data into train and test
-            # we maintain the time-order while splitting
-            # if split ratio = 0.7 then first 70% of data is train data
-            Args:
-                df_m:
-                splitRatio:
-                sparksession:
-        
-            Returns: df_train, df_test
-        
-    """
-    newSchema  = T.StructType(df_m.schema.fields + \
-                [T.StructField("Row Number", T.LongType(), False)])
-    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
-    df_m2          = sparksession.createDataFrame(new_rdd, newSchema)
-    total_rows     = df_m2.count()
-    splitFraction  =int(total_rows*splitRatio)
-    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
-                          .where(df_m2["Row Number"] <= splitFraction)
-    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
-    return df_train, df_test
-
-
-
-
-##################################################################################
-def spark_metrics_classifier_summary(labels_and_predictions_df):
-    from pyspark.mllib.evaluation import MulticlassMetrics
-    from pyspark.mllib.evaluation import BinaryClassificationMetrics
-
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
-    metrics = MulticlassMetrics(labels_and_predictions_rdd)
-    # Overall statistics
-    precision = metrics.precision()
-    recall = metrics.recall()
-    f1Score = metrics.fMeasure()
-    confusion_metric = metrics.confusionMatrix
-    print("Summary Stats")
-    print("Precision = %s" % precision)
-    print("Recall = %s" % recall)
-    print("F1 Score = %s" % f1Score)
-    print("Confusion Metrics = %s " %confusion_metric)
-    # Weighted stats
-    print("Weighted recall = %s" % metrics.weightedRecall)
-    print("Weighted precision = %s" % metrics.weightedPrecision)
-    print("Weighted F(1) Score = %s" % metrics.weightedFMeasure())
-    print("Weighted F(0.5) Score = %s" % metrics.weightedFMeasure(beta=0.5))
-    print("Weighted false positive rate = %s" % metrics.weightedFalsePositiveRate)
-
-
-def spark_metrics_roc_summary(labels_and_predictions_df):
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
-    metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
-    # Area under precision-recall curve
-    print("Area under PR = %s" % metrics.areaUnderPR)
-    # Area under ROC curve
-    print("Area under ROC = %s" % metrics.areaUnderROC)
-
 
 
 
