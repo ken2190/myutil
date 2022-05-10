@@ -37,7 +37,7 @@ def print_config(dirout=None):
 
 
 
-def hdfs_download(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
+def hdfs_download_parallel(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
   """  Donwload files in parallel using pyarrow
   Doc::
 

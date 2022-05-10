@@ -10,6 +10,8 @@ import pandas  as pd
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
+
+sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
 
 def log(*s):
@@ -83,6 +85,7 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
                           save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
     Doc::
+
         Args:
             conf:  Configuration in dict
             df:
@@ -122,25 +125,22 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 ##################################################################################
 def hdfs_mkdir(op_path):
-    cat = subprocess.Popen(["hadoop", "fs", "-mkdir", "-p", op_path], stdout=subprocess.PIPE)
-
+    res = os_system( f"hdfs dfs -mkdir -p '{local_path}'  '{hdfs_path}' ", doprint=True)
 
 def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
     if overwrite: hdfs_rm_dir(hdfs_path)
     res = os_system( f"hdfs dfs -copyFromLocal '{local_path}'  '{hdfs_path}' ", doprint=True)
 
-
 def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
     res = os_system( f"hdfs dfs -copyToLocal '{hdfs_path}'  '{local_path}' ", doprint=True)
 
-def hdfs_rm_dir(ip_path):
-    if hdfs_dir_exists(ip_path):
-        print("removing old file "+ip_path)
-        cat = subprocess.call(["hadoop", "fs", "-rm", ip_path ])
+def hdfs_rm_dir(path):
+    if hdfs_dir_exists(path):
+        print("removing old file "+path)
+        cat = subprocess.call(["hadoop", "fs", "-rm", path ])
 
-def hdfs_dir_exists(ip_path):
-    return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", ip_path ])]
-
+def hdfs_dir_exists(path):
+    return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", path ])]
 
 def hdfs_file_exists(filename):
     ''' Return True when indicated file exists on HDFS.
@@ -153,7 +153,6 @@ def hdfs_file_exists(filename):
     else:
         return False
 
-
 def os_makedirs(path:str):
   """function os_makedirs in HDFS or local
   """
@@ -165,9 +164,12 @@ def os_makedirs(path:str):
 
 
 ##################################################################################
-def pa_read_file(path=  'hdfs://user/test/myfile.parquet/', 
+def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/', 
                  cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
-    """ Requied HDFS connection
+    """ Single Thread parquet file reading in HDFS
+    Doc::
+    
+       Required HDFS connection
        conda install libhdfs3 pyarrow
        os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
     """
@@ -203,6 +205,8 @@ def pa_read_file(path=  'hdfs://user/test/myfile.parquet/',
 
 
 
+
+
 ##################################################################################
 class TimeConstants:
     HOURS_PER_DAY = 24
@@ -211,7 +215,8 @@ class TimeConstants:
     UTC_TO_JST_SHIFT = 9 * 3600
 
 
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", returnval='str,int,datetime'):
+def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+                returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
 
@@ -220,8 +225,7 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
 
         date_format(timezone='Asia/Tokyo')    -->  "20200519" 
         date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d', add_days=-1)    -->  "2020-05-18" 
-
+        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
 
 
     """
@@ -322,7 +326,7 @@ class ReportDateTime(object):
 ##################################################################################
 from pyspark.sql.functions import col, explode, array, lit
 
-def spark_df_over_sample(df,major_label, minor_label, ratio, label_col_name):
+def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
     print("Count of df before over sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -335,7 +339,7 @@ def spark_df_over_sample(df,major_label, minor_label, ratio, label_col_name):
     return combined_df
 
 
-def spark_df_under_sample(df,major_label, minor_label, ratio, label_col_name):
+def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -345,7 +349,7 @@ def spark_df_under_sample(df,major_label, minor_label, ratio, label_col_name):
     return combined_df
 
 
-def spark_df_timeseries_split(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object):
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
     """.
     Doc::
             
