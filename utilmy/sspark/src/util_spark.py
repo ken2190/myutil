@@ -53,7 +53,7 @@ def spark_printconfig(sparksession):
 
 
 def spark_checkconfig():
-    """
+    """ Check if files are misisng !!! Very useful for new spark install.
 
 
     """
@@ -114,14 +114,17 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
 
 ########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="")->pyspark.sql.DataFrame:
+def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
+    Doc::
 
+          map_sql_variables = {'start_dt':  '2020-01-01',  }
 
     """
     sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
-    with open(sql_path) as fr:
+    with open(sql_path, mode='r') as fr:
         query = fr.read()
+        query = query.format(**map_sql_variables)  if map_sql_variables is not None query
         df_results = sp_session.sql(query)
         return df_results
 
