@@ -303,6 +303,31 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
+def hdfs_ls(path, filename_only=False):
+    from subprocess import Popen, PIPE
+    process = Popen(f"hdfs dfs -ls -h '{path}'", shell=True, stdout=PIPE, stderr=PIPE)
+    std_out, std_err = process.communicate()
+
+    if filename_only:
+       list_of_file_names = [fn.split(' ')[-1].split('/')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
+       return list_of_file_names
+
+    flist_full_address = [fn.split(' ')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
+    return flist_full_address
+
+
+def spark_read_csv(sparkSession,  dir_parent, nfile_past=24, **kw):
+
+    flist = hdfs_ls(dir_parent )
+    flist = sorted(flist)  ### ordered by dates increasing
+    flist = flist[-nfile_past:] if nfile_past > 0 else flist
+    log('Reading Npaths', len(flist))
+
+    path =  ",".join(flist) 
+    df = sparkSession.read.csv(path ,header=True, **kw)
+    return df
+
+
 
 ##################################################################################
 class TimeConstants:
