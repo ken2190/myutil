@@ -15,6 +15,9 @@ RUN update-ca-certificates -f \
     build-essential \
   && apt-get clean
 
+
+
+####################################################################################################
 # Spark
 RUN cd /usr/ \
   && wget "https://archive.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz" \
@@ -30,7 +33,12 @@ RUN mkdir -p /usr/spark/work/ \
   && chmod -R 777 /usr/spark/work/
 
 ENV SPARK_MASTER_PORT 7077
+ENV PATH=$PATH:$SPARK_HOME/bin/
 
+
+
+
+#####################################################################################################
 # Miniconda
 ENV CONDA_DIR=/opt/miniconda
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -42,7 +50,10 @@ RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     conda install python=3.6
 
 
-WORKDIR /app/
+
+###### work folder  #############################################
+WORKDIR /opt/work/ 
+
 
 #RUN pip install --upgrade pip \
 
@@ -56,12 +67,13 @@ RUN conda  install -c conda-forge -y  pyspark==2.4.6 \
     pyyaml \
     loguru \
     pandas==0.25.3
-
 # pystan>=2.14 \
-# RUN pip  install -r requirements.txt
-
-ENV PATH=$PATH:$SPARK_HOME/bin/
 
 
+COPY dockers/spark/py36_spark.txt
+# RUN pip  install -r py36_spark.txt
 
-CMD /usr/spark/bin/spark-class org.apache.spark.deploy.master.Master
+
+
+
+# CMD /usr/spark/bin/spark-class org.apache.spark.deploy.master.Master

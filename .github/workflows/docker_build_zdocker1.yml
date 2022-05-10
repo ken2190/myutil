@@ -77,14 +77,14 @@ jobs:
         with:
           push: true
           file: dockers/spark/Dockerfile
-          tags: artia37/spark:1.0
+          tags: artia37/spark243-hdp27:v1
 
 
   docker-test-1:
     runs-on: ubuntu-latest
     needs: docker-build
     container: 
-      image: arita37/centos:7.2
+      image: artia37/spark243-hdp27:v1
       options: --user root
     steps:
       - uses: actions/checkout@v2
