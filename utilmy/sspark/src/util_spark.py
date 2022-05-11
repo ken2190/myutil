@@ -1,6 +1,12 @@
 """Spark related utils
 Doc::
 
+     pip install -e .
+     bash
+     python $utilmy/sspark/src/util_ spark.py spark_config_check
+     python $utilmy/sspark/src/util_ spark.py spark_config_create  --dirout myconfigs/
+
+
 
 
 """
@@ -10,37 +16,98 @@ import pandas  as pd
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-##################################################################################
+from typing import Union 
 
+sp_dataframe= pyspark.sql.DataFrame
+##################################################################################
 def log(*s):
     print(*s, flush=True)
 
 
 
 ##################################################################################
+from util_hadoop import (
+   hdfs_copy_hdfs_to_local, 
+   hdfs_copy_local_to_hdfs, 
+   hdfs_dir_exists,
+   hdfs_file_exists,
+   hdfs_mkdir,
+   hdfs_rm_dir,
+   hdfs_pd_read_parquet,
+   hdfs_download_parallel,
+   hdfs_ls
+
+)
+
+
+def test_all():
+    pass
+
+
+def test1():
+    pass    
+
+
+##################################################################################    
+def spark_config_print(sparksession):
+    log('\n####### Spark Conf') 
+    conft = sparksession.sparkContext.getConf().getAll()
+    for x in conft: 
+        print(x)    
+
+    log('\n####### Env Variables') 
+    for key,val in os.environ.items():
+        print(key,val)    
+
+    log('\n####### Spark Conf files:  spark-env.sh ')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ') 
+
+    log('\n####### Spark Conf:  spark-defaults.conf')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ') 
+
+
+
+def spark_config_check():
+    """ Check if files are misisng !!! Very useful for new spark install.
+
+
+    """
+    env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
+def spark_config_create(dirout):
+    """ Dump template Spark config into a folder.
+
+
+    """
+    pass
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
+
 def spark_get_session(config:dict, verbose=0):
+    """  Generic Spark session creation
+    Doc::
+
+         config:  path on disk OR dictionnary
+
+
+    """
+    if isinstance(config, str):  
+        from utilmy.configs.util_config import load_config
+        config_path = config
+        config = load_config(config_path)  ### Universal config loader
+
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
+
+
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
-
-    if verbose>0:
-        print(spark)
-
-    return spark
-
-class SparkEnv(object):
-
-    def __init__(self, config=None):
-        if config is not None:
-            self.set_spark_config(config)
-
-    @property
-    def spark(self):
-        if not hasattr(self, '_spark'):
-            if not hasattr(self, '_spark_config'):
-                raise Exception('No spark config specified')
-
+    """
             conf = SparkConf()
             conf.setAll(self._spark_config.get('extra_options').items())
             builder = SparkSession.builder.config(conf=conf)
@@ -49,31 +116,39 @@ class SparkEnv(object):
             self._spark = builder.getOrCreate()
             for file in self._spark_config.get('extra_files', []) or []:
                 self._spark.sparkContext.addPyFile(file)
-        return self._spark
+    """            
+    if verbose>0:
+        print(spark)
 
-    def set_spark_config(self, config):
-        self._spark_config = config
-
-    def destroy_spark(self):
-        if hasattr(self, '_spark'):
-            self.spark.stop()
-            delattr(self, '_spark')
-        else:
-            raise Exception('spark session was not initialized')
+    return spark
 
 
 
+def spark_add_jar(sparksession, hive_jar_cmd=None):
+    try :  
+      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; " 
+      if hive_jar_cmd is not None:
+          ss= hive_jar_cmd
+
+      sparksession.sql(ss)
+      log('JAR added')
+
+    except: Exception as e :
+        log(e)
 
 
 ########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="")->pyspark.sql.DataFrame:
+def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
+    Doc::
 
+          map_sql_variables = {'start_dt':  '2020-01-01',  }
 
     """
     sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
-    with open(sql_path) as fr:
+    with open(sql_path, mode='r') as fr:
         query = fr.read()
+        query = query.format(**map_sql_variables)  if map_sql_variables is not None query
         df_results = sp_session.sql(query)
         return df_results
 
@@ -83,6 +158,7 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
                           save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
     Doc::
+
         Args:
             conf:  Configuration in dict
             df:
@@ -117,89 +193,138 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
+def spark_write_hdfs(df, dirout, show=0):
+    pass
 
+
+
+def hive_check_table(config, tables, add_jar_cmd=""):    
+  """ Check Hive table using Hive
+  Doc::
+      
+       tables = [  'myhive.mytable'   ]
+
+
+  """  
+  if isinstance(table, str):
+      ### Parse YAML file
+      ss = ss.split("\n")
+      ss = [t for t in ss if len(t) > 5  ]  
+      ss = [  t.split(":") for t in ss]
+      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
+      print(ss)  
+
+  elif isinstance(tables, list):
+      ss = [ [ ti, ti] for ti in tables  ]    
+    
+  for x in ss :
+    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
+    log(x[0])
+    log( os.system( cmd ) )
+    
 
 
 ##################################################################################
-def hdfs_mkdir(op_path):
-    cat = subprocess.Popen(["hadoop", "fs", "-mkdir", "-p", op_path], stdout=subprocess.PIPE)
+from pyspark.sql.functions import col, explode, array, lit
+
+def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+    print("Count of df before over sampling is  "+ str(df.count()))
+    major_df = df.filter(col(label_col_name) == major_label)
+    minor_df = df.filter(col(label_col_name) == minor_label)
+    a = range(ratio)
+    # duplicate the minority rows
+    oversampled_df = minor_df.withColumn("dummy", explode(array([lit(x) for x in a]))).drop('dummy')
+    # combine both oversampled minority rows and previous majority rows
+    combined_df = major_df.unionAll(oversampled_df)
+    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
+    return combined_df
 
 
-def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
-    if overwrite: hdfs_rm_dir(hdfs_path)
-    res = os_system( f"hdfs dfs -copyFromLocal '{local_path}'  '{hdfs_path}' ", doprint=True)
+def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+    print("Count of df before under sampling is  "+ str(df.count()))
+    major_df = df.filter(col(label_col_name) == major_label)
+    minor_df = df.filter(col(label_col_name) == minor_label)
+    sampled_majority_df = major_df.sample(False, ratio,seed=33)
+    combined_df = sampled_majority_df.unionAll(minor_df)
+    print("Count of combined df after under sampling is  " + str(combined_df.count()))
+    return combined_df
 
 
-def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
-    res = os_system( f"hdfs dfs -copyToLocal '{hdfs_path}'  '{local_path}' ", doprint=True)
-
-def hdfs_rm_dir(ip_path):
-    if hdfs_dir_exists(ip_path):
-        print("removing old file "+ip_path)
-        cat = subprocess.call(["hadoop", "fs", "-rm", ip_path ])
-
-def hdfs_dir_exists(ip_path):
-    return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", ip_path ])]
-
-
-def hdfs_file_exists(filename):
-    ''' Return True when indicated file exists on HDFS.
-    '''
-    proc = subprocess.Popen(['hadoop', 'fs', '-test', '-e', filename])
-    proc.communicate()
-
-    if proc.returncode == 0:
-        return True
-    else:
-        return False
-
-
-def os_makedirs(path:str):
-  """function os_makedirs in HDFS or local
-  """
-  if 'hdfs:' not in path :
-    os.makedirs(path, exist_ok=True)
-  else :
-    os.system(f"hdfs dfs mkdir -p '{path}'")
-
-
-
-##################################################################################
-def pa_read_file(path=  'hdfs://user/test/myfile.parquet/', 
-                 cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
-    """ Requied HDFS connection
-       conda install libhdfs3 pyarrow
-       os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
-    """
-    import pyarrow as pa, gc
-    import pyarrow.parquet as pq
-    hdfs = pa.hdfs.connect()    
-    
-    n_rows = 999999999 if n_rows < 0  else n_rows
-    
-    flist = hdfs.ls( path )  
-    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
-    flist = flist[file_start:file_end]  #### Allow batch load by partition
-    if verbose : print(flist)
-    dfall = None
-    for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
-        if verbose > 0 :print( pfile )            
-                    
-        arr_table = pq.read_table(pfile, columns=cols)
-        df        = arr_table.to_pandas()
-        del arr_table; gc.collect()
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+    """.
+    Doc::
+            
+            # Splitting data into train and test
+            # we maintain the time-order while splitting
+            # if split ratio = 0.7 then first 70% of data is train data
+            Args:
+                df_m:
+                splitRatio:
+                sparksession:
         
-        dfall = pd.concat((dfall, df)) if dfall is None else df
-        del df
-        if len(dfall) > n_rows :
-            break
+            Returns: df_train, df_test
+        
+    """
+    from pyspark.sql import types as T
+    newSchema  = T.StructType(df_m.schema.fields + \
+                [T.StructField("Row Number", T.LongType(), False)])
+    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
+    df_m2          = sparksession.createDataFrame(new_rdd, newSchema)
+    total_rows     = df_m2.count()
+    splitFraction  =int(total_rows*splitRatio)
+    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
+                          .where(df_m2["Row Number"] <= splitFraction)
+    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
+    return df_train, df_test
 
-    if dfall is None : return None        
-    if verbose > 0 : print( dfall.head(2), dfall.shape )          
-    dfall = dfall.iloc[:n_rows, :]            
-    return dfall
+
+
+
+##################################################################################
+def spark_metrics_classifier_summary(labels_and_predictions_df):
+    from pyspark.mllib.evaluation import MulticlassMetrics
+    from pyspark.mllib.evaluation import BinaryClassificationMetrics
+
+    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    metrics = MulticlassMetrics(labels_and_predictions_rdd)
+    # Overall statistics
+    precision = metrics.precision()
+    recall = metrics.recall()
+    f1Score = metrics.fMeasure()
+    confusion_metric = metrics.confusionMatrix
+    print("Summary Stats")
+    print("Precision = %s" % precision)
+    print("Recall = %s" % recall)
+    print("F1 Score = %s" % f1Score)
+    print("Confusion Metrics = %s " %confusion_metric)
+    # Weighted stats
+    print("Weighted recall = %s" % metrics.weightedRecall)
+    print("Weighted precision = %s" % metrics.weightedPrecision)
+    print("Weighted F(1) Score = %s" % metrics.weightedFMeasure())
+    print("Weighted F(0.5) Score = %s" % metrics.weightedFMeasure(beta=0.5))
+    print("Weighted false positive rate = %s" % metrics.weightedFalsePositiveRate)
+
+
+def spark_metrics_roc_summary(labels_and_predictions_df):
+    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
+    # Area under precision-recall curve
+    print("Area under PR = %s" % metrics.areaUnderPR)
+    # Area under ROC curve
+    print("Area under ROC = %s" % metrics.areaUnderROC)
+
+
+
+def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+    # from util_hadoop import hdfs_ls
+    flist = hdfs_ls(dir_parent )
+    flist = sorted(flist)  ### ordered by dates increasing
+    flist = flist[-nfile_past:] if nfile_past > 0 else flist
+    log('Reading Npaths', len(flist))
+
+    path =  ",".join(flist) 
+    df = sparkSession.read.csv(path ,header=True, **kw)
+    return df
 
 
 
@@ -211,7 +336,8 @@ class TimeConstants:
     UTC_TO_JST_SHIFT = 9 * 3600
 
 
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", returnval='str,int,datetime'):
+def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+                returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
 
@@ -220,8 +346,7 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
 
         date_format(timezone='Asia/Tokyo')    -->  "20200519" 
         date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d', add_days=-1)    -->  "2020-05-18" 
-
+        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
 
 
     """
@@ -318,98 +443,6 @@ class ReportDateTime(object):
 
 
 
-
-##################################################################################
-from pyspark.sql.functions import col, explode, array, lit
-
-def spark_df_over_sample(df,major_label, minor_label, ratio, label_col_name):
-    print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(col(label_col_name) == major_label)
-    minor_df = df.filter(col(label_col_name) == minor_label)
-    a = range(ratio)
-    # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", explode(array([lit(x) for x in a]))).drop('dummy')
-    # combine both oversampled minority rows and previous majority rows
-    combined_df = major_df.unionAll(oversampled_df)
-    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_under_sample(df,major_label, minor_label, ratio, label_col_name):
-    print("Count of df before under sampling is  "+ str(df.count()))
-    major_df = df.filter(col(label_col_name) == major_label)
-    minor_df = df.filter(col(label_col_name) == minor_label)
-    sampled_majority_df = major_df.sample(False, ratio,seed=33)
-    combined_df = sampled_majority_df.unionAll(minor_df)
-    print("Count of combined df after under sampling is  " + str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_timeseries_split(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object):
-    """.
-    Doc::
-            
-            # Splitting data into train and test
-            # we maintain the time-order while splitting
-            # if split ratio = 0.7 then first 70% of data is train data
-            Args:
-                df_m:
-                splitRatio:
-                sparksession:
-        
-            Returns: df_train, df_test
-        
-    """
-    newSchema  = T.StructType(df_m.schema.fields + \
-                [T.StructField("Row Number", T.LongType(), False)])
-    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
-    df_m2          = sparksession.createDataFrame(new_rdd, newSchema)
-    total_rows     = df_m2.count()
-    splitFraction  =int(total_rows*splitRatio)
-    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
-                          .where(df_m2["Row Number"] <= splitFraction)
-    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
-    return df_train, df_test
-
-
-
-
-##################################################################################
-def spark_metrics_classifier_summary(labels_and_predictions_df):
-    from pyspark.mllib.evaluation import MulticlassMetrics
-    from pyspark.mllib.evaluation import BinaryClassificationMetrics
-
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
-    metrics = MulticlassMetrics(labels_and_predictions_rdd)
-    # Overall statistics
-    precision = metrics.precision()
-    recall = metrics.recall()
-    f1Score = metrics.fMeasure()
-    confusion_metric = metrics.confusionMatrix
-    print("Summary Stats")
-    print("Precision = %s" % precision)
-    print("Recall = %s" % recall)
-    print("F1 Score = %s" % f1Score)
-    print("Confusion Metrics = %s " %confusion_metric)
-    # Weighted stats
-    print("Weighted recall = %s" % metrics.weightedRecall)
-    print("Weighted precision = %s" % metrics.weightedPrecision)
-    print("Weighted F(1) Score = %s" % metrics.weightedFMeasure())
-    print("Weighted F(0.5) Score = %s" % metrics.weightedFMeasure(beta=0.5))
-    print("Weighted false positive rate = %s" % metrics.weightedFalsePositiveRate)
-
-
-def spark_metrics_roc_summary(labels_and_predictions_df):
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
-    metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
-    # Area under precision-recall curve
-    print("Area under PR = %s" % metrics.areaUnderPR)
-    # Area under ROC curve
-    print("Area under ROC = %s" % metrics.areaUnderROC)
-
-
-
-
 ##################################################################################
 def json_compress(raw_obj):
     return zlib.compress(str.encode(json.dumps(raw_obj)))
@@ -440,6 +473,48 @@ def os_system(cmd, doprint=False):
   except Exception as e :
     print( f"Error {cmd}, {e}")
 
+    
+
+def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
+    """ Replace path in config files.
+        
+    """
+    import glob 
+
+    txt1= textold ##  "/usr/local/old/"
+    txt2=textnew  ## "/new/"
+
+  
+    flist = [] 
+    for diri in dirins 
+       flist = glob.glob( diri , recursive= True )
+
+    flist = [ fi for fi in flist if 'backup' not in fi] 
+    log(flist)
+
+    for fi in flist :
+      flag = False
+      with open(fi,'r') as fp:
+        lines = fp.readlines()
+
+      ss = []
+      for li in lines :
+        if txt1 in li :
+          flag = True
+          li = li.replace(txt1, txt2)
+        ss.append(li)
+
+      if flag  :
+        log('update', fi)
+        # log(ss)
+        # break
+        if test == 0 :
+          with open(fi, mode='w') as fp :
+             fp.writelines("".join(ss))   
+        # break 
+
+
+    
 
 
 ###############################################################################################################

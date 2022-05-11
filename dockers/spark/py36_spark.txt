@@ -1,6 +1,7 @@
-python==3.6.5
+python-box
+fire
 pyarrow==0.14.0  
-pyspark==2.4.6
+#pyspark==2.4.6
 py4j
 ua-parser==0.10.0
 pystan==2.19.1.1 
