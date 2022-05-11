@@ -98,6 +98,7 @@ jobs:
         run: |
           cd dockers/spark
           docker buildx build -f ./Dockerfile --tag artia37/spark243-hdp27:v1 --push .
+          # docker run    artia37/spark243-hdp27:v1
 
   # docker-test-1:
   #   runs-on: ubuntu-latest
@@ -136,13 +137,19 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: dockers/docker-google-drive/
-          push: true
-          file: dockers/docker-google-drive//Dockerfile
-          tags: artia37/centos-google-drive:v1
+        run: |
+          cd dockers/docker-google-drive/
+          docker buildx build -f ./Dockerfile --tag centos-google-drive:v1  --push .
+
+
+      # - name: Build and push
+      #   id: docker_build
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: dockers/docker-google-drive/
+      #     push: true
+      #     file: dockers/docker-google-drive//Dockerfile
+      #     tags: artia37/
 
 
 
