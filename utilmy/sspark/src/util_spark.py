@@ -88,7 +88,7 @@ def spark_config_create(dirout):
 
 
 
-def spark_get_session(config:dict, verbose=0):
+def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
     """  Generic Spark session creation
     Doc::
 
@@ -100,8 +100,11 @@ def spark_get_session(config:dict, verbose=0):
         from utilmy.configs.util_config import load_config
         config_path = config
         config = load_config(config_path)  ### Universal config loader
-
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
+
+    if config_key_name in config:
+        config = config[config_key_name]
+    assert 'spark.master' in config , f"config seems incorrect: {config}"   
 
 
     conf = SparkConf()
@@ -138,14 +141,14 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
 
 ########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
+def spark_execute_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
     Doc::
 
           map_sql_variables = {'start_dt':  '2020-01-01',  }
 
     """
-    sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
+    sp_session = spark_get_session(spark_config) if sparksession is None else sparksession
     with open(sql_path, mode='r') as fr:
         query = fr.read()
         query = query.format(**map_sql_variables)  if map_sql_variables is not None query
