@@ -225,12 +225,12 @@ def hive_check_table(config, tables, add_jar_cmd=""):
     log(x[0])
     log( os.system( cmd ) )
     
-
+def hive_execute_sqlfile(sql-ath)
 
 ##################################################################################
 from pyspark.sql.functions import col, explode, array, lit
 
-def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before over sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -243,7 +243,7 @@ def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -319,6 +319,16 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+    """ subfolder
+    doc::
+
+          dir_parent/2021-02-03/file1.csv
+          dir_parent/2021-02-04/file1.csv
+          dir_parent/2021-02-05/file1.csv
+
+
+
+    """
     # from util_hadoop import hdfs_ls
     flist = hdfs_ls(dir_parent )
     flist = sorted(flist)  ### ordered by dates increasing
@@ -392,8 +402,9 @@ def date_get_hour_range(dt, offset, output_format):
     return hour_range
 
 
-def date_get_start_of_month(time):
-    return time.replace(day=1)
+def date_get_start_of_month(datetime1):
+    return datetime1.replace(day=1)
+
 
 class ReportDateTime(object):
     def __init__(self, report_date, timezone):
