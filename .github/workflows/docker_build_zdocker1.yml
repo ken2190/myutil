@@ -81,7 +81,7 @@ jobs:
         with:
           context: dockers/spark/
           push: true
-          file: ./Dockerfile
+          file: dockers/spark/Dockerfile
           tags: artia37/spark243-hdp27:v1
 
 
@@ -127,7 +127,7 @@ jobs:
         with:
           context: dockers/docker-google-drive/
           push: true
-          file: ./Dockerfile
+          file: dockers/docker-google-drive//Dockerfile
           tags: artia37/centos-google-drive:v1
 
 
