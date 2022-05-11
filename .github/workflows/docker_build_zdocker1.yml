@@ -1,5 +1,16 @@
 name: Docker build 1
 
+
+#### Build Command :     https://github.com/arita37/myutil/actions/workflows/docker_build_zdocker1.yml
+
+
+#### Docker definiton:     https://github.com/arita37/myutil/tree/zdocker2/dockers
+
+
+##### Publish Registry:     https://hub.docker.com/u/artia37
+
+
+
 on:
   workflow_dispatch:
     inputs:  
@@ -9,56 +20,15 @@ on:
 #      - zdocker1
 
 
+
+
+
 jobs:
 #############################################################################
 #####  Centos 8 #############################################################
-  docker-build-1:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: dockers/centos72/Dockerfile          
-          tags: artia37/centos-custom:7.2
-
-
-  docker-test-1:
-    runs-on: ubuntu-latest
-    needs: docker-build
-    container: 
-      image: arita37/centos:7.2
-      options: --user root
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          ls
-          #python3.7 -m pip install pybind11
-          ##python3.7 setup.py install
-          #python3.7 runtests.py -u
-
-
-#############################################################################
-#####  Spark Docker #########################################################
-  # docker-build-1:
+  # docker-build-centos:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
   #     - name: Set up QEMU
   #       uses: docker/setup-qemu-action@v1
 
@@ -66,7 +36,7 @@ jobs:
   #       uses: docker/setup-buildx-action@v1
 
   #     - name: Login to DockerHub
-  #       uses: docker/login-action@v1
+  #       uses: docker/login-action@v1 
   #       with:
   #         username: ${{ secrets.DOCKERHUB_USERNAME }}
   #         password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -76,17 +46,103 @@ jobs:
   #       uses: docker/build-push-action@v2
   #       with:
   #         push: true
-  #         file: dockers/spark/Dockerfile
-  #         tags: artia37/spark:1.0
+  #         file: dockers/centos72/Dockerfile          
+  #         tags: artia37/centos-custom:7.2
+
+
+  # docker-test-1:
+  #   runs-on: ubuntu-latest
+  #   needs: docker-build
+  #   container: 
+  #     image: arita37/centos:7.2
+  #     options: --user root
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: |
+  #         ls
+  #         #python3.7 -m pip install pybind11
+  #         ##python3.7 setup.py install
+  #         #python3.7 runtests.py -u
+
+
+############################################################################
+####  Spark Docker #########################################################
+  docker-build-spark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Build and push
+      #   id: docker_build
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: dockers/spark/
+      #     push: true
+      #     file: dockers/spark/Dockerfile
+      #     tags: artia37/spark243-hdp27:v1
+
+      - name: Build and push
+        run: |
+          cd dockers/spark
+          docker buildx build -f ./Dockerfile --tag artia37/spark243-hdp27:v1 --push .
+
+  # docker-test-1:
+  #   runs-on: ubuntu-latest
+  #   needs: docker-build
+  #   container: 
+  #     image: artia37/spark243-hdp27:v1
+  #     options: --user root
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: |
+  #         ls
+  #         #python3.7 -m pip install pybind11
+  #         ##python3.7 setup.py install
+  #         #python3.7 runtests.py -u
 
 
 
+##################################################################################
+####  Google Drive OCAML #########################################################
+  docker-build-googledrive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-
-
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: dockers/docker-google-drive/
+          push: true
+          file: dockers/docker-google-drive//Dockerfile
+          tags: artia37/centos-google-drive:v1
 
 
 
