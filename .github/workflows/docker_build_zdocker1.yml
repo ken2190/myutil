@@ -95,7 +95,7 @@ jobs:
       #     tags: artia37/spark243-hdp27:v1
 
       - name: Build and push
-        run:
+        run: |
           cd dockers/spark
           docker buildx build -f ./Dockerfile --tag artia37/spark243-hdp27:v1 --push .
           docker push artia37/spark243-hdp27:v1
