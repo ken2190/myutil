@@ -4,6 +4,10 @@ name: Docker build 1
 ####     https://github.com/arita37/myutil/tree/zdocker2/dockers
 
 
+#### Build Command :     https://github.com/arita37/myutil/actions/workflows/docker_build_zdocker1.yml
+
+
+
 on:
   workflow_dispatch:
     inputs:  
@@ -11,6 +15,9 @@ on:
 #  push:
 #    branches:
 #      - zdocker1
+
+
+
 
 
 jobs:
