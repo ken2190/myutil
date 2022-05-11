@@ -33,9 +33,45 @@ from util_hadoop import (
 )
 
 
-##################################################################################
-def spark_print_config():
+##################################################################################    
+def spark_configprint(sparksession):
+    log('\n####### Spark Conf') 
+    conft = sparksession.sparkContext.getConf().getAll()
+    for x in conft: 
+        print(x)    
+
+    log('\n####### Env Variables') 
+    for key,val in os.environ.items():
+        print(key,val)    
+
+    log('\n####### Spark Conf files:  spark-env.sh ')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ') 
+
+    log('\n####### Spark Conf:  spark-defaults.conf')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ') 
+
+
+
+def spark_configcheck():
+    """ Check if files are misisng !!! Very useful for new spark install.
+
+
+    """
+    env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
+def spark_configcreate(dirout):
+    """ Dump template Spark config into a folder.
+
+
+    """
     pass
+
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+
 
 
 def spark_get_session(config:dict, verbose=0):
@@ -74,15 +110,31 @@ def spark_get_session(config:dict, verbose=0):
 
 
 
-########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="")->pyspark.sql.DataFrame:
-    """ Execute SQL
+def spark_add_jar(sparksession, hive_jar_cmd=None):
+    try :  
+      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; " 
+      if hive_jar_cmd is not None:
+          ss= hive_jar_cmd
 
+      sparksession.sql(ss)
+      log('JAR added')
+
+    except: Exception as e :
+        log(e)
+
+
+########################################################################################
+def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
+    """ Execute SQL
+    Doc::
+
+          map_sql_variables = {'start_dt':  '2020-01-01',  }
 
     """
     sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
-    with open(sql_path) as fr:
+    with open(sql_path, mode='r') as fr:
         query = fr.read()
+        query = query.format(**map_sql_variables)  if map_sql_variables is not None query
         df_results = sp_session.sql(query)
         return df_results
 
@@ -125,6 +177,37 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
     if returnval :
         return df1
 
+
+
+def spark_write_hdfs(df, dirout, show=0):
+    pass
+
+
+
+def hive_check_table(config, tables, add_jar_cmd=""):    
+  """ Check Hive table using Hive
+  Doc::
+      
+       tables = [  'myhive.mytable'   ]
+
+
+  """  
+  if isinstance(table, str):
+      ### Parse YAML file
+      ss = ss.split("\n")
+      ss = [t for t in ss if len(t) > 5  ]  
+      ss = [  t.split(":") for t in ss]
+      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
+      print(ss)  
+
+  elif isinstance(tables, list):
+      ss = [ [ ti, ti] for ti in tables  ]    
+    
+  for x in ss :
+    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
+    log(x[0])
+    log( os.system( cmd ) )
+    
 
 
 ##################################################################################
@@ -218,6 +301,22 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
+
+
+def spark_read_csv_partition(sparkSession,  dir_parent, nfile_past=24, **kw):
+    """ Read in mutiple partitions   20220101, 20230202, 
+
+
+    """
+    from util_hadoop import hdfs_ls
+    flist = hdfs_ls(dir_parent )
+    flist = sorted(flist)  ### ordered by dates increasing
+    flist = flist[-nfile_past:] if nfile_past > 0 else flist
+    log('Reading Npaths', len(flist))
+
+    path =  ",".join(flist) 
+    df = sparkSession.read.csv(path ,header=True, **kw)
+    return df
 
 
 
@@ -366,6 +465,48 @@ def os_system(cmd, doprint=False):
   except Exception as e :
     print( f"Error {cmd}, {e}")
 
+    
+
+def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
+    """ Replace text in config files.
+        
+    """
+    import glob 
+
+    txt1= textold ##  "/usr/local/old/"
+    txt2=textnew  ## "/new/"
+
+  
+    flist = [] 
+    for diri in dirins 
+       flist = glob.glob( diri , recursive= True )
+
+    flist = [ fi for fi in flist if 'backup' not in fi] 
+    log(flist)
+
+    for fi in flist :
+      flag = False
+      with open(fi,'r') as fp:
+        lines = fp.readlines()
+
+      ss = []
+      for li in lines :
+        if txt1 in li :
+          flag = True
+          li = li.replace(txt1, txt2)
+        ss.append(li)
+
+      if flag  :
+        log('update', fi)
+        # log(ss)
+        # break
+        if test == 0 :
+          with open(fi, mode='w') as fp :
+             fp.writelines("".join(ss))   
+        # break 
+
+
+    
 
 
 ###############################################################################################################
