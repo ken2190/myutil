@@ -1,6 +1,12 @@
 """Spark related utils
 Doc::
 
+     pip install -e .
+     bash
+     python $utilmy/sspark/src/util_ spark.py spark_config_check
+     python $utilmy/sspark/src/util_ spark.py spark_config_create  --dirout myconfigs/
+
+
 
 
 """
@@ -32,6 +38,14 @@ from util_hadoop import (
    hdfs_ls
 
 )
+
+
+def test_all():
+    pass
+
+
+def test1():
+    pass    
 
 
 ##################################################################################    
@@ -462,7 +476,7 @@ def os_system(cmd, doprint=False):
     
 
 def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
-    """ Replace text in config files.
+    """ Replace path in config files.
         
     """
     import glob 
