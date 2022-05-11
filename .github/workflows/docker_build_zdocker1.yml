@@ -79,8 +79,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: dockers/spark/
           push: true
-          file: dockers/spark/Dockerfile
+          file: ./Dockerfile
           tags: artia37/spark243-hdp27:v1
 
 
@@ -124,8 +125,9 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          context: dockers/docker-google-drive/
           push: true
-          file: dockers/docker-google-drive/Dockerfile
+          file: ./Dockerfile
           tags: artia37/centos-google-drive:v1
 
 
