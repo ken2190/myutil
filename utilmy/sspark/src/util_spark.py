@@ -151,7 +151,7 @@ def spark_execute_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str
     sp_session = spark_get_session(spark_config) if sparksession is None else sparksession
     with open(sql_path, mode='r') as fr:
         query = fr.read()
-        query = query.format(**map_sql_variables)  if map_sql_variables is not None query
+        query = query.format(**map_sql_variables)  if map_sql_variables is not None else query
         df_results = sp_session.sql(query)
         return df_results
 
@@ -443,14 +443,6 @@ class ReportDateTime(object):
     def time_key_in_jst(self):
         return (self.unix_timestamp_range[0] + TimeConstants.UTC_TO_JST_SHIFT) / TimeConstants.SECONDS_PER_DAY
 
-    @staticmethod
-    def get_target_report_date(target_report_date, now, day_shift, datetime_format):
-        if target_report_date is None:
-            _target_report_date = get_date_with_delta(now, day_shift).date()
-        else:
-            _target_report_date = datetime.datetime.strptime(target_report_date, datetime_format).date()
-        return _target_report_date
-
     @property
     def this_monday(self):
         return self._report_date - datetime.timedelta(days=self._report_date.weekday())
@@ -493,18 +485,18 @@ def os_system(cmd, doprint=False):
 
     
 
-def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
+def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], textold, textnew, test=1):
     """ Replace path in config files.
         
     """
     import glob 
 
     txt1= textold ##  "/usr/local/old/"
-    txt2=textnew  ## "/new/"
+    txt2= textnew  ## "/new/"
 
   
     flist = [] 
-    for diri in dirins 
+    for diri in dirins :
        flist = glob.glob( diri , recursive= True )
 
     flist = [ fi for fi in flist if 'backup' not in fi] 
