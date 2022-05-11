@@ -1,10 +1,13 @@
 name: Docker build 1
-##### Target registry is 
-####     https://hub.docker.com/u/artia37
-####     https://github.com/arita37/myutil/tree/zdocker2/dockers
 
 
 #### Build Command :     https://github.com/arita37/myutil/actions/workflows/docker_build_zdocker1.yml
+
+
+#### Docker definiton:     https://github.com/arita37/myutil/tree/zdocker2/dockers
+
+
+##### Publish Registry:     https://hub.docker.com/u/artia37
 
 
 
