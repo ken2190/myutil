@@ -1,6 +1,12 @@
 """Spark related utils
 Doc::
 
+     pip install -e .
+     bash
+     python $utilmy/sspark/src/util_ spark.py spark_config_check
+     python $utilmy/sspark/src/util_ spark.py spark_config_create  --dirout myconfigs/
+
+
 
 
 """
@@ -28,13 +34,22 @@ from util_hadoop import (
    hdfs_mkdir,
    hdfs_rm_dir,
    hdfs_pd_read_parquet,
-   hdfs_download_parallel
+   hdfs_download_parallel,
+   hdfs_ls
 
 )
 
 
+def test_all():
+    pass
+
+
+def test1():
+    pass    
+
+
 ##################################################################################    
-def spark_configprint(sparksession):
+def spark_config_print(sparksession):
     log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
     for x in conft: 
@@ -52,7 +67,7 @@ def spark_configprint(sparksession):
 
 
 
-def spark_configcheck():
+def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
 
 
@@ -62,7 +77,7 @@ def spark_configcheck():
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
 
 
-def spark_configcreate(dirout):
+def spark_config_create(dirout):
     """ Dump template Spark config into a folder.
 
 
@@ -73,8 +88,7 @@ def spark_configcreate(dirout):
 
 
 
-
-def spark_get_session(config:dict, verbose=0):
+def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
     """  Generic Spark session creation
     Doc::
 
@@ -86,8 +100,11 @@ def spark_get_session(config:dict, verbose=0):
         from utilmy.configs.util_config import load_config
         config_path = config
         config = load_config(config_path)  ### Universal config loader
-
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
+
+    if config_key_name in config:
+        config = config[config_key_name]
+    assert 'spark.master' in config , f"config seems incorrect: {config}"   
 
 
     conf = SparkConf()
@@ -124,14 +141,14 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
 
 ########################################################################################
-def spark_execute_sqlfile(spark_session=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
+def spark_execute_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
     Doc::
 
           map_sql_variables = {'start_dt':  '2020-01-01',  }
 
     """
-    sp_session = spark_get_session(spark_config) if spark_session is None else spark_session
+    sp_session = spark_get_session(spark_config) if sparksession is None else sparksession
     with open(sql_path, mode='r') as fr:
         query = fr.read()
         query = query.format(**map_sql_variables)  if map_sql_variables is not None query
@@ -208,12 +225,12 @@ def hive_check_table(config, tables, add_jar_cmd=""):
     log(x[0])
     log( os.system( cmd ) )
     
-
+def hive_execute_sqlfile(sql-ath)
 
 ##################################################################################
 from pyspark.sql.functions import col, explode, array, lit
 
-def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before over sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -226,7 +243,7 @@ def spark_df_over_sample(df:sp_dataframe,major_label, minor_label, ratio, label_
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe,major_label, minor_label, ratio, label_col_name):
+def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(col(label_col_name) == major_label)
     minor_df = df.filter(col(label_col_name) == minor_label)
@@ -301,14 +318,18 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
+def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+    """ subfolder
+    doc::
 
+          dir_parent/2021-02-03/file1.csv
+          dir_parent/2021-02-04/file1.csv
+          dir_parent/2021-02-05/file1.csv
 
-def spark_read_csv_partition(sparkSession,  dir_parent, nfile_past=24, **kw):
-    """ Read in mutiple partitions   20220101, 20230202, 
 
 
     """
-    from util_hadoop import hdfs_ls
+    # from util_hadoop import hdfs_ls
     flist = hdfs_ls(dir_parent )
     flist = sorted(flist)  ### ordered by dates increasing
     flist = flist[-nfile_past:] if nfile_past > 0 else flist
@@ -381,8 +402,9 @@ def date_get_hour_range(dt, offset, output_format):
     return hour_range
 
 
-def date_get_start_of_month(time):
-    return time.replace(day=1)
+def date_get_start_of_month(datetime1):
+    return datetime1.replace(day=1)
+
 
 class ReportDateTime(object):
     def __init__(self, report_date, timezone):
@@ -468,7 +490,7 @@ def os_system(cmd, doprint=False):
     
 
 def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txtold, txtnew, test=1):
-    """ Replace text in config files.
+    """ Replace path in config files.
         
     """
     import glob 
@@ -513,5 +535,6 @@ def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], txto
 if __name__ == "__main__":
     import fire
     fire.Fire()
+
 
 

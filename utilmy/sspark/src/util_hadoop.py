@@ -40,7 +40,7 @@ def hadoop_print_config(dirout=None):
 
 
 
-############################################################################################################### 
+###############################################################################################################
 def hdfs_ls(path, filename_only=False):
     from subprocess import Popen, PIPE
     process = Popen(f"hdfs dfs -ls -h '{path}'", shell=True, stdout=PIPE, stderr=PIPE)
@@ -54,6 +54,11 @@ def hdfs_ls(path, filename_only=False):
     return flist_full_address
 
 
+
+def hdfs_isok(path):
+    import os
+    print( os.system( f'hdfs dfs -ls {path}' ) )
+     
 def hdfs_mkdir(op_path):
     res = os_system( f"hdfs dfs -mkdir -p '{local_path}'  '{hdfs_path}' ", doprint=True)
 
