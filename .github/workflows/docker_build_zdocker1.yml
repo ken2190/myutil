@@ -12,8 +12,8 @@ name: Docker build 1
 
 
 on:
-  workflow_dispatch:
-    inputs:  
+  # workflow_dispatch:
+  #   inputs:  
 
  push:
    branches:
