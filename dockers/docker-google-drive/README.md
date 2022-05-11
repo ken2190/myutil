@@ -1,6 +1,23 @@
 # Docker google-drive-ocamlfuse
 Docker image to mount a google drive with google-drive-ocamlfuse shared with host.
 
+
+Auto mount is here:
+
+https://github.com/astrada/google-drive-ocamlfuse/issues/591
+
+
+
+https://dev.to/yawaramin/use-google-drive-as-a-local-directory-on-linux-1b9
+
+
+
+
+
+
+
+
+
 ### Environment Variables
 * `PUID`: User ID to run google-drive-ocamlfuse
 * `PGID`: Group ID to run google-drive-ocamlfuse
