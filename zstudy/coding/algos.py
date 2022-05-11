@@ -449,6 +449,101 @@ COOL, PLZZZ MAKE ZOOM POSSIBLE . IT WOULD MAKE IT QUITE EASIER
 
 
 
+
+##############################################################################################
+##############################################################################################
+Median in a stream of integers (running integers)
+      Difficulty Level : Hard
+      Last Updated : 28 Mar, 2022
+      Given that integers are read from a data stream. Find median of elements read so 
+      for in an efficient way. For simplicity assume, there are no duplicates. 
+      For example, let us consider the stream 5, 15, 1, 3 … 
+
+
+      After reading 1st element of stream - 5 -> median - 5
+      After reading 2nd element of stream - 5, 15 -> median - 10
+      After reading 3rd element of stream - 5, 15, 1 -> median - 5
+      After reading 4th element of stream - 5, 15, 1, 3 -> median - 4, so on...
+      Making it clear, when the input size is odd, we take the middle element of sorted data. 
+      If the input size is even, we pick the average of the middle two elements in the sorted stream.
+      Note that output is the effective median of integers read from the stream so far. 
+      Such an algorithm is called an online algorithm. 
+      Any algorithm that can guarantee the output of i-elements after processing i-th element, 
+      is said to be online algorithm. Let us discuss three solutions to the above problem.
+
+
+
+
+# Function to find position to insert current element of stream using binary search
+def binarySearch(arr, item, low, high):
+    if (low >= high):
+        return (low + 1) if (item > arr[low]) else low
+
+    mid = (low + high) // 2
+
+    if (item == arr[mid]):
+        return mid + 1
+
+    if (item > arr[mid]):
+        return binarySearch(arr, item, mid + 1, high)
+
+    return binarySearch(arr, item, low, mid - 1)
+
+
+  
+  
+  
+# Function to print median of stream of integers
+def printMedian(arr, n):
+    i, j, pos, num = 0, 0, 0, 0
+    count = 1
+    print(f"Median after reading 1 element is {arr[0]}")
+
+    for i in range(1, n):
+        median = 0
+        j      = i - 1
+        num    = arr[i]
+
+        # find position to insert current element in sorted part of array
+        pos = binarySearch(arr, num, 0, j)
+
+        # move elements to right to create space to insert the current element
+        while (j >= pos):
+            arr[j + 1] = arr[j]
+            j -= 1
+
+        arr[j + 1] = num
+
+        # increment count of sorted elements in array
+        count += 1
+
+        # if odd number of integers are read from stream
+        # then middle element in sorted order is median
+        # else average of middle elements is median
+        if (count % 2 != 0):
+            median = arr[count // 2]
+
+        else:
+            median = (arr[(count // 2) - 1] + arr[count // 2]) // 2
+
+        print(f"Median after reading {i + 1} elements is {median} ")
+
+        
+#### Test        
+arr = [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
+n = len(arr)
+printMedian(arr, n)
+
+
+
+
+
+
+
+
+
+
+
 ##############################################################################################
 ##############################################################################################
 Maximum Product Subarray 
