@@ -136,7 +136,7 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
       sparksession.sql(ss)
       log('JAR added')
 
-    except: Exception as e :
+    except Exception as e :
         log(e)
 
 
@@ -201,7 +201,7 @@ def spark_write_hdfs(df, dirout, show=0):
 
 
 
-def hive_check_table(config, tables, add_jar_cmd=""):    
+def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
       
@@ -209,9 +209,9 @@ def hive_check_table(config, tables, add_jar_cmd=""):
 
 
   """  
-  if isinstance(table, str):
+  if isinstance(tables, str):
       ### Parse YAML file
-      ss = ss.split("\n")
+      ss = tables.split("\n")
       ss = [t for t in ss if len(t) > 5  ]  
       ss = [  t.split(":") for t in ss]
       ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
@@ -224,8 +224,12 @@ def hive_check_table(config, tables, add_jar_cmd=""):
     cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
     log(x[0])
     log( os.system( cmd ) )
-    
-def hive_execute_sqlfile(sql-ath)
+
+
+def hive_execute_sqlfile(sql_path):
+    pass
+
+
 
 ##################################################################################
 from pyspark.sql.functions import col, explode, array, lit
