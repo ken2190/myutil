@@ -94,6 +94,8 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
          config:  path on disk OR dictionnary
 
+         config_key_name='spark_config'  for sub-folder
+
 
     """
     if isinstance(config, str):  
@@ -109,17 +111,16 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     conf = SparkConf()
     conf.setAll(config.items())
-    spark = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
-    """
-            conf = SparkConf()
-            conf.setAll(self._spark_config.get('extra_options').items())
-            builder = SparkSession.builder.config(conf=conf)
-            if self._spark_config.get('hive_support', False):
-                builder = builder.enableHiveSupport()
-            self._spark = builder.getOrCreate()
-            for file in self._spark_config.get('extra_files', []) or []:
-                self._spark.sparkContext.addPyFile(file)
-    """            
+    spark = SparkSession.builder.config(conf=conf)
+    
+    if config.get('hive_support', False):
+       spark = spark.enableHiveSupport().getOrCreate()
+    else:
+       spark = spark.getOrCreate()
+
+    if 'pyfiles' in config:
+        spark.sparkContext.addPyFile(  config.get('pyfiles') )
+      
     if verbose>0:
         print(spark)
 
