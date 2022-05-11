@@ -41,6 +41,20 @@ def hadoop_print_config(dirout=None):
 
 
 ###############################################################################################################
+def hdfs_ls(path, filename_only=False):
+    from subprocess import Popen, PIPE
+    process = Popen(f"hdfs dfs -ls -h '{path}'", shell=True, stdout=PIPE, stderr=PIPE)
+    std_out, std_err = process.communicate()
+
+    if filename_only:
+       list_of_file_names = [fn.split(' ')[-1].split('/')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
+       return list_of_file_names
+
+    flist_full_address = [fn.split(' ')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
+    return flist_full_address
+
+
+
 def hdfs_isok(path):
     import os
     print( os.system( f'hdfs dfs -ls {path}' ) )

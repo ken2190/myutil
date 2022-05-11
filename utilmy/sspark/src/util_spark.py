@@ -28,13 +28,14 @@ from util_hadoop import (
    hdfs_mkdir,
    hdfs_rm_dir,
    hdfs_pd_read_parquet,
-   hdfs_download_parallel
+   hdfs_download_parallel,
+   hdfs_ls
 
 )
 
 
 ##################################################################################    
-def spark_configprint(sparksession):
+def spark_config_print(sparksession):
     log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
     for x in conft: 
@@ -52,7 +53,7 @@ def spark_configprint(sparksession):
 
 
 
-def spark_configcheck():
+def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
 
 
@@ -62,7 +63,7 @@ def spark_configcheck():
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
 
 
-def spark_configcreate(dirout):
+def spark_config_create(dirout):
     """ Dump template Spark config into a folder.
 
 
@@ -70,7 +71,6 @@ def spark_configcreate(dirout):
     pass
 
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
-
 
 
 
@@ -301,23 +301,8 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
-
-
-def hdfs_ls(path, filename_only=False):
-    from subprocess import Popen, PIPE
-    process = Popen(f"hdfs dfs -ls -h '{path}'", shell=True, stdout=PIPE, stderr=PIPE)
-    std_out, std_err = process.communicate()
-
-    if filename_only:
-       list_of_file_names = [fn.split(' ')[-1].split('/')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
-       return list_of_file_names
-
-    flist_full_address = [fn.split(' ')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
-    return flist_full_address
-
-
-def spark_read_csv(sparkSession,  dir_parent, nfile_past=24, **kw):
-
+def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+    # from util_hadoop import hdfs_ls
     flist = hdfs_ls(dir_parent )
     flist = sorted(flist)  ### ordered by dates increasing
     flist = flist[-nfile_past:] if nfile_past > 0 else flist
