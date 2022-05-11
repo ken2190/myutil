@@ -98,8 +98,6 @@ jobs:
         run: |
           cd dockers/spark
           docker buildx build -f ./Dockerfile --tag artia37/spark243-hdp27:v1 --push .
-          docker push artia37/spark243-hdp27:v1
-
 
   # docker-test-1:
   #   runs-on: ubuntu-latest
