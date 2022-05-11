@@ -70,7 +70,7 @@ RUN conda  install -c conda-forge -y  pyspark==2.4.6 \
 # pystan>=2.14 \
 
 
-COPY dockers/spark/py36_spark.txt   /opt/work/
+COPY ./py36_spark.txt   /opt/work/
 RUN pip  install -r /opt/work/py36_spark.txt
 
 

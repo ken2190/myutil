@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:  
 
-#  push:
-#    branches:
-#      - zdocker1
+ push:
+   branches:
+     - zdocker1
 
 
 
@@ -85,14 +85,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # - name: Build and push
+      #   id: docker_build
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: dockers/spark/
+      #     push: true
+      #     file: dockers/spark/Dockerfile
+      #     tags: artia37/spark243-hdp27:v1
+
       - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: dockers/spark/
-          push: true
-          file: dockers/spark/Dockerfile
-          tags: artia37/spark243-hdp27:v1
+        run:
+          cd dockers/spark
+          docker buildx build -f ./Dockerfile --tag artia37/spark243-hdp27:v1 --push .
+          docker push artia37/spark243-hdp27:v1
 
 
   # docker-test-1:
