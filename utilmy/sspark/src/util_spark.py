@@ -74,7 +74,7 @@ def spark_config_check():
     """
     env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
 
-    file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+    file_required = [ '$SPARK_HOME/conf/spark-env.sh',  '$SPARK_HOME/conf/spark-defaults.conf' ]
 
 
 def spark_config_create(dirout):
