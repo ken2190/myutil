@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" utils for model explanation
+""" utils for model merge
 
 https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
@@ -41,124 +41,6 @@ def help():
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
     log(ss)
-
-
-#############################################################################################
-def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
-    """
-    log(MNAME)
-    test()
-    # test2()
-
-
-
-
-##############################################################################################
-def test():
-    """function test
-    Args:
-    Returns:
-        
-    """
-    model_info = {'dataonly': {'rule': 0.0},
-                'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
-                'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
-                'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
-                'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
-                'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
-                'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
-                'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
-                'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
-                'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
-                }
-
-    arg = Box({
-      "dataurl":  "https://github.com/caravanuden/cardio/raw/master/cardio_train.csv",
-      "datapath": './cardio_train.csv',
-
-      ##### Rules
-      "rules": {},
-
-      #"rule_threshold": 129.5,
-      #"src_ok_ratio": 0.3,
-      #"src_unok_ratio": 0.7,
-      #"target_rule_ratio": 0.7,
-      #"rule_ind": 5,
-
-
-      #####
-      "train_ratio": 0.7,
-      "validation_ratio": 0.1,
-      "test_ratio": 0.2,
-
-      "model_type": 'dataonly',
-      "input_dim_encoder": 16,
-      "output_dim_encoder": 16,
-      "hidden_dim_encoder": 100,
-      "hidden_dim_db": 16,
-      "n_layers": 1,
-
-
-      ##### Training
-      "seed": 42,
-      "device": 'cpu',  ### 'cuda:0',
-      "batch_size": 32,
-      "epochs": 1,
-      "early_stopping_thld": 10,
-      "valid_freq": 1,
-      'saved_filename' :'./model.pt',
-
-    })
-    arg.model_info = model_info
-    arg.merge = 'cat'
-    arg.input_dim = 20   ### 20
-    arg.output_dim = 1
-    log(arg)
-
-
-    #### Rules setup #############################################################
-    arg.rules = {
-          "rule_threshold":  129.5,
-          "src_ok_ratio":      0.3,
-          "src_unok_ratio":    0.7,
-          "target_rule_ratio": 0.7,
-          "rule_ind": 2,    ### Index of the colum Used for rule:  df.iloc[:, rule_ind ]
-    }
-    arg.rules.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
-    arg.rules.loss_rule_calc = loss_rule_calc_cardio
-
-
-    ### device setup
-    device = device_setup(arg)
-
-    #### dataset load
-    df = dataset_load_cardio(arg)
-
-    #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
-    arg.input_dim = train_X.shape[1]
-
-
-
-    ### Create dataloader  ############################
-    train_loader, valid_loader, test_loader = dataloader_create( train_X, train_y, valid_X, valid_y, test_X, test_y,  arg)
-
-    ### Model Build
-    model, losses, arg = model_build(arg=arg)
-
-    ### Model Train
-    model_train(model, losses, train_loader, valid_loader, arg=arg, )
-
-
-    #### Test
-    model_eval, losses = model_load(arg)
-    model_evaluation(model_eval, losses.loss_task_func , arg=arg, dataset_load1= dataset_load_cardio,  dataset_preprocess1 =  dataset_preprocess_cardio  )
-
-
 
 
 
@@ -747,7 +629,143 @@ class BaseModel(object):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##############################################################################################
+
+#############################################################################################
+def test_all():
+    """function test_all
+    Args:
+    Returns:
+        
+    """
+    log(MNAME)
+    test()
+    # test2()
+
+
+
+
+##############################################################################################
+def test():
+    """function test
+    Args:
+    Returns:
+        
+    """
+    model_info = {'dataonly': {'rule': 0.0},
+                'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
+                'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
+                'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
+                'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
+                'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
+                'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
+                'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
+                'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
+                'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
+                }
+
+    arg = Box({
+      "dataurl":  "https://github.com/caravanuden/cardio/raw/master/cardio_train.csv",
+      "datapath": './cardio_train.csv',
+
+      ##### Rules
+      "rules": {},
+
+      #"rule_threshold": 129.5,
+      #"src_ok_ratio": 0.3,
+      #"src_unok_ratio": 0.7,
+      #"target_rule_ratio": 0.7,
+      #"rule_ind": 5,
+
+
+      #####
+      "train_ratio": 0.7,
+      "validation_ratio": 0.1,
+      "test_ratio": 0.2,
+
+      "model_type": 'dataonly',
+      "input_dim_encoder": 16,
+      "output_dim_encoder": 16,
+      "hidden_dim_encoder": 100,
+      "hidden_dim_db": 16,
+      "n_layers": 1,
+
+
+      ##### Training
+      "seed": 42,
+      "device": 'cpu',  ### 'cuda:0',
+      "batch_size": 32,
+      "epochs": 1,
+      "early_stopping_thld": 10,
+      "valid_freq": 1,
+      'saved_filename' :'./model.pt',
+
+    })
+    arg.model_info = model_info
+    arg.merge = 'cat'
+    arg.input_dim = 20   ### 20
+    arg.output_dim = 1
+    log(arg)
+
+
+    #### Rules setup #############################################################
+    arg.rules = {
+          "rule_threshold":  129.5,
+          "src_ok_ratio":      0.3,
+          "src_unok_ratio":    0.7,
+          "target_rule_ratio": 0.7,
+          "rule_ind": 2,    ### Index of the colum Used for rule:  df.iloc[:, rule_ind ]
+    }
+    arg.rules.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
+    arg.rules.loss_rule_calc = loss_rule_calc_cardio
+
+
+    ### device setup
+    device = device_setup(arg)
+
+    #### dataset load
+    df = dataset_load_cardio(arg)
+
+    #### dataset preprocess
+    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
+    arg.input_dim = train_X.shape[1]
+
+
+
+    ### Create dataloader  ############################
+    train_loader, valid_loader, test_loader = dataloader_create( train_X, train_y, valid_X, valid_y, test_X, test_y,  arg)
+
+    ### Model Build
+    model, losses, arg = model_build(arg=arg)
+
+    ### Model Train
+    model_train(model, losses, train_loader, valid_loader, arg=arg, )
+
+
+    #### Test
+    model_eval, losses = model_load(arg)
+    model_evaluation(model_eval, losses.loss_task_func , arg=arg, dataset_load1= dataset_load_cardio,  dataset_preprocess1 =  dataset_preprocess_cardio  )
+
+
+
+
 ###############################################################################################
 def device_setup(arg):
     """function device_setup
