@@ -77,7 +77,7 @@ def spark_config_check():
     file_required = [ '$SPARK_HOME/conf/spark-env.sh',  '$SPARK_HOME/conf/spark-defaults.conf' ]
 
 
-def spark_config_create(dirout):
+def spark_config_create(mode='', dirout):
     """ Dump template Spark config into a folder.
 
 
@@ -85,6 +85,17 @@ def spark_config_create(dirout):
     pass
 
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
+
+    if mode='yarn-cluster':
+        pass
+        
+    if mode='yarn-client':
+        pass
+
+    if mode='local':
+        pass
+
+
 
 
 
@@ -406,51 +417,8 @@ def date_get_hour_range(dt, offset, output_format):
         hour_range.append((dt + datetime.timedelta(hours=hr)).strftime(output_format))
     return hour_range
 
-
 def date_get_start_of_month(datetime1):
     return datetime1.replace(day=1)
-
-
-class ReportDateTime(object):
-    def __init__(self, report_date, timezone):
-        """
-        report_date: datetime.date
-        timezone: pytz.tzinfo
-        """
-        if type(report_date) is not datetime.date:
-            raise TypeError('report_date {} must be datetime.date'.format(report_date))
-        self._report_date = report_date
-        self._timezone = timezone
-
-    @property
-    def report_datetime_notz(self):
-        return datetime.datetime.combine(self._report_date, datetime.datetime.min.time())
-
-    @property
-    def report_datetime_localtz(self):
-        return self._timezone.localize(self.report_datetime_notz)
-
-    @property
-    def report_datetime_utc(self):
-        return self.report_datetime_localtz.astimezone(pytz.utc)
-
-    @property
-    def unix_timestamp_range(self):
-        start = calendar.timegm(self.report_datetime_utc.utctimetuple())
-        end = start + TimeConstants.SECONDS_PER_DAY
-        return start, end
-
-    @property
-    def time_key_in_jst(self):
-        return (self.unix_timestamp_range[0] + TimeConstants.UTC_TO_JST_SHIFT) / TimeConstants.SECONDS_PER_DAY
-
-    @property
-    def this_monday(self):
-        return self._report_date - datetime.timedelta(days=self._report_date.weekday())
-
-    @property
-    def last_monday(self):
-        return self.this_monday - datetime.timedelta(7)
 
 
 
@@ -485,7 +453,6 @@ def os_system(cmd, doprint=False):
     print( f"Error {cmd}, {e}")
 
     
-
 def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], textold, textnew, test=1):
     """ Replace path in config files.
         
