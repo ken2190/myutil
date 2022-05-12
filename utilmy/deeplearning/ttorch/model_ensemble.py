@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.deeplearning.torch.rule_encoder"
 """ utils for model explanation
-
 
 https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
@@ -12,6 +10,9 @@ https://discuss.pytorch.org/t/merging-3-models/66230/3
 
 
 """
+
+
+
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
 
@@ -38,7 +39,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = help_create(MNAME)
+    ss = HELP + help_create(MNAME)
     log(ss)
 
 
@@ -159,6 +160,596 @@ def test():
 
 
 
+
+
+
+class ModelA :
+    input XA
+    ...
+    get_embedding_fromlayer(layer_id= 1)
+
+
+
+class modelB:
+    input XB
+    ...
+    get_embedding_fromlayer(layer_id= 1)
+
+
+
+class mergeModel(BaseModel):
+  def __init__(self, modelA, modelB, **kw) -> None:
+      super().__init__()
+      self.Xinput_dim  = XA_dim + Xb_dim
+      self.modelHead = MLP([ Xinput_dim,100, 300, 500]) 
+
+   def forward(self, X1, X2):
+        XAout = modelA.get_embedding_fromlayer(X1)
+        XBout = modelB.get_embedding_fromlayer(X2)
+
+        Xmerge_input  = self.concat(XAout, XBout, method='stack') 
+
+        Xmergeout = self.modelHead(Xmerge_input)
+        return Xmergeout
+    
+
+    def loss_task_calc(self, model, batch_train_x, loss_task_func, output, arg:dict):
+   
+
+    def train():
+
+     for (X1,X2), Y in train_laoder:
+
+         optimizer.zero_grad()
+         ypred = self.modelMerge(X1, X2)
+
+       
+
+
+
+
+
+class BaseModel(object):
+  """
+    This is BaseClass for model create
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        create_loss :   Initialize Loss Function 
+
+        build_devicesetup: 
+        build: create model, loss, optimizer (call before training)
+
+        training:   starting training
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        predict :
+        encode :
+        evaluate: 
+        load: 
+        save: 
+  """
+
+
+mergeModel(modelA, modelB, **params)
+   Xinput_dim  = XA_dim + Xb_dim
+   modelMerge = MLP([ Xinput_dim,100, 300, 500]) 
+
+   def forward(self,X)
+        XAout = modelA.get_embedding_fromlayer(X)
+
+        XBout = modelB.get_embedding_fromlayer(X)
+
+        Xmege_input  = concat(XAout, XBout) 
+
+
+
+        Xmergeout = modelMerge(Xmerge_input)
+"""
+class MergeModel_create(BaseModel):
+
+    def __init__(self,arg, modelB=None, modelA=None, architecture:dict):
+        """_summary_
+
+        architecture = Box(architecture)
+
+        Args:
+            arg (_type_): _description_
+            modelB (_type_, optional): _description_. Defaults to None.
+            modelA (_type_, optional): _description_. Defaults to None.
+            modelA and modelB should got following attributes:
+
+            modelMerge = MLP( architecture.mlp.layer_dim_list )   ### ok
+
+                attributes:
+                    self.net : torch.nn.Module
+                    self.modelA_is_train  
+                    self.modelB_is_train
+
+                method:
+                    self.__init__(modelA,modelB,**params)
+                    self.create_loss()
+                    self.create_model() :  return net
+                    self.build():
+                    
+                    self.training()
+                    self.evaluate()
+                    self.encode  :  to output the embeddings after merge.YES< but more TRICKY PART, so a method is needed ## equavilant to __call__(self,X). ok
+                    self.save
+                    self.load
+                    ### merge_input is implemented in __call__()
+
+
+
+
+
+mergmodel_C = MergeModel( ...)
+mergmodel_D = MergeModel( ...)
+
+mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
+
+We can  re-merge the mergeModel with others...
+
+
+
+
+
+
+##############################################################################################
+class MergeModel_create(BaseModel):
+    """
+    """
+    def __init__(self,arg, modelA=None, modelB=None):
+        """_summary_
+                      
+        """
+        super(MergeModel_create,self).__init__(arg)
+        if modelA is None:
+            self.modelA = modelA_create(arg.modelA)
+        else:
+            self.modelA = (modelA)
+        if modelB is None:
+            self.modelB = modelB_create(arg.modelB)
+        else:
+            self.modelB = (modelB)
+
+        
+
+    def create_model(self,):
+        super(MergeModel_create,self).create_model()
+        # merge = self.arg.merge
+        merge = getattr(self.arg.merge_model,'MERGE','add')
+        skip = getattr(self.arg.merge_model,'SKIP',False)
+        
+        dims = self.arg.merge_model.ARCHITECT.decoder
+        class Modelmerge(torch.nn.Module):
+            def __init__(self,modelB,modelA,dims,merge,skip):
+                super(Modelmerge, self).__init__()
+
+                #### rule encoder
+                self.modelB_net = copy.copy(modelB.net)
+                self.modelB_net.load_state_dict(modelB.net.state_dict())
+
+                ###3 data encoder
+                self.modelA_net = copy.copy(modelA.net)
+                self.modelA_net.load_state_dict(modelA.net.state_dict())
+
+                ##### Merge
+                self.merge = merge
+                self.skip = skip
+                self.input_type = 'seq'
+
+                # self.net = nn.Sequential()
+                self.net = []
+                input_dim = dims[0]
+                for layer_dim in dims[1:-1]:
+                    self.net.append(nn.Linear(input_dim, layer_dim))
+                    self.net.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.net.append(nn.Linear(input_dim, dims[-1]))
+                self.net.append(nn.Sigmoid())
+
+                self.net = nn.Sequential(*self.net)
+
+
+            def forward(self, x,**kwargs):
+            # merge: cat or add
+                alpha = kwargs.get('alpha',0) # default only use YpredB
+                # scale = kwargs.get('scale',1)
+                YpredB = self.modelB_net(x)
+                
+                YpredA = self.modelA_net(x)
+
+
+                if self.merge == 'cat':
+                    z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+
+                elif self.merge == 'equal_cat':
+                    z = torch.cat((YpredB, YpredA), dim=-1)
+
+                return self.net(z)    # predict absolute values
+
+        return Modelmerge(self.modelB,self.modelA,dims,merge,skip)
+
+    def build(self):
+        # super(MergeModel_create,self).build()
+        log("modelB:")
+        self.modelB.build()
+
+        log("modelA:")
+        self.modelA.build()
+        
+        log("MergeModel:")
+        self.net = self.create_model().to(self.device)
+        self.loss_calc= self.create_loss()#.to(self.device)
+        self.optimizer = torch.optim.Adam(self.net.parameters())
+        
+
+    def create_loss(self,):
+        super(MergeModel_create,self).create_loss()
+        rule_loss_calc= self.modelB.loss_calc
+        data_loss_calc= self.modelA.loss_calc
+
+        class MergeLoss(torch.nn.Module):
+            def __init__(self,rule_loss_calc,data_loss_calc):
+                super(MergeLoss,self).__init__()
+                self.rule_loss_calc= rule_loss_calc
+                self.data_loss_calc= data_loss_calc
+
+            def forward(self,output,target,alpha=0,scale=1):
+                
+                rule_loss = self.rule_loss_calc(output,target.reshape(output.shape))
+                data_loss = self.data_loss_calc(output,target.reshape(output.shape))                
+                result = rule_loss * alpha * scale + data_loss * (1-alpha)
+                # result = rule_loss + data_loss
+                return result
+        return MergeLoss(rule_loss_calc,data_loss_calc)
+
+
+    def prepro_dataset(self,df=None):
+        if df is None:              
+            df = self.df     # if there is no dataframe feeded , get df from model itself
+
+        coly = 'cardio'
+        y     = df[coly]
+        X_raw = df.drop([coly], axis=1)
+
+        # log("Target class ratio:")
+        # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
+
+        column_trans = ColumnTransformer(
+            [('age_norm', StandardScaler(), ['age']),
+            ('height_norm', StandardScaler(), ['height']),
+            ('weight_norm', StandardScaler(), ['weight']),
+            ('gender_cat', OneHotEncoder(), ['gender']),
+            ('ap_hi_norm', StandardScaler(), ['ap_hi']),
+            ('ap_lo_norm', StandardScaler(), ['ap_lo']),
+            ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
+            ('gluc_cat', OneHotEncoder(), ['gluc']),
+            ('smoke_cat', OneHotEncoder(), ['smoke']),
+            ('alco_cat', OneHotEncoder(), ['alco']),
+            ('active_cat', OneHotEncoder(), ['active']),
+            ], remainder='passthrough'
+        )
+
+        X = column_trans.fit_transform(X_raw)
+        nsamples = X.shape[0]
+        X_np = X.copy()
+
+
+        ##### Split   #########################################################################
+        seed= 42 
+        train_ratio = self.arg.merge_model.TRAINING_CONFIG.TRAIN_RATIO
+        test_ratio = self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+        val_ratio =   self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+        train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
+        return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
+        
+
+
+
+    def training(self,load_DataFrame=None,prepro_dataset=None):
+        # training with load_DataFrame and prepro_data function or default funtion in self.method
+
+      
+        df = load_DataFrame(self) if load_DataFrame else self.load_DataFrame()
+        if prepro_dataset:
+           train_X, train_y, valid_X,  valid_y, test_X,  test_y = prepro_dataset(self,df)
+        else:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
+
+        batch_size = self.arg.merge_model.TRAINING_CONFIG.BATCH_SIZE
+        train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
+                                                                    valid_X,  valid_y,
+                                                                    test_X,  test_y,
+                                                                    device=self.device,
+                                                                    batch_size=batch_size)
+        
+        EPOCHS = self.arg.merge_model.TRAINING_CONFIG.EPOCHS
+        n_train = len(train_loader)
+        n_val = len(valid_loader)
+        
+        
+        for epoch in range(1,EPOCHS+1):
+            self.train()
+            loss_train = 0
+            with torch.autograd.set_detect_anomaly(True): 
+                for inputs,targets in train_loader:
+                    
+                    predict = self.net(inputs)
+                    self.optimizer.zero_grad()
+                    # self.optimizer.step()
+                    scale =1
+                    loss = self.loss_calc(predict, targets)
+                    # loss.grad
+                    loss.backward()
+                    self.optimizer.step()
+                    loss_train += loss * inputs.size(0)
+                loss_train /= len(train_loader.dataset) # mean on dataset
+
+
+            ##### Eval
+            loss_val = 0
+            self.eval()
+            with torch.no_grad():
+                for inputs,targets in valid_loader:
+                    predict = self.predict(inputs)
+                    self.optimizer.zero_grad()
+                    scale=1
+                    loss = self.loss_calc(predict,targets)                    
+                    loss_val += loss * inputs.size(0)
+            loss_val /= len(valid_loader.dataset) # mean on dataset
+            
+            
+            path_save = self.arg.merge_model.TRAINING_CONFIG.SAVE_FILENAME
+            self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
+
+
+
+
+
+##############################################################################################
+class modelB_create(BaseModel):
+    """
+    modelB
+
+    Method:
+        create_model : 
+        create_loss : 
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self):
+        super(modelA_create,self).create_model()
+        dims = self.arg.modelB.ARCHITECT
+        
+        class modelB(torch.nn.Module):
+            def __init__(self,dims=[20,100,16]):
+                super(modelA, self).__init__()
+                self.dims = dims 
+                self.output_dim = dims[-1]
+                # self.net = nn.Sequential()
+                self.net = []
+                input_dim = dims[0]
+                for layer_dim in dims[:-1]:
+                    self.net.append(nn.Linear(input_dim, layer_dim))
+                    self.net.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.net.append(nn.Linear(input_dim, dims[-1]))
+                self.net = nn.Sequential(*self.net)
+
+            def forward(self, x,**kwargs):
+                return self.net(x)
+
+            def get_embedding(self, x,**kwargs):
+              pass 
+
+        return modelA(dims)
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+class modelA_create(BaseModel):
+    """
+    modelA
+
+    Method:
+        create_model : 
+        create_loss : 
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self):
+        super(modelA_create,self).create_model()
+        dims = self.arg.modelA.ARCHITECT
+        
+        class modelA(torch.nn.Module):
+            def __init__(self,dims=[20,100,16]):
+                super(modelA, self).__init__()
+                self.dims = dims 
+                self.output_dim = dims[-1]
+                # self.net = nn.Sequential()
+                self.net = []
+                input_dim = dims[0]
+                for layer_dim in dims[:-1]:
+                    self.net.append(nn.Linear(input_dim, layer_dim))
+                    self.net.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.net.append(nn.Linear(input_dim, dims[-1]))
+                self.net = nn.Sequential(*self.net)
+
+            def forward(self, x,**kwargs):
+                return self.net(x)
+
+            def get_embedding(self, x,**kwargs):
+              pass 
+
+        return modelA(dims)
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+
+
+
+
+#############################################################################################
+class BaseModel(object):
+    """
+    This is BaseClass for model create
+
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        evaluate: 
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+        create_loss :   Initialize Loss Function 
+        training:   starting training
+        build: create model, loss, optimizer (call before training)
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        device_setup: 
+        load_DataFrame: read pandas
+        load_weight: 
+        save_weight: 
+        predict : 
+    """
+    
+    def __init__(self,arg):
+        self.arg = Box(arg)
+        self._device = self.device_setup(arg)
+        self.losser = None
+        self.is_train = False
+        
+    @abstractmethod
+    def create_model(self,) -> torch.nn.Module:
+    #   raise NotImplementedError
+        log("       model is building")
+    @abstractmethod
+    def evaluate(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def prepro_dataset(self,csv) -> pd.DataFrame:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def create_loss(self,) -> torch.nn.Module:
+        log("       loss is building")
+        # raise NotImplementedError
+
+    @abstractmethod
+    def training(self,):
+        raise NotImplementedError
+
+    @property
+    def device(self,):
+        return self._device
+    
+    @device.setter
+    def device(self,value):
+        if isinstance(value,torch.device):
+          self._device = value
+        elif isinstance(value,str):
+          self._device = torch.device(value)
+        else:
+          raise TypeError("device must be str or torch.device")
+
+    def build(self,):
+        self.net = self.create_model().to(self.device)
+        self.loss_calc= self.create_loss().to(self.device)
+        # self.loss_calc= 
+        self.is_train = False
+    
+    def train(self): # equivalent model.train() in pytorch
+        self.is_train = True
+        self.net.train()
+
+    def eval(self):     # equivalent model.eval() in pytorch
+        self.is_train = False
+        self.net.eval()
+
+    def device_setup(self,arg):
+        device = getattr(arg,'device','cpu')
+        seed   = arg.seed if hasattr(arg,'seed') else 42
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
+        if 'gpu' in device :
+            try :
+                torch.cuda.manual_seed(seed)
+                torch.cuda.manual_seed_all(seed)
+                torch.backends.cudnn.deterministic = True
+                torch.backends.cudnn.benchmark = False
+            except Exception as e:
+                log(e)
+                device = 'cpu'
+        return device
+
+    def load_DataFrame(self,path=None)-> pd.DataFrame:
+        if path:
+            log(f"reading csv from {path}")
+            self.df = pd.read_csv(path,delimiter=';')
+            return self.df
+        if os.path.isfile(self.arg.dataset.path):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.dataset.path}")
+            self.df = pd.read_csv(self.arg.dataset.path,delimiter=';')
+            return self.df
+        else:
+            import requests
+            import io
+            r = requests.get(self.arg.dataset.url)
+            log(f"Reading csv from arg.DATASET.URL")
+            if r.status_code ==200:
+                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
+            else:
+                raise Exception("Can't read data, status_code: {r.status_code}")
+            
+            return self.df
+
+
+    def load_weights(self, path):
+        assert os.path.isfile(path),f"{path} does not exist"
+        try:
+          ckp = torch.load(path,map_location=self.device)
+        except Exception as e:
+          log(e)
+          log(f"can't load the checkpoint from {path}")  
+        if isinstance(ckp,collections.OrderedDict):
+          self.net.load_state_dict(ckp)
+        else:
+          self.net.load_state_dict(ckp['state_dict'])
+    
+    def save_weight(self,path,meta_data=None):
+      os.makedirs(os.path.dirname(path),exist_ok=True)
+      ckp = {
+          'state_dict':self.net.state_dict(),
+      }
+      if meta_data:
+        if isinstance(meta_data,dict):
+            ckp.update(meta_data)
+        else:
+            ckp.update({'meta_data':meta_data,})
+            
+        
+      torch.save(ckp,path)
+
+    def predict(self,x,**kwargs):
+        # raise NotImplementedError
+        output = self.net(x,**kwargs)
+        return output 
+
+
+
+
+
+
 ##############################################################################################
 ###############################################################################################
 def device_setup(arg):
@@ -252,9 +843,9 @@ def model_build(arg:dict, mode='train'):
     arg = Box(arg)
 
     if 'test' in mode :
-        rule_encoder = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
-        data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
-        model_eval = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
+        modelA = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        modelB = modelA(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        model_eval = Net(arg.input_dim, arg.output_dim, modelA, modelB, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
         return model_eval
 
     ##### Params  ############################################################################
@@ -277,16 +868,16 @@ def model_build(arg:dict, mode='train'):
     losses    = Box({})
 
     #### Rule model
-    rule_encoder          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    modelA          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
     losses.loss_rule_func = arg.rules.loss_rule_func #lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
 
 
     #### Data model
-    data_encoder = DataEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    modelB = modelA(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
     losses.loss_task_func = nn.BCELoss()    # return scalar (reduction=mean)
 
     #### Merge Ensembling
-    model        = Net(arg.input_dim, arg.output_dim, rule_encoder, data_encoder, hidden_dim=arg.hidden_dim_db,
+    model        = Net(arg.input_dim, arg.output_dim, modelA, modelB, hidden_dim=arg.hidden_dim_db,
                         n_layers=arg.n_layers, merge= arg.merge).to(arg.device)    # Not residual connection
 
     ### Summary
@@ -553,7 +1144,7 @@ class RuleEncoder(nn.Module):
     Returns:
        
     """
-    """ DataEncoder:__init__
+    """ modelA:__init__
     Args:
         input_dim:     
         output_dim:     
@@ -575,7 +1166,7 @@ class RuleEncoder(nn.Module):
     Returns:
        
     """
-    """ DataEncoder:forward
+    """ modelA:forward
     Args:
         x:     
     Returns:
@@ -584,9 +1175,9 @@ class RuleEncoder(nn.Module):
     return self.net(x)
 
 
-class DataEncoder(nn.Module):
+class modelA(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
-    super(DataEncoder, self).__init__()
+    super(modelA, self).__init__()
     self.input_dim = input_dim
     self.output_dim = output_dim
     self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
@@ -598,13 +1189,13 @@ class DataEncoder(nn.Module):
 
 
 class Net(nn.Module):
-  def __init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+  def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
     """ Net:__init__
     Args:
         input_dim:     
         output_dim:     
-        rule_encoder:     
-        data_encoder:     
+        modelA:     
+        modelB:     
         hidden_dim:     
         n_layers:     
         merge:     
@@ -616,16 +1207,16 @@ class Net(nn.Module):
     super(Net, self).__init__()
     self.skip = skip
     self.input_type   = input_type
-    self.rule_encoder = rule_encoder
-    self.data_encoder = data_encoder
+    self.modelA = modelA
+    self.modelB = modelB
     self.n_layers =n_layers
-    assert self.rule_encoder.input_dim == self.data_encoder.input_dim
-    assert self.rule_encoder.output_dim == self.data_encoder.output_dim
+    assert self.modelA.input_dim == self.modelB.input_dim
+    assert self.modelA.output_dim == self.modelB.output_dim
     self.merge = merge
     if merge == 'cat':
-      self.input_dim_decision_block = self.rule_encoder.output_dim * 2
+      self.input_dim_decision_block = self.modelA.output_dim * 2
     elif merge == 'add':
-      self.input_dim_decision_block = self.rule_encoder.output_dim
+      self.input_dim_decision_block = self.modelA.output_dim
 
     self.net = []
     for i in range(n_layers):
@@ -655,30 +1246,30 @@ class Net(nn.Module):
     Returns:
        
     """
-    rule_z = self.rule_encoder(x)
-    data_z = self.data_encoder(x)
+    YpredB = self.modelA(x)
+    YpredA = self.modelB(x)
 
     if self.merge == 'add':
-      z = alpha*rule_z + (1-alpha)*data_z
+      z = alpha*YpredB + (1-alpha)*YpredA
     elif self.merge == 'cat':
-      z = torch.cat((alpha*rule_z, (1-alpha)*data_z), dim=-1)
+      z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
     elif self.merge == 'equal_cat':
-      z = torch.cat((rule_z, data_z), dim=-1)
+      z = torch.cat((YpredB, YpredA), dim=-1)
 
     return z
 
   def forward(self, x, alpha=0.0):
     # merge: cat or add
 
-    rule_z = self.rule_encoder(x)
-    data_z = self.data_encoder(x)
+    YpredB = self.modelA(x)
+    YpredA = self.modelB(x)
 
     if self.merge == 'add':
-      z = alpha*rule_z + (1-alpha)*data_z
+      z = alpha*YpredB + (1-alpha)*YpredA
     elif self.merge == 'cat':
-      z = torch.cat((alpha*rule_z, (1-alpha)*data_z), dim=-1)
+      z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
     elif self.merge == 'equal_cat':
-      z = torch.cat((rule_z, data_z), dim=-1)
+      z = torch.cat((YpredB, YpredA), dim=-1)
 
     if self.skip:
       if self.input_type == 'seq':
@@ -697,3 +1288,4 @@ if __name__ == "__main__":
     fire.Fire() 
     # test_all()
 
+#Hi, I joined
