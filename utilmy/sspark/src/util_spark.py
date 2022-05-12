@@ -81,7 +81,7 @@ def test1():
 def config_parser(config):
     """
     Doc::
-    
+
             spark.master                       : 'local[1]'   # 'spark://virtual:7077'
             spark.app.name                     : 'logprocess'
             spark.driver.maxResultSize         : '10g'
@@ -91,6 +91,8 @@ def config_parser(config):
     cfg = Box({})
     for line in ss:
         l1 = line.split(":")
+        key= ll[0].strip()
+        val= ll[1].split("#")[0].strip()
         cfg[key] = val
     return cfg
 
