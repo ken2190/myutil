@@ -419,31 +419,74 @@ maxDiff = maxIndexDiff(arr, n)
 print(maxDiff)
 
 
-### I will have to go now ( Can we meet in 2 hrs ffrom now )
-### And plz meet if possible, communicating on chat is a bit difficult & inefficient
-### I am not able to get ur requirements and which problem u haven't solved
 
-### Are u there ? 
 
-Ok, nor problwm.
-    All problesm are already solved.
-     we just examine the optimal solution and "analyze" it.
-     thats all.
-    I just need to identify "algo patterns"
-    Yes, will make zoom next time. GR8 YES
-    
-    are you available tomorrow ? YES
-    Lets confirm on upwork the schedule.
-    we will conitnue this file : long list of solved problems.
-      
-      Id you habve some interstin problems. please feel to copy paste here. (FINE)
-      thanks
-      
-    Cool , will have to go now
-    
-      
 
-COOL, PLZZZ MAKE ZOOM POSSIBLE . IT WOULD MAKE IT QUITE EASIER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -455,6 +498,9 @@ COOL, PLZZZ MAKE ZOOM POSSIBLE . IT WOULD MAKE IT QUITE EASIER
 Median in a stream of integers (running integers)
       Difficulty Level : Hard
       Last Updated : 28 Mar, 2022
+https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+          
+        
       Given that integers are read from a data stream. Find median of elements read so 
       for in an efficient way. For simplicity assume, there are no duplicates. 
       For example, let us consider the stream 5, 15, 1, 3 … 
@@ -473,8 +519,130 @@ Median in a stream of integers (running integers)
 
 
 
+  
 
-# Function to find position to insert current element of stream using binary search
+Time Complexity: If we omit the way how stream was read, complexity of median finding is O(N log N), 
+  as we need to read the stream, and due to heap insertions/deletions.
+
+Auxiliary Space: O(N)
+At first glance the above code may look complex. If you read the code carefully, it is simple algorithm.   
+
+# Heap based
+### Key idea :
+    Maintain 2 heaps ( A left heap & aa right heap )
+
+    Left Right 
+# Condition : Left <= RIght & (Right - Left) <=1  
+              Left = Right     (Even)
+         OR   Left = Right-1   (Odd)
+
+A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
+
+Left -> [] Right -> [5]
+Left -> [5] Right -> [15]
+Left -> [1] Right -> [5,15] =>    ## why 5 is needed in [5,15]
+
+Left -> [3] Right -> [  ] =>    ##
+
+for i,x in enumerate(arr):
+  	# IF i is even : 
+  	if i%2 == 0:
+      	# Intially size(Left) == size(Right)
+        # Finally size(Left) == size(Right) - 1
+        # So, u need to increase size of right by 1 
+        if x < min(Left):
+          	val = Left.min_pop()  ## remove the current min
+            Left.insert(x)     ## new min
+            Right.insert(val)  ## moving to the right
+        else:
+          	Right.insert(x)   ### keep the min in Left,  only change the right.
+            
+	else:
+      	if x > max(Right):
+          val = Right.max_pop()
+          Right.insert(x)
+          Left.insert(val)   ####val added to left, right has new max == x
+        else:
+          Left.insert(x)
+
+          
+#### Sliding window  based on position of X,           
+    A[i1:i2]      and i1, i2 are moving....      
+
+  Why left and right  ?  
+  why not only  i1, i2 indexes ....
+    We can only use index   i1, i2
+    
+    sometimes, there are problem with i1, i2 in sliding window....   A[i1:i2]  
+       Inserting is log(n)
+       --> total is n/log(n)      
+      
+    
+    
+
+def getMedian():
+    if len(Left) != len(Right):
+        return Right[0]
+    else:
+        return (Right[0] + Left[0])/2
+           
+
+        
+### pseudo code is ok,
+
+    
+python : by default its a minheap,  so negative value for Maxheap.  --> - values for MaxHeap
+    https://www.geeksforgeeks.org/heap-queue-or-heapq-in-python/  
+
+def insertHeaps(num):
+    heappush(maxHeap,-num)                ### Pushing negative element to obtain a minHeap for
+    heappush(minHeap, -heappop(maxHeap))    ### the negative counterpart
+   
+   if len(minHeap) > len(maxHeap):
+        heappush(maxHeap,-heappop(minHeap))
+
+
+
+######## code
+from heapq import heappush, heappop, heapify
+import math
+minHeap=[]
+heapify(minHeap)
+
+maxHeap=[]
+heapify(maxHeap)
+
+def insertHeaps(num):
+    heappush(maxHeap,-num)                ### Pushing negative element to obtain a minHeap for
+    heappush(minHeap,-heappop(maxHeap))    ### the negative counterpart
+   
+   if len(minHeap) > len(maxHeap):
+        heappush(maxHeap,-heappop(minHeap))
+
+        
+def getMedian():
+    if len(minHeap)!= len(maxHeap):
+        return -maxHeap[0]
+    else:
+        return (minHeap[0]- maxHeap[0])/2
+   
+
+A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
+n= len(A)
+for i in range(n):
+    insertHeaps(A[i])
+    print(math.floor(getMedian()))  
+  
+  
+  
+  
+  
+  
+  
+  
+O(N**2)  
+
+##### Function to find position to insert current element of stream using binary search
 def binarySearch(arr, item, low, high):
     if (low >= high):
         return (low + 1) if (item > arr[low]) else low
@@ -486,12 +654,10 @@ def binarySearch(arr, item, low, high):
 
     if (item > arr[mid]):
         return binarySearch(arr, item, mid + 1, high)
+    else :      
+        return binarySearch(arr, item, low, mid - 1)
 
-    return binarySearch(arr, item, low, mid - 1)
-
-
-  
-  
+      
   
 # Function to print median of stream of integers
 def printMedian(arr, n):
@@ -542,33 +708,31 @@ printMedian(arr, n)
 
 
 
-
-
 ##############################################################################################
 ##############################################################################################
 Maximum Product Subarray 
-Medium Accuracy: 29.84% Submissions: 100k+ Points: 4
-Given an array Arr[] that contains N integers (may be positive, negative or zero). Find the product of the maximum product subarray.
+    Medium Accuracy: 29.84% Submissions: 100k+ Points: 4
+    Given an array Arr[] that contains N integers (may be positive, negative or zero). 
+    Find the product of the maximum product subarray.
 
 Example 1:
 
-Input:
-N = 5
-Arr[] = {6, -3, -10, 0, 2}
-Output: 180
-Explanation: Subarray with maximum product
-is [6, -3, -10] which gives product as 180.
+      Input:
+      N = 5
+      Arr[] = {6, -3, -10, 0, 2}
+      Output: 180
+      Explanation: Subarray with maximum product
+      is [6, -3, -10] which gives product as 180.
+      
+      
+      
 Example 2:
-
-Input:
-N = 6
-Arr[] = {2, 3, 4, 5, -1, 0}
-Output: 120
-Explanation: Subarray with maximum product
-is [2, 3, 4, 5] which gives product as 120.
-Your Task:
-You don't need to read input or print anything. Your task is to complete the function maxProduct() which takes the array of integers arr and n as parameters and returns an integer denoting the answer.
-Note: Use 64-bit integer data type to avoid overflow.
+    Input:
+    N = 6
+    Arr[] = {2, 3, 4, 5, -1, 0}
+    Output: 120
+    Explanation: Subarray with maximum product
+    is [2, 3, 4, 5] which gives product as 120.
 
 Expected Time Complexity: O(N)
 Expected Auxiliary Space: O(1)
@@ -578,18 +742,92 @@ Constraints:
 -102 ≤ Arri ≤ 102
 
 
+sliding window with i1, i2
 
+
+[a_0,a_1,a_2,....]
+
+results =
+for i in range(n):
+  # Find max product of a subarray ending at i
+  result = max()
+
+you can go below ,
+
+
+#  OPtimal Function to find maximum  product subarray
+def maxProduct(arr, n):
+    
+    # Variables to store maximum and  minimum product till ith index.
+    minVal = arr[0]
+    maxVal = arr[0]
+    maxProduct = arr[0]
+
+    for i in range(1, n, 1):
+        
+        # When multiplied by negative number,maxVal becomes minVal
+        # and minVal becomes maxVal.
+        """
+        if (arr[i] < 0):   ### Reverse  min <--> max
+            temp = maxVal
+            maxVal = minVal
+            minVal = temp
+            
+        # maxVal and minVal stores the  product of subarray ending at arr[i].
+        maxVal = max(arr[i], maxVal * arr[i])
+        minVal = min(arr[i], minVal * arr[i])
+        """
+        
+        ""
+        ### to handl negative values.... 
+        maxVal = max(a[i], max(a[i]*minVal,  a[i]*maxVal)  )
+        minVal = min(a[i], min(a[i]*minVal,  a[i]*maxVal) )
+        
+        # Max Product of array.
+        maxProduct = max(maxProduct, maxVal)
+
+    # Return maximum product 
+    # found in array.
+    return maxProduct
+
+
+Exanmple  
+    [0,  1,  3]   -->    3 
+  
+     max(1, 0*....)  =1 ,    ### reset of the product at each step, more 
+    
+    
+ Instewad of product, Max sum  --->  we just to keep  MaxVal ONLY.
+
+   teshnically
+      current maxVal vs a[i]   (intermediate maxVal  to handle issues/special case of negative, what ever things we need to manage.... )  
+      Global_MaxVal
+  
+    Sliding window way with only one step, 
+    Good pattern.
+    
+
+arr = [-1, -3, -10, 0, 60]
+
+n = len(arr)
+
+print("Maximum Subarray product is",
+                 maxProduct(arr, n))
+
+
+
+
+
+
+###### O(n2)
 
 # Python3 program to find Maximum Product Subarray
- 
 # Returns the product of max product subarray.
 def maxSubarrayProduct(arr, n):
- 
     # Initializing result
     result = arr[0]
  
-    for i in range(n):
-     
+    for i in range(n):     
         mul = arr[i]
        
         # traversing in current subarray
@@ -619,54 +857,6 @@ The value of minVal and maxVal depends on the current index element or the produ
 Below is the implementation of above approach: 
  
 
-# Python 3 program to find maximum 
-# product subarray
-
-# Function to find maximum 
-# product subarray
-def maxProduct(arr, n):
-    
-    # Variables to store maximum and 
-    # minimum product till ith index.
-    minVal = arr[0]
-    maxVal = arr[0]
-
-    maxProduct = arr[0]
-
-    for i in range(1, n, 1):
-        
-        # When multiplied by -ve number,
-        # maxVal becomes minVal
-        # and minVal becomes maxVal.
-        if (arr[i] < 0):
-            temp = maxVal
-            maxVal = minVal
-            minVal = temp
-            
-        # maxVal and minVal stores the
-        # product of subarray ending at arr[i].
-        maxVal = max(arr[i], maxVal * arr[i])
-        minVal = min(arr[i], minVal * arr[i])
-
-        # Max Product of array.
-        maxProduct = max(maxProduct, maxVal)
-
-    # Return maximum product 
-    # found in array.
-    return maxProduct
-
-# Driver Code
-if __name__ == '__main__':
-    arr = [-1, -3, -10, 0, 60]
-
-    n = len(arr)
-
-    print("Maximum Subarray product is",
-                     maxProduct(arr, n))
-
-# This code is contributed by
-# Surendra_Gangwar
-
 
 
 
@@ -677,76 +867,56 @@ if __name__ == '__main__':
 ##############################################################################################
 ##############################################################################################
 Triplet Sum in Array 
-Medium Accuracy: 49.0% Submissions: 100k+ Points: 4
-Given an array arr of size n and an integer X. Find if there's a triplet in the array which sums up to the given integer X.
+    Medium Accuracy: 49.0% Submissions: 100k+ Points: 4
+    Given an array arr of size n and an integer X. Find if there's a triplet in the array which sums up to the given integer X.
 
 
 Example 1:
 
-Input:
-n = 6, X = 13
-arr[] = [1 4 45 6 10 8]
-Output:
-1
-Explanation:
-The triplet {1, 4, 8} in 
-the array sums up to 13.
+    Input:
+    n = 6, X = 13
+    arr[] = [1 4 45 6 10 8]
+    Output:
+    1
+    Explanation:
+    The triplet {1, 4, 8} in 
+    the array sums up to 13.
+
+    
 Example 2:
 
-Input:
-n = 5, X = 10
-arr[] = [1 2 4 3 6]
-Output:
-1
-Explanation:
-The triplet {1, 3, 6} in 
-the array sums up to 10.
+    Input:
+    n = 5, X = 10
+    arr[] = [1 2 4 3 6]
+    Output:
+    1
+    Explanation:
+    The triplet {1, 3, 6} in 
+    the array sums up to 10.
 
-Your Task:
-You don't need to read input or print anything. Your task is to complete the function find3Numbers() which takes the array arr[], the size of the array (n) and the sum (X) as inputs and returns True if there exists a triplet in the array arr[] which sums up to X and False otherwise.
+    Expected Time Complexity: O(n2)
+    Expected Auxiliary Space: O(1)
 
+#### Best is hash map on the last value.      
+   a[i], a[j], a[k]  in A  and a[k]   = X
 
-Expected Time Complexity: O(n2)
-Expected Auxiliary Space: O(1)
+  for i in range(n):
+    for j in range(i+1,n):  ### Sliding
+      # X - a[i] - a[j] is present in the array using Has in O(1)
+  
+  4 numbers , total sum = X   ---> is it in O(N3)  ???/
+      is it a DP ????
+  https://leetcode.com/problems/4sum/
+
+    Time Complexity: O(n^{k - 1})O(n k−1 ), or O(n^3)O(n 3
+ ) for 4Sum. We have k - 2k−2 loops, and twoSum is O(n)O(n).  
+  
+  Hash is much better/simpler.
   
   
   
-  
-# Python3 program to find a triplet 
-# that sum to a given value
 
-# returns true if there is triplet with
-# sum equal to 'sum' present in A[]. 
-# Also, prints the triplet
-def find3Numbers(A, arr_size, sum):
-
-    # Fix the first element as A[i]
-    for i in range( 0, arr_size-2):
-
-        # Fix the second element as A[j]
-        for j in range(i + 1, arr_size-1): 
-            
-            # Now look for the third number
-            for k in range(j + 1, arr_size):
-                if A[i] + A[j] + A[k] == sum:
-                    print("Triplet is", A[i],
-                          ", ", A[j], ", ", A[k])
-                    return True
-    
-    # If we reach here, then no 
-    # triplet was found
-    return False
-
-# Driver program to test above function 
-A = [1, 4, 45, 6, 10, 8]
-sum = 22
-arr_size = len(A)
-  
-  
-
-# Python3 program to find a triplet
-
-# returns true if there is triplet
+  # returns true if there is triplet
 # with sum equal to 'sum' present
 # in A[]. Also, prints the triplet
 def find3Numbers(A, arr_size, sum):
@@ -787,16 +957,49 @@ def find3Numbers(A, arr_size, sum):
     # no triplet was found
     return False
 
-# Driver program to test above function 
+
+  
+
 A = [1, 4, 45, 6, 10, 8]
 sum = 22
 arr_size = len(A)
 
 find3Numbers(A, arr_size, sum)
 
-# This is contributed by Smitha Dinesh Semwal
 
   
+  
+  
+  
+# Python3 program to find a triplet 
+# that sum to a given value
+
+# returns true if there is triplet with
+# sum equal to 'sum' present in A[]. 
+# Also, prints the triplet
+def find3Numbers(A, arr_size, sum):
+
+    # Fix the first element as A[i]
+    for i in range( 0, arr_size-2):
+
+        # Fix the second element as A[j]
+        for j in range(i + 1, arr_size-1): 
+            
+            # Now look for the third number
+            for k in range(j + 1, arr_size):
+                if A[i] + A[j] + A[k] == sum:
+                    print("Triplet is", A[i],
+                          ", ", A[j], ", ", A[k])
+                    return True
+    
+    # If we reach here, then no 
+    # triplet was found
+    return False
+
+# Driver program to test above function 
+A = [1, 4, 45, 6, 10, 8]
+sum = 22
+arr_size = len(A)
   
   
   
@@ -865,110 +1068,74 @@ Constraints:
 
 
 
-
-
-
-
-
-
-
-
-
 ##############################################################################################
 ##############################################################################################
-Smallest Positive missing number 
-Medium Accuracy: 45.09% Submissions: 100k+ Points: 4
-You are given an array arr[] of N integers including 0. The task is to find the smallest positive number missing from the array.
+Smallest Positive missing number  
+    Medium Accuracy: 45.09% Submissions: 100k+ Points: 4
+    You are given an array arr[] of N integers including 0. 
+    The task is to find the smallest positive number missing from the array.
+
+     missing.
+  mex of an array 
+  mex -> is the smalles +ve number that is not present in the array 
 
 Example 1:
 
-Input:
-N = 5
-arr[] = {1,2,3,4,5}
-Output: 6
-Explanation: Smallest positive missing 
-number is 6.
+    Input:
+    N = 5
+    arr[] = {1,2,3,4,5}
+    Output: 6      why 6 is missing ????
+    Explanation: Smallest positive missing 
+    number is 6.
+    
+    
 Example 2:
+    Input:
+    N = 5
+    arr[] = {0,-10,1,3,-20}
+    Output: 2      3 is max
+    Explanation: Smallest positive missing 
+    number is 2.
+    Your Task:
+    The task is to complete the function missingNumber() which returns the smallest positive missing number in the array.
 
-Input:
-N = 5
-arr[] = {0,-10,1,3,-20}
-Output: 2
-Explanation: Smallest positive missing 
-number is 2.
-Your Task:
-The task is to complete the function missingNumber() which returns the smallest positive missing number in the array.
-
-Expected Time Complexity: O(N).
-Expected Auxiliary Space: O(1).
+    Expected Time Complexity: O(N).
+    Expected Auxiliary Space: O(1).
 
 Constraints:
 1 <= N <= 106
 -106 <= arr[i] <= 106
 
 
+###### Soliution 2, using Hash key
+https://leetcode.com/problems/first-missing-positive/solution/
+##ok 
 
-''' Python3 program to find the
-smallest positive missing number '''
- 
-''' Utility function that puts all
-non-positive (0 and negative) numbers on left
-side of arr[] and return count of such numbers '''
-def segregate(arr, size):
-    j = 0
-    for i in range(size):
-        if (arr[i] <= 0):
-            arr[i], arr[j] = arr[j], arr[i]
-            j += 1 # increment count of non-positive integers
-    return j
- 
- 
-''' Find the smallest positive missing number
-in an array that contains all positive integers '''
-def findMissingPositive(arr, size):
-     
-    # Mark arr[i] as visited by
-    # making arr[arr[i] - 1] negative.
-    # Note that 1 is subtracted
-    # because index start
-    # from 0 and positive numbers start from 1
-    for i in range(size):
-        if (abs(arr[i]) - 1 < size and arr[abs(arr[i]) - 1] > 0):
-            arr[abs(arr[i]) - 1] = -arr[abs(arr[i]) - 1]
-             
-    # Return the first index value at which is positive
-    for i in range(size):
-        if (arr[i] > 0):
-             
-            # 1 is added because indexes start from 0
-            return i + 1
-    return size + 1
- 
-''' Find the smallest positive missing
-number in an array that contains
-both positive and negative integers '''
-def findMissing(arr, size):
-     
-    # First separate positive and negative numbers
-    shift = segregate(arr, size)
-     
-    # Shift the array and call findMissingPositive for
-    # positive part
-    return findMissingPositive(arr[shift:], size - shift)
-     
-# Driver code
-arr = [ 0, 10, 2, -10, -20 ]
-arr_size = len(arr)
-missing = findMissing(arr, arr_size)
-print("The smallest positive missing number is ", missing)
- 
-# This code is contributed by Shubhamsingh10
+### Distribution of val : frequency,   
+## we check the one missing.
+### checking any side conditions, if it is ok.
 
+def findMissingPositive(arr: list[int]) -> int: 
+  maxint =107
+  
+  hash_list = [0] * maxint    ### all values, dict
+  
+  for element in arr: 
+    if element <= 0:
+      continue
+  
+    #### element < 107
+    hash_list[element] += 1 ## increase frequency
+  
+  ans = 1 
+  
+  while True: 
+    if hash_list[ans] == 0:  ## missing 
+      return ans ####
+    
+    ans += 1 
 
-
-
-
-
+    
 
 
 
@@ -977,254 +1144,208 @@ print("The smallest positive missing number is ", missing)
 ##############################################################################################
 ##############################################################################################
 Count Inversions 
-Medium Accuracy: 39.43% Submissions: 100k+ Points: 4
-Given an array of integers. Find the Inversion Count in the array. 
+    Medium Accuracy: 39.43% Submissions: 100k+ Points: 4
+    Given an array of integers. Find the Inversion Count in the array. 
 
-Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If array is already sorted then the inversion count is 0. If an array is sorted in the reverse order then the inversion count is the maximum. 
-Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
- 
+    Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted.
+    If array is already sorted then the inversion count is 0. 
+    If an array is sorted in the reverse order then the inversion count is the maximum. 
+    
+    ####  Not merge sort invresion
+    Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+
 
 Example 1:
+    Input: N = 5, arr[] = {2, 4, 1, 3, 5}
+    Output: 3
+    Explanation: The sequence 2, 4, 1, 3, 5 
+    has three inversions (2, 1), (4, 1), (4, 3).
 
-Input: N = 5, arr[] = {2, 4, 1, 3, 5}
-Output: 3
-Explanation: The sequence 2, 4, 1, 3, 5 
-has three inversions (2, 1), (4, 1), (4, 3).
 Example 2:
+    Input: N = 5
+    arr[] = {2, 3, 4, 5, 6}
+    Output: 0
+    Explanation: As the sequence is already 
+    sorted so there is no inversion count.
 
-Input: N = 5
-arr[] = {2, 3, 4, 5, 6}
-Output: 0
-Explanation: As the sequence is already 
-sorted so there is no inversion count.
 Example 3:
-
-Input: N = 3, arr[] = {10, 10, 10}
-Output: 0
-Explanation: As all the elements of array 
-are same, so there is no inversion count.
-Your Task:
-You don't need to read input or print anything. Your task is to complete the function inversionCount() which takes the array arr[] and the size of the array as inputs and returns the inversion count of the given array.
+    Input: N = 3, arr[] = {10, 10, 10}
+    Output: 0
+    Explanation: As all the elements of array 
+    are same, so there is no inversion count.
 
 Expected Time Complexity: O(NLogN).
 Expected Auxiliary Space: O(N).
 
 
-
-# Python3 program to count
-# inversions in an array
-
-
+#######  
+O(N2), Naive solution
+# Python3 program to count inversions in an array
 def getInvCount(arr, n):
 
     inv_count = 0
     for i in range(n):
         for j in range(i + 1, n):
-            if (arr[i] > arr[j]):
+            if (arr[i] > arr[j]): ###  parse in i,j the array if elements are sorted.
                 inv_count += 1
 
     return inv_count
 
-
-# Driver Code
 arr = [1, 20, 6, 4, 5]
 n = len(arr)
-print("Number of inversions are",
-      getInvCount(arr, n))
-
-# This code is contributed by Smitha Dinesh Semwal
+print("Number of inversions are",      getInvCount(arr, n))
 
 
 
-# Python 3 program to count inversions in an array
+###
+def solution(array: list[int], N: int) -> int: 
+  
+  
+  array_element_indices = {} 
+  
+  sorted_array = array
+  sorted_array.sort()    ### N log_N
+  
+  index = 0 
+  for array_element in array: 
+    array_element_indices[array_element] = index 
+    index += 1 
+  
+  
+  inversion_count = 0 
+  for i in range(n): 
+    
+    #### your Condition   <-->   two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+    #### Comparison current array state with Global Sorted,
+    #### if elt_i not sorted --> permute to have it sorted. and count as one inversion.
+    ### Sort 1st, and just follow the sorted values.
+    if array[i] != sorted_array[i]: 
+      inversion_count += 1 
+      
+      swap(array[i] , array[ array_element_indices[sorted_array[i]]  ]  )
 
-# Function to Use Inversion Count
+      ioriginal = array_element_indices[ sorted_array[i] ] 
+      tmp = array[i]
+      array[i] = array[ ioriginal  ]  ####  sorted value 
+      array[ ioriginal  ]  = tmp
+        
+  return inversion_count
+  
+#### More genneric pattern
+  1) we sort to get correct state/
+  2) compare correct/final state with initial state 
+     and iterate to count the wrong item.
+    
+    MergeSort couting <> than the condition couting, Be careful !!!!!
+    
+    
+  
+  
+  
+array [ 7,3,2]
+array_drot  [ 2,3,7 ]
 
+array_indices = {
+  7: 0, 
+  3: 1, 
+  2: 2, 
+}
 
-def mergeSort(arr, n):
-    # A temp_arr is created to store
-    # sorted array in merge function
-    temp_arr = [0]*n
-    return _mergeSort(arr, temp_arr, 0, n-1)
+array = [2 , 3 , 7]
+array_sorted = []
+---> 2 investions
 
-# This Function will use MergeSort to count inversions
+Final step: array is sorted.
+### a sort step by step  with comparisng
 
-
-def _mergeSort(arr, temp_arr, left, right):
-
-    # A variable inv_count is used to store
-    # inversion counts in each recursive call
-
-    inv_count = 0
-
-    # We will make a recursive call if and only if
-    # we have more than one elements
-
-    if left < right:
-
-        # mid is calculated to divide the array into two subarrays
-        # Floor division is must in case of python
-
-        mid = (left + right)//2
-
-        # It will calculate inversion
-        # counts in the left subarray
-
-        inv_count += _mergeSort(arr, temp_arr,
-                                left, mid)
-
-        # It will calculate inversion
-        # counts in right subarray
-
-        inv_count += _mergeSort(arr, temp_arr,
-                                mid + 1, right)
-
-        # It will merge two subarrays in
-        # a sorted subarray
-
-        inv_count += merge(arr, temp_arr, left, mid, right)
-    return inv_count
-
-# This function will merge two subarrays
-# in a single sorted subarray
-
-
-def merge(arr, temp_arr, left, mid, right):
-    i = left     # Starting index of left subarray
-    j = mid + 1  # Starting index of right subarray
-    k = left     # Starting index of to be sorted subarray
-    inv_count = 0
-
-    # Conditions are checked to make sure that
-    # i and j don't exceed their
-    # subarray limits.
-
-    while i <= mid and j <= right:
-
-        # There will be no inversion if arr[i] <= arr[j]
-
-        if arr[i] <= arr[j]:
-            temp_arr[k] = arr[i]
-            k += 1
-            i += 1
-        else:
-            # Inversion will occur.
-            temp_arr[k] = arr[j]
-            inv_count += (mid-i + 1)
-            k += 1
-            j += 1
-
-    # Copy the remaining elements of left
-    # subarray into temporary array
-    while i <= mid:
-        temp_arr[k] = arr[i]
-        k += 1
-        i += 1
-
-    # Copy the remaining elements of right
-    # subarray into temporary array
-    while j <= right:
-        temp_arr[k] = arr[j]
-        k += 1
-        j += 1
-
-    # Copy the sorted subarray into Original array
-    for loop_var in range(left, right + 1):
-        arr[loop_var] = temp_arr[loop_var]
-
-    return inv_count
+  
+ 
 
 
-# Driver Code
-# Given array is
-arr = [1, 20, 6, 4, 5]
-n = len(arr)
-result = mergeSort(arr, n)
-print("Number of inversions are", result)
 
-# This code is contributed by ankush_953
+New URL for zoom , sorry , please reconnect using below
+Join Zoom Meeting
+https://us05web.zoom.us/j/2933746463?pwd=WUhRWkx0NWNZRVBFVjZ4enV6Y1R2QT09
 
 
 
 
 
 
+######
+https://leetcode.com/problems/global-and-local-inversions/solution/
 
-
-
+  
+  
+  
+  
+  
 
 ##############################################################################################
 ##############################################################################################
 Subarray with given sum 
-Easy Accuracy: 39.71% Submissions: 100k+ Points: 2
-Given an unsorted array A of size N that contains only non-negative integers, find a continuous sub-array which adds to a given number S.
+    Easy Accuracy: 39.71% Submissions: 100k+ Points: 2
+    Given an unsorted array A of size N that contains only non-negative integers, 
+    find a continuous sub-array which adds to a given number S.
 
-In case of multiple subarrays, return the subarray which comes first on moving from left to right.
+    In case of multiple subarrays, return the subarray which comes first on moving from left to right.
+    Empty [] 
 
  
 
 Example 1:
+    Input:
+    N = 5, S = 12
+    A[] = {1,2,3,7,5}
+    Output: 2 4
+    Explanation: The sum of elements 
+    from 2nd position to 4th position 
+    is 12.
 
-Input:
-N = 5, S = 12
-A[] = {1,2,3,7,5}
-Output: 2 4
-Explanation: The sum of elements 
-from 2nd position to 4th position 
-is 12.
- 
 
 Example 2:
+    Input:
+    N = 10, S = 15
+    A[] = {1,2,3,4,5,6,7,8,9,10}
+    Output: 1 5
+    Explanation: The sum of elements 
+    from 1st position to 5th position
+    is 15.
 
-Input:
-N = 10, S = 15
-A[] = {1,2,3,4,5,6,7,8,9,10}
-Output: 1 5
-Explanation: The sum of elements 
-from 1st position to 5th position
-is 15.
-
-
-# equal to 'sum' 
-# otherwise returns
-# false. Also, prints
-# the result 
-def subArraySum(arr, n, sum_):
+    O(N) complexity
     
-    # Pick a starting 
-    # point
-    for i in range(n):
-        curr_sum = arr[i]
+##### Write down the idea    
+  window array, to keep track on going sum
+  and check with target sum.
+  
+  while i < n :  ### while not finish the array  
     
-        # try all subarrays
-        # starting with 'i'
-        j = i + 1
-        while j <= n:
+    ### sliding window
+    while curr_sum > taget_sum and istart <= i :  ## can remove all of them.
+        ### Decrease size of window array.
+        remove 1st element at  istart
+        increase start of current array
         
-            if curr_sum == sum_:
-                print ("Sum found between")
-                print("indexes % d and % d"%( i, j-1))
-                
-                return 1
-                
-            if curr_sum > sum_ or j == n:
-                break
-            
-            curr_sum = curr_sum + arr[j]
-            j += 1
-
-    print ("No subarray found")
-    return 0
-
-
-
-
-
-
-# An efficient program 
-# to print subarray
-# with sum as given sum 
-
+    curr_sum =+  arr[i]     
+    i = i + 1
+        
+    if curr_sum = target_sum  : exit
+    
+    thats ok for today.
+    no need to do more. thanks you.
+    
+    2-3 times as week , we can adujust schedule., no worries
+    thaknk yoyu vem
+    
+Still in O[N]    
+    
+    curr_sum =
+    
+    Good problems today
+    
+    
+    
+    
 # Returns true if the 
 # there is a subarray 
 # of arr[] with sum
@@ -1283,6 +1404,47 @@ sum_ = 23
 subArraySum(arr, n, sum_)
 
 # This code is Contributed by shreyanshi_arun.
+
+
+
+
+
+
+
+    
+    
+    
+O(N2), naive solution
+# equal to 'sum' 
+# otherwise returns
+# false. Also, prints
+# the result 
+def subArraySum(arr, n, sum_):
+    
+    # Pick a starting 
+    # point
+    for i in range(n):
+        curr_sum = arr[i]
+    
+        # try all subarrays
+        # starting with 'i'
+        j = i + 1
+        while j <= n:
+        
+            if curr_sum == sum_:
+                print ("Sum found between")
+                print("indexes % d and % d"%( i, j-1))
+                
+                return 1
+                
+            if curr_sum > sum_ or j == n:
+                break
+            
+            curr_sum = curr_sum + arr[j]
+            j += 1
+
+    print ("No subarray found")
+    return 0
 
 
 
