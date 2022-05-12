@@ -12,6 +12,7 @@ Doc::
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
+from box import Box
 
 import pyspark
 from pyspark import SparkConf
@@ -45,7 +46,54 @@ def test_all():
 
 
 def test1():
-    pass    
+    ss="""
+    spark.master                       : 'local[1]'   # 'spark://virtual:7077'
+    spark.app.name                     : 'logprocess'
+    spark.driver.maxResultSize         : '10g'
+    spark.driver.memory                : '10g'
+    spark.driver.port                  : '45975'
+    #spark.eventLog.enabled             : 'true'
+    #spark.executor.cores               : 5
+    #spark.executor.id                  : 'driver'
+    #spark.executor.instances           : 2
+    spark.executor.memory              : '10g'
+    #spark.kryoserializer.buffer.max    : '2000mb'
+    spark.rdd.compress                 : 'True'
+    spark.serializer                   : 'org.apache.spark.serializer.KryoSerializer'
+    #spark.serializer.objectStreamReset : 100
+    spark.sql.shuffle.partitions       : 8
+    spark.sql.session.timeZone         : "UTC"    
+    # spark.sql.catalogImplementation  : 'hive'
+    #spark.sql.warehouse.dir           : '/user/myuser/warehouse'
+    #spark.sql.warehouse.dir           : '/tmp'    
+    spark.submit.deployMode            : 'client'
+    """
+   cfg = config_parser(ss) 
+   sparksession = spark_get_session(cfg)
+
+   
+   spark_config_print(sparksession)
+
+
+   spark_config_check(sparksession)
+
+
+def config_parser(config):
+    """
+    Doc::
+    
+            spark.master                       : 'local[1]'   # 'spark://virtual:7077'
+            spark.app.name                     : 'logprocess'
+            spark.driver.maxResultSize         : '10g'
+
+    """
+    ss = config
+    cfg = Box({})
+    for line in ss:
+        l1 = line.split(":")
+        cfg[key] = val
+    return cfg
+
 
 
 ##################################################################################    
@@ -150,6 +198,7 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
     except Exception as e :
         log(e)
+
 
 
 ########################################################################################
