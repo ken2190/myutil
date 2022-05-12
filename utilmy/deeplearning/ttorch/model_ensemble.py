@@ -162,6 +162,8 @@ def test():
 
 
 
+"""
+
 
 class ModelA :
     input XA
@@ -244,11 +246,9 @@ mergeModel(modelA, modelB, **params)
 
 
         Xmergeout = modelMerge(Xmerge_input)
-"""
 class MergeModel_create(BaseModel):
 
     def __init__(self,arg, modelB=None, modelA=None, architecture:dict):
-        """_summary_
 
         architecture = Box(architecture)
 
@@ -290,7 +290,7 @@ mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
 We can  re-merge the mergeModel with others...
 
 
-
+"""
 
 
 
@@ -304,7 +304,7 @@ class MergeModel_create(BaseModel):
         """
         super(MergeModel_create,self).__init__(arg)
         if modelA is None:
-            self.modelA = modelA_create(arg.modelA)
+            self.modelA = modelA_create(arg.modelA) 
         else:
             self.modelA = (modelA)
         if modelB is None:
@@ -313,7 +313,6 @@ class MergeModel_create(BaseModel):
             self.modelB = (modelB)
 
         
-
     def create_model(self,):
         super(MergeModel_create,self).create_model()
         # merge = self.arg.merge
@@ -446,8 +445,6 @@ class MergeModel_create(BaseModel):
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
         
 
-
-
     def training(self,load_DataFrame=None,prepro_dataset=None):
         # training with load_DataFrame and prepro_data function or default funtion in self.method
 
@@ -545,7 +542,7 @@ class modelB_create(BaseModel):
             def get_embedding(self, x,**kwargs):
               pass 
 
-        return modelA(dims)
+        return modelB(dims)
 
     def create_loss(self) -> torch.nn.Module:
         super(modelA_create,self).create_loss()
