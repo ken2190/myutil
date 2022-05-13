@@ -201,7 +201,7 @@ def test2_new():
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'modelA1'
-    ARG.modelA.ARCHITECT     = [ 9, 100, 16 ]
+    ARG.modelA.architect     = [ 9, 100, 16 ]
     ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
@@ -212,7 +212,7 @@ def test2_new():
     ### modelB  ########################################################
     ARG.modelB               = Box()   #MODEL_RULE
     ARG.modelB.name         = 'modelB1'
-    ARG.modelB.ARCHITECT     = [9,100,16]
+    ARG.modelB.architect     = [9,100,16]
     ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
@@ -224,7 +224,7 @@ def test2_new():
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     ARG.merge_model.seed      = 42
-    ARG.merge_model.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
+    ARG.merge_model.architect = { 'decoder': [ 32, 100, 1 ] }
 
     ARG.merge_model.MERGE = 'cat'
 
@@ -422,7 +422,7 @@ class MergeModel_create(BaseModel):
         merge = getattr(self.arg.merge_model,'MERGE','add')
         skip = getattr(self.arg.merge_model,'SKIP',False)
         
-        dims = self.arg.merge_model.ARCHITECT.decoder
+        dims = self.arg.merge_model.architect.decoder
         class Modelmerge(torch.nn.Module):
             def __init__(self,modelB,modelA,dims,merge,skip):
                 super(Modelmerge, self).__init__()
@@ -618,7 +618,7 @@ class modelB_create(BaseModel):
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        dims = self.arg.ARCHITECT
+        dims = self.arg.architect
         
         class modelB(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
@@ -657,7 +657,7 @@ class modelA_create(BaseModel):
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        dims = self.arg.ARCHITECT
+        dims = self.arg.architect
         
         class modelA(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
