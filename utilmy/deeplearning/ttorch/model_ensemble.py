@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" utils for model explanation
+""" utils for model merge
 
 https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
@@ -10,9 +10,6 @@ https://discuss.pytorch.org/t/merging-3-models/66230/3
 
 
 """
-
-
-
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
 
@@ -33,10 +30,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help        
     """
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
@@ -44,142 +38,124 @@ def help():
 
 
 #############################################################################################
-def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+if 'comments':
     """
-    log(MNAME)
-    test()
-    # test2()
+    class ModelA :
+        input XA
+        ...
+        get_embedding_fromlayer(layer_id= 1)
 
 
-
-"""
-
-class ModelA :
-    input XA
-    ...
-    get_embedding_fromlayer(layer_id= 1)
+    class modelB:
+        input XB
+        ...
+        get_embedding_fromlayer(layer_id= 1)
 
 
+    class mergeModel(BaseModel):
+      def __init__(self, modelA, modelB, **kw) -> None:
+          super().__init__()
+          self.Xinput_dim  = XA_dim + Xb_dim
+          self.modelHead = MLP([ Xinput_dim,100, 300, 500]) 
 
-class modelB:
-    input XB
-    ...
-    get_embedding_fromlayer(layer_id= 1)
+      def forward(self, X1, X2):
+            XAout = modelA.get_embedding_fromlayer(X1)
+            XBout = modelB.get_embedding_fromlayer(X2)
 
+            Xmerge_input  = self.concat(XAout, XBout, method='stack') 
 
+            Xmergeout = self.modelHead(Xmerge_input)
+            return Xmergeout
+        
 
-class mergeModel(BaseModel):
-  def __init__(self, modelA, modelB, **kw) -> None:
-      super().__init__()
-      self.Xinput_dim  = XA_dim + Xb_dim
-      self.modelHead = MLP([ Xinput_dim,100, 300, 500]) 
+        def loss_task_calc(self, model, batch_train_x, loss_task_func, output, arg:dict):
+      
 
-   def forward(self, X1, X2):
-        XAout = modelA.get_embedding_fromlayer(X1)
-        XBout = modelB.get_embedding_fromlayer(X2)
+        def train():
 
-        Xmerge_input  = self.concat(XAout, XBout, method='stack') 
+        for (X1,X2), Y in train_laoder:
 
-        Xmergeout = self.modelHead(Xmerge_input)
-        return Xmergeout
+            optimizer.zero_grad()
+            ypred = self.modelMerge(X1, X2)
+
+          
+
+    class BaseModel(object):
+        This is BaseClass for model create
+        Method:
+            create_model : Initialize Model (torch.nn.Module)
+            create_loss :   Initialize Loss Function 
+
+            build_devicesetup: 
+            build: create model, loss, optimizer (call before training)
+
+            training:   starting training
+            train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+            eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+            predict :
+            encode :
+            evaluate: 
+            load: 
+            save: 
     
 
-    def loss_task_calc(self, model, batch_train_x, loss_task_func, output, arg:dict):
-   
 
-    def train():
+    mergeModel(modelA, modelB, **params)
+      Xinput_dim  = XA_dim + Xb_dim
+      modelMerge = MLP([ Xinput_dim,100, 300, 500]) 
 
-     for (X1,X2), Y in train_laoder:
+      def forward(self,X)
+            XAout = modelA.get_embedding_fromlayer(X)
 
-         optimizer.zero_grad()
-         ypred = self.modelMerge(X1, X2)
+            XBout = modelB.get_embedding_fromlayer(X)
 
-       
-
-class BaseModel(object):
-  """
-    This is BaseClass for model create
-    Method:
-        create_model : Initialize Model (torch.nn.Module)
-        create_loss :   Initialize Loss Function 
-
-        build_devicesetup: 
-        build: create model, loss, optimizer (call before training)
-
-        training:   starting training
-        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
-        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
-        predict :
-        encode :
-        evaluate: 
-        load: 
-        save: 
-  """
-
-
-mergeModel(modelA, modelB, **params)
-   Xinput_dim  = XA_dim + Xb_dim
-   modelMerge = MLP([ Xinput_dim,100, 300, 500]) 
-
-   def forward(self,X)
-        XAout = modelA.get_embedding_fromlayer(X)
-
-        XBout = modelB.get_embedding_fromlayer(X)
-
-        Xmege_input  = concat(XAout, XBout) 
+            Xmege_input  = concat(XAout, XBout) 
 
 
 
-        Xmergeout = modelMerge(Xmerge_input)
-class MergeModel_create(BaseModel):
+            Xmergeout = modelMerge(Xmerge_input)
+    class MergeModel_create(BaseModel):
 
-    def __init__(self,arg, modelB=None, modelA=None, architecture:dict):
+        def __init__(self,arg, modelB=None, modelA=None, architecture:dict):
 
-        architecture = Box(architecture)
+            architecture = Box(architecture)
 
-        Args:
-            arg (_type_): _description_
-            modelB (_type_, optional): _description_. Defaults to None.
-            modelA (_type_, optional): _description_. Defaults to None.
-            modelA and modelB should got following attributes:
+            Args:
+                arg (_type_): _description_
+                modelB (_type_, optional): _description_. Defaults to None.
+                modelA (_type_, optional): _description_. Defaults to None.
+                modelA and modelB should got following attributes:
 
-            modelMerge = MLP( architecture.mlp.layer_dim_list )   ### ok
+                modelMerge = MLP( architecture.mlp.layer_dim_list )   ### ok
 
-                attributes:
-                    self.net : torch.nn.Module
-                    self.modelA_is_train  
-                    self.modelB_is_train
+                    attributes:
+                        self.net : torch.nn.Module
+                        self.modelA_is_train  
+                        self.modelB_is_train
 
-                method:
-                    self.__init__(modelA,modelB,**params)
-                    self.create_loss()
-                    self.create_model() :  return net
-                    self.build():
-                    
-                    self.training()
-                    self.evaluate()
-                    self.encode  :  to output the embeddings after merge.YES< but more TRICKY PART, so a method is needed ## equavilant to __call__(self,X). ok
-                    self.save
-                    self.load
-                    ### merge_input is implemented in __call__()
+                    method:
+                        self.__init__(modelA,modelB,**params)
+                        self.create_loss()
+                        self.create_model() :  return net
+                        self.build():
+                        
+                        self.training()
+                        self.evaluate()
+                        self.encode  :  to output the embeddings after merge.YES< but more TRICKY PART, so a method is needed ## equavilant to __call__(self,X). ok
+                        self.save
+                        self.load
+                        ### merge_input is implemented in __call__()
 
+    mergmodel_C = MergeModel( ...)
+    mergmodel_D = MergeModel( ...)
 
+    mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
 
-
-
-mergmodel_C = MergeModel( ...)
-mergmodel_D = MergeModel( ...)
-
-mergmodel_E = MergeModel(  mergmodel_C, mergmodel_D )
-
-We can  re-merge the mergeModel with others...
+    We can  re-merge the mergeModel with others...
 
 
-"""
+    """
+
 
 
 
@@ -716,9 +692,6 @@ class BaseModel(object):
 
 
 
-
-
-
 ###############################################################################################
 ###############################################################################################
 def device_setup(arg):
@@ -1073,182 +1046,6 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
 
 
 
-####################################################################################################
-'''model.py '''
-class NaiveModel(nn.Module):
-  def __init__(self):
-    """ NaiveModel:__init__
-    Args:
-    Returns:
-       
-    """
-    super(NaiveModel, self).__init__()
-    self.net = nn.Identity()
-
-  def forward(self, x, alpha=0.0):
-    """ Net:forward
-    Args:
-        x:     
-        alpha:     
-    Returns:
-       
-    """
-    """ NaiveModel:forward
-    Args:
-        x:     
-        alpha:     
-    Returns:
-       
-    """
-    return self.net(x)
-
-
-class modelB(nn.Module):
-  def __init__(self, input_dim, output_dim, hidden_dim=4):
-    """ modelB:__init__
-    Args:
-        input_dim:     
-        output_dim:     
-        hidden_dim:     
-    Returns:
-       
-    """
-    """ modelA:__init__
-    Args:
-        input_dim:     
-        output_dim:     
-        hidden_dim:     
-    Returns:
-       
-    """
-    super(modelB, self).__init__()
-    self.input_dim = input_dim
-    self.output_dim = output_dim
-    self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                             nn.ReLU(),
-                             nn.Linear(hidden_dim, output_dim))
-
-  def forward(self, x):
-    """ modelB:forward
-    Args:
-        x:     
-    Returns:
-       
-    """
-    """ modelA:forward
-    Args:
-        x:     
-    Returns:
-       
-    """
-    return self.net(x)
-
-
-class modelA(nn.Module):
-  def __init__(self, input_dim, output_dim, hidden_dim=4):
-    super(modelA, self).__init__()
-    self.input_dim = input_dim
-    self.output_dim = output_dim
-    self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                             nn.ReLU(),
-                             nn.Linear(hidden_dim, output_dim))
-
-  def forward(self, x):
-    return self.net(x)
-
-
-class Net(nn.Module):
-  def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
-    """ Net:__init__
-    Args:
-        input_dim:     
-        output_dim:     
-        modelA:     
-        modelB:     
-        hidden_dim:     
-        n_layers:     
-        merge:     
-        skip:     
-        input_type:     
-    Returns:
-       
-    """
-    super(Net, self).__init__()
-    self.skip = skip
-    self.input_type   = input_type
-    self.modelA = modelA
-    self.modelB = modelB
-    self.n_layers =n_layers
-    assert self.modelA.input_dim == self.modelB.input_dim
-    assert self.modelA.output_dim == self.modelB.output_dim
-    self.merge = merge
-    if merge == 'cat':
-      self.input_dim_decision_block = self.modelA.output_dim * 2
-    elif merge == 'add':
-      self.input_dim_decision_block = self.modelA.output_dim
-
-    self.net = []
-    for i in range(n_layers):
-      if i == 0:
-        in_dim = self.input_dim_decision_block
-      else:
-        in_dim = hidden_dim
-
-      if i == n_layers-1:
-        out_dim = output_dim
-      else:
-        out_dim = hidden_dim
-
-      self.net.append(nn.Linear(in_dim, out_dim))
-      if i != n_layers-1:
-        self.net.append(nn.ReLU())
-
-    self.net.append(nn.Sigmoid())
-
-    self.net = nn.Sequential(*self.net)
-
-  def get_z(self, x, alpha=0.0):
-    """ Net:get_z
-    Args:
-        x:     
-        alpha:     
-    Returns:
-       
-    """
-    YpredB = self.modelA(x)
-    YpredA = self.modelB(x)
-
-    if self.merge == 'add':
-      z = alpha*YpredB + (1-alpha)*YpredA
-    elif self.merge == 'cat':
-      z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-    elif self.merge == 'equal_cat':
-      z = torch.cat((YpredB, YpredA), dim=-1)
-
-    return z
-
-  def forward(self, x, alpha=0.0):
-    # merge: cat or add
-
-    YpredB = self.modelA(x)
-    YpredA = self.modelB(x)
-
-    if self.merge == 'add':
-      z = alpha*YpredB + (1-alpha)*YpredA
-    elif self.merge == 'cat':
-      z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-    elif self.merge == 'equal_cat':
-      z = torch.cat((YpredB, YpredA), dim=-1)
-
-    if self.skip:
-      if self.input_type == 'seq':
-        return self.net(z) + x[:, -1, :]
-      else:
-        return self.net(z) + x    # predict delta values
-    else:
-      return self.net(z)    # predict absolute values
-
-
 
 
 ###################################################################################################
@@ -1257,4 +1054,179 @@ if __name__ == "__main__":
     fire.Fire() 
     # test_all()
 
-#Hi, I joined
+####################################################################################################
+if '''not model.py ''' :
+    class NaiveModel(nn.Module):
+      def __init__(self):
+        """ NaiveModel:__init__
+        Args:
+        Returns:
+          
+        """
+        super(NaiveModel, self).__init__()
+        self.net = nn.Identity()
+
+      def forward(self, x, alpha=0.0):
+        """ Net:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        """ NaiveModel:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        return self.net(x)
+
+
+    class modelB(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        """ modelB:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        """ modelA:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        super(modelB, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        """ modelB:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        """ modelA:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        return self.net(x)
+
+
+    class modelA(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        super(modelA, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        return self.net(x)
+
+
+    class Net(nn.Module):
+      def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+        """ Net:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            modelA:     
+            modelB:     
+            hidden_dim:     
+            n_layers:     
+            merge:     
+            skip:     
+            input_type:     
+        Returns:
+          
+        """
+        super(Net, self).__init__()
+        self.skip = skip
+        self.input_type   = input_type
+        self.modelA = modelA
+        self.modelB = modelB
+        self.n_layers =n_layers
+        assert self.modelA.input_dim == self.modelB.input_dim
+        assert self.modelA.output_dim == self.modelB.output_dim
+        self.merge = merge
+        if merge == 'cat':
+          self.input_dim_decision_block = self.modelA.output_dim * 2
+        elif merge == 'add':
+          self.input_dim_decision_block = self.modelA.output_dim
+
+        self.net = []
+        for i in range(n_layers):
+          if i == 0:
+            in_dim = self.input_dim_decision_block
+          else:
+            in_dim = hidden_dim
+
+          if i == n_layers-1:
+            out_dim = output_dim
+          else:
+            out_dim = hidden_dim
+
+          self.net.append(nn.Linear(in_dim, out_dim))
+          if i != n_layers-1:
+            self.net.append(nn.ReLU())
+
+        self.net.append(nn.Sigmoid())
+
+        self.net = nn.Sequential(*self.net)
+
+      def get_z(self, x, alpha=0.0):
+        """ Net:get_z
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        return z
+
+      def forward(self, x, alpha=0.0):
+        # merge: cat or add
+
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        if self.skip:
+          if self.input_type == 'seq':
+            return self.net(z) + x[:, -1, :]
+          else:
+            return self.net(z) + x    # predict delta values
+        else:
+          return self.net(z)    # predict absolute values
+
+
