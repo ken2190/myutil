@@ -56,114 +56,7 @@ def test_all():
 
 
 
-
-##############################################################################################
-def test():
-    """function test
-    Args:
-    Returns:
-        
-    """
-    model_info = {'dataonly': {'rule': 0.0},
-                'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},
-                'ours-beta0.1': {'beta': [0.1], 'scale': 1.0, 'lr': 0.001},
-                'ours-beta0.1-scale0.1': {'beta': [0.1], 'scale': 0.1},
-                'ours-beta0.1-scale0.01': {'beta': [0.1], 'scale': 0.01},
-                'ours-beta0.1-scale0.05': {'beta': [0.1], 'scale': 0.05},
-                'ours-beta0.1-pert0.001': {'beta': [0.1], 'pert': 0.001},
-                'ours-beta0.1-pert0.01': {'beta': [0.1], 'pert': 0.01},
-                'ours-beta0.1-pert0.1': {'beta': [0.1], 'pert': 0.1},
-                'ours-beta0.1-pert1.0': {'beta': [0.1], 'pert': 1.0},
-                }
-
-    arg = Box({
-      "dataurl":  "https://github.com/caravanuden/cardio/raw/master/cardio_train.csv",
-      "datapath": './cardio_train.csv',
-
-      ##### Rules
-      "rules": {},
-
-      #"rule_threshold": 129.5,
-      #"src_ok_ratio": 0.3,
-      #"src_unok_ratio": 0.7,
-      #"target_rule_ratio": 0.7,
-      #"rule_ind": 5,
-
-
-      #####
-      "train_ratio": 0.7,
-      "validation_ratio": 0.1,
-      "test_ratio": 0.2,
-
-      "model_type": 'dataonly',
-      "input_dim_encoder": 16,
-      "output_dim_encoder": 16,
-      "hidden_dim_encoder": 100,
-      "hidden_dim_db": 16,
-      "n_layers": 1,
-
-
-      ##### Training
-      "seed": 42,
-      "device": 'cpu',  ### 'cuda:0',
-      "batch_size": 32,
-      "epochs": 1,
-      "early_stopping_thld": 10,
-      "valid_freq": 1,
-      'saved_filename' :'./model.pt',
-
-    })
-    arg.model_info = model_info
-    arg.merge = 'cat'
-    arg.input_dim = 20   ### 20
-    arg.output_dim = 1
-    log(arg)
-
-
-    #### Rules setup #############################################################
-    arg.rules = {
-          "rule_threshold":  129.5,
-          "src_ok_ratio":      0.3,
-          "src_unok_ratio":    0.7,
-          "target_rule_ratio": 0.7,
-          "rule_ind": 2,    ### Index of the colum Used for rule:  df.iloc[:, rule_ind ]
-    }
-    arg.rules.loss_rule_func = lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
-    arg.rules.loss_rule_calc = loss_rule_calc_cardio
-
-
-    ### device setup
-    device = device_setup(arg)
-
-    #### dataset load
-    df = dataset_load_cardio(arg)
-
-    #### dataset preprocess
-    train_X, train_y, valid_X,  valid_y, test_X,  test_y  = dataset_preprocess_cardio(df, arg)
-    arg.input_dim = train_X.shape[1]
-
-
-
-    ### Create dataloader  ############################
-    train_loader, valid_loader, test_loader = dataloader_create( train_X, train_y, valid_X, valid_y, test_X, test_y,  arg)
-
-    ### Model Build
-    model, losses, arg = model_build(arg=arg)
-
-    ### Model Train
-    model_train(model, losses, train_loader, valid_loader, arg=arg, )
-
-
-    #### Test
-    model_eval, losses = model_load(arg)
-    model_evaluation(model_eval, losses.loss_task_func , arg=arg, dataset_load1= dataset_load_cardio,  dataset_preprocess1 =  dataset_preprocess_cardio  )
-
-
-
-
-
 """
-
 
 class ModelA :
     input XA
@@ -206,10 +99,6 @@ class mergeModel(BaseModel):
          ypred = self.modelMerge(X1, X2)
 
        
-
-
-
-
 
 class BaseModel(object):
   """
@@ -291,6 +180,102 @@ We can  re-merge the mergeModel with others...
 
 
 """
+
+
+
+def test2_new():    
+    """    
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+    
+
+    if 'mode1':
+        BATCH_SIZE = None
+
+        MODEL_ZOO = {
+            'dataonly': {'rule': 0.0},
+            'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},                        
+        }
+
+
+        ### ARG.MODEL_INFO
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
+
+        #TRAINING_CONFIG
+        TRAINING_CONFIG = Box()
+        TRAINING_CONFIG.LR = PARAMS.get('lr',None)
+        TRAINING_CONFIG.SEED = 42
+        TRAINING_CONFIG.DEVICE = 'cpu'
+        TRAINING_CONFIG.BATCH_SIZE = 32
+        TRAINING_CONFIG.EPOCHS = 1
+        TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
+        TRAINING_CONFIG.VALID_FREQ = 1
+        TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
+        TRAINING_CONFIG.TRAIN_RATIO = 0.7
+        TRAINING_CONFIG.VAL_RATIO = 0.2
+        TRAINING_CONFIG.TEST_RATIO = 0.1
+        TRAINING_CONFIG.EPOCHS = 2
+
+
+    prepro_dataset = modelA_create.prepro_dataset
+    #### SEPARATE the models completetly, and create duplicate
+
+
+    ### modelA  ########################################################
+    ARG.modelA = Box()   #MODEL_TASK
+    ARG.modelA.NAME = ''
+    ARG.modelA.ARCHITECT = [ 9, 100, 16 ]
+    ARG.modelA.dataset = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.colsy =  'ytarget'
+    ARG.modelA.seed = 42
+    modelA = modelA_create(ARG.modelA)
+
+
+    ### modelB  ########################################################
+    ARG.modelB = Box()   #MODEL_RULE
+    ARG.modelB.NAME = ''
+    ARG.modelB.ARCHITECT = [9,100,16]
+    ARG.modelB.dataset = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.colsy =  'ytarget'
+    ARG.modelB.seed = 42
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model = Box()
+    ARG.merge_model.NAME = ''
+    ARG.merge_model.seed = 42
+    ARG.merge_model.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.colsy =  'ytarget'
+    ARG.merge_model.TRAINING_CONFIG = Box()
+    ARG.merge_model.TRAINING_CONFIG = TRAINING_CONFIG
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    load_DataFrame = modelB_create.load_DataFrame   
+    prepro_dataset = modelB_create.prepro_dataset
+    model.build()        
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x9.pt') 
+    model.load_weights('ztmp/model_x9.pt')
+    inputs = torch.randn((1,9)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
 
 
 
@@ -385,23 +370,23 @@ class MergeModel_create(BaseModel):
 
     def create_loss(self,):
         super(MergeModel_create,self).create_loss()
-        rule_loss_calc= self.modelB.loss_calc
-        data_loss_calc= self.modelA.loss_calc
+        modelB_loss_calc= self.modelB.loss_calc
+        modelA_loss_calc= self.modelA.loss_calc
 
         class MergeLoss(torch.nn.Module):
-            def __init__(self,rule_loss_calc,data_loss_calc):
+            def __init__(self,modelB_loss_calc,modelA_loss_calc):
                 super(MergeLoss,self).__init__()
-                self.rule_loss_calc= rule_loss_calc
-                self.data_loss_calc= data_loss_calc
+                self.modelB_loss_calc= modelB_loss_calc
+                self.modelA_loss_calc= modelA_loss_calc
 
             def forward(self,output,target,alpha=0,scale=1):
                 
-                rule_loss = self.rule_loss_calc(output,target.reshape(output.shape))
-                data_loss = self.data_loss_calc(output,target.reshape(output.shape))                
-                result = rule_loss * alpha * scale + data_loss * (1-alpha)
-                # result = rule_loss + data_loss
+                modelB_loss = self.modelB_loss_calc(output,target.reshape(output.shape))
+                modelA_loss = self.modelA_loss_calc(output,target.reshape(output.shape))                
+                result = modelB_loss * alpha * scale + modelA_loss * (1-alpha)
+                # result = modelB_loss + modelA_loss
                 return result
-        return MergeLoss(rule_loss_calc,data_loss_calc)
+        return MergeLoss(modelB_loss_calc,modelA_loss_calc)
 
 
     def prepro_dataset(self,df=None):
@@ -503,23 +488,17 @@ class MergeModel_create(BaseModel):
 
 
 
-
-
 ##############################################################################################
 class modelB_create(BaseModel):
     """
     modelB
-
-    Method:
-        create_model : 
-        create_loss : 
     """
     def __init__(self,arg):
         super(modelA_create,self).__init__(arg)
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        dims = self.arg.modelB.ARCHITECT
+        dims = self.arg.ARCHITECT
         
         class modelB(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
@@ -539,7 +518,7 @@ class modelB_create(BaseModel):
             def forward(self, x,**kwargs):
                 return self.net(x)
 
-            def get_embedding(self, x,**kwargs):
+            def get_embedding(self, **kwargs):
               pass 
 
         return modelB(dims)
@@ -549,20 +528,17 @@ class modelB_create(BaseModel):
         return torch.nn.BCELoss()
 
 
-class modelA_create(BaseModel):
-    """
-    modelA
 
-    Method:
-        create_model : 
-        create_loss : 
+class modelA_create(BaseModel):
+    """ modelA
+
     """
     def __init__(self,arg):
         super(modelA_create,self).__init__(arg)
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        dims = self.arg.modelA.ARCHITECT
+        dims = self.arg.ARCHITECT
         
         class modelA(torch.nn.Module):
             def __init__(self,dims=[20,100,16]):
@@ -594,12 +570,8 @@ class modelA_create(BaseModel):
 
 
 
-
-
-#############################################################################################
 class BaseModel(object):
-    """
-    This is BaseClass for model create
+    """This is BaseClass for model create
 
     Method:
         create_model : Initialize Model (torch.nn.Module)
@@ -747,7 +719,7 @@ class BaseModel(object):
 
 
 
-##############################################################################################
+###############################################################################################
 ###############################################################################################
 def device_setup(arg):
     """function device_setup
@@ -840,7 +812,7 @@ def model_build(arg:dict, mode='train'):
     arg = Box(arg)
 
     if 'test' in mode :
-        modelA = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+        modelA = modelB(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
         modelB = modelA(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
         model_eval = Net(arg.input_dim, arg.output_dim, modelA, modelB, hidden_dim=arg.hidden_dim_db, n_layers=arg.n_layers, merge=arg.merge).to(arg.device)    # Not residual connection
         return model_eval
@@ -865,7 +837,7 @@ def model_build(arg:dict, mode='train'):
     losses    = Box({})
 
     #### Rule model
-    modelA          = RuleEncoder(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
+    modelA          = modelB(arg.input_dim, arg.output_dim_encoder, arg.hidden_dim_encoder)
     losses.loss_rule_func = arg.rules.loss_rule_func #lambda x,y: torch.mean(F.relu(x-y))    # if x>y, penalize it.
 
 
@@ -1101,7 +1073,7 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
 
 
 
-#############################################################################################
+####################################################################################################
 '''model.py '''
 class NaiveModel(nn.Module):
   def __init__(self):
@@ -1131,9 +1103,9 @@ class NaiveModel(nn.Module):
     return self.net(x)
 
 
-class RuleEncoder(nn.Module):
+class modelB(nn.Module):
   def __init__(self, input_dim, output_dim, hidden_dim=4):
-    """ RuleEncoder:__init__
+    """ modelB:__init__
     Args:
         input_dim:     
         output_dim:     
@@ -1149,7 +1121,7 @@ class RuleEncoder(nn.Module):
     Returns:
        
     """
-    super(RuleEncoder, self).__init__()
+    super(modelB, self).__init__()
     self.input_dim = input_dim
     self.output_dim = output_dim
     self.net = nn.Sequential(nn.Linear(input_dim, hidden_dim),
@@ -1157,7 +1129,7 @@ class RuleEncoder(nn.Module):
                              nn.Linear(hidden_dim, output_dim))
 
   def forward(self, x):
-    """ RuleEncoder:forward
+    """ modelB:forward
     Args:
         x:     
     Returns:
