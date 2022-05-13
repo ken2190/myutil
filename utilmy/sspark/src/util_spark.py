@@ -89,10 +89,14 @@ def config_parser(config):
     """
     ss = config
     cfg = Box({})
-    for line in ss:
+    for line in ss.split("\n"):
+        if not line:
+            continue
         l1 = line.split(":")
-        key= ll[0].strip()
-        val= ll[1].split("#")[0].strip()
+        if len(l1) < 2:
+            continue
+        key= l1[0].strip()
+        val= l1[1].split("#")[0].strip().strip("'")
         cfg[key] = val
     return cfg
 
@@ -122,8 +126,21 @@ def spark_config_check():
 
     """
     env_vars_required = ['SPARK_HOME', 'HADOOP_HOME']
-
     file_required = [ '$SPARK_HOME/conf/spark-env.sh',  '$SPARK_HOME/conf/spark-defaults.conf' ]
+
+    for env_path in env_vars_required:
+        path = os.environ.get(env_path)
+        if path:
+            log("exists: " + env_path + " = " + path)
+        else:
+            log("not exists: " + env_path)
+
+    for file in file_required:
+        file_path = os.path.expandvars(file)
+        if os.path.exists(file_path):
+            log("exist: " + file_path)
+        else:
+            log("not exists: " + file_path)    
 
 
 def spark_config_create(mode='', dirout):
