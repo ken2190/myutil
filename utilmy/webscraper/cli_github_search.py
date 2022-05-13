@@ -126,11 +126,10 @@ def search_github(args, start_time):
                 filename = ""
                 for word in keywords:
                     filename += word + '_'
-                filename = filename[:-1] + "-" + \
-                    datetime.now().strftime("%Y%m%d") + ".csv"
+                filename = filename[:-1] + "-" + datetime.now().strftime("%Y%m%d") + ".csv"
 
                 try:
-                    os.makedirs(folder_name)
+                    os.makedirs(folder_name, exist_ok=True)
                 except OSError:
                     pass
 
@@ -164,16 +163,11 @@ def get_arguments():
                 
     """
     # TODO: Improve default arguments
-    p = argparse.ArgumentParser(
-        description='Searches github for given keywords and specified parameters and store resutls in a directory.')
-    p.add_argument(
-        'keyword', nargs='*', help="Keyword to search in format: 'keyword1 keyword2 keyword3...'")
-    p.add_argument(
-        '--created', '-c', default='>2018-11-01', help="Created date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-    p.add_argument(
-        '--pushed', '-p', default='2018-11-01..2020-11-10', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-    p.add_argument('--dir_out', '-o', default='results',
-                   help="Folder to store the results of your search")
+    p = argparse.ArgumentParser(description='Searches github for given keywords and specified parameters and store resutls in a directory.')
+    p.add_argument('keyword', nargs='*', help="Keyword to search in format: 'keyword1 keyword2 keyword3...'")
+    p.add_argument('--created', '-c', default='>2018-11-01', help="Created date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
+    p.add_argument('--pushed', '-p', default='2018-11-01..2020-11-10', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
+    p.add_argument('--dir_out', '-o', default='results',help="Folder to store the results of your search")
     args = p.parse_args()
 
     return args
