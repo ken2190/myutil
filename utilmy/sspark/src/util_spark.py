@@ -506,7 +506,13 @@ def os_system(cmd, doprint=False):
     
 def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], textold, textnew, test=1):
     """ Replace path in config files.
+    Doc::
+         alias sspark="python utilmy$/sspark/src/util_spark.py "
+         python utilmy$/sspark/src/util_spark.py  os_file_replace --dirin spark/conf  --textold 'mydir1 --textnew 'mydir2'  --test 1  
+         sspark os_file_replace --dirin spark/conf  --textold 'mydir1 --textnew 'mydir2'  --test 1  
         
+
+
     """
     import glob 
 
