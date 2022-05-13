@@ -100,6 +100,11 @@ mount --bind /mnt/drive /mnt/drive
 mount --make-shared /mnt/drive
 ````
 
+### Build (local)
+````
+docker build -t local/docker-google-drive:v1 -f Dockerfile .
+````
+
 ### Usage
 ````
 docker run -d \
