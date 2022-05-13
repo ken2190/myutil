@@ -11,6 +11,7 @@ Doc::
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
+from abc import abstractmethod
 
 from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
 from sklearn.compose import ColumnTransformer
@@ -161,80 +162,65 @@ def test2_new():
     """    
     from box import Box ; from copy import deepcopy
     ARG = Box({
+        'MODE'   : 'mode1',
         'DATASET': {},
         'MODEL_INFO' : {},
     })
     PARAMS = Box()
     
 
-    if 'mode1':
-        BATCH_SIZE = None
-
-        MODEL_ZOO = {
-            'dataonly': {'rule': 0.0},
-            'ours-beta1.0': {'beta': [1.0], 'scale': 1.0, 'lr': 0.001},                        
-        }
-
-
-        ### ARG.MODEL_INFO
+    if ARG.MODE == 'mode1':
         ARG.MODEL_INFO.TYPE = 'dataonly' 
-        PARAMS = MODEL_ZOO[ARG.MODEL_INFO.TYPE]
-
-        #TRAINING_CONFIG
-        TRAINING_CONFIG = Box()
-        TRAINING_CONFIG.LR = PARAMS.get('lr',None)
-        TRAINING_CONFIG.SEED = 42
-        TRAINING_CONFIG.DEVICE = 'cpu'
-        TRAINING_CONFIG.BATCH_SIZE = 32
-        TRAINING_CONFIG.EPOCHS = 1
-        TRAINING_CONFIG.EARLY_STOPPING_THLD = 10
-        TRAINING_CONFIG.VALID_FREQ = 1
-        TRAINING_CONFIG.SAVE_FILENAME = './model.pt'
-        TRAINING_CONFIG.TRAIN_RATIO = 0.7
-        TRAINING_CONFIG.VAL_RATIO = 0.2
-        TRAINING_CONFIG.TEST_RATIO = 0.1
-        TRAINING_CONFIG.EPOCHS = 2
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
 
 
-    prepro_dataset = modelA_create.prepro_dataset
     #### SEPARATE the models completetly, and create duplicate
-
-
     ### modelA  ########################################################
-    ARG.modelA = Box()   #MODEL_TASK
-    ARG.modelA.NAME = ''
-    ARG.modelA.ARCHITECT = [ 9, 100, 16 ]
-    ARG.modelA.dataset = Box()
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'modelA1'
+    ARG.modelA.ARCHITECT     = [ 9, 100, 16 ]
+    ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.colsy =  'ytarget'
-    ARG.modelA.seed = 42
+    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA.seed          = 42
     modelA = modelA_create(ARG.modelA)
 
 
     ### modelB  ########################################################
-    ARG.modelB = Box()   #MODEL_RULE
-    ARG.modelB.NAME = ''
-    ARG.modelB.ARCHITECT = [9,100,16]
-    ARG.modelB.dataset = Box()
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name         = 'modelB1'
+    ARG.modelB.ARCHITECT     = [9,100,16]
+    ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
-    ARG.modelB.dataset.colsy =  'ytarget'
-    ARG.modelB.seed = 42
+    ARG.modelB.dataset.coly  = 'ytarget'
+    ARG.modelB.seed          = 42
     modelB = modelB_create(ARG.modelB )
 
     
     ### merge_model  ###################################################
-    ARG.merge_model = Box()
-    ARG.merge_model.NAME = ''
-    ARG.merge_model.seed = 42
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.seed      = 42
     ARG.merge_model.ARCHITECT = { 'decoder': [ 32, 100, 1 ] }
 
     ARG.merge_model.MERGE = 'cat'
 
-    ARG.merge_model.dataset = Box()
+    ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
-    ARG.merge_model.dataset.colsy =  'ytarget'
-    ARG.merge_model.TRAINING_CONFIG = Box()
-    ARG.merge_model.TRAINING_CONFIG = TRAINING_CONFIG
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
     model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
 
 
@@ -327,7 +313,6 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                  return emb
 
-
         return Modelmerge(self.modelB,self.modelA,dims,merge,skip)
 
 
@@ -399,9 +384,9 @@ class MergeModel_create(BaseModel):
 
         ##### Split   #########################################################################
         seed= 42 
-        train_ratio = self.arg.merge_model.TRAINING_CONFIG.TRAIN_RATIO
-        test_ratio = self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
-        val_ratio =   self.arg.merge_model.TRAINING_CONFIG.TEST_RATIO
+        train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
+        test_ratio = self.arg.merge_model.train_config.TEST_RATIO
+        val_ratio =   self.arg.merge_model.train_config.TEST_RATIO
         train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
         valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
@@ -417,14 +402,14 @@ class MergeModel_create(BaseModel):
         else:
             train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
 
-        batch_size = self.arg.merge_model.TRAINING_CONFIG.BATCH_SIZE
+        batch_size = self.arg.merge_model.train_config.BATCH_SIZE
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
                                                                     valid_X,  valid_y,
                                                                     test_X,  test_y,
                                                                     device=self.device,
                                                                     batch_size=batch_size)
         
-        EPOCHS = self.arg.merge_model.TRAINING_CONFIG.EPOCHS
+        EPOCHS = self.arg.merge_model.train_config.EPOCHS
         n_train = len(train_loader)
         n_val = len(valid_loader)
         
@@ -460,15 +445,14 @@ class MergeModel_create(BaseModel):
             loss_val /= len(valid_loader.dataset) # mean on dataset
             
             
-            path_save = self.arg.merge_model.TRAINING_CONFIG.SAVE_FILENAME
+            path_save = self.arg.merge_model.train_config.SAVE_FILENAME
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
 
 
 
 ##############################################################################################
 class modelB_create(BaseModel):
-    """
-    modelB
+    """ modelB
     """
     def __init__(self,arg):
         super(modelA_create,self).__init__(arg)
@@ -508,7 +492,6 @@ class modelB_create(BaseModel):
 
 class modelA_create(BaseModel):
     """ modelA
-
     """
     def __init__(self,arg):
         super(modelA_create,self).__init__(arg)
@@ -536,7 +519,7 @@ class modelA_create(BaseModel):
                 return self.net(x)
 
             def get_embedding(self, x,**kwargs):
-              pass 
+               return emb
 
         return modelA(dims)
 
