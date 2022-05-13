@@ -13,8 +13,9 @@ RUN echo "deb http://ppa.launchpad.net/alessandro-strada/ppa/ubuntu xenial main"
  && rm /var/log/apt/* /var/log/alternatives.log /var/log/bootstrap.log /var/log/dpkg.log
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-CMD ["docker-entrypoint.sh"]
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
 
 # healthcheck
 HEALTHCHECK cmd mount | grep -q "google-drive-ocamlfuse" || exit 1

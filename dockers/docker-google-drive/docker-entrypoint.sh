@@ -32,16 +32,18 @@ else
 	elif [ -z "${CLIENT_SECRET}" ]; then
 		echo "no CLIENT_SECRET found -> EXIT"
 		exit 1
-	elif [ -z "$VERIFICATION_CODE" ]; then
-		echo "no VERIFICATION_CODE found -> EXIT"
+	elif [ -z "$LAST_ACCESS_TOKEN" ]; then
+		echo "no LAST_ACCESS_TOKEN found -> EXIT"
 		exit 1
+	elif [ -z "$REFRESH_TOKEN" ]; then
+		echo "no REFRESH_TOKEN found -> EXIT"
+		exit 1		
 	else
-		# google-drive-ocamlfuse doesn't clear stdin so pipe works
 		echo "initializing google-drive-ocamlfuse..."
-		su gdfuser -l -c  "echo \"${VERIFICATION_CODE}\" | \
-		 google-drive-ocamlfuse -headless \
-		 -id \"${CLIENT_ID}.apps.googleusercontent.com\" \
-		 -secret \"${CLIENT_SECRET}\""
+		mkdir -p /config/.gdfuse/default
+		echo "last_access_token=$LAST_ACCESS_TOKEN" > /config/.gdfuse/default/state
+		echo "refresh_token=$REFRESH_TOKEN" > /config/.gdfuse/default/state
+		su gdfuser -l -c "google-drive-ocamlfuse -id $CLIENT_ID -secret ${CLIENT_SECRET}"
 
 		# set teamdrive config"
 		if [ -n "${TEAM_DRIVE_ID}" ];then
