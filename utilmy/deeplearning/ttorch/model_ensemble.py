@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """ utils for model merge
+Doc::
 
-https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
+        https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
-
-
-https://discuss.pytorch.org/t/merging-3-models/66230/3
+        https://discuss.pytorch.org/t/merging-3-models/66230/3
 
 
 
@@ -309,24 +308,28 @@ class MergeModel_create(BaseModel):
                 self.net = nn.Sequential(*self.net)
 
 
-            def forward(self, x,**kwargs):
-            # merge: cat or add
-                alpha = kwargs.get('alpha',0) # default only use YpredB
-                # scale = kwargs.get('scale',1)
-                YpredB = self.modelB_net(x)
+            def forward(self, x,**kw):
+                # merge: cat or add
+                alpha = kw.get('alpha',0) # default only use YpredA
+                scale = kw.get('scale',1)
                 
-                YpredA = self.modelA_net(x)
-
+                YpredB = self.modelB_net.get_embedding(x)                
+                YpredA = self.modelA_net.get_embedding(x)
 
                 if self.merge == 'cat':
                     z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
 
-                elif self.merge == 'equal_cat':
+                elif self.merge == 'cat_equal':
                     z = torch.cat((YpredB, YpredA), dim=-1)
 
                 return self.net(z)    # predict absolute values
 
+            def get_embedding(self, x,**kw):
+                 return emb
+
+
         return Modelmerge(self.modelB,self.modelA,dims,merge,skip)
+
 
     def build(self):
         # super(MergeModel_create,self).build()
@@ -492,7 +495,7 @@ class modelB_create(BaseModel):
             def forward(self, x,**kwargs):
                 return self.net(x)
 
-            def get_embedding(self, **kwargs):
+            def get_embedding(self,x, **kwargs):
               pass 
 
         return modelB(dims)
