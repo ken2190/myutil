@@ -95,8 +95,10 @@ def config_parser(config):
         l1 = line.split(":")
         if len(l1) < 2:
             continue
-        key= l1[0].strip()
-        val= l1[1].split("#")[0].strip().strip("'")
+        key = l1[0].strip()
+        val = l1[1].split("#")[0].strip().strip("'")
+        if key[0] == "#":
+            continue
         cfg[key] = val
     return cfg
 
