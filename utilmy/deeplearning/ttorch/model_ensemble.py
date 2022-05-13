@@ -167,8 +167,18 @@ def test2_new():
         'MODEL_INFO' : {},
     })
     PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df
+
+    prepro_dataset = None 
     
 
+    ##################################################################
     if ARG.MODE == 'mode1':
         ARG.MODEL_INFO.TYPE = 'dataonly' 
         #train_config
@@ -225,8 +235,8 @@ def test2_new():
 
 
     #### Run Model   ###################################################
-    load_DataFrame = modelB_create.load_DataFrame   
-    prepro_dataset = modelB_create.prepro_dataset
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
     model.build()        
     model.training(load_DataFrame, prepro_dataset) 
 
