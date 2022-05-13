@@ -97,7 +97,6 @@ def config_parser(config):
     return cfg
 
 
-
 ##################################################################################    
 def spark_config_print(sparksession):
     log('\n####### Spark Conf') 
