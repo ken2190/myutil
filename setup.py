@@ -199,6 +199,30 @@ except :
     pass
 
 
+
+def os_cmd_to_bashrc(cmd):
+    try :
+        if 'win' in sys.platform :
+            os.system(f""" set  {cmd} """)  ### Any new session
+            os.system(f""" setx {cmd} """)  ### Current session
+
+        elif 'linux' in sys.platform :
+            os.system(f""" echo {cmd} >> ~/.bashrc      """)
+            os.system(f" {cmd} ")
+            print(' source  ~/.bashrc  ')
+
+        print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
+
+    except :
+        pass
+
+
+cmd= "alias sspark='python utilmy$/sspark/src/util_spark.py '"
+os_cmd_to_bashrc(cmd)
+
+
+
+
 """
 :: Sets environment variables for both the current `cmd` window 
 ::   and/or other applications going forward.
