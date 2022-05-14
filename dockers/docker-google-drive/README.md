@@ -1,8 +1,42 @@
 # Docker google-drive-ocamlfuse
-Docker image to mount a google drive with google-drive-ocamlfuse shared with host.
+    Docker image to mount a google drive with google-drive-ocamlfuse shared with host.
 
 
-Auto mount is here:
+### Build (local)
+````
+cd dockers/docker-google-driv
+docker build -t   artia37/docker-google-drive:v1 -f Dockerfile .
+````
+
+### Usage
+````
+docker pull artia37/docker-google-drive:v1
+docker run -d \
+        -e CLIENT_ID='my-client-id' \
+        -e CLIENT_SECRET='my-client-secret' \
+        -e LAST_ACCESS_TOKEN='my-last-access-token' \
+        -e REFRESH_TOKEN='my-refresh-token' \
+        --security-opt apparmor:unconfined \
+        --cap-add mknod \
+        --cap-add sys_admin \
+        --device=/dev/fuse \
+        -v /mnt/drive:/mnt/gdrive:shared \
+        artia37/docker-google-drive:v1
+````
+
+### Structure
+* ls - '/mnt/gdrive'  #### Google Drive Fuse mount directory inside container
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+
+### Auto mount is here:
 
 https://github.com/astrada/google-drive-ocamlfuse/issues/591
 
@@ -14,19 +48,16 @@ https://dev.to/yawaramin/use-google-drive-as-a-local-directory-on-linux-1b9
 
 
 
-
-
-
-
 ### Environment Variables
-* `PUID`: User ID to run google-drive-ocamlfuse
-* `PGID`: Group ID to run google-drive-ocamlfuse
-* `MOUNT_OPTS`: Additional mount options (user_allow_other is configured in /etc/fuse.conf)
-* `CLIENT_ID`: Google oAuth client ID without trailing `.apps.googleusercontent.com`
-* `CLIENT_SECRET`: Google oAuth client secret
-* `LAST_ACCESS_TOKEN`: Get value of `last_access_token` at ~/.gdfuse/default/state
-* `REFRESH_TOKEN`: Get value of `refresh_token` at ~/.gdfuse/default/state
-* `TEAM_DRIVE_ID`: (Optional) Team Drive Id to access a team folder instead of your private folder. The id can be found in the URL if you open the team folder in your browser (e.g. https://drive.google.com/drive/u/1/folders/${TEAM_DRIVE_ID})
+  * `PUID`: User ID to run google-drive-ocamlfuse
+  * `PGID`: Group ID to run google-drive-ocamlfuse
+  * `MOUNT_OPTS`: Additional mount options (user_allow_other is configured in /etc/fuse.conf)
+  * `CLIENT_ID`: Google oAuth client ID without trailing `.apps.googleusercontent.com`
+  * `CLIENT_SECRET`: Google oAuth client secret
+  * `LAST_ACCESS_TOKEN`: Get value of `last_access_token` at ~/.gdfuse/default/state
+  * `REFRESH_TOKEN`: Get value of `refresh_token` at ~/.gdfuse/default/state
+  * `TEAM_DRIVE_ID`: (Optional) Team Drive Id to access a team folder instead of your private folder. The id can be found in the URL if you open the team folder in your browser (e.g. https://drive.google.com/drive/u/1/folders/${TEAM_DRIVE_ID})
+
 
 ### Host Configuration
 1. If using systemd to manage the docker daemon process make sure that the service is configured either explicitly with a `shared` mountflag or un-configured and defaults to `shared`.
@@ -100,25 +131,3 @@ mount --bind /mnt/drive /mnt/drive
 mount --make-shared /mnt/drive
 ````
 
-### Build (local)
-````
-docker build -t local/docker-google-drive:v1 -f Dockerfile .
-````
-
-### Usage
-````
-docker run -d \
--e CLIENT_ID='my-client-id' \
--e CLIENT_SECRET='my-client-secret' \
--e LAST_ACCESS_TOKEN='my-last-access-token' \
--e REFRESH_TOKEN='my-refresh-token' \
---security-opt apparmor:unconfined \
---cap-add mknod \
---cap-add sys_admin \
---device=/dev/fuse \
--v /mnt/drive:/mnt/gdrive:shared \
-artia37/docker-google-drive:v1
-````
-
-### Structure
-* `/mnt/gdrive`: Google Drive Fuse mount directory inside container
