@@ -608,6 +608,28 @@ class modelA_create(BaseModel):
 
 
 ##############################################################################################
+def device_setup(arg, device='cpu', seed=67):
+    """function device_setup        
+    """
+    device = arg.get('device', device)
+    seed   = arg.get('seed', seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    if 'gpu' in device :
+        try :
+            torch.cuda.manual_seed(seed)
+            torch.cuda.manual_seed_all(seed)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+        except Exception as e:
+            log(e)
+            device = 'cpu'
+    return device
+
+
+
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                             device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
     """function dataloader_create
@@ -881,15 +903,6 @@ class MergeModel_create2(BaseModel):
 
 
 
-
-
-
-
-
-
-
-
-
 #############################################################################################
 if 'comments':
     """
@@ -1026,30 +1039,189 @@ here....
 
 ###############################################################################################
 ###############################################################################################
-def device_setup(arg):
-    """function device_setup
-    Args:
-        arg:   
-    Returns:
-        
-    """
-    device = arg.device
-    seed   = arg.seed
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
 
-    if 'gpu' in device :
-        try :
-            torch.cuda.manual_seed(seed)
-            torch.cuda.manual_seed_all(seed)
-            torch.backends.cudnn.deterministic = True
-            torch.backends.cudnn.benchmark = False
-        except Exception as e:
-            log(e)
-            device = 'cpu'
-    return device
 
+
+###################################################################################################
+if __name__ == "__main__":
+    import fire 
+    fire.Fire() 
+    # test_all()
+
+####################################################################################################
+if '''not model.py ''' :
+    class NaiveModel(nn.Module):
+      def __init__(self):
+        """ NaiveModel:__init__
+        Args:
+        Returns:
+          
+        """
+        super(NaiveModel, self).__init__()
+        self.head_task = nn.Identity()
+
+      def forward(self, x, alpha=0.0):
+        """ Net:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        """ NaiveModel:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        return self.head_task(x)
+
+
+    class modelB(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        """ modelB:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        """ modelA:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        super(modelB, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        """ modelB:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        """ modelA:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        return self.head_task(x)
+
+
+    class modelA(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        super(modelA, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        return self.head_task(x)
+
+
+    class Net(nn.Module):
+      def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+        """ Net:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            modelA:     
+            modelB:     
+            hidden_dim:     
+            n_layers:     
+            merge:     
+            skip:     
+            input_type:     
+        Returns:
+          
+        """
+        super(Net, self).__init__()
+        self.skip = skip
+        self.input_type   = input_type
+        self.modelA = modelA
+        self.modelB = modelB
+        self.n_layers =n_layers
+        assert self.modelA.input_dim == self.modelB.input_dim
+        assert self.modelA.output_dim == self.modelB.output_dim
+        self.merge = merge
+        if merge == 'cat':
+          self.input_dim_decision_block = self.modelA.output_dim * 2
+        elif merge == 'add':
+          self.input_dim_decision_block = self.modelA.output_dim
+
+        self.head_task = []
+        for i in range(n_layers):
+          if i == 0:
+            in_dim = self.input_dim_decision_block
+          else:
+            in_dim = hidden_dim
+
+          if i == n_layers-1:
+            out_dim = output_dim
+          else:
+            out_dim = hidden_dim
+
+          self.head_task.append(nn.Linear(in_dim, out_dim))
+          if i != n_layers-1:
+            self.head_task.append(nn.ReLU())
+
+        self.head_task.append(nn.Sigmoid())
+
+        self.head_task = nn.Sequential(*self.head_task)
+
+      def get_z(self, x, alpha=0.0):
+        """ Net:get_z
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        return z
+
+      def forward(self, x, alpha=0.0):
+        # merge: cat or add
+
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        if self.skip:
+          if self.input_type == 'seq':
+            return self.head_task(z) + x[:, -1, :]
+          else:
+            return self.head_task(z) + x    # predict delta values
+        else:
+          return self.head_task(z)    # predict absolute values
 
 
 
@@ -1342,191 +1514,5 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log('[Test] Accuracy: {:.4f} (alpha:{})'.format(test_acc, alpha))
       log("[Test] Ratio of verified predictions: {:.6f} (alpha:{})".format(test_ratio, alpha))
       log()
-
-
-
-
-
-
-###################################################################################################
-if __name__ == "__main__":
-    import fire 
-    fire.Fire() 
-    # test_all()
-
-####################################################################################################
-if '''not model.py ''' :
-    class NaiveModel(nn.Module):
-      def __init__(self):
-        """ NaiveModel:__init__
-        Args:
-        Returns:
-          
-        """
-        super(NaiveModel, self).__init__()
-        self.head_task = nn.Identity()
-
-      def forward(self, x, alpha=0.0):
-        """ Net:forward
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        """ NaiveModel:forward
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        return self.head_task(x)
-
-
-    class modelB(nn.Module):
-      def __init__(self, input_dim, output_dim, hidden_dim=4):
-        """ modelB:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            hidden_dim:     
-        Returns:
-          
-        """
-        """ modelA:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            hidden_dim:     
-        Returns:
-          
-        """
-        super(modelB, self).__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                                nn.ReLU(),
-                                nn.Linear(hidden_dim, output_dim))
-
-      def forward(self, x):
-        """ modelB:forward
-        Args:
-            x:     
-        Returns:
-          
-        """
-        """ modelA:forward
-        Args:
-            x:     
-        Returns:
-          
-        """
-        return self.head_task(x)
-
-
-    class modelA(nn.Module):
-      def __init__(self, input_dim, output_dim, hidden_dim=4):
-        super(modelA, self).__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                                nn.ReLU(),
-                                nn.Linear(hidden_dim, output_dim))
-
-      def forward(self, x):
-        return self.head_task(x)
-
-
-    class Net(nn.Module):
-      def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
-        """ Net:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            modelA:     
-            modelB:     
-            hidden_dim:     
-            n_layers:     
-            merge:     
-            skip:     
-            input_type:     
-        Returns:
-          
-        """
-        super(Net, self).__init__()
-        self.skip = skip
-        self.input_type   = input_type
-        self.modelA = modelA
-        self.modelB = modelB
-        self.n_layers =n_layers
-        assert self.modelA.input_dim == self.modelB.input_dim
-        assert self.modelA.output_dim == self.modelB.output_dim
-        self.merge = merge
-        if merge == 'cat':
-          self.input_dim_decision_block = self.modelA.output_dim * 2
-        elif merge == 'add':
-          self.input_dim_decision_block = self.modelA.output_dim
-
-        self.head_task = []
-        for i in range(n_layers):
-          if i == 0:
-            in_dim = self.input_dim_decision_block
-          else:
-            in_dim = hidden_dim
-
-          if i == n_layers-1:
-            out_dim = output_dim
-          else:
-            out_dim = hidden_dim
-
-          self.head_task.append(nn.Linear(in_dim, out_dim))
-          if i != n_layers-1:
-            self.head_task.append(nn.ReLU())
-
-        self.head_task.append(nn.Sigmoid())
-
-        self.head_task = nn.Sequential(*self.head_task)
-
-      def get_z(self, x, alpha=0.0):
-        """ Net:get_z
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        YpredB = self.modelA(x)
-        YpredA = self.modelB(x)
-
-        if self.merge == 'add':
-          z = alpha*YpredB + (1-alpha)*YpredA
-        elif self.merge == 'cat':
-          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-        elif self.merge == 'equal_cat':
-          z = torch.cat((YpredB, YpredA), dim=-1)
-
-        return z
-
-      def forward(self, x, alpha=0.0):
-        # merge: cat or add
-
-        YpredB = self.modelA(x)
-        YpredA = self.modelB(x)
-
-        if self.merge == 'add':
-          z = alpha*YpredB + (1-alpha)*YpredA
-        elif self.merge == 'cat':
-          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-        elif self.merge == 'equal_cat':
-          z = torch.cat((YpredB, YpredA), dim=-1)
-
-        if self.skip:
-          if self.input_type == 'seq':
-            return self.head_task(z) + x[:, -1, :]
-          else:
-            return self.head_task(z) + x    # predict delta values
-        else:
-          return self.head_task(z)    # predict absolute values
 
 
