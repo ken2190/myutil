@@ -1,0 +1,41 @@
+name: Docker Run test
+
+
+#### Build Command :     https://github.com/arita37/myutil/actions/workflows/docker_build_zdocker1.yml
+
+#### Docker definiton:     https://github.com/arita37/myutil/tree/zdocker2/dockers
+
+##### Publish Registry:     https://hub.docker.com/u/artia37
+
+
+
+on:
+  workflow_dispatch:
+    inputs:  
+
+#  push:
+#    branches:
+#      - zdocker1
+
+
+jobs:
+
+  docker-googledrive:
+    runs-on: ubuntu-latest
+    needs: docker-build
+    container: 
+      image: artia37/centos-google-drive:v1 
+      options: --user root
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          ls .  && pwd && whoami
+
+
+
+
+
+
+
+
+
