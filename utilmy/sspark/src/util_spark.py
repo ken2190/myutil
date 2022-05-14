@@ -26,7 +26,7 @@ def log(*s):
 
 
 ##################################################################################
-from util_hadoop import (
+from utilmy.sspark.src.util_hadoop import (
    hdfs_copy_hdfs_to_local, 
    hdfs_copy_local_to_hdfs, 
    hdfs_dir_exists,
