@@ -68,14 +68,14 @@ def test1():
     #spark.sql.warehouse.dir           : '/tmp'    
     spark.submit.deployMode            : 'client'
     """
-   cfg = config_parser(ss) 
-   sparksession = spark_get_session(cfg)
-
-   
-   spark_config_print(sparksession)
+    cfg = config_parser(ss)
+    sparksession = spark_get_session(cfg)
 
 
-   spark_config_check(sparksession)
+    spark_config_print(sparksession)
+
+
+    spark_config_check(sparksession)
 
 
 def config_parser(config):
@@ -139,7 +139,7 @@ def spark_config_check():
         log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path) 
 
 
-def spark_config_create(mode='', dirout):
+def spark_config_create(mode='', dirout="./conf_spark/"):
     """ Dump template Spark config into a folder.
 
 
@@ -148,13 +148,13 @@ def spark_config_create(mode='', dirout):
 
     file_required = [ '$SPARK_HOME/conf/spark-env.sh' ]
 
-    if mode='yarn-cluster':
+    if mode=='yarn-cluster':
         pass
         
-    if mode='yarn-client':
+    if mode=='yarn-client':
         pass
 
-    if mode='local':
+    if mode=='local':
         pass
 
 
@@ -528,7 +528,8 @@ def os_system(cmd, doprint=False):
     print( f"Error {cmd}, {e}")
 
     
-def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ], textold, textnew, test=1):
+def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
+                    textold='/mypath2/', textnew='/mypath2/', test=1):
     """ Replace path in config files.
     Doc::
          alias sspark="python utilmy$/sspark/src/util_spark.py "
