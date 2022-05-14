@@ -1,9 +1,59 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from itertools import combinations 
-
 import torch 
+##############################################################################
 
+
+def test_metrics():
+    #!/usr/bin/env python3
+    # -*- coding: utf-8 -*-
+    import torch
+    from utilmy.deeplearning.ttorch import metrics
+
+    model  = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+    data   = torch.rand(64, 3, 224, 224)
+    output = model(data)
+    labels = torch.randint(1000, (64,))#random labels 
+    acc    = metrics.calc_accuracy(output = output, labels = labels) 
+
+
+
+    # -*- coding: utf-8 -*-
+    import torch
+    from utilmy.deeplearning.ttorch import metrics
+
+    x1 = torch.rand(100,)
+    x2 = torch.rand(100,)
+    r = metrics.pearson_coeff(x1, x2)
+
+    x = torch.rand(100, 30)
+    r_pairs = metrics.pearson_coeff_pairs(x)
+
+
+
+
+def test2():
+    from utilmy.deeplearning.ttorch import metrics
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+    data = torch.rand(64, 3, 224, 224)
+    output = model(data)
+    # This is just an example where class coded by 999 has more occurences
+    # No train test splits are applied to lead to the overrepresentation of class 999 
+    p = [(1-0.05)/1000]*999
+    p.append(1-sum(p))
+    labels = np.random.choice(list(range(1000)), 
+                            size = (10000,), 
+                            p = p)#imbalanced 1000-class labels
+    labels = torch.Tensor(labels).long()
+    weight, label_weight = metrics.class_weights(labels)
+    loss = torch.nn.CrossEntropyLoss(weight = weight)
+    l = loss(output, labels[:64])
+
+
+
+
+##############################################################################
 def pearson_coeff(x1, x2):
     '''Computes pearson correlation coefficient between two 1D tensors
     with torch
@@ -23,6 +73,7 @@ def pearson_coeff(x1, x2):
             x2 - x2.mean(dim = 0, keepdim = True))
     
     return r
+
 
 def pearson_coeff_pairs(x): 
     '''Computes pearson correlation coefficient across 
@@ -49,6 +100,7 @@ def pearson_coeff_pairs(x):
     
     return r
 
+
 def calc_accuracy(output = None, labels = None):
     ''' Classification accuracy calculation as acc = (TP + TN) / nr total pred
     
@@ -72,6 +124,7 @@ def calc_accuracy(output = None, labels = None):
     acc = 100*(correct/total)
 
     return acc 
+
 
 def class_weights(labels):
     '''Compute class weights for imbalanced classes
@@ -99,6 +152,7 @@ def class_weights(labels):
        
     return weights, labels_weights
 
+
 def effective_dim(X, center = True):
     '''Compute the effective dimension based on the eigenvalues of X
     
@@ -121,3 +175,13 @@ def effective_dim(X, center = True):
     ed = 1 / torch.sum(torch.pow(li, 2))
     
     return ed
+
+
+
+
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
+
+
