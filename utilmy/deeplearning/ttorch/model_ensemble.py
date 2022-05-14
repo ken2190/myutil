@@ -11,7 +11,8 @@ Issue wthen reloading jupyte
         reload(library)
         import library.Child
 
-TODO : Actual docs
+TODO :
+    make get_embedding works
 
 
 """
@@ -601,6 +602,36 @@ class modelA_create(BaseModel):
     def create_loss(self) -> torch.nn.Module:
         super(modelA_create,self).create_loss()
         return torch.nn.BCELoss()
+
+
+
+def get_embedding():
+    """
+
+model = Resnet50() 
+model.load_state_dict(torch.load('path_to_model.bin'))
+model.to(device) 
+
+# now using function hook, I was able to get the output after the conv3 layer like this :
+model.model.layer4[1].conv3.register_forward_hook(get_activation("some_key_name")) 
+
+
+    https://discuss.pytorch.org/t/how-can-i-extract-intermediate-layer-output-from-loaded-cnn-model/77301/11
+x = torch.randn(1, 10)
+
+# out of place
+model = MyModel()
+sd = model.state_dict()
+model.fc.register_forward_hook(lambda m, input, output: print(output))
+out = model(x)
+
+# inplace
+model = MyModel(inplace=True)
+model.load_state_dict(sd)
+model.fc.register_forward_hook(lambda m, input, output: print(output))
+out = model(x)
+
+    """
 
 
 
