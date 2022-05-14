@@ -271,9 +271,19 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
-def spark_write_hdfs(df, dirout, show=0):
-    pass
+def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartitions:int=None, saveMode:str="overwrite", format:str="parquet"):
+    """
+    Doc::
+        saveMode: overwrite, append, ignore, error
+        format: parquet, csv, json ...
+    """
+    if numPartitions:
+        df.coalesce(numPartitions).write.mode(saveMode).save(dirout, format)
+    else:
+        df.write.mode(saveMode).save(dirout, format)
 
+    if show:
+        df.show()
 
 
 def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
@@ -388,6 +398,8 @@ def spark_metrics_classifier_summary(labels_and_predictions_df):
 
 
 def spark_metrics_roc_summary(labels_and_predictions_df):
+    from pyspark.mllib.evaluation import BinaryClassificationMetrics
+
     labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
     metrics = BinaryClassificationMetrics(labels_and_predictions_rdd)
     # Area under precision-recall curve
@@ -415,7 +427,7 @@ def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_patte
     log('Reading Npaths', len(flist))
 
     path =  ",".join(flist) 
-    df = sparkSession.read.csv(path ,header=True, **kw)
+    df = sparkSession.read.csv(path, header=True, **kw)
     return df
 
 
