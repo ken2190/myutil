@@ -31,9 +31,9 @@ install_requires = ['pyyaml', 'stdlib_list', 'python-box', 'fire' ]
 #    long_description = fh.read()
 
 def get_current_githash():
-   import subprocess 
-   # label = subprocess.check_output(["git", "describe", "--always"]).strip();   
-   label = subprocess.check_output([ 'git', 'rev-parse', 'HEAD' ]).strip();      
+   import subprocess
+   # label = subprocess.check_output(["git", "describe", "--always"]).strip();
+   label = subprocess.check_output([ 'git', 'rev-parse', 'HEAD' ]).strip();
    label = label.decode('utf-8')
    return label
 
@@ -81,7 +81,7 @@ scripts = [     ]
 
 
 
-### CLI Scripts  ###################################################   
+### CLI Scripts  ###################################################
 entry_points={ 'console_scripts': [
 
     'docs      = utilmy.docs.cli:run_cli',
@@ -96,16 +96,16 @@ entry_points={ 'console_scripts': [
 
 
 
-##################################################################   
+##################################################################
 setup(
     name="utilmy",
     description="utils",
     keywords='utils',
-    
-    author="Nono",    
+
+    author="Nono",
     install_requires=install_requires,
     python_requires='>=3.6.5',
-    
+
     packages=packages,
 
     include_package_data=True,
@@ -115,7 +115,7 @@ setup(
        '': ['*','*/*','*/*/*','*/*/*/*']
     },
 
-   
+
     ### Versioning
     version=version,
     #cmdclass=cmdclass,
@@ -123,7 +123,7 @@ setup(
 
     #### CLI
     scripts = scripts,
-  
+
     ### CLI pyton
     entry_points= entry_points,
 
@@ -170,30 +170,35 @@ try :
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
-    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
+    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")
 
 except :
     pass
 
 
+def os_bash_append(txt):
+  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
+     bashrc.write(txt)
+
 def os_cmd_to_bashrc(cmd):
+
     try :
         if 'win' in sys.platform :
             os.system(f""" set  {cmd} """)  ### Any new session
             os.system(f""" setx {cmd} """)  ### Current session
 
         elif 'linux' in sys.platform :
-            os.system(f""" echo {cmd} >> ~/.bashrc      """)
-            os.system(f" {cmd} ")
+            os_bash_append(f""" {cmd}      """)
+            os_bash_append(f" {cmd} ")
             print(' source  ~/.bashrc  ')
 
-        print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
+        print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")
 
     except :
         pass
 
 
-cmd= "alias sspark='python utilmy$/sspark/src/util_spark.py '"
+cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
 os_cmd_to_bashrc(cmd)
 
 
@@ -201,6 +206,8 @@ os_cmd_to_bashrc(cmd)
 
 
 """
+alias sspark='python /workspace/myutil/utilmy/sspark/src/util_spark.py'
+
 
 from setuptools import setup, find_packages
 
