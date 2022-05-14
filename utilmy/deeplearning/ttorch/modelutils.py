@@ -1,12 +1,230 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 from functools import partial
 from pathlib import Path
 import pickle 
-
 import torch 
 
+
+##############################################################################
+def test_printlayer_value():
+  from utilmy.deeplearning.ttorch import modelutils
+
+  model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+  # Register a recorder to the 4th layer of the features part of AlexNet
+  # Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  # and record the output of the layer during the forward pass
+  layer = list(model.features.named_children())[3][1]
+  recorder = modelutils.Recorder(layer, record_output = True, backward = False)
+  data = torch.rand(64, 3, 224, 224)
+  output = model(data)
+  print(recorder.recording)#tensor of shape (64, 192, 27, 27)
+  recorder.close()#remove the recorder
+
+  # Record input to the layer during the forward pass 
+  recorder = modelutils.Recorder(layer, record_input = True, backward = False)
+  data = torch.rand(64, 3, 224, 224)
+  output = model(data)
+  print(recorder.recording)#tensor of shape (64, 64, 27, 27)
+  recorder.close()#remove the recorder
+
+  # Register a recorder to the 4th layer of the features part of AlexNet
+  # MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
+  # and record the output of the layer in the bacward pass 
+  layer = list(model.features.named_children())[2][1]
+  # Record output to the layer during the backward pass 
+  recorder = modelutils.Recorder(layer, record_output = True, backward = True)
+  data = torch.rand(64, 3, 224, 224)
+  output = model(data)
+  loss = torch.nn.CrossEntropyLoss()
+  labels = torch.randint(1000, (64,))#random labels just to compute a bacward pass
+  l = loss(output, labels)
+  l.backward()
+  print(recorder.recording[0])#tensor of shape (64, 64, 27, 27)
+  recorder.close()#remove the recorder
+
+  # Register a recorder to the 4th layer of the features part of AlexNet
+  # Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  # and record the parameters of the layer in the forward pass 
+  layer = list(model.features.named_children())[3][1] 
+  recorder = modelutils.Recorder(layer, record_params = True, backward = False)
+  data = torch.rand(64, 3, 224, 224)
+  output = model(data)
+  print(recorder.recording)#list of tensors of shape (192, 64, 5, 5) (weights) (192,) (biases) 
+  recorder.close()#remove the recorder
+
+  # A custom function can also be passed to the recorder and perform arbitrary 
+  # operations. In the example below, the custom function prints the kwargs that 
+  # are passed along with the custon function and also return 1 (stored in the recorder)
+  def custom_fn(*args, **kwargs):#signature of any custom fn
+      print('custom called')
+      for k,v in kwargs.items():
+          print('\nkey argument:', k)
+          print('\nvalue argument:', v)
+      return 1
+
+  recorder = modelutils.Recorder(layer, 
+                                  backward = False, 
+                                  custom_fn = custom_fn, 
+                                  print_value = 5)
+  data = torch.rand(64, 3, 224, 224)
+  output = model(data)
+  print(recorder.recording)#list of tensors of shape (192, 64, 5, 5) (weights) (192,) (biases) 
+  recorder.close()#remove the recorder
+
+  # Record output to the layer during the forward pass and store it in folder 
+  layer = list(model.features.named_children())[3][1]
+  recorder = modelutils.Recorder(
+      layer, 
+      record_params = True, 
+      backward = False, 
+      save_to = './test_recorder'#create the folder before running this example!
+  )
+  for _ in range(5):#5 passes e.g. batches, thus 5 stored "recorded" tensors
+      data = torch.rand(64, 3, 224, 224)
+      output = model(data)
+  recorder.close()#remove the recorder
+
+
+
+def test2():
+        import torch
+        from utilmy.deeplearning.ttorch import modelutils
+
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+        # Freeze all parameters
+        modelutils.freeze_params(model, 
+                                freeze = True)
+
+        # Unfreeze all parameters
+        modelutils.freeze_params(model, 
+                                freeze = False)
+
+        # Freeze specific parameters by naming them
+        params_to_freeze = ['features.0.weight', 'classifier.1.weight']
+        modelutils.freeze_params(model, 
+                                params_to_freeze = params_to_freeze, 
+                                freeze = True)
+
+        # Unfreeze specific parameters by naming them
+        params_to_freeze = ['features.0.weight', 'classifier.1.weight']
+        modelutils.freeze_params(model, 
+                                params_to_freeze = params_to_freeze, 
+                                freeze = False)
+
+
+
+        import torch
+        from utilmy.deeplearning.ttorch import modelutils
+
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+        # Get all parameters
+        params_values, params_names, req_grad = modelutils.get_model_params(model)
+
+        # Get only a subset of parameters by passing a list of named parameters
+        params_to_get = ['features.0.weight', 'classifier.1.weight']
+        params_values, params_names, req_grad = modelutils.get_model_params(model,
+                                                                            params_to_get = params_to_get)
+
+
+
+
+
+        import torch
+        from torch import nn
+        from utilmy.deeplearning.ttorch import modelutils
+
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+        # Delete the last layer of the classifier of the AlexNet model 
+        model.classifier = modelutils.delete_layers(model.classifier, del_ids = [6])
+
+        # Delete the last linear layer of an Elman RNN
+        simple_rnn = nn.Sequential(
+            nn.RNN(2, 
+                100, 
+                1, 
+                batch_first = True),
+            nn.Linear(100, 10),
+        )
+
+        simple_rnn = modelutils.delete_layers(simple_rnn, del_ids = [1])
+
+
+
+
+        import torch
+        from torch import nn
+        from utilmy.deeplearning.ttorch import modelutils
+
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+        # Delete the last layer of the classifier of the AlexNet model 
+        model.classifier = modelutils.delete_layers(model.classifier, del_ids = [6])
+
+        # Add back to the model the deleted layer
+        module = {
+                'name': '6',
+                'position': 6,
+                'module': nn.Linear(in_features = 4096, out_features = 1000, bias = True) 
+                }
+
+        model.classifier = modelutils.add_layers(model.classifier, modules = [module]) 
+
+
+
+def test3():
+    #!/usr/bin/env python3
+    # -*- coding: utf-8 -*-
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import torch
+    import torchvision
+    import torchvision.transforms as transforms
+
+    from torchknickknacks import modelutils
+
+    #Load pretrained AlexNet and CIFAR
+    transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+
+    batch_size = 32
+    testset = torchvision.datasets.CIFAR10(root = './CIFAR_torchvision', 
+                                          train = False,
+                                          download = True, 
+                                          transform = transform)
+    testloader = torch.utils.data.DataLoader(testset, 
+                                            batch_size = batch_size,
+                                            shuffle = True)
+    # Assign a recorder to a layer of AlexNet:
+    # here: MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+    layer = list(model.features.named_children())[5][1]
+    recorder = modelutils.Recorder(layer, record_output = True, backward = False)
+
+    #Grab a batch and pass it through the model
+    X,Y = next(iter(testloader))
+    out = model(X)
+
+    # Compute similarity of representations in selected layer for images in batch
+    rec = recorder.recording.detach().clone()
+    rec = rec.reshape(batch_size, -1)
+    sim = np.corrcoef(rec.numpy())
+    plt.imshow(sim)
+    plt.colorbar()
+
+
+
+
+
+###############################################################################
 def get_model_params(model, params_to_get = None, detach = True):
     '''Extracts the parameters, names, and 'requires gradient' status from a 
     model
@@ -311,3 +529,16 @@ def get_all_layers(model):
                 all_layers.append(get_all_layers(child))
             
     return all_layers
+
+
+
+
+
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
+
+
+
+
