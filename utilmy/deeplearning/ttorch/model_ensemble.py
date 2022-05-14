@@ -54,7 +54,6 @@ def test1():
     })
     PARAMS = Box()
 
-    ### acces byt bot 
 
     from utilmy.adatasets import test_dataset_classifier_fake
     df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
@@ -120,11 +119,7 @@ def test1():
     ARG.merge_model.train_config  = train_config
     model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
 
-    ##### lien was cut  , new zoom id
-    #Join Zoom Meeting
-    #https://us05web.zoom.us/j/2933746463?pwd=WUhRWkx0NWNZRVBFVjZ4enV6Y1R2QT09
 
-    # ok
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
     # prepro_dataset = modelB_create.prepro_dataset
@@ -557,7 +552,7 @@ class modelB_create(BaseModel):
                                 ConText should be same,
 
               """  
-              self.head_task(x) # bs x c x h x w
+              self.foward(x) # bs x c x h x w
                             
 
         return modelB(layers_dim)
