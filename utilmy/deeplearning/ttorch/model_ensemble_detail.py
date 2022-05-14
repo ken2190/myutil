@@ -6,19 +6,11 @@ Doc::
 
         https://discuss.pytorch.org/t/merging-3-models/66230/3
 
-Issue wthen reloading jupyte
-        import library.Child
-        reload(library)
-        import library.Child
-
-TODO :
-    make get_embedding works
 
 
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
-import copy
 from abc import abstractmethod
 
 from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
@@ -41,894 +33,6 @@ def help():
     from utilmy import help_create
     ss = HELP + help_create(MNAME)
     log(ss)
-
-
-
-def test1():    
-    """     
-    """    
-    from box import Box ; from copy import deepcopy
-    ARG = Box({
-        'MODE'   : 'mode1',
-        'DATASET': {},
-        'MODEL_INFO' : {},
-    })
-    PARAMS = Box()
-
-
-    from utilmy.adatasets import test_dataset_classifier_fake
-    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
-
-    def load_DataFrame():
-        return df
-
-    prepro_dataset = None 
-    
-
-    ##################################################################
-    if ARG.MODE == 'mode1':
-        ARG.MODEL_INFO.TYPE = 'dataonly' 
-        #train_config
-        train_config                     = Box({})
-        train_config.LR                  = 0.001
-        train_config.SEED                = 42
-        train_config.DEVICE              = 'cpu'
-        train_config.BATCH_SIZE          = 32
-        train_config.EPOCHS              = 1
-        train_config.EARLY_STOPPING_THLD = 10
-        train_config.VALID_FREQ          = 1
-        train_config.SAVE_FILENAME       = './model.pt'
-        train_config.TRAIN_RATIO         = 0.7
-        train_config.VAL_RATIO           = 0.2
-        train_config.TEST_RATIO          = 0.1
-
-
-    #### SEPARATE the models completetly, and create duplicate
-    ### modelA  ########################################################
-    ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'modelA1'
-    ARG.modelA.architect     = [ 9, 100, 16 ]
-    ARG.modelA.dataset       = Box()
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
-    ARG.modelA.seed          = 42
-    modelA = modelA_create(ARG.modelA)
-
-
-    ### modelB  ########################################################
-    ARG.modelB               = Box()   #MODEL_RULE
-    ARG.modelB.name         = 'modelB1'
-    ARG.modelB.architect     = [9,100,16]
-    ARG.modelB.dataset       = Box()
-    ARG.modelB.dataset.dirin = "/"
-    ARG.modelB.dataset.coly  = 'ytarget'
-    ARG.modelB.seed          = 42
-    modelB = modelB_create(ARG.modelB )
-
-    
-    ### merge_model  ###################################################
-    ARG.merge_model           = Box()
-    ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = { 'layers_dim': [ 32, 100, 1 ] }
-
-    ARG.merge_model.MERGE = 'cat'
-
-    ARG.merge_model.dataset       = Box()
-    ARG.merge_model.dataset.dirin = "/"
-    ARG.merge_model.dataset.coly = 'ytarget'
-    ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
-
-
-    #### Run Model   ###################################################
-    # load_DataFrame = modelB_create.load_DataFrame   
-    # prepro_dataset = modelB_create.prepro_dataset
-    model.build()        
-    model.training(load_DataFrame, prepro_dataset) 
-
-    model.save_weight('ztmp/model_x9.pt') 
-    model.load_weights('ztmp/model_x9.pt')
-    inputs = torch.randn((1,9)).to(model.device)
-    outputs = model.predict(inputs)
-    print(outputs)
-
-
-
-##############################################################################################
-class BaseModel(object):
-    """This is BaseClass for model create
-
-    Method:
-        create_model : Initialize Model (torch.nn.Module)
-        evaluate: 
-        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
-        create_loss :   Initialize Loss Function 
-        training:   starting training
-        build: create model, loss, optimizer (call before training)
-        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
-        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
-        device_setup: 
-        load_DataFrame: read pandas
-        load_weight: 
-        save_weight: 
-        predict : 
-    """
-    
-    def __init__(self,arg):
-        self.arg      = Box(arg)
-        self._device  = self.device_setup(arg)
-        self.losser   = None
-        self.is_train = False
-        
-    @abstractmethod
-    def create_model(self,) -> torch.nn.Module:
-    #   raise NotImplementedError
-        log("       model is building")
-    @abstractmethod
-    def evaluate(self):
-        raise NotImplementedError
-
-    @abstractmethod
-    def prepro_dataset(self,csv) -> pd.DataFrame:
-        raise NotImplementedError
-    
-    @abstractmethod
-    def create_loss(self,) -> torch.nn.Module:
-        log("       loss is building")
-        # raise NotImplementedError
-
-    @abstractmethod
-    def training(self,):
-        raise NotImplementedError
-
-    @property
-    def device(self,):
-        return self._device
-    
-    @device.setter
-    def device(self,value):
-        if isinstance(value,torch.device):
-          self._device = value
-        elif isinstance(value,str):
-          self._device = torch.device(value)
-        else:
-          raise TypeError("device must be str or torch.device")
-
-    def build(self,):
-        self.net       = self.create_model().to(self.device)
-        self.loss_calc = self.create_loss().to(self.device)
-        # self.loss_calc= 
-        self.is_train = False
-    
-    def train(self): # equivalent model.train() in pytorch
-        self.is_train = True
-        self.net.train()
-
-    def eval(self):     # equivalent model.eval() in pytorch
-        self.is_train = False
-        self.net.eval()
-
-    def device_setup(self,arg):
-        device = getattr(arg,'device','cpu')
-        seed   = arg.seed if hasattr(arg,'seed') else 42
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-
-        if 'gpu' in device :
-            try :
-                torch.cuda.manual_seed(seed)
-                torch.cuda.manual_seed_all(seed)
-                torch.backends.cudnn.deterministic = True
-                torch.backends.cudnn.benchmark = False
-            except Exception as e:
-                log(e)
-                device = 'cpu'
-        return device
-
-    def load_DataFrame(self,path=None)-> pd.DataFrame:
-        if path:
-            log(f"reading csv from {path}")
-            self.df = pd.read_csv(path,delimiter=';')
-            return self.df
-        if os.path.isfile(self.arg.dataset.path):
-            log(f"reading csv from arg.DATASET.PATH :{self.arg.dataset.path}")
-            self.df = pd.read_csv(self.arg.dataset.path,delimiter=';')
-            return self.df
-        else:
-            import requests
-            import io
-            r = requests.get(self.arg.dataset.url)
-            log(f"Reading csv from arg.DATASET.URL")
-            if r.status_code ==200:
-                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
-            else:
-                raise Exception("Can't read data, status_code: {r.status_code}")
-            
-            return self.df
-
-
-    def load_weights(self, path):
-        assert os.path.isfile(path),f"{path} does not exist"
-        try:
-          ckp = torch.load(path,map_location=self.device)
-        except Exception as e:
-          log(e)
-          log(f"can't load the checkpoint from {path}")  
-        if isinstance(ckp,collections.OrderedDict):
-          self.head_task.load_state_dict(ckp)
-        else:
-          self.head_task.load_state_dict(ckp['state_dict'])
-    
-    def save_weight(self,path,meta_data=None):
-      os.makedirs(os.path.dirname(path),exist_ok=True)
-      ckp = {
-          'state_dict':self.head_task.state_dict(),
-      }
-      if meta_data:
-        if isinstance(meta_data,dict):
-            ckp.update(meta_data)
-        else:
-            ckp.update({'meta_data':meta_data,})
-            
-        
-      torch.save(ckp,path)
-
-    def predict(self,x,**kwargs):
-        # raise NotImplementedError
-        output = self.net(x,**kwargs)
-        return output 
-
-
-
-
-##############################################################################################
-class MergeModel_create(BaseModel):
-    """
-    """
-    def __init__(self,arg:dict=None, modelA=None, modelB=None):
-        """
-                      
-        """
-        super(MergeModel_create,self).__init__(arg)
-        self.modelA = modelA_create(arg.modelA)   if modelA is None else (modelA)
-        self.modelB = modelB_create(arg.modelB)   if modelB is None else (modelB)
-
-
-    def create_model(self,):
-        super(MergeModel_create,self).create_model()
-        self.merge = self.arg.merge_model.get('MERGE','add')
-        layers_dim = self.arg.merge_model.architect.layers_dim
-
-        class Modelmerge(torch.nn.Module):
-            def __init__(self,modelB, modelA, merge='cat', layers_dim=None, ):
-                super(Modelmerge, self).__init__()
-
-                #### rule encoder
-                self.modelB_net = copy.deepcopy(modelB.net)
-                self.modelB_net.load_state_dict(modelB.net.state_dict())
-
-                ###3 data encoder
-                self.modelA_net = copy.deepcopy(modelA.net)
-                self.modelA_net.load_state_dict(modelA.net.state_dict())
-
-                ##### Check Input Dims are OK 
-                ### assert self.modelA_net =               
-
-
-                ##### Head Task   #####################
-                # self.head_task = nn.Sequential()
-                self.head_task = []
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[1:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
-
-                ###### Not good in model due to compute errors, keep into Losss
-                # self.head_task.append(nn.Sigmoid())  #### output layer
-
-                ##### MLP Head task
-                self.head_task = nn.Sequential(*self.head_task)
-
-
-            def forward(self, x,**kw):
-                # merge: cat or add
-                alpha = kw.get('alpha',0) # default only use YpredA
-                scale = kw.get('scale',1)
-        
-                ## with torch.no_grad():
-                embA = self.modelA_net.get_embedding(x)                
-                embB = self.modelB_net.get_embedding(x)                
-
-                ##### L2 normalize
-                embA = torch_norm_l2(embA)
-                embB = torch_norm_l2(embB)
-
-                ###### Concatenerate
-                if self.merge == 'cat_combine':
-                    z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
-
-                elif self.merge == 'cat':
-                    ### May need scale 
-                    z = torch.cat((embB, embA), dim=-1)
-
-
-                return self.head_task(z)    # predict absolute values
-
-
-            def get_embedding(self, x,**kw):
-                 return emb
-
-        return Modelmerge(self.modelB, self.modelA, self.merge, layers_dim, )
-
-
-    def build(self):
-        # super(MergeModel_create,self).build()
-        log("modelB:")
-        self.modelB.build()
-
-        log("modelA:")
-        self.modelA.build()
-        
-        log("MergeModel:")
-        self.net       = self.create_model().to(self.device)
-        self.loss_calc = self.create_loss()#.to(self.device)
-
-        #### BE cacreful to include all the params if COmbine loss.
-        #### Here, only head_task
-        self.optimizer = torch.optim.Adam(self.net.head_task.parameters())
-        
-        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=5, 
-                         verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=0, eps=1e-08)
-        #self.optimizer = torch.optim.Adam(self.head_task )
-
-
-        #### Freeze modelA, modelB, to stop gradients.
-        self.freeze_all()
-
-
-    def freeze_all(self,):
-        for param in self.modelA.net.parameters():
-            param.requires_grad = False
-
-        for param in self.modelB.net.parameters():
-            param.requires_grad = False
-
-
-    def unfreeze_all(self,):
-        for param in self.modelA.net.parameters():
-            param.requires_grad = True
-
-        for param in self.modelB.net.parameters():
-            param.requires_grad = True
-
-
-    def create_loss(self,):
-        """ Simple Head task loss
-           1) Only Head task loss : Classfieri head  ### Baseline
-           Stop the gradient or not in modelA and modelB.
-            embA_d = embA.detach()  ### Stop the gradient
-            modelA_loss(x_a, embA)        
-        """
-        super(MergeModel_create,self).create_loss()
-        loss =  torch.nn.BCEWithLogitsLoss()
-        return loss
-        
-
-    def prepro_dataset(self,df:pd.DataFrame=None):
-        if df is None:              
-            df = self.df     # if there is no dataframe feeded , get df from model itself
-
-        coly = 'y'
-        y    = df[coly].values
-        X    = df.drop([coly], axis=1).values
-        nsamples = X.shape[0]
-
-        ##### Split   #########################################################################
-        seed= 42 
-        train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
-        test_ratio  = self.arg.merge_model.train_config.TEST_RATIO
-        val_ratio   = self.arg.merge_model.train_config.TEST_RATIO
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
-        return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
-        
-
-    def training(self,load_DataFrame=None,prepro_dataset=None):
-        """ Train Loop
-        Docs:
-
-             # training with load_DataFrame and prepro_data function or default funtion in self.method
-
-        """
-       
-        batch_size = self.arg.merge_model.train_config.BATCH_SIZE
-        EPOCHS     = self.arg.merge_model.train_config.EPOCHS
-        path_save  = self.arg.merge_model.train_config.SAVE_FILENAME
-
-        df = load_DataFrame() if load_DataFrame else self.load_DataFrame()
-        if prepro_dataset:
-            train_X, train_y, valid_X,  valid_y, test_X,  test_y  = prepro_dataset(self,df)
-        else:
-            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
-
-        train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, valid_X,  valid_y,
-                                                                    test_X,  test_y,
-                                                                    device=self.device, batch_size=batch_size)        
-                
-        for epoch in range(1,EPOCHS+1):
-            self.train()
-            loss_train = 0
-            with torch.autograd.set_detect_anomaly(True): 
-                for inputs,targets in train_loader:                    
-                    self.optimizer.zero_grad()
-
-                    predict = self.predict(inputs)
-                    loss    = self.loss_calc(predict, targets)
-                    # loss.grad
-                    loss.backward()
-                    self.optimizer.step()
-                    loss_train += loss * inputs.size(0)
-                loss_train /= len(train_loader.dataset) # mean on dataset
-
-
-            ##### Evaluation #######################################
-            loss_val = 0
-            self.eval()
-            with torch.no_grad():
-                for inputs,targets in valid_loader:
-                    predict = self.predict(inputs)
-                    self.optimizer.zero_grad()
-                    loss = self.loss_calc(predict,targets)                    
-                    loss_val += loss * inputs.size(0)
-            loss_val /= len(valid_loader.dataset) # mean on dataset
-            
-            self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
-
-
-
-class modelB_create(BaseModel):
-    """ modelB Creatio 
-    """
-    def __init__(self,arg):
-        super(modelB_create,self).__init__(arg)
-
-    def create_model(self):
-        super(modelB_create,self).create_model()
-        layers_dim = self.arg.architect
-        
-        class modelB(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16]):
-                super(modelB, self).__init__()
-                self.layers_dim = layers_dim 
-                self.output_dim = layers_dim[-1]
-
-                self.head_task = []
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
-                self.head_task = nn.Sequential(*self.head_task)
-
-
-            def forward(self, x,**kwargs):
-                return self.head_task(x)
-
-            def get_embedding(self,x, **kwargs):
-              """  call signature
-                   get name of the layer to extract it
-                       Custom by model, API.
-                       manual extraction + 
-
-                        https://pytorch.org/vision/main/feature_extraction.html
-
-                        https://discuss.pytorch.org/t/how-to-delete-layer-in-pretrained-model/17648/6
-
-
-                        https://github.com/Riccorl/transformers-embedder
-
-                        poling --> embedding for trasnfoemer
-
-                        TIM ?
-                        https://github.com/rwightman/pytorch-image-models
-
-
-                        Re-normlaize the model through embedidng.
-
-                           Use this case:
-                            new article 
-                                Image model --->  embA   ---> MergeModel --> 
-                                NLP model   --->  embB
-                                .....
-                                .....
-                                ....
-
-                                  https://github.com/ml-jku/cloob
-                                CLIP :  CLOOB  
-                                ConText should be same,
-
-              """  
-              self.foward(x) # bs x c x h x w
-                            
-
-        return modelB(layers_dim)
-        
-
-
-    def create_loss(self) -> torch.nn.Module:
-        super(modelB_create,self).create_loss()
-        return torch.nn.BCELoss()
-
-
-
-class modelA_create(BaseModel):
-    """ modelA
-    """
-    def __init__(self,arg):
-        super(modelA_create,self).__init__(arg)
-
-    def create_model(self):
-        super(modelA_create,self).create_model()
-        layers_dim = self.arg.architect
-        
-        class modelA(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16]):
-                super(modelA, self).__init__()
-                self.layers_dim = layers_dim 
-                self.output_dim = layers_dim[-1]
-                # self.head_task = nn.Sequential()
-                self.head_task = []
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
-                self.head_task = nn.Sequential(*self.head_task)
-
-            def forward(self, x,**kwargs):
-                return self.head_task(x)
-
-            def get_embedding(self, x,**kwargs):
-               return emb
-
-        return modelA(layers_dim)
-
-    def create_loss(self) -> torch.nn.Module:
-        super(modelA_create,self).create_loss()
-        return torch.nn.BCELoss()
-
-
-
-def get_embedding():
-    """
-
-model = Resnet50() 
-model.load_state_dict(torch.load('path_to_model.bin'))
-model.to(device) 
-
-# now using function hook, I was able to get the output after the conv3 layer like this :
-model.model.layer4[1].conv3.register_forward_hook(get_activation("some_key_name")) 
-
-
-    https://discuss.pytorch.org/t/how-can-i-extract-intermediate-layer-output-from-loaded-cnn-model/77301/11
-x = torch.randn(1, 10)
-
-# out of place
-model = MyModel()
-sd = model.state_dict()
-model.fc.register_forward_hook(lambda m, input, output: print(output))
-out = model(x)
-
-# inplace
-model = MyModel(inplace=True)
-model.load_state_dict(sd)
-model.fc.register_forward_hook(lambda m, input, output: print(output))
-out = model(x)
-
-    """
-
-
-
-##############################################################################################
-def device_setup(arg, device='cpu', seed=67):
-    """function device_setup        
-    """
-    device = arg.get('device', device)
-    seed   = arg.get('seed', seed)
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-    if 'gpu' in device :
-        try :
-            torch.cuda.manual_seed(seed)
-            torch.cuda.manual_seed_all(seed)
-            torch.backends.cudnn.deterministic = True
-            torch.backends.cudnn.benchmark = False
-        except Exception as e:
-            log(e)
-            device = 'cpu'
-    return device
-
-
-
-def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
-                            device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
-    """function dataloader_create
-    Args:
-        train_X:   
-        train_y:   
-        valid_X:   
-        valid_y:   
-        test_X:   
-        test_y:   
-        arg:   
-    Returns:
-        
-    """
-    train_loader, valid_loader, test_loader = None, None, None
-
-    if train_X is not None :
-        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
-        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
-        log("data size", len(train_X) )
-
-    if valid_X is not None :
-        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=device), torch.tensor(valid_y, dtype=torch.float32, device=device)
-        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
-        log("data size", len(valid_X)  )
-
-    if test_X  is not None :
-        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
-        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
-        log("data size:", len(test_X) )
-
-    return train_loader, valid_loader, test_loader
-
-
-def torch_norm_l2(X):
-    """
-    normalize the torch  tensor X by L2 norm.
-    """
-    X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
-    X_norm = X / X_norm
-    return X_norm
-
-
-def prepro_dataset_custom(df:pd.DataFrame):
-    coly = 'cardio'
-    y     = df[coly]
-    X_raw = df.drop([coly], axis=1)
-
-    # log("Target class ratio:")
-    # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
-
-    column_trans = ColumnTransformer(
-        [('age_norm', StandardScaler(), ['age']),
-        ('height_norm', StandardScaler(), ['height']),
-        ('weight_norm', StandardScaler(), ['weight']),
-        ('gender_cat', OneHotEncoder(), ['gender']),
-        ('ap_hi_norm', StandardScaler(), ['ap_hi']),
-        ('ap_lo_norm', StandardScaler(), ['ap_lo']),
-        ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
-        ('gluc_cat', OneHotEncoder(), ['gluc']),
-        ('smoke_cat', OneHotEncoder(), ['smoke']),
-        ('alco_cat', OneHotEncoder(), ['alco']),
-        ('active_cat', OneHotEncoder(), ['active']),
-        ], remainder='passthrough'
-    )
-
-    X = column_trans.fit_transform(X_raw)
-    nsamples = X.shape[0]
-    X_np = X.copy()
-
-    ##### Split   #########################################################################
-    seed= 42 
-    train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
-    test_ratio = self.arg.merge_model.train_config.TEST_RATIO
-    val_ratio =   self.arg.merge_model.train_config.TEST_RATIO
-    train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
-    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
-    return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
-    
-
-
-
-class model_template_MLP(torch.nn.Module):
-    def __init__(self,layers_dim=[20,100,16]):
-        super(modelA, self).__init__()
-        self.layers_dim = layers_dim 
-        self.output_dim = layers_dim[-1]
-        # self.head_task = nn.Sequential()
-        self.head_task = []
-        input_dim = layers_dim[0]
-        for layer_dim in layers_dim[:-1]:
-            self.head_task.append(nn.Linear(input_dim, layer_dim))
-            self.head_task.append(nn.ReLU())
-            input_dim = layer_dim
-        self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
-        self.head_task = nn.Sequential(*self.head_task)
-
-    def forward(self, x,**kwargs):
-        return self.head_task(x)
-
-
-
-
-class MergeModel_create2(BaseModel):
-    """
-    """
-    def __init__(self,arg:dict=None, modelA=None, modelB=None):
-        """
-                    
-        """
-        super(MergeModel_create,self).__init__(arg)
-        self.modelA = modelA_create(arg.modelA)   if modelA is None else (modelA)
-        self.modelB = modelB_create(arg.modelB)   if modelB is None else (modelB)
-
-
-    def freeze_all(self,):
-        for param in self.modelA.model.parameters():
-            param.requires_grad = False
-
-        for param in self.modelB.model.parameters():
-            param.requires_grad = False
-
-    def unfreeze_all(self,):
-        for param in self.modelA.model.parameters():
-            param.requires_grad = True
-
-        for param in self.modelB.model.parameters():
-            param.requires_grad = True
-
-    def create_model(self,):
-        super(MergeModel_create,self).create_model()
-        self.merge = self.arg.merge_model.get('MERGE','add')
-        layers_dim = self.arg.merge_model.architect.layers_dim
-
-        class Modelmerge(torch.nn.Module):
-            def __init__(self,modelB,modelA, layers_dim, merge,skip):
-                super(Modelmerge, self).__init__()
-
-                #### rule encoder
-                self.modelB_net = copy.deepcopy(modelB.net)
-                self.modelB_net.load_state_dict(modelB.net.state_dict())
-
-                ###3 data encoder
-                self.modelA_net = copy.deepcopy(modelA.net)
-                self.modelA_net.load_state_dict(modelA.net.state_dict())
-
-                ##### Check Input Dims are OK 
-                ### assert self.modelA_net =               
-
-
-                ##### Head Task   #####################
-                # self.head_task = nn.Sequential()
-                self.head_task = []
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[1:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
-
-                ###### Not good in model due to compute errors, keep into Losss
-                # self.head_task.append(nn.Sigmoid())  #### output layer
-
-                ##### MLP Head task
-                self.head_task = nn.Sequential(*self.head_task)
-
-
-            def forward(self, x,**kw):
-                # merge: cat or add
-                alpha = kw.get('alpha',0) # default only use YpredA
-                scale = kw.get('scale',1)
-        
-                ## with torch.no_grad():
-                embA = self.modelA_net.get_embedding(x)                
-                embB = self.modelB_net.get_embedding(x)                
-
-                ##### L2 normalize
-                embA = torch_norm_l2(embA)
-                embB = torch_norm_l2(embB)
-
-                ###### Concatenerate
-                if self.merge == 'cat_combine':
-                    z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
-
-                elif self.merge == 'cat':
-                    ### May need scale 
-                    z = torch.cat((embB, embA), dim=-1)
-
-
-                return self.head_task(z)    # predict absolute values
-
-
-            def get_embedding(self, x,**kw):
-                return emb
-
-        return Modelmerge(self.modelB,self.modelA,layers_dim,merge,skip)
-
-
-    def build(self):
-        # super(MergeModel_create,self).build()
-        log("modelB:")
-        self.modelB.build()
-
-        log("modelA:")
-        self.modelA.build()
-        
-        log("MergeModel:")
-        self.net_all   = self.create_model().to(self.device)
-        self.loss_calc = self.create_loss()#.to(self.device)
-
-        #### BE cacreful to include all the params if COmbine loss.
-        #### Here, only head_task
-        self.optimizer = torch.optim.Adam(self.net_all.head_task.parameters())
-        
-        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=5, 
-                        verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=0, eps=1e-08)
-        #self.optimizer = torch.optim.Adam(self.head_task )
-
-
-        #### Freeze modelA, modelB, to stop gradients.
-        self.freeze_all()
-
-
-    def create_loss2(self,):
-        """ 2) Classifer head + other model loss.     ### tweaking ,
-        One issue is : Image classifier, VCG, EfficientNet , 
-            modelA : blackBox, not always access to label...
-            modelB : blackBox, not always access to label...
-            cannot combine easily,  dont have head for those models
-        """
-        super(MergeModel_create,self).create_loss()
-        modelB_loss_calc= self.modelB.loss_calc
-        modelA_loss_calc= self.modelA.loss_calc
-
-        class MergeLoss(torch.nn.Module):
-            def __init__(self,modelB_loss_calc,modelA_loss_calc):
-                super(MergeLoss,self).__init__()
-                self.modelB_loss_calc= modelB_loss_calc
-                self.modelA_loss_calc= modelA_loss_calc
-
-            def forward(self,output,target,alpha=0,scale=1):                
-                #### All have SAME Head labels.
-                modelB_loss = self.modelB_loss_calc(output,  target.reshape(output.shape))
-                modelA_loss = self.modelA_loss_calc(output,  target.reshape(output.shape))                
-                loss_combine = modelB_loss * alpha * scale + modelA_loss * (1-alpha)
-                # result = modelB_loss + modelA_loss
-                return loss_combine
-        return MergeLoss(modelB_loss_calc,modelA_loss_calc)
-
-
-
-    def prepro_dataset(self,df:pd.DataFrame=None):
-        if df is None:              
-            df = self.df     # if there is no dataframe feeded , get df from model itself
-
-        coly = 'y'
-        y    = df[coly]
-        X    = df.drop([coly], axis=1)
-        nsamples = X.shape[0]
-
-        ##### Split   #########################################################################
-        seed= 42 
-        train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
-        test_ratio  = self.arg.merge_model.train_config.TEST_RATIO
-        val_ratio   = self.arg.merge_model.train_config.TEST_RATIO
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
-        return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
-        
-
-
 
 
 #############################################################################################
@@ -1064,193 +168,743 @@ here....
 
 
 
+def test2_new():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
 
-###############################################################################################
-###############################################################################################
+    ### acces byt bot 
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df
+
+    prepro_dataset = None 
+    
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
 
 
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'modelA1'
+    ARG.modelA.architect     = [ 9, 100, 16 ]
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA.seed          = 42
+    modelA = modelA_create(ARG.modelA)
+
+
+    ### modelB  ########################################################
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name         = 'modelB1'
+    ARG.modelB.architect     = [9,100,16]
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    ARG.modelB.seed          = 42
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.seed      = 42
+    ARG.merge_model.architect = { 'decoder': [ 32, 100, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+    ##### lien was cut  , new zoom id
+    #Join Zoom Meeting
+    #https://us05web.zoom.us/j/2933746463?pwd=WUhRWkx0NWNZRVBFVjZ4enV6Y1R2QT09
+
+    # ok
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()        
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x9.pt') 
+    model.load_weights('ztmp/model_x9.pt')
+    inputs = torch.randn((1,9)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+##############################################################################################
+class BaseModel(object):
+    """This is BaseClass for model create
+
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        evaluate: 
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+        create_loss :   Initialize Loss Function 
+        training:   starting training
+        build: create model, loss, optimizer (call before training)
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        device_setup: 
+        load_DataFrame: read pandas
+        load_weight: 
+        save_weight: 
+        predict : 
+    """
+    
+    def __init__(self,arg):
+        self.arg = Box(arg)
+        self._device = self.device_setup(arg)
+        self.losser = None
+        self.is_train = False
+        
+    @abstractmethod
+    def create_model(self,) -> torch.nn.Module:
+    #   raise NotImplementedError
+        log("       model is building")
+    @abstractmethod
+    def evaluate(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def prepro_dataset(self,csv) -> pd.DataFrame:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def create_loss(self,) -> torch.nn.Module:
+        log("       loss is building")
+        # raise NotImplementedError
+
+    @abstractmethod
+    def training(self,):
+        raise NotImplementedError
+
+    @property
+    def device(self,):
+        return self._device
+    
+    @device.setter
+    def device(self,value):
+        if isinstance(value,torch.device):
+          self._device = value
+        elif isinstance(value,str):
+          self._device = torch.device(value)
+        else:
+          raise TypeError("device must be str or torch.device")
+
+    def build(self,):
+        self.head_task = self.create_model().to(self.device)
+        self.loss_calc= self.create_loss().to(self.device)
+        # self.loss_calc= 
+        self.is_train = False
+    
+    def train(self): # equivalent model.train() in pytorch
+        self.is_train = True
+        self.head_task.train()
+
+    def eval(self):     # equivalent model.eval() in pytorch
+        self.is_train = False
+        self.head_task.eval()
+
+    def device_setup(self,arg):
+        device = getattr(arg,'device','cpu')
+        seed   = arg.seed if hasattr(arg,'seed') else 42
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
+        if 'gpu' in device :
+            try :
+                torch.cuda.manual_seed(seed)
+                torch.cuda.manual_seed_all(seed)
+                torch.backends.cudnn.deterministic = True
+                torch.backends.cudnn.benchmark = False
+            except Exception as e:
+                log(e)
+                device = 'cpu'
+        return device
+
+    def load_DataFrame(self,path=None)-> pd.DataFrame:
+        if path:
+            log(f"reading csv from {path}")
+            self.df = pd.read_csv(path,delimiter=';')
+            return self.df
+        if os.path.isfile(self.arg.dataset.path):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.dataset.path}")
+            self.df = pd.read_csv(self.arg.dataset.path,delimiter=';')
+            return self.df
+        else:
+            import requests
+            import io
+            r = requests.get(self.arg.dataset.url)
+            log(f"Reading csv from arg.DATASET.URL")
+            if r.status_code ==200:
+                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
+            else:
+                raise Exception("Can't read data, status_code: {r.status_code}")
+            
+            return self.df
+
+
+    def load_weights(self, path):
+        assert os.path.isfile(path),f"{path} does not exist"
+        try:
+          ckp = torch.load(path,map_location=self.device)
+        except Exception as e:
+          log(e)
+          log(f"can't load the checkpoint from {path}")  
+        if isinstance(ckp,collections.OrderedDict):
+          self.head_task.load_state_dict(ckp)
+        else:
+          self.head_task.load_state_dict(ckp['state_dict'])
+    
+    def save_weight(self,path,meta_data=None):
+      os.makedirs(os.path.dirname(path),exist_ok=True)
+      ckp = {
+          'state_dict':self.head_task.state_dict(),
+      }
+      if meta_data:
+        if isinstance(meta_data,dict):
+            ckp.update(meta_data)
+        else:
+            ckp.update({'meta_data':meta_data,})
+            
+        
+      torch.save(ckp,path)
+
+    def predict(self,x,**kwargs):
+        # raise NotImplementedError
+        output = self.head_task(x,**kwargs)
+        return output 
+
+
+
+
+##############################################################################################
+class MergeModel_create(BaseModel):
+    """
+    """
+    def __init__(self,arg, modelA=None, modelB=None):
+        """_summary_
+
+
+        from box import Box   ####
+                      
+        """
+        super(MergeModel_create,self).__init__(arg)
+        if modelA is None:
+            self.modelA = modelA_create(arg.modelA) 
+        else:
+            self.modelA = (modelA)
+        if modelB is None:
+            self.modelB = modelB_create(arg.modelB)
+        else:
+            self.modelB = (modelB)
+    
+
+    def freeze_all(self,):
+        for param in self.modelA.model.parameters():
+            param.requires_grad = False
+
+        for param in self.modelB.model.parameters():
+            param.requires_grad = False
+
+    def unfreeze_all(self,):
+        for param in self.modelA.model.parameters():
+            param.requires_grad = True
+
+        for param in self.modelB.model.parameters():
+            param.requires_grad = True
+
+    def create_model(self,):
+        super(MergeModel_create,self).create_model()
+        # merge = self.arg.merge
+        merge = getattr(self.arg.merge_model,'MERGE','add')
+        skip = getattr(self.arg.merge_model,'SKIP',False)
+        
+        dims = self.arg.merge_model.architect.decoder
+        class Modelmerge(torch.nn.Module):
+            def __init__(self,modelB,modelA, dims, merge,skip):
+                super(Modelmerge, self).__init__()
+
+                #### rule encoder
+                self.modelB_net = copy.copy(modelB.net)
+                self.modelB_net.load_state_dict(modelB.net.state_dict())
+
+                ###3 data encoder
+                self.modelA_net = copy.copy(modelA.net)
+                self.modelA_net.load_state_dict(modelA.net.state_dict())
+
+                ##### Merge
+                self.merge = merge
+                self.skip = skip
+                self.input_type = 'seq'
+
+
+
+                ##### Head Task   #####################
+                # self.head_task = nn.Sequential()
+                self.head_task = []
+                input_dim = dims[0]
+                for layer_dim in dims[1:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, dims[-1]))
+
+                ###### Not good in model, keep into Losss
+                # self.head_task.append(nn.Sigmoid())  #### output layer
+
+                ##### MLP Head task
+                self.head_task = nn.Sequential(*self.head_task)
+
+
+            def forward(self, x,**kw):
+                # merge: cat or add
+                alpha = kw.get('alpha',0) # default only use YpredA
+                scale = kw.get('scale',1)
+        
+                ## with torch.no_grad():
+                embB = self.modelB_net.get_embedding(x)                
+                embA = self.modelA_net.get_embedding(x)
+
+                ##### 
+                normB = torch_norm_l2(embB)
+                embA =  torch_norm_l2(embA)
+
+                ###### Scale, 
+                if self.merge == 'cat':
+                    z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
+
+                elif self.merge == 'cat_equal':
+                    ### May need scale 
+                    z = torch.cat((embB, embA), dim=-1)
+
+
+                return self.head_task(z)    # predict absolute values
+
+            def get_embedding(self, x,**kw):
+                 return emb
+
+        return Modelmerge(self.modelB,self.modelA,dims,merge,skip)
+
+
+    def build(self):
+        # super(MergeModel_create,self).build()
+        log("modelB:")
+        self.modelB.build()
+
+        log("modelA:")
+        self.modelA.build()
+        
+        log("MergeModel:")
+        self.net_all   = self.create_model().to(self.device)
+        self.loss_calc = self.create_loss()#.to(self.device)
+
+        #### BE cacreful to include all the params if COmbine loss.
+        self.optimizer = torch.optim.Adam(self.net_all.head_task.parameters())
+        
+        # self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=5, verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=0, eps=1e-08)
+        #self.optimizer = torch.optim.Adam(self.head_task )
+
+
+        #### Freeze modelA, modelB top the fraidnet
+        self.freeze_all()
+
+
+    def create_loss1(self,):
+        """
+            2 possibilites:
+               1) Only Head task loss : Classfieri head  ### Baseline
+                    Stop the gradient or not in modelA and modelB.
+                    embA_d = embA.detach()  ### Stop the gradient
+
+        """
+        super(MergeModel_create,self).create_loss()
+        loss =  torch.nn.BCEWithLogitsLoss()
+        return loss
+        
+
+
+    def create_loss2(self,):
+        """
+            2 possibilites:
+               2) Classifer head + other model loss.     ### tweaking ,
+
+           One issue is : Image classifier, VCG, EfficientNet , 
+              modelA : blackBox, not always access to label...
+              modelB : blackBox, not always access to label...
+               cannot combine easily,  dont have head for those models
+              
+           Last layer embedding.
+
+
+           1) Only Head task loss : Classfieri head  ### Baseline
+           Stop the gradient or not in modelA and modelB.
+            embA_d = embA.detach()  ### Stop the gradient
+            modelA_loss(x_a, embA)
+
+
+
+        """
+        super(MergeModel_create,self).create_loss()
+        modelB_loss_calc= self.modelB.loss_calc
+        modelA_loss_calc= self.modelA.loss_calc
+
+        class MergeLoss(torch.nn.Module):
+            def __init__(self,modelB_loss_calc,modelA_loss_calc):
+                super(MergeLoss,self).__init__()
+                self.modelB_loss_calc= modelB_loss_calc
+                self.modelA_loss_calc= modelA_loss_calc
+
+            def forward(self,output,target,alpha=0,scale=1):                
+                #### All have SAME Head labels.
+                modelB_loss = self.modelB_loss_calc(output,  target.reshape(output.shape))
+                modelA_loss = self.modelA_loss_calc(output,  target.reshape(output.shape))                
+                loss_combine = modelB_loss * alpha * scale + modelA_loss * (1-alpha)
+                # result = modelB_loss + modelA_loss
+                return loss_combine
+        return MergeLoss(modelB_loss_calc,modelA_loss_calc)
+
+
+    def prepro_dataset(self,df=None):
+        if df is None:              
+            df = self.df     # if there is no dataframe feeded , get df from model itself
+
+        coly = 'cardio'
+        y     = df[coly]
+        X_raw = df.drop([coly], axis=1)
+
+        # log("Target class ratio:")
+        # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
+
+        column_trans = ColumnTransformer(
+            [('age_norm', StandardScaler(), ['age']),
+            ('height_norm', StandardScaler(), ['height']),
+            ('weight_norm', StandardScaler(), ['weight']),
+            ('gender_cat', OneHotEncoder(), ['gender']),
+            ('ap_hi_norm', StandardScaler(), ['ap_hi']),
+            ('ap_lo_norm', StandardScaler(), ['ap_lo']),
+            ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
+            ('gluc_cat', OneHotEncoder(), ['gluc']),
+            ('smoke_cat', OneHotEncoder(), ['smoke']),
+            ('alco_cat', OneHotEncoder(), ['alco']),
+            ('active_cat', OneHotEncoder(), ['active']),
+            ], remainder='passthrough'
+        )
+
+        X = column_trans.fit_transform(X_raw)
+        nsamples = X.shape[0]
+        X_np = X.copy()
+
+
+        ##### Split   #########################################################################
+        seed= 42 
+        train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
+        test_ratio = self.arg.merge_model.train_config.TEST_RATIO
+        val_ratio =   self.arg.merge_model.train_config.TEST_RATIO
+        train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
+        return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
+        
+
+    def training(self,load_DataFrame=None,prepro_dataset=None):
+        # training with load_DataFrame and prepro_data function or default funtion in self.method
+
+      
+        df = load_DataFrame(self) if load_DataFrame else self.load_DataFrame()
+        if prepro_dataset:
+           train_X, train_y, valid_X,  valid_y, test_X,  test_y = prepro_dataset(self,df)
+        else:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
+
+        batch_size = self.arg.merge_model.train_config.BATCH_SIZE
+        train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, 
+                                                                    valid_X,  valid_y,
+                                                                    test_X,  test_y,
+                                                                    device=self.device,
+                                                                    batch_size=batch_size)
+        
+        EPOCHS = self.arg.merge_model.train_config.EPOCHS
+        n_train = len(train_loader)
+        n_val = len(valid_loader)
+        
+        
+        for epoch in range(1,EPOCHS+1):
+            self.train()
+            loss_train = 0
+            with torch.autograd.set_detect_anomaly(True): 
+                for inputs,targets in train_loader:
+                    
+                    predict = self.head_task(inputs)
+                    self.optimizer.zero_grad()
+                    # self.optimizer.step()
+                    scale =1
+                    loss = self.loss_calc(predict, targets)
+                    # loss.grad
+                    loss.backward()
+                    self.optimizer.step()
+                    loss_train += loss * inputs.size(0)
+                loss_train /= len(train_loader.dataset) # mean on dataset
+
+
+            ##### Eval
+            loss_val = 0
+            self.eval()
+            with torch.no_grad():
+                for inputs,targets in valid_loader:
+                    predict = self.predict(inputs)
+                    self.optimizer.zero_grad()
+                    scale=1
+                    loss = self.loss_calc(predict,targets)                    
+                    loss_val += loss * inputs.size(0)
+            loss_val /= len(valid_loader.dataset) # mean on dataset
+            
+            
+            path_save = self.arg.merge_model.train_config.SAVE_FILENAME
+            self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
+
+
+
+def torch_norm_l2(X):
+  """
+   normalize the torch  tensor X by L2 norm.
+  """
+  X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
+  X_norm = X / X_norm
+  return X_norm
+
+
+def mytrain(x1, x2):
+    pass
 
 ###################################################################################################
 if __name__ == "__main__":
     import fire 
     fire.Fire() 
     # test_all()
-
-####################################################################################################
-if '''not model.py ''' :
-    class NaiveModel(nn.Module):
-      def __init__(self):
-        """ NaiveModel:__init__
-        Args:
-        Returns:
-          
-        """
-        super(NaiveModel, self).__init__()
-        self.head_task = nn.Identity()
-
-      def forward(self, x, alpha=0.0):
-        """ Net:forward
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        """ NaiveModel:forward
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        return self.head_task(x)
+    ###   https://github.com/google/python-fire
+    ### arg_parser
+    ####  python myfile.py   myClass.method1  --x1  234223  --x2 2
 
 
-    class modelB(nn.Module):
-      def __init__(self, input_dim, output_dim, hidden_dim=4):
-        """ modelB:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            hidden_dim:     
-        Returns:
-          
-        """
-        """ modelA:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            hidden_dim:     
-        Returns:
-          
-        """
-        super(modelB, self).__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                                nn.ReLU(),
-                                nn.Linear(hidden_dim, output_dim))
-
-      def forward(self, x):
-        """ modelB:forward
-        Args:
-            x:     
-        Returns:
-          
-        """
-        """ modelA:forward
-        Args:
-            x:     
-        Returns:
-          
-        """
-        return self.head_task(x)
+sorry, the line was cut. 
+thanks for today, and various comments
 
 
-    class modelA(nn.Module):
-      def __init__(self, input_dim, output_dim, hidden_dim=4):
-        super(modelA, self).__init__()
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
-                                nn.ReLU(),
-                                nn.Linear(hidden_dim, output_dim))
-
-      def forward(self, x):
-        return self.head_task(x)
 
 
-    class Net(nn.Module):
-      def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
-        """ Net:__init__
-        Args:
-            input_dim:     
-            output_dim:     
-            modelA:     
-            modelB:     
-            hidden_dim:     
-            n_layers:     
-            merge:     
-            skip:     
-            input_type:     
-        Returns:
-          
-        """
-        super(Net, self).__init__()
-        self.skip = skip
-        self.input_type   = input_type
-        self.modelA = modelA
-        self.modelB = modelB
-        self.n_layers =n_layers
-        assert self.modelA.input_dim == self.modelB.input_dim
-        assert self.modelA.output_dim == self.modelB.output_dim
-        self.merge = merge
-        if merge == 'cat':
-          self.input_dim_decision_block = self.modelA.output_dim * 2
-        elif merge == 'add':
-          self.input_dim_decision_block = self.modelA.output_dim
+##############################################################################################
+class modelB_create(BaseModel):
+    """ modelB
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
 
-        self.head_task = []
-        for i in range(n_layers):
-          if i == 0:
-            in_dim = self.input_dim_decision_block
-          else:
-            in_dim = hidden_dim
+    def create_model(self):
+        super(modelA_create,self).create_model()
+        dims = self.arg.architect
+        
+        class modelB(torch.nn.Module):
+            def __init__(self,dims=[20,100,16]):
+                super(modelA, self).__init__()
+                self.dims = dims 
+                self.output_dim = dims[-1]
+                # self.head_task = nn.Sequential()
+                self.head_task = []
+                input_dim = dims[0]
+                for layer_dim in dims[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, dims[-1]))   #####  Do not use Sigmoid 
+                self.head_task = nn.Sequential(*self.head_task)
 
-          if i == n_layers-1:
-            out_dim = output_dim
-          else:
-            out_dim = hidden_dim
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
 
-          self.head_task.append(nn.Linear(in_dim, out_dim))
-          if i != n_layers-1:
-            self.head_task.append(nn.ReLU())
+            def get_embedding(self,x, **kwargs):
+              """  call signature
+                   get name of the layer to extract it
+                       Custom by model, API.
+                       manual extraction + 
 
-        self.head_task.append(nn.Sigmoid())
+                        https://pytorch.org/vision/main/feature_extraction.html
 
-        self.head_task = nn.Sequential(*self.head_task)
+                        https://discuss.pytorch.org/t/how-to-delete-layer-in-pretrained-model/17648/6
 
-      def get_z(self, x, alpha=0.0):
-        """ Net:get_z
-        Args:
-            x:     
-            alpha:     
-        Returns:
-          
-        """
-        YpredB = self.modelA(x)
-        YpredA = self.modelB(x)
 
-        if self.merge == 'add':
-          z = alpha*YpredB + (1-alpha)*YpredA
-        elif self.merge == 'cat':
-          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-        elif self.merge == 'equal_cat':
-          z = torch.cat((YpredB, YpredA), dim=-1)
+                        https://github.com/Riccorl/transformers-embedder
 
-        return z
+                        poling --> embedding for trasnfoemer
 
-      def forward(self, x, alpha=0.0):
-        # merge: cat or add
+                        TIM ?
+                        https://github.com/rwightman/pytorch-image-models
 
-        YpredB = self.modelA(x)
-        YpredA = self.modelB(x)
 
-        if self.merge == 'add':
-          z = alpha*YpredB + (1-alpha)*YpredA
-        elif self.merge == 'cat':
-          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
-        elif self.merge == 'equal_cat':
-          z = torch.cat((YpredB, YpredA), dim=-1)
+                        Re-normlaize the model through embedidng.
 
-        if self.skip:
-          if self.input_type == 'seq':
-            return self.head_task(z) + x[:, -1, :]
-          else:
-            return self.head_task(z) + x    # predict delta values
-        else:
-          return self.head_task(z)    # predict absolute values
+                           Use this case:
+                            new article 
+                                Image model --->  embA   ---> MergeModel --> 
+                                NLP model   --->  embB
+                                .....
+                                .....
+                                ....
 
+                                  https://github.com/ml-jku/cloob
+                                CLIP :  CLOOB  
+                                ConText should be same,
+
+
+
+              """  
+              self.taks_task(x) # bs x c x h x w
+              
+              self.net.
+
+
+              
+
+        return modelB(dims)
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+
+class modelA_create(BaseModel):
+    """ modelA
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self):
+        super(modelA_create,self).create_model()
+        dims = self.arg.architect
+        
+        class modelA(torch.nn.Module):
+            def __init__(self,dims=[20,100,16]):
+                super(modelA, self).__init__()
+                self.dims = dims 
+                self.output_dim = dims[-1]
+                # self.head_task = nn.Sequential()
+                self.head_task = []
+                input_dim = dims[0]
+                for layer_dim in dims[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, dims[-1]))
+                self.head_task = nn.Sequential(*self.head_task)
+
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
+
+            def get_embedding(self, x,**kwargs):
+               return emb
+
+        return modelA(dims)
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+
+
+###############################################################################################
+###############################################################################################
+def device_setup(arg):
+    """function device_setup
+    Args:
+        arg:   
+    Returns:
+        
+    """
+    device = arg.device
+    seed   = arg.seed
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    if 'gpu' in device :
+        try :
+            torch.cuda.manual_seed(seed)
+            torch.cuda.manual_seed_all(seed)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+        except Exception as e:
+            log(e)
+            device = 'cpu'
+    return device
+
+
+def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  arg=None):
+    """function dataloader_create
+    Args:
+        train_X:   
+        train_y:   
+        valid_X:   
+        valid_y:   
+        test_X:   
+        test_y:   
+        arg:   
+    Returns:
+        
+    """
+    batch_size = arg.batch_size
+    train_loader, valid_loader, test_loader = None, None, None
+
+    if train_X is not None :
+        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=arg.device), torch.tensor(train_y, dtype=torch.float32, device=arg.device)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
+        log("data size", len(train_X) )
+
+    if valid_X is not None :
+        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=arg.device), torch.tensor(valid_y, dtype=torch.float32, device=arg.device)
+        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
+        log("data size", len(valid_X)  )
+
+    if test_X  is not None :
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=arg.device), torch.tensor(test_y, dtype=torch.float32, device=arg.device)
+        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
+        log("data size:", len(test_X) )
+
+    return train_loader, valid_loader, test_loader
 
 
 def model_load(arg):
@@ -1542,5 +1196,191 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
       log('[Test] Accuracy: {:.4f} (alpha:{})'.format(test_acc, alpha))
       log("[Test] Ratio of verified predictions: {:.6f} (alpha:{})".format(test_ratio, alpha))
       log()
+
+
+
+
+
+
+###################################################################################################
+if __name__ == "__main__":
+    import fire 
+    fire.Fire() 
+    # test_all()
+
+####################################################################################################
+if '''not model.py ''' :
+    class NaiveModel(nn.Module):
+      def __init__(self):
+        """ NaiveModel:__init__
+        Args:
+        Returns:
+          
+        """
+        super(NaiveModel, self).__init__()
+        self.head_task = nn.Identity()
+
+      def forward(self, x, alpha=0.0):
+        """ Net:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        """ NaiveModel:forward
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        return self.head_task(x)
+
+
+    class modelB(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        """ modelB:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        """ modelA:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            hidden_dim:     
+        Returns:
+          
+        """
+        super(modelB, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        """ modelB:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        """ modelA:forward
+        Args:
+            x:     
+        Returns:
+          
+        """
+        return self.head_task(x)
+
+
+    class modelA(nn.Module):
+      def __init__(self, input_dim, output_dim, hidden_dim=4):
+        super(modelA, self).__init__()
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.head_task = nn.Sequential(nn.Linear(input_dim, hidden_dim),
+                                nn.ReLU(),
+                                nn.Linear(hidden_dim, output_dim))
+
+      def forward(self, x):
+        return self.head_task(x)
+
+
+    class Net(nn.Module):
+      def __init__(self, input_dim, output_dim, modelA, modelB, hidden_dim=4, n_layers=2, merge='cat', skip=False, input_type='state'):
+        """ Net:__init__
+        Args:
+            input_dim:     
+            output_dim:     
+            modelA:     
+            modelB:     
+            hidden_dim:     
+            n_layers:     
+            merge:     
+            skip:     
+            input_type:     
+        Returns:
+          
+        """
+        super(Net, self).__init__()
+        self.skip = skip
+        self.input_type   = input_type
+        self.modelA = modelA
+        self.modelB = modelB
+        self.n_layers =n_layers
+        assert self.modelA.input_dim == self.modelB.input_dim
+        assert self.modelA.output_dim == self.modelB.output_dim
+        self.merge = merge
+        if merge == 'cat':
+          self.input_dim_decision_block = self.modelA.output_dim * 2
+        elif merge == 'add':
+          self.input_dim_decision_block = self.modelA.output_dim
+
+        self.head_task = []
+        for i in range(n_layers):
+          if i == 0:
+            in_dim = self.input_dim_decision_block
+          else:
+            in_dim = hidden_dim
+
+          if i == n_layers-1:
+            out_dim = output_dim
+          else:
+            out_dim = hidden_dim
+
+          self.head_task.append(nn.Linear(in_dim, out_dim))
+          if i != n_layers-1:
+            self.head_task.append(nn.ReLU())
+
+        self.head_task.append(nn.Sigmoid())
+
+        self.head_task = nn.Sequential(*self.head_task)
+
+      def get_z(self, x, alpha=0.0):
+        """ Net:get_z
+        Args:
+            x:     
+            alpha:     
+        Returns:
+          
+        """
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        return z
+
+      def forward(self, x, alpha=0.0):
+        # merge: cat or add
+
+        YpredB = self.modelA(x)
+        YpredA = self.modelB(x)
+
+        if self.merge == 'add':
+          z = alpha*YpredB + (1-alpha)*YpredA
+        elif self.merge == 'cat':
+          z = torch.cat((alpha*YpredB, (1-alpha)*YpredA), dim=-1)
+        elif self.merge == 'equal_cat':
+          z = torch.cat((YpredB, YpredA), dim=-1)
+
+        if self.skip:
+          if self.input_type == 'seq':
+            return self.head_task(z) + x[:, -1, :]
+          else:
+            return self.head_task(z) + x    # predict delta values
+        else:
+          return self.head_task(z)    # predict absolute values
 
 

@@ -134,11 +134,7 @@ def os_typehint_check(fun):
     # print(type(locals()), locals())
     for x in args:
         type_info = type(locals()[x])
-        if verbose
-         print(x, '->','arg is', type_info, ',','annotation is', annotations[x],'/', type_info in annotations[x])
-
-    f(1, 'foo', 3)
-
+        print(x, '->','arg is', type_info, ',','annotation is', annotations[x],'/', type_info in annotations[x])
 
 
 
