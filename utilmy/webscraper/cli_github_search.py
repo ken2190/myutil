@@ -1,20 +1,23 @@
 # About: Search & Scrape GitHub repositories
-"""
-Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
+"""Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
+Doc::
 
-Usage:
+    Usage:
 
-`cli_github_search amazon scraper`
+    `cli_github_search amazon scraper`
 
-or refine your search
+    or refine your search
 
-`cli_github_search keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
+    `cli_github_search keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
 
-These are optional arguments:
+    These are optional arguments:
 
-`-c` or `--created` specify the period of repository creation
-`-p` or `--pushed` specify the period of pushing to repo
-`-o` or `--dir_out` specify the output folder for storing results (default value is `results`)
+    `-c` or `--created` specify the period of repository creation
+    `-p` or `--pushed` specify the period of pushing to repo
+    `-o` or `--dir_out` specify the output folder for storing results (default value is `results`)
+    
+
+
 """
 
 import os
@@ -126,6 +129,7 @@ def search_github(args, start_time):
                 filename = ""
                 for word in keywords:
                     filename += word + '_'
+
                 filename = filename[:-1] + "-" + datetime.now().strftime("%Y%m%d") + ".csv"
 
                 try:

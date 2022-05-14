@@ -26,8 +26,9 @@ def log(*s):
 
 
 
+
 ##################################################################################
-from util_hadoop import (
+from utilmy.sspark.src.util_hadoop import (
    hdfs_copy_hdfs_to_local, 
    hdfs_copy_local_to_hdfs, 
    hdfs_dir_exists,
@@ -75,7 +76,7 @@ def test1():
     spark_config_print(sparksession)
 
 
-    spark_config_check(sparksession)
+    spark_config_check()
 
 
 def config_parser(config):
@@ -124,6 +125,10 @@ def spark_config_print(sparksession):
 
 def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
+    Doc::
+
+         pip install -e .    // pip install utilmy   
+         sspark spark_config_check
 
 
     """
@@ -285,6 +290,7 @@ def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartiti
     if show:
         df.show()
 
+        
 
 def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
@@ -301,6 +307,7 @@ def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
       ss = [  t.split(":") for t in ss]
       ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
       print(ss)  
+
 
   elif isinstance(tables, list):
       ss = [ [ ti, ti] for ti in tables  ]    

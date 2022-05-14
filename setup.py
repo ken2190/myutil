@@ -181,7 +181,6 @@ except :
 
 
 def os_cmd_to_bashrc(cmd):
-
     try :
         if 'win' in sys.platform :
             os.system(f""" set  {cmd} """)  ### Any new session
@@ -191,7 +190,7 @@ def os_cmd_to_bashrc(cmd):
             os_bash_append(f"""\n {cmd}     \n""")
             print(' source  ~/.bashrc  ')
 
-        print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")
+        print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")    
 
     except :
         pass
