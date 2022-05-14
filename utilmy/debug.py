@@ -14,16 +14,13 @@ import itertools, time, multiprocessing, pandas as pd, numpy as np, pickle, gc
 
 #################################################################################################
 def log(*s):
-    """function log.         
-    """
+    """function log.         """
     print(*s, flush=True)
 
 
 def help():
-    """function help.
-    """
+    """function help."""
     ss  = ""
-    ss += HELP
     print(ss)
 
 
@@ -117,7 +114,30 @@ def profiler_stop():
 
 
 
+
+
 #####################################################################################
+def os_typehint_check(fun):
+    """
+    Doc::
+            # prints 
+            # a -> arg is <class 'int'> , annotation is <class 'int'> / True
+            # b -> arg is <class 'str'> , annotation is <class 'str'> / True
+            # c -> arg is <class 'int'> , annotation is <class 'float'> / False
+
+    """
+    # def f(a: int, b: str, c: float):
+    import inspect
+    args = inspect.getfullargspec(fun).args
+    annotations = inspect.getfullargspec(fun).annotations
+    # annotations = f.__annotations__
+    # print(type(locals()), locals())
+    for x in args:
+        type_info = type(locals()[x])
+        print(x, '->','arg is', type_info, ',','annotation is', annotations[x],'/', type_info in annotations[x])
+
+
+
 def os_get_function_name():
     import traceback
     try :
