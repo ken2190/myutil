@@ -188,8 +188,7 @@ def os_cmd_to_bashrc(cmd):
             os.system(f""" setx {cmd} """)  ### Current session
 
         elif 'linux' in sys.platform :
-            os_bash_append(f""" {cmd}      """)
-            # os_bash_append(f" {cmd} ")
+            os_bash_append(f"""\n {cmd}     \n""")
             print(' source  ~/.bashrc  ')
 
         print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")
@@ -198,7 +197,7 @@ def os_cmd_to_bashrc(cmd):
         pass
 
 
-cmd= "\nalias sspark='python $utilmy/sspark/src/util_spark.py '"
+cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
 os_cmd_to_bashrc(cmd)
 
 
