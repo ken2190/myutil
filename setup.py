@@ -156,6 +156,9 @@ setup(
 
 
 
+def os_bash_append(txt):
+  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
+     bashrc.write(txt)
 
 
 #### Add environemment variables  utilmy
@@ -166,7 +169,7 @@ try :
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
+        os_bash_append(f"""\nexport utilmy={repopath}/    """)
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
@@ -176,9 +179,6 @@ except :
     pass
 
 
-def os_bash_append(txt):
-  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
-     bashrc.write(txt)
 
 def os_cmd_to_bashrc(cmd):
 
@@ -189,7 +189,7 @@ def os_cmd_to_bashrc(cmd):
 
         elif 'linux' in sys.platform :
             os_bash_append(f""" {cmd}      """)
-            os_bash_append(f" {cmd} ")
+            # os_bash_append(f" {cmd} ")
             print(' source  ~/.bashrc  ')
 
         print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")
@@ -198,7 +198,7 @@ def os_cmd_to_bashrc(cmd):
         pass
 
 
-cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
+cmd= "\nalias sspark='python $utilmy/sspark/src/util_spark.py '"
 os_cmd_to_bashrc(cmd)
 
 
