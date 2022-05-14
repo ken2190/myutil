@@ -125,6 +125,10 @@ def spark_config_print(sparksession):
 
 def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
+    Doc::
+
+         pip install -e .    // pip install utilmy   
+         sspark spark_config_check
 
 
     """
