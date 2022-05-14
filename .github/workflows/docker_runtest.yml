@@ -55,7 +55,7 @@ jobs:
       image: artia37/ubuntu-google-drive:v1
       env:
         # NOTE:
-        # CLIENT_SECRET and CLIENT_SECRET are google oAuth client ID & client secret
+        # CLIENT_ID and CLIENT_SECRET are google oAuth client ID & client secret
         # Follow this guide to get those values
         # https://github.com/astrada/google-drive-ocamlfuse/wiki/Headless-Usage-&-Authorization
         
