@@ -496,74 +496,76 @@ print(maxDiff)
 ##############################################################################################
 ##############################################################################################
 Median in a stream of integers (running integers)
-      Difficulty Level : Hard
-      Last Updated : 28 Mar, 2022
-https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
-          
+    Difficulty Level : Hard
+    Last Updated : 28 Mar, 2022
+    https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
         
-      Given that integers are read from a data stream. Find median of elements read so 
-      for in an efficient way. For simplicity assume, there are no duplicates. 
-      For example, let us consider the stream 5, 15, 1, 3 … 
+
+    Given that integers are read from a data stream. Find median of elements read so 
+    for in an efficient way. For simplicity assume, there are no duplicates. 
+    For example, let us consider the stream 5, 15, 1, 3 … 
 
 
-      After reading 1st element of stream - 5 -> median - 5
-      After reading 2nd element of stream - 5, 15 -> median - 10
-      After reading 3rd element of stream - 5, 15, 1 -> median - 5
-      After reading 4th element of stream - 5, 15, 1, 3 -> median - 4, so on...
-      Making it clear, when the input size is odd, we take the middle element of sorted data. 
-      If the input size is even, we pick the average of the middle two elements in the sorted stream.
-      Note that output is the effective median of integers read from the stream so far. 
-      Such an algorithm is called an online algorithm. 
-      Any algorithm that can guarantee the output of i-elements after processing i-th element, 
-      is said to be online algorithm. Let us discuss three solutions to the above problem.
+    After reading 1st element of stream - 5 -> median - 5
+    After reading 2nd element of stream - 5, 15 -> median - 10
+    After reading 3rd element of stream - 5, 15, 1 -> median - 5
+    After reading 4th element of stream - 5, 15, 1, 3 -> median - 4, so on...
+    Making it clear, when the input size is odd, we take the middle element of sorted data. 
+    If the input size is even, we pick the average of the middle two elements in the sorted stream.
+    Note that output is the effective median of integers read from the stream so far. 
+    Such an algorithm is called an online algorithm. 
+    Any algorithm that can guarantee the output of i-elements after processing i-th element, 
+    is said to be online algorithm. Let us discuss three solutions to the above problem.
 
 
+    Time Complexity: If we omit the way how stream was read, complexity of median finding is O(N log N), 
+    as we need to read the stream, and due to heap insertions/deletions.
+    Auxiliary Space: O(N)
+    At first glance the above code may look complex. If you read the code carefully, it is simple algorithm.   
 
-  
 
-Time Complexity: If we omit the way how stream was read, complexity of median finding is O(N log N), 
-  as we need to read the stream, and due to heap insertions/deletions.
-
-Auxiliary Space: O(N)
-At first glance the above code may look complex. If you read the code carefully, it is simple algorithm.   
-
-# Heap based
 ### Key idea :
-    Maintain 2 heaps ( A left heap & aa right heap )
+     Heap based
+     Maintain 2 heaps ( A left heap & aa right heap )
+        Left :  min values heap 
+        Right: max values heap
 
     Left Right 
-# Condition : Left <= RIght & (Right - Left) <=1  
-              Left = Right     (Even)
-         OR   Left = Right-1   (Odd)
+    # Condition : val_Left <= val_RIght & (size_Right - size_Left) <=1  
+                    size_Left = size_Right     (Even) OR   Left = Right-1   (Odd)
+    Left : Min,   Right : Max
 
-A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
+    A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
 
-Left -> [] Right -> [5]
-Left -> [5] Right -> [15]
-Left -> [1] Right -> [5,15] =>    ## why 5 is needed in [5,15]
+    Left -> [] Right -> [5]
+    Left -> [5] Right -> [15]
+    Left -> [1] Right -> [5,15] =>  ###  why 5 is needed in [5,15]
+    Left -> [3] Right -> [  ] =>    ###
 
-Left -> [3] Right -> [  ] =>    ##
 
+
+##### Solution in O(N)  ####################################################
+#### Insert in Heap is Log(n), crossing the tree 
 for i,x in enumerate(arr):
   	# IF i is even : 
   	if i%2 == 0:
       	# Intially size(Left) == size(Right)
-        # Finally size(Left) == size(Right) - 1
+        # Finally  size(Left) == size(Right) - 1
         # So, u need to increase size of right by 1 
-        if x < min(Left):
+        if x < min(Left):  ### New Min
           	val = Left.min_pop()  ## remove the current min
-            Left.insert(x)     ## new min
-            Right.insert(val)  ## moving to the right
+            Left.insert(x)        ## Insert min
+            Right.insert(val)     ## moving old min to the right
         else:
           	Right.insert(x)   ### keep the min in Left,  only change the right.
             
 	else:
-      	if x > max(Right):
-          val = Right.max_pop()
-          Right.insert(x)
-          Left.insert(val)   ####val added to left, right has new max == x
+      	if x > max(Right):  ### New MAx
+            val = Right.max_pop()   ### Remove Old Max
+            Right.insert(x)         ### Add new one
+            Left.insert(val)        ### Old Max added to left Min.
         else:
-          Left.insert(x)
+          Left.insert(x)   ### Add to the Max
 
           
 #### Sliding window  based on position of X,           
@@ -572,133 +574,26 @@ for i,x in enumerate(arr):
   Why left and right  ?  
   why not only  i1, i2 indexes ....
     We can only use index   i1, i2
-    
     sometimes, there are problem with i1, i2 in sliding window....   A[i1:i2]  
        Inserting is log(n)
-       --> total is n/log(n)      
+       --> total is n.log(n)      
       
     
-    
-
 def getMedian():
     if len(Left) != len(Right):
         return Right[0]
     else:
         return (Right[0] + Left[0])/2
-           
-
+        
         
 ### pseudo code is ok,
-
-    
 python : by default its a minheap,  so negative value for Maxheap.  --> - values for MaxHeap
     https://www.geeksforgeeks.org/heap-queue-or-heapq-in-python/  
 
-def insertHeaps(num):
-    heappush(maxHeap,-num)                ### Pushing negative element to obtain a minHeap for
-    heappush(minHeap, -heappop(maxHeap))    ### the negative counterpart
-   
-   if len(minHeap) > len(maxHeap):
-        heappush(maxHeap,-heappop(minHeap))
-
-
-
-######## code
-from heapq import heappush, heappop, heapify
-import math
-minHeap=[]
-heapify(minHeap)
-
-maxHeap=[]
-heapify(maxHeap)
-
-def insertHeaps(num):
-    heappush(maxHeap,-num)                ### Pushing negative element to obtain a minHeap for
-    heappush(minHeap,-heappop(maxHeap))    ### the negative counterpart
-   
-   if len(minHeap) > len(maxHeap):
-        heappush(maxHeap,-heappop(minHeap))
-
-        
-def getMedian():
-    if len(minHeap)!= len(maxHeap):
-        return -maxHeap[0]
-    else:
-        return (minHeap[0]- maxHeap[0])/2
-   
-
-A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
-n= len(A)
-for i in range(n):
-    insertHeaps(A[i])
-    print(math.floor(getMedian()))  
   
   
-  
-  
-  
-  
-  
-  
-O(N**2)  
 
-##### Function to find position to insert current element of stream using binary search
-def binarySearch(arr, item, low, high):
-    if (low >= high):
-        return (low + 1) if (item > arr[low]) else low
 
-    mid = (low + high) // 2
-
-    if (item == arr[mid]):
-        return mid + 1
-
-    if (item > arr[mid]):
-        return binarySearch(arr, item, mid + 1, high)
-    else :      
-        return binarySearch(arr, item, low, mid - 1)
-
-      
-  
-# Function to print median of stream of integers
-def printMedian(arr, n):
-    i, j, pos, num = 0, 0, 0, 0
-    count = 1
-    print(f"Median after reading 1 element is {arr[0]}")
-
-    for i in range(1, n):
-        median = 0
-        j      = i - 1
-        num    = arr[i]
-
-        # find position to insert current element in sorted part of array
-        pos = binarySearch(arr, num, 0, j)
-
-        # move elements to right to create space to insert the current element
-        while (j >= pos):
-            arr[j + 1] = arr[j]
-            j -= 1
-
-        arr[j + 1] = num
-
-        # increment count of sorted elements in array
-        count += 1
-
-        # if odd number of integers are read from stream
-        # then middle element in sorted order is median
-        # else average of middle elements is median
-        if (count % 2 != 0):
-            median = arr[count // 2]
-
-        else:
-            median = (arr[(count // 2) - 1] + arr[count // 2]) // 2
-
-        print(f"Median after reading {i + 1} elements is {median} ")
-
-        
-#### Test        
-arr = [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
-n = len(arr)
-printMedian(arr, n)
 
 
 
@@ -716,14 +611,12 @@ Maximum Product Subarray
     Find the product of the maximum product subarray.
 
 Example 1:
-
       Input:
       N = 5
       Arr[] = {6, -3, -10, 0, 2}
       Output: 180
       Explanation: Subarray with maximum product
       is [6, -3, -10] which gives product as 180.
-      
       
       
 Example 2:
@@ -742,29 +635,15 @@ Constraints:
 -102 ≤ Arri ≤ 102
 
 
-sliding window with i1, i2
-
-
-[a_0,a_1,a_2,....]
-
-results =
-for i in range(n):
-  # Find max product of a subarray ending at i
-  result = max()
-
-you can go below ,
-
-
-#  OPtimal Function to find maximum  product subarray
+#########################################################################################
+#####  Solution in O(N)  OPtimal Function to find maximum  product subarray
 def maxProduct(arr, n):
-    
     # Variables to store maximum and  minimum product till ith index.
     minVal = arr[0]
     maxVal = arr[0]
     maxProduct = arr[0]
 
     for i in range(1, n, 1):
-        
         # When multiplied by negative number,maxVal becomes minVal
         # and minVal becomes maxVal.
         """
@@ -779,50 +658,35 @@ def maxProduct(arr, n):
         """
         
         ""
-        ### to handl negative values.... 
-        maxVal = max(a[i], max(a[i]*minVal,  a[i]*maxVal)  )
-        minVal = min(a[i], min(a[i]*minVal,  a[i]*maxVal) )
+        ### to handl negative values product .... , need to keep minVal  (can be negative) and maxVal.
+        maxVal = max(a[i],  a[i]*minVal,  a[i]*maxVal  )
+        minVal = min(a[i],  a[i]*minVal,  a[i]*maxVal )
         
-        # Max Product of array.
+        ### Max Product of array.
         maxProduct = max(maxProduct, maxVal)
 
-    # Return maximum product 
-    # found in array.
+    # Return maximum product found in array.
     return maxProduct
 
 
-Exanmple  
+Example  
     [0,  1,  3]   -->    3 
-  
      max(1, 0*....)  =1 ,    ### reset of the product at each step, more 
     
     
- Instewad of product, Max sum  --->  we just to keep  MaxVal ONLY.
-
+ Instead of product, Max sum  --->  we just to keep  MaxVal ONLY.
    teshnically
-      current maxVal vs a[i]   (intermediate maxVal  to handle issues/special case of negative, what ever things we need to manage.... )  
-      Global_MaxVal
+      + current maxVal vs a[i]   (intermediate maxVal  to handle issues/special case of negative, what ever things we need to manage.... )  
+      + Global_MaxVal
   
     Sliding window way with only one step, 
     Good pattern.
-    
-
-arr = [-1, -3, -10, 0, 60]
-
-n = len(arr)
-
-print("Maximum Subarray product is",
-                 maxProduct(arr, n))
 
 
 
 
-
-
-###### O(n2)
-
-# Python3 program to find Maximum Product Subarray
-# Returns the product of max product subarray.
+###### O(n2)  Solution #############################
+# Python3 program to find Maximum Product Subarray Returns the product of max product subarray.
 def maxSubarrayProduct(arr, n):
     # Initializing result
     result = arr[0]
@@ -847,20 +711,15 @@ def maxSubarrayProduct(arr, n):
 arr = [ 1, -2, -3, 0, 7, -8, -2 ]
 n = len(arr)
 print("Maximum Sub array product is" , maxSubarrayProduct(arr, n))
- 
-# This code is contributed by divyeshrabadiya07
 
-
-
-The idea is to traverse array from left to right keeping two variables minVal and maxVal which represents the minimum and maximum product value till the ith index of the array. Now, if the ith element of the array is negative that means now the values of minVal and maxVal will be swapped as value of maxVal will become minimum by multiplying it with a negative number. Now, compare the minVal and maxVal. 
+The idea is to traverse array from left to right keeping two variables minVal and maxVal which
+represents the minimum and maximum product value till the ith index of the array. 
+Now, if the ith element of the array is negative that means now the values of minVal 
+and maxVal will be swapped as value of maxVal will become minimum by multiplying it with a negative number.
+Now, compare the minVal and maxVal. 
 The value of minVal and maxVal depends on the current index element or the product of the current index element and the previous minVal and maxVal respectively.
-Below is the implementation of above approach: 
+
  
-
-
-
-
-
 
 
 
@@ -920,7 +779,6 @@ Example 2:
 # with sum equal to 'sum' present
 # in A[]. Also, prints the triplet
 def find3Numbers(A, arr_size, sum):
-
     # Sort the elements 
     A.sort()
 
@@ -929,7 +787,6 @@ def find3Numbers(A, arr_size, sum):
     # other two elements 
     for i in range(0, arr_size-2):
     
-
         # To find the other two elements,
         # start two index variables from
         # two corners of the array and
