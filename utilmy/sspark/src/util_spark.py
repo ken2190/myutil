@@ -271,10 +271,10 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
-def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartitions:int=None, saveMode:str="overwrite", format:str="parquet"):
+def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartitions:int=None, saveMode:str="append", format:str="parquet"):
     """
     Doc::
-        saveMode: overwrite, append, ignore, error
+        saveMode: append, overwrite, ignore, error
         format: parquet, csv, json ...
     """
     if numPartitions:
