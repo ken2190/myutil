@@ -7,10 +7,12 @@ Doc::
         https://discuss.pytorch.org/t/merging-3-models/66230/3
 
 Issue wthen reloading jupyte
+        import library.Child
+        reload(library)
+        import library.Child
 
-import library.Child
-reload(library)
-import library.Child
+TODO : Actual docs
+
 
 """
 import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
