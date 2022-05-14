@@ -20,16 +20,28 @@ on:
 
 jobs:
 
-  docker-googledrive:
-    runs-on: ubuntu-latest
-    needs: docker-build
-    container: 
-      image: artia37/centos-google-drive:v1 
-      options: --user root
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          ls .  && pwd && whoami
+  #####################################################################################################################
+  #####################################################################################################################
+  # ### Build (local)
+  # ````
+  # docker build -t local/docker-google-drive:v1 -f Dockerfile .
+
+  # ### Usage
+  # docker run -d \
+  # -e CLIENT_ID='my-client-id' \
+  # -e CLIENT_SECRET='my-client-secret' \
+  # -e LAST_ACCESS_TOKEN='my-last-access-token' \
+  # -e REFRESH_TOKEN='my-refresh-token' \
+  # --security-opt apparmor:unconfined \
+  # --cap-add mknod \
+  # --cap-add sys_admin \
+  # --device=/dev/fuse \
+  # -v /mnt/drive:/mnt/gdrive:shared \
+  # artia37/docker-google-drive:v1
+  # ````
+
+  # ### Structure
+  # * `/mnt/gdrive`: Google Drive Fuse mount directory inside container
 
   docker-ubuntu-googledrive-build:
     runs-on: ubuntu-latest
@@ -48,6 +60,7 @@ jobs:
           cd dockers/docker-google-drive
           docker buildx build -f ./Dockerfile --tag artia37/ubuntu-google-drive:v1 --push .
 
+
   docker-ubuntu-googledrive-runtest:
     runs-on: ubuntu-latest
     needs: docker-ubuntu-googledrive-build
@@ -60,25 +73,30 @@ jobs:
         # https://github.com/astrada/google-drive-ocamlfuse/wiki/Headless-Usage-&-Authorization
         
         # Once you got client ID & client secret value, run google-drive-ocamlfuse -id <your_id> -secret <your_secret>
-        # A browser will be started pointing to an authorization page, and when you allow access to Google Drive, a verification code will be generated. 
+        # A browser will be started pointing to an authorization page, and when you allow access to Google Drive, 
+        # a verification code will be generated. 
         # You have to copy this verification code, and paste it in the console where the application is running.
         # If everything goes fine, the application will notify you that it has retrieved the tokens from Google.
 
         # LAST_ACCESS_TOKEN & REFRESH_TOKEN are generated automate whenever you re-run authorization
         # By default, those values are saved in ~/.gdfuse/default/state
 
-        CLIENT_ID: ${{ secrets.GDRIVER_API_CLIENT_ID }}
-        CLIENT_SECRET: ${{ secrets.GDRIVER_API_CLIENT_SECRET }}
+        CLIENT_ID:         ${{ secrets.GDRIVER_API_CLIENT_ID }}
+        CLIENT_SECRET:     ${{ secrets.GDRIVER_API_CLIENT_SECRET }}
         LAST_ACCESS_TOKEN: ${{ secrets.GDRIVER_API_LAST_ACCESS_TOKEN }}
-        REFRESH_TOKEN: ${{ secrets.GDRIVER_API_REFRESH_TOKEN }}
+        REFRESH_TOKEN:     ${{ secrets.GDRIVER_API_REFRESH_TOKEN }}
       options: 
         - --user root
         - --security-opt apparmor:unconfined
         - --cap-add mknod
         - --cap-add sys_admin
         - --device=/dev/fuse
+
     steps:
       - uses: actions/checkout@v2
       - run: |
           ls .  && pwd && whoami
           ls -l /mnt/gdrive
+
+
+
