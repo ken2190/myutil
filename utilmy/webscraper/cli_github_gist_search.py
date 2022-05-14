@@ -4,7 +4,7 @@ Doc::
 
     pip install -e .
     $utilmy = "yourfolder/myutil/utilmy/
-    python  $utilmy/webscraper/cli_github_gist_search.py  run
+    python  $utilmy/webscraper/cli_github_gist_search.py  run --url "https://gist.github.com/search?p={}&q=pyspark+UDF"    --dirout "./zdown/"
 
 
 
@@ -13,10 +13,11 @@ import requests,csv, os
 from bs4 import BeautifulSoup as bs
 
 
-def run(url= "https://gist.github.com/search?p={}&q=pyspark+UDF"  , logs=True, download=True, dwnldDir="./zdown_github/"):
+def run(url= "https://gist.github.com/search?p={}&q=pyspark+UDF"  , logs=True, download=True, dirout="./zdown_github/"):
     #logs = True
     #download = True
     #dwnldDir = os.getcwd()
+    dwnldDir = dirout
     try:
         os.mkdir(os.path.join(dwnldDir,  "github_files"))
     except:
@@ -24,7 +25,7 @@ def run(url= "https://gist.github.com/search?p={}&q=pyspark+UDF"  , logs=True, d
     csvFilePath = os.path.join(dwnldDir, "GitHub_files.csv")
     with open(csvFilePath, 'w') as f:
         w = csv.writer(f)
-        w.writerow(["File Name", "File Url", "File Download Url"])
+        w.writerow(["filename", "file_url", "url_full"])
 
     u = url
     filesList = []
@@ -45,12 +46,14 @@ def run(url= "https://gist.github.com/search?p={}&q=pyspark+UDF"  , logs=True, d
             obj = bs(data.text, 'html.parser')
             fileDir = os.path.join(dwnldDir, "github_files", fName.split('.')[0])
             fileDwnldUrl = "https://gist.github.com" + obj.findAll('a', {'data-ga-click': "Gist, download zip, location:gist overview"})[0]['href']
+
             if download:
                 data = requests.get(fileDwnldUrl)
                 import zipfile
                 from io import BytesIO
                 zipfile = zipfile.ZipFile(BytesIO(data.content))
                 zipfile.extractall(fileDir)
+
             with open(csvFilePath, 'a', newline='') as f:
                 w = csv.writer(f)
                 w.writerow([fName, fUrl, fileDwnldUrl])
