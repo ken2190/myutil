@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-MAINTAINER Mitchell Hewes <me@mitcdh.com>
+MAINTAINER utilmy
 
 ENV DRIVE_PATH="/mnt/gdrive"
 
