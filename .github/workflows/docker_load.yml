@@ -1,4 +1,4 @@
-name: load_use_docker
+name: Docker Load and Test
 
 on:
   workflow_dispatch:
