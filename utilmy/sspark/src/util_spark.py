@@ -26,8 +26,9 @@ def log(*s):
 
 
 
+
 ##################################################################################
-from util_hadoop import (
+from utilmy.sspark.src.util_hadoop import (
    hdfs_copy_hdfs_to_local, 
    hdfs_copy_local_to_hdfs, 
    hdfs_dir_exists,
@@ -124,6 +125,10 @@ def spark_config_print(sparksession):
 
 def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
+    Doc::
+
+         pip install -e .    // pip install utilmy   
+         sspark spark_config_check
 
 
     """
