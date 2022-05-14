@@ -1,5 +1,10 @@
 
+"""
 
+https://gist.github.com/search?p=4&q=pyspark+UDF
+
+
+"""
 
 def info1():
     from pyspark.sql.functions import countDistinct, avg, stddev

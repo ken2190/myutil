@@ -290,6 +290,7 @@ def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartiti
     if show:
         df.show()
 
+        
 
 def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
@@ -306,6 +307,7 @@ def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
       ss = [  t.split(":") for t in ss]
       ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
       print(ss)  
+
 
   elif isinstance(tables, list):
       ss = [ [ ti, ti] for ti in tables  ]    
