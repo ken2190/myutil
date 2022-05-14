@@ -16,12 +16,15 @@
 
 
 
+##### CHECK IS ENV Variables exists  ###############################
+# -e CLIENT_ID='my-client-id' \
+# -e CLIENT_SECRET='my-client-secret' \
+# -e LAST_ACCESS_TOKEN='my-last-access-token' \
+# -e REFRESH_TOKEN='my-refresh-token' \
 
 
 
-
-
-
+#####################################################################
 DRIVE_PATH=${DRIVE_PATH:-/mnt/gdrive}
 
 PUID=${PUID:-0}
@@ -83,3 +86,6 @@ fi
 echo "mounting at ${DRIVE_PATH}"
 exec su gdfuser -l -c "google-drive-ocamlfuse \"${DRIVE_PATH}\"\
  -f -o uid=${PUID},gid=${PGID}${MOUNT_OPTS}"
+
+
+
