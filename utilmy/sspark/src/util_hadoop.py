@@ -3,7 +3,7 @@ Doc:
 
     sspark  spark_config_check
 
-    ##### HDFS :
+    HDFS command
     cat: Copies source paths to stdout.
     Usage: hdfs dfs -cat URI [URI ?]
 
@@ -431,15 +431,15 @@ def _quote_hive_query(query):
 
 
 def hive_query_with_exception(query, args=[]):
-    return_code, stdout, stderr = subprocess_cmd(['hive'] + args + ['-e', _quote_hive_query(query)])
+    return_code, stdout, stderr = os_subprocess(['hive'] + args + ['-e', _quote_hive_query(query)])
     if return_code == CODE_SUCCESS:
-        logging.info('query %s is updated with message %s', query, stdout)
+        log('query %s is updated with message %s', query, stdout)
     else:
         raise Exception('Error for hive query :{} code: {}, stdout: {}, stderr: {}'.format(query, return_code, stdout, stderr))
 
 
 def hive_query2(query, args=[]):
-    return subprocess_cmd(['hive'] + args + ['-e', _quote_hive_query(query)])
+    return os_subprocess(['hive'] + args + ['-e', _quote_hive_query(query)])
 
 
 def hive_update_partitions_table( hr, dt, location, table_name):
@@ -512,6 +512,12 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
     elif returnval == 'int':      return int(now_new.strftime(fmt))
     else:                        return now_new.strftime(fmt)
 
+
+def os_subprocess(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
+    import subprocess
+    proc = subprocess.Popen(args_list, stdout=stdout, stderr=stderr)
+    stdout, stderr = proc.communicate()
+    return proc.returncode, stdout, stderr
 
 
 
