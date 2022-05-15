@@ -116,7 +116,7 @@ Doc:
     Example: hdfs dfs -touchz /user/hadoop/file12  
 
 """
-import os,sys
+import os,sys, subprocess
 
 
 def log(*s):
@@ -341,8 +341,6 @@ def hdfs_download_parallel(from_dir="", to_dir="",  verbose=False, n_pool=1,   *
 
 ############################################################################################################### 
 ############################################################################################################### 
-import subprocess
-
 CODE_SUCCESS = 0
 CODE_SEMANTIC_ERROR = 22
 
@@ -480,7 +478,6 @@ def os_system(cmd, doprint=False):
     return mout, merr
   except Exception as e :
     print( f"Error {cmd}, {e}")
-
 
 
 def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
