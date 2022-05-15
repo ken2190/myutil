@@ -21,7 +21,7 @@ from box import Box
 
 import pyspark
 from pyspark import SparkConf
-from pyspark.sql import SparkSession
+from pyspark.sql import sparksession
 from typing import Union 
 
 sp_dataframe= pyspark.sql.DataFrame
@@ -195,7 +195,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     conf = SparkConf()
     conf.setAll(config.items())
-    spark = SparkSession.builder.config(conf=conf)
+    spark = sparksession.builder.config(conf=conf)
     
     if config.get('hive_support', False):
        spark = spark.enableHiveSupport().getOrCreate()
@@ -243,7 +243,7 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 
 
 
-def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
+def spark_dataframe_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                           save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
     Doc::
@@ -282,7 +282,7 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
-def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartitions:int=None, saveMode:str="append", format:str="parquet"):
+def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=None, saveMode:str="append", format:str="parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
@@ -299,7 +299,7 @@ def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartiti
 
 
 ########################################################################################
-def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
+def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
       
@@ -324,8 +324,38 @@ def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
     log( os.system( cmd ) )
 
 
-def hive_run_sqlfile(sql_path):
-    pass
+
+def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
+        """
+
+        """
+        if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
+            with open(query_or_sqlfile, mode='r') as fp:
+                query = query_or_sqlfile.readlines()
+                query = "".join(query)
+        else :
+            query = query_or_sqlfile
+
+        hiveql = "./zhiveql_tmp.sql"
+        print(query)
+        print(hiveql, flush=True)
+
+        with open(hiveql, mode='w') as f:
+            f.write(query)
+
+        with open("nohup.out", mode='a') as f:
+            f.write("\n\n\n\n###################################################################")
+            f.write(query + "\n########################" )
+
+        if test == 1 :
+            return
+
+        if nohup > 0:
+           os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
+        else :
+           os.system( f" hive -f {hiveql}      " )
+        print('finish')
+
 
 
 
@@ -386,11 +416,11 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
 
 
 ##################################################################################
-def spark_metrics_classifier_summary(labels_and_predictions_df):
+def spark_metrics_classifier_summary(df_labels_preds):
     from pyspark.mllib.evaluation import MulticlassMetrics
     from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    labels_and_predictions_rdd =df_labels_preds.rdd.map(list)
     metrics = MulticlassMetrics(labels_and_predictions_rdd)
     # Overall statistics
     precision = metrics.precision()
@@ -422,7 +452,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
-def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+def spark_read_subfolder(sparksession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
     """ subfolder
     doc::
 
@@ -440,7 +470,7 @@ def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_patte
     log('Reading Npaths', len(flist))
 
     path =  ",".join(flist) 
-    df = sparkSession.read.csv(path, header=True, **kw)
+    df = sparksession.read.csv(path, header=True, **kw)
     return df
 
 
