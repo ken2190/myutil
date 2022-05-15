@@ -2,10 +2,15 @@
 Doc::
 
      pip install utilmy
-     bash
+     source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+     
+     ####  CLI Access
      sspark  spark_config_check
-     sspark
+     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
 
+
+     #### In Python Code
+     from utilmy.sspark.src.util_spark import   spark_config_check
 
 
 
@@ -28,6 +33,7 @@ def log(*s):
 
 
 ##################################################################################
+from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
    hdfs_copy_hdfs_to_local, 
    hdfs_copy_local_to_hdfs, 
@@ -291,6 +297,8 @@ def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartiti
         df.show()
 
 
+
+########################################################################################
 def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
@@ -322,6 +330,7 @@ def hive_execute_sqlfile(sql_path):
 
 
 ##################################################################################
+###### ML ########################################################################
 from pyspark.sql.functions import col, explode, array, lit
 
 def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
@@ -373,7 +382,6 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
                           .where(df_m2["Row Number"] <= splitFraction)
     df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
     return df_train, df_test
-
 
 
 
