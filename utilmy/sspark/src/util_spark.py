@@ -513,7 +513,8 @@ def json_decompress(data):
     return json.loads(bytes.decode(zlib.decompress(data)))
 
 
-def run_subprocess_cmd(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
+def os_subprocess(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
+    import subprocess
     proc = subprocess.Popen(args_list, stdout=stdout, stderr=stderr)
     stdout, stderr = proc.communicate()
     return proc.returncode, stdout, stderr
