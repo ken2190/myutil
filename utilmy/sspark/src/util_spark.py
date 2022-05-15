@@ -325,6 +325,8 @@ def hive_execute_sqlfile(sql_path):
 
 ##################################################################################
 from pyspark.sql.functions import col, explode, array, lit
+from pyspark.sql import functions as F
+
 
 def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before over sampling is  "+ str(df.count()))
