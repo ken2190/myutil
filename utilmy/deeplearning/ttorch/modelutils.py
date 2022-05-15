@@ -274,6 +274,7 @@ def get_model_params(model, params_to_get = None, detach = True):
                        
     return params_values, params_names, req_grad
 
+
 def freeze_params(model, 
                   params_to_freeze = None,
                   freeze = True):  
@@ -302,6 +303,7 @@ def freeze_params(model,
         else:
             param.requires_grad = True if freeze is False else False  
     
+
 def delete_layers(model, del_ids = []):
     '''Delete layers from model
     
@@ -324,6 +326,7 @@ def delete_layers(model, del_ids = []):
     ) 
     
     return model
+
 
 def add_layers(model, modules = []):
     '''Add layers/modules to torch.nn.modules.container.Sequential
@@ -379,6 +382,7 @@ def add_layers(model, modules = []):
     ) 
 
     return model
+
 
 class Recorder():
     '''Get input, output or parameters to a module/layer 
@@ -500,6 +504,7 @@ class Recorder():
         self.hook.remove()
         att = getattr(self, 'counter', None)
         if att: self.counter = 0
+        
         
 def get_all_layers(model):
     '''

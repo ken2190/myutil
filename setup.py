@@ -93,29 +93,6 @@ entry_points={ 'console_scripts': [
 
  ] }
 
-"""
-
-from setuptools import setup, find_packages
-
-
-setup(
-    name='xpdtools',
-    version='0.2.0',
-    packages=find_packages(),
-    description='data processing module',
-    zip_safe=False,
-    package_data={'xpdan': ['config/*']},
-    include_package_data=True,
-    entry_points={'console_scripts': 'iq = xpdtools.raw_to_iq:main_cli'}
-)
-
-
-def main_cli(): fire.Fire(main)
-    
-    
-"""
-
-
 
 
 
@@ -179,9 +156,12 @@ setup(
 
 
 
+def os_bash_append(txt):
+  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
+     bashrc.write(+"\n"+txt +"\n")
 
 
-#### Add environemment variables  utilmy
+#### Add environemment variables  utilmy path
 try :
     repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
@@ -189,7 +169,7 @@ try :
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
+        os_bash_append(f"""\nexport utilmy={repopath}/    """)
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
@@ -207,18 +187,79 @@ def os_cmd_to_bashrc(cmd):
             os.system(f""" setx {cmd} """)  ### Current session
 
         elif 'linux' in sys.platform :
-            os.system(f""" echo {cmd} >> ~/.bashrc      """)
-            os.system(f" {cmd} ")
+            os_bash_append(f"""\n {cmd}     \n""")
             print(' source  ~/.bashrc  ')
-
-        print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
 
     except :
         pass
 
 
-cmd= "alias sspark='python utilmy$/sspark/src/util_spark.py '"
+#### Spark Alias for command line
+cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
 os_cmd_to_bashrc(cmd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+alias sspark='python /workspace/myutil/utilmy/sspark/src/util_spark.py'
+
+
+from setuptools import setup, find_packages
+
+
+setup(
+    name='xpdtools',
+    version='0.2.0',
+    packages=find_packages(),
+    description='data processing module',
+    zip_safe=False,
+    package_data={'xpdan': ['config/*']},
+    include_package_data=True,
+    entry_points={'console_scripts': 'iq = xpdtools.raw_to_iq:main_cli'}
+)
+
+
+def main_cli(): fire.Fire(main)
+    
+    
+"""
+
 
 
 

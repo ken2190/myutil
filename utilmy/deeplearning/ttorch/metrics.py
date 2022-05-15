@@ -74,6 +74,7 @@ def pearson_coeff(x1, x2):
     
     return r
 
+
 def pearson_coeff_pairs(x): 
     '''Computes pearson correlation coefficient across 
     the 1st dimension of a 2D tensor  
@@ -99,6 +100,7 @@ def pearson_coeff_pairs(x):
     
     return r
 
+
 def calc_accuracy(output = None, labels = None):
     ''' Classification accuracy calculation as acc = (TP + TN) / nr total pred
     
@@ -122,6 +124,7 @@ def calc_accuracy(output = None, labels = None):
     acc = 100*(correct/total)
 
     return acc 
+
 
 def class_weights(labels):
     '''Compute class weights for imbalanced classes
@@ -148,6 +151,7 @@ def class_weights(labels):
     weights = torch.Tensor(weights)
        
     return weights, labels_weights
+
 
 def effective_dim(X, center = True):
     '''Compute the effective dimension based on the eigenvalues of X
