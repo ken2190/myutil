@@ -3,7 +3,7 @@ Doc:
 
     sspark  spark_config_check
 
-    ##### HDFS :
+    HDFS command
     cat: Copies source paths to stdout.
     Usage: hdfs dfs -cat URI [URI ?]
 
