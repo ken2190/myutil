@@ -445,14 +445,8 @@ def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_patte
 
 
 
+
 ##################################################################################
-class TimeConstants:
-    HOURS_PER_DAY = 24
-    SECONDS_PER_DAY = 86400
-    SECONDS_PER_HOUR = 3600
-    UTC_TO_JST_SHIFT = 9 * 3600
-
-
 def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
                 returnval='str,int,datetime'):
     """ One liner for date Formatter
@@ -541,13 +535,13 @@ def os_system(cmd, doprint=False):
     print( f"Error {cmd}, {e}")
 
     
-def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
+def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
                     textold='/mypath2/', textnew='/mypath2/', test=1):
-    """ Replace path in config files.
+    """ Replace string in config files.
     Doc::
+
          alias sspark="python utilmy$/sspark/src/util_spark.py "
-         python utilmy$/sspark/src/util_spark.py  os_file_replace --dirin spark/conf  --textold 'mydir1 --textnew 'mydir2'  --test 1  
-         sspark os_file_replace --dirin spark/conf  --textold 'mydir1 --textnew 'mydir2'  --test 1  
+         sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
         
 
 
@@ -559,7 +553,7 @@ def os_file_replace(dirins=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
 
   
     flist = [] 
-    for diri in dirins :
+    for diri in dirin:
        flist = glob.glob( diri , recursive= True )
 
     flist = [ fi for fi in flist if 'backup' not in fi] 

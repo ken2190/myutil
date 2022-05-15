@@ -1,8 +1,7 @@
-"""Hadoop, hive related
+"""Hadoop, hive related.
 Doc:
 
     sspark  spark_config_check
-
 
     ##### HDFS :
     cat: Copies source paths to stdout.

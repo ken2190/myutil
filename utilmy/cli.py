@@ -19,7 +19,6 @@ Commands:
 
 """
 import fire, argparse, os, sys
-from utilmy.parallel import pd_read_file
 
 
 #############################################################################################
