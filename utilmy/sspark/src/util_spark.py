@@ -76,7 +76,7 @@ def test1():
     spark_config_print(sparksession)
 
 
-    spark_config_check(sparksession)
+    spark_config_check()
 
 
 def config_parser(config):
