@@ -179,7 +179,7 @@ def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
 def hdfs_rm_dir(path):
     if hdfs_dir_exists(path):
         print("removing old file "+path)
-        cat = subprocess.call(["hadoop", "fs", "-rm", path ])
+        cat = subprocess.call(["hdfs", "dfs", "-rm", path ])
 
 def hdfs_dir_exists(path):
     return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", path ])]
