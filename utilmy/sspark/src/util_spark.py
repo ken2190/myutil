@@ -55,6 +55,8 @@ from utilmy.sspark.src.util_hadoop import (
 def test_all():
     pass
 
+def test_commit():
+    pass
 
 def test1():
     ss="""
