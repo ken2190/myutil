@@ -1,10 +1,10 @@
 """Spark related utils
 Doc::
 
-     pip install -e .
+     pip install utilmy
      bash
-     python $utilmy/sspark/src/util_ spark.py spark_config_check
-     python $utilmy/sspark/src/util_ spark.py spark_config_create  --dirout myconfigs/
+     sspark  spark_config_check
+     sspark
 
 
 
