@@ -457,7 +457,7 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
 
         date_format(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
         date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
+        date_format('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
 
 
     """
