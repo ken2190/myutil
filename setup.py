@@ -158,10 +158,10 @@ setup(
 
 def os_bash_append(txt):
   with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
-     bashrc.write(txt)
+     bashrc.write(+"\n"+txt +"\n")
 
 
-#### Add environemment variables  utilmy
+#### Add environemment variables  utilmy path
 try :
     repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
@@ -190,14 +190,17 @@ def os_cmd_to_bashrc(cmd):
             os_bash_append(f"""\n {cmd}     \n""")
             print(' source  ~/.bashrc  ')
 
-        print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")    
-
     except :
         pass
 
 
+#### Spark Alias for command line
 cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
 os_cmd_to_bashrc(cmd)
+
+
+
+
 
 
 
