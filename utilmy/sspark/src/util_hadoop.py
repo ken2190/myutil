@@ -166,8 +166,8 @@ def hdfs_isok(path):
     import os
     print( os.system( f'hdfs dfs -ls {path}' ) )
      
-def hdfs_mkdir(op_path):
-    res = os_system( f"hdfs dfs -mkdir -p '{local_path}'  '{hdfs_path}' ", doprint=True)
+def hdfs_mkdir(hdfs_path):
+    res = os_system( f"hdfs dfs -mkdir -p  '{hdfs_path}' ", doprint=True)
 
 def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
     if overwrite: hdfs_rm_dir(hdfs_path)
@@ -208,6 +208,7 @@ def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/',
        conda install libhdfs3 pyarrow
        os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
     """
+    import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
     hdfs = pa.hdfs.connect()    
@@ -267,7 +268,7 @@ def hdfs_pd_write_parquet(df, hdfs_path=  'hdfs:///user/pppp/clean_v01.parquet/'
     print(flist)
 
 
-pd_write_file_hdfs   =  hdfs_pd_write_file
+pd_write_file_hdfs   =  hdfs_pd_write_parquet
 pd_read_parquet_hdfs =  hdfs_pd_read_parquet
 
 
@@ -400,7 +401,7 @@ hive_header_template =  '''
 
 
 
-    def hive_exec(query="", nohup:int=1, dry=False, end0=None):
+def hive_exec(query="", nohup:int=1, dry=False, end0=None):
         """  
 
         """
@@ -429,6 +430,7 @@ hive_header_template =  '''
 def _quote_hive_query(query):
     return '"{}"'.format(query)
 
+
 def hive_query_with_exception(query, args=[]):
     return_code, stdout, stderr = subprocess_cmd(['hive'] + args + ['-e', _quote_hive_query(query)])
     if return_code == CODE_SUCCESS:
@@ -436,19 +438,18 @@ def hive_query_with_exception(query, args=[]):
     else:
         raise Exception('Error for hive query :{} code: {}, stdout: {}, stderr: {}'.format(query, return_code, stdout, stderr))
 
+
 def hive_query2(query, args=[]):
     return subprocess_cmd(['hive'] + args + ['-e', _quote_hive_query(query)])
 
 
 def hive_update_partitions_table( hr, dt, location, table_name):
-    logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))
-    drop_partition_query = "ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})".format \
-            (table_name=table_name, dt=dt, hr=hr)
-    add_partition_query = "ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{loc}'".format \
-            (table_name=table_name, dt=dt,  hr=hr, loc=location)
-    hive_query_with_exception_on_failure(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    hive_query_with_exception_on_failure(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
+    log('Updating latest partition location in {table_name} table'.format(table_name=table_name))
+    drop_partition_query =f"ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})"
+    add_partition_query = f"ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{location}'"
+    hive_query_with_exception(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    hive_query_with_exception(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    log(f'Updating latest partition location in {table_name} table completed successfully')
 
 
 
