@@ -227,7 +227,7 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
 
 ########################################################################################
-def spark_execute_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
+def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
     Doc::
 
@@ -324,7 +324,7 @@ def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
     log( os.system( cmd ) )
 
 
-def hive_execute_sqlfile(sql_path):
+def hive_run_sqlfile(sql_path):
     pass
 
 
@@ -455,7 +455,7 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
         datestr: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519" 
+        date_format(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
         date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
         date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
 
