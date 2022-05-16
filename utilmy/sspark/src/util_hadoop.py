@@ -453,6 +453,121 @@ def hive_update_partitions_table( hr, dt, location, table_name):
 
 
 
+def hive_get_partitions(url="", user="myuser_hadoop",  table='mydb.mytable', dirout="myexport/" ):
+    """Export Hive partition names on disk
+     get_partitions
+
+
+    """
+    if "hdfs:" in url :
+        fname = url.split("/")[-1].replace(".", "_")
+        logfile  = dirout + f"/dt_{fname}.txt"
+        cmd      = f"hadoop dfs -ls {url} |& tee -a    {logfile}"
+        out,err  = os_system( cmd)
+        return
+
+    dbname, table = table.split(".")[0], table.split(".")[1]
+    logfile  = f"ztmp/dt_{dbname}-{table}.txt"
+    cmd      = f"hadoop dfs -ls hdfs://nameservice1/user/{user}/warehouse/{dbname}.db/{table}   |& tee -a    {logfile}"
+    out,err  = os_system( cmd, doprint=True)
+
+
+
+def hive_df_tohive(df, tableref="nono2.table2") :
+    """ Export Dataframe to Hive table
+
+    """
+    ttable = tableref.replace(".", "_")
+    ptmp   = "ztmp/ztmp_hive/" + ttable + "/"
+    os.system("rm -rf " + ptmp )
+    os.makedirs(ptmp, exist_ok=True )
+    df.to_csv( ptmp + ttable + ".csv" , index=False, sep="\t")
+    hive_csv_tohive( ptmp, tablename= tableref, tableref= tableref)
+
+
+
+def hive_csv_tohive(folder, tablename="ztmp", tableref="nono2.table2"):
+    """ Local CSV to Hive table
+
+    """
+    print("loading to hive ", tableref)
+    try:
+        hiveql   = "ztmp/hive_upload.sql"
+        csvtable = tablename # + "_csv"
+        foldr    = folder if folder[-1] == "/" else folder + "/"
+        with open(hiveql, mode='w') as f:
+            f.write( "DROP TABLE IF EXISTS {};\n".format(csvtable))
+            f.write( "CREATE TABLE {0} ( ip STRING) ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' WITH SERDEPROPERTIES ('separatorChar' = '\t') STORED AS TEXTFILE TBLPROPERTIES('skip.header.line.count' = '1');\n".format(csvtable))
+            f.write( "LOAD DATA LOCAL INPATH '{}*.csv' OVERWRITE INTO TABLE {};\n".format( foldr, csvtable))
+
+        print(hiveql)
+        os.system("hive -f " + hiveql)
+        print('finish')
+
+    except Exception as e:
+        print(e)
+
+
+
+def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_path=None, **kwargs):
+    """  Load SQL Query result to pandas dataframe
+
+
+    """
+    import subprocess, os
+    from collections import defaultdict
+    sid = str(hash( str(sql) ))
+
+    with open(header_hive_sql, mode='r') as fp:
+        header_sql = fp.readlines()
+    header_sql = "".join(header_sql)  + "\n"
+
+    sql2 = header_sql + sql
+    file1 = "ztmp/hive_receive.sql"
+    with open( file1, 'w') as f1:
+        f1.write(sql2)
+
+    if verbose > 0 : print(sql2)
+
+    cmd    = ["hive", '-f',  file1]
+    result = subprocess.check_output(cmd)
+    if verbose >= 1 : print( str(result)[:100] , len(result))
+    n = len(result)
+
+    try:
+        result = result.decode("utf-8")  # bytes to string
+        twod_list = [line.split('\t') for line in result.strip().split('\n')]
+        columns = map(lambda x: x.split('.')[1] if '.' in x else x,
+                      twod_list[0])
+
+        # rename duplicated columns
+        column_cnt = defaultdict(int)
+        renamed_column = []
+        for column in columns:
+            column_cnt[column] += 1
+            if column_cnt[column] > 1:
+                renamed_column.append(column + '_' + str(column_cnt[column]))
+            else:
+                renamed_column.append(column)
+
+        df = pd.DataFrame(twod_list[1:], columns=renamed_column)
+
+        if save_path is not None :
+           fname = f'ztmp/hive_result/{sid}/'
+           os.makedirs(os.path.dirname(fname), exist_ok=True)
+           df.to_parquet( fname + '/table.parquet' )
+           open(fname +'/sql.txt', mode='w').write(sql2)
+           print('saved',  fname)
+
+        print('hive table', df.columns, df.shape)
+        return df
+
+    except Exception as e:
+        print(e)
+
+
+
+
 
 
 ############################################################################################################### 
@@ -480,25 +595,25 @@ def os_system(cmd, doprint=False):
     print( f"Error {cmd}, {e}")
 
 
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
                 returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
 
-        datestr: 2012-02-12  or ""  emptry string for today's date.
+        datenow: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
+        date_now('today',)    -->  "20200519" 
+        date_now('now',timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_now('2022-10-05', timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20220204 
 
 
     """
     from pytz import timezone as tzone
     import datetime
 
-    if len(str(datestr )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)       
+    if len(str(datenow )) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
