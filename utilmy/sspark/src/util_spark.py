@@ -21,7 +21,7 @@ from box import Box
 
 import pyspark
 from pyspark import SparkConf
-from pyspark.sql import sparksession
+from pyspark.sql import SparkSession
 from typing import Union 
 
 sp_dataframe= pyspark.sql.DataFrame
@@ -513,12 +513,12 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
         pass    
 
 
-    now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else now_new = now_utc.astimezone(tzone('UTC'))
+    now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
     now_new = now_new + datetime.timedelta(days=add_days, hours=add_hours)
 
     if   returnval == 'datetime': return now_new ### datetime
     elif returnval == 'int':      return int(now_new.strftime(fmt))
-    elif returnval == 'unix':     return time.mktime(dt_with_timezone.astimezone(timezone).timetuple())
+    elif returnval == 'unix':     return time.mktime(now_new.timetuple())
     else:                         return now_new.strftime(fmt)
 
 

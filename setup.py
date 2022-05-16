@@ -172,7 +172,7 @@ def os_bash_append(cmd):
         return False   #### Already exist
 
     with open(fpath, "at") as bashrc:
-        bashrc.write(+"\n"+ cmd +"\n")
+        bashrc.write("\n"+ cmd +"\n")
     return True
   except Exception as e:
     print(e)  
