@@ -91,6 +91,10 @@ entry_points={ 'console_scripts': [
     #### generic
     'utilmy = utilmy.cli:run_cli',
 
+
+    #### generic for All code
+    'utilmy2 = utilmy.cli:run_all',
+
  ] }
 
 

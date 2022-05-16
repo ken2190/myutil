@@ -595,25 +595,25 @@ def os_system(cmd, doprint=False):
     print( f"Error {cmd}, {e}")
 
 
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
                 returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
 
-        datestr: 2012-02-12  or ""  emptry string for today's date.
+        datenow: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
+        date_now('today',)    -->  "20200519" 
+        date_now('now',timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_now('2022-10-05', timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20220204 
 
 
     """
     from pytz import timezone as tzone
     import datetime
 
-    if len(str(datestr )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)       
+    if len(str(datenow )) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
