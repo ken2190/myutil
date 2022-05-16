@@ -20,7 +20,7 @@ print("version", version)
 
 
 ##### Requirements ###################################################################
-#with open('install/reqs_image.txt') as fp:
+#with open('install/reqs_image.cmd') as fp:
 #    install_requires = fp.read()
 install_requires = ['pyyaml', 'stdlib_list', 'python-box', 'fire' ]
 
@@ -160,9 +160,23 @@ setup(
 
 
 
-def os_bash_append(txt):
-  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
-     bashrc.write(+"\n"+txt +"\n")
+def os_bash_append(cmd):
+  """  Append to bashrc
+  """
+  try :
+    fpath = os.path.expanduser("~/.bashrc")
+    with open(fpath, "r") as bashrc:
+        bashrc = "".join( bashrc.readlines())
+
+    if cmd in bashrc :
+        return False   #### Already exist
+
+    with open(fpath, "at") as bashrc:
+        bashrc.write(+"\n"+ cmd +"\n")
+    return True
+  except Exception as e:
+    print(e)  
+    return False
 
 
 #### Add environemment variables  utilmy path
@@ -173,7 +187,7 @@ try :
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os_bash_append(f"""\nexport utilmy={repopath}/    """)
+        os_bash_append(f"""export utilmy={repopath}/    """)
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
@@ -191,7 +205,7 @@ def os_cmd_to_bashrc(cmd):
             os.system(f""" setx {cmd} """)  ### Current session
 
         elif 'linux' in sys.platform :
-            os_bash_append(f"""\n {cmd}     \n""")
+            os_bash_append(f"""{cmd}""")
             print(' source  ~/.bashrc  ')
 
     except :
