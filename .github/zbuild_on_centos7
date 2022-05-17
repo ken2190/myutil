@@ -1,0 +1,36 @@
+name: zbuild_on_centos
+
+on:
+  push:
+    branches:
+      - zbuild_hnsw
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: 'centos:7'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup
+        run: |
+          echo "Install dependencies"
+          yum -y install curl bzip2 git glibc-devel
+          echo "Install miniconda"
+          curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh
+          bash /tmp/miniconda.sh -b -p $HOME/miniconda
+          eval "$($HOME/miniconda/bin/conda shell.bash hook)"
+          
+          echo "create and activate conda environment" 
+          conda create -n test python=3.7 conda-build
+          conda activate test
+          
+          #### Build  ##############################
+ 
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: upload files
+          path: /github/home/miniconda/
+          retention-days: 300
