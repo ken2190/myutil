@@ -43,7 +43,6 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_pd_read_parquet,
    hdfs_download_parallel,
    hdfs_ls,
 
@@ -51,10 +50,14 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs
+pd_write_file_hdfs,
 
 
 ### hive
+hive_exec,
+hive_sql_todf,
+hive_csv_tohive
+
 )
 
 
