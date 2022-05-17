@@ -3,10 +3,21 @@ Doc::
 
      pip install utilmy
      source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+
      
      ####  CLI Access
      sspark  spark_config_check
-     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
+
+     if this does not work, you need to add in bashrc as follow :
+         python -c 'import utilmy; print(utilmy.__path__[0] ) + "/" '
+         
+         ### add to ~/.bashrc below , 
+            export utilmy={above_path}
+            alias sspark='python $utilmy/sspark/src/util_spark.py '
+
+         ### then source  ~/.bashrc 
+            sspark  spark_config_check
+
 
 
      #### In Python Code
