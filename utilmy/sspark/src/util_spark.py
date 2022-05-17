@@ -8,7 +8,7 @@ Doc::
 
             python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
 
-            python -c 'print("""\n alias sspark="python $utilmy/ssspark/src/util_spark.py " """ ) '  >> ~/.bashrc  
+            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
 
       Or manually add in ~/.bashrc
             export utilmy={path of utilmy above}
