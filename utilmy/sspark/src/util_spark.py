@@ -308,12 +308,15 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
 
 ########################################################################################
-def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None, hdfs_host="localhost",hdfs_port=8020,hdfs_user="hdfs"):
     import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
-    hdfs = pa.hdfs.connect()
+    from pyarrow.fs import HadoopFileSystem
 
+    hdfs = pa.hdfs.connect()
+    hdfs_fs = HadoopFileSystem(host=hdfs_host,port=hdfs_port,user=hdfs_user)
+    
     n_rows = 999999999 if nrows < 0  else nrows
 
     flist = hdfs.ls( path )
@@ -326,7 +329,7 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
             continue
         if verbose > 0 :print( pfile )
 
-        arr_table = pq.read_table(pfile, columns=cols)
+        arr_table = pq.read_table(pfile, columns=cols,filesystem=hdfs_fs)
         df        = arr_table.to_pandas()
 
         print(df.head(nrows), df.shape, df.columns)
