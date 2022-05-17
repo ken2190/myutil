@@ -6,13 +6,15 @@ Doc::
      ####  CLI Access
      Need to add this in your ~/.bashrc, run this in your bash shell    
 
-            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '  >> ~/.bashrc 
+            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
 
             python -c 'print("""\n alias sspark="python $utilmy/ssspark/src/util_spark.py " """ ) '  >> ~/.bashrc  
 
-            tail ~/.bashrc
-    
+      Or manually add in ~/.bashrc
+            export utilmy={path of utilmy above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
     then, 
+        tail ~/.bashrc
         source ~/.bashrc 
         sspark  spark_config_check
 
