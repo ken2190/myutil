@@ -1,18 +1,26 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy
-     source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
      
      ####  CLI Access
-     sspark  spark_config_check
-     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
+            python -c 'import utilmy; print(utilmy.__path__[0] +"/" ) '
+
+     Need to add this in your ~/.bashrc:       
+            export utilmy={path above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '
+    
+    then, 
+        source ~/.bashrc 
+        sspark  spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
-    # testing Irfan
 
+    ### Require pyspark
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
 """
@@ -43,6 +51,7 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
+   hdfs_pd_read_parquet,
    hdfs_download_parallel,
    hdfs_ls,
 
@@ -50,14 +59,10 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs,
+pd_write_file_hdfs
 
 
 ### hive
-hive_exec,
-hive_sql_todf,
-hive_csv_tohive
-
 )
 
 
@@ -312,6 +317,14 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
 ########################################################################################
 def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+    """ Us pyarrow
+    Doc::
+
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+
+    """
     import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
