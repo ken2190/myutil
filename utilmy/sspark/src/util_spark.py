@@ -11,7 +11,6 @@ Doc::
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
-    # testing Irfan
 
     ### Require pyspark
        conda  install libhdfs3 pyarrow 
