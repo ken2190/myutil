@@ -13,6 +13,9 @@ Doc::
      from utilmy.sspark.src.util_spark import   spark_config_check
     # testing Irfan
 
+    ### Require pyspark
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
 """
@@ -309,6 +312,14 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
 ########################################################################################
 def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+    """ Us pyarrow
+    Doc::
+
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+
+    """
     import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
