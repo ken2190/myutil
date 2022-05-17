@@ -75,15 +75,21 @@ jobs:
         # 
         # 2) Then run:    google-drive-ocamlfuse -id <CLIENT_ID> -secret <CLIENT_SECRET>
         #     A browser will be started pointing to an authorization page, and when you allow access to Google Drive, 
-        #     a verification code will be generated, called :
-        # 
+        #     a verification code will be generated, called: OAuth2 verification code.
+        #
+        #     Notice that, after 60 seconds, if you can not retrieve verification code, the command will be expired.
+        #     https://github.com/astrada/google-drive-ocamlfuse/blob/f5b1237a230d510d7030704487a433015e4ebf63/src/oauth2.ml#L137
         #
         # 3) Copy this verification code and paste it in the console where the application is running.
         #    application will notify you that it has retrieved the tokens from Google.
-        #   
-        #     LAST_ACCESS_TOKEN & REFRESH_TOKEN are generated automate whenever you re-run authorization
+        #    If everything goes fine, the application will notify you that it has retrieved the tokens from Google.
+        #
+        #     LAST_ACCESS_TOKEN & REFRESH_TOKEN are OAuth2 last obtained access token & OAuth2 refresh token,
+        #     It were generated automate whenever you re-run authorization,
         #     Those values are saved in ~/.gdfuse/default/state
-        #     Please copy manuall from there   ~/.gdfuse/default/state
+        #     Please copy manuall from there   ~/.gdfuse/default/state 
+        #     Or you can get those values via command line:   grep 'last_access_token\|refresh_token' ~/.gdfuse/default/state
+
 
         CLIENT_ID:         ${{ secrets.GDRIVER_API_CLIENT_ID }}
         CLIENT_SECRET:     ${{ secrets.GDRIVER_API_CLIENT_SECRET }}
