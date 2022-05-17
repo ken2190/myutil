@@ -3,21 +3,10 @@ Doc::
 
      pip install utilmy
      source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
-
      
      ####  CLI Access
      sspark  spark_config_check
-
-     if this does not work, you need to add in bashrc as follow :
-         python -c 'import utilmy; print(utilmy.__path__[0] ) + "/" '
-         
-         ### add to ~/.bashrc below , 
-            export utilmy={above_path}
-            alias sspark='python $utilmy/sspark/src/util_spark.py '
-
-         ### then source  ~/.bashrc 
-            sspark  spark_config_check
-
+     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
 
 
      #### In Python Code
@@ -333,15 +322,14 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
 
     dfall = None
     for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
         if verbose > 0 :print( pfile )
 
-        arr_table = pq.read_table(pfile, columns=cols)
-        df        = arr_table.to_pandas()
-
-        print(df.head(nrows), df.shape, df.columns)
-        del arr_table; gc.collect()
+        try :
+            arr_table = pq.read_table(pfile, columns=cols)
+            df        = arr_table.to_pandas()
+            print(df.head(nrows), df.shape, df.columns)
+            del arr_table; gc.collect()
+        except : pass
 
 
 
