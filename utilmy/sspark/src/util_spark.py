@@ -19,6 +19,7 @@ Doc::
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
 from box import Box
+from typing import Union
 
 import pyspark
 from pyspark import SparkConf
@@ -44,8 +45,16 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_rm_dir,
    hdfs_pd_read_parquet,
    hdfs_download_parallel,
-   hdfs_ls
+   hdfs_ls,
 
+### parquet
+hdfs_pd_read_parquet,
+hdfs_pd_write_parquet,
+pd_read_parquet_hdfs,
+pd_write_file_hdfs
+
+
+### hive
 )
 
 
@@ -196,7 +205,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     conf = SparkConf()
     conf.setAll(config.items())
-    spark = sparksession.builder.config(conf=conf)
+    spark = SparkSession.builder.config(conf=conf)
     
     if config.get('hive_support', False):
        spark = spark.enableHiveSupport().getOrCreate()
@@ -296,6 +305,42 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
     if show:
         df.show()
+
+
+########################################################################################
+def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+    import pandas as pd
+    import pyarrow as pa, gc
+    import pyarrow.parquet as pq
+    hdfs = pa.hdfs.connect()
+
+    n_rows = 999999999 if nrows < 0  else nrows
+
+    flist = hdfs.ls( path )
+    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
+    flist = flist[:nfiles]
+
+    dfall = None
+    for pfile in flist:
+        if not "parquet" in pfile and not ".db" in pfile :
+            continue
+        if verbose > 0 :print( pfile )
+
+        arr_table = pq.read_table(pfile, columns=cols)
+        df        = arr_table.to_pandas()
+        del arr_table; gc.collect()
+
+        dfall = pd.concat((dfall, df)) if dfall is None else df
+        del df
+        if len(dfall) > n_rows :
+            break
+
+    if dfall is None : return None
+    if verbose > 0 : print( dfall.head(2), dfall.shape )
+    dfall = dfall.iloc[:n_rows, :]
+    print(dfall)
+
+
 
 
 
@@ -534,7 +579,7 @@ def date_get_unix_from_datetime(dt_with_timezone):
     return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / TimeConstants.SECONDS_PER_DAY
+    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 def date_get_hour_range(dt, offset, output_format):
     hour_range = []
