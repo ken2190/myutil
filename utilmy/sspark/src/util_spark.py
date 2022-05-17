@@ -2,16 +2,16 @@
 Doc::
 
      pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
-
+     
      ####  CLI Access
             python -c 'import utilmy; print(utilmy.__path__[0] +"/" ) '
 
-     Need to add this in your ~/.bashrc:
+     Need to add this in your ~/.bashrc:       
             export utilmy={path above}
             alias sspark='python $utilmy/ssspark/src/util_spark.py '
-
-    then,
-        source ~/.bashrc
+    
+    then, 
+        source ~/.bashrc 
         sspark  spark_config_check
 
 
@@ -19,7 +19,7 @@ Doc::
      from utilmy.sspark.src.util_spark import   spark_config_check
 
     ### Require pyspark
-       conda  install libhdfs3 pyarrow
+       conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
@@ -45,8 +45,8 @@ def log(*s):
 ##################################################################################
 from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
-   hdfs_copy_hdfs_to_local,
-   hdfs_copy_local_to_hdfs,
+   hdfs_copy_hdfs_to_local, 
+   hdfs_copy_local_to_hdfs, 
    hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
@@ -58,14 +58,10 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs,
+pd_write_file_hdfs
 
 
 ### hive
-hive_csv_tohive,
-hive_sql_todf
-
-
 
 )
 
@@ -132,22 +128,22 @@ def config_parser(config):
     return cfg
 
 
-##################################################################################
+##################################################################################    
 def spark_config_print(sparksession):
-    log('\n####### Spark Conf')
+    log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
-    for x in conft:
-        print(x)
+    for x in conft: 
+        print(x)    
 
-    log('\n####### Env Variables')
+    log('\n####### Env Variables') 
     for key,val in os.environ.items():
-        print(key,val)
+        print(key,val)    
 
     log('\n####### Spark Conf files:  spark-env.sh ')
-    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ') 
 
     log('\n####### Spark Conf:  spark-defaults.conf')
-    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ')
+    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ') 
 
 
 
@@ -155,7 +151,7 @@ def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
     Doc::
 
-         pip install -e .    // pip install utilmy
+         pip install -e .    // pip install utilmy   
          sspark spark_config_check
 
 
@@ -169,7 +165,7 @@ def spark_config_check():
 
     for file in file_required:
         file_path = os.path.expandvars(file)
-        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path)
+        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path) 
 
 
 def spark_config_create(mode='', dirout="./conf_spark/"):
@@ -183,7 +179,7 @@ def spark_config_create(mode='', dirout="./conf_spark/"):
 
     if mode=='yarn-cluster':
         pass
-
+        
     if mode=='yarn-client':
         pass
 
@@ -204,7 +200,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
     """
-    if isinstance(config, str):
+    if isinstance(config, str):  
         from utilmy.configs.util_config import load_config
         config_path = config
         config = load_config(config_path)  ### Universal config loader
@@ -212,13 +208,13 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     if config_key_name in config:
         config = config[config_key_name]
-    assert 'spark.master' in config , f"config seems incorrect: {config}"
+    assert 'spark.master' in config , f"config seems incorrect: {config}"   
 
 
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf)
-
+    
     if config.get('hive_support', False):
        spark = spark.enableHiveSupport().getOrCreate()
     else:
@@ -226,7 +222,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     if 'pyfiles' in config:
         spark.sparkContext.addPyFile(  config.get('pyfiles') )
-
+      
     if verbose>0:
         print(spark)
 
@@ -235,8 +231,8 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
 def spark_add_jar(sparksession, hive_jar_cmd=None):
-    try :
-      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; "
+    try :  
+      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; " 
       if hive_jar_cmd is not None:
           ss= hive_jar_cmd
 
@@ -324,7 +320,7 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
     """ Us pyarrow
     Doc::
 
-       conda  install libhdfs3 pyarrow
+       conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
@@ -359,24 +355,24 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
 def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
-
+      
        tables = [  'myhive.mytable'   ]
 
 
-  """
+  """  
   if isinstance(tables, str):
       ### Parse YAML file
       ss = tables.split("\n")
-      ss = [t for t in ss if len(t) > 5  ]
+      ss = [t for t in ss if len(t) > 5  ]  
       ss = [  t.split(":") for t in ss]
-      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
-      print(ss)
+      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
+      print(ss)  
 
   elif isinstance(tables, list):
-      ss = [ [ ti, ti] for ti in tables  ]
-
+      ss = [ [ ti, ti] for ti in tables  ]    
+    
   for x in ss :
-    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
+    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
     log(x[0])
     log( os.system( cmd ) )
 
@@ -446,7 +442,7 @@ def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, labe
 def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
     """.
     Doc::
-
+            
             # Splitting data into train and test
             # we maintain the time-order while splitting
             # if split ratio = 0.7 then first 70% of data is train data
@@ -454,9 +450,9 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
                 df_m:
                 splitRatio:
                 sparksession:
-
+        
             Returns: df_train, df_test
-
+        
     """
     from pyspark.sql import types as T
     newSchema  = T.StructType(df_m.schema.fields + \
@@ -526,7 +522,7 @@ def spark_read_subfolder(sparksession,  dir_parent, nfile_past=24, exclude_patte
     flist = flist[-nfile_past:] if nfile_past > 0 else flist
     log('Reading Npaths', len(flist))
 
-    path =  ",".join(flist)
+    path =  ",".join(flist) 
     df = sparksession.read.csv(path, header=True, **kw)
     return df
 
@@ -534,9 +530,9 @@ def spark_read_subfolder(sparksession,  dir_parent, nfile_past=24, exclude_patte
 
 
 ##################################################################################
-def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
-             force_dayofmonth=-1,   ###  01 first of month
-             force_dayofweek=-1,
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+             force_dayofmonth=-1,   ###  01 first of month 
+             force_dayofweek=-1, 
              force_hourofday=-1,
              returnval='str,int,datetime/unix'):
     """ One liner for date Formatter
@@ -546,7 +542,7 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
         date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
-        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19"
+        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
 
 
@@ -555,19 +551,19 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
     import datetime, time
 
     if len(str(datenow )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
     #### Force dates
     if force_dayofmonth >-1 :
-        pass
+        pass    
 
     if force_dayofweek >-1 :
-        pass
+        pass    
 
     if force_hourofday >-1 :
-        pass
+        pass    
 
 
     now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
@@ -634,26 +630,26 @@ def os_system(cmd, doprint=False):
   except Exception as e :
     print( f"Error {cmd}, {e}")
 
-
+    
 def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
                     textold='/mypath2/', textnew='/mypath2/', test=1):
     """ Replace string in config files.
     Doc::
 
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
-
+        
     """
-    import glob
+    import glob 
 
     txt1= textold ##  "/usr/local/old/"
     txt2= textnew  ## "/new/"
 
-
-    flist = []
+  
+    flist = [] 
     for diri in dirin:
        flist = glob.glob( diri , recursive= True )
 
-    flist = [ fi for fi in flist if 'backup' not in fi]
+    flist = [ fi for fi in flist if 'backup' not in fi] 
     log(flist)
 
     for fi in flist :
@@ -674,17 +670,18 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
         # break
         if test == 0 :
           with open(fi, mode='w') as fp :
-             fp.writelines("".join(ss))
-        # break
+             fp.writelines("".join(ss))   
+        # break 
 
 
-
+    
 
 
 ###############################################################################################################
 if __name__ == "__main__":
     import fire
     fire.Fire()
+
 
 
 
