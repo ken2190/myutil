@@ -14,6 +14,7 @@ Doc::
 
 
 
+
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
@@ -23,7 +24,7 @@ from typing import Union
 
 import pyspark
 from pyspark import SparkConf
-from pyspark.sql import sparksession
+from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
 
