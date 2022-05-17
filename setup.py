@@ -168,8 +168,8 @@ def os_bash_append(cmd):
     with open(fpath, "r") as bashrc:
         bashrc = "".join( bashrc.readlines())
 
-    if cmd in bashrc :
-        return False   #### Already exist
+    #if cmd in bashrc :
+    #    return False   #### Already exist
 
     with open(fpath, "at") as bashrc:
         bashrc.write("\n"+ cmd +"\n")
