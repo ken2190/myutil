@@ -11,7 +11,7 @@ Doc::
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
-
+    # testing Irfan
 
 
 
@@ -19,15 +19,11 @@ Doc::
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
 from box import Box
-from typing import Union 
-
 
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
-
-
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -56,8 +52,6 @@ from utilmy.sspark.src.util_hadoop import (
 def test_all():
     pass
 
-def test_commit():
-    pass
 
 def test1():
     ss="""
@@ -484,37 +478,49 @@ def spark_read_subfolder(sparksession,  dir_parent, nfile_past=24, exclude_patte
 
 
 ##################################################################################
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
-                returnval='str,int,datetime'):
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+             force_dayofmonth=-1,   ###  01 first of month 
+             force_dayofweek=-1, 
+             force_hourofday=-1,
+             returnval='str,int,datetime/unix'):
     """ One liner for date Formatter
     Doc::
 
-        datestr: 2012-02-12  or ""  emptry string for today's date.
+        datenow: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
+        date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
+        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
 
 
     """
     from pytz import timezone as tzone
-    import datetime
+    import datetime, time
 
-    if len(str(datestr )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)       
+    if len(str(datenow )) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
-    now_new = now_utc + datetime.timedelta(days=add_days, hours=add_hours)
+    #### Force dates
+    if force_dayofmonth >-1 :
+        pass    
 
-    if timezone != 'utc':
-        now_new = now_new.astimezone(tzone(timezone))
+    if force_dayofweek >-1 :
+        pass    
 
+    if force_hourofday >-1 :
+        pass    
+
+
+    now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
+    now_new = now_new + datetime.timedelta(days=add_days, hours=add_hours)
 
     if   returnval == 'datetime': return now_new ### datetime
     elif returnval == 'int':      return int(now_new.strftime(fmt))
-    else:                        return now_new.strftime(fmt)
+    elif returnval == 'unix':     return time.mktime(now_new.timetuple())
+    else:                         return now_new.strftime(fmt)
 
 
 def date_get_month_days(time):
