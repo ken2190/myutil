@@ -1,18 +1,30 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy
-     source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
      
      ####  CLI Access
-     sspark  spark_config_check
-     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
+     Need to add this in your ~/.bashrc, run this in your bash shell    
+
+            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
+
+            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
+
+      Or manually add in ~/.bashrc
+            export utilmy={path of utilmy above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
+    then, 
+        tail ~/.bashrc
+        source ~/.bashrc 
+        sspark  spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
-    # testing Irfan
 
+    ### Require pyspark
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
 """
@@ -43,7 +55,6 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_pd_read_parquet,
    hdfs_download_parallel,
    hdfs_ls,
 
@@ -55,6 +66,7 @@ pd_write_file_hdfs
 
 
 ### hive
+
 )
 
 
@@ -309,6 +321,13 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
 ########################################################################################
 def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None, hdfs_host="localhost",hdfs_port=8020,hdfs_user="hdfs"):
+    """ Us pyarrow
+    Doc::
+
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+    """
     import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
@@ -325,15 +344,14 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None, hdfs_host="loca
 
     dfall = None
     for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
         if verbose > 0 :print( pfile )
 
-        arr_table = pq.read_table(pfile, columns=cols,filesystem=hdfs_fs)
-        df        = arr_table.to_pandas()
-
-        print(df.head(nrows), df.shape, df.columns)
-        del arr_table; gc.collect()
+        try :
+            arr_table = pq.read_table(pfile, columns=cols,filesystem=hdfs_fs)
+            df        = arr_table.to_pandas()
+            print(df.head(nrows), df.shape, df.columns)
+            del arr_table; gc.collect()
+        except : pass
 
 
 
@@ -624,11 +642,8 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     """ Replace string in config files.
     Doc::
 
-         alias sspark="python utilmy$/sspark/src/util_spark.py "
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
         
-
-
     """
     import glob 
 
