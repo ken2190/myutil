@@ -328,17 +328,9 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
 
         arr_table = pq.read_table(pfile, columns=cols)
         df        = arr_table.to_pandas()
+
+        print(df.head(nrows), df.shape, df.columns)
         del arr_table; gc.collect()
-
-        dfall = pd.concat((dfall, df)) if dfall is None else df
-        del df
-        if len(dfall) > n_rows :
-            break
-
-    if dfall is None : return None
-    if verbose > 0 : print( dfall.head(2), dfall.shape )
-    dfall = dfall.iloc[:n_rows, :]
-    print(dfall)
 
 
 
