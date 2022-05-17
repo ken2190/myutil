@@ -322,15 +322,14 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
 
     dfall = None
     for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
         if verbose > 0 :print( pfile )
 
-        arr_table = pq.read_table(pfile, columns=cols)
-        df        = arr_table.to_pandas()
-
-        print(df.head(nrows), df.shape, df.columns)
-        del arr_table; gc.collect()
+        try :
+            arr_table = pq.read_table(pfile, columns=cols)
+            df        = arr_table.to_pandas()
+            print(df.head(nrows), df.shape, df.columns)
+            del arr_table; gc.collect()
+        except : pass
 
 
 
