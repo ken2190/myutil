@@ -51,7 +51,6 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_pd_read_parquet,
    hdfs_download_parallel,
    hdfs_ls,
 
@@ -63,6 +62,7 @@ pd_write_file_hdfs
 
 
 ### hive
+
 )
 
 
@@ -636,11 +636,8 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     """ Replace string in config files.
     Doc::
 
-         alias sspark="python utilmy$/sspark/src/util_spark.py "
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
         
-
-
     """
     import glob 
 
