@@ -1,0 +1,32 @@
+name: Build google-drive-ocamlfuse binary package
+
+#### Build Command :     https://github.com/arita37/myutil/actions/workflows/build_google_driver_ocamlfuse.yml
+
+
+on:
+  workflow_dispatch:
+    inputs:
+
+
+jobs:
+  building-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+
+      # REF: https://opam.ocaml.org/doc/Install.html#Ubuntu
+      - name: Install OPAM
+        run: |
+          sudo add-apt-repository ppa:avsm/ppa -y
+          sudo apt update
+          sudo apt install build-essential libcurl4-gnutls-dev libfuse-dev opam -y
+
+
+      # REF: https://github.com/astrada/google-drive-ocamlfuse/wiki/Installation#installing-with-opam
+      - name: Install google-drive-ocamlfuse with OPAM
+        run: |
+          opam init --auto-setup -y --confirm-level=yes
+          eval $(opam env --switch=default)
+          opam update
+          opam install --confirm-level=unsafe-yes google-drive-ocamlfuse
+          google-drive-ocamlfuse -version
+          ls -l $(which google-drive-ocamlfuse)
