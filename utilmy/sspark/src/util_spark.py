@@ -193,7 +193,7 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
     from pandas_profiling import ProfileReport
 
-    profile = ProfileReport(large_dataset, minimal=minimal)
+    profile = ProfileReport(df, minimal=minimal)
     profile.to_file( dirout + f"/data_profile_{tag}.html")
 
 
@@ -457,15 +457,15 @@ def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
 
 ##################################################################################
 ###### ML ########################################################################
-from pyspark.sql.functions import col, explode, array, lit
+#from pyspark.sql.functions import col, explode, array, lit
 
 def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
     print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(col(label_col_name) == major_label)
-    minor_df = df.filter(col(label_col_name) == minor_label)
+    major_df = df.filter(F.col(label_col_name) == major_label)
+    minor_df = df.filter(F.col(label_col_name) == minor_label)
     a = range(ratio)
     # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", explode(array([F.lit(x) for x in a]))).drop('dummy')
+    oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
     # combine both oversampled minority rows and previous majority rows
     combined_df = major_df.unionAll(oversampled_df)
     print("Count of combined df after over sampling is  "+ str(combined_df.count()))
