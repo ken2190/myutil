@@ -105,7 +105,7 @@ def run_cli_utilmy():
         os.system(cmd) ; return
 
     ### Print Help    
-    print(HELP1)
+    # print(HELP1)
     fire.Fire()
 
 #############################################################################################
@@ -116,7 +116,7 @@ def run_show(dirin:str):
    if ".parquet" in dirin :
        from utilmy import pd_read_file
        df = pd_read_file(dirin)
-       print(df)
+       print(df.head(3), df.shape, list(df.columns))
 
 
 
@@ -141,7 +141,7 @@ def run_all_utilmy2():
 
 ###################################################################################################
 if __name__ == "__main__":
-    run_cli()
+    run_cli_utilmy()
     # fire.Fire()
 
 
