@@ -20,7 +20,7 @@ print("version", version)
 
 
 ##### Requirements ###################################################################
-#with open('install/reqs_image.txt') as fp:
+#with open('install/reqs_image.cmd') as fp:
 #    install_requires = fp.read()
 install_requires = ['pyyaml', 'stdlib_list', 'python-box', 'fire' ]
 
@@ -31,9 +31,9 @@ install_requires = ['pyyaml', 'stdlib_list', 'python-box', 'fire' ]
 #    long_description = fh.read()
 
 def get_current_githash():
-   import subprocess
-   # label = subprocess.check_output(["git", "describe", "--always"]).strip();
-   label = subprocess.check_output([ 'git', 'rev-parse', 'HEAD' ]).strip();
+   import subprocess 
+   # label = subprocess.check_output(["git", "describe", "--always"]).strip();   
+   label = subprocess.check_output([ 'git', 'rev-parse', 'HEAD' ]).strip();      
    label = label.decode('utf-8')
    return label
 
@@ -81,7 +81,7 @@ scripts = [     ]
 
 
 
-### CLI Scripts  ###################################################
+### CLI Scripts  ###################################################   
 entry_points={ 'console_scripts': [
 
     'docs      = utilmy.docs.cli:run_cli',
@@ -89,23 +89,30 @@ entry_points={ 'console_scripts': [
     'templates = utilmy.templates.cli:run_cli',
 
     #### generic
-    'utilmy = utilmy.cli:run_cli',
+    'utilmy = utilmy.cli:run_cli_utilmy',
+
+
+    #### generic for All code
+    'utilmy2 = utilmy.cli:run_all_utilmy2',
+
+    ###  sspark
+    'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
 
  ] }
 
 
 
 
-##################################################################
+##################################################################   
 setup(
     name="utilmy",
     description="utils",
     keywords='utils',
-
-    author="Nono",
+    
+    author="Nono",    
     install_requires=install_requires,
     python_requires='>=3.6.5',
-
+    
     packages=packages,
 
     include_package_data=True,
@@ -115,7 +122,7 @@ setup(
        '': ['*','*/*','*/*/*','*/*/*/*']
     },
 
-
+   
     ### Versioning
     version=version,
     #cmdclass=cmdclass,
@@ -123,7 +130,7 @@ setup(
 
     #### CLI
     scripts = scripts,
-
+  
     ### CLI pyton
     entry_points= entry_points,
 
@@ -156,12 +163,26 @@ setup(
 
 
 
-def os_bash_append(txt):
-  with open(os.path.expanduser("~/.bashrc"), "at") as bashrc:
-     bashrc.write(txt)
+def os_bash_append(cmd):
+  """  Append to bashrc
+  """
+  try :
+    fpath = os.path.expanduser("~/.bashrc")
+    with open(fpath, "r") as bashrc:
+        bashrc = "".join( bashrc.readlines())
+
+    #if cmd in bashrc :
+    #    return False   #### Already exist
+
+    with open(fpath, "at") as bashrc:
+        bashrc.write("\n"+ cmd +"\n")
+    return True
+  except Exception as e:
+    print(e)  
+    return False
 
 
-#### Add environemment variables  utilmy
+#### Add environemment variables  utilmy path
 try :
     repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
@@ -169,11 +190,11 @@ try :
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os_bash_append(f"""\nexport utilmy={repopath}/    """)
+        os_bash_append(f"""export utilmy={repopath}/    """)
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
-    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")
+    print(" $utilmy  can be used as shortcut of the package library path for Command Line Usage")    
 
 except :
     pass
@@ -187,17 +208,50 @@ def os_cmd_to_bashrc(cmd):
             os.system(f""" setx {cmd} """)  ### Current session
 
         elif 'linux' in sys.platform :
-            os_bash_append(f"""\n {cmd}     \n""")
+            os_bash_append(f"""{cmd}""")
             print(' source  ~/.bashrc  ')
-
-        print(" $utilmy  can be used as shortcut of package library path for Command Line Usage")    
 
     except :
         pass
 
 
-cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
-os_cmd_to_bashrc(cmd)
+#### Spark Alias for command line
+# cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
+# os_cmd_to_bashrc(cmd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

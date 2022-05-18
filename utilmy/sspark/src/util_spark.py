@@ -6,7 +6,7 @@ Doc::
      ####  CLI Access
      Need to add this in your ~/.bashrc, run this in your bash shell    
 
-            python -c 'import utilmy; print(" export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
+            python -c 'import utilmy; print("export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
 
             echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
 
@@ -62,10 +62,13 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs
+pd_write_file_hdfs,
 
 
 ### hive
+#hive_csv_tohive,
+#hive_check_table,
+#hive_run_sql
 
 )
 
@@ -131,6 +134,10 @@ def config_parser(config):
         cfg[key] = val
     return cfg
 
+
+def run_cli_sspark():
+    import fire
+    fire.Fire()
 
 ##################################################################################    
 def spark_config_print(sparksession):
@@ -320,22 +327,20 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
 
 ########################################################################################
-def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None, hdfs_host="localhost",hdfs_port=8020,hdfs_user="hdfs"):
+def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
     """ Us pyarrow
     Doc::
 
        conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
+
     """
     import pandas as pd
     import pyarrow as pa, gc
     import pyarrow.parquet as pq
-    from pyarrow.fs import HadoopFileSystem
-
     hdfs = pa.hdfs.connect()
-    hdfs_fs = HadoopFileSystem(host=hdfs_host,port=hdfs_port,user=hdfs_user)
-    
+
     n_rows = 999999999 if nrows < 0  else nrows
 
     flist = hdfs.ls( path )
@@ -347,7 +352,7 @@ def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None, hdfs_host="loca
         if verbose > 0 :print( pfile )
 
         try :
-            arr_table = pq.read_table(pfile, columns=cols,filesystem=hdfs_fs)
+            arr_table = pq.read_table(pfile, columns=cols)
             df        = arr_table.to_pandas()
             print(df.head(nrows), df.shape, df.columns)
             del arr_table; gc.collect()
