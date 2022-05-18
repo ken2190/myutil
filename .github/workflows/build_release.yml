@@ -96,7 +96,7 @@ jobs:
 
 
     ################################################################
-     - name: test_cli
+    - name: test_cli
       continue-on-error: false
       run: |
           python utilmy/cli.py help
