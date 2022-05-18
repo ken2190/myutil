@@ -14,16 +14,14 @@ Commands:
 
     utilmy  gpu
     utilmy  gpu_usage
-    python $utilmy/images/util_image.py image_remove_background 
+    
 
 
 """
 import fire, argparse, os, sys
 
-
 #############################################################################################
-from utilmy.utilmy import log
-from utilmy.utilmy import os_system   
+from utilmy.utilmy import log, os_system   
 
 #############################################################################################
 try :
@@ -35,7 +33,7 @@ except:
 
 
 #############################################################################################
-def run_cli():
+def run_cli_utilmy():
     """ utilmy command line
     Doc::
 
@@ -43,7 +41,7 @@ def run_cli():
         utilmy   gpu
 
         utilmy   show   myfile.parquet
-
+        utilmy  find
 
 
 
@@ -65,7 +63,7 @@ def run_cli():
     add("--verbose",      type=int, default=0,         help = "hdops://github.com/user/repo/tree/a")
   
     args = p.parse_args()
-    do = args.task
+    do = str(args.task)
 
     if args.verbose > 0 : 
         log(dir_utilmy)
@@ -86,7 +84,7 @@ def run_cli():
 
     if do == 'show':
         ss = os_system( f"python {dir_utilmy}/cli.py  run_show  --dirin '{args.arg2}'  ",doprint=True)
-        log(ss)
+        log(ss) ; return
 
     if do == 'find': 
         os_system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.arg2}' --dirin '{args.arg3}'  ")
@@ -94,7 +92,7 @@ def run_cli():
 
     if do == 'colab':
         from utilmy import util_colab as mm
-        mm.help()
+        mm.help() ; return
 
 
     if "utilmy." in do or "utilmy/" in do :
@@ -104,8 +102,11 @@ def run_cli():
         fun_name = args.task
 
         cmd = f"{dir_utilmy}/{dirfile}  {fun_name}  "
-        os.system(cmd)
+        os.system(cmd) ; return
 
+    ### Print Help    
+    print(HELP1)
+    fire.Fire()
 
 #############################################################################################
 def run_show(dirin:str):
@@ -118,13 +119,19 @@ def run_show(dirin:str):
        print(df)
 
 
+
+
 #############################################################################################
-from utilmy.images.util_image import *       ##### All utils in util_image
+try :    from utilmy.images.util_image import *       ##### All utils in util_image 
+except : print('cannot import util_image')
 
 
+try :    from utilmy.sspark.src.util_spark import *   ##### All utils in util_image 
+except : print('cannot import util_spark')
 
 
-def run_all():
+def run_all_utilmy2():
+   ### utilmy2  Command Line 
    fire.Fire()
 
 
