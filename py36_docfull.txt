@@ -45,9 +45,9 @@ psutil
 
 ########################################################
 #### utilmy.images
-opencv-python
+# opencv-python
 scikit-image
-
+opencv-python-headless
 
 ########################################################
 #### utilmy.nlp

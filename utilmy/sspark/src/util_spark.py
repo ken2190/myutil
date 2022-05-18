@@ -1,28 +1,42 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy
-     source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
      
      ####  CLI Access
-     sspark  spark_config_check
-     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
+     Need to add this in your ~/.bashrc, run this in your bash shell    
+
+            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
+
+            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
+
+      Or manually add in ~/.bashrc
+            export utilmy={path of utilmy above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
+    then, 
+        tail ~/.bashrc
+        source ~/.bashrc 
+        sspark  spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
 
+    ### Require pyspark
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
 from box import Box
+from typing import Union
 
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from typing import Union 
+from pyspark.sql import functions as F
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -41,9 +55,17 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_pd_read_parquet,
    hdfs_download_parallel,
-   hdfs_ls
+   hdfs_ls,
+
+### parquet
+hdfs_pd_read_parquet,
+hdfs_pd_write_parquet,
+pd_read_parquet_hdfs,
+pd_write_file_hdfs
+
+
+### hive
 
 )
 
@@ -243,7 +265,7 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 
 
 
-def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
+def spark_dataframe_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                           save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
     Doc::
@@ -282,7 +304,7 @@ def spark_dataframe_check(df:pyspark.sql.DataFrame, tag="check", conf:dict=None,
 
 
 
-def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartitions:int=None, saveMode:str="append", format:str="parquet"):
+def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=None, saveMode:str="append", format:str="parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
@@ -297,9 +319,44 @@ def spark_write_hdfs(df:pyspark.sql.DataFrame, dirout:str="", show=0, numPartiti
         df.show()
 
 
+########################################################################################
+def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+    """ Us pyarrow
+    Doc::
+
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+
+    """
+    import pandas as pd
+    import pyarrow as pa, gc
+    import pyarrow.parquet as pq
+    hdfs = pa.hdfs.connect()
+
+    n_rows = 999999999 if nrows < 0  else nrows
+
+    flist = hdfs.ls( path )
+    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
+    flist = flist[:nfiles]
+
+    dfall = None
+    for pfile in flist:
+        if verbose > 0 :print( pfile )
+
+        try :
+            arr_table = pq.read_table(pfile, columns=cols)
+            df        = arr_table.to_pandas()
+            print(df.head(nrows), df.shape, df.columns)
+            del arr_table; gc.collect()
+        except : pass
+
+
+
+
 
 ########################################################################################
-def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
+def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
       
@@ -324,8 +381,38 @@ def hive_check_table(config, tables:Union[list,str], add_jar_cmd=""):
     log( os.system( cmd ) )
 
 
-def hive_run_sqlfile(sql_path):
-    pass
+
+def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
+        """
+
+        """
+        if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
+            with open(query_or_sqlfile, mode='r') as fp:
+                query = query_or_sqlfile.readlines()
+                query = "".join(query)
+        else :
+            query = query_or_sqlfile
+
+        hiveql = "./zhiveql_tmp.sql"
+        print(query)
+        print(hiveql, flush=True)
+
+        with open(hiveql, mode='w') as f:
+            f.write(query)
+
+        with open("nohup.out", mode='a') as f:
+            f.write("\n\n\n\n###################################################################")
+            f.write(query + "\n########################" )
+
+        if test == 1 :
+            return
+
+        if nohup > 0:
+           os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
+        else :
+           os.system( f" hive -f {hiveql}      " )
+        print('finish')
+
 
 
 
@@ -386,11 +473,11 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
 
 
 ##################################################################################
-def spark_metrics_classifier_summary(labels_and_predictions_df):
+def spark_metrics_classifier_summary(df_labels_preds):
     from pyspark.mllib.evaluation import MulticlassMetrics
     from pyspark.mllib.evaluation import BinaryClassificationMetrics
 
-    labels_and_predictions_rdd =labels_and_predictions_df.rdd.map(list)
+    labels_and_predictions_rdd =df_labels_preds.rdd.map(list)
     metrics = MulticlassMetrics(labels_and_predictions_rdd)
     # Overall statistics
     precision = metrics.precision()
@@ -422,7 +509,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 
 
-def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
+def spark_read_subfolder(sparksession,  dir_parent, nfile_past=24, exclude_pattern="", **kw):
     """ subfolder
     doc::
 
@@ -440,44 +527,56 @@ def spark_read_subfolder(sparkSession,  dir_parent, nfile_past=24, exclude_patte
     log('Reading Npaths', len(flist))
 
     path =  ",".join(flist) 
-    df = sparkSession.read.csv(path, header=True, **kw)
+    df = sparksession.read.csv(path, header=True, **kw)
     return df
 
 
 
 
 ##################################################################################
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
-                returnval='str,int,datetime'):
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+             force_dayofmonth=-1,   ###  01 first of month 
+             force_dayofweek=-1, 
+             force_hourofday=-1,
+             returnval='str,int,datetime/unix'):
     """ One liner for date Formatter
     Doc::
 
-        datestr: 2012-02-12  or ""  emptry string for today's date.
+        datenow: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
+        date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
+        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
 
 
     """
     from pytz import timezone as tzone
-    import datetime
+    import datetime, time
 
-    if len(str(datestr )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)       
+    if len(str(datenow )) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
-    now_new = now_utc + datetime.timedelta(days=add_days, hours=add_hours)
+    #### Force dates
+    if force_dayofmonth >-1 :
+        pass    
 
-    if timezone != 'utc':
-        now_new = now_new.astimezone(tzone(timezone))
+    if force_dayofweek >-1 :
+        pass    
 
+    if force_hourofday >-1 :
+        pass    
+
+
+    now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
+    now_new = now_new + datetime.timedelta(days=add_days, hours=add_hours)
 
     if   returnval == 'datetime': return now_new ### datetime
     elif returnval == 'int':      return int(now_new.strftime(fmt))
-    else:                        return now_new.strftime(fmt)
+    elif returnval == 'unix':     return time.mktime(now_new.timetuple())
+    else:                         return now_new.strftime(fmt)
 
 
 def date_get_month_days(time):
@@ -491,7 +590,7 @@ def date_get_unix_from_datetime(dt_with_timezone):
     return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / TimeConstants.SECONDS_PER_DAY
+    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 def date_get_hour_range(dt, offset, output_format):
     hour_range = []
@@ -541,11 +640,8 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     """ Replace string in config files.
     Doc::
 
-         alias sspark="python utilmy$/sspark/src/util_spark.py "
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
         
-
-
     """
     import glob 
 
