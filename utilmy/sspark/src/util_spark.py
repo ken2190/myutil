@@ -1,21 +1,11 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
+     pip install utilmy  
+     or git clone  ... &&   cd myutil && git checkout devspark && pip install -e .   ### Dev mode
      
-     ####  CLI Access
-     Need to add this in your ~/.bashrc, run this in your bash shell    
-
-            python -c 'import utilmy; print("export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
-
-            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
-
-      Or manually add in ~/.bashrc
-            export utilmy={path of utilmy above}
-            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
-    then, 
-        tail ~/.bashrc
-        source ~/.bashrc 
+     #### CLI access
+        sspark h   
         sspark  spark_config_check
 
 
@@ -62,10 +52,13 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs
+pd_write_file_hdfs,
 
 
 ### hive
+#hive_csv_tohive,
+#hive_check_table,
+#hive_run_sql
 
 )
 
@@ -691,4 +684,25 @@ if __name__ == "__main__":
     fire.Fire()
 
 
+
+
+
+zhelp= """
+
+     ####  CLI Access
+     Need to add this in your ~/.bashrc, run this in your bash shell    
+
+            python -c 'import utilmy; print("export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
+
+            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
+
+      Or manually add in ~/.bashrc
+            export utilmy={path of utilmy above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
+    then, 
+        tail ~/.bashrc
+        source ~/.bashrc 
+
+
+"""
 
