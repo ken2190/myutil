@@ -1,18 +1,19 @@
-"""Spark related utils
+"""Spark, Hive, Hadoop related utils
 Doc::
 
      pip install utilmy  
      or git clone  ... &&   cd myutil && git checkout devspark && pip install -e .   ### Dev mode
      
-     #### CLI access
-        sspark h   
+     #### CLI access, using sspark
+        sspark   h   
         sspark  spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
 
-    ### Require pyspark
+     ### Require:
+       pip install pyspark
        conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
@@ -56,9 +57,8 @@ pd_write_file_hdfs,
 
 
 ### hive
-#hive_csv_tohive,
-#hive_check_table,
-#hive_run_sql
+hive_csv_tohive,
+hive_query2
 
 )
 
