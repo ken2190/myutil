@@ -1,28 +1,19 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
+     pip install utilmy     
+     OR git clone ...    && cd myutil && pip install -e .   ### Dev mode
      
      ####  CLI Access
-     Need to add this in your ~/.bashrc, run this in your bash shell    
-
-            python -c 'import utilmy; print("export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
-
-            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
-
-      Or manually add in ~/.bashrc
-            export utilmy={path of utilmy above}
-            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
-    then, 
-        tail ~/.bashrc
-        source ~/.bashrc 
-        sspark  spark_config_check
+        sspark h
+        sspark spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
 
-    ### Require pyspark
+    ### Require 
+       pyspark
        conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
