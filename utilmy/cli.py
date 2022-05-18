@@ -84,12 +84,12 @@ def run_cli_utilmy():
     #################################################################################################
     if do == 'gpu_usage': 
         ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
-        return
+        return None
 
     if do == 'gpu': 
         ss = os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_available",doprint=True)
         # log(ss[0])
-        return
+        return None
 
     if do == 'show':
         show1(args.arg2)
