@@ -72,7 +72,8 @@ pd_write_file_hdfs,
 
 )
 
-
+########################################################################################
+###### TESTS  ##########################################################################
 def test_all():
     pass
 
@@ -100,7 +101,7 @@ def test1():
     #spark.sql.warehouse.dir           : '/tmp'    
     spark.submit.deployMode            : 'client'
     """
-    cfg = config_parser(ss)
+    cfg = config_parser_yaml(ss)
     sparksession = spark_get_session(cfg)
 
 
@@ -110,7 +111,7 @@ def test1():
     spark_config_check()
 
 
-def config_parser(config):
+def config_parser_yaml(config):
     """
     Doc::
 
@@ -140,7 +141,9 @@ def run_cli_sspark():
     fire.Fire()
 
 
+
 ########################################################################################
+###### HDFS PARQUET ####################################################################
 def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
     """ Us pyarrow
     Doc::
@@ -202,6 +205,7 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 
 #######################################################################################    
+###### SPARK CONFIG ###################################################################
 def spark_config_print(sparksession):
     log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
@@ -577,6 +581,7 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 
 ##########################################################################################
+###### Dates  ############################################################################
 def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
              force_dayofmonth=-1,   ###  01 first of month 
              force_dayofweek=-1, 
