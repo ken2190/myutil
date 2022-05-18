@@ -95,6 +95,9 @@ entry_points={ 'console_scripts': [
     #### generic for All code
     'utilmy2 = utilmy.cli:run_all_utilmy2',
 
+    ###  sspark
+    'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
+
  ] }
 
 
