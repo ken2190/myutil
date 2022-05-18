@@ -72,7 +72,8 @@ pd_write_file_hdfs,
 
 )
 
-
+########################################################################################
+###### TESTS  ##########################################################################
 def test_all():
     pass
 
@@ -100,7 +101,7 @@ def test1():
     #spark.sql.warehouse.dir           : '/tmp'    
     spark.submit.deployMode            : 'client'
     """
-    cfg = config_parser(ss)
+    cfg = config_parser_yaml(ss)
     sparksession = spark_get_session(cfg)
 
 
@@ -110,7 +111,7 @@ def test1():
     spark_config_check()
 
 
-def config_parser(config):
+def config_parser_yaml(config):
     """
     Doc::
 
@@ -140,7 +141,9 @@ def run_cli_sspark():
     fire.Fire()
 
 
+
 ########################################################################################
+###### HDFS PARQUET ####################################################################
 def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
     """ Us pyarrow
     Doc::
@@ -198,7 +201,11 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 
 
-##################################################################################    
+
+
+
+#######################################################################################    
+###### SPARK CONFIG ###################################################################
 def spark_config_print(sparksession):
     log('\n####### Spark Conf') 
     conft = sparksession.sparkContext.getConf().getAll()
@@ -254,8 +261,6 @@ def spark_config_create(mode='', dirout="./conf_spark/"):
 
     if mode=='local':
         pass
-
-
 
 
 
@@ -315,7 +320,11 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 
 
 
-########################################################################################
+
+
+#########################################################################################
+###### Dataframe ########################################################################
+#from pyspark.sql.functions import col, explode, array, lit
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                    save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
@@ -371,11 +380,64 @@ def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=No
 
 
 
+def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+    print("Count of df before over sampling is  "+ str(df.count()))
+    major_df = df.filter(F.col(label_col_name) == major_label)
+    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    a = range(ratio)
+    # duplicate the minority rows
+    oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
+    # combine both oversampled minority rows and previous majority rows
+    combined_df = major_df.unionAll(oversampled_df)
+    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
+    return combined_df
+
+
+def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+    print("Count of df before under sampling is  "+ str(df.count()))
+    major_df = df.filter(F.col(label_col_name) == major_label)
+    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    sampled_majority_df = major_df.sample(False, ratio,seed=33)
+    combined_df = sampled_majority_df.unionAll(minor_df)
+    print("Count of combined df after under sampling is  " + str(combined_df.count()))
+    return combined_df
+
+
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+    """.
+    Doc::
+            
+            # Splitting data into train and test
+            # we maintain the time-order while splitting
+            # if split ratio = 0.7 then first 70% of data is train data
+            Args:
+                df_m:
+                splitRatio:
+                sparksession:
+        
+            Returns: df_train, df_test
+        
+    """
+    from pyspark.sql import types as T
+    newSchema  = T.StructType(df_m.schema.fields + \
+                [T.StructField("Row Number", T.LongType(), False)])
+    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
+    df_m2          = SparkSession.createDataFrame(new_rdd, newSchema)
+    total_rows     = df_m2.count()
+    splitFraction  =int(total_rows*splitRatio)
+    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
+                          .where(df_m2["Row Number"] <= splitFraction)
+    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
+    return df_train, df_test
 
 
 
 
-########################################################################################
+
+
+
+#########################################################################################
+###### SQL  #############################################################################
 def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="", map_sql_variables:dict=None)->pyspark.sql.DataFrame:
     """ Execute SQL
     Doc::
@@ -455,63 +517,8 @@ def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
 
 
 
-##################################################################################
-###### ML ########################################################################
-#from pyspark.sql.functions import col, explode, array, lit
-
-def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
-    print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
-    a = range(ratio)
-    # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
-    # combine both oversampled minority rows and previous majority rows
-    combined_df = major_df.unionAll(oversampled_df)
-    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
-    print("Count of df before under sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
-    sampled_majority_df = major_df.sample(False, ratio,seed=33)
-    combined_df = sampled_majority_df.unionAll(minor_df)
-    print("Count of combined df after under sampling is  " + str(combined_df.count()))
-    return combined_df
-
-
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
-    """.
-    Doc::
-            
-            # Splitting data into train and test
-            # we maintain the time-order while splitting
-            # if split ratio = 0.7 then first 70% of data is train data
-            Args:
-                df_m:
-                splitRatio:
-                sparksession:
-        
-            Returns: df_train, df_test
-        
-    """
-    from pyspark.sql import types as T
-    newSchema  = T.StructType(df_m.schema.fields + \
-                [T.StructField("Row Number", T.LongType(), False)])
-    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
-    df_m2          = SparkSession.createDataFrame(new_rdd, newSchema)
-    total_rows     = df_m2.count()
-    splitFraction  =int(total_rows*splitRatio)
-    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
-                          .where(df_m2["Row Number"] <= splitFraction)
-    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
-    return df_train, df_test
-
-
-
-##################################################################################
+#########################################################################################
+###### metrics  #########################################################################
 def spark_metrics_classifier_summary(df_labels_preds):
     from pyspark.mllib.evaluation import MulticlassMetrics
     from pyspark.mllib.evaluation import BinaryClassificationMetrics
@@ -547,7 +554,6 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
     print("Area under ROC = %s" % metrics.areaUnderROC)
 
 
-
 def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_pattern="", **kw):
     """ subfolder
     doc::
@@ -572,7 +578,10 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 
 
-##################################################################################
+
+
+##########################################################################################
+###### Dates  ############################################################################
 def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
              force_dayofmonth=-1,   ###  01 first of month 
              force_dayofweek=-1, 
@@ -642,7 +651,11 @@ def date_get_start_of_month(datetime1):
 
 
 
-##################################################################################
+
+
+
+
+#########################################################################################
 def json_compress(raw_obj):
     return zlib.compress(str.encode(json.dumps(raw_obj)))
 
