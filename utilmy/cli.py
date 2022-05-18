@@ -1,7 +1,8 @@
 """ Command Line for utilmy.
 Doc::
 
-        utilmy  help
+        utilmy  h        ### all commands
+        utilmy  help     ### Special Comamnds
         utilmy  gpu_usage
         utilmy  gpu
 
@@ -14,6 +15,9 @@ Commands:
 
     utilmy  gpu
     utilmy  gpu_usage
+    
+    ### From utilmy library
+    utilmy spark_config_check
     
 
 
@@ -37,8 +41,10 @@ def run_cli_utilmy():
     """ utilmy command line
     Doc::
 
-        utilmy   gpu_usage
-        utilmy   gpu
+        utilmy  h        ### all commands
+        utilmy  help     ### Special Comamnds
+        utilmy  gpu_usage
+        utilmy  gpu
 
         utilmy   show   myfile.parquet
         utilmy  find
@@ -69,22 +75,25 @@ def run_cli_utilmy():
         log(dir_utilmy)
 
     if do == 'help':
-        print(HELP1)
+        print(HELP1) ; return
 
     if do == 'init':
         pass
 
+
     #################################################################################################
     if do == 'gpu_usage': 
         ss=  os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_usage", doprint=True)
+        return
 
     if do == 'gpu': 
         ss = os_system( f"python {dir_utilmy}/deeplearning/util_dl.py   gpu_available",doprint=True)
         # log(ss[0])
+        return
 
     if do == 'show':
-        ss = os_system( f"python {dir_utilmy}/cli.py  run_show  --dirin '{args.arg2}'  ",doprint=True)
-        log(ss) ; return
+        show1(args.arg2)
+        return 
 
     if do == 'find': 
         os_system( f"{dir_utilmy}/oos.py  os_find_infile   --pattern  '{args.arg2}' --dirin '{args.arg3}'  ")
@@ -109,15 +118,15 @@ def run_cli_utilmy():
     fire.Fire()
 
 #############################################################################################
-def run_show(dirin:str):
-   if ".py" in dirin :
-       os_system( f'cat {dirin}', doprint=True)
-   
+def show1(dirin:str):
+   #log(dirin) 
+
    if ".parquet" in dirin :
        from utilmy import pd_read_file
        df = pd_read_file(dirin)
        print(df.head(3), df.shape, list(df.columns))
-
+   else :
+       print(os_system( f'head -n 5 {dirin}', doprint=True))        
 
 
 
@@ -130,9 +139,17 @@ try :    from utilmy.sspark.src.util_spark import *   ##### All utils in util_im
 except : print('cannot import util_spark')
 
 
+try :    from utilmy.deeplearning.util_dl import *    ##### All utils in util_dl
+except : print('cannot import util_dl')
+
+
 def run_all_utilmy2():
    ### utilmy2  Command Line 
    fire.Fire()
+
+
+
+
 
 
 #############################################################################################
