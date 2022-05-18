@@ -6,7 +6,7 @@ Doc::
      ####  CLI Access
      Need to add this in your ~/.bashrc, run this in your bash shell    
 
-            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
+            python -c 'import utilmy; print(" export utilmy=" +  utilmy.__path__[0] +"/ " ) '    >> ~/.bashrc 
 
             echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
 
