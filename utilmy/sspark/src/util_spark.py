@@ -371,10 +371,10 @@ def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=No
 
 
 
-def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+def spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, ):
     print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    major_df = df.filter(F.col(coltarget) == major_label)
+    minor_df = df.filter(F.col(coltarget) == minor_label)
     a = range(ratio)
     # duplicate the minority rows
     oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
@@ -384,10 +384,10 @@ def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio,):
     print("Count of df before under sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    major_df = df.filter(F.col(coltarget) == major_label)
+    minor_df = df.filter(F.col(coltarget) == minor_label)
     sampled_majority_df = major_df.sample(False, ratio,seed=33)
     combined_df = sampled_majority_df.unionAll(minor_df)
     print("Count of combined df after under sampling is  " + str(combined_df.count()))
