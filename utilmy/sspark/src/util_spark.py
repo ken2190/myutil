@@ -1,28 +1,42 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy
-     source ~/.bashrc    or  bash   ### Reload  sspark CLI Access
+     pip install utilmy  or cd myutil && pip install -e .   ### Dev mode
      
      ####  CLI Access
-     sspark  spark_config_check
-     sspark    ===   python $utilmy/ssspark/src/util_spark.py   spark_config_check
+     Need to add this in your ~/.bashrc, run this in your bash shell    
+
+            python -c 'import utilmy; print("\n export utilmy=" +  utilmy.__path__[0] +"/ \n" ) '    >> ~/.bashrc 
+
+            echo  'alias sspark="python $utilmy/ssspark/src/util_spark.py "  '  >> ~/.bashrc  
+
+      Or manually add in ~/.bashrc
+            export utilmy={path of utilmy above}
+            alias sspark='python $utilmy/ssspark/src/util_spark.py '    
+    then, 
+        tail ~/.bashrc
+        source ~/.bashrc 
+        sspark  spark_config_check
 
 
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
-    # testing Irfan
+
+    ### Require pyspark
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
 from box import Box
+from typing import Union
 
 import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from typing import Union 
+from pyspark.sql import functions as F
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -41,9 +55,17 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_pd_read_parquet,
    hdfs_download_parallel,
-   hdfs_ls
+   hdfs_ls,
+
+### parquet
+hdfs_pd_read_parquet,
+hdfs_pd_write_parquet,
+pd_read_parquet_hdfs,
+pd_write_file_hdfs
+
+
+### hive
 
 )
 
@@ -195,7 +217,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     conf = SparkConf()
     conf.setAll(config.items())
-    spark = sparksession.builder.config(conf=conf)
+    spark = SparkSession.builder.config(conf=conf)
     
     if config.get('hive_support', False):
        spark = spark.enableHiveSupport().getOrCreate()
@@ -295,6 +317,41 @@ def spark_write_hdfs(df:sp_dataframe, dirout:str="", show=0, numPartitions:int=N
 
     if show:
         df.show()
+
+
+########################################################################################
+def show_parquet(path, nfiles=1, nrows=10, verbose=1, cols=None):
+    """ Us pyarrow
+    Doc::
+
+       conda  install libhdfs3 pyarrow 
+       https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+
+    """
+    import pandas as pd
+    import pyarrow as pa, gc
+    import pyarrow.parquet as pq
+    hdfs = pa.hdfs.connect()
+
+    n_rows = 999999999 if nrows < 0  else nrows
+
+    flist = hdfs.ls( path )
+    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
+    flist = flist[:nfiles]
+
+    dfall = None
+    for pfile in flist:
+        if verbose > 0 :print( pfile )
+
+        try :
+            arr_table = pq.read_table(pfile, columns=cols)
+            df        = arr_table.to_pandas()
+            print(df.head(nrows), df.shape, df.columns)
+            del arr_table; gc.collect()
+        except : pass
+
+
 
 
 
@@ -533,7 +590,7 @@ def date_get_unix_from_datetime(dt_with_timezone):
     return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / TimeConstants.SECONDS_PER_DAY
+    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 def date_get_hour_range(dt, offset, output_format):
     hour_range = []
@@ -583,11 +640,8 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     """ Replace string in config files.
     Doc::
 
-         alias sspark="python utilmy$/sspark/src/util_spark.py "
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
         
-
-
     """
     import glob 
 

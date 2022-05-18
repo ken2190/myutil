@@ -96,6 +96,12 @@ jobs:
 
 
     ################################################################
+    - name: test_cli
+      continue-on-error: false
+      run: |
+          python utilmy/cli.py help
+
+
     - name: test_images
       continue-on-error: true    
       run: |

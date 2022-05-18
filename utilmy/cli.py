@@ -124,7 +124,7 @@ from utilmy.images.util_image import *       ##### All utils in util_image
 
 
 
-def run_all()
+def run_all():
    fire.Fire()
 
 
