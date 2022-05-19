@@ -626,8 +626,8 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
     else:                         return now_new.strftime(fmt)
 
 
-def date_get_month_days(time):
-    _, days = calendar.monthrange(time.year, time.month)
+def date_get_month_days(dt):
+    _, days = calendar.monthrange(dt.year, dt.month)
     return days
 
 def date_get_timekey(unix_ts):
