@@ -430,6 +430,13 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
     return df_train, df_test
 
 
+def table_dedupe(df,partition_by,order_by):
+    dedupe_df = df.withColumn('rnk',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(order_by))))\
+    .where(col('rnk')==1)\
+    .drop('rnk')
+    return dedupe_df
+
+
 
 
 
