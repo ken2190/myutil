@@ -23,7 +23,7 @@ Doc::
 
     ### Docker available:
       https://hub.docker.com/r/artia37/spark243-hdp27
-      
+
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
@@ -195,6 +195,7 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
     from pandas_profiling import ProfileReport
 
     profile = ProfileReport(df, minimal=minimal)
+    os.makedirs(dirout, exist_ok=True)
     profile.to_file( dirout + f"/data_profile_{tag}.html")
 
 
