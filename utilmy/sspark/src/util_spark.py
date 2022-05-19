@@ -108,6 +108,13 @@ def test1():
 
     spark_config_check()
 
+def test2():
+    config = ""
+    sparksession = spark_get_session(config)
+    df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
+    df = sparksession.createDataFrame(df)
+
+
 
 def config_parser_yaml(config):
     """
