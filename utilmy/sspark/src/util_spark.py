@@ -496,8 +496,11 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False):
         n = df.count()
         dfres = []
         for coli in cols :
-        n_null = df.where( f"{coli} is null").count()
-        dfres.append([ coli, n_null,n, np.round( npct_null , 5)  ])
+            try :
+               n_null = df.where( f"{coli} is null").count()
+               dfres.append([ coli, n_null,n, np.round( npct_null , 5)  ])
+            except :
+                log( 'error: ' + coli)   
 
         dfres = pd/DataFrame(dfres, columns=['col', 'n_null', 'ntot', 'npct_null'])
         print(dfres)
