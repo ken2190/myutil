@@ -3,14 +3,23 @@
 
 
 ### Build (local)
+
+Option1: Use apt-get to install google-drive-ocamlfuse
+
 ````
 cd dockers/docker-google-driv
-docker build -t   artia37/docker-google-drive:v1 -f Dockerfile .
+docker build -t   artia37/ubuntu-google-drive:v1 -f Dockerfile .
 ````
+
+Option2: Install google-drive-ocamlfuse via binary package
+
+```
+docker build -t   artia37/ubuntu-google-drive-bin:v1 -f Dockerfilev2 .
+```
 
 ### Usage
 ````
-docker pull artia37/docker-google-drive:v1
+docker pull artia37/ubuntu-google-drive:v1
 docker run -d \
         -e CLIENT_ID='my-client-id' \
         -e CLIENT_SECRET='my-client-secret' \
@@ -21,7 +30,7 @@ docker run -d \
         --cap-add sys_admin \
         --device=/dev/fuse \
         -v /mnt/drive:/mnt/gdrive:shared \
-        artia37/docker-google-drive:v1
+        artia37/ubuntu-google-drive:v1
 ````
 
 ### Structure
