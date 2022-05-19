@@ -17,8 +17,9 @@ Doc::
        conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
+
     ### More docs:
-       https://github.com/arita37/myutil/issues/502  
+       https://github.com/arita37/myutil/issues/502   
 
     ### Docker available:
       https://hub.docker.com/r/artia37/spark243-hdp27
@@ -33,6 +34,7 @@ import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -193,6 +195,7 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
     from pandas_profiling import ProfileReport
 
     profile = ProfileReport(df, minimal=minimal)
+    os.makedirs(dirout, exist_ok=True)
     profile.to_file( dirout + f"/data_profile_{tag}.html")
 
 
