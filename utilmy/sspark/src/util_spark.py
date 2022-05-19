@@ -519,9 +519,9 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
         dfres = []
         for coli in cols :
             try :
-               n_null = df.where( f"{coli} is null").count()
-               n5 =  0
-               n95 = 0
+               n_null  = df.where( f"{coli} is null").count()
+               n5      = 0
+               n95     = 0
                nunique = 0
                dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
             except :
