@@ -506,7 +506,8 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, dop
         if doprint :print(dfres)
         return dfres
 
-    
+spark_null_stats = spark_df_stats_null ### alias
+     
 
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
     """ TODO: get stats 5%, 95% for each column
