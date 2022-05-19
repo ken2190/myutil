@@ -26,10 +26,10 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd
+import pandas  as pd,  numpy as np
 from box import Box
 from typing import Union
-import numpy as np
+
 
 import pyspark
 from pyspark import SparkConf
@@ -527,7 +527,7 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], dosample=False
 
 
 
-               
+
                dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
             except :
                 log( 'error: ' + coli)   
