@@ -490,7 +490,7 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
 def spark_df_column_null_check(df:sp_dataframe,col_value):
     """ get the percentage of value absent in the column
     """
-    value = np.round(sp_dataframe.where("{0} is null".format(col_value).count()/sp_dataframe.count()*100,2))
+    value = np.round(sp_dataframe.where("{0} is null".format(col_value)).count()/sp_dataframe.count()*100,2)
     print("%s percent value missing in %s column"%(value,col_value))
     
 
