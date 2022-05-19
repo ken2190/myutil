@@ -487,7 +487,7 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, doprint=True):
     """ get the percentage of value absent in the column
     """
     if isinstance(cols, str): cols= [ cols]
@@ -498,16 +498,37 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False):
         for coli in cols :
             try :
                n_null = df.where( f"{coli} is null").count()
-               dfres.append([ coli, n_null,n, np.round( npct_null , 5)  ])
+               dfres.append([ coli, n,  n_null, np.round( npct_null , 5)  ])
             except :
                 log( 'error: ' + coli)   
 
-        dfres = pd/DataFrame(dfres, columns=['col', 'n_null', 'ntot', 'npct_null'])
-        print(dfres)
+        dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+        if doprint :print(dfres)
         return dfres
 
     
 
+def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
+    """ TODO: get stats 5%, 95% for each column
+    """
+    if isinstance(cols, str): cols= [ cols]
+    
+    if not dosample :
+        n = df.count()
+        dfres = []
+        for coli in cols :
+            try :
+               n_null = df.where( f"{coli} is null").count()
+               n5 =  0
+               n95 = 0
+               nunique = 0
+               dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
+            except :
+                log( 'error: ' + coli)   
+
+        dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
+        if doprint :print(dfres)
+        return dfres
 
 
 
