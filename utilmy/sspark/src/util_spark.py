@@ -17,7 +17,8 @@ Doc::
        conda  install libhdfs3 pyarrow 
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
-
+    ### More docs:
+       https://github.com/arita37/myutil/issues/502  
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
