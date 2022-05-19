@@ -466,7 +466,10 @@ def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
       
-       tables = [  'myhive.mytable'   ]
+       tables = [  'mydb.mytable'   ]
+       OR
+          myalias : mydb.mytable
+
 
 
   """  
@@ -483,7 +486,7 @@ def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
     
   for x in ss :
     cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
-    log(x[0])
+    log(x[0], cmd)
     log( os.system( cmd ) )
 
 
