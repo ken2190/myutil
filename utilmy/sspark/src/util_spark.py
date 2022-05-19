@@ -487,11 +487,22 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_column_null_check(df:sp_dataframe,col_value):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False):
     """ get the percentage of value absent in the column
     """
-    value = np.round(sp_dataframe.where("{0} is null".format(col_value)).count()/sp_dataframe.count()*100,2)
-    print("%s percent value missing in %s column"%(value,col_value))
+    if isinstance(cols, str): cols= [ cols]
+    
+    if not dosample :
+        n = df.count()
+        dfres = []
+        for coli in cols :
+        n_null = df.where( f"{coli} is null").count()
+        dfres.append([ coli, n_null,n, np.round( npct_null , 5)  ])
+
+        dfres = pd/DataFrame(dfres, columns=['col', 'n_null', 'ntot', 'npct_null'])
+        print(dfres)
+        return dfres
+
     
 
 
