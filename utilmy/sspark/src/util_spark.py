@@ -147,6 +147,7 @@ def run_cli_sspark():
 
 def hdfs_dir_stats(dirin,):
     """  nfile, total size in bytes, last modified
+         format of files,
 
     """
     pass
