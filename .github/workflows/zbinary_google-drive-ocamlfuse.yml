@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: upload files
-          path: /github/home/ocaml_path/
+          path: /home/runner/.opam/default/bin/google-drive-ocamlfuse
           retention-days: 300
