@@ -509,7 +509,8 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, dop
 spark_null_stats = spark_df_stats_null ### alias
 
 
-def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
+def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], dosample=False
+                       metric_list=['null', 'n5', 'n95' ]):
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
@@ -519,10 +520,14 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
         dfres = []
         for coli in cols :
             try :
-               n_null  = df.where( f"{coli} is null").count()
-               n5      = 0
+               n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
+               n5      = 0                                     if 'n5'   in metric_list else -1
                n95     = 0
                nunique = 0
+
+
+
+               
                dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
             except :
                 log( 'error: ' + coli)   
