@@ -1,9 +1,9 @@
 """Spark related utils
 Doc::
 
-     pip install utilmy     
+     pip install utilmy
      OR git clone ...    && cd myutil && pip install -e .   ### Dev mode
-     
+
      ####  CLI Access
         sspark h
         sspark spark_config_check
@@ -12,11 +12,17 @@ Doc::
      #### In Python Code
      from utilmy.sspark.src.util_spark import   spark_config_check
 
-    ### Require 
+    ### Require
        pyspark
-       conda  install libhdfs3 pyarrow 
+       conda  install libhdfs3 pyarrow
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
 
+
+    ### More docs:
+       https://github.com/arita37/myutil/issues/502
+
+    ### Docker available:
+      https://hub.docker.com/r/artia37/spark243-hdp27
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
@@ -28,6 +34,7 @@ import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
@@ -40,8 +47,8 @@ def log(*s):
 ##################################################################################
 from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
-   hdfs_copy_hdfs_to_local, 
-   hdfs_copy_local_to_hdfs, 
+   hdfs_copy_hdfs_to_local,
+   hdfs_copy_local_to_hdfs,
    hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
@@ -188,6 +195,7 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
     from pandas_profiling import ProfileReport
 
     profile = ProfileReport(df, minimal=minimal)
+    os.makedirs(dirout, exist_ok=True)
     profile.to_file( dirout + f"/data_profile_{tag}.html")
 
 
@@ -195,30 +203,30 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 
 
-#######################################################################################    
+#######################################################################################
 ###### SPARK CONFIG ###################################################################
 def spark_config_print(sparksession):
-    log('\n####### Spark Conf') 
+    log('\n####### Spark Conf')
     conft = sparksession.sparkContext.getConf().getAll()
-    for x in conft: 
-        print(x)    
+    for x in conft:
+        print(x)
 
-    log('\n####### Env Variables') 
+    log('\n####### Env Variables')
     for key,val in os.environ.items():
-        print(key,val)    
+        print(key,val)
 
     log('\n####### Spark Conf files:  spark-env.sh ')
-    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ') 
+    os.system(  f'cat  $SPARK_HOME/conf/spark-env.sh ')
 
     log('\n####### Spark Conf:  spark-defaults.conf')
-    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ') 
+    os.system(  f'cat  $SPARK_HOME/conf/spark-defaults.conf ')
 
 
 def spark_config_check():
     """ Check if files are misisng !!! Very useful for new spark install.
     Doc::
 
-         pip install -e .    // pip install utilmy   
+         pip install -e .    // pip install utilmy
          sspark spark_config_check
 
 
@@ -232,7 +240,7 @@ def spark_config_check():
 
     for file in file_required:
         file_path = os.path.expandvars(file)
-        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path) 
+        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path)
 
 
 def spark_config_create(mode='', dirout="./conf_spark/"):
@@ -246,7 +254,7 @@ def spark_config_create(mode='', dirout="./conf_spark/"):
 
     if mode=='yarn-cluster':
         pass
-        
+
     if mode=='yarn-client':
         pass
 
@@ -265,7 +273,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
     """
-    if isinstance(config, str):  
+    if isinstance(config, str):
         from utilmy.configs.util_config import load_config
         config_path = config
         config = load_config(config_path)  ### Universal config loader
@@ -273,13 +281,13 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     if config_key_name in config:
         config = config[config_key_name]
-    assert 'spark.master' in config , f"config seems incorrect: {config}"   
+    assert 'spark.master' in config , f"config seems incorrect: {config}"
 
 
     conf = SparkConf()
     conf.setAll(config.items())
     spark = SparkSession.builder.config(conf=conf)
-    
+
     if config.get('hive_support', False):
        spark = spark.enableHiveSupport().getOrCreate()
     else:
@@ -287,7 +295,7 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     if 'pyfiles' in config:
         spark.sparkContext.addPyFile(  config.get('pyfiles') )
-      
+
     if verbose>0:
         print(spark)
 
@@ -296,8 +304,8 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
 def spark_add_jar(sparksession, hive_jar_cmd=None):
-    try :  
-      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; " 
+    try :
+      ss  = "create temporary function tmp_f1 as 'com.jsonserde.udf.Empty2Null'  using jar 'hdfs:///user/myjar/json-serde.jar' ; "
       if hive_jar_cmd is not None:
           ss= hive_jar_cmd
 
@@ -371,10 +379,10 @@ def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=No
 
 
 
-def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+def spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, ):
     print("Count of df before over sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    major_df = df.filter(F.col(coltarget) == major_label)
+    minor_df = df.filter(F.col(coltarget) == minor_label)
     a = range(ratio)
     # duplicate the minority rows
     oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
@@ -384,10 +392,10 @@ def spark_df_over_sample(df:sp_dataframe, major_label, minor_label, ratio, label
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, label_col_name):
+def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio,):
     print("Count of df before under sampling is  "+ str(df.count()))
-    major_df = df.filter(F.col(label_col_name) == major_label)
-    minor_df = df.filter(F.col(label_col_name) == minor_label)
+    major_df = df.filter(F.col(coltarget) == major_label)
+    minor_df = df.filter(F.col(coltarget) == minor_label)
     sampled_majority_df = major_df.sample(False, ratio,seed=33)
     combined_df = sampled_majority_df.unionAll(minor_df)
     print("Count of combined df after under sampling is  " + str(combined_df.count()))
@@ -397,7 +405,7 @@ def spark_df_under_sample(df:sp_dataframe, major_label, minor_label, ratio, labe
 def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
     """.
     Doc::
-            
+
             # Splitting data into train and test
             # we maintain the time-order while splitting
             # if split ratio = 0.7 then first 70% of data is train data
@@ -405,9 +413,9 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
                 df_m:
                 splitRatio:
                 sparksession:
-        
+
             Returns: df_train, df_test
-        
+
     """
     from pyspark.sql import types as T
     newSchema  = T.StructType(df_m.schema.fields + \
@@ -420,6 +428,16 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
                           .where(df_m2["Row Number"] <= splitFraction)
     df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
     return df_train, df_test
+
+
+def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1):
+    """ get most recent (ie date desc, rank=1) record of userid
+    """
+    partition_by = colid
+    dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(col_orderby))))\
+    .where(F.col('rnk__')==rank)\
+    .drop('rnk__')
+    return dedupe_df
 
 
 
@@ -447,25 +465,28 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
   """ Check Hive table using Hive
   Doc::
-      
-       tables = [  'myhive.mytable'   ]
+
+       tables = [  'mydb.mytable'   ]
+       OR
+          myalias : mydb.mytable
 
 
-  """  
+
+  """
   if isinstance(tables, str):
       ### Parse YAML file
       ss = tables.split("\n")
-      ss = [t for t in ss if len(t) > 5  ]  
+      ss = [t for t in ss if len(t) > 5  ]
       ss = [  t.split(":") for t in ss]
-      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]    
-      print(ss)  
+      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
+      print(ss)
 
   elif isinstance(tables, list):
-      ss = [ [ ti, ti] for ti in tables  ]    
-    
+      ss = [ [ ti, ti] for ti in tables  ]
+
   for x in ss :
-    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """ 
-    log(x[0])
+    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
+    log(x[0], cmd)
     log( os.system( cmd ) )
 
 
@@ -562,7 +583,7 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
     flist = flist[-nfile_past:] if nfile_past > 0 else flist
     log('Reading Npaths', len(flist))
 
-    path =  ",".join(flist) 
+    path =  ",".join(flist)
     df = sparksession.read.csv(path, header=True, **kw)
     return df
 
@@ -573,9 +594,9 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
-             force_dayofmonth=-1,   ###  01 first of month 
-             force_dayofweek=-1, 
+def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
+             force_dayofmonth=-1,   ###  01 first of month
+             force_dayofweek=-1,
              force_hourofday=-1,
              returnval='str,int,datetime/unix'):
     """ One liner for date Formatter
@@ -585,7 +606,7 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
         date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
-        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
+        date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19"
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
 
 
@@ -594,19 +615,19 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
     import datetime, time
 
     if len(str(datenow )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)       
+        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
     #### Force dates
     if force_dayofmonth >-1 :
-        pass    
+        pass
 
     if force_dayofweek >-1 :
-        pass    
+        pass
 
     if force_hourofday >-1 :
-        pass    
+        pass
 
 
     now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
@@ -618,8 +639,8 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
     else:                         return now_new.strftime(fmt)
 
 
-def date_get_month_days(time):
-    _, days = calendar.monthrange(time.year, time.month)
+def date_get_month_days(dt):
+    _, days = calendar.monthrange(dt.year, dt.month)
     return days
 
 def date_get_timekey(unix_ts):
@@ -677,26 +698,26 @@ def os_system(cmd, doprint=False):
   except Exception as e :
     print( f"Error {cmd}, {e}")
 
-    
+
 def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
                     textold='/mypath2/', textnew='/mypath2/', test=1):
     """ Replace string in config files.
     Doc::
 
          sspark os_file_replace --dirin spark/conf  --textold 'mydir1/' --textnew 'mydir2/'  --test 1
-        
+
     """
-    import glob 
+    import glob
 
     txt1= textold ##  "/usr/local/old/"
     txt2= textnew  ## "/new/"
 
-  
-    flist = [] 
+
+    flist = []
     for diri in dirin:
        flist = glob.glob( diri , recursive= True )
 
-    flist = [ fi for fi in flist if 'backup' not in fi] 
+    flist = [ fi for fi in flist if 'backup' not in fi]
     log(flist)
 
     for fi in flist :
@@ -717,11 +738,11 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
         # break
         if test == 0 :
           with open(fi, mode='w') as fp :
-             fp.writelines("".join(ss))   
-        # break 
+             fp.writelines("".join(ss))
+        # break
 
 
-    
+
 
 
 ###############################################################################################################
