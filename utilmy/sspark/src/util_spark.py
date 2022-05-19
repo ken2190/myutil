@@ -19,6 +19,10 @@ Doc::
 
     ### More docs:
        https://github.com/arita37/myutil/issues/502  
+
+    ### Docker available:
+      https://hub.docker.com/r/artia37/spark243-hdp27
+
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
