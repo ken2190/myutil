@@ -507,7 +507,7 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, dop
         return dfres
 
 spark_null_stats = spark_df_stats_null ### alias
-     
+
 
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
     """ TODO: get stats 5%, 95% for each column
@@ -685,7 +685,7 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
+def date_now(datenow:Union[str]="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
              force_hourofday=-1,
@@ -705,19 +705,22 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
     from pytz import timezone as tzone
     import datetime, time
 
-    if len(str(datenow )) >7 :  ## Not None
+    if isinstance(datenow, datetime.datetime):
+        now_utc = datenow
+
+    elif len(str(datenow )) >7 :  ## Not None
         now_utc = datetime.datetime.strptime( str(datenow), fmt_input)
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
     #### Force dates
-    if force_dayofmonth >-1 :
+    if force_dayofmonth >0 :
+        now_utc = now_utc.replace(day=force_dayofmonth)
+
+    if force_dayofweek >0 :
         pass
 
-    if force_dayofweek >-1 :
-        pass
-
-    if force_hourofday >-1 :
+    if force_hourofday >0 :
         pass
 
 
@@ -742,15 +745,6 @@ def date_get_unix_from_datetime(dt_with_timezone):
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
     return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
-
-def date_get_hour_range(dt, offset, output_format):
-    hour_range = []
-    for hr in range(offset):
-        hour_range.append((dt + datetime.timedelta(hours=hr)).strftime(output_format))
-    return hour_range
-
-def date_get_start_of_month(datetime1):
-    return datetime1.replace(day=1)
 
 
 
