@@ -430,9 +430,10 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
     return df_train, df_test
 
 
-def spark_df_filter_mostrecent(df,partition_by='month',order_by='dt'):
+def spark_df_filter_mostrecent(df, colid='userid',order_by='dt'):
     """ get Lastest col
     """
+    partition_by = colid
     dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(order_by))))\
     .where(col('rnk__')==1)\
     .drop('rnk__')
