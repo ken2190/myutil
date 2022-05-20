@@ -162,10 +162,31 @@ def hdfs_dir_stats(dirin,):
 
 
 
+def hive_get_tablelist(dbname):
+
+    cmd = f'show tables from {dbname}'
+
+
+
+def hive_get_dblist():
+
+    cmd = f'show databases '
+
+
+
+def hive_get_tablechema(tablename):
+    cmd = f'show schema '
+
+
+
+def hive_get_tabledetails(table):
+    cmd = f'described formatted {table}'
 
 
 
 
+def hive_db_dumpall():
+    cmd = 'dump all db, table schema on disk'
 
 
 
