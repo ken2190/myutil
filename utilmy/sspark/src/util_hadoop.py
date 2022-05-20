@@ -161,27 +161,29 @@ def hdfs_ls(path, filename_only=False):
     flist_full_address = [fn.split(' ')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
     return flist_full_address
 
-def hdfs_isok(path):
-    import os
-    print( os.system( f'hdfs dfs -ls {path}' ) )
      
-def hdfs_mkdir(hdfs_path):
-    res = os_system( f"hdfs dfs -mkdir -p  '{hdfs_path}' ", doprint=True)
+def hdfs_mkdir(hdfs_dir):
+    res = os_system( f"hdfs dfs -mkdir -p  '{hdfs_dir}' ", doprint=True)
 
-def hdfs_copy_local_to_hdfs(local_path, hdfs_path, overwrite=False):
-    if overwrite: hdfs_rm_dir(hdfs_path)
-    res = os_system( f"hdfs dfs -copyFromLocal '{local_path}'  '{hdfs_path}' ", doprint=True)
 
-def hdfs_copy_hdfs_to_local(hdfs_path, local_path):
-    res = os_system( f"hdfs dfs -copyToLocal '{hdfs_path}'  '{local_path}' ", doprint=True)
+def hdfs_copy_fromlocal(local_dir, hdfs_dir, overwrite=False):
+    if overwrite: hdfs_rm_dir(hdfs_dir)
+    res = os_system( f"hdfs dfs -copyFromLocal '{local_dir}'  '{hdfs_dir}' ", doprint=True)
+
+
+def hdfs_copy_tolocal(hdfs_dir, local_dir):
+    res = os_system( f"hdfs dfs -copyToLocal '{hdfs_dir}'  '{local_dir}' ", doprint=True)
+
 
 def hdfs_rm_dir(path):
     if hdfs_dir_exists(path):
         print("removing old file "+path)
         cat = subprocess.call(["hdfs", "dfs", "-rm", path ])
 
+
 def hdfs_dir_exists(path):
     return {0: True, 1: False}[subprocess.call(["hadoop", "fs", "-test", "-f", path ])]
+
 
 def hdfs_file_exists(filename):
     ''' Return True when indicated file exists on HDFS.
@@ -239,7 +241,7 @@ def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/',
     return dfall
 
 
-def hdfs_pd_write_parquet(df, hdfs_path=  'hdfs:///user/pppp/clean_v01.parquet/', 
+def hdfs_pd_write_parquet(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/', 
                  cols=None,n_rows=1000, partition_cols=None, overwrite=True, verbose=1, ) :
     """Pandas to HDFS
     Doc::
@@ -258,12 +260,12 @@ def hdfs_pd_write_parquet(df, hdfs_path=  'hdfs:///user/pppp/clean_v01.parquet/'
     table = pa.Table.from_pandas(df)
     
     if overwrite :
-        hdfs.rm(hdfs_path.replace("hdfs://", ""), recursive=True)
-    hdfs.mkdir(hdfs_path.replace("hdfs://", ""))
-    pq.write_to_dataset(table, root_path=hdfs_path,
+        hdfs.rm(hdfs_dir.replace("hdfs://", ""), recursive=True)
+    hdfs.mkdir(hdfs_dir.replace("hdfs://", ""))
+    pq.write_to_dataset(table, root_dir=hdfs_dir,
                         partition_cols=partition_cols, filesystem=hdfs)
     
-    flist = hdfs.ls( hdfs_path )  
+    flist = hdfs.ls( hdfs_dir )  
     print(flist)
 
 
@@ -273,7 +275,7 @@ pd_read_parquet_hdfs =  hdfs_pd_read_parquet
 
 
 
-def hdfs_download_parallel(from_dir="", to_dir="",  verbose=False, n_pool=1,   **kw):
+def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
   """  Donwload files in parallel using pyarrow
   Doc::
 
@@ -289,7 +291,7 @@ def hdfs_download_parallel(from_dir="", to_dir="",  verbose=False, n_pool=1,   *
   #### File ############################################
   import pyarrow as pa
   hdfs  = pa.hdfs.connect()
-  flist = [ t for t in hdfs.ls(from_dir) ]
+  flist = [t for t in hdfs.ls(dirin)]
 
   def fun_async(x):
       hdfs.download(x[0], x[1])
@@ -320,7 +322,7 @@ def hdfs_download_parallel(from_dir="", to_dir="",  verbose=False, n_pool=1,   *
          if n_pool*j + i >= n_file  : break
          filei = file_list[n_pool*j + i]
 
-         xi    = (filei,  to_dir + "/" + filei.split("/")[-1] )
+         xi    = (filei, dirout + "/" + filei.split("/")[-1])
 
          job_list.append( pool.apply_async(fun_async, (xi, )))
          if verbose : log(j, filei)
@@ -509,7 +511,7 @@ def hive_csv_tohive(folder, tablename="ztmp", tableref="nono2.table2"):
 
 
 
-def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_path=None, **kwargs):
+def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwargs):
     """  Load SQL Query result to pandas dataframe
 
 
@@ -552,7 +554,7 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_path=None, **kwar
 
         df = pd.DataFrame(twod_list[1:], columns=renamed_column)
 
-        if save_path is not None :
+        if save_dir is not None :
            fname = f'ztmp/hive_result/{sid}/'
            os.makedirs(os.path.dirname(fname), exist_ok=True)
            df.to_parquet( fname + '/table.parquet' )
