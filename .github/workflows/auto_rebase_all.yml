@@ -45,22 +45,21 @@ jobs:
 
       - name: Create Auto PR  local to main
         run: |
-           echo 'aniket'    && bin/hub pull-request --base arita37:main    --head arita37:aniket      -m "aniket into main"     || echo "failed"
-           echo 'anhdang'   &&  bin/hub pull-request --base arita37:main    --head arita37:anhdang    -m "anhdang into main"    || echo "failed"
-           # echo 'bishwa-bk' &&  bin/hub pull-request --base arita37:main    --head arita37:bishwa-bk  -m "bishwa-bk into main"  || echo "failed"
+           export name='aniket' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
            export name='alex' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
            export name='dhamani' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
-           export name='tranchung' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+           export name='devspark' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
+           export name='devtorch' && echo $name &&  bin/hub pull-request  --base arita37:main    --head arita37:$name  -m "$name into main"  || echo "failed"
 
 
       - name: Create Auto PR  main to local
         run: |
-           echo 'aniket'    && bin/hub pull-request --base arita37:aniket    --head arita37:main      -m "main into aniket"     || echo "failed"
-           echo 'anhdang'   &&  bin/hub pull-request --base arita37:anhdang    --head arita37:main    -m "main into anhdang"    || echo "failed"
+           export name='aniket' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='dhamani' && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='tranchung'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
-           export name='zpractice'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='devspark'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
            export name='zdocs_y23487teg65f6'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
+           export name='devtorch'      && echo $name &&  bin/hub pull-request  --base arita37:$name    --head arita37:main  -m "main into $name"  || echo "failed"
 
 
 
