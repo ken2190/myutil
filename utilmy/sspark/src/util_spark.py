@@ -48,13 +48,13 @@ def log(*s):
 ##################################################################################
 from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
-   hdfs_copy_hdfs_to_local,
-   hdfs_copy_local_to_hdfs,
+   hdfs_copy_tolocal,
+   hdfs_copy_fromlocal,
    hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_download_parallel,
+   hdfs_download,
    hdfs_ls,
 
 ### parquet
