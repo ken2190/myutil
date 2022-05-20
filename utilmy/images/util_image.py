@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.images.util_image"
-"""# 
+"""#
 Doc::
 
    Utils image processing
+   ## CLI Command Line
+
+      image h
+      image image_remove_background --dirin   --dirout
+
+   ## From python
+   form utilmy.images.util_image import image_remove_background
+
 
 
 """
+MNAME='images'
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List,Any
 from box import Box
