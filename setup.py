@@ -89,11 +89,14 @@ entry_points={ 'console_scripts': [
     'templates = utilmy.templates.cli:run_cli',
 
     #### generic
-    'utilmy = utilmy.cli:run_cli',
+    'utilmy = utilmy.cli:run_cli_utilmy',
 
 
     #### generic for All code
-    'utilmy2 = utilmy.cli:run_all',
+    'utilmy2 = utilmy.cli:run_all_utilmy2',
+
+    ###  sspark
+    'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
 
  ] }
 
