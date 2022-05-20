@@ -193,12 +193,6 @@ def help_create(modulename='utilmy.nnumpy', prefixs=None):
 
 
 ###################################################################################################
-def get_verbosity(verbose:int=None):
-    if verbose is None :
-        verbose = os.environ.get('verbose', 1)
-    return verbose
-
-
 def get_loggers(mode='print', n_loggers=2, verbose_level=None):
     """function get_loggers
     Args:
