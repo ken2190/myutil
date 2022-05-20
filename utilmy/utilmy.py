@@ -218,6 +218,10 @@ def get_loggers(mode='print', n_loggers=2, verbose_level=None):
         return tuple(ttuple)
 
 
+#### Universal config Loader
+from utilmy.configs.util_config import config_load
+
+
 ###################################################################################################
 def find_fuzzy(word:str, wlist:list, threshold=0.0):
   """ Find closest fuzzy string
