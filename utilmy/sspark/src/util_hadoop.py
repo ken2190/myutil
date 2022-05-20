@@ -567,7 +567,21 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_path=None, **kwar
 
 
 
+def hdfs_dir_exists(path):
+    return {0: True, 1: False}[subprocess.call(["hdfs", "dfs", "-test", "-e", path])]
 
+
+def hive_update_partitions_table( hr, dt, location, table_name):
+    logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))
+    drop_partition_query = "ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})".format \
+            (table_name=table_name, dt=dt, hr=hr)
+    add_partition_query = "ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{loc}'".format \
+            (table_name=table_name, dt=dt,  hr=hr, loc=location)
+    run_hive_query_with_exception_on_failure(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    run_hive_query_with_exception_on_failure(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
+
+    
 
 
 ############################################################################################################### 
