@@ -487,56 +487,73 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, doprint=True):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
     """ get the percentage of value absent in the column
     """
     if isinstance(cols, str): cols= [ cols]
+
+    if sample_fraction>0 :
+         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
-    if not dosample :
-        n = df.count()
-        dfres = []
-        for coli in cols :
-            try :
-               n_null    = df.where( f"{coli} is null").count()
-               npct_null = np.round( n_null / n , 5)
-               dfres.append([ coli, n,  n_null, npct_null  ])
-            except :
-                log( 'error: ' + coli)   
+    n = df.count()
+    dfres = []
+    for coli in cols :
+        try :
+           n_null    = df.where( f"{coli} is null").count()
+           npct_null = np.round( n_null / n , 5)
+           dfres.append([ coli, n,  n_null, npct_null  ])
+        except :
+            log( 'error: ' + coli)
 
-        dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
-        if doprint :print(dfres)
-        return dfres
-
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+    if doprint :print(dfres)
+    return dfres
 
 
 
-def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], dosample=False,
-                       metric_list=['null', 'n5', 'n95' ]):
+
+def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
+                       metric_list=['null', 'n5', 'n95' ], doprint=True):
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
+
+    if sample_fraction>0 :
+         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
-    if not dosample :
-        n = df.count()
-        dfres = []
-        for coli in cols :
-            try :
-               n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
-               n5      = 0                                     if 'n5'   in metric_list else -1
-               n95     = 0
-               nunique = 0
+
+    n = df.count()
+    dfres = []
+    for coli in cols :
+        try :
+           n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
+           n5      = 0                                     if 'n5'   in metric_list else -1
+           n95     = 0
+           nunique = 0
 
 
 
 
-               dfres.append([ coli,n n_null, n5 , n95, nunique  ])
-            except :
-                log( 'error: ' + coli)   
+           dfres.append([ coli,n, n_null, n5 , n95, nunique  ])
+        except :
+            log( 'error: ' + coli)
 
-        dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
-        if doprint :print(dfres)
-        return dfres
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
+    if doprint :print(dfres)
+    return dfres
 
+
+def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True):
+    """
+
+
+    """
+    if col_stratify:
+        df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
+        return df1
+
+    df1 = df.sample(with_replace, fractions=fractions, seed=None)
+    return df1
 
 
 
