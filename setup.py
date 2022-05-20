@@ -50,6 +50,15 @@ ss1 = f"""
    Batching
    Distributed compute
    
+Stats usage:
+.. image:: https://static.pepy.tech/personalized-badge/utilmy?period=month&units=international_system&left_color=black&right_color=orange&left_text=Downloads
+ :target: https://pepy.tech/project/utilmy
+
+https://pepy.tech/project/utilmy
+
+https://pypistats.org/packages/utilmy
+
+
 
 Details:
 https://packagegalaxy.com/python/utilmy
