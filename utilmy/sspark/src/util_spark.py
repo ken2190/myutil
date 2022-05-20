@@ -29,6 +29,7 @@ import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
 import pandas  as pd
 from box import Box
 from typing import Union
+import numpy as np
 
 import pyspark
 from pyspark import SparkConf
@@ -108,6 +109,13 @@ def test1():
 
     spark_config_check()
 
+def test2():
+    config = ""
+    sparksession = spark_get_session(config)
+    df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
+    df = sparksession.createDataFrame(df)
+
+
 
 def config_parser_yaml(config):
     """
@@ -137,6 +145,45 @@ def config_parser_yaml(config):
 def run_cli_sspark():
     import fire
     fire.Fire()
+
+
+
+
+########################################################################################
+###### TODO : list of cuntion to be completed ###########################################
+
+
+def hdfs_dir_stats(dirin,):
+    """  nfile, total size in bytes, last modified
+         format of files,
+
+    """
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -439,6 +486,49 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     .drop('rnk__')
     return dedupe_df
 
+
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, doprint=True):
+    """ get the percentage of value absent in the column
+    """
+    if isinstance(cols, str): cols= [ cols]
+    
+    if not dosample :
+        n = df.count()
+        dfres = []
+        for coli in cols :
+            try :
+               n_null = df.where( f"{coli} is null").count()
+               dfres.append([ coli, n,  n_null, np.round( npct_null , 5)  ])
+            except :
+                log( 'error: ' + coli)   
+
+        dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+        if doprint :print(dfres)
+        return dfres
+
+    
+
+def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
+    """ TODO: get stats 5%, 95% for each column
+    """
+    if isinstance(cols, str): cols= [ cols]
+    
+    if not dosample :
+        n = df.count()
+        dfres = []
+        for coli in cols :
+            try :
+               n_null = df.where( f"{coli} is null").count()
+               n5 =  0
+               n95 = 0
+               nunique = 0
+               dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
+            except :
+                log( 'error: ' + coli)   
+
+        dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
+        if doprint :print(dfres)
+        return dfres
 
 
 
