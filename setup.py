@@ -51,7 +51,12 @@ ss1 = f"""
    Distributed compute
    
 Stats usage:
+.. image:: https://static.pepy.tech/personalized-badge/utilmy?period=month&units=international_system&left_color=black&right_color=orange&left_text=Downloads
+ :target: https://pepy.tech/project/utilmy
+
+
 https://pypistats.org/packages/utilmy
+
 
 
 Details:
