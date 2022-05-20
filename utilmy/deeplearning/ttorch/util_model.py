@@ -537,6 +537,47 @@ def model_get_alllayers(model):
 
 
 
+class model_getlayer():
+    """ Get a specific layer for embedding output
+    Doc::
+
+        model = models.resnet50()
+        layerI= model_getlayer(model, pos_layer=-1)
+
+        ### Forward pass
+        Xin = torch.randn(4, 3, 224, 224)
+        print( model(Xin) )
+
+        print('emb')
+        Xemb = layerI.output
+        print(Xemb.shape)
+        print(Xemb)
+
+    """
+    def __init__(self, network, backward=False, pos_layer=-2):
+        self.layers = []
+        self.get_layers_in_order(network)
+        self.last_layer = self.layers[pos_layer]
+        self.hook       = self.last_layer.register_forward_hook(self.hook_fn)
+
+    def hook_fn(self, module, input, output):
+        self.input = input
+        self.output = output
+
+    def close(self):
+        self.hook.remove()
+
+    def get_layers_in_order(self, network):
+      if len(list(network.children())) == 0:
+        self.layers.append(network)
+        return
+      for layer in network.children():
+        self.get_layers_in_order(layer)
+
+
+
+
+
 
 
 ###############################################################################################################
