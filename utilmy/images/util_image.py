@@ -179,6 +179,13 @@ def test_diskcache():
 
 
 #################################################################################################
+def run_cli():
+    import fire
+    fire.Fire()
+
+
+
+#################################################################################################
 #### images storage ###############################################################################
 #TODO alternate names/explanation of tag0,xdim0,ydim0 ( why"0" suffix for xdim0 ydim0)
 def diskcache_image_createcache(dirin:Path_type="", dirout:Path_type="", xdim0=256, ydim0=256, tag0= "", nmax=10000000, file_exclude="" ):
@@ -899,18 +906,16 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
     """ Remove background
     Doc::
 
-        source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
-
-        python $utilmy/images/util_image.py image_remove_backgroun  --dirin  img/data/bing/v4     --dirout  img/data/bing/v4_nobg &>> img/data/zlog_rembg.py  &
-
+        pip install rembg
         rembg  -ae 15 -p  img/data/fashion/test2/  img/data/fashion/test_nobg/
 
 
     """
     fpaths = glob.glob(dirin + "/*")
     log( str(fpaths)[:10] )
+
     for fp in fpaths :
-        if "." not in fp.split("/")[-1] :
+        if "." not in fp.split("/")[-1] :  ### only directory
             fp_out = fp.replace(dirin, dirout)
             os.makedirs(fp_out, exist_ok=True)
             cmd = f"rembg   -p {fp}  {fp_out} "    #### no adjustment -ae 15
@@ -1003,6 +1008,8 @@ def image_remove_text(dirin :Path_type, dirout :Path_type, level="*"):
       except : pass #TODO: code smell:better to handle specific exceptions
 
 
+
+remove_background = image_remove_background
 
 
 

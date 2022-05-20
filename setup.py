@@ -107,6 +107,9 @@ entry_points={ 'console_scripts': [
     ###  sspark
     'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
 
+    ###  image
+    'image = utilmy.images.util_image:run_cli',
+
  ] }
 
 
