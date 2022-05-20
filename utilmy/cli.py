@@ -115,7 +115,7 @@ def run_show(dirin:str):
    if ".parquet" in dirin :
        from utilmy import pd_read_file
        df = pd_read_file(dirin)
-       print(df)
+       print(df.head(3), df.shape, list(df.columns))
 
 
 #############################################################################################
