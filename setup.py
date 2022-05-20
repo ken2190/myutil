@@ -50,6 +50,9 @@ ss1 = f"""
    Batching
    Distributed compute
    
+Stats usage:
+https://pypistats.org/packages/utilmy
+
 
 Details:
 https://packagegalaxy.com/python/utilmy
