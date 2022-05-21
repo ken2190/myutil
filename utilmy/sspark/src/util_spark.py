@@ -26,10 +26,10 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd
+import pandas  as pd,  numpy as np
 from box import Box
 from typing import Union
-import numpy as np
+
 
 import pyspark
 from pyspark import SparkConf
@@ -48,13 +48,13 @@ def log(*s):
 ##################################################################################
 from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
-   hdfs_copy_hdfs_to_local,
-   hdfs_copy_local_to_hdfs,
+   hdfs_copy_tolocal,
+   hdfs_copy_fromlocal,
    hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
    hdfs_rm_dir,
-   hdfs_download_parallel,
+   hdfs_download,
    hdfs_ls,
 
 ### parquet
@@ -162,10 +162,31 @@ def hdfs_dir_stats(dirin,):
 
 
 
+def hive_get_tablelist(dbname):
+
+    cmd = f'show tables from {dbname}'
+
+
+
+def hive_get_dblist():
+
+    cmd = f'show databases '
+
+
+
+def hive_get_tablechema(tablename):
+    cmd = f'show schema '
+
+
+
+def hive_get_tabledetails(table):
+    cmd = f'described formatted {table}'
 
 
 
 
+def hive_db_dumpall():
+    cmd = 'dump all db, table schema on disk'
 
 
 
@@ -321,9 +342,9 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     """
     if isinstance(config, str):
-        from utilmy.configs.util_config import load_config
+        from utilmy.configs.util_config import config_load
         config_path = config
-        config = load_config(config_path)  ### Universal config loader
+        config = config_load(config_path)  ### Universal config loader
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
 
     if config_key_name in config:
@@ -410,7 +431,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
@@ -422,7 +443,7 @@ def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=No
         df.write.mode(saveMode).save(dirout, format)
 
     if show:
-        df.show()
+        df.show(3)
 
 
 
@@ -487,49 +508,73 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str],dosample=False, doprint=True):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
     """ get the percentage of value absent in the column
     """
     if isinstance(cols, str): cols= [ cols]
+
+    if sample_fraction>0 :
+         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
-    if not dosample :
-        n = df.count()
-        dfres = []
-        for coli in cols :
-            try :
-               n_null = df.where( f"{coli} is null").count()
-               dfres.append([ coli, n,  n_null, np.round( npct_null , 5)  ])
-            except :
-                log( 'error: ' + coli)   
+    n = df.count()
+    dfres = []
+    for coli in cols :
+        try :
+           n_null    = df.where( f"{coli} is null").count()
+           npct_null = np.round( n_null / n , 5)
+           dfres.append([ coli, n,  n_null, npct_null  ])
+        except :
+            log( 'error: ' + coli)
 
-        dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
-        if doprint :print(dfres)
-        return dfres
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+    if doprint :print(dfres)
+    return dfres
 
-    
 
-def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str],dosample=False):
+
+
+def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
+                       metric_list=['null', 'n5', 'n95' ], doprint=True):
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
+
+    if sample_fraction>0 :
+         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
-    if not dosample :
-        n = df.count()
-        dfres = []
-        for coli in cols :
-            try :
-               n_null = df.where( f"{coli} is null").count()
-               n5 =  0
-               n95 = 0
-               nunique = 0
-               dfres.append([ coli,n n_null, n5 , n95, nunnique  ])
-            except :
-                log( 'error: ' + coli)   
 
-        dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
-        if doprint :print(dfres)
-        return dfres
+    n = df.count()
+    dfres = []
+    for coli in cols :
+        try :
+           n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
+           n5      = 0                                     if 'n5'   in metric_list else -1
+           n95     = 0
+           nunique = 0
 
+
+
+
+           dfres.append([ coli,n, n_null, n5 , n95, nunique  ])
+        except :
+            log( 'error: ' + coli)
+
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
+    if doprint :print(dfres)
+    return dfres
+
+
+def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True):
+    """
+
+
+    """
+    if col_stratify:
+        df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
+        return df1
+
+    df1 = df.sample(with_replace, fractions=fractions, seed=None)
+    return df1
 
 
 
@@ -684,7 +729,8 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+             timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
              force_hourofday=-1,
@@ -698,26 +744,30 @@ def date_now(datenow:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='As
         date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
         date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19"
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
+        date_now(20211005, fmt='%Y-%m-%d', fmt_input='%Y%m%d', returnval='str')    -->  '2021-10-05'
 
 
     """
     from pytz import timezone as tzone
     import datetime, time
 
-    if len(str(datenow )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)
+    if isinstance(datenow, datetime.datetime):
+        now_utc = datenow
+
+    elif len(str(datenow)) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime(str(datenow), fmt_input)
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
     #### Force dates
-    if force_dayofmonth >-1 :
+    if force_dayofmonth >0 :
+        now_utc = now_utc.replace(day=force_dayofmonth)
+
+    if force_dayofweek >0 :
         pass
 
-    if force_dayofweek >-1 :
-        pass
-
-    if force_hourofday >-1 :
-        pass
+    if force_hourofday >0 :
+        now_utc = now_utc.replace(hour=force_hourofday)
 
 
     now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
@@ -741,15 +791,6 @@ def date_get_unix_from_datetime(dt_with_timezone):
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
     return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
-
-def date_get_hour_range(dt, offset, output_format):
-    hour_range = []
-    for hr in range(offset):
-        hour_range.append((dt + datetime.timedelta(hours=hr)).strftime(output_format))
-    return hour_range
-
-def date_get_start_of_month(datetime1):
-    return datetime1.replace(day=1)
 
 
 
