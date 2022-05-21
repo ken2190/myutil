@@ -93,6 +93,7 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
                     fileout="./ztmp/", unzip=True ):
       """Download  file from google drive on disk + unzip.
       Doc::
+
           url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
           ### Using file
@@ -390,17 +391,19 @@ def donwload_and_extract(url, dirout='./ztmp/', unzip=True):
 
 def os_extract_archive(file_path, dirout="./ztmp/", archive_format="auto"):
     """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
-    Args:
-        file_path: path to the archive file
-        dirout: path to extract the archive file
-        archive_format: Archive format to try for extracting the file.
-            Options are 'auto', 'tar', 'zip', and None.
-            'tar' includes tar, tar.gz, and tar.bz files.
-            The default 'auto' is ['tar', 'zip'].
-            None or an empty list will return no matches found.
-    Returns:
-        True if a match was found and an archive extraction was completed,
-        False otherwise.
+    Docs::
+
+        Args:
+            file_path: path to the archive file
+            dirout: path to extract the archive file
+            archive_format: Archive format to try for extracting the file.
+                Options are 'auto', 'tar', 'zip', and None.
+                'tar' includes tar, tar.gz, and tar.bz files.
+                The default 'auto' is ['tar', 'zip'].
+                None or an empty list will return no matches found.
+        Returns:
+            True if a match was found and an archive extraction was completed,
+            False otherwise.
     """
     import tarfile, zipfile
 
