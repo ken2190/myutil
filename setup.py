@@ -116,6 +116,7 @@ entry_points={ 'console_scripts': [
     ###  sspark
     'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
 
+
     ###  image
     'image = utilmy.images.util_image:run_cli',
 
@@ -237,8 +238,9 @@ def os_cmd_to_bashrc(cmd):
 
 
 #### Spark Alias for command line
-cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
-os_cmd_to_bashrc(cmd)
+# cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
+# os_cmd_to_bashrc(cmd)
+
 
 
 

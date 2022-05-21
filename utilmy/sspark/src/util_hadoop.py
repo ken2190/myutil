@@ -1869,6 +1869,7 @@ def aa_spark_docs():
         Convert time string with given pattern (‘yyyy-MM-dd HH:mm:ss’, by default) to Unix time stamp (in seconds), using the default timezone and the default locale, return null if fail.
 
         upper(col)
+        
 
         Converts a string expression to upper case.
 
@@ -2053,33 +2054,6 @@ def aa_spark_docs():
 
         Returns a list of functions registered in the specified database.
 
-        Catalog.listTables([dbName])
-
-        Returns a list of tables/views in the specified database.
-
-        Catalog.recoverPartitions(tableName)
-
-        Recovers all the partitions of the given table and update the catalog.
-
-        Catalog.refreshByPath(path)
-
-        Invalidates and refreshes all the cached data (and the associated metadata) for any DataFrame that contains the given data source path.
-
-        Catalog.refreshTable(tableName)
-
-        Invalidates and refreshes all the cached data and metadata of the given table.
-
-        Catalog.registerFunction(name, f[, returnType])
-
-        An alias for spark.udf.register().
-
-        Catalog.setCurrentDatabase(dbName)
-
-        Sets the current default database in this session.
-
-        Catalog.uncacheTable(tableName)
-
-        Removes the specified table from the in-memory cache.
 
 
    """
@@ -2720,7 +2694,6 @@ if 'insert_pandas_into_hive' :
                   os.rename(fi, fi + ".parquet")
                 except Exception as e :
                   log(e)
-
 
 
 
