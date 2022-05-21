@@ -2477,7 +2477,7 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 
     """
-    import subprocess, os
+    import subprocess, os, pandas as pd
     from collections import defaultdict
     sid = str(hash( str(sql) ))
 
