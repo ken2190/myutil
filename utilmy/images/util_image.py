@@ -102,7 +102,6 @@ def test_diskcache():
           'clock',
           'coffee',
           'coins',
-        #   'eagle',
           'grass',
           'gravel',
           'horse',
