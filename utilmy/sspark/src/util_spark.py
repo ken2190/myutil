@@ -548,14 +548,11 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     for coli in cols :
         try :
            n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
-           n5      = 0                                     if 'n5'   in metric_list else -1
-           n95     = 0
-           nunique = 0
+           n5      = df.approxQuantile(coli, [0.05], 0.1)[0]  if 'n5'   in metric_list else -1
+           n95     = df.approxQuantile(coli, [0.95], 0.1)[0]  if 'n95'  in metric_list else -1
+           nunique = df.agg(F.approx_count_distinct(F.col(coli))).head()[0]
 
-
-
-
-           dfres.append([ coli,n, n_null, n5 , n95, nunique  ])
+           dfres.append([ coli, n, n_null, n5 , n95, nunique  ])
         except :
             log( 'error: ' + coli)
 
