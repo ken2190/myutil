@@ -43,20 +43,38 @@ githash = get_current_githash()
 #####################################################################################
 ss1 = f"""
 
-1000's of One Liner Utilities for 
+1000's of One Liner functions for 
    Visualization
    Data processing
    Data pipelining
    Batching
    Distributed compute
+   Spark
+   Pytorch
+   Keras
+   Image
+   NLP Transformers
+   Tabular Transformers
+
    
+Stats usage:
+   > 1 million Donwload !
+   https://pepy.tech/project/utilmy
+
+
+   https://pypistats.org/packages/utilmy
+
+
 
 Details:
-https://packagegalaxy.com/python/utilmy
+   https://packagegalaxy.com/python/utilmy
+
 
 
 Docs/Support:
-https://groups.google.com/g/utilmy
+   https://groups.google.com/g/utilmy
+
+
 
 
 Hash:
@@ -97,6 +115,9 @@ entry_points={ 'console_scripts': [
 
     ###  sspark
     'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
+
+    ###  image
+    'image = utilmy.images.util_image:run_cli',
 
  ] }
 

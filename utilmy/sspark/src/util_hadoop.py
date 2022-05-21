@@ -2530,6 +2530,197 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 
 
+def hdfs_dir_exists(path):
+    return {0: True, 1: False}[subprocess.call(["hdfs", "dfs", "-test", "-e", path])]
+
+
+def hive_update_partitions_table( hr, dt, location, table_name):
+    logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))
+    drop_partition_query = "ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})".format \
+            (table_name=table_name, dt=dt, hr=hr)
+    add_partition_query = "ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{loc}'".format \
+            (table_name=table_name, dt=dt,  hr=hr, loc=location)
+    run_hive_query_with_exception_on_failure(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    run_hive_query_with_exception_on_failure(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
+
+    
+
+
+if 'insert_pandas_into_hive' :
+    def convert_pyarrow():   
+        dirin  = dir_ca + "/hdfs/a/*"
+        dirout = dir_ca + "/hdfs/a_hive/"
+
+        flist = reversed(glob_glob(dirin, 1000) )
+        for fi in flist :
+            log(fi)
+            df = pd.read_parquet(fi)
+            pd_to_file(df, dirout + fi.split("/")[-1] )
+
+
+    def to_hive1(dirin=None, table=None, dirout=None):   ##  
+        """  Need Pyarrow 3.0 to make it work.
+             hive 1.2
+
+             CREATE EXTERNAL TABLE n=st (
+              siid   ,
+            )
+            STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
+
+
+          hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
+
+          hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  nono3.map_siid_ranid_v15test  ;"
+
+          hadoop dfs  -rmr    /r/0/
+
+          hadoop dfs  -put   /aur/0/   /useca_pur/
+
+
+        """
+
+        dirin2 = dirin if ".parquet" in dirin else dirin + "/*"
+        log(dirin2, table)
+
+
+        ########################################################################################################
+        scheme = ""
+        df, dirouti, fi = pd_to_hive_parquet(dirin2, dirout=dirout, nfile=1, verbose=True)
+        scheme      = hive_schema(df)
+        # log(df, dirouti)
+        # dirouti = dir_cpa2 + "/ext/emb_map_siid_ranid_v15_145m/map_siid_ranid_145m.parquet/"
+        log(dirouti)
+
+        log('\n ################# Creating hive table')
+        ss= f"""  CREATE EXTERNAL TABLE {table} ( 
+                  {scheme} 
+                  ) 
+                  STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;        
+        """
+        log(ss)
+        to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
+        os_system('hive -f "ztmp_hive_sql.sql" ')
+
+
+        log('\n ################# Metadata to Hive ')
+        ss = f""" SET mapred.input.dir.recursive=true; SET hive.mapred.supports.subdirectories=true ;            
+                  LOAD DATA LOCAL INPATH   '{dirouti}'  OVERWRITE INTO TABLE  {table}   ;  describe   {table}  ;              
+        """
+        to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
+        os_system(  'hive -f "ztmp_hive_sql.sql" ')
+
+
+    def pd_to_hive_parquet(dirin, dirout="/ztmp_hive_parquet/", nfile=1, verbose=False):
+        """  Hive parquet needs special headers  NEED PYARROW 3.0  for Hive compatibility
+             Bug in fastparquet, cannot save float, int.,
+        """
+        import fastparquet as fp
+        if isinstance(dirin, pd.DataFrame):
+            fp.write(dirout, df, fixed_text=None, compression='SNAPPY', file_scheme='hive')
+            return df.iloc[:10, :]
+
+        flist = glob_glob(dirin, 1000)  ### only 1 file is for Meta-Data
+        fi    = flist[-1]
+        df    = pd.read_parquet( fi  )
+        df    = df.iloc[:100, :]   ### Prevent RAM overflow
+        if verbose: log(df, df.dtypes)
+
+        # df = pd_schema_enforce_hive(df, int_default=0, dtype_dict = None)
+
+        # df['p'] = 0
+
+        df= df.rename(columns={ 'timestamp': 'timestamp1' })
+
+        for c in df.columns :
+            if c in ['shop_id', 'item_id', 'campaign_id', 'timekey'] :
+                df[c] = df[c].astype('int64')
+            else :
+                df[c] = df[c].astype('str')
+
+
+        os.system( f" rm -rf  {dirout}  ")
+        os_makedirs(dirout)
+        dirouti = dirout + "/" + fi.split("/")[-1]
+        log('Exporting on disk', dirouti)
+        fp.write(dirouti, df.iloc[:100,:], fixed_text=None, compression='SNAPPY', file_scheme='hive')
+
+
+        ### Bug in Fastparquet with float, need to delete and replace by original files
+        os.remove( f"{dirouti}/part.0.parquet"  )
+
+        ### Replace by pyarrow 3.0
+        df.to_parquet( f"{dirouti}/part.0.parquet"  )
+
+        #### Need to KEEP ONE Parquet File, otherwise it creates issues
+        dirout2 = dirouti +  '/' + fi.split("/")[-1]
+        cmd = f"cp  {fi}    '{dirout2}' "
+        # os_system( cmd   )
+
+        return df.iloc[:10, :], dirouti, fi.split("/")[-1]
+
+
+    def hive_schema(df):
+        if isinstance(df, str):
+            df = pd_read_parquet_schema(df)
+
+        tt = ""
+        for ci in df.columns :
+            ss = str(df[ci].dtypes).lower()
+            if 'object'  in ss:   tt = tt +  f"{ci} STRING ,\n"
+            elif 'int64' in ss:   tt = tt +  f"{ci} BIGINT ,\n"
+            elif 'float' in ss:   tt = tt +  f"{ci} DOUBLE ,\n"
+            elif 'int'   in ss:   tt = tt +  f"{ci} INT ,\n"
+        #log(tt[:-2])
+        return tt[:-2]
+
+
+    def pd_read_parquet_schema(uri: str) -> pd.DataFrame:
+        """Return a Pandas dataframe corresponding to the schema of a local URI of a parquet file.
+
+        The returned dataframe has the columns: column, pa_dtype
+        """
+        import pandas as pd, pyarrow.parquet
+        # Ref: https://stackoverflow.com/a/64288036/
+        schema = pyarrow.parquet.read_schema(uri, memory_map=True)
+        schema = pd.DataFrame(({"column": name, "pa_dtype": str(pa_dtype)} for name, pa_dtype in zip(schema.names, schema.types)))
+        schema = schema.reindex(columns=["column", "pa_dtype"], fill_value=pd.NA)  # Ensures columns in case the parquet file has an empty dataframe.
+        return schema
+
+
+    def hdfs_download_from_hive():  ### python runcopy.py  from_hive
+
+        ss= f"""   hadoop dfs -get  "hdfs:/rehouse/no/{table}/"   {dirout} """
+        os_system(ss)
+
+        rename()  ### add .parquet
+
+
+    def os_rename_parquet(dir0=None):   ## py rename         
+         flist  = []
+
+         if dir0 is not None :
+            flist = flist + glob.glob( dir0 + "/*"  )
+
+         flist += sorted( list(set(glob.glob( dir_cpa3 + "/input/*/*" ))) )
+         flist += sorted( list(set(glob.glob( dir_cpa3 + "/input/*/*/*" ))) )
+
+         log(len(flist))
+         for fi in flist :
+            fend = fi.split("/")[-1]
+            if ".sh" in fend or ".py"  in fend or "COPY" in fend :
+                continue
+
+            if  '.parquet' in fend    : continue
+            if not os.path.isfile(fi) : continue
+
+            if '.' not in fend:
+                try :
+                  log(fi)
+                  os.rename(fi, fi + ".parquet")
+                except Exception as e :
+                  log(e)
+
 
 
 
