@@ -311,10 +311,8 @@ def spark_config_check():
         file_path = os.path.expandvars(file)
         if os.path.exists(file_path):
             log("exist: " + file_path)
-            continue
         elif os.path.exists(file_path + '.template'):
             log("exist: " + file_path + '.template') # windows
-            continue
         else:
             log("not exists: " + file_path)
 
