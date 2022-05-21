@@ -116,6 +116,7 @@ Doc:
 
 """
 import os,sys, subprocess
+import pandas as pd
 
 
 def log(*s):
@@ -2530,8 +2531,6 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 
 
-def hdfs_dir_exists(path):
-    return {0: True, 1: False}[subprocess.call(["hdfs", "dfs", "-test", "-e", path])]
 
 
 def hive_update_partitions_table( hr, dt, location, table_name):
@@ -2548,10 +2547,7 @@ def hive_update_partitions_table( hr, dt, location, table_name):
 
 
 if 'insert_pandas_into_hive' :
-    def convert_pyarrow():   
-        dirin  = dir_ca + "/hdfs/a/*"
-        dirout = dir_ca + "/hdfs/a_hive/"
-
+    def convert_pyarrow(dirin, dirout):
         flist = reversed(glob_glob(dirin, 1000) )
         for fi in flist :
             log(fi)
@@ -2696,7 +2692,8 @@ if 'insert_pandas_into_hive' :
         rename()  ### add .parquet
 
 
-    def os_rename_parquet(dir0=None):   ## py rename         
+    def os_rename_parquet(dir0=None):   ## py rename
+         import glob
          flist  = []
 
          if dir0 is not None :
