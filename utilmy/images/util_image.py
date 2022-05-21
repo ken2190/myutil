@@ -996,7 +996,7 @@ def image_remove_text(dirin :Path_type, dirout :Path_type, level="*"):
           fout = fp.replace(dirin, dirout)
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
-      except : pass #TODO: code smell:better to handle specific exceptions
+      except : pass #TODO: code smell:better to handle specific exceptions,
 
 
 
