@@ -33,25 +33,25 @@ def log_mem(*s):
 # Test functions
 def test_functions():
     """Check that list function is working.
-    os_lock_releaseLock, os_lock_releaseLock, os_lock_execute
+    os_lock_releaseLock, os_lock_releaseLock, os_lock_run
     Basic test on only 1 thread
     """
     # test function
     def running(fun_args):
         print(f'Function running with arg: {fun_args}')
 
-    # test that os_lock_execute is working
-    os_lock_execute(running, 'Test_args', plock='tmp/plock.lock')
-    os_lock_execute(running, [1, 2, 3], plock='tmp/plock.lock')
+    # test that os_lock_run is working
+    os_lock_run(running, 'Test_args', plock='tmp/plock.lock')
+    os_lock_run(running, [1, 2, 3], plock='tmp/plock.lock')
 
 
 def test_funtions_thread():
     """Check that list function is working.
-    os_lock_releaseLock, os_lock_releaseLock, os_lock_execute
+    os_lock_releaseLock, os_lock_releaseLock, os_lock_run
     Multi threads
     How the test work.
     - Create and run 5 threads. These threads try to access and use 1 function `running`
-    with os_lock_execute. So in one 1, only 1 thread can access and use this function.
+    with os_lock_run. So in one 1, only 1 thread can access and use this function.
     """
     import threading
 
@@ -64,7 +64,7 @@ def test_funtions_thread():
     # define test thread
     def thread_running(number):
         print(f'Thread {number} START')
-        os_lock_execute(running, number, plock='tmp/plock2.lock')
+        os_lock_run(running, number, plock='tmp/plock2.lock')
         print(f'Thread {number} sleeping in {number*3}s')
         time.sleep(number* 0.5)
         print(f'Thread {number} END')
@@ -364,7 +364,7 @@ def os_lock_releaseLock(locked_file_descriptor):
     # locked_file_descriptor.close()
 
 
-def os_lock_execute(fun_run, fun_args=None, ntry=5, plock="tmp/plock.lock", sleep=5):
+def os_lock_run(fun_run, fun_args=None, ntry=5, plock="tmp/plock.lock", sleep=5):
     """ Run a function in an atomic way :
          Write on disk  exclusively on COMMON File.
     """
