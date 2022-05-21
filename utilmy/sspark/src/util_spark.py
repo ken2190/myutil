@@ -342,9 +342,9 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
     """
     if isinstance(config, str):
-        from utilmy.configs.util_config import load_config
+        from utilmy.configs.util_config import config_load
         config_path = config
-        config = load_config(config_path)  ### Universal config loader
+        config = config_load(config_path)  ### Universal config loader
     assert isinstance(config, dict),  'spark configuration is not a dictionary {}'.format(config)
 
     if config_key_name in config:
@@ -431,7 +431,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
@@ -443,7 +443,7 @@ def spark_df_write(df:sp_dataframe, dirout:str= "", show=0, numPartitions:int=No
         df.write.mode(saveMode).save(dirout, format)
 
     if show:
-        df.show()
+        df.show(3)
 
 
 
@@ -729,7 +729,8 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str]="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+             timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
              force_hourofday=-1,
@@ -743,6 +744,7 @@ def date_now(datenow:Union[str]="", fmt="%Y%m%d", add_days=0, add_hours=0, timez
         date_now(timezone='Asia/Tokyo')    -->  "20200519"   ## Today date in YYYMMDD
         date_now(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19"
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
+        date_now(20211005, fmt='%Y-%m-%d', fmt_input='%Y%m%d', returnval='str')    -->  '2021-10-05'
 
 
     """
@@ -752,8 +754,8 @@ def date_now(datenow:Union[str]="", fmt="%Y%m%d", add_days=0, add_hours=0, timez
     if isinstance(datenow, datetime.datetime):
         now_utc = datenow
 
-    elif len(str(datenow )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datenow), fmt_input)
+    elif len(str(datenow)) >7 :  ## Not None
+        now_utc = datetime.datetime.strptime(str(datenow), fmt_input)
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
@@ -765,7 +767,7 @@ def date_now(datenow:Union[str]="", fmt="%Y%m%d", add_days=0, add_hours=0, timez
         pass
 
     if force_hourofday >0 :
-        pass
+        now_utc = now_utc.replace(hour=force_hourofday)
 
 
     now_new = now_utc.astimezone(tzone(timezone))  if timezone != 'utc' else  now_utc.astimezone(tzone('UTC'))
