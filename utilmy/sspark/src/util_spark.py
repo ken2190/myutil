@@ -26,7 +26,8 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd,  numpy as np
+import pandas  as pd
+import numpy as np
 from box import Box
 from typing import Union
 
@@ -308,7 +309,14 @@ def spark_config_check():
 
     for file in file_required:
         file_path = os.path.expandvars(file)
-        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path)
+        if os.path.exists(file_path):
+            log("exist: " + file_path)
+            continue
+        elif os.path.exists(file_path + '.template'):
+            log("exist: " + file_path + '.template') # windows
+            continue
+        else:
+            log("not exists: " + file_path)
 
 
 def spark_config_create(mode='', dirout="./conf_spark/"):
