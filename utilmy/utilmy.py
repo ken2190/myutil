@@ -193,12 +193,6 @@ def help_create(modulename='utilmy.nnumpy', prefixs=None):
 
 
 ###################################################################################################
-def get_verbosity(verbose:int=None):
-    if verbose is None :
-        verbose = os.environ.get('verbose', 1)
-    return verbose
-
-
 def get_loggers(mode='print', n_loggers=2, verbose_level=None):
     """function get_loggers
     Args:
@@ -216,6 +210,10 @@ def get_loggers(mode='print', n_loggers=2, verbose_level=None):
         if n_loggers >=  2:    ttuple.append(log2)
         if n_loggers >=  3:    ttuple.append(log3)
         return tuple(ttuple)
+
+
+#### Universal config Loader
+from utilmy.configs.util_config import config_load
 
 
 ###################################################################################################

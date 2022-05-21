@@ -726,7 +726,8 @@ def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_p
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+             timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
              force_hourofday=-1,
