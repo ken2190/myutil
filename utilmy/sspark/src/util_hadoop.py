@@ -2508,6 +2508,12 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 def hdfs_dir_exists(path):
     return {0: True, 1: False}[subprocess.call(["hdfs", "dfs", "-test", "-e", path])]
 
+def hdfs_list_dir(path,recursive=False):
+    subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
+
+def hdfs_size_dir(path):
+    return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+    
 
 def hive_update_partitions_table( hr, dt, location, table_name):
     logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))

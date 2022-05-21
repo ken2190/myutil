@@ -57,6 +57,8 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_rm_dir,
    hdfs_download,
    hdfs_ls,
+   hdfs_list_dir,
+   hdfs_size_dir,
 
 ### parquet
 hdfs_pd_read_parquet,
@@ -154,12 +156,17 @@ def run_cli_sspark():
 ###### TODO : list of cuntion to be completed ###########################################
 
 
-def hdfs_dir_stats(dirin,):
+def hdfs_dir_stats(dirin,recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
 
     """
-    pass
+    if hdfs_dir_exists(dirin):
+        hdfs_list_dir(dirin,recursive)
+        hdfs_size_dir(dirin)
+    else:
+        print("{} does not exist!".format(dirin))
+    
 
 
 
