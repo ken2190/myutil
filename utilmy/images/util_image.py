@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
-MNAME = "utilmy.images.util_image"
-"""# 
+"""#
 Doc::
 
    Utils image processing
+   ## CLI Command Line
+
+      image h
+      image image_remove_background --dirin   --dirout
+
+   ## From python
+   form utilmy.images.util_image import image_remove_background
+
 
 
 """
+MNAME='images'
 import os,io, numpy as np, sys, glob, time, copy, json, functools, pandas as pd
 from typing import Union,Tuple,Sequence,List,Any
 from box import Box
@@ -175,6 +183,13 @@ def test_diskcache():
                             pass
                         else:
                             assert False,'diskcache_image_dumpsample:key error should have been raised for non existant key'
+
+
+#################################################################################################
+def run_cli():
+    import fire
+    fire.Fire()
+
 
 
 #################################################################################################
@@ -898,18 +913,16 @@ def image_remove_background(dirin:Path_type= "", dirout:Path_type= "", level:int
     """ Remove background
     Doc::
 
-        source activate py38 &&  sleep 5 && python $utilmy/images/util_image.py   image_remove_bg
-
-        python $utilmy/images/util_image.py image_remove_backgroun  --dirin  img/data/bing/v4     --dirout  img/data/bing/v4_nobg &>> img/data/zlog_rembg.py  &
-
+        pip install rembg
         rembg  -ae 15 -p  img/data/fashion/test2/  img/data/fashion/test_nobg/
 
 
     """
     fpaths = glob.glob(dirin + "/*")
     log( str(fpaths)[:10] )
+
     for fp in fpaths :
-        if "." not in fp.split("/")[-1] :
+        if "." not in fp.split("/")[-1] :  ### only directory
             fp_out = fp.replace(dirin, dirout)
             os.makedirs(fp_out, exist_ok=True)
             cmd = f"rembg   -p {fp}  {fp_out} "    #### no adjustment -ae 15
@@ -999,9 +1012,11 @@ def image_remove_text(dirin :Path_type, dirout :Path_type, level="*"):
           fout = fp.replace(dirin, dirout)
           os.makedirs( os.path.dirname(fout), exist_ok=True)
           cv2.imwrite( fout, img )
-      except : pass #TODO: code smell:better to handle specific exceptions
+      except : pass #TODO: code smell:better to handle specific exceptions,
 
 
+
+remove_background = image_remove_background
 
 
 
