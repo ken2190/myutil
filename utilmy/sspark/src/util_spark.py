@@ -120,30 +120,6 @@ def test2():
 
 
 
-def config_parser_yaml(config):
-    """
-    Doc::
-
-            spark.master                       : 'local[1]'   # 'spark://virtual:7077'
-            spark.app.name                     : 'logprocess'
-            spark.driver.maxResultSize         : '10g'
-
-    """
-    ss = config
-    cfg = Box({})
-    for line in ss.split("\n"):
-        if not line:
-            continue
-        l1 = line.split(":")
-        if len(l1) < 2:
-            continue
-        key = l1[0].strip()
-        val = l1[1].split("#")[0].strip().strip("'")
-        if key[0] == "#":
-            continue
-        cfg[key] = val
-    return cfg
-
 
 def run_cli_sspark():
     import fire
@@ -198,7 +174,18 @@ def hive_db_dumpall():
 
 
 
+def spark_read(sparksession=None, dirin=:"hdfs://", **kw):
+    """ Universal HDFS file reader
+    Doc::
 
+    """
+
+    try:
+        df = sparksession.read_parquet(dirin, **kw)
+    except:     
+        df = sparksession.read_csv(dirin, **kw)
+
+    return df
 
 
 
@@ -670,6 +657,31 @@ def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
 
 
 
+#########################################################################################
+###### In/Out  ##########################################################################
+def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_pattern="", **kw):
+    """ subfolder
+    doc::
+
+          dir_parent/2021-02-03/file1.csv
+          dir_parent/2021-02-04/file1.csv
+          dir_parent/2021-02-05/file1.csv
+
+
+
+    """
+    # from util_hadoop import hdfs_ls
+    flist = hdfs_ls(dir_parent )
+    flist = sorted(flist)  ### ordered by dates increasing
+    flist = flist[-nfile_past:] if nfile_past > 0 else flist
+    log('Reading Npaths', len(flist))
+
+    path =  ",".join(flist)
+    df = sparksession.read.csv(path, header=True, **kw)
+    return df
+
+
+
 
 
 
@@ -709,28 +721,6 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
     print("Area under PR = %s" % metrics.areaUnderPR)
     # Area under ROC curve
     print("Area under ROC = %s" % metrics.areaUnderROC)
-
-
-def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_pattern="", **kw):
-    """ subfolder
-    doc::
-
-          dir_parent/2021-02-03/file1.csv
-          dir_parent/2021-02-04/file1.csv
-          dir_parent/2021-02-05/file1.csv
-
-
-
-    """
-    # from util_hadoop import hdfs_ls
-    flist = hdfs_ls(dir_parent )
-    flist = sorted(flist)  ### ordered by dates increasing
-    flist = flist[-nfile_past:] if nfile_past > 0 else flist
-    log('Reading Npaths', len(flist))
-
-    path =  ",".join(flist)
-    df = sparksession.read.csv(path, header=True, **kw)
-    return df
 
 
 
@@ -809,6 +799,31 @@ def date_get_unix_day_from_datetime(dt_with_timezone):
 
 
 #########################################################################################
+def config_parser_yaml(config):
+    """
+    Doc::
+
+            spark.master                       : 'local[1]'   # 'spark://virtual:7077'
+            spark.app.name                     : 'logprocess'
+            spark.driver.maxResultSize         : '10g'
+
+    """
+    ss = config
+    cfg = Box({})
+    for line in ss.split("\n"):
+        if not line:
+            continue
+        l1 = line.split(":")
+        if len(l1) < 2:
+            continue
+        key = l1[0].strip()
+        val = l1[1].split("#")[0].strip().strip("'")
+        if key[0] == "#":
+            continue
+        cfg[key] = val
+    return cfg
+
+
 def json_compress(raw_obj):
     return zlib.compress(str.encode(json.dumps(raw_obj)))
 
