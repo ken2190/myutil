@@ -125,6 +125,9 @@ def show1(dirin:str):
        from utilmy import pd_read_file
        df = pd_read_file(dirin)
        print(df.head(3), df.shape, list(df.columns))
+   else :
+       print(os_system( f'head -n 5 {dirin}', doprint=True))        
+
 
 
 

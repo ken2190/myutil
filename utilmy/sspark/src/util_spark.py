@@ -26,7 +26,8 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd,  numpy as np
+import pandas  as pd
+import numpy as np
 from box import Box
 from typing import Union
 
@@ -56,6 +57,8 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_rm_dir,
    hdfs_download,
    hdfs_ls,
+   hdfs_list_dir,
+   hdfs_size_dir,
 
 ### parquet
 hdfs_pd_read_parquet,
@@ -153,12 +156,17 @@ def run_cli_sspark():
 ###### TODO : list of cuntion to be completed ###########################################
 
 
-def hdfs_dir_stats(dirin,):
+def hdfs_dir_stats(dirin,recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
 
     """
-    pass
+    if hdfs_dir_exists(dirin):
+        hdfs_list_dir(dirin,recursive)
+        hdfs_size_dir(dirin)
+    else:
+        print("{} does not exist!".format(dirin))
+    
 
 
 
@@ -308,7 +316,12 @@ def spark_config_check():
 
     for file in file_required:
         file_path = os.path.expandvars(file)
-        log("exist: " + file_path) if os.path.exists(file_path) else log("not exists: " + file_path)
+        if os.path.exists(file_path):
+            log("exist: " + file_path)
+        elif os.path.exists(file_path + '.template'):
+            log("exist: " + file_path + '.template') # windows
+        else:
+            log("not exists: " + file_path)
 
 
 def spark_config_create(mode='', dirout="./conf_spark/"):
@@ -547,19 +560,16 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     dfres = []
     for coli in cols :
         try :
-           n_null  = df.where( f"{coli} is null").count()  if 'null' in metric_list else -1
-           n5      = 0                                     if 'n5'   in metric_list else -1
-           n95     = 0
-           nunique = 0
+           n_null  = df.where( f"{coli} is null").count()     if 'null' in metric_list else -1
+           n5      = df.approxQuantile(coli, [0.05], 0.1)[0]  if 'n5'   in metric_list else -1
+           n95     = df.approxQuantile(coli, [0.95], 0.1)[0]  if 'n95'  in metric_list else -1
+           nunique = df.agg(F.approx_count_distinct(F.col(coli))).head()[0]
 
-
-
-
-           dfres.append([ coli,n, n_null, n5 , n95, nunique  ])
+           dfres.append([ coli, n, n_null, n5 , n95, nunique  ])
         except :
             log( 'error: ' + coli)
 
-    dfres = pd.DataFrame(dfres, columns=['col', 'ntot', 'n_null',  'n5', 'n95', 'nunique' ])
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntotal', 'n_null',  'n5', 'n95', 'nunique' ])
     if doprint :print(dfres)
     return dfres
 
