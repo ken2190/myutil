@@ -100,8 +100,24 @@ def test_diskcache():
     import os
     import glob
     
-    images = ('astronaut', 'binary_blobs', 'brick', 'colorwheel', 'camera', 'cat', 'checkerboard', 'clock', 'coffee', 'coins', 
-              'eagle', 'grass', 'gravel', 'horse', 'logo', 'page', 'text', 'rocket', )
+    images = ('astronaut',
+          'binary_blobs',
+          'brick',
+          'colorwheel',
+          'camera',
+          'cat',
+          'checkerboard',
+          'clock',
+          'coffee',
+          'coins',
+          'grass',
+          'gravel',
+          'horse',
+          'logo',
+          'page',
+          'text',
+          'rocket',
+          )
     with  tempfile.TemporaryDirectory() as dirin:              
         # print(dirin)
         subdirs = ['1','2','3']
