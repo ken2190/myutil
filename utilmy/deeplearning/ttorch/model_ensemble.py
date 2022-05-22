@@ -17,6 +17,65 @@ Doc::
                 reload(library)
                 import library.Child
 
+Code::
+
+        if ARG.MODE == 'mode1':
+            ARG.MODEL_INFO.TYPE = 'dataonly' 
+            train_config                     = Box({})
+            train_config.LR                  = 0.001
+            train_config.DEVICE              = 'cpu'
+            train_config.BATCH_SIZE          = 32
+            train_config.EPOCHS              = 1
+            train_config.EARLY_STOPPING_THLD = 10
+            train_config.VALID_FREQ          = 1
+            train_config.SAVE_FILENAME       = './model.pt'
+            train_config.TRAIN_RATIO         = 0.7
+
+
+        #### SEPARATE the models completetly, and create duplicate
+        ### modelA  ########################################################
+        ARG.modelA               = Box()   #MODEL_TASK
+        ARG.modelA.name          = 'modelA1'
+        ARG.modelA.architect     = [ 5, 100, 16 ]
+        ARG.modelA.dataset       = Box()
+        ARG.modelA.dataset.dirin = "/"
+        ARG.modelA.dataset.coly  = 'ytarget'
+        modelA = modelA_create(ARG.modelA)
+
+
+        ### modelB  ########################################################
+        ARG.modelB               = Box()   #MODEL_RULE
+        ARG.modelB.name         = 'modelB1'
+        ARG.modelB.architect     = [5,100,16]
+        ARG.modelB.dataset       = Box()
+        ARG.modelB.dataset.dirin = "/"
+        ARG.modelB.dataset.coly  = 'ytarget'
+        modelB = modelB_create(ARG.modelB )
+
+        
+        ### merge_model  ###################################################
+        ARG.merge_model           = Box()
+        ARG.merge_model.name      = 'modelmerge1'
+        ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+
+        ARG.merge_model.MERGE = 'cat'
+
+        ARG.merge_model.dataset       = Box()
+        ARG.merge_model.dataset.dirin = "/"
+        ARG.merge_model.dataset.coly = 'ytarget'
+        ARG.merge_model.train_config  = train_config
+        model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+        #### Run Model   ###################################################
+        # load_DataFrame = modelB_create.load_DataFrame   
+        # prepro_dataset = modelB_create.prepro_dataset
+        model.build()        
+        model.training(load_DataFrame, prepro_dataset) 
+        inputs = torch.randn((1,5)).to(model.device)
+        outputs = model.predict(inputs)
+
+
 TODO :
     make get_embedding works
 
