@@ -45,10 +45,8 @@ def help():
     """function help        
     """
     from utilmy import help_create
-    try :
-       MNANE = : 'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", ".")   ###'.deeplearning.ttorch.model_ensemble.'
-    except: pass    
-    ss = HELP + help_create(MNAME)
+    MNAME =  'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", ".")   ###'.deeplearning.ttorch.model_ensemble.'
+    ss =  help_create(MNAME)
     log(ss)
 
 
