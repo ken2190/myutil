@@ -128,7 +128,7 @@ jobs:
 
     - name: test_distributed
       continue-on-error: true  
-      run: ls. 
+      run: ls . 
       # python test.py test_distributed
 
     
