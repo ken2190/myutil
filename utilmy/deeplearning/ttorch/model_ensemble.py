@@ -2,14 +2,20 @@
 """ utils for model merge
 Doc::
 
+        import utilmy.deeplearning.ttorch.model_ensemble as me
+        me.test1()
+        me.help()
+
+
+
         https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
         https://discuss.pytorch.org/t/merging-3-models/66230/3
 
-Issue wthen reloading jupyte
-        import library.Child
-        reload(library)
-        import library.Child
+        Issue wthen reloading jupyte
+                import library.Child
+                reload(library)
+                import library.Child
 
 TODO :
     make get_embedding works
@@ -39,6 +45,9 @@ def help():
     """function help        
     """
     from utilmy import help_create
+    try :
+       MNANE = : 'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", ".")   ###'.deeplearning.ttorch.model_ensemble.'
+    except: pass    
     ss = HELP + help_create(MNAME)
     log(ss)
 

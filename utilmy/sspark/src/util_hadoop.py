@@ -1870,6 +1870,7 @@ def aa_spark_docs():
         Convert time string with given pattern (‘yyyy-MM-dd HH:mm:ss’, by default) to Unix time stamp (in seconds), using the default timezone and the default locale, return null if fail.
 
         upper(col)
+        
 
         Converts a string expression to upper case.
 
@@ -2054,33 +2055,6 @@ def aa_spark_docs():
 
         Returns a list of functions registered in the specified database.
 
-        Catalog.listTables([dbName])
-
-        Returns a list of tables/views in the specified database.
-
-        Catalog.recoverPartitions(tableName)
-
-        Recovers all the partitions of the given table and update the catalog.
-
-        Catalog.refreshByPath(path)
-
-        Invalidates and refreshes all the cached data (and the associated metadata) for any DataFrame that contains the given data source path.
-
-        Catalog.refreshTable(tableName)
-
-        Invalidates and refreshes all the cached data and metadata of the given table.
-
-        Catalog.registerFunction(name, f[, returnType])
-
-        An alias for spark.udf.register().
-
-        Catalog.setCurrentDatabase(dbName)
-
-        Sets the current default database in this session.
-
-        Catalog.uncacheTable(tableName)
-
-        Removes the specified table from the in-memory cache.
 
 
    """
@@ -2532,6 +2506,12 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 
 
+def hdfs_list_dir(path,recursive=False):
+    subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
+
+def hdfs_size_dir(path):
+    return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+    
 
 def hive_update_partitions_table( hr, dt, location, table_name):
     logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))
@@ -2717,7 +2697,6 @@ if 'insert_pandas_into_hive' :
                   os.rename(fi, fi + ".parquet")
                 except Exception as e :
                   log(e)
-
 
 
 

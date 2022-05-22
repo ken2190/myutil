@@ -15,7 +15,8 @@ from pyspark.ml.regression import LinearRegression, RandomForestRegressor
 from pyspark.sql import types as T
 
 ############################################################################
-from src.utils import log
+def log(*s):
+    print(*s, flush=True)
 
 
 ###########################################################################
