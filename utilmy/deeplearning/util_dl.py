@@ -118,6 +118,8 @@ def gpu_available():
     print( deviceid_free )        
     return deviceid_free
             
+gpu = gpu_available  ### alias
+gpu2 = gpu_usage
             
    
 

@@ -20,33 +20,18 @@ def logger_setdefault():
 
 def log(*s):
     """function log
-    Args:
-        *s:   
-    Returns:
-        
-    """
-    """function log
-    Args:
-        *s:   
-    Returns:
         
     """
     logger.info(",".join([ str(t) for t in s  ]) )
 
 def log2(*s):
     """function log2
-    Args:
-        *s:   
-    Returns:
-        
+
     """
     logger.warning(",".join([ str(t) for t in s  ]) )
 
 def log3(*s):
     """function log3
-    Args:
-        *s:   
-    Returns:
         
     """
     logger.debug(",".join([ str(t) for t in s  ]) )
@@ -57,10 +42,6 @@ def log(*s):
 
 def log_sample(*s):
     """function log_sample
-    Args:
-        *s:   
-    Returns:
-        
     """
     print(*s)
 
