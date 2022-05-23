@@ -129,8 +129,8 @@ def run_cli_sspark():
 
 
 
-########################################################################################
-###### TODO : list of cuntion to be completed ###########################################
+################################################################################################
+###### TODO : list of function to be completed later ###########################################
 
 
 def hdfs_dir_stats(dirin,recursive=True):
@@ -269,26 +269,6 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 #######################################################################################
 ###### SPARK CONFIG ###################################################################
-def config_load(config_path:str):
-    """  Load Config file into a dict
-    doc::
-        config_path: path of config
-    """
-    from box import Box
-    import yaml
-    #Load the yaml config file
-    with open(config_path, "r") as yamlfile:
-        config_data = yaml.load(yamlfile, Loader=yaml.FullLoader)
-
-    dd = {}
-    for x in config_data :
-        for key,val in x.items():
-           dd[key] = val
-
-    dd = Box(dd)
-    return dd
-
-
 def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
@@ -855,6 +835,24 @@ def date_get_unix_day_from_datetime(dt_with_timezone):
 
 
 #########################################################################################
+def config_load(config_path:str):
+    """  Load Config filt yaml into a dict
+    """
+    from box import Box
+    import yaml
+    #Load the yaml config file
+    with open(config_path, "r") as yamlfile:
+        config_data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+    dd = {}
+    for x in config_data :
+        for key,val in x.items():
+           dd[key] = val
+
+    dd = Box(dd)
+    return dd
+
+
 def config_parser_yaml(config):
     """
     Doc::
