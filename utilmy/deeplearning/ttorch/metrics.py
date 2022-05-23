@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
-from itertools import combinations 
+
+import numpy as np
 import torch 
+
+
 ##############################################################################
-
-
 def test_metrics():
-    #!/usr/bin/env python3
-    # -*- coding: utf-8 -*-
-    import torch
     from utilmy.deeplearning.ttorch import metrics
 
     model  = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
     data   = torch.rand(64, 3, 224, 224)
     output = model(data)
     labels = torch.randint(1000, (64,))#random labels 
-    acc    = metrics.calc_accuracy(output = output, labels = labels) 
+    acc    = metrics.torch_metric_accuracy(output = output, labels = labels) 
 
 
 
@@ -24,11 +22,10 @@ def test_metrics():
 
     x1 = torch.rand(100,)
     x2 = torch.rand(100,)
-    r = metrics.pearson_coeff(x1, x2)
+    r = metrics.torch_pearson_coeff(x1, x2)
 
     x = torch.rand(100, 30)
-    r_pairs = metrics.pearson_coeff_pairs(x)
-
+    r_pairs = metrics.torch_pearson_coeff_pairs(x)
 
 
 
@@ -46,7 +43,7 @@ def test2():
                             size = (10000,), 
                             p = p)#imbalanced 1000-class labels
     labels = torch.Tensor(labels).long()
-    weight, label_weight = metrics.class_weights(labels)
+    weight, label_weight = metrics.torch_class_weights(labels)
     loss = torch.nn.CrossEntropyLoss(weight = weight)
     l = loss(output, labels[:64])
 
@@ -54,7 +51,7 @@ def test2():
 
 
 ##############################################################################
-def pearson_coeff(x1, x2):
+def torch_pearson_coeff(x1, x2):
     '''Computes pearson correlation coefficient between two 1D tensors
     with torch
     
@@ -75,7 +72,7 @@ def pearson_coeff(x1, x2):
     return r
 
 
-def pearson_coeff_pairs(x): 
+def torch_pearson_coeff_pairs(x): 
     '''Computes pearson correlation coefficient across 
     the 1st dimension of a 2D tensor  
     
@@ -92,16 +89,17 @@ def pearson_coeff_pairs(x):
        pearson correllation coefficient of the pair of tensors with idx in 
        tuple r[n][1] 
     '''
+    from itertools import combinations 
     all_un_pair_comb = [comb for comb in combinations(list(range(x.shape[0])), 2)]
     r = []
     for aupc in all_un_pair_comb:
-        current_r = pearson_coeff(x[aupc[0], :], x[aupc[1], :])    
+        current_r = torch_pearson_coeff(x[aupc[0], :], x[aupc[1], :])    
         r.append((current_r, (aupc[0], aupc[1])))
     
     return r
 
 
-def calc_accuracy(output = None, labels = None):
+def torch_metric_accuracy(output = None, labels = None):
     ''' Classification accuracy calculation as acc = (TP + TN) / nr total pred
     
     Input
@@ -126,7 +124,7 @@ def calc_accuracy(output = None, labels = None):
     return acc 
 
 
-def class_weights(labels):
+def torch_class_weights(labels):
     '''Compute class weights for imbalanced classes
     
     Input
@@ -153,7 +151,7 @@ def class_weights(labels):
     return weights, labels_weights
 
 
-def effective_dim(X, center = True):
+def torch_effective_dim(X, center = True):
     '''Compute the effective dimension based on the eigenvalues of X
     
     Input
