@@ -115,7 +115,7 @@ Doc:
     Example: hdfs dfs -touchz /user/hadoop/file12  
 
 """
-import os,sys, subprocess
+import os,sys, subprocess, time, datetime, glob
 import pandas as pd
 
 
@@ -646,13 +646,13 @@ def hdfs_size_dir(path):
     
 
 def hive_update_partitions_table( hr, dt, location, table_name):
-    logging.info('Updating latest partition location in {table_name} table'.format(table_name=table_name))
+    log('Updating latest partition location in {table_name} table'.format(table_name=table_name))
     drop_partition_query = "ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})".format \
             (table_name=table_name, dt=dt, hr=hr)
     add_partition_query = "ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{loc}'".format \
             (table_name=table_name, dt=dt,  hr=hr, loc=location)
-    run_hive_query_with_exception_on_failure(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    run_hive_query_with_exception_on_failure(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    hive_query(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    hive_query(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
     logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
 
     
@@ -660,7 +660,7 @@ def hive_update_partitions_table( hr, dt, location, table_name):
 
 if 'insert_pandas_into_hive' :
     def convert_pyarrow(dirin, dirout):
-        flist = reversed(glob_glob(dirin, 1000) )
+        flist = reversed(glob.glob(dirin, 1000) )
         for fi in flist :
             log(fi)
             df = pd.read_parquet(fi)
@@ -725,8 +725,8 @@ if 'insert_pandas_into_hive' :
         """
         import fastparquet as fp
         if isinstance(dirin, pd.DataFrame):
-            fp.write(dirout, df, fixed_text=None, compression='SNAPPY', file_scheme='hive')
-            return df.iloc[:10, :]
+            fp.write(dirout, dirin, fixed_text=None, compression='SNAPPY', file_scheme='hive')
+            return dirin.iloc[:10, :]
 
         flist = glob_glob(dirin, 1000)  ### only 1 file is for Meta-Data
         fi    = flist[-1]
@@ -811,8 +811,8 @@ if 'insert_pandas_into_hive' :
          if dir0 is not None :
             flist = flist + glob.glob( dir0 + "/*"  )
 
-         flist += sorted( list(set(glob.glob( dir_cpa3 + "/input/*/*" ))) )
-         flist += sorted( list(set(glob.glob( dir_cpa3 + "/input/*/*/*" ))) )
+         flist += sorted( list(set(glob.glob( dir0 + "/input/*/*" ))) )
+         flist += sorted( list(set(glob.glob( dir0 + "/input/*/*/*" ))) )
 
          log(len(flist))
          for fi in flist :
