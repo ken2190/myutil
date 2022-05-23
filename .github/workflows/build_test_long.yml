@@ -44,7 +44,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/conda/py36_big.txt') }}
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/conda/py36_docfull.txt') }}
           
 
     #- name: Install numpy
@@ -58,17 +58,20 @@ jobs:
            pip install -r  config/conda/py36_min.txt
 
 
+    - name: Install repo requirements   2
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run:  |
+        ls .
+        pip install -r  config/conda/py36_docfull.txt
+
+
     - name: Install utilmy
       run:  |
         pip install -e .
         python -c "import utilmy"
 
            
-    - name: Install repo requirements   2
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
-      run:  |
-        ls .
-        pip install -r  config/conda/py36_big.txt
+
 
 
     - name: test_import
@@ -95,4 +98,10 @@ jobs:
       # continue-on-error: true 
       run: |
           python test.py test_long
+
+
+    - name: test spark
+      # continue-on-error: true 
+      run: |
+          python test.py test_spark
 
