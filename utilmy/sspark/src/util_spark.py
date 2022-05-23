@@ -127,6 +127,27 @@ def run_cli_sspark():
 
 
 
+def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
+
+    from utilmy.utilmy import direpo
+    from utilmy.configs.util_config import config_load
+
+    if config == "/default.yaml":
+        dir1 = direpo() + "/sspark/config/config_local.yaml"
+    else :
+        dir1  = config
+
+    configd = config_load(dir1)
+    configd = configd[keyfield]
+
+    sparksession = spark_get_session(configd)
+    df = pd.DataFrame(np.random.random((7,  4)), columns=[ 'c'+str(i) for i in range(0, 4) ])
+    df = sparksession.createDataFrame(df)
+    df.show()
+
+    return sparksession
+    
+
 
 ########################################################################################
 ###### TODO : list of cuntion to be completed ###########################################
