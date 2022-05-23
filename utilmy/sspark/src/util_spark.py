@@ -1,21 +1,67 @@
-"""Spark related utils
+"""Spark Utils
 Doc::
 
-     pip install utilmy
-     OR git clone ...    && cd myutil && pip install -e .   ### Dev mode
+    pip install utilmy
+    OR git clone ...    && cd myutil && pip install -e .   ### Dev mode
 
-     ####  CLI Access
-        sspark h
-        sspark spark_config_check
+    ####  CLI Access
+    sspark h
+    sspark spark_config_check
 
 
-     #### In Python Code
-     from utilmy.sspark.src.util_spark import   spark_config_check
+    #### In Python Code
+    from utilmy.sspark.src.util_spark import   spark_config_check
 
     ### Require
        pyspark
        conda  install libhdfs3 pyarrow
        https://stackoverflow.com/questions/53087752/unable-to-load-libhdfs-when-using-pyarrow
+
+
+
+    utilmy/sspark/src/util_spark.py
+    -------------------------functions----------------------
+    analyze_parquet(dirin, dirout, tag = '', nfiles = 1, nrows = 10, minimal = True, random_sample = True, verbose = 1, cols = None)
+    config_parser_yaml(config)
+    date_get_month_days(dt)
+    date_get_timekey(unix_ts)
+    date_get_unix_day_from_datetime(dt_with_timezone)
+    date_get_unix_from_datetime(dt_with_timezone)
+    date_now(datenow:Union[str, int, datetime.datetime] = "", fmt = "%Y%m%d", add_days = 0, add_hours = 0, timezone = 'Asia/Tokyo', fmt_input = "%Y-%m-%d", force_dayofmonth = -1, ###  01 first of monthforce_dayofweek = -1, force_hourofday = -1, returnval = 'str,int,datetime/unix')
+    hdfs_dir_stats(dirin, recursive = True)
+    hive_check_table(tables:Union[list, str], add_jar_cmd = "")
+    hive_db_dumpall()
+    hive_get_dblist()
+    hive_get_tablechema(tablename)
+    hive_get_tabledetails(table)
+    hive_get_tablelist(dbname)
+    hive_run_sql(query_or_sqlfile = "", nohup:int = 1, test = 0, end0 = None)
+    json_compress(raw_obj)
+    json_decompress(data)
+    show_parquet(path, nfiles = 1, nrows = 10, verbose = 1, cols = None)
+    spark_add_jar(sparksession, hive_jar_cmd = None)
+    spark_config_check()
+    spark_config_create(mode = '', dirout = "./conf_spark/")
+    spark_config_print(sparksession)
+    spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
+    spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
+    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, )
+    spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
+    spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
+    spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
+    spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
+    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
+    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, numPartitions:int = None, saveMode:str =  "append", format:str =  "parquet")
+    spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
+    spark_metrics_classifier_summary(df_labels_preds)
+    spark_metrics_roc_summary(labels_and_predictions_df)
+    spark_read(sparksession = None, dirin="hdfs = "hdfs://", **kw)
+    spark_run_sqlfile(sparksession = None, spark_config:dict = None, sql_path:str = "", map_sql_variables:dict = None)
+
+    os_file_replace(dirin = ["myfolder/**/*.sh", "myfolder/**/*.conf", ], textold = '/mypath2/', textnew = '/mypath2/', test = 1)
+    os_subprocess(args_list, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    os_system(cmd, doprint = False)
+    run_cli_sspark()
 
 
     ### More docs:
@@ -77,7 +123,8 @@ pd_write_file_hdfs,
 ########################################################################################
 ###### TESTS  ##########################################################################
 def test_all():
-    pass
+    test1()
+    test2()
 
 
 def test1():
@@ -112,37 +159,13 @@ def test1():
 
     spark_config_check()
 
+
 def test2():
-    config = ""
-    sparksession = spark_get_session(config)
+    sparksession = spark_get_session_local()
     df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
     df = sparksession.createDataFrame(df)
 
 
-
-def config_parser_yaml(config):
-    """
-    Doc::
-
-            spark.master                       : 'local[1]'   # 'spark://virtual:7077'
-            spark.app.name                     : 'logprocess'
-            spark.driver.maxResultSize         : '10g'
-
-    """
-    ss = config
-    cfg = Box({})
-    for line in ss.split("\n"):
-        if not line:
-            continue
-        l1 = line.split(":")
-        if len(l1) < 2:
-            continue
-        key = l1[0].strip()
-        val = l1[1].split("#")[0].strip().strip("'")
-        if key[0] == "#":
-            continue
-        cfg[key] = val
-    return cfg
 
 
 def run_cli_sspark():
@@ -152,8 +175,9 @@ def run_cli_sspark():
 
 
 
-########################################################################################
-###### TODO : list of cuntion to be completed ###########################################
+
+################################################################################################
+###### TODO : list of function to be completed later ###########################################
 
 
 def hdfs_dir_stats(dirin,recursive=True):
@@ -198,7 +222,18 @@ def hive_db_dumpall():
 
 
 
+def spark_read(sparksession=None, dirin="hdfs://", **kw):
+    """ Universal HDFS file reader
+    Doc::
 
+    """
+
+    try:
+        df = sparksession.read_parquet(dirin, **kw)
+    except:     
+        df = sparksession.read_csv(dirin, **kw)
+
+    return df
 
 
 
@@ -281,6 +316,39 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 #######################################################################################
 ###### SPARK CONFIG ###################################################################
+def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
+    """  Start Local session for debugging
+    Docs::
+
+            sparksession = spark_get_session_local()  
+
+            sparksession = spark_get_session_local('mypath/conffig.yaml)  
+
+    """
+    from utilmy.utilmy import direpo
+    # from utilmy.configs.util_config import config_load
+
+    if config == "/default.yaml":
+        dir1 = direpo() + "/sspark/config/config_local.yaml"
+    else :
+        dir1  = config
+
+    log(dir1)
+    configd = config_load(dir1)
+    configd = configd[keyfield]
+    log(configd)
+
+    sparksession = spark_get_session(configd)
+
+    cols =  [ 'c1', 'c2']
+    df = sparksession.createDataFrame([[0,1 ],[2,4]]).toDF(*cols)
+    print(df.show())
+
+    return sparksession
+
+
+
+
 def spark_config_print(sparksession):
     log('\n####### Spark Conf')
     conft = sparksession.sparkContext.getConf().getAll()
@@ -354,6 +422,8 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
     """
+    from pyspark import SparkConf
+    from pyspark.sql import SparkSession
     if isinstance(config, str):
         from utilmy.configs.util_config import config_load
         config_path = config
@@ -670,6 +740,31 @@ def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
 
 
 
+#########################################################################################
+###### In/Out  ##########################################################################
+def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_pattern="", **kw):
+    """ subfolder
+    doc::
+
+          dir_parent/2021-02-03/file1.csv
+          dir_parent/2021-02-04/file1.csv
+          dir_parent/2021-02-05/file1.csv
+
+
+
+    """
+    # from util_hadoop import hdfs_ls
+    flist = hdfs_ls(dir_parent )
+    flist = sorted(flist)  ### ordered by dates increasing
+    flist = flist[-nfile_past:] if nfile_past > 0 else flist
+    log('Reading Npaths', len(flist))
+
+    path =  ",".join(flist)
+    df = sparksession.read.csv(path, header=True, **kw)
+    return df
+
+
+
 
 
 
@@ -709,28 +804,6 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
     print("Area under PR = %s" % metrics.areaUnderPR)
     # Area under ROC curve
     print("Area under ROC = %s" % metrics.areaUnderROC)
-
-
-def spark_read_subfolder(sparksession,  dir_parent:str, nfile_past=24, exclude_pattern="", **kw):
-    """ subfolder
-    doc::
-
-          dir_parent/2021-02-03/file1.csv
-          dir_parent/2021-02-04/file1.csv
-          dir_parent/2021-02-05/file1.csv
-
-
-
-    """
-    # from util_hadoop import hdfs_ls
-    flist = hdfs_ls(dir_parent )
-    flist = sorted(flist)  ### ordered by dates increasing
-    flist = flist[-nfile_past:] if nfile_past > 0 else flist
-    log('Reading Npaths', len(flist))
-
-    path =  ",".join(flist)
-    df = sparksession.read.csv(path, header=True, **kw)
-    return df
 
 
 
@@ -809,6 +882,49 @@ def date_get_unix_day_from_datetime(dt_with_timezone):
 
 
 #########################################################################################
+def config_load(config_path:str):
+    """  Load Config filt yaml into a dict
+    """
+    from box import Box
+    import yaml
+    #Load the yaml config file
+    with open(config_path, "r") as yamlfile:
+        config_data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+    dd = {}
+    for x in config_data :
+        for key,val in x.items():
+           dd[key] = val
+
+    dd = Box(dd)
+    return dd
+
+
+def config_parser_yaml(config):
+    """
+    Doc::
+
+            spark.master                       : 'local[1]'   # 'spark://virtual:7077'
+            spark.app.name                     : 'logprocess'
+            spark.driver.maxResultSize         : '10g'
+
+    """
+    ss = config
+    cfg = Box({})
+    for line in ss.split("\n"):
+        if not line:
+            continue
+        l1 = line.split(":")
+        if len(l1) < 2:
+            continue
+        key = l1[0].strip()
+        val = l1[1].split("#")[0].strip().strip("'")
+        if key[0] == "#":
+            continue
+        cfg[key] = val
+    return cfg
+
+
 def json_compress(raw_obj):
     return zlib.compress(str.encode(json.dumps(raw_obj)))
 

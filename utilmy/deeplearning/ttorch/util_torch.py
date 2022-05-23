@@ -21,7 +21,7 @@ from typing import List,Dict,Union
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from sklearn.metrics import mean_squared_error, accuracy_score, roc_curve, auc, roc_auc_score, precision_score, recall_score, precision_recall_curve, accuracy_score
-
+import sklearn.datasets
 
 import torch
 import torch.nn as nn
@@ -91,6 +91,48 @@ def test1():
 
 
 
+###################################################################################################
+def test2):
+    """
+    Args:
+      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
+  
+    """    
+    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
+
+    return dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
+                                                              batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
+
+
+def test3():
+    model = nn.Sequential(nn.Linear(50, 20),
+                          nn.Linear(20, 1))
+    train_loader, *_ = test_dataloader_create()
+    args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
+            'dir_modelsave': 'model.pt', 'valid_freq': 1}
+    #set_trace()
+    model_train(model, nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
+
+# def test_model_eval():
+#     model = nn.Sequential(nn.Linear(40, 20),
+#                         nn.Linear(20, 2))
+#     dataset_load1 = 
+#     model_evaluation(model, nn.CrossEntropyLoss(), )
+
+def test4(dir_checkpoint, torch_model):
+    model = model_load(dir_checkpoint, torch_model, doeval=True)
+
+    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
+    assert model.training == False, "Model expected to be in evaluation mode"
+
+    model = model_load(dir_checkpoint, torch_model, doeval=False, dotrain=True)
+    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
+    assert model.training == True, "Model expected to be in training mode"
+
+    print("All tests passed!")
+
+
+
 ###############################################################################################
 def device_setup( device='cpu', seed=42, arg:dict=None):
     """Setup 'cpu' or 'gpu' for device and seed for torch
@@ -140,7 +182,8 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     if test_X  is not None :
         test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
-        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
+        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=batch_size_test) # modified by Abrham
+        # test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0]) 
         log("test size:", len(test_X) )
 
     return train_loader, valid_loader, test_loader
@@ -311,11 +354,11 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
         optimizer.zero_grad()
 
         ###### Base output #########################################
-        output    = model(batch_train_x).view(batch_train_y.size())
+        output    = model(batch_train_x) .view(batch_train_y.size())
 
 
         ###### Loss Rule perturbed input and its output
-        loss = loss_calc()
+        loss = loss_calc(output, batch_train_y) # Changed by Abrham
 
 
         ###### Total Losses
@@ -361,7 +404,7 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
               counter_early_stopping += 1
 
 
-def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1 ):
+def model_evaluation(model_eval, loss_task_fun, test_loader, arg, ):
     """function model_evaluation
     Args:
         model_eval:   
@@ -370,54 +413,30 @@ def model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_pre
         dataset_load1:   
         dataset_preprocess1:   
     Returns:
-        
+        utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = ['mean_squared_error', 'mean_absolute_error'], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
+    
+    https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
     """
-    ### Create dataloader
-    df = dataset_load1(arg)
-    train_X, test_X, train_y, test_y, valid_X, valid_y = dataset_preprocess1(df, arg)
 
-    ######
-    train_loader, valid_loader, test_loader = dataloader_create( train_X, test_X, train_y, test_y, valid_X, valid_y, arg)
+
+    import utilmy.deeplearning.util_dl.metrics_eval
+    dfmetric = pd.DataFrame()
+
     model_eval.eval()
     with torch.no_grad():
       for te_x, te_y in test_loader:
         te_y = te_y.unsqueeze(-1)
 
-      output         = model_eval(te_x, alpha=0.0)
-      test_loss_task = loss_task_func(output, te_y.view(output.size())).item()
+      ypred         = model(te_x)
 
-    log('\n[Test] Average loss: {:.8f}\n'.format(test_loss_task))
+      loss_val = loss_task_fun(ypred, te_y.view(ypred.size())).item()
+      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(), 
+                            metric_list= [ 'accuracy_score' ])
+      
 
-    ########## Pertfubation
-    pert_coeff = arg.rules.pert_coeff
-    rule_ind   = arg.rules.rule_ind
-    model_type = arg.model_type
-    alphas     = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+      dfmetric = pd.concat(dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']))
+    return dfmetric
 
-
-    model_eval.eval()
-
-    # perturbed input and its output
-    for alpha in alphas:
-      model_eval.eval()
-      with torch.no_grad():
-        for te_x, te_y in test_loader:
-          te_y = te_y.unsqueeze(-1)
-
-
-        test_loss_task = loss_task_func(output, te_y.view(output.size())).item()
-
-
-        y_true = te_y.cpu().numpy()
-        y_score = output.cpu().numpy()
-        y_pred = np.round(y_score)
-
-        test_acc = mean_squared_error(y_true.squeeze(), y_pred.squeeze())
-
-      log('[Test] Average loss: {:.8f} (alpha:{})'.format(test_loss_task, alpha))
-      log('[Test] Accuracy: {:.4f} (alpha:{})'.format(test_acc, alpha))
-      log("[Test] Ratio of verified predictions: {:.6f} (alpha:{})".format(test_ratio, alpha))
-      log()
 
 
 
@@ -564,9 +583,176 @@ class SmeLU(nn.Module):
 
 
 
+
+
+
 ###############################################################################################
 ########### Metrics  ##########################################################################
-from utilmy.deeplearning.util_dl import metrics_eval, metrics_plot
+if 'metrics':
+    #### Numpy metrics
+    from utilmy.deeplearning.util_dl import metrics_eval, metrics_plot
+
+    #### Torch metrics
+    def test_metrics1():
+        model  = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+        data   = torch.rand(64, 3, 224, 224)
+        output = model(data)
+        labels = torch.randint(1000, (64,))#random labels 
+        acc    = torch_metric_accuracy(output = output, labels = labels) 
+
+
+        x1 = torch.rand(100,)
+        x2 = torch.rand(100,)
+        r = torch_pearson_coeff(x1, x2)
+
+        x = torch.rand(100, 30)
+        r_pairs = torch_pearson_coeff_pairs(x)
+
+
+
+    def test_metrics2():
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+
+        data = torch.rand(64, 3, 224, 224)
+        output = model(data)
+        # This is just an example where class coded by 999 has more occurences
+        # No train test splits are applied to lead to the overrepresentation of class 999 
+        p = [(1-0.05)/1000]*999
+        p.append(1-sum(p))
+        labels = np.random.choice(list(range(1000)), 
+                                size = (10000,), 
+                                p = p)#imbalanced 1000-class labels
+        labels = torch.Tensor(labels).long()
+        weight, label_weight = torch_class_weights(labels)
+        loss = torch.nn.CrossEntropyLoss(weight = weight)
+        l = loss(output, labels[:64])
+
+
+    def torch_pearson_coeff(x1, x2):
+        '''Computes pearson correlation coefficient between two 1D tensors
+        with torch
+        
+        Input
+        -----
+        x1: 1D torch.Tensor of shape (N,)
+        
+        x2: 1D torch.Tensor of shape (N,)
+        
+        Output
+        ------
+        r: scalar pearson correllation coefficient 
+        '''
+        cos = torch.nn.CosineSimilarity(dim = 0, eps = 1e-6)
+        r = cos(x1 - x1.mean(dim = 0, keepdim = True), 
+                x2 - x2.mean(dim = 0, keepdim = True))
+        
+        return r
+
+
+    def torch_pearson_coeff_pairs(x): 
+        '''Computes pearson correlation coefficient across 
+        the 1st dimension of a 2D tensor  
+        
+        Input
+        -----
+        x: 2D torch.Tensor of shape (N,M)
+        correlation coefficients will be computed between 
+        all unique pairs across the first dimension
+        x[1,M] x[2,M], ...x[i,M] x[j,M], for unique pairs (i,j)
+
+        Output
+        ------
+        r: list of tuples such that r[n][0] scalar denoting the 
+        pearson correllation coefficient of the pair of tensors with idx in 
+        tuple r[n][1] 
+        '''
+        from itertools import combinations 
+        all_un_pair_comb = [comb for comb in combinations(list(range(x.shape[0])), 2)]
+        r = []
+        for aupc in all_un_pair_comb:
+            current_r = torch_pearson_coeff(x[aupc[0], :], x[aupc[1], :])    
+            r.append((current_r, (aupc[0], aupc[1])))
+        
+        return r
+
+
+    def torch_metric_accuracy(output = None, labels = None):
+        ''' Classification accuracy calculation as acc = (TP + TN) / nr total pred
+        
+        Input
+        -----
+        output: torch.Tensor of size (N,M) where N are the observations and 
+            M the classes. Values must be such that highest values denote the 
+            most probable class prediction.
+        
+        labels: torch.Tensor tensor of size (N,) of int denoting for each of the N
+            observations the class that it belongs to, thus int must be in the 
+            range 0 to M-1
+        
+        Output
+        ------
+        acc: float, accuracy of the predictions    
+        '''
+        _ , predicted = torch.max(output.data, 1)
+        total = labels.size(0)
+        correct = (predicted == labels).sum().item()
+        acc = 100*(correct/total)
+
+        return acc 
+
+
+    def torch_class_weights(labels):
+        '''Compute class weights for imbalanced classes
+        
+        Input
+        -----
+        labels: torch.Tensor of shape (N,) of int ranging from 0,1,..C-1 where
+            C is the number of classes
+        
+        Output
+        ------
+        weights: torch.Tensor of shape (C,) where C is the number of classes 
+            with the weights of each class based on the occurence of each class
+            NOTE: computed as weights_c = min(occurence) / occurence_c
+            for class c
+        
+        labels_weights: dict, with keys the unique int for each class and values
+            the weight assigned to each class based on the occurence of each class    
+        '''
+        labels_unique = torch.unique(labels)
+        occurence = [len(torch.where(lu == labels)[0]) for lu in labels_unique]
+        weights = [min(occurence) / o for o in occurence]
+        labels_weights = {lu.item():w for lu,w in zip(labels_unique, weights)}
+        weights = torch.Tensor(weights)
+        
+        return weights, labels_weights
+
+
+    def torch_effective_dim(X, center = True):
+        '''Compute the effective dimension based on the eigenvalues of X
+        
+        Input
+        -----
+        X: tensor of shape (N,M) where N the samples and M the features
+        
+        center: bool, default True, indicating if X should be centered or not
+        
+        Output
+        ------
+        ed: effective dimension of X
+        '''
+        pca = torch.pca_lowrank(X, 
+                                q = min(X.shape), 
+                                center = center)
+        eigenvalues = pca[1]
+        eigenvalues = torch.pow(eigenvalues, 2) / (X.shape[0] - 1)
+        li = eigenvalues /torch.sum(eigenvalues)
+        ed = 1 / torch.sum(torch.pow(li, 2))
+        
+        return ed
+
+
+
 
 
 
@@ -706,12 +892,5 @@ def gradwalk(x, _depth=0):
 def gradwalk_run(graph):
     for name, param in graph.named_parameters():
         gradwalk(param)
-
-
-
-if __name__ == "__main__":
-    import fire 
-    fire.Fire() 
-    # test_all()
 
 
