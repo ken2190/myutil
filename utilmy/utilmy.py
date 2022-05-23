@@ -40,6 +40,19 @@ def get_verbosity(verbose:int=None):
 verbose = get_verbosity()   ### Global setting
 
 
+def direpo():
+    try :
+       import utilmy
+       dir_repo1 =  utilmy.__path__[0].replace("\\","/")  + "/"
+    except:
+       dir_repo1 = os.path.dirname(os.path.abspath(__file__)).replace("\\","/")
+    return dir_repo1
+
+
+
+
+
+###################################################################################################
 def log(*s, **kw):
     print(*s, flush=True, **kw)
 
