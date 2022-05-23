@@ -203,7 +203,7 @@ def test_compile():
 
 #######################################################################################
 def test_long():
-    from utilmy.nlp.torch import sentences   as m ;  m.test_all()      
+    from utilmy.nlp.ttorch import sentences   as m ;  m.test_all()      
 
 
 

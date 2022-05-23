@@ -94,14 +94,14 @@ jobs:
     #   run: |
     #       python test.py test_deeplearning_torch
 
-    - name: test long
-      # continue-on-error: true 
+    - name: test utilmy.nlp.ttorch
+      continue-on-error: true 
       run: |
           python test.py test_long
 
 
-    - name: test spark
-      # continue-on-error: true 
+    - name: test utilmy.sspark
+      continue-on-error: true 
       run: |
           python test.py test_spark
 
