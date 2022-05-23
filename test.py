@@ -207,6 +207,10 @@ def test_long():
 
 
 
+def test_spark():
+    from utilmy.sspark.src.util_spark  as m ;  m.test_all()      
+
+
 
 
 import utilmy as  uu
