@@ -208,7 +208,7 @@ def test_long():
 
 
 def test_spark():
-    from utilmy.sspark.src.util_spark  as m ;  m.test_all()      
+    from utilmy.sspark.src import util_spark  as m ;  m.test_all()      
 
 
 
