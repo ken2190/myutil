@@ -269,36 +269,58 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 #######################################################################################
 ###### SPARK CONFIG ###################################################################
+def config_load(config_path:str):
+    """  Load Config file into a dict
+    doc::
+        config_path: path of config
+    """
+    from box import Box
+    import yaml
+    #Load the yaml config file
+    with open(config_path, "r") as yamlfile:
+        config_data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+    dd = {}
+    for x in config_data :
+        for key,val in x.items():
+           dd[key] = val
+
+    dd = Box(dd)
+    return dd
+
+
 def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
 
-            Args:
-            config (str, optional): _description_. Defaults to "/default.yaml".
-            keyfield (str, optional): _description_. Defaults to 'sparkconfig'.
-
             sparksession = spark_get_session_local()  
 
-    """
+            sparksession = spark_get_session_local('mypath/conffig.yaml)  
 
+    """
     from utilmy.utilmy import direpo
-    from utilmy.configs.util_config import config_load
+    # from utilmy.configs.util_config import config_load
 
     if config == "/default.yaml":
         dir1 = direpo() + "/sspark/config/config_local.yaml"
     else :
         dir1  = config
 
+    log(dir1)
     configd = config_load(dir1)
     configd = configd[keyfield]
+    log(configd)
 
     sparksession = spark_get_session(configd)
-    df = pd.DataFrame(np.random.random((7,  4)), columns=[ 'c'+str(i) for i in range(0, 4) ])
-    df = sparksession.createDataFrame(df)
-    df.show()
+
+    cols =  [ 'c1', 'c2']
+    df = sparksession.createDataFrame([[0,1 ],[2,4]]).toDF(*cols)
+    print(df.show())
 
     return sparksession
-    
+
+
+
 
 def spark_config_print(sparksession):
     log('\n####### Spark Conf')
@@ -373,6 +395,8 @@ def spark_get_session(config:dict, config_key_name='spark_config', verbose=0):
 
 
     """
+    from pyspark import SparkConf
+    from pyspark.sql import SparkSession
     if isinstance(config, str):
         from utilmy.configs.util_config import config_load
         config_path = config
