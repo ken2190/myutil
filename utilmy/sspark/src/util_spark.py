@@ -38,11 +38,6 @@ Doc::
     hive_run_sql(query_or_sqlfile = "", nohup:int = 1, test = 0, end0 = None)
     json_compress(raw_obj)
     json_decompress(data)
-    log(*s)
-    os_file_replace(dirin = ["myfolder/**/*.sh", "myfolder/**/*.conf", ], textold = '/mypath2/', textnew = '/mypath2/', test = 1)
-    os_subprocess(args_list, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-    os_system(cmd, doprint = False)
-    run_cli_sspark()
     show_parquet(path, nfiles = 1, nrows = 10, verbose = 1, cols = None)
     spark_add_jar(sparksession, hive_jar_cmd = None)
     spark_config_check()
@@ -62,9 +57,11 @@ Doc::
     spark_metrics_roc_summary(labels_and_predictions_df)
     spark_read(sparksession = None, dirin="hdfs = "hdfs://", **kw)
     spark_run_sqlfile(sparksession = None, spark_config:dict = None, sql_path:str = "", map_sql_variables:dict = None)
-    test1()
-    test2()
-    test_all()
+
+    os_file_replace(dirin = ["myfolder/**/*.sh", "myfolder/**/*.conf", ], textold = '/mypath2/', textnew = '/mypath2/', test = 1)
+    os_subprocess(args_list, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    os_system(cmd, doprint = False)
+    run_cli_sspark()
 
 
     ### More docs:
