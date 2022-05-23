@@ -123,9 +123,19 @@ def config_load(
     try:
         log("Config: Loading ", config_path)
         if config_path.suffix == ".yaml":
-            cfg = yaml.safe_load(config_path.read_text())
+            import yaml
+            #Load the yaml config file
+            with open(config_path, "r") as yamlfile:
+                config_data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
+            dd = {}
+            for x in config_data :
+                for key,val in x.items():
+                   dd[key] = val
+            cfg = Box(dd)
+            
         elif config_path.suffix == ".json":
+            import json
             cfg = json.loads(config_path.read_text())
 
         elif config_path.suffix in [".properties", ".ini"]:
