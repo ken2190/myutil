@@ -127,26 +127,6 @@ def run_cli_sspark():
 
 
 
-def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
-
-    from utilmy.utilmy import direpo
-    from utilmy.configs.util_config import config_load
-
-    if config == "/default.yaml":
-        dir1 = direpo() + "/sspark/config/config_local.yaml"
-    else :
-        dir1  = config
-
-    configd = config_load(dir1)
-    configd = configd[keyfield]
-
-    sparksession = spark_get_session(configd)
-    df = pd.DataFrame(np.random.random((7,  4)), columns=[ 'c'+str(i) for i in range(0, 4) ])
-    df = sparksession.createDataFrame(df)
-    df.show()
-
-    return sparksession
-    
 
 
 ########################################################################################
@@ -289,6 +269,37 @@ def analyze_parquet(dirin, dirout, tag='', nfiles=1, nrows=10, minimal=True, ran
 
 #######################################################################################
 ###### SPARK CONFIG ###################################################################
+def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
+    """  Start Local session for debugging
+    Docs::
+
+            Args:
+            config (str, optional): _description_. Defaults to "/default.yaml".
+            keyfield (str, optional): _description_. Defaults to 'sparkconfig'.
+
+            sparksession = spark_get_session_local()  
+
+    """
+
+    from utilmy.utilmy import direpo
+    from utilmy.configs.util_config import config_load
+
+    if config == "/default.yaml":
+        dir1 = direpo() + "/sspark/config/config_local.yaml"
+    else :
+        dir1  = config
+
+    configd = config_load(dir1)
+    configd = configd[keyfield]
+
+    sparksession = spark_get_session(configd)
+    df = pd.DataFrame(np.random.random((7,  4)), columns=[ 'c'+str(i) for i in range(0, 4) ])
+    df = sparksession.createDataFrame(df)
+    df.show()
+
+    return sparksession
+    
+
 def spark_config_print(sparksession):
     log('\n####### Spark Conf')
     conft = sparksession.sparkContext.getConf().getAll()
