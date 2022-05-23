@@ -52,7 +52,6 @@ def log3(*s, **kw):
 def help():
     suffix = "\n\n\n###############################"
     ss     = help_create(modulename='utilmy', prefixs=None) + suffix
-    ss += HELP
     print(ss)
 
 

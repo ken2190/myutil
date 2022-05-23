@@ -174,7 +174,7 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin=:"hdfs://", **kw):
+def spark_read(sparksession=None, dirin="hdfs://", **kw):
     """ Universal HDFS file reader
     Doc::
 
