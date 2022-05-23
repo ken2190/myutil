@@ -44,7 +44,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/py36_docfull.txt') }}
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36_docfull.txt') }}
           
 
     #- name: Install numpy
@@ -55,14 +55,14 @@ jobs:
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-           pip install -r  config/py36_min.txt
+           pip install -r  py36_min.txt
 
 
     - name: Install repo requirements   2
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
         ls .
-        pip install -r  config/py36_docfull.txt
+        pip install -r  py36_docfull.txt
 
 
     - name: Install utilmy
