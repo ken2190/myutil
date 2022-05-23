@@ -151,8 +151,8 @@ def test1():
     spark.submit.deployMode            : 'client'
     """
     cfg = config_parser_yaml(ss)
-    sparksession = spark_get_session(cfg)
-
+    log(cfg)
+    sparksession = spark_get_session_local()
 
     spark_config_print(sparksession)
 
@@ -901,7 +901,7 @@ def config_load(config_path:str):
 
 
 def config_parser_yaml(config):
-    """
+    """ Parse string YAML
     Doc::
 
             spark.master                       : 'local[1]'   # 'spark://virtual:7077'
