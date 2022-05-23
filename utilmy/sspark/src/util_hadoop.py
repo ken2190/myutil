@@ -399,6 +399,74 @@ hive_header_template =  '''
 '''.replace("    ", "")   ### Otherwise Hive queries failed
 
 
+def query_clean(q):
+    q2    = ""
+    qlist = q.split("\n")
+    for x in qlist:
+        if    x.startswith("    ") : q2 = q2 + x[4:].strip() + "\n"
+        elif  x.startswith("   ") :  q2 = q2 + x[3:].strip() + "\n"
+        elif  x.startswith("  ") :   q2 = q2 + x[2:].strip() + "\n"
+        else : q2 = q2 + x + "\n"
+    return q2
+
+
+def hive_run(query, logdir="ztmp/loghive/", tag='v01', 
+             dry=1,       ### only fake run 
+             nohup=0,     ### background
+             explain=0):  ### Explain query
+    """ HIVE SQL RUN    
+    Doc::
+
+            cfg = Box(ConfigReader.from_yaml(config))
+            logdir   = cfg.log_hive      
+            start_dt = date_now('now', add_days= -1-30, fmt='%Y-%m-%d') if len(start_dt) < 7 else start_dt
+            end_dt   = date_now('now', add_days= -1,    fmt='%Y-%m-%d') if len(end_dt)   < 7 else end_dt
+            
+            cv_start_dt = date_now('now', add_days= -1-120, fmt='%Y-%m-%d')
+
+
+            qq = os_file_read('queries/myhive.sql')
+            qq = qq.format(start_dt=start_dt, end_dt=end_dt,  )
+            hive_run(qq, dry=1, logdir= logdir, tag=tag, explain=1)
+        
+    """
+    # query =  header_sql0  + "\n" +  query  ### Default works well
+    query = query_clean(query)
+
+    if explain>0:
+        for key in [  'CREATE ', 'INSERT '  ]:
+          if key in query.upper() :  query = query.replace(key, "EXPLAIN "+key)        
+
+        for key in [ 'DROP ', 'ALTER ',   ]:
+          if key in query.upper() :  query = query.replace(key, "-- "+key)      
+            
+    tag2     = f"{tag}_" + str( int(time.time()) )
+    hivefile = f"{logdir}/hiveql_{tag2}.sql"
+    os.makedirs(os.path.dirname( os.path.abspath(hivefile)), exist_ok=True)
+    with open (hivefile, mode='w') as fp :
+        fp.write(query)
+
+
+    logfile = f"{logdir}/hiveql_{tag2}_log.py"  
+    with open(logfile, mode='a') as f:
+        f.write(hivefile)
+        f.write("\n\n\n\n###################################################################")
+        f.write(query + "\n########################" )      
+
+    cmd = f"hive -f {hivefile} >> {logfile})   "
+    log(query, "\n\nCMD: ", cmd)
+
+    if dry == 1 :
+      return None
+
+
+    if nohup > 0:
+       os.system( f" nohup 2>&1   hive -f {hivefile} >> {logfile}   & " )
+    else :
+       os.system( f" hive -f {hivefile} >> {logfile}       " )
+
+    log('finish')   
+
 
 
 
