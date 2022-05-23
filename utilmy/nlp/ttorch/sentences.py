@@ -27,6 +27,7 @@ Doc::
 
 
 """
+MNAME='utilmy.nlp.ttorch.sentences'
 import sys, os, gzip, csv, random, math, logging, pandas as pd, numpy as np, glob
 from typing import List, Optional, Tuple, Union
 from datetime import datetime
