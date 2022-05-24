@@ -109,7 +109,7 @@ def help():
     log(ss)
 
 
-
+##############################################################################################
 def test1():    
     """     
     """    
@@ -197,6 +197,209 @@ def test1():
     print(outputs)
 
 
+
+
+def test2a():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df
+
+    prepro_dataset = None 
+    
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet50'
+    ARG.modelA.architect     = [ 5, 100, 16 ]
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA.seed          = 42
+    modelA = modelA_create(ARG.modelA)
+
+
+    ### modelB  ########################################################
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name         = 'resnet18'
+    ARG.modelB.architect     = [5,100,16]
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    ARG.modelB.seed          = 42
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.seed      = 42
+    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()        
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((1,5)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+def test2b():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    ###########################
+
+    def load_DataFrame():
+        return df  
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        trainy = torch.rand(train_config.BATCH_SIZE)
+        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        validy = torch.rand(train_config.BATCH_SIZE)
+        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        testy = torch.rand(train_config.BATCH_SIZE)
+        return (trainx, trainy,validx,validy,testx,testy)
+
+    #### SEPARATE the models completetly, and create duplicate
+    import torchvision.models as models
+    ### modelA  ########################################################
+    model_ft = models.resnet18(pretrained=True)
+    embA_dim = model_ft.fc.in_features  ###
+
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet18'
+    ARG.modelA.nn_model      = model_ft
+    ARG.modelA.tune          = 'fc'
+    ARG.modelA.architect     = [ embA_dim]  ### head s
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+    
+    #model_ft.fc = modelA
+    ### modelB  ########################################################
+    model_ft = models.resnet50(pretrained=True)
+    embB_dim = model_ft.fc.in_features
+
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name          = 'resnet50'
+    ARG.modelB.nn_model      = model_ft
+    ARG.modelB.tune          = 'fc'
+    ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+
+
+
+##############################################################################################
 class model_getlayer():
     def __init__(self, network, backward=False, pos_layer=-2):
         self.layers = []
@@ -218,7 +421,8 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
-##############################################################################################
+
+
 class BaseModel(object):
     """This is BaseClass for model create
 
@@ -362,6 +566,10 @@ class BaseModel(object):
         # raise NotImplementedError
         output = self.net(x,**kwargs)
         return output 
+
+
+##############################################################################################
+
 
 
 ##############################################################################################
@@ -535,7 +743,7 @@ class MergeModel_create(BaseModel):
 
         train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, valid_X,  valid_y,
                                                                     test_X,  test_y,
-                                                                    device=self.device, batch_size=batch_size)        
+                                                                    device=self.device, batch_size=batch_size)
                 
         for epoch in range(1,EPOCHS+1):
             self.train()
@@ -552,7 +760,6 @@ class MergeModel_create(BaseModel):
                     self.optimizer.step()
                     loss_train += loss * inputs.size(0)
                 loss_train /= len(train_loader.dataset) # mean on dataset
-
 
             ##### Evaluation #######################################
             loss_val = 0
@@ -575,25 +782,44 @@ class modelB_create(BaseModel):
     """
     def __init__(self,arg):
         super(modelB_create,self).__init__(arg)
+        self.nn_model_base = arg.nn_model
 
     def create_model(self):
         super(modelB_create,self).create_model()
-        layers_dim = self.arg.architect
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        tune_l        = self.arg.tune
         
         class modelB(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16]):
-                super(modelB, self).__init__()
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
+                super(modelB, self).__init__()                
+                self.head_task = [None]
+                self.tune_l    = tune_l
+
+                ##### Pre-trained model   #########################################
+                if len(self.tune_l) !=0 :
+                    self.nn_model_base = nn_model_base
+
+                    #### Adding head task on top of 
+                    ## setattr(self.nn_model_base, self.tune_l, self.head_task)
+
+                    self.head_task = self.nn_model_base
+                    return 
+
+
+                ###### Normal MLP Head   #########################################
+                self.head_task = []
                 self.layers_dim = layers_dim 
                 self.output_dim = layers_dim[-1]
-
-                self.head_task = []
+                # self.head_task = nn.Sequential()
                 input_dim = layers_dim[0]
                 for layer_dim in layers_dim[:-1]:
                     self.head_task.append(nn.Linear(input_dim, layer_dim))
                     self.head_task.append(nn.ReLU())
                     input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
                 self.head_task = nn.Sequential(*self.head_task)
+                
 
 
             def forward(self, x,**kwargs):
@@ -602,12 +828,12 @@ class modelB_create(BaseModel):
             def get_embedding(self,x, **kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
                 emb = self.forward(x)
-                emb = layer_l2.output
+                emb = layer_l2.output.squeeze()
                 return emb
                 #self.foward(x) # bs x c x h x w
                             
 
-        return modelB(layers_dim)
+        return modelB(layers_dim, nn_model_base, tune_l )
         
 
 
@@ -625,15 +851,30 @@ class modelA_create(BaseModel):
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        layers_dim = self.arg.architect
-        
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        tune_l        = self.arg.tune
+
         class modelA(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16]):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
                 super(modelA, self).__init__()
+                self.head_task = []
+                self.tune_l    = tune_l
+
+
+                ##### Pre-trained model   #########################################
+                if len(self.tune_l) !=0 :
+                    self.nn_model_base = nn_model_base
+                    #setattr(self.nn_model_base, self.tune_l, self.head_task)
+                    self.head_task = self.nn_model_base
+                    return 
+
+
+                ###### Normal MLP Head   #########################################
                 self.layers_dim = layers_dim 
                 self.output_dim = layers_dim[-1]
                 # self.head_task = nn.Sequential()
-                self.head_task = []
+
                 input_dim = layers_dim[0]
                 for layer_dim in layers_dim[:-1]:
                     self.head_task.append(nn.Linear(input_dim, layer_dim))
@@ -642,16 +883,18 @@ class modelA_create(BaseModel):
                 self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
                 self.head_task = nn.Sequential(*self.head_task)
 
+
+
             def forward(self, x,**kwargs):
                 return self.head_task(x)
 
             def get_embedding(self, x,**kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
                 emb = self.forward(x)
-                emb = layer_l2.output
+                emb = layer_l2.output.squeeze()
                 return emb
 
-        return modelA(layers_dim)
+        return modelA(layers_dim, nn_model_base, tune_l)
 
     def create_loss(self) -> torch.nn.Module:
         super(modelA_create,self).create_loss()
@@ -762,6 +1005,7 @@ def prepro_dataset_custom(df:pd.DataFrame):
     coly = 'cardio'
     y     = df[coly]
     X_raw = df.drop([coly], axis=1)
+    arg= {}
 
     # log("Target class ratio:")
     # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
@@ -787,9 +1031,9 @@ def prepro_dataset_custom(df:pd.DataFrame):
 
     ##### Split   #########################################################################
     seed= 42 
-    train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
-    test_ratio = self.arg.merge_model.train_config.TEST_RATIO
-    val_ratio =   self.arg.merge_model.train_config.TEST_RATIO
+    train_ratio = arg.merge_model.train_config.TRAIN_RATIO
+    test_ratio =  arg.merge_model.train_config.TEST_RATIO
+    val_ratio =   arg.merge_model.train_config.TEST_RATIO
     train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
     valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
     return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
@@ -814,4 +1058,14 @@ class model_template_MLP(torch.nn.Module):
         return self.head_task(x)
 
 
+
+
+
+
+
+
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
 
