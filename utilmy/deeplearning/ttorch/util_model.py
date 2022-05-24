@@ -796,7 +796,7 @@ class modelB_create(BaseModel):
         super(modelB_create,self).create_model()
         layers_dim    = self.arg.get('architect', [10,10,2] )
         nn_model_base = self.arg.get('nn_model', None)
-        tune_l        = self.arg.get('tune', 0)
+        tune_l        = self.arg.get('tune', '')
         
         class modelB(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
@@ -861,7 +861,7 @@ class modelA_create(BaseModel):
         super(modelA_create,self).create_model()
         layers_dim    = self.arg.get('architect', [10,10,2] )
         nn_model_base = self.arg.get('nn_model', None)
-        tune_l        = self.arg.get('tune', 0)
+        tune_l        = self.arg.get('tune', '')
 
 
         class modelA(torch.nn.Module):
