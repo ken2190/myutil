@@ -7,9 +7,9 @@ on:
     inputs:  
 
     
-  # push:
-  #   branches:
-  #   - main
+  push:
+    branches:
+    - main
   
   
   schedule:
@@ -17,6 +17,9 @@ on:
      #   #    - cron:  '*/10 * * * *'
      #   - cron:  '* * */2 * *'    
   
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 
 jobs:
@@ -101,16 +104,21 @@ jobs:
           python test.py test_long
 
 
-    - name: test utilmy.sspark
+    - name: test sspark/src/util_spark.py test_all
       # continue-on-error: true 
       run: |
-          python test.py test_spark
+          python sspark/src/util_spark.py test_all
 
 
     - name: test utilmy/deeplearning/ttorch/model_ensemble.py test_all
       continue-on-error: true 
       run: |
           python utilmy/deeplearning/ttorch/model_ensemble.py test_all
+
+
+
+
+
 
 
 
