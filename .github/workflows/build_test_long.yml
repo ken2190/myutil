@@ -116,6 +116,11 @@ jobs:
           python utilmy/deeplearning/ttorch/model_ensemble.py test_all
 
 
+    - name: test utilmy/deeplearning/util_embedding.py test_all
+      continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/util_embedding.py test_all
+
 
 
 
