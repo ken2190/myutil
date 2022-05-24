@@ -92,32 +92,21 @@ def test1():
 
 
 ###################################################################################################
-def test2):
-    """
-    Args:
-      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
-  
-    """    
-    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
-
-    return dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                                                              batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
-
-
 def test3():
     model = nn.Sequential(nn.Linear(50, 20),
                           nn.Linear(20, 1))
-    train_loader, *_ = test_dataloader_create()
+
+    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
+
+    train_loader, *_  = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
+                            batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
+
     args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
             'dir_modelsave': 'model.pt', 'valid_freq': 1}
     #set_trace()
     model_train(model, nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
 
-# def test_model_eval():
-#     model = nn.Sequential(nn.Linear(40, 20),
-#                         nn.Linear(20, 2))
-#     dataset_load1 = 
-#     model_evaluation(model, nn.CrossEntropyLoss(), )
+
 
 def test4(dir_checkpoint, torch_model):
     model = model_load(dir_checkpoint, torch_model, doeval=True)
@@ -404,37 +393,39 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
               counter_early_stopping += 1
 
 
-def model_evaluation(model_eval, loss_task_fun, test_loader, arg, ):
+def model_evaluation(model, loss_task_fun, test_loader, arg, ):
     """function model_evaluation
-    Args:
-        model_eval:   
-        loss_task_func:   
-        arg:   
-        dataset_load1:   
-        dataset_preprocess1:   
-    Returns:
-        utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = ['mean_squared_error', 'mean_absolute_error'], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
+    Doc::
     
-    https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
+        Args:
+            model:
+            loss_task_func:
+            arg:
+            dataset_load1:
+            dataset_preprocess1:
+        Returns:
+            utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = ['mean_squared_error', 'mean_absolute_error'], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
+
+        https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
     """
 
 
-    import utilmy.deeplearning.util_dl.metrics_eval
+    from utilmy.deeplearning.util_dl import metrics_eval
     dfmetric = pd.DataFrame()
 
-    model_eval.eval()
+    model.eval()
     with torch.no_grad():
-      for te_x, te_y in test_loader:
-        te_y = te_y.unsqueeze(-1)
+      for Xval, yval in test_loader:
+        yval = yval.unsqueeze(-1)
 
-      ypred         = model(te_x)
+      ypred         = model(Xval)
 
-      loss_val = loss_task_fun(ypred, te_y.view(ypred.size())).item()
-      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(), 
+      loss_val = loss_task_fun(ypred, yval.view(ypred.size())).item()
+      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(),
                             metric_list= [ 'accuracy_score' ])
       
 
-      dfmetric = pd.concat(dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']))
+      dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']) ))
     return dfmetric
 
 
