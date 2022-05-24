@@ -159,7 +159,7 @@ def test1():
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'modelA1'
-    ARG.modelA.nn_model    = None    
+    ARG.modelA.nn_model    = None        
     ARG.modelA.architect     = [ 5, 100, 16 ]
     ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
@@ -794,9 +794,9 @@ class modelB_create(BaseModel):
 
     def create_model(self):
         super(modelB_create,self).create_model()
-        layers_dim    = self.arg.architect
-        nn_model_base = self.arg.nn_model
-        tune_l        = self.arg.tune
+        layers_dim    = self.arg.get('architect', [10,10,2] )
+        nn_model_base = self.arg.get('nn_model', None)
+        tune_l        = self.arg.get('tune', 0)
         
         class modelB(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
@@ -859,9 +859,10 @@ class modelA_create(BaseModel):
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        layers_dim    = self.arg.architect
-        nn_model_base = self.arg.nn_model
-        tune_l        = self.arg.tune
+        layers_dim    = self.arg.get('architect', [10,10,2] )
+        nn_model_base = self.arg.get('nn_model', None)
+        tune_l        = self.arg.get('tune', 0)
+
 
         class modelA(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
