@@ -94,6 +94,7 @@ jobs:
     #   run: |
     #       python test.py test_deeplearning_torch
 
+
     - name: test utilmy.nlp.ttorch
       continue-on-error: true 
       run: |
@@ -106,12 +107,11 @@ jobs:
           python test.py test_spark
 
 
-
-
     - name: test utilmy/deeplearning/ttorch/model_ensemble.py test_all
       continue-on-error: true 
       run: |
           python utilmy/deeplearning/ttorch/model_ensemble.py test_all
+
 
 
 
