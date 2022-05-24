@@ -109,7 +109,7 @@ def help():
     log(ss)
 
 
-
+##############################################################################################
 def test1():    
     """     
     """    
@@ -289,6 +289,7 @@ def test2a():
     print(outputs)
 
 
+
 def test2b():    
     """     
     """    
@@ -336,43 +337,41 @@ def test2b():
         return (trainx, trainy,validx,validy,testx,testy)
 
     #### SEPARATE the models completetly, and create duplicate
+    import torchvision.models as models
     ### modelA  ########################################################
     model_ft = models.resnet18(pretrained=True)
-    num_ftrs = model_ft.fc.in_features
+    embA_dim = model_ft.fc.in_features  ###
 
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'resnet18'
     ARG.modelA.nn_model      = model_ft
     ARG.modelA.tune          = 'fc'
-    ARG.modelA.architect     = [ num_ftrs, 100, 16 ]
+    ARG.modelA.architect     = [ embA_dim]  ### head s
     ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
-    ARG.modelA.seed          = 42
     modelA = modelA_create(ARG.modelA)
     
     #model_ft.fc = modelA
     ### modelB  ########################################################
     model_ft = models.resnet50(pretrained=True)
-    num_ftrs_b = model_ft.fc.in_features
+    embB_dim = model_ft.fc.in_features
 
     ARG.modelB               = Box()   #MODEL_RULE
     ARG.modelB.name          = 'resnet50'
     ARG.modelB.nn_model      = model_ft
     ARG.modelB.tune          = 'fc'
-    ARG.modelB.architect     = [num_ftrs_b, 100,16]
+    ARG.modelB.architect     = [embB_dim ]   ### head size
     ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
-    ARG.modelB.seed          = 42
     modelB = modelB_create(ARG.modelB )
 
     
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = { 'layers_dim': [ num_ftrs + num_ftrs_b, 32, 1 ] }
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
 
     ARG.merge_model.MERGE = 'cat'
 
@@ -421,6 +420,7 @@ class model_getlayer():
         return
       for layer in network.children():
         self.get_layers_in_order(layer)
+
 
 
 class BaseModel(object):
@@ -566,6 +566,10 @@ class BaseModel(object):
         # raise NotImplementedError
         output = self.net(x,**kwargs)
         return output 
+
+
+##############################################################################################
+
 
 
 ##############################################################################################
@@ -1001,6 +1005,7 @@ def prepro_dataset_custom(df:pd.DataFrame):
     coly = 'cardio'
     y     = df[coly]
     X_raw = df.drop([coly], axis=1)
+    arg= {}
 
     # log("Target class ratio:")
     # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
@@ -1026,9 +1031,9 @@ def prepro_dataset_custom(df:pd.DataFrame):
 
     ##### Split   #########################################################################
     seed= 42 
-    train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
-    test_ratio = self.arg.merge_model.train_config.TEST_RATIO
-    val_ratio =   self.arg.merge_model.train_config.TEST_RATIO
+    train_ratio = arg.merge_model.train_config.TRAIN_RATIO
+    test_ratio =  arg.merge_model.train_config.TEST_RATIO
+    val_ratio =   arg.merge_model.train_config.TEST_RATIO
     train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
     valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
     return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
@@ -1052,5 +1057,15 @@ class model_template_MLP(torch.nn.Module):
     def forward(self, x,**kwargs):
         return self.head_task(x)
 
-test2()
-print()
+
+
+
+
+
+
+
+###############################################################################################################
+if __name__ == "__main__":
+    import fire
+    fire.Fire()
+
