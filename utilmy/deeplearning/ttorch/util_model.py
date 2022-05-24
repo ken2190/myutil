@@ -1,559 +1,414 @@
 # -*- coding: utf-8 -*-
-from collections import OrderedDict
-from functools import partial
-from pathlib import Path
-import pickle 
-import torch 
+""" utils for model merge
+Doc::
 
-
-#################################################################################################
-def test_printlayer_value():
-  from utilmy.deeplearning.ttorch import util_model
-
-  model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
-
-  # Register a recorder to the 4th layer of the features part of AlexNet
-  # Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
-  # and record the output of the layer during the forward pass
-  layer = list(model.features.named_children())[3][1]
-  recorder = util_model.model_LayerRecorder(layer, record_output = True, backward = False)
-  data = torch.rand(64, 3, 224, 224)
-  output = model(data)
-  print(recorder.recording)#tensor of shape (64, 192, 27, 27)
-  recorder.close()#remove the recorder
-
-  # Record input to the layer during the forward pass 
-  recorder = util_model.model_LayerRecorder(layer, record_input = True, backward = False)
-  data = torch.rand(64, 3, 224, 224)
-  output = model(data)
-  print(recorder.recording)#tensor of shape (64, 64, 27, 27)
-  recorder.close()#remove the recorder
-
-  # Register a recorder to the 4th layer of the features part of AlexNet
-  # MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
-  # and record the output of the layer in the bacward pass 
-  layer = list(model.features.named_children())[2][1]
-  # Record output to the layer during the backward pass 
-  recorder = util_model.model_LayerRecorder(layer, record_output = True, backward = True)
-  data = torch.rand(64, 3, 224, 224)
-  output = model(data)
-  loss = torch.nn.CrossEntropyLoss()
-  labels = torch.randint(1000, (64,))#random labels just to compute a bacward pass
-  l = loss(output, labels)
-  l.backward()
-  print(recorder.recording[0])#tensor of shape (64, 64, 27, 27)
-  recorder.close()#remove the recorder
-
-  # Register a recorder to the 4th layer of the features part of AlexNet
-  # Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
-  # and record the parameters of the layer in the forward pass 
-  layer = list(model.features.named_children())[3][1] 
-  recorder = util_model.model_LayerRecorder(layer, record_params = True, backward = False)
-  data = torch.rand(64, 3, 224, 224)
-  output = model(data)
-  print(recorder.recording)#list of tensors of shape (192, 64, 5, 5) (weights) (192,) (biases) 
-  recorder.close()#remove the recorder
-
-  # A custom function can also be passed to the recorder and perform arbitrary 
-  # operations. In the example below, the custom function prints the kwargs that 
-  # are passed along with the custon function and also return 1 (stored in the recorder)
-  def custom_fn(*args, **kwargs):#signature of any custom fn
-      print('custom called')
-      for k,v in kwargs.items():
-          print('\nkey argument:', k)
-          print('\nvalue argument:', v)
-      return 1
-
-  recorder = util_model.model_LayerRecorder(layer,
-                                            backward = False,
-                                            custom_fn = custom_fn,
-                                            print_value = 5)
-  data = torch.rand(64, 3, 224, 224)
-  output = model(data)
-  print(recorder.recording)#list of tensors of shape (192, 64, 5, 5) (weights) (192,) (biases) 
-  recorder.close()#remove the recorder
-
-  # Record output to the layer during the forward pass and store it in folder 
-  layer = list(model.features.named_children())[3][1]
-  recorder = util_model.model_LayerRecorder(
-      layer, 
-      record_params = True, 
-      backward = False, 
-      save_to = './test_recorder'#create the folder before running this example!
-  )
-  for _ in range(5):#5 passes e.g. batches, thus 5 stored "recorded" tensors
-      data = torch.rand(64, 3, 224, 224)
-      output = model(data)
-  recorder.close()#remove the recorder
+        import utilmy.deeplearning.ttorch.model_ensemble as me
+        me.test1()
+        me.help()
 
 
 
-def test2():
-        import torch
-        from utilmy.deeplearning.ttorch import util_model
+        https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
-        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
+        https://discuss.pytorch.org/t/merging-3-models/66230/3
 
-        # Freeze all parameters
-        util_model.model_freezeparams(model,
-                                      freeze = True)
+        Issue wthen reloading jupyte
+                import library.Child
+                reload(library)
+                import library.Child
 
-        # Unfreeze all parameters
-        util_model.model_freezeparams(model,
-                                      freeze = False)
+Code::
 
-        # Freeze specific parameters by naming them
-        params_to_freeze = ['features.0.weight', 'classifier.1.weight']
-        util_model.model_freezeparams(model,
-                                      params_to_freeze = params_to_freeze,
-                                      freeze = True)
-
-        # Unfreeze specific parameters by naming them
-        params_to_freeze = ['features.0.weight', 'classifier.1.weight']
-        util_model.model_freezeparams(model,
-                                      params_to_freeze = params_to_freeze,
-                                      freeze = False)
+        if ARG.MODE == 'mode1':
+            ARG.MODEL_INFO.TYPE = 'dataonly' 
+            train_config                     = Box({})
+            train_config.LR                  = 0.001
+            train_config.DEVICE              = 'cpu'
+            train_config.BATCH_SIZE          = 32
+            train_config.EPOCHS              = 1
+            train_config.EARLY_STOPPING_THLD = 10
+            train_config.VALID_FREQ          = 1
+            train_config.SAVE_FILENAME       = './model.pt'
+            train_config.TRAIN_RATIO         = 0.7
 
 
-
-        import torch
-        from utilmy.deeplearning.ttorch import util_model
-
-        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
-
-        # Get all parameters
-        params_values, params_names, req_grad = util_model.model_getparams(model)
-
-        # Get only a subset of parameters by passing a list of named parameters
-        params_to_get = ['features.0.weight', 'classifier.1.weight']
-        params_values, params_names, req_grad = util_model.model_getparams(model,
-                                                                           params_to_get = params_to_get)
+        #### SEPARATE the models completetly, and create duplicate
+        ### modelA  ########################################################
+        ARG.modelA               = Box()   #MODEL_TASK
+        ARG.modelA.name          = 'modelA1'
+        ARG.modelA.architect     = [ 5, 100, 16 ]
+        ARG.modelA.dataset       = Box()
+        ARG.modelA.dataset.dirin = "/"
+        ARG.modelA.dataset.coly  = 'ytarget'
+        modelA = modelA_create(ARG.modelA)
 
 
+        ### modelB  ########################################################
+        ARG.modelB               = Box()   #MODEL_RULE
+        ARG.modelB.name         = 'modelB1'
+        ARG.modelB.architect     = [5,100,16]
+        ARG.modelB.dataset       = Box()
+        ARG.modelB.dataset.dirin = "/"
+        ARG.modelB.dataset.coly  = 'ytarget'
+        modelB = modelB_create(ARG.modelB )
 
-
-
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
-
-        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
-
-        # Delete the last layer of the classifier of the AlexNet model 
-        model.classifier = util_model.model_delete_layers(model.classifier, del_ids = [6])
-
-        # Delete the last linear layer of an Elman RNN
-        simple_rnn = nn.Sequential(
-            nn.RNN(2, 
-                100, 
-                1, 
-                batch_first = True),
-            nn.Linear(100, 10),
-        )
-
-        simple_rnn = util_model.model_delete_layers(simple_rnn, del_ids = [1])
-
-
-
-
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
-
-        model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
-
-        # Delete the last layer of the classifier of the AlexNet model 
-        model.classifier = util_model.model_delete_layers(model.classifier, del_ids = [6])
-
-        # Add back to the model the deleted layer
-        module = {
-                'name': '6',
-                'position': 6,
-                'module': nn.Linear(in_features = 4096, out_features = 1000, bias = True) 
-                }
-
-        model.classifier = util_model.model_add_layers(model.classifier, modules = [module])
-
-
-
-def test3():
-    #!/usr/bin/env python3
-    # -*- coding: utf-8 -*-
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import torch
-    import torchvision
-    import torchvision.transforms as transforms
-
-    from utilmy.deeplearning.ttorch import util_model
-
-    #Load pretrained AlexNet and CIFAR
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-
-    batch_size = 32
-    testset = torchvision.datasets.CIFAR10(root = './CIFAR_torchvision', 
-                                          train = False,
-                                          download = True, 
-                                          transform = transform)
-    testloader = torch.utils.data.DataLoader(testset, 
-                                            batch_size = batch_size,
-                                            shuffle = True)
-    # Assign a recorder to a layer of AlexNet:
-    # here: MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False)
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
-    layer = list(model.features.named_children())[5][1]
-    recorder = util_model.model_LayerRecorder(layer, record_output = True, backward = False)
-
-    #Grab a batch and pass it through the model
-    X,Y = next(iter(testloader))
-    out = model(X)
-
-    # Compute similarity of representations in selected layer for images in batch
-    rec = recorder.recording.detach().clone()
-    rec = rec.reshape(batch_size, -1)
-    sim = np.corrcoef(rec.numpy())
-    plt.imshow(sim)
-    plt.colorbar()
-
-
-
-
-
-#################################################################################################
-def model_getparams(model, params_to_get = None, detach = True):
-    '''Extracts the parameters, names, and 'requires gradient' status from a 
-    model
-    
-    Input
-    -----
-    model: class instance based on the base class torch.nn.Module
-    
-    params_to_get: list of str, default=None, specifying the names of the 
-        parameters to be extracted
-        If None, then all parameters and names of parameters from the model 
-        will be extracted
         
-    detach: bool, default True, detach the tensor from the computational graph    
-    
-    Output
-    ------     
-    params_name: list, contaning one str for each extracted parameter
-    
-    params_values: list, containg one tensor corresponding to each 
-        parameter. 
-        NOTE: The tensor is detached from the computation graph 
-        
-    req_grad: list, containing one Boolean variable for each parameter
-        denoting the requires_grad status of the tensor/parameter 
-        of the model      
-    '''    
-    params_names = []
-    params_values = [] 
-    req_grad = []
-    for name, param in zip(model.named_parameters(), model.parameters()):             
-        if params_to_get is not None:
-            if name[0] in params_to_get: 
-                params_names.append(name[0])
-                if detach is True:
-                    params_values.append(param.detach().clone())
-                elif detach is False:
-                    params_values.append(param.clone())
-                req_grad.append(param.requires_grad)
-        else:
-            params_names.append(name[0])
-            if detach is True:
-                params_values.append(param.detach().clone())
-            elif detach is False:
-                params_values.append(param.clone())
-            req_grad.append(param.requires_grad)
-                       
-    return params_values, params_names, req_grad
+        ### merge_model  ###################################################
+        ARG.merge_model           = Box()
+        ARG.merge_model.name      = 'modelmerge1'
+        ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+
+        ARG.merge_model.MERGE = 'cat'
+
+        ARG.merge_model.dataset       = Box()
+        ARG.merge_model.dataset.dirin = "/"
+        ARG.merge_model.dataset.coly = 'ytarget'
+        ARG.merge_model.train_config  = train_config
+        model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
 
 
-def model_freezeparams(model, 
-                  params_to_freeze = None,
-                  freeze = True):  
-    '''Freeze or unfreeze the parametrs of a model
-    
-    Input
-    -----
-    model:  class instance based on the base class torch.nn.Module 
-    
-    params_to_freeze: list of str specifying the names of the params to be 
-        frozen or unfrozen
-        
-    freeze: bool, default True, specifying the freeze or 
-        unfreeze of model params  
-        
-    Output
-    ------
-    model: class instance based on the base class torch.nn.Module with changed
-        requires_grad param for the anmes params in params_to_freeze
-        (freeze = requires_grad is False unfreeze = requires_grad is True)   
-    '''
-    for name, param in zip(model.named_parameters(), model.parameters()):             
-        if params_to_freeze is not None:
-            if name[0] in params_to_freeze: 
-                param.requires_grad = True if freeze is False else False
-        else:
-            param.requires_grad = True if freeze is False else False  
-    
-
-def model_delete_layers(model, del_ids = []):
-    '''Delete layers from model
-    
-    Input
-    -----
-    model: model to be modified
-    
-    del_ids: list, default [], of int the modules/layers
-        that will be deleted
-        NOTE: 0, 1... denotes the 1st, 2nd etc layer
-        
-    Output
-    ------ 
-    model: model with deleted modules/layers that is an instance of  
-        torch.nn.modules.container.Sequential
-    '''
-    children = [c for i,c in enumerate(model.named_children()) if i not in del_ids]  
-    model = torch.nn.Sequential(
-        OrderedDict(children)
-    ) 
-    
-    return model
+        #### Run Model   ###################################################
+        # load_DataFrame = modelB_create.load_DataFrame   
+        # prepro_dataset = modelB_create.prepro_dataset
+        model.build()        
+        model.training(load_DataFrame, prepro_dataset) 
+        inputs = torch.randn((1,5)).to(model.device)
+        outputs = model.predict(inputs)
 
 
-def model_add_layers(model, modules = []):
-    '''Add layers/modules to torch.nn.modules.container.Sequential
-    
-    Input
-    -----
-    model: instance of class of base class torch.nn.Module
-    
-    modules: list of dict
-        each dict has key:value pairs
-        
-        {
-        'name': str
-        'position': int 
-        'module': torch.nn.Module
-        }
-        
-        with: 
-            name: str, name to be added in the nn.modules.container.Sequential 
-            
-            position: int, [0,..N], with N>0, also -1, where N the total
-            nr of modules in the torch.nn.modules.container.Sequential
-            -1 denotes the module that will be appended at the end
-            
-            module: torch.nn.Module
-    
-    Output
-    ------
-    model: model with added modules/layers that is an instance of   
-        torch.nn.modules.container.Sequential
-    '''
-    all_positions = [m['position'] for m in modules]
-    current_children = [c for c in model.named_children()]
-    children = []
-    children_idx = 0
-    iterations = len(current_children) + len(all_positions)
-    if -1 in all_positions: iterations -= 1
-    for i in range(iterations):
-        if i not in all_positions:
-            children.append(current_children[children_idx])
-            children_idx += 1
-        else:
-            idx = all_positions.index(i)
-            d = modules[idx]
-            children.append((d['name'], d['module']))
-    if -1 in all_positions:
-        idx = all_positions.index(-1)
-        d = modules[idx]
-        children.append((d['name'], d['module']))
-        
-    model = torch.nn.Sequential(
-        OrderedDict(children)
-    ) 
-
-    return model
+TODO :
+    make get_embedding works
 
 
-class model_LayerRecorder():
-    '''Get input, output or parameters to a module/layer 
-    by registering forward or backward hooks
-    
-    Input
-    -----
-    module: a module of a class in torch.nn.modules 
-    
-    record_input: bool, default False, deciding if input to module will be
-        recorded
-        
-    record_output: bool, default False, deciding if output to module will be
-        recorded 
-        
-    record_params: bool, default False, deciding if params of module will be
-        recorded 
-        
-    params_to_get: list of str, default None, specifying the parameters to be 
-        recorded from the module (if None all parameters are recorded)
-        NOTE: meaningful only if record_params
-        
-    backward: bool, default False, deciding if a forward or backward hook
-        will be registered and the recprding will be performed accordingly
-        
-    custom_fn: function, default None, to be executed in the forward or backward
-        pass.
-        
-        It must have the following signature:
-        
-        custom_fn(module, output, input, **kwars)
-        
-        with kwars optional
-        
-        The signature follows the signature of functions to be registered
-        in hooks. See for more details:
-        https://pytorch.org/docs/stable/generated/torch.nn.modules.module.register_module_forward_hook.html
-    
-     save_to: str, default None, specifying a path to a folder for all recordings
-         to be saved.
-         NOTE: recodrings are saved with filename: recording_0, recording_1, recording_N
-         
-     **kwargs: if keyword args are specified they will be passed as to the 
-         custom_fn     
-         
-         
-    The attribute recording contains the output, input or params of a module
-    '''
-    def __init__(self, 
-                 module,
-                 record_input = False,
-                 record_output = False,
-                 record_params = False,
-                 params_to_get = None,
-                 backward = False,
-                 custom_fn = None,
-                 save_to = None,
-                 **kwargs):
-        self.params_to_get = params_to_get
-        self.kwargs = kwargs if kwargs else None
-        if save_to: 
-            self.counter = 0#if path is specified, keep a counter
-            self.save_to = save_to 
-        if record_input is True:
-            fn = partial(self._fn_in_out_params, record_what = 'input') 
-        elif record_output is True:
-            fn = partial(self._fn_in_out_params, record_what = 'output')  
-        elif record_params is True:
-            fn = partial(self._fn_in_out_params, record_what = 'params') 
-            
-        if custom_fn is not None: 
-            fn = self._custom_wrapper
-            self.custom_fn = custom_fn
-            
-        if backward is False:
-            self.hook = module.register_forward_hook(fn)
-        elif backward is True:
-            self.hook = module.register_full_backward_hook(fn)
-            
-    def _fn_in_out_params(self, module, input, output, record_what = None):
-        att = getattr(self, 'save_to', None)
-        if att is None:
-            if record_what == 'input': 
-                self.recording = input
-            elif record_what == 'output':
-                self.recording = output
-            elif record_what == 'params':
-                params = model_getparams(module, params_to_get = self.params_to_get)[0]
-                self.recording = params 
-        else:
-            name = 'recording_' + str(self.counter) 
-            filename = Path(self.save_to) / name
-            self.counter += 1
-            with open(filename, 'wb') as handle:
-                if record_what == 'input': 
-                    pickle.dump(input, handle, protocol = pickle.HIGHEST_PROTOCOL)
-                elif record_what == 'output':
-                    pickle.dump(output, handle, protocol = pickle.HIGHEST_PROTOCOL)
-                elif record_what == 'params':
-                    params = model_getparams(module, params_to_get = self.params_to_get)[0]
-                    pickle.dump(params, handle, protocol = pickle.HIGHEST_PROTOCOL)
-                
-    def _custom_wrapper(self, module, input, output):
-        if self.kwargs: 
-            res = self.custom_fn(module, input, output, **self.kwargs)
-        else:
-            res = self.custom_fn(module, input, output)
-        att = getattr(self, 'save_to', None)
-        if res and att is None:    
-            self.recording = res
-        elif res and att:
-            name = 'recording_' + str(self.counter) 
-            filename = Path(self.save_to) / name
-            self.counter += 1
-            with open(filename, 'wb') as handle:
-                pickle.dump(res, handle, protocol = pickle.HIGHEST_PROTOCOL)
-            
-    def close(self):
-        self.hook.remove()
-        att = getattr(self, 'counter', None)
-        if att: self.counter = 0
-        
-        
-def model_get_alllayers(model):
-    '''
-    Get all the children (layers) from a model, even the ones that are nested
-    
-    Input
-    -----
-    model: class instance based on the base class torch.nn.Module
-        
-    Output
-    ------
-    all_layers: list of all layers of the model
-    
-    Adapted from:
-    https://stackoverflow.com/questions/54846905/pytorch-get-all-layers-of-model
-    '''
-    children = list(model.children())
-    all_layers = []
-    if not children:#if model has no children model is last child
-        return model
-    else:
-       # Look for children from children to the last child
-       for child in children:
-            try:
-                all_layers.extend(model_get_alllayers(child))
-            except TypeError:
-                all_layers.append(model_get_alllayers(child))
-            
-    return all_layers
+"""
+import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
+from copy import deepcopy
+import copy, collections
+from abc import abstractmethod
 
+from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.utils import shuffle
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
 
-class model_getlayer():
-    """ Get a specific layer for embedding output
-    Doc::
+#############################################################################################
+from utilmy import log, log2
 
-        model = models.resnet50()
-        layerI= model_getlayer(model, pos_layer=-1)
-
-        ### Forward pass
-        Xin = torch.randn(4, 3, 224, 224)
-        print( model(Xin) )
-
-        print('emb')
-        Xemb = layerI.output
-        print(Xemb.shape)
-        print(Xemb)
-
+def help():
+    """function help        
     """
+    from utilmy import help_create
+    MNAME =  'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", "")   ###'.deeplearning.ttorch.model_ensemble.'
+    ss =  help_create(MNAME)
+    log(ss)
+
+
+##############################################################################################
+def test_all():
+    test1()
+    test2a()
+    test2b()
+
+
+def test1():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df
+
+    prepro_dataset = None 
+    
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'modelA1'
+    ARG.modelA.nn_model    = None    
+    ARG.modelA.architect     = [ 5, 100, 16 ]
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+
+
+    ### modelB  ########################################################
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name         = 'modelB1'
+    ARG.modelB.nn_model    = None
+    ARG.modelB.architect     = [5,100,16]
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()        
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((1,5)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+
+def test2a():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df
+
+    prepro_dataset = None 
+    
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet50'
+    ARG.modelA.architect     = [ 5, 100, 16 ]
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA.seed          = 42
+    modelA = modelA_create(ARG.modelA)
+
+
+    ### modelB  ########################################################
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name         = 'resnet18'
+    ARG.modelB.architect     = [5,100,16]
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    ARG.modelB.seed          = 42
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.seed      = 42
+    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()        
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((1,5)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+def test2b():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    ###########################
+
+    def load_DataFrame():
+        return df  
+
+    ##################################################################
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config                     = Box({})
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 32
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        trainy = torch.rand(train_config.BATCH_SIZE)
+        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        validy = torch.rand(train_config.BATCH_SIZE)
+        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        testy = torch.rand(train_config.BATCH_SIZE)
+        return (trainx, trainy,validx,validy,testx,testy)
+
+    #### SEPARATE the models completetly, and create duplicate
+    import torchvision.models as models
+    ### modelA  ########################################################
+    model_ft = models.resnet18(pretrained=True)
+    embA_dim = model_ft.fc.in_features  ###
+
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet18'
+    ARG.modelA.nn_model      = model_ft
+    ARG.modelA.tune          = 'fc'
+    ARG.modelA.architect     = [ embA_dim]  ### head s
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+    
+    #model_ft.fc = modelA
+    ### modelB  ########################################################
+    model_ft = models.resnet50(pretrained=True)
+    embB_dim = model_ft.fc.in_features
+
+    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB.name          = 'resnet50'
+    ARG.modelB.nn_model      = model_ft
+    ARG.modelB.tune          = 'fc'
+    ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+    
+    ### merge_model  ###################################################
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+
+
+
+
+
+##############################################################################################
+class model_getlayer():
     def __init__(self, network, backward=False, pos_layer=-2):
         self.layers = []
         self.get_layers_in_order(network)
@@ -576,68 +431,639 @@ class model_getlayer():
 
 
 
+class BaseModel(object):
+    """This is BaseClass for model create
 
-###############################################################################################
-########### Custom layer ######################################################################
-class SmeLU(nn.Module):
+    Method:
+        create_model : Initialize Model (torch.nn.Module)
+        evaluate: 
+        prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+        create_loss :   Initialize Loss Function 
+        training:   starting training
+        build: create model, loss, optimizer (call before training)
+        train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+        eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+        device_setup: 
+        load_DataFrame: read pandas
+        load_weight: 
+        save_weight: 
+        predict : 
     """
-    This class implements the Smooth ReLU (SmeLU) activation function proposed in:
-    https://arxiv.org/pdf/2202.06499.pdf
+    
+    def __init__(self,arg):
+        self.arg      = Box(arg)
+        self._device  = self.device_setup(arg)
+        self.losser   = None
+        self.is_train = False
+        
+    @abstractmethod
+    def create_model(self,) -> torch.nn.Module:
+    #   raise NotImplementedError
+        log("       model is building")
+    @abstractmethod
+    def evaluate(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def prepro_dataset(self,csv) -> pd.DataFrame:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def create_loss(self,) -> torch.nn.Module:
+        log("       loss is building")
+        # raise NotImplementedError
+
+    @abstractmethod
+    def training(self,):
+        raise NotImplementedError
+
+    @property
+    def device(self,):
+        return self._device
+    
+    @device.setter
+    def device(self,value):
+        if isinstance(value,torch.device):
+          self._device = value
+        elif isinstance(value,str):
+          self._device = torch.device(value)
+        else:
+          raise TypeError("device must be str or torch.device")
+
+    def build(self,):
+        self.net       = self.create_model().to(self.device)
+        self.loss_calc = self.create_loss().to(self.device)
+        # self.loss_calc= 
+        self.is_train = False
+    
+    def train(self): # equivalent model.train() in pytorch
+        self.is_train = True
+        self.net.train()
+
+    def eval(self):     # equivalent model.eval() in pytorch
+        self.is_train = False
+        self.net.eval()
+
+    def device_setup(self,arg):
+        device = getattr(arg,'device','cpu')
+        seed   = arg.seed if hasattr(arg,'seed') else 42
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+
+        if 'gpu' in device :
+            try :
+                torch.cuda.manual_seed(seed)
+                torch.cuda.manual_seed_all(seed)
+                torch.backends.cudnn.deterministic = True
+                torch.backends.cudnn.benchmark = False
+            except Exception as e:
+                log(e)
+                device = 'cpu'
+        return device
+
+    def load_DataFrame(self,path=None)-> pd.DataFrame:
+        if path:
+            log(f"reading csv from {path}")
+            self.df = pd.read_csv(path,delimiter=';')
+            return self.df
+        if os.path.isfile(self.arg.dataset.path):
+            log(f"reading csv from arg.DATASET.PATH :{self.arg.dataset.path}")
+            self.df = pd.read_csv(self.arg.dataset.path,delimiter=';')
+            return self.df
+        else:
+            import requests
+            import io
+            r = requests.get(self.arg.dataset.url)
+            log(f"Reading csv from arg.DATASET.URL")
+            if r.status_code ==200:
+                self.df = pd.read_csv(io.BytesIO(r.content),delimiter=';')
+            else:
+                raise Exception("Can't read data, status_code: {r.status_code}")
+            
+            return self.df
 
 
-    Example :
-        def main() -> None:
-            # Init figures
-            fig, ax = plt.subplots(1, 1)
-            fig_grad, ax_grad = plt.subplots(1, 1)
-            # Iterate over some beta values
-            for beta in [0.5, 1., 2., 3., 4.]:
-                # Init SemLU
-                smelu: SmeLU = SmeLU(beta=beta)
-                # Make input
-                input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
-                # Get activations
-                output: torch.Tensor = smelu(input)
-                # Compute gradients
-                output.sum().backward()
-                # Plot activation and gradients
-                ax.plot(input.detach(), output.detach(), label=str(beta))
-                ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))
-            # Show legend, title and grid
-            ax.legend()
-            ax_grad.legend()
-            ax.set_title("SemLU")
-            ax_grad.set_title("SemLU gradient")
-            ax.grid()
-            ax_grad.grid()
-            # Show plots
-            plt.show()
+    def load_weights(self, path):
+        assert os.path.isfile(path),f"{path} does not exist"
+        try:
+          ckp = torch.load(path,map_location=self.device)
+        except Exception as e:
+          log(e)
+          log(f"can't load the checkpoint from {path}")  
+        if isinstance(ckp,collections.OrderedDict):
+          self.net.load_state_dict(ckp)
+        else:
+          self.net.load_state_dict(ckp['state_dict'])
+    
+    def save_weight(self,path,meta_data=None):
+      os.makedirs(os.path.dirname(path),exist_ok=True)
+      ckp = {
+          'state_dict':self.net.state_dict(),
+      }
+      if meta_data:
+        if isinstance(meta_data,dict):
+            ckp.update(meta_data)
+        else:
+            ckp.update({'meta_data':meta_data,})
+            
+        
+      torch.save(ckp,path)
+
+    def predict(self,x,**kwargs):
+        # raise NotImplementedError
+        output = self.net(x,**kwargs)
+        return output 
+
+
+##############################################################################################
+
+
+
+##############################################################################################
+class MergeModel_create(BaseModel):
+    """
+    """
+    def __init__(self,arg:dict=None, modelA=None, modelB=None):
+        """
+                      
+        """
+        super(MergeModel_create,self).__init__(arg)
+        self.modelA = modelA_create(arg.modelA)   if modelA is None else (modelA)
+        self.modelB = modelB_create(arg.modelB)   if modelB is None else (modelB)
+
+    def create_model(self,):
+        super(MergeModel_create,self).create_model()
+        self.merge = self.arg.merge_model.get('MERGE','add')
+        layers_dim = self.arg.merge_model.architect.layers_dim
+
+        class Modelmerge(torch.nn.Module):
+            def __init__(self,modelB, modelA, merge='cat', layers_dim=None, ):
+                super(Modelmerge, self).__init__()
+
+                #### rule encoder
+                self.modelB_net = copy.deepcopy(modelB.net)
+                self.modelB_net.load_state_dict(modelB.net.state_dict())
+
+                ###3 data encoder
+                self.modelA_net = copy.deepcopy(modelA.net)
+                self.modelA_net.load_state_dict(modelA.net.state_dict())
+
+                ##### Check Input Dims are OK 
+                ### assert self.modelA_net =               
+
+                self.merge = merge
+                ##### Head Task   #####################
+                # self.head_task = nn.Sequential()
+                self.head_task = []
+                input_dim = layers_dim[0]
+                for layer_dim in layers_dim[1:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+
+                ###### Not good in model due to compute errors, keep into Losss
+                # self.head_task.append(nn.Sigmoid())  #### output layer
+
+                ##### MLP Head task
+                self.head_task = nn.Sequential(*self.head_task)
+
+
+            def forward(self, x,**kw):
+                # merge: cat or add
+                alpha = kw.get('alpha',0) # default only use YpredA
+                scale = kw.get('scale',1)
+        
+                ## with torch.no_grad():
+                embA = self.modelA_net.get_embedding(x)                
+                embB = self.modelB_net.get_embedding(x)                
+
+                ##### L2 normalize
+                embA = torch_norm_l2(embA)
+                embB = torch_norm_l2(embB)
+
+                ###### Concatenerate
+                if self.merge == 'cat_combine':
+                    z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
+
+                elif self.merge == 'cat':
+                    ### May need scale 
+                    z = torch.cat((embB, embA), dim=-1)
+                return self.head_task(z)    # predict absolute values
+
+
+            def get_embedding(self, x,**kw):
+                 return self.forward
+
+        return Modelmerge(self.modelB, self.modelA, self.merge, layers_dim, )
+
+
+    def build(self):
+        # super(MergeModel_create,self).build()
+        log("modelB:")
+        self.modelB.build()
+
+        log("modelA:")
+        self.modelA.build()
+        
+        log("MergeModel:")
+        self.net       = self.create_model().to(self.device)
+        self.loss_calc = self.create_loss()#.to(self.device)
+
+        #### BE cacreful to include all the params if COmbine loss.
+        #### Here, only head_task
+        self.optimizer = torch.optim.Adam(self.net.head_task.parameters())
+        
+        self.scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=5, 
+                         verbose=True, threshold=0.0001, threshold_mode='rel', cooldown=0, min_lr=0, eps=1e-08)
+        #self.optimizer = torch.optim.Adam(self.head_task )
+
+
+        #### Freeze modelA, modelB, to stop gradients.
+        self.freeze_all()
+
+
+    def freeze_all(self,):
+        for param in self.modelA.net.parameters():
+            param.requires_grad = False
+
+        for param in self.modelB.net.parameters():
+            param.requires_grad = False
+
+
+    def unfreeze_all(self,):
+        for param in self.modelA.net.parameters():
+            param.requires_grad = True
+
+        for param in self.modelB.net.parameters():
+            param.requires_grad = True
+
+
+    def create_loss(self,):
+        """ Simple Head task loss
+           1) Only Head task loss : Classfieri head  ### Baseline
+           Stop the gradient or not in modelA and modelB.
+            embA_d = embA.detach()  ### Stop the gradient
+            modelA_loss(x_a, embA)        
+        """
+        super(MergeModel_create,self).create_loss()
+        loss =  torch.nn.BCEWithLogitsLoss()
+        return loss
+        
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        if df is None:              
+            df = self.df     # if there is no dataframe feeded , get df from model itself
+
+        coly = 'y'
+        y    = df[coly].values
+        X    = df.drop([coly], axis=1).values
+        nsamples = X.shape[0]
+
+        ##### Split   #########################################################################
+        seed= 42 
+        train_ratio = self.arg.merge_model.train_config.TRAIN_RATIO
+        test_ratio  = self.arg.merge_model.train_config.TEST_RATIO
+        val_ratio   = self.arg.merge_model.train_config.TEST_RATIO
+        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
+        return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
+        
+
+    def training(self,load_DataFrame=None,prepro_dataset=None):
+        """ Train Loop
+        Docs:
+
+             # training with load_DataFrame and prepro_data function or default funtion in self.method
+
+        """
+       
+        batch_size = self.arg.merge_model.train_config.BATCH_SIZE
+        EPOCHS     = self.arg.merge_model.train_config.EPOCHS
+        path_save  = self.arg.merge_model.train_config.SAVE_FILENAME
+
+        df = load_DataFrame() if load_DataFrame else self.load_DataFrame()
+        if prepro_dataset:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y  = prepro_dataset(self,df)
+        else:
+            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)  
+
+        train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, valid_X,  valid_y,
+                                                                    test_X,  test_y,
+                                                                    device=self.device, batch_size=batch_size)
+                
+        for epoch in range(1,EPOCHS+1):
+            self.train()
+            loss_train = 0
+            with torch.autograd.set_detect_anomaly(True): 
+                for inputs,targets in train_loader:                    
+                    self.optimizer.zero_grad()
+
+                    predict = self.predict(inputs)
+                    predict = torch.reshape(predict,(predict.shape[0],))
+                    loss    = self.loss_calc(predict, targets)
+                    # loss.grad
+                    loss.backward()
+                    self.optimizer.step()
+                    loss_train += loss * inputs.size(0)
+                loss_train /= len(train_loader.dataset) # mean on dataset
+
+            ##### Evaluation #######################################
+            loss_val = 0
+            self.eval()
+            with torch.no_grad():
+                for inputs,targets in valid_loader:
+                    predict = self.predict(inputs)
+                    predict = torch.reshape(predict,(predict.shape[0],))
+                    self.optimizer.zero_grad()
+                    loss = self.loss_calc(predict,targets)                    
+                    loss_val += loss * inputs.size(0)
+            loss_val /= len(valid_loader.dataset) # mean on dataset
+            
+            self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
+
+
+
+class modelB_create(BaseModel):
+    """ modelB Creatio 
+    """
+    def __init__(self,arg):
+        super(modelB_create,self).__init__(arg)
+        self.nn_model_base = arg.nn_model
+
+    def create_model(self):
+        super(modelB_create,self).create_model()
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        tune_l        = self.arg.tune
+        
+        class modelB(torch.nn.Module):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
+                super(modelB, self).__init__()                
+                self.head_task = [None]
+                self.tune_l    = tune_l
+
+                ##### Pre-trained model   #########################################
+                if len(self.tune_l) !=0 :
+                    self.nn_model_base = nn_model_base
+
+                    #### Adding head task on top of 
+                    ## setattr(self.nn_model_base, self.tune_l, self.head_task)
+
+                    self.head_task = self.nn_model_base
+                    return 
+
+
+                ###### Normal MLP Head   #########################################
+                self.head_task = []
+                self.layers_dim = layers_dim 
+                self.output_dim = layers_dim[-1]
+                # self.head_task = nn.Sequential()
+                input_dim = layers_dim[0]
+                for layer_dim in layers_dim[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                self.head_task = nn.Sequential(*self.head_task)
+                
+
+
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
+
+            def get_embedding(self,x, **kwargs):
+                layer_l2= model_getlayer(self.head_task, pos_layer=-2)
+                emb = self.forward(x)
+                emb = layer_l2.output.squeeze()
+                return emb
+                #self.foward(x) # bs x c x h x w
+                            
+
+        return modelB(layers_dim, nn_model_base, tune_l )
+        
+
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelB_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+
+class modelA_create(BaseModel):
+    """ modelA
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self):
+        super(modelA_create,self).create_model()
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        tune_l        = self.arg.tune
+
+        class modelA(torch.nn.Module):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
+                super(modelA, self).__init__()
+                self.head_task = []
+                self.tune_l    = tune_l
+
+
+                ##### Pre-trained model   #########################################
+                if len(self.tune_l) !=0 :
+                    self.nn_model_base = nn_model_base
+                    #setattr(self.nn_model_base, self.tune_l, self.head_task)
+                    self.head_task = self.nn_model_base
+                    return 
+
+
+                ###### Normal MLP Head   #########################################
+                self.layers_dim = layers_dim 
+                self.output_dim = layers_dim[-1]
+                # self.head_task = nn.Sequential()
+
+                input_dim = layers_dim[0]
+                for layer_dim in layers_dim[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                self.head_task = nn.Sequential(*self.head_task)
+
+
+
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
+
+            def get_embedding(self, x,**kwargs):
+                layer_l2= model_getlayer(self.head_task, pos_layer=-2)
+                emb = self.forward(x)
+                emb = layer_l2.output.squeeze()
+                return emb
+
+        return modelA(layers_dim, nn_model_base, tune_l)
+
+    def create_loss(self) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        return torch.nn.BCELoss()
+
+
+
+def get_embedding():
+    """
+        https://www.kaggle.com/code/sironghuang/understanding-pytorch-hooks/notebook
+
+         https://discuss.pytorch.org/t/how-can-i-extract-intermediate-layer-output-from-loaded-cnn-model/77301/11
+
+        model = Resnet50() 
+        model.load_state_dict(torch.load('path_to_model.bin'))
+        model.to(device) 
+
+        # now using function hook, I was able to get the output after the conv3 layer like this :
+        model.model.layer4[1].conv3.register_forward_hook(get_activation("some_key_name")) 
+
+
+        x = torch.randn(1, 10)
+
+        # out of place
+        model = MyModel()
+        sd = model.state_dict()
+        model.fc.register_forward_hook(lambda m, input, output: print(output))
+        out = model(x)
+
+        # inplace
+        model = MyModel(inplace=True)
+        model.load_state_dict(sd)
+        model.fc.register_forward_hook(lambda m, input, output: print(output))
+        out = model(x)
 
     """
+    pass
 
-    def __init__(self, beta: float = 2.) -> None:
-        """
-        Constructor method.
-        beta (float): Beta value if the SmeLU activation function. Default 2.
-        """
-        # Call super constructor
-        super(SmeLU, self).__init__()
-        # Check beta
-        assert beta >= 0., f"Beta must be equal or larger than zero. beta={beta} given."
-        # Save parameter
-        self.beta: float = beta
 
-    def forward(self, input: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        input (torch.Tensor): Tensor of any shape
-        :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
-        """
-        output: torch.Tensor = torch.where(input >= self.beta, input,
-                                           torch.tensor([0.], device=input.device, dtype=input.dtype))
-        output: torch.Tensor = torch.where(torch.abs(input) <= self.beta,
-                                           ((input + self.beta) ** 2) / (4. * self.beta), output)
-        return output
+
+##############################################################################################
+def device_setup(arg, device='cpu', seed=67):
+    """function device_setup        
+    """
+    device = arg.get('device', device)
+    seed   = arg.get('seed', seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    if 'gpu' in device :
+        try :
+            torch.cuda.manual_seed(seed)
+            torch.cuda.manual_seed_all(seed)
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+        except Exception as e:
+            log(e)
+            device = 'cpu'
+    return device
+
+
+
+def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
+                            device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
+    """function dataloader_create
+    Args:
+        train_X:   
+        train_y:   
+        valid_X:   
+        valid_y:   
+        test_X:   
+        test_y:   
+        arg:   
+    Returns:
+        
+    """
+    train_loader, valid_loader, test_loader = None, None, None
+
+    if train_X is not None :
+        train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
+        log("data size", len(train_X) )
+
+    if valid_X is not None :
+        valid_X, valid_y = torch.tensor(valid_X, dtype=torch.float32, device=device), torch.tensor(valid_y, dtype=torch.float32, device=device)
+        valid_loader = DataLoader(TensorDataset(valid_X, valid_y), batch_size=valid_X.shape[0])
+        log("data size", len(valid_X)  )
+
+    if test_X  is not None :
+        test_X, test_y   = torch.tensor(test_X,  dtype=torch.float32, device=device), torch.tensor(test_y, dtype=torch.float32, device=device)
+        test_loader  = DataLoader(TensorDataset(test_X, test_y), batch_size=test_X.shape[0])
+        log("data size:", len(test_X) )
+
+    return train_loader, valid_loader, test_loader
+
+
+def torch_norm_l2(X):
+    """
+    normalize the torch  tensor X by L2 norm.
+    """
+    X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
+    X_norm = X / X_norm
+    return X_norm
+
+
+def prepro_dataset_custom(df:pd.DataFrame):
+    coly = 'cardio'
+    y     = df[coly]
+    X_raw = df.drop([coly], axis=1)
+    arg= {}
+
+    # log("Target class ratio:")
+    # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
+
+    column_trans = ColumnTransformer(
+        [('age_norm', StandardScaler(), ['age']),
+        ('height_norm', StandardScaler(), ['height']),
+        ('weight_norm', StandardScaler(), ['weight']),
+        ('gender_cat', OneHotEncoder(), ['gender']),
+        ('ap_hi_norm', StandardScaler(), ['ap_hi']),
+        ('ap_lo_norm', StandardScaler(), ['ap_lo']),
+        ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
+        ('gluc_cat', OneHotEncoder(), ['gluc']),
+        ('smoke_cat', OneHotEncoder(), ['smoke']),
+        ('alco_cat', OneHotEncoder(), ['alco']),
+        ('active_cat', OneHotEncoder(), ['active']),
+        ], remainder='passthrough'
+    )
+
+    X = column_trans.fit_transform(X_raw)
+    nsamples = X.shape[0]
+    X_np = X.copy()
+
+    ##### Split   #########################################################################
+    seed= 42 
+    train_ratio = arg.merge_model.train_config.TRAIN_RATIO
+    test_ratio =  arg.merge_model.train_config.TEST_RATIO
+    val_ratio =   arg.merge_model.train_config.TEST_RATIO
+    train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
+    return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
+    
+
+class model_template_MLP(torch.nn.Module):
+    def __init__(self,layers_dim=[20,100,16]):
+        super(modelA, self).__init__()
+        self.layers_dim = layers_dim 
+        self.output_dim = layers_dim[-1]
+        # self.head_task = nn.Sequential()
+        self.head_task = []
+        input_dim = layers_dim[0]
+        for layer_dim in layers_dim[:-1]:
+            self.head_task.append(nn.Linear(input_dim, layer_dim))
+            self.head_task.append(nn.ReLU())
+            input_dim = layer_dim
+        self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
+        self.head_task = nn.Sequential(*self.head_task)
+
+    def forward(self, x,**kwargs):
+        return self.head_task(x)
 
 
 
@@ -650,7 +1076,4 @@ class SmeLU(nn.Module):
 if __name__ == "__main__":
     import fire
     fire.Fire()
-
-
-
 
