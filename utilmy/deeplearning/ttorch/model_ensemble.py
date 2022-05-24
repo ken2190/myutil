@@ -199,62 +199,7 @@ def test1():
 
 
 
-
-
-
-
-
-
-
-
-# -*- coding: utf-8 -*-
-""" utils for model merge
-Doc::
-
-        https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
-
-        https://discuss.pytorch.org/t/merging-3-models/66230/3
-
-Issue wthen reloading jupyte
-        import library.Child
-        reload(library)
-        import library.Child
-
-TODO :
-    make get_embedding works
-
-
-"""
-import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
-from copy import deepcopy
-import copy, collections
-from abc import abstractmethod
-
-from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
-from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.utils import shuffle
-
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import DataLoader, TensorDataset
-import torchvision.models as models
-
-#############################################################################################
-from utilmy import log, log2
-
-def help():
-    """function help        
-    """
-    from utilmy import help_create
-    ss = HELP + help_create(MNAME)
-    log(ss)
-
-
-
-def test1():    
+def test2a():    
     """     
     """    
     from box import Box ; from copy import deepcopy
@@ -344,7 +289,7 @@ def test1():
     print(outputs)
 
 
-def test2():    
+def test2b():    
     """     
     """    
     from box import Box ; from copy import deepcopy
@@ -359,20 +304,10 @@ def test2():
     from utilmy.adatasets import test_dataset_classifier_fake
     df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
 
-###########################
+    ###########################
 
     def load_DataFrame():
-        return df
-
-    def prepro_dataset(self,df:pd.DataFrame=None):
-        trainx = torch.rand(32,3,224,224)
-        trainy = torch.rand(32)
-        validx = torch.rand(32,3,224,224)
-        validy = torch.rand(32)
-        testx = torch.rand(32,3,224,224)
-        testy = torch.rand(32)
-        return (trainx, trainy,validx,validy,testx,testy)
-    
+        return df  
 
     ##################################################################
     if ARG.MODE == 'mode1':
@@ -391,6 +326,14 @@ def test2():
         train_config.VAL_RATIO           = 0.2
         train_config.TEST_RATIO          = 0.1
 
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        trainy = torch.rand(train_config.BATCH_SIZE)
+        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        validy = torch.rand(train_config.BATCH_SIZE)
+        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        testy = torch.rand(train_config.BATCH_SIZE)
+        return (trainx, trainy,validx,validy,testx,testy)
 
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
@@ -429,7 +372,7 @@ def test2():
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+    ARG.merge_model.architect = { 'layers_dim': [ num_ftrs + num_ftrs_b, 32, 1 ] }
 
     ARG.merge_model.MERGE = 'cat'
 
@@ -448,11 +391,16 @@ def test2():
 
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
-    inputs = torch.randn((32,3,224,224)).to(model.device)
+    inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
 
 
+
+
+
+
+##############################################################################################
 class model_getlayer():
     def __init__(self, network, backward=False, pos_layer=-2):
         self.layers = []
@@ -474,7 +422,7 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
-##############################################################################################
+
 class BaseModel(object):
     """This is BaseClass for model create
 
@@ -840,23 +788,26 @@ class modelB_create(BaseModel):
         
         class modelB(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
-                super(modelB, self).__init__()
+                super(modelB, self).__init__()                
+                self.head_task = [None]
+                self.tune_l    = tune_l
 
                 ##### Pre-trained model   #########################################
                 if len(self.tune_l) !=0 :
                     self.nn_model_base = nn_model_base
-                    self.tune_l = tune_l
 
-                    setattr(self.nn_model_base, self.tune_l, self.head_task)
+                    #### Adding head task on top of 
+                    ## setattr(self.nn_model_base, self.tune_l, self.head_task)
+
                     self.head_task = self.nn_model_base
                     return 
 
 
                 ###### Normal MLP Head   #########################################
+                self.head_task = []
                 self.layers_dim = layers_dim 
                 self.output_dim = layers_dim[-1]
                 # self.head_task = nn.Sequential()
-                self.head_task = []
                 input_dim = layers_dim[0]
                 for layer_dim in layers_dim[:-1]:
                     self.head_task.append(nn.Linear(input_dim, layer_dim))
@@ -873,12 +824,12 @@ class modelB_create(BaseModel):
             def get_embedding(self,x, **kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
                 emb = self.forward(x)
-                emb = layer_l2.output
+                emb = layer_l2.output.squeeze()
                 return emb
                 #self.foward(x) # bs x c x h x w
                             
 
-        return modelB(layers_dim, nn_model_base, tune_1 )
+        return modelB(layers_dim, nn_model_base, tune_l )
         
 
 
@@ -896,20 +847,21 @@ class modelA_create(BaseModel):
 
     def create_model(self):
         super(modelA_create,self).create_model()
-        layers_dim   = self.arg.architect
-        nn_model_base    = self.arg.nn_model
-        tune_l       = self.arg.tune
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        tune_l        = self.arg.tune
 
         class modelA(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
                 super(modelA, self).__init__()
+                self.head_task = []
+                self.tune_l    = tune_l
+
 
                 ##### Pre-trained model   #########################################
                 if len(self.tune_l) !=0 :
                     self.nn_model_base = nn_model_base
-                    self.tune_l = tune_l
-
-                    setattr(self.nn_model_base, self.tune_l, self.head_task)
+                    #setattr(self.nn_model_base, self.tune_l, self.head_task)
                     self.head_task = self.nn_model_base
                     return 
 
@@ -918,7 +870,7 @@ class modelA_create(BaseModel):
                 self.layers_dim = layers_dim 
                 self.output_dim = layers_dim[-1]
                 # self.head_task = nn.Sequential()
-                self.head_task = []
+
                 input_dim = layers_dim[0]
                 for layer_dim in layers_dim[:-1]:
                     self.head_task.append(nn.Linear(input_dim, layer_dim))
@@ -929,17 +881,16 @@ class modelA_create(BaseModel):
 
 
 
-
             def forward(self, x,**kwargs):
                 return self.head_task(x)
 
             def get_embedding(self, x,**kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
                 emb = self.forward(x)
-                emb = layer_l2.output
+                emb = layer_l2.output.squeeze()
                 return emb
 
-        return modelA(layers_dim, nn_model_base, tune_1)
+        return modelA(layers_dim, nn_model_base, tune_l)
 
     def create_loss(self) -> torch.nn.Module:
         super(modelA_create,self).create_loss()
@@ -1101,3 +1052,5 @@ class model_template_MLP(torch.nn.Module):
     def forward(self, x,**kwargs):
         return self.head_task(x)
 
+test2()
+print()
