@@ -107,7 +107,7 @@ jobs:
     - name: test sspark/src/util_spark.py test_all
       # continue-on-error: true 
       run: |
-          python sspark/src/util_spark.py test_all
+          python utilmy/sspark/src/util_spark.py test_all
 
 
     - name: test utilmy/deeplearning/ttorch/model_ensemble.py test_all
