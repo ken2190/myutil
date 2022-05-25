@@ -111,7 +111,7 @@ jobs:
 
 
     - name: utilmy/deeplearning/ttorch/model_ensemble.py  util_model.py
-      continue-on-error: true 
+      # continue-on-error: true 
       run: |
           python utilmy/deeplearning/ttorch/model_ensemble.py test_all
           python utilmy/deeplearning/ttorch/util_model.py     test_all
