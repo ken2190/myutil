@@ -7,7 +7,13 @@ import torch
 
 
 #################################################################################################
-def test_printlayer_value():
+def test_all():
+  test1()
+  test2()
+  test3()
+
+
+def test1():
   from utilmy.deeplearning.ttorch import util_model
 
   model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
