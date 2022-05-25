@@ -195,9 +195,10 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format="parquet", **kw):
     """ Universal HDFS file reader
     Doc::
+    format: parquet, csv, json ...
 
     """
 
@@ -207,7 +208,9 @@ def spark_read(sparksession=None, dirin="hdfs://", **kw):
     #     df = sparksession.read_csv(dirin, **kw)
 
     # return df
-    return sparksession.read.format("csv").load(filepath, sep=',', header=True, inferSchema=True)
+
+    df = sparksession.read.format(format).load(dirin, **kw)
+    return df
 
 
 
