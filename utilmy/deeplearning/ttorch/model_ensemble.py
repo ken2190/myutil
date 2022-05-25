@@ -122,6 +122,13 @@ def help():
 
 
 ##############################################################################################
+def test_all():
+    test1()
+    test2a()
+    test2b()
+    test2c()
+
+
 def test1():    
     """     
     """    
@@ -1271,7 +1278,3 @@ def torch_norm_l2(X):
 
 if __name__ == "__main__":
     import fire
-    test1()
-    test2a()
-    test2b()
-    test2c()
