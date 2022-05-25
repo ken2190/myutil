@@ -3,8 +3,11 @@ from collections import OrderedDict
 from functools import partial
 from pathlib import Path
 import pickle 
-import torch 
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
 
 #################################################################################################
 def test_all():
@@ -585,7 +588,7 @@ class model_getlayer():
 
 ###############################################################################################
 ########### Custom layer ######################################################################
-class SmeLU(nn.Module):
+class SmeLU(torch.nn.Module):
     """
     This class implements the Smooth ReLU (SmeLU) activation function proposed in:
     https://arxiv.org/pdf/2202.06499.pdf
