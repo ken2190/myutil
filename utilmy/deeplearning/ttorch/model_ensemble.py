@@ -153,6 +153,7 @@ def test1():
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'modelA1'
+    ARG.modelA.nn_model    = None        
     ARG.modelA.architect     = [ 5, 100, 16 ]
     ARG.modelA.dataset       = Box()
     ARG.modelA.nn_model      = None
@@ -165,6 +166,7 @@ def test1():
     ### modelB  ########################################################
     ARG.modelB               = Box()   
     ARG.modelB.name         = 'modelB1'
+    ARG.modelB.nn_model    = None
     ARG.modelB.architect     = [5,100,16]
     ARG.modelB.dataset       = Box()
     ARG.modelB.nn_model      = None

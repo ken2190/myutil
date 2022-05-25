@@ -18,7 +18,7 @@ on:
      #   - cron:  '* * */2 * *'    
   
 concurrency: 
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}_long
   cancel-in-progress: true
 
 
