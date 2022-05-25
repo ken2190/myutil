@@ -149,24 +149,43 @@ def hdfs_dir_stats(dirin,recursive=True):
 
 
 def hive_get_tablelist(dbname):
-
+    """
+    Doc::
+    show tables from database_name
+    """
     cmd = f'show tables from {dbname}'
+    return os.system(cmd)
 
 
 
 def hive_get_dblist():
-
+    """
+    Doc::
+    show databases
+    """
     cmd = f'show databases '
+    return os.system(cmd)
 
 
 
 def hive_get_tablechema(tablename):
-    cmd = f'show schema '
+    """
+    Doc::
+    describe tablename
+    """
+    # cmd = f'show schema '
+    cmd = f'describe {tablename} '
+    return os.system(cmd)
 
 
 
 def hive_get_tabledetails(table):
-    cmd = f'described formatted {table}'
+    """
+    Doc::
+    describe formatted table
+    """
+    cmd = f'describe formatted {table}'
+    return os.system(cmd)
 
 
 
@@ -182,12 +201,13 @@ def spark_read(sparksession=None, dirin="hdfs://", **kw):
 
     """
 
-    try:
-        df = sparksession.read_parquet(dirin, **kw)
-    except:     
-        df = sparksession.read_csv(dirin, **kw)
+    # try:
+    #     df = sparksession.read_parquet(dirin, **kw)
+    # except:     
+    #     df = sparksession.read_csv(dirin, **kw)
 
-    return df
+    # return df
+    return sparksession.read.format("csv").load(filepath, sep=',', header=True, inferSchema=True)
 
 
 
@@ -468,7 +488,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "overwrite", format:str= "parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
