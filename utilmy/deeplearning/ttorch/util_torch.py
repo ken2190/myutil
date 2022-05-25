@@ -396,7 +396,7 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
 def model_evaluation(model, loss_task_fun, test_loader, arg, ):
     """function model_evaluation
     Doc::
-    
+
         Args:
             model:
             loss_task_func:
