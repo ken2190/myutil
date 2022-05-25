@@ -34,19 +34,29 @@ Code::
 
         #### SEPARATE the models completetly, and create duplicate
         ### modelA  ########################################################
+        model_ft = models.resnet18(pretrained=True)
+        embA_dim = int(model_ft.fc.in_features)  ###
+
         ARG.modelA               = Box()   #MODEL_TASK
-        ARG.modelA.name          = 'modelA1'
-        ARG.modelA.architect     = [ 5, 100, 16 ]
+        ARG.modelA.name          = 'resnet18'
+        ARG.modelA.nn_model      = model_ft
+        ARG.modelA.layer_emb_id          = 'fc'
+        ARG.modelA.architect     = [ embA_dim]  ### head s
         ARG.modelA.dataset       = Box()
         ARG.modelA.dataset.dirin = "/"
         ARG.modelA.dataset.coly  = 'ytarget'
         modelA = modelA_create(ARG.modelA)
-
+        
 
         ### modelB  ########################################################
+        model_ft = models.resnet50(pretrained=True)
+        embB_dim = int(model_ft.fc.in_features)
+
         ARG.modelB               = Box()   
-        ARG.modelB.name         = 'modelB1'
-        ARG.modelB.architect     = [5,100,16]
+        ARG.modelB.name          = 'resnet50'
+        ARG.modelB.nn_model      = model_ft
+        ARG.modelB.layer_emb_id          = 'fc'
+        ARG.modelB.architect     = [embB_dim ]   ### head size
         ARG.modelB.dataset       = Box()
         ARG.modelB.dataset.dirin = "/"
         ARG.modelB.dataset.coly  = 'ytarget'
@@ -402,6 +412,8 @@ def test2c():
     """     
     """    
     from box import Box ; from copy import deepcopy
+    import torchvision.models as models
+
     ARG = Box({
         'MODE'   : 'mode1',
         'DATASET': {},
@@ -410,19 +422,28 @@ def test2c():
     PARAMS = Box()
 
 
+    ####################################################################
     from utilmy.adatasets import test_dataset_classifier_fake
     df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
-
-    ###########################
 
     def load_DataFrame():
         return df  
 
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        trainy = torch.rand(train_config.BATCH_SIZE)
+        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        validy = torch.rand(train_config.BATCH_SIZE)
+        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        testy = torch.rand(train_config.BATCH_SIZE)
+        return (trainx, trainy,validx,validy,testx,testy)
+
+
     ##################################################################
+    train_config                     = Box({})
     if ARG.MODE == 'mode1':
         ARG.MODEL_INFO.TYPE = 'dataonly' 
         #train_config
-        train_config                     = Box({})
         train_config.LR                  = 0.001
         train_config.SEED                = 42
         train_config.DEVICE              = 'cpu'
@@ -435,20 +456,12 @@ def test2c():
         train_config.VAL_RATIO           = 0.2
         train_config.TEST_RATIO          = 0.1
 
-    def prepro_dataset(self,df:pd.DataFrame=None):
-        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
-        trainy = torch.rand(train_config.BATCH_SIZE)
-        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
-        validy = torch.rand(train_config.BATCH_SIZE)
-        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
-        testy = torch.rand(train_config.BATCH_SIZE)
-        return (trainx, trainy,validx,validy,testx,testy)
 
     #### SEPARATE the models completetly, and create duplicate
-    import torchvision.models as models
+    
     ### modelA  ########################################################
     model_ft = models.resnet18(pretrained=True)
-    embA_dim = model_ft.fc.in_features  ###
+    embA_dim = int(model_ft.fc.in_features)  ###
 
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'resnet18'
@@ -461,10 +474,10 @@ def test2c():
     modelA = modelA_create(ARG.modelA)
     
 
-    #model_ft.fc = modelA
+
     ### modelB  ########################################################
     model_ft = models.resnet50(pretrained=True)
-    embB_dim = model_ft.fc.in_features
+    embB_dim = int(model_ft.fc.in_features)
 
     ARG.modelB               = Box()   
     ARG.modelB.name          = 'resnet50'
@@ -480,7 +493,7 @@ def test2c():
     # ### modelC  ########################################################
     embC_dim                 = 0
     model_ft                 = models.vgg11(pretrained=True)
-    embC_dim                 = model_ft.classifier[-1].in_features
+    embC_dim                 = int(model_ft.classifier[-1].in_features)
     ARG.modelC               = Box()   
     ARG.modelC.name          = 'resnet50'
     ARG.modelC.nn_model      = model_ft
