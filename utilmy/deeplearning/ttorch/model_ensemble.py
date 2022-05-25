@@ -865,9 +865,6 @@ class MergeModel_create(BaseModel):
         for param in self.modelB.net.parameters():
             param.requires_grad = False
 
-        for param in self.modelC.net.parameters():
-            param.requires_grad = False
-
         if(self.modelC is not None):
             for param in self.modelC.net.parameters():
                 param.requires_grad = False
@@ -879,10 +876,6 @@ class MergeModel_create(BaseModel):
 
         for param in self.modelB.net.parameters():
             param.requires_grad = True
-
-        for param in self.modelC.net.parameters():
-            param.requires_grad = False
-
 
         if(self.modelC is not None):
             for param in self.modelC.net.parameters():
