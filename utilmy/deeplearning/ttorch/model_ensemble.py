@@ -119,6 +119,7 @@ def help():
     ss =  help_create(MNAME)
     log(ss)
 
+
 ##############################################################################################
 def test1():    
     """     
@@ -210,6 +211,7 @@ def test1():
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2a():    
     """     
@@ -303,6 +305,7 @@ def test2a():
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2b():    
     """     
@@ -407,6 +410,7 @@ def test2b():
     inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2c():    
     """     
