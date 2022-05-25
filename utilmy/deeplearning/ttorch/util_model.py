@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, TensorDataset
 def test_all():
   test1()
   test2()
-  test3()
+  # test3()
 
 
 def test1():
@@ -124,10 +124,6 @@ def test2():
                                       freeze = False)
 
 
-
-        import torch
-        from utilmy.deeplearning.ttorch import util_model
-
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
         # Get all parameters
@@ -139,12 +135,6 @@ def test2():
                                                                            params_to_get = params_to_get)
 
 
-
-
-
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
 
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
@@ -165,10 +155,6 @@ def test2():
 
 
 
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
-
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
         # Delete the last layer of the classifier of the AlexNet model 
@@ -186,8 +172,6 @@ def test2():
 
 
 def test3():
-    #!/usr/bin/env python3
-    # -*- coding: utf-8 -*-
     import matplotlib.pyplot as plt
     import numpy as np
     import torch
