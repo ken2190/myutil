@@ -972,6 +972,7 @@ class MergeModel_create(BaseModel):
             
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
 
+
 class modelA_create(BaseModel):
     """ modelA
     """
