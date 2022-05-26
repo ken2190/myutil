@@ -3,11 +3,20 @@ from collections import OrderedDict
 from functools import partial
 from pathlib import Path
 import pickle 
-import torch 
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader, TensorDataset
 
 #################################################################################################
-def test_printlayer_value():
+def test_all():
+  test1()
+  test2()
+  # test3()
+
+
+def test1():
   from utilmy.deeplearning.ttorch import util_model
 
   model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
@@ -115,10 +124,6 @@ def test2():
                                       freeze = False)
 
 
-
-        import torch
-        from utilmy.deeplearning.ttorch import util_model
-
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
         # Get all parameters
@@ -130,12 +135,6 @@ def test2():
                                                                            params_to_get = params_to_get)
 
 
-
-
-
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
 
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
@@ -156,10 +155,6 @@ def test2():
 
 
 
-        import torch
-        from torch import nn
-        from utilmy.deeplearning.ttorch import util_model
-
         model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained = True)
 
         # Delete the last layer of the classifier of the AlexNet model 
@@ -177,8 +172,6 @@ def test2():
 
 
 def test3():
-    #!/usr/bin/env python3
-    # -*- coding: utf-8 -*-
     import matplotlib.pyplot as plt
     import numpy as np
     import torch
@@ -579,7 +572,7 @@ class model_getlayer():
 
 ###############################################################################################
 ########### Custom layer ######################################################################
-class SmeLU(nn.Module):
+class SmeLU(torch.nn.Module):
     """
     This class implements the Smooth ReLU (SmeLU) activation function proposed in:
     https://arxiv.org/pdf/2202.06499.pdf

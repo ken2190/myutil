@@ -122,6 +122,13 @@ def help():
 
 
 ##############################################################################################
+def test_all():
+    test1()
+    test2a()
+    test2b()
+    test2c()
+
+
 def test1():    
     """     
     """    
@@ -862,8 +869,9 @@ class MergeModel_create(BaseModel):
         for param in self.modelA.net.parameters():
             param.requires_grad = False
 
-        for param in self.modelB.net.parameters():
-            param.requires_grad = False
+        if(self.modelB is not None):
+            for param in self.modelB.net.parameters():
+                param.requires_grad = False
 
         if(self.modelC is not None):
             for param in self.modelC.net.parameters():
@@ -874,8 +882,10 @@ class MergeModel_create(BaseModel):
         for param in self.modelA.net.parameters():
             param.requires_grad = True
 
-        for param in self.modelB.net.parameters():
-            param.requires_grad = True
+
+        if(self.modelB is not None):
+            for param in self.modelB.net.parameters():
+                param.requires_grad = True
 
         if(self.modelC is not None):
             for param in self.modelC.net.parameters():
@@ -972,12 +982,15 @@ class modelA_create(BaseModel):
     def __init__(self,arg):
         super(modelA_create,self).__init__(arg)
 
-    def create_model(self):
+    def create_model(self, modelA_nn:torch.nn.Module=None):
         super(modelA_create,self).create_model()
         layers_dim    = self.arg.architect
         nn_model_base = self.arg.nn_model
         layer_id      = self.arg.layer_emb_id
 
+        if not modelA_nn: return modelA_nn
+
+        ### Default version
         class modelA(torch.nn.Module):
             def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  ):   
                 super(modelA, self).__init__()
@@ -1017,8 +1030,9 @@ class modelA_create(BaseModel):
 
         return modelA(layers_dim, nn_model_base, layer_id)
 
-    def create_loss(self) -> torch.nn.Module:
+    def create_loss(self, loss_fun=None) -> torch.nn.Module:
         super(modelA_create,self).create_loss()
+        if not loss_fun : loss_fun
         return torch.nn.BCELoss()
 
 
@@ -1271,7 +1285,3 @@ def torch_norm_l2(X):
 
 if __name__ == "__main__":
     import fire
-    test1()
-    test2a()
-    test2b()
-    test2c()
