@@ -22,11 +22,11 @@ goofys-latest
 ./goofys-latest
 chmod 777 goofys-latest
 ./goofys-latest
-goofys s3tasks /home/ubuntu/zs3tasks
+goofys s3tasks ${HOME}/zs3tasks
 ls
-goofys s3tasks /home/ubuntu/zs3tasks
-./goofys s3tasks /home/ubuntu/zs3tasks
-./goofys s3tasks /home/ubuntu/zs3tasks2
+goofys s3tasks ${HOME}/zs3tasks
+./goofys s3tasks ${HOME}/zs3tasks
+./goofys s3tasks ${HOME}/zs3tasks2
 aws s3 ls s3://
 awscli s3 ls s3://
 aws s3 ls s3://
@@ -38,18 +38,18 @@ sudo apt install awscli
 aws
 aws help
 aws s3 ls s3://
-./goofys s3tasks /home/ubuntu/zs3tasks
-./goofys s3tasks /home/ubuntu/zs3tasks2
-./goofys s3tasks /home/ubuntu/zs3tasks3
-./goofys s3task.task /home/ubuntu/zs3tasks3
+./goofys s3tasks ${HOME}/zs3tasks
+./goofys s3tasks ${HOME}/zs3tasks2
+./goofys s3tasks ${HOME}/zs3tasks3
+./goofys s3task.task ${HOME}/zs3tasks3
 aws s3 mb s3://ztasks
-./goofys ztasks  /home/ubuntu/zs3tasks3
+./goofys ztasks  ${HOME}/zs3tasks3
 syslog
 nano syslog
-mkdir /home/ubuntu/zs3tasks
-mkdir /home/ubuntu/zs3drive
-goofys ztasks /home/ubuntu/zs3drive
-./goofys ztasks /home/ubuntu/zs3drive
+mkdir ${HOME}/zs3tasks
+mkdir ${HOME}/zs3drive
+goofys ztasks ${HOME}/zs3drive
+./goofys ztasks ${HOME}/zs3drive
 cd ..
 ls
 cd zs3drive
@@ -507,13 +507,13 @@ git status
 git push origin dev
 gs
 git status
-git diff /home/ubuntu/aagit/aapackage/aapackage/batch/batch_daemon_autoscale.py
+git diff ${HOME}/aagit/aapackage/aapackage/batch/batch_daemon_autoscale.py
 git status
 git checkout -- batch_daemon_autoscale.py
 git status
 git pull origin dev
 git status
-git add /home/ubuntu/aagit/aapackage/aapackage/batch/batch_daemon_autoscale.py
+git add ${HOME}/aagit/aapackage/aapackage/batch/batch_daemon_autoscale.py
 git commit
 git push origin dev
 top
@@ -699,7 +699,7 @@ alias bashs
 alias bashe
 vi ~/.bashrc
 git status
-git diff /home/ubuntu/aagit/aapackage/aapackage/batch/batch_daemon_autoscale_cli.py
+git diff ${HOME}/aagit/aapackage/aapackage/batch/batch_daemon_autoscale_cli.py
 git status
 ls
 pwd
@@ -1051,7 +1051,7 @@ vi global_task.json
 pwd
 ls
 cd -
-cd /home/ubuntu/aagit/aapackage/aapackage/batch
+cd ${HOME}/aagit/aapackage/aapackage/batch
 pwd
 ls
 ./aws_spot_price.sh t2.small
@@ -1126,7 +1126,7 @@ ls ~/zs3drive/
 cat ~/zs3drive/global_task.json 
 python
 source activate py36
-cd /home/ubuntu/aagit/aapackage/aapackage/batch
+cd ${HOME}/aagit/aapackage/aapackage/batch
 pwd
 git status
 git diff batch_daemon_autoscale_cli.py
@@ -1207,7 +1207,7 @@ python 1.lstm.py
 source activate py36e
 python 1.lstm.py
 source activate py36
-cd /home/ubuntu/aagit/aapackage/aapackage/batch
+cd ${HOME}/aagit/aapackage/aapackage/batch
 git status
 git diff batch_daemon_autoscale_cli.py
 git add batch_daemon_autoscale_cli.py
@@ -1285,14 +1285,14 @@ batch_daemon_autoscale.py
 batch_daemon_autoscal_clie.py
 batch_daemon_autoscal_cli.py
 batch_daemon_autoscale_cli.py
-/home/ubuntu/zbatch.sh
+${HOME}/zbatch.sh
 zbatch_kill
 crontab e
 crontab -e
 ls
 chmod 777 zbatch_clean.sh
 chmod 777 zbatch_cleanup.sh
-/home/ubuntu/zbatch_cleanup.sh
+${HOME}/zbatch_cleanup.sh
 py36
 batch_daemon_autoscale_cli.py
 batch_daemon_autoscale_cli --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   
@@ -1312,23 +1312,23 @@ bashs
 git add --all && gitcommit && git push --all
 bashs
 git add --all && gitcommit && git push --all
-chmod +x /home/ubuntu/zs3drive/zscript/gitcommit
+chmod +x ${HOME}/zs3drive/zscript/gitcommit
 git add --all && gitcommit && git push --all
-chmod 777 /home/ubuntu/zs3drive/zscript/gitcommit
+chmod 777 ${HOME}/zs3drive/zscript/gitcommit
 git add --all && gitcommit && git push --all
 git add --all
 gitcommit
 gitcommit.sh
 gitcommit
 gitcommit.sh
-chmod -r 777 /home/ubuntu/zs3drive/zscript/
-chmod -r 777 /home/ubuntu/zs3drive/zscript
-chmod -R  777 /home/ubuntu/zs3drive/zscript
+chmod -r 777 ${HOME}/zs3drive/zscript/
+chmod -r 777 ${HOME}/zs3drive/zscript
+chmod -R  777 ${HOME}/zs3drive/zscript
 gitcommit.sh
 bashs
 gitcommit.sh
-chmod R 777 /home/ubuntu/zscript
-chmod -R 777 /home/ubuntu/zscript
+chmod R 777 ${HOME}/zscript
+chmod -R 777 ${HOME}/zscript
 gitcommit.sh
 gitpush zs3sdrive_blockingissue1
 git add --all
@@ -1376,8 +1376,8 @@ cd ..
 ls
 cd ..
 pwd
-ssh ubuntu@http://18.237.190.140 " /home/ubuntu/zbatch_cleanup.sh    && nohup  /home/ubuntu/zbatch.sh   "
-ssh ubuntu@18.237.190.140 " /home/ubuntu/zbatch_cleanup.sh    && nohup  /home/ubuntu/zbatch.sh   "
+ssh ubuntu@http://18.237.190.140 " ${HOME}/zbatch_cleanup.sh    && nohup  ${HOME}/zbatch.sh   "
+ssh ubuntu@18.237.190.140 " ${HOME}/zbatch_cleanup.sh    && nohup  ${HOME}/zbatch.sh   "
 which conda
 which python
 conda install virtualenv
@@ -1399,9 +1399,9 @@ gitpush github_tasks2
 batch_daemon_autoscale_cli.py --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   --reset_global_task_file 1
 py36
 batch_daemon_autoscale_cli.py --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   --reset_global_task_file 1
-git clone https://github.com/arita37/tasks_out.git  /home/ubuntu/data/github_tasks_out
-cd /home/ubuntu/data/github_tasks_out/ && git add --all  && git commit -m ''   && git push --all 
-cd /home/ubuntu/data/github_tasks_out/ && git add --all  && git commit -m 'oo'   && git push --all 
+git clone https://github.com/arita37/tasks_out.git  ${HOME}/data/github_tasks_out
+cd ${HOME}/data/github_tasks_out/ && git add --all  && git commit -m ''   && git push --all 
+cd ${HOME}/data/github_tasks_out/ && git add --all  && git commit -m 'oo'   && git push --all 
 git branches
 git branch
 ls
@@ -1426,10 +1426,10 @@ screen
 py36
 python /zs3drive/tasks/t_github_test02/main.py
 python zs3drive/tasks/t_github_test02/main.py
-cp -r /home/ubuntu/tasks_out/t_github_test02  /home/ubuntu/zs3drive/tasks_out/
+cp -r ${HOME}/tasks_out/t_github_test02  ${HOME}/zs3drive/tasks_out/
 python zs3drive/tasks/t_github_test02/main.py
 bashe
-/home/ubuntu/aagit/aapackage/aapackage/batch/task_template/main.sh
+${HOME}/aagit/aapackage/aapackage/batch/task_template/main.sh
 nano /etc/environment
 sudo nano /etc/environment
 source /etc/environnment
@@ -1445,15 +1445,15 @@ which virtualenv
 which python3
 $ENV
 virtualenv $VERSION $ENV
-/home/ubuntu/.c9/python
-/home/ubuntu/.c9/python/bin
-/home/ubuntu/.c9/python/bin/python --version
-/home/ubuntu/.c9/python/bin/python2 --version
-/home/ubuntu/.c9/python/bin/pip
-/home/ubuntu/.c9/python/bin/pip list
-/home/ubuntu/.c9/python/bin/pip install virtualenv
-/home/ubuntu/.c9/python/bin/pip install list
-/home/ubuntu/.c9/python/bin/pip list
+${HOME}/.c9/python
+${HOME}/.c9/python/bin
+${HOME}/.c9/python/bin/python --version
+${HOME}/.c9/python/bin/python2 --version
+${HOME}/.c9/python/bin/pip
+${HOME}/.c9/python/bin/pip list
+${HOME}/.c9/python/bin/pip install virtualenv
+${HOME}/.c9/python/bin/pip install list
+${HOME}/.c9/python/bin/pip list
 /usr/bin/python3
 /usr/bin/pip
 /usr/bin/pip3
@@ -1464,14 +1464,14 @@ virtualenv $VERSION $ENV
 /usr/bin/pip3 install pylint==1.8.1 jedi=0.8.1
 /usr/bin/pip3 install pylint==1.8.1 jedi==0.8.1
 /usr/bin/pip3 list
-/home/ubuntu/.c9/
-/home/ubuntu/.c9/python/bin
-/home/ubuntu/.c9/python/bin/python
-/home/ubuntu/.c9/python/bin/python/pip 
-/home/ubuntu/.c9/python/bin/python/bin/pip
-/home/ubuntu/.c9/python/bin/pip
-/home/ubuntu/.c9/python/bin/pip install virtualenv
-/home/ubuntu/.c9/python/bin/pip inst
+${HOME}/.c9/
+${HOME}/.c9/python/bin
+${HOME}/.c9/python/bin/python
+${HOME}/.c9/python/bin/python/pip 
+${HOME}/.c9/python/bin/python/bin/pip
+${HOME}/.c9/python/bin/pip
+${HOME}/.c9/python/bin/pip install virtualenv
+${HOME}/.c9/python/bin/pip inst
 $ENV
 $PYTHON
 which virtualenv
@@ -1489,7 +1489,7 @@ py36
 python task_template/util_taskconfig.py
 python task_template/util_taskconfig.py --do ncu
 python task_template/util_taskconfig.py --do ncpu
-python /home/ubuntu/aagit/aapckage/aapckage/batch/task_template/util_taskconfig.py --do ncpu
+python ${HOME}/aagit/aapckage/aapckage/batch/task_template/util_taskconfig.py --do ncpu
 bashe
 py36
 batch_daemon_autoscale_cli.py --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   --reset_global_task_file 1
@@ -1548,11 +1548,11 @@ bashe
 bashs
 condac py36d
 anaconda3/envs/py36c/bin/pip install -e .
-/home/ubuntu/anaconda3/envs/py36c/bin/pip install -e .
-/home/ubuntu/anaconda3/envs/py36d/bin/pip install -e .
-/home/ubuntu/anaconda3/envs/py36d/bin/pip install toml
-/home/ubuntu/anaconda3/envs/py36c/bin/pip install toml
-/home/ubuntu/anaconda3/envs/py36d/bin/pip install toml
+${HOME}/anaconda3/envs/py36c/bin/pip install -e .
+${HOME}/anaconda3/envs/py36d/bin/pip install -e .
+${HOME}/anaconda3/envs/py36d/bin/pip install toml
+${HOME}/anaconda3/envs/py36c/bin/pip install toml
+${HOME}/anaconda3/envs/py36d/bin/pip install toml
 gitpush mlmodels
 which python
 python
@@ -1642,14 +1642,14 @@ ls
 source bin/activate
 pip list
 ls -ls bin
-/bin/bash -c "/home/ubuntu/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '/home/ubuntu/test.py'"
-/bin/bash -c "/home/ubuntu/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '/home/ubuntu/ztest_conda.py'"
+/bin/bash -c "${HOME}/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '${HOME}/test.py'"
+/bin/bash -c "${HOME}/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '${HOME}/ztest_conda.py'"
 bin/pylint --version
 bin/python -c 'import django;import pylint;import pylint_flask;import pylint_django;import jedi;print("django: " + django.__version__ + "\n\rpylint: " + pylint.__version__ + "\n\rjedi: " + jedi.__version__)'
 pip upgrade  django
 pip install  django
 bin/python -c 'import django;import pylint;import pylint_flask;import pylint_django;import jedi;print("django: " + django.__version__ + "\n\rpylint: " + pylint.__version__ + "\n\rjedi: " + jedi.__version__)'
-find -xdev /home/ubuntu/.c9/python3 > /home/ubuntu/venv.txt
+find -xdev ${HOME}/.c9/python3 > ${HOME}/venv.txt
 nano /etc/environnment
 nano /etc/environment
 sudo nano /etc/environment
@@ -1670,26 +1670,26 @@ gitpush  v1.0_add_param_load3
 gitpush  v1.0_add_ml_models
 gitpush  v1.0_add_toml_batch
 gitpush
-homecopy /tmp/  /home/ubuntu/zscript/homelist.txt  home_ubuntu
-chmod +x /home/ubuntu/zscript/
-homecopy /tmp/  /home/ubuntu/zscript/homelist.txt  home_ubuntu
-chmod +x /home/ubuntu/zscript
-homecopy /tmp/  /home/ubuntu/zscript/homelist.txt  home_ubuntu
-chmod +x /home/ubuntu/zscript/homecopy
-homecopy /tmp/  /home/ubuntu/zscript/homelist.txt  home_ubuntu
+homecopy /tmp/  ${HOME}/zscript/homelist.txt  home_ubuntu
+chmod +x ${HOME}/zscript/
+homecopy /tmp/  ${HOME}/zscript/homelist.txt  home_ubuntu
+chmod +x ${HOME}/zscript
+homecopy /tmp/  ${HOME}/zscript/homelist.txt  home_ubuntu
+chmod +x ${HOME}/zscript/homecopy
+homecopy /tmp/  ${HOME}/zscript/homelist.txt  home_ubuntu
 ls /tmp/
-homecopy /tmp/home_ubuntu  /home/ubuntu/zscript/homelist.txt  /home/ubuntu/
+homecopy /tmp/home_ubuntu  ${HOME}/zscript/homelist.txt  ${HOME}/
 ls /tmp/
 ls /tmp/home_ubuntu
 ls /tmp/home_ubuntu/
-homecopy /tmp/home_ubuntu  /home/ubuntu/zscript/homelist.txt  /home/ubuntu/
+homecopy /tmp/home_ubuntu  ${HOME}/zscript/homelist.txt  ${HOME}/
 ls /tmp/home_ubuntu/
 ls /tmp
-homecopy /tmp/home_ubuntu  /home/ubuntu/zscript/homelist.txt  /home/ubuntu
+homecopy /tmp/home_ubuntu  ${HOME}/zscript/homelist.txt  /home/ubuntu
 ls /tmp/home_ubuntu/
 ls /tmp/home_ubuntu
 ls /tmp
-homecopy /tmp/home_ubuntu  /home/ubuntu/zscript/homelist.txt  /home/ubuntu
+homecopy /tmp/home_ubuntu  ${HOME}/zscript/homelist.txt  /home/ubuntu
 mkdir
 mkdir -p ok
 gitpush lstm_model
@@ -1704,24 +1704,24 @@ which python
 ./zbach.sh
 ./zbatch.sh
 zbatch_kill
-/home/ubuntu/zs3drive//zbatch.sh
-bash /home/ubuntu/zs3drive//zbatch.sh
+${HOME}/zs3drive//zbatch.sh
+bash ${HOME}/zs3drive//zbatch.sh
 bash ./zbatch.sh
 ./zbatch.sh
 zbatch
-bash /home/ubuntu/zs3drive/zbatch.sh
-screen -d -m bash /home/ubuntu/zs3drive/zbatch.sh
+bash ${HOME}/zs3drive/zbatch.sh
+screen -d -m bash ${HOME}/zs3drive/zbatch.sh
 screen ls
 screen -ls
-screen -d -m bash /home/ubuntu/zs3drive/zbatch.sh
+screen -d -m bash ${HOME}/zs3drive/zbatch.sh
 screen -ls
-screen -d -m bash /home/ubuntu/zs3drive/zbatch.sh && screen -ls
+screen -d -m bash ${HOME}/zs3drive/zbatch.sh && screen -ls
 screen -ls
-bash /home/ubuntu/zs3drive/zbatch.sh && screen -ls
-screen -d -m bash /home/ubuntu/zs3drive/zbatch.sh && screen -ls
+bash ${HOME}/zs3drive/zbatch.sh && screen -ls
+screen -d -m bash ${HOME}/zs3drive/zbatch.sh && screen -ls
 screen -ls
 bash /ho/zbatch.sh && screen -ls
-screen -d -m bash /home/ubuntu/zbatch.sh && screen -ls
+screen -d -m bash ${HOME}/zbatch.sh && screen -ls
 screen -ls
 batch_daemon_autoscale_cli.py --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   --reset_global_task_file 1
 screen -ls
@@ -1870,8 +1870,8 @@ ls
 cd python3
 ls
 bin/pip list
--xdev /home/ubuntu/.c9/python3 > /home/ubuntu/venv.txt
-find -xdev /home/ubuntu/.c9/python3 > /home/ubuntu/venv.txt
+-xdev ${HOME}/.c9/python3 > ${HOME}/venv.txt
+find -xdev ${HOME}/.c9/python3 > ${HOME}/venv.txt
 ps auxw | grep vfs-worker
 node --version
 which node
@@ -1929,7 +1929,7 @@ condatest
 conda uninstall tensorflow --force
 anaconda3/envs/py36d/bin/pip install --ignore-installed --upgrade  https://github.com/lakshayg/tensorflow-build/releases/download/tf1.9.0-ubuntu16.04-py36/tensorflow-1.9.0-cp36-cp36m-linux_x86_64.whl  
 condatest
-pip install -e /home/ubuntu/aagit/aapackage 
+pip install -e ${HOME}/aagit/aapackage 
 pip3 install ax-platform  # all systems
 which pip3
 anaconda3/envs/py36d/bin/pip install ax-platform  # all systems

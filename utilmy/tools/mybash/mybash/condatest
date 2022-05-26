@@ -8,7 +8,7 @@ which python
 
 
 
-python /home/ubuntu/ztest_conda.py
+python ${HOME}/ztest_conda.py
 
 
 

@@ -20,9 +20,9 @@ fi
 
 
 if [[ "$1" = notebook ]]; then
-   logfile="/home/ubuntu/zlog/jupyter_server2.log"
+   logfile="${HOME}/zlog/jupyter_server2.log"
    echo "port $port"
-   nohup  /home/ubuntu/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=$2 --no-browser  &>> "$logfile"
+   nohup  ${HOME}/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=$2 --no-browser  &>> "$logfile"
    exit 0
    
 elif [[ "$1" = where ]]; then

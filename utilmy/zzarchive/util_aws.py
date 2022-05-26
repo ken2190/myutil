@@ -5,9 +5,9 @@ from __future__ import print_function
 from future import standard_library
 standard_library.install_aliases()
 import os, sys
-DIRCWD=   'G:/_devs/project27/' if sys.platform.find('win')> -1   else  '/home/ubuntu/project27/' if os.environ['HOME'].find('ubuntu')>-1 else '/home/ubuntu/project27'
+DIRCWD=   'G:/_devs/project27/' if sys.platform.find('win')> -1   else  '${HOME}/project27/' if os.environ['HOME'].find('ubuntu')>-1 else '${HOME}/project27'
 __path__= DIRCWD +'/aapackage/'
-EC2CWD=   '/home/ubuntu/notebook/'
+EC2CWD=   '${HOME}/notebook/'
 
 
 ###################################################################################################
@@ -204,7 +204,7 @@ class aws_ec2_ssh(object):
         self.sftp.chmod(remotefile,755)
 
     def python_script(self, script_path, args1):
-      ipython_script='/home/ubuntu/anaconda2/bin/ipython '
+      ipython_script='${HOME}/anaconda2/bin/ipython '
       cmd1= ipython_script +' ' + script_path + ' ' + '"'+args1 +'"'
       self.cmd2(cmd1)
       # self.command(cmd1)
@@ -243,7 +243,7 @@ class aws_ec2_ssh(object):
    
     fromfolder:  c:/folder0/folder1/folder2/ *
     suffixfolder:         /folders1/folder2/
-    tofolder:    /home/ubuntu/myproject1/
+    tofolder:    ${HOME}/myproject1/
     
 
     1) Zip folder fromfolder
@@ -251,7 +251,7 @@ class aws_ec2_ssh(object):
     2) Transfer zip to /home/ubuntu by SSH  (instance is identified by ip adress)
     
     3) unzip folder into
-         New folder created:   /home/ubuntu/myproject1//folders1/folder2/  *
+         New folder created:   ${HOME}/myproject1//folders1/folder2/  *
                                tofolder + suffixfolder
         
     Use  class aws_ec2_ssh(object)  to process it
@@ -680,7 +680,7 @@ def aws_ec2_cmd_ssh(cmdlist=  ["ls " ],  host='ip', doreturn=0, ssh=None, userna
     if doreturn: return readall
 
 def aws_ec2_python_script(script_path, args1, host):
-   ipython_script='/home/ubuntu/anaconda2/bin/ipython'  #!!! No space after ipython
+   ipython_script='${HOME}/anaconda2/bin/ipython'  #!!! No space after ipython
    cmd1= ipython_script +' ' + script_path + ' ' + '"'+args1 +'"'
    aws_ec2_cmd_ssh(cmdlist=  [cmd1], ssh=None, host=host, username='ubuntu')
 
@@ -926,7 +926,7 @@ PATH=~/opt/bin:$PATH
 depending on whether you want to add ~/opt/bin at the end (to be searched after all other directories, in case
 there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories).
 
-   aws_ec2_cmd_ssh(['nohup /home/ubuntu/anaconda2/bin/jupyter notebook'], host=host, username='ubuntu')
+   aws_ec2_cmd_ssh(['nohup ${HOME}/anaconda2/bin/jupyter notebook'], host=host, username='ubuntu')
 
 
 def aws_ec2_getfrom_ec2( fromfolder, tofolder, host) :
@@ -1089,8 +1089,8 @@ if __name__ == '__main__':
 ##################################################################################################
 ################  Amazon testing  in SSH #########################################################
 host=    '52.79.79.1'
-EC2CWD=      '/home/ubuntu/notebook/'
-EC2_ipython= '/home/ubuntu/anaconda2/bin/'
+EC2CWD=      '${HOME}/notebook/'
+EC2_ipython= '${HOME}/anaconda2/bin/'
 
 ##################################################################################################
 
@@ -1121,7 +1121,7 @@ ssh.get_all(  EC2CWD + '/linux/batch/output/20161228',  DIRCWD +'/zdisks3/fromec
 
 
 ########################  Full Batch    #######################################################
-##  ipython /home/ubuntu/notebook//linux/batch/task/elvis_prod_20161220/batch_launcher_01.py
+##  ipython ${HOME}/notebook//linux/batch/task/elvis_prod_20161220/batch_launcher_01.py
 batch_folder= EC2CWD + '/linux/batch/task/elvis_prod_20161220/'
 ssh.python_script(batch_folder+'batch_launcher_01.py', 'args1')
 

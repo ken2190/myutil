@@ -19,7 +19,7 @@ if [[ "$1" = size ]]; then
 elif [[ "$1" = topfile ]]; then
    /bin/df -H
    echo  # Newline
-   /usr/bin/du -a . --exclude='/home/ubuntu/zdropbox' |\
+   /usr/bin/du -a . --exclude='${HOME}/zdropbox' |\
       sort -n -r |\
       head -n 20  
       

@@ -1,13 +1,13 @@
 ############################################################################
 nano /etc/environment
-# PATH="/home/ubuntu/anaconda3/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/loca$
+# PATH="${HOME}/anaconda3/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/loca$
 
 
 source /etc/environment
 rm -rf .cp/python3
 
 cd .c9
-virtualenv   --python=/home/ubuntu/anaconda3/bin/python3 python3
+virtualenv   --python=${HOME}/anaconda3/bin/python3 python3
 
 cd python3
 source bin/activate
@@ -37,7 +37,7 @@ wrapt               1.11.1
 
 
 
-(python3) ubuntu:python3$ /bin/bash -c "/home/ubuntu/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '/home/ubuntu/ok.py'"
+(python3) ubuntu:python3$ /bin/bash -c "${HOME}/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '${HOME}/ok.py'"
 No config file found, using default configuration
 ************* Module ok
 10:0: [C0303] Trailing whitespace
@@ -63,7 +63,7 @@ jedi: 0.11.1
 (python3) ubuntu:python3$ ls
 bin  include  lib  pip-selfcheck.json
 (python3) ubuntu:python3$ pwd
-/home/ubuntu/.c9/python3
+${HOME}/.c9/python3
 (python3) ubuntu:python3$ 
 
 
@@ -102,13 +102,13 @@ Can you explicitly tell me which python path that Cloud9 nodejs is USING by Defa
 
 Eg, in my case (note the source /etc/environment might break things for your current session as it replaces $PATH with what the C9 VFS worker would be using, to restore your default you should be able to 'source ~/.bashrc' or restart the ssh connection):
 (base) ubuntu@ip-172-31-41-233:~$ source /etc/environment ; head -n1 `which virtualenv`
-#!/home/ubuntu/anaconda2/bin/python
+#!${HOME}/anaconda2/bin/python
 
 - Once the virtual environment has been created, C9 uses the binaries in $ENV/bin (eg, ~/.c9/python3/bin), 
-followed by any paths in /etc/environment, eg PATH in most cases will be (in my case with the modified environment file to include ~/anaconda2/bin): /home/ubuntu/.c9/python3/bin:/home/ubuntu/anaconda2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+followed by any paths in /etc/environment, eg PATH in most cases will be (in my case with the modified environment file to include ~/anaconda2/bin): ${HOME}/.c9/python3/bin:${HOME}/anaconda2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 - Some executed commands will be done with using the PATH, some will have absolute paths to the executable, 
 for example when running pylint for the purposes of the gathering information to display in the IDE, 
-it runs /home/ubuntu/.c9/python3/pylint explicitly, that file runs the python binary '/home/ubuntu/.c9/python3/bin/python3' explicitly (based on the hashbang in the file).
+it runs ${HOME}/.c9/python3/pylint explicitly, that file runs the python binary '${HOME}/.c9/python3/bin/python3' explicitly (based on the hashbang in the file).
 
 
 As for the current situation, can you please let me know what you did to resolve the issue previously noted (the missing virtualenv)?
@@ -140,7 +140,7 @@ Lets test and make sure the installed linter in the environment works as expecte
 
 
 3) Assuming it exists, lets try running it same as the IDE would (replace path to test.py  with some python file in the following command):
-/bin/bash -c "/home/ubuntu/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '/home/ubuntu/ok.py'"
+/bin/bash -c "${HOME}/.c9/python3/bin/pylint --enable all -r n --msg-template={line}:{column}:\ [{msg_id}]\ {msg} --load-plugins pylint_flask,pylint_django '${HOME}/ok.py'"
 
 
 ok
@@ -174,7 +174,7 @@ jedi: 0.13.3
 
 
 Lets also validate the contents of the virtual environment, can you please run the following command and attach the resulting ~/venv.txt file to the case here?
-find -xdev /home/ubuntu/.c9/python3 > /home/ubuntu/venv.txt
+find -xdev ${HOME}/.c9/python3 > ${HOME}/venv.txt
 
 Again, please be aware that your PATH environment variable at this point is likely not accurate, and you should 'source ~/.bashrc' to restore it.
 
@@ -257,14 +257,14 @@ Can you please perform the following steps from within the C9 IDE to try to reso
 - Open the browser developer console
 - Close all open files in the IDE
 - Uninstall jedi from the system level: pip uninstall jedi (sudo pip uninstall jedi), etc...
-- Run: rm -rf /home/ubuntu/.c9/python3
+- Run: rm -rf ${HOME}/.c9/python3
 - Run: pkill -f python3
 - Run: pkill -f vfs-worker
 - (IDE will disconnect and automatically reconnect here a moment later)
 - Open a simply .py file in the editor (eg, just one line: import os with a tab at the beginning of the line to cause an error in the linter)
 - Wait 1 minute
 - Copy the resulting browser console output into a text file and attach it to this case.
-- Run: find -xdev /home/ubuntu/.c9/python3 > /home/ubuntu/venv.txt
+- Run: find -xdev ${HOME}/.c9/python3 > ${HOME}/venv.txt
 - Attach the resulting venv.txt to this case
 - Run and attach the output of: ps auxw | grep vfs-worker
 - Run and attach the output of: 'node --version' as well as running --version

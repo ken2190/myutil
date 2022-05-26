@@ -1,19 +1,19 @@
 #!/bin/bash
 # set -x
 
-## /home/ubuntu/zbatch.sh
-### nohup  /home/ubuntu/zbatch.sh  2>&1 | tee -a /home/ubuntu/zlog/zbatch_log.log
+## ${HOME}/zbatch.sh
+### nohup  ${HOME}/zbatch.sh  2>&1 | tee -a ${HOME}/zlog/zbatch_log.log
 
 ####################################################################################################
 ### Need to source when using SSH   !!!!!!!!!!!!!
 echo "-Start Batch Daemon shell script-"
-source /home/ubuntu/.bashrc
+source ${HOME}/.bashrc
 
 
 
 source activate py36
-export PATH="$PATH:/home/ubuntu/anaconda3/bin"
-cd /home/ubuntu/
+export PATH="$PATH:${HOME}/anaconda3/bin"
+cd ${HOME}/
 whoami
 pwd
 which python

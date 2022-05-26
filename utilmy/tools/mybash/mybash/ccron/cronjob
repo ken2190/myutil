@@ -3,27 +3,27 @@ echo "Start cronjob"
 
 
 echo "test_git"
-/home/ubuntu/test/test_git.sh dev /home/ubuntu/test/aapackage/ /home/ubuntu/test/test_aapackage.sh 2>&1 >> /home/ubuntu/zlog/cron_gitpull.log
+${HOME}/test/test_git.sh dev ${HOME}/test/aapackage/ ${HOME}/test/test_aapackage.sh 2>&1 >> ${HOME}/zlog/cron_gitpull.log
 
 
 
 echo "home push"
-/home/ubuntu/zscript/homepush 2>&1 >> /home/ubuntu/zlog/cron_homepush.log
+${HOME}/zscript/homepush 2>&1 >> ${HOME}/zlog/cron_homepush.log
 
 
 
 echo "conda backup"
-/home/ubuntu/zscript/conda_backup_all 2>&1 >> /home/ubuntu/zlog/cron_conda.log
+${HOME}/zscript/conda_backup_all 2>&1 >> ${HOME}/zlog/cron_conda.log
 
 
 
 
 echo "pyformat"
-/home/ubuntu/zscript/pyformat  /home/ubuntu/aagit/aapackage/aapackage  2>&1 >> /home/ubuntu/zlog/cron_pyformat.log
+${HOME}/zscript/pyformat  ${HOME}/aagit/aapackage/aapackage  2>&1 >> ${HOME}/zlog/cron_pyformat.log
 
 
 echo "autoscale"
-/home/ubuntu/zscript/zbatch_autoscale_test 2>&1 >> /home/ubuntu/zlog/cron_autoscale.log
+${HOME}/zscript/zbatch_autoscale_test 2>&1 >> ${HOME}/zlog/cron_autoscale.log
 
 
 
@@ -34,7 +34,7 @@ echo "autoscale"
 : <<'END_COMMENT'
 
 #### All CronJobs
-# 0 1 * * *  /home/ubuntu/zscript/cronjob  2>&1 >> /home/ubuntu/zlog/cronjob.log
+# 0 1 * * *  ${HOME}/zscript/cronjob  2>&1 >> ${HOME}/zlog/cronjob.log
 
 
 
@@ -45,28 +45,28 @@ echo "autoscale"
  EXTRA_OPTS="-L 1"
 
 
-# @reboot sleep 5 && su ubuntu -c "nohup  /home/ubuntu/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser  &>> /home/ubuntu/project27/logfile_jupyter_server.txt"
+# @reboot sleep 5 && su ubuntu -c "nohup  ${HOME}/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser  &>> ${HOME}/project27/logfile_jupyter_server.txt"
 
 
 ###Clean zlog folder
-@reboot sleep 15  && nohup   /home/ubuntu/zbatch_clean.sh  &>> /home/ubuntu/zlog/cron_zbatch.log
+@reboot sleep 15  && nohup   ${HOME}/zbatch_clean.sh  &>> ${HOME}/zlog/cron_zbatch.log
 
 
 ### Jupyter
-@reboot sleep 11  &&  nohup  /home/ubuntu/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser  &>> /home/ubuntu/zlog/jupyter_server.log
+@reboot sleep 11  &&  nohup  ${HOME}/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser  &>> ${HOME}/zlog/jupyter_server.log
 
 
 ## S3 drive
-@reboot sleep 10  &&  /home/ubuntu/zconda/goofys ztasks /home/ubuntu/zs3drive
+@reboot sleep 10  &&  ${HOME}/zconda/goofys ztasks ${HOME}/zs3drive
 
 
 
 #### Daily pull test
-0 1 * * *  /home/ubuntu/test/test_git.sh dev /home/ubuntu/test/aapackage/ /home/ubuntu/test/test_aapackage.sh 2>&1 >> /home/ubuntu/zlog/cron_gitpull.log
+0 1 * * *  ${HOME}/test/test_git.sh dev ${HOME}/test/aapackage/ ${HOME}/test/test_aapackage.sh 2>&1 >> ${HOME}/zlog/cron_gitpull.log
 
 
 #### Backup home_ubuntu
-0 2 * * *  /home/ubuntu/zscript/homepush 2>&1 >> /home/ubuntu/zlog/cron_homepush.log
+0 2 * * *  ${HOME}/zscript/homepush 2>&1 >> ${HOME}/zlog/cron_homepush.log
 
 
 

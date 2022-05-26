@@ -3,8 +3,8 @@
 # for examples
 
 #python dircwd path
-#export DIRCWD=/home/ubuntu/project27/
-#export CONFIGMY_ROOT_FILE=/home/ubuntu/project27/__config/CONFIGMY_ROOT_FILE.py
+#export DIRCWD=${HOME}/project27/
+#export CONFIGMY_ROOT_FILE=${HOME}/project27/__config/CONFIGMY_ROOT_FILE.py
 #  Need to put ONLY in /etc/environment
 
 # ok
@@ -131,28 +131,28 @@ fi
 
 ######################################################################################
 #### Cloud 9 config ##################################################################
-export PATH="/home/ubuntu/anaconda3/bin/pylint:$PATH"
+export PATH="${HOME}/anaconda3/bin/pylint:$PATH"
 
 
 
 ######################################################################################
 # added by Anaconda3 4.4.0 installer
-export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+export PATH="${HOME}/anaconda3/bin:$PATH"
 
 # CUDA Toolkit
 export CUDA_HOME=/usr/local/cuda-8.0
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:$CUDA_HOME/extras/CUPTI/lib64/:$LD_LIBRARY_PATH
 export PATH=${CUDA_HOME}/bin:${PATH}
-# export CONFIGMY_ROOT_FILE=/home/ubuntu/project27/__config/CONFIGMY_ROOT_FILE.py
+# export CONFIGMY_ROOT_FILE=${HOME}/project27/__config/CONFIGMY_ROOT_FILE.py
 
 
 
 #### Common Shell Scripts  #########################################################
-chmod -R 777 /home/ubuntu/zscript
-export PATH="/home/ubuntu/zscript:$PATH"
+chmod -R 777 ${HOME}/zscript
+export PATH="${HOME}/zscript:$PATH"
 
-#find /home/ubuntu/zs3drive/zscript/ -type f -iname "*" -exec chmod +x {} \;
-#export PATH="/home/ubuntu/zs3drive/zscript:$PATH"
+#find ${HOME}/zs3drive/zscript/ -type f -iname "*" -exec chmod +x {} \;
+#export PATH="${HOME}/zs3drive/zscript:$PATH"
 # cp     
 
 export PIP_REQUIRE_VIRTUALENV=false
@@ -161,14 +161,14 @@ export PIP_REQUIRE_VIRTUALENV=false
 
 ###################################################################################
 ########## Alias   ################################################################
-alias bashe="c9 open /home/ubuntu/.bashrc"
-alias bashs="source /home/ubuntu/.bashrc"
-alias bashe2="nano /home/ubuntu/.bashrc"
+alias bashe="c9 open ${HOME}/.bashrc"
+alias bashs="source ${HOME}/.bashrc"
+alias bashe2="nano ${HOME}/.bashrc"
 
 alias shorten="PS1='\u:\W\$ '"
 
-alias home="cd /home/ubuntu/"
-alias aapackage="cd /home/ubuntu/aagit/aapackage/"
+alias home="cd ${HOME}/"
+alias aapackage="cd ${HOME}/aagit/aapackage/"
 
 
 
@@ -193,7 +193,7 @@ alias py37="source activate py37"
 
 
 ### Give access to script
-alias chmodall="find /home/ubuntu/*.sh -type f -exec chmod 777 '{}' \;  "
+alias chmodall="find ${HOME}/*.sh -type f -exec chmod 777 '{}' \;  "
 
 alias topc="top -c -p $(pgrep -d',' -f python)  "
 
@@ -204,8 +204,8 @@ topc2() {
 
 
 chmodc() {
-  echo  "Execute access to /home/ubuntu/zscript"    
-  chmod -R  +x  "/home/ubuntu/zscript"
+  echo  "Execute access to ${HOME}/zscript"    
+  chmod -R  +x  "${HOME}/zscript"
 }
 
 
@@ -221,7 +221,7 @@ finds() {
 
 ###############################################################################
 ### Git  ######################################################################
-alias gitaapackage="cd /home/ubuntu/aagit/aapackage && git stash && git pull --all && git checkout dev && cd /home/ubuntu/ "
+alias gitaapackage="cd ${HOME}/aagit/aapackage && git stash && git pull --all && git checkout dev && cd ${HOME}/ "
 alias gitupdate=" gitaapackage "
 
 #alias gitpush="git add --all && git commit -m "ok" && git push --all "
@@ -255,14 +255,14 @@ foldersize() {
 #  aws s3 ls s3://
 #  aws s3 mb s3://ztasks
 ### Check if a directory does not exist ###
-if [ ! -d "/home/ubuntu/zs3drive" ] 
+if [ ! -d "${HOME}/zs3drive" ] 
 then
-    echo "mouting S3 on /home/ubuntu/zs3drive" 
+    echo "mouting S3 on ${HOME}/zs3drive" 
     # exit 9999 # die with error code 9999
-    /home/ubuntu/zconda/goofys ztasks /home/ubuntu/zs3drive
+    ${HOME}/zconda/goofys ztasks ${HOME}/zs3drive
     
     ##Global Bash scripts
-    # export PATH="/home/ubuntu/zs3drive/zscript:$PATH"
+    # export PATH="${HOME}/zs3drive/zscript:$PATH"
 fi
 
 
@@ -273,15 +273,15 @@ rename() { #Copy and delete old folder
 
 
 ########## Batch Systems############################################################################
-# alias zbatch="/home/ubuntu/zbatch.sh "
+# alias zbatch="${HOME}/zbatch.sh "
 zbatch() {
  source activate py36
- cd /home/ubuntu/
+ cd ${HOME}/
 
  ###### Global Drive
  batch_daemon_launch_cli.py  --task_folder zs3drive/tasks/  --log_file   zlog/batchdaemong.log  --mode daemon  --waitsec 30 &
 
- ### using /home/ubuntu/tasks (local drive)
+ ### using ${HOME}/tasks (local drive)
  # batch_daemon_launch_cli.py  --task_folder  tasks  --log_file   zlog/batchdaemong.log  --mode daemon  --waitsec 60  &
  sleep 5
 
@@ -292,8 +292,8 @@ zbatch() {
 
 zbatch_nohup() {
   #### no hup mode for batch launcher    
-  cd /home/ubuntu/
-  nohup  /home/ubuntu/zbatch.sh  >/dev/null 2>&1 & 
+  cd ${HOME}/
+  nohup  ${HOME}/zbatch.sh  >/dev/null 2>&1 & 
   
 }
 
@@ -354,9 +354,9 @@ conda_export() {
   echo $dd1  
 
   source activate base  
-  conda env export -n $1  > /home/ubuntu/zconda/$1_$dd1-env.yml         # | grep -v "^prefix: "
-  conda list --explicit -n $1  > /home/ubuntu/zconda/$1_$dd1-link.txt
-  ls /home/ubuntu/zconda/     
+  conda env export -n $1  > ${HOME}/zconda/$1_$dd1-env.yml         # | grep -v "^prefix: "
+  conda list --explicit -n $1  > ${HOME}/zconda/$1_$dd1-link.txt
+  ls ${HOME}/zconda/     
 }
 
 
@@ -364,14 +364,14 @@ conda_export_all() {
   NOW=$(date "+%Y%m%d")
 
   echo $NOW
-  mkdir /home/ubuntu/zconda/env-$NOW
+  mkdir ${HOME}/zconda/env-$NOW
   ENVS=$(conda env list | grep '^\w' | cut -d' ' -f1)
   for env in $ENVS; do
      #source activate $env
      # conda env export > $HOME/tmp/envs-$NOW/$env.yml
      echo "Exporting $env"
-     conda env export -n $env  > /home/ubuntu/zconda/env-$NOW/$env-$NOW-env.yml         # | grep -v "^prefix: "
-     conda list --explicit -n $env  > /home/ubuntu/zconda/env-$NOW/$env-$NOW-link.txt
+     conda env export -n $env  > ${HOME}/zconda/env-$NOW/$env-$NOW-env.yml         # | grep -v "^prefix: "
+     conda list --explicit -n $env  > ${HOME}/zconda/env-$NOW/$env-$NOW-link.txt
   done
 }
 
@@ -382,13 +382,13 @@ conda_pack() {
   echo $dd1 
   source activate base  
   echo "Conda pack " $1
-  mkdir -p /home/ubuntu/zconda/$1_$dd1
-  ls /home/ubuntu/zconda/$1_$dd1   
+  mkdir -p ${HOME}/zconda/$1_$dd1
+  ls ${HOME}/zconda/$1_$dd1   
   
-  conda pack -n $1   -o /home/ubuntu/zconda/$1_$dd1/$1_$dd1.tar.gz
-  conda env export -n $1  > /home/ubuntu/zconda/$1_$dd1/$1_$dd1-env.yml         # | grep -v "^prefix: "
-  conda list --explicit -n $1  > /home/ubuntu/zconda/$1_$dd1/$1_$dd1-link.txt
-  ls /home/ubuntu/zconda/$1_$dd1     
+  conda pack -n $1   -o ${HOME}/zconda/$1_$dd1/$1_$dd1.tar.gz
+  conda env export -n $1  > ${HOME}/zconda/$1_$dd1/$1_$dd1-env.yml         # | grep -v "^prefix: "
+  conda list --explicit -n $1  > ${HOME}/zconda/$1_$dd1/$1_$dd1-link.txt
+  ls ${HOME}/zconda/$1_$dd1     
 }
 
 
@@ -435,9 +435,9 @@ condac() {
 
 conda_backup_all() {
   NOW=$(date "+%Y%m%d")
-  new= "/home/ubuntu/zconda/env-$NOW" 
+  new= "${HOME}/zconda/env-$NOW" 
   mkdir $new
-  for file in $(/home/ubuntu/zconda/zbackup_file_list.txt); do
+  for file in $(${HOME}/zconda/zbackup_file_list.txt); do
     cp "$file"  $new; 
   done
 }
@@ -457,24 +457,24 @@ shorten
 
 test2() {
  # source activate py36
- # cd /home/ubuntu/
+ # cd ${HOME}/
 
  ###### Global Drive
- batch_daemon_autoscale_cli.py  --task_folder /home/ubuntu/zs3drive/tasks/  --log_file   /home/ubuntu/zlog/batchautoscale.log  --mode nodaemon  --waitsec 30  
+ batch_daemon_autoscale_cli.py  --task_folder ${HOME}/zs3drive/tasks/  --log_file   ${HOME}/zlog/batchautoscale.log  --mode nodaemon  --waitsec 30  
 
 }
 
 
-alias optim="cd /home/ubuntu/proj/optim"
-alias proj="cd /home/ubuntu/proj"
+alias optim="cd ${HOME}/proj/optim"
+alias proj="cd ${HOME}/proj"
 alias condaenv="conda env list "
 alias dlearning="cd proj/notebook_script/tfcode/deep-learning "
 
 
-alias batch="cd /home/ubuntu/aagit/aapackage/aapackage/batch"
+alias batch="cd ${HOME}/aagit/aapackage/aapackage/batch"
 
 
-alias control="cd /home/ubuntu/aagit/aapackage/aapackage/control"
+alias control="cd ${HOME}/aagit/aapackage/aapackage/control"
 
 
 

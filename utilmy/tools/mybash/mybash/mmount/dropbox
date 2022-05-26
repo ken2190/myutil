@@ -12,7 +12,7 @@ set -e  # Exit on error.
 
 if [ "$1" == "add" ]; then
     echo "Add Dropbox"
-    dbxfs /home/ubuntu/zdropbox
+    dbxfs ${HOME}/zdropbox
    exit 0
 fi
    
@@ -22,7 +22,7 @@ fi
 
 if [ "$1" == "remove" ]; then
    echo "Remove Dropbox"
-   fusermount -uz /home/ubuntu/zdropbox
+   fusermount -uz ${HOME}/zdropbox
    exit 0
 fi
    
