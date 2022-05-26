@@ -139,13 +139,12 @@ def hdfs_dir_stats(dirin, recursive=True):
          format of files,
 
     """
-    res_dict = Box({})
-    if hdfs_dir_exists(dirin):
-        hdfs_list_dir(dirin,recursive)
-        hdfs_size_dir(dirin)
-    else:
+    fdict = Box({})
+    try:
+        fdict = hdfs_size_dir(dirin)
+    except:
         print("{} does not exist!".format(dirin))
-    return res_dict
+    return fdict
 
 
 
