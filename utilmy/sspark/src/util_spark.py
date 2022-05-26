@@ -26,11 +26,9 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd
-import numpy as np
+import pandas  as pd, numpy as np
 from box import Box
 from typing import Union
-
 
 import pyspark
 from pyspark import SparkConf
@@ -42,8 +40,6 @@ sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
 def log(*s):
     print(*s, flush=True)
-
-
 
 
 ##################################################################################
