@@ -134,48 +134,60 @@ def run_cli_sspark():
 ###### TODO : list of function to be completed later ###########################################
 
 
-def hdfs_dir_stats(dirin,recursive=True):
+def hdfs_dir_stats(dirin, recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
 
     """
+    res_dict = Box({})
     if hdfs_dir_exists(dirin):
         hdfs_list_dir(dirin,recursive)
         hdfs_size_dir(dirin)
     else:
         print("{} does not exist!".format(dirin))
-    
+    return res_dict
 
 
 
 def hive_get_tablelist(dbname):
-    """
-    Doc::
-    show tables from database_name
+    """Get Hive tables from database_name    
     """
     cmd = f'show tables from {dbname}'
-    return os.system(cmd)
-
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ltable = []
+    for li in lines :
+        if 'fsfsf' in li : continue
+        ltable.append(li.strip())
+    return ltable
+    
 
 
 def hive_get_dblist():
-    """
-    Doc::
-    show databases
+    """ Get  databases
     """
     cmd = f'show databases '
-    return os.system(cmd)
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ltable = []
+    for li in lines :
+        if 'fsfsf' in li : continue
+        ltable.append(li.strip())
+    return ltable
 
 
 
 def hive_get_tablechema(tablename):
+    """Get  databases
     """
-    Doc::
-    describe tablename
-    """
-    # cmd = f'show schema '
     cmd = f'describe {tablename} '
-    return os.system(cmd)
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ltable = []
+    for li in lines :
+        if 'fsfsf' in li : continue
+        ltable.append(li.strip())
+    return ltable
 
 
 
@@ -185,7 +197,13 @@ def hive_get_tabledetails(table):
     describe formatted table
     """
     cmd = f'describe formatted {table}'
-    return os.system(cmd)
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ltable = []
+    for li in lines :
+        if 'fsfsf' in li : continue
+        ltable.append(li.strip())
+    return ltable
 
 
 
