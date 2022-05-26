@@ -49,12 +49,10 @@ jobs:
         path: /opt/hostedtoolcache/Python/
         key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36_docfull.txt') }}
           
-
     #- name: Install numpy
     #  if: steps.cache-pipenv.outputs.cache-hit != 'true'
     #  run: pip install numpy==1.18.2   pillow==6.2.1  scipy
       
-
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
@@ -72,18 +70,8 @@ jobs:
       run:  |
         pip install -e .
         python -c "import utilmy"
-
-           
-
-
-
-    - name: test_import
-      run: |
-           python -c "import os, pandas as pd; print(os)"
-           python -c "import utilmy"        
+        python -c "import os, pandas as pd; print(os)"
         
-
-
     ########  Runs All test  ######################################
     - name: test_setup
       run: |
@@ -110,17 +98,26 @@ jobs:
           python utilmy/sspark/src/util_spark.py test_all
 
 
-    - name: utilmy/deeplearning/ttorch/model_ensemble.py  util_model.py
+    - name: utilmy/deeplearning/ttorch/model_ensemble.py  
       # continue-on-error: true 
       run: |
-          python utilmy/deeplearning/ttorch/model_ensemble.py test_all
+          python utilmy/deeplearning/ttorch/model_ensemble.py   test_all
+
+
+
+    - name: utilmy/deeplearning/ttorch/  util_model.py
+      # continue-on-error: true 
+      run: |
           python utilmy/deeplearning/ttorch/util_model.py     test_all
+
 
 
     - name: utilmy/deeplearning/util_embedding.py 
       continue-on-error: true 
       run: |
           python utilmy/deeplearning/util_embedding.py test_all
+
+
 
 
 
