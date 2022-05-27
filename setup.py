@@ -48,8 +48,6 @@ ss1 = f"""
    Data processing
    Data pipelining
    Batching
-   Distributed compute
-   Spark
    Pytorch
    Keras
    Image
