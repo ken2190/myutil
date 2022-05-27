@@ -43,10 +43,10 @@ tls.set_credentials_file(username=PLOTLY_USERNAME, api_key=PLOTLY_APIKEY)
 PCLOC=  'win,asus1'  if os.path.expanduser('~').find('asus1') >-1  and sys.platform.find('win')>-1 else  'win,unerry' if sys.platform.find('win')> -1 else  'lin,gcloud' if  os.path.expanduser('~').find('noel') >-1 and  sys.platform.find('linux')> -1   else 'lin, virtualbox'
 DIRCWD= 'D:/_devs/Python01/project27/' if PCLOC=='win,asus' else   'G:/_devs/project27/' if PCLOC=='win,unerry'  else  '/home/noel/project27/' if PCLOC=='lin,gcloud' else '/media/sf_projec27'
 
-# DIRCWD=  'D:/_devs/project27/'  if  os.environ['COMPUTERNAME']=='ASUS1-PC' and sys.platform.find('win')> -1 else  'G:/_devs/project27/' if sys.platform.find('win')> -1   and  os.environ['COMPUTERNAME']=='KEVIN'   else  '/home/ubuntu/notebook/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'    
+# DIRCWD=  'D:/_devs/project27/'  if  os.environ['COMPUTERNAME']=='ASUS1-PC' and sys.platform.find('win')> -1 else  'G:/_devs/project27/' if sys.platform.find('win')> -1   and  os.environ['COMPUTERNAME']=='KEVIN'   else  '${HOME}/notebook/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'    
 __path__= DIRCWD +'/aapackage/'
 
-EC2CWD='/home/ubuntu/notebook/'
+EC2CWD='${HOME}/notebook/'
 
 
 
@@ -4103,7 +4103,7 @@ class aws_ec2_ssh(object):
         self.sftp.chmod(remotefile,755)
 
     def python_script(self, script_path, args1):
-      ipython_script='/home/ubuntu/anaconda2/bin/ipython '
+      ipython_script='${HOME}/anaconda2/bin/ipython '
       cmd1= ipython_script +' ' + script_path + ' ' + '"'+args1 +'"'
       self.cmd2(cmd1)
       # self.command(cmd1)
@@ -4181,7 +4181,7 @@ def aws_ec2_cmd_ssh(cmdlist=  ["ls " ],  host='ip', doreturn=0, ssh=None, userna
     if doreturn: return readall
 
 def aws_ec2_python_script(script_path, args1, host):
-   ipython_script='/home/ubuntu/anaconda2/bin/ipython'  #!!! No space after ipython
+   ipython_script='${HOME}/anaconda2/bin/ipython'  #!!! No space after ipython
    cmd1= ipython_script +' ' + script_path + ' ' + '"'+args1 +'"'
    aws_ec2_cmd_ssh(cmdlist=  [cmd1], ssh=None, host=host, username='ubuntu')
 
@@ -4255,7 +4255,7 @@ PATH=~/opt/bin:$PATH
 depending on whether you want to add ~/opt/bin at the end (to be searched after all other directories, in case
 there is a program by the same name in multiple directories) or at the beginning (to be searched before all other directories).
 
-   aws_ec2_cmd_ssh(['nohup /home/ubuntu/anaconda2/bin/jupyter notebook'], host=host, username='ubuntu')
+   aws_ec2_cmd_ssh(['nohup ${HOME}/anaconda2/bin/jupyter notebook'], host=host, username='ubuntu')
 
 
 def aws_ec2_getfrom_ec2( fromfolder, tofolder, host) :
