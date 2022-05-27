@@ -208,13 +208,12 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", format="parquet", **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
     """ Universal HDFS file reader
     Doc::
-    format: parquet, csv, json ...
+    format: parquet, csv, json, orc ...
 
     """
-
     # try:
     #     df = sparksession.read_parquet(dirin, **kw)
     # except:     
@@ -222,9 +221,39 @@ def spark_read(sparksession=None, dirin="hdfs://", format="parquet", **kw):
 
     # return df
 
-    df = sparksession.read.format(format).load(dirin, **kw)
-    return df
+    if format:
+        df = sparksession.read.format(format).load(dirin, **kw)
+        return df
 
+    try: # parquet
+        df = sparksession.read.parquet(dirin, **kw)
+        return df
+    except:
+        pass
+
+    try: # csv
+        df = sparksession.read.csv(dirin, **kw)
+        return df
+    except:
+        pass
+
+    try: # table
+        df = sparksession.read.table(dirin, **kw)
+        return df
+    except:
+        pass
+
+    try: # orc
+        df = sparksession.read.orc(dirin, **kw)
+        return df
+    except:
+        pass
+
+    try: # json
+        df = sparksession.read.json(dirin, **kw)
+        return df
+    except:
+        pass
 
 
 
