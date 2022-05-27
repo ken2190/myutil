@@ -250,6 +250,7 @@ def hive_get_tabledetails(table):
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
     table_info = {}
+    ltable = []
     for li in lines :
         if 'col_name' in li : continue
         ltable.append(li.strip())
