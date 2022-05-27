@@ -190,7 +190,7 @@ def hive_get_tablechema(tablename):
         col_name = item[0]
         data_type = item[1]
         comment = item[2]
-        table_info[col_name] = [data_type, comment]
+        table_info[col_name] = {"data_type": data_type, "comment": comment}
     return table_info
 
 
