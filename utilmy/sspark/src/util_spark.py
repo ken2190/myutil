@@ -231,11 +231,9 @@ def hive_get_tablechema(tablename):
         for item in li.split(" "):
             if item:
                 tmp.append(item)
-        if len(item) < 3:
-            continue
         col_name = item[0]
         data_type = item[1]
-        comment = item[2]
+        comment = item[2] if len(item)>=3 else ""
         table_info[col_name] = {"data_type": data_type, "comment": comment}
     return table_info
 
@@ -741,64 +739,63 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 
 
 def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
-  """ Check Hive table using Hive
-  Doc::
-
-       tables = [  'mydb.mytable'   ]
-       OR
-          myalias : mydb.mytable
-
+    """ Check Hive table using Hive
+    Doc::
+        tables = [  'mydb.mytable'   ]
+        OR
+        myalias : mydb.mytable
 
 
-  """
-  if isinstance(tables, str):
-      ### Parse YAML file
-      ss = tables.split("\n")
-      ss = [t for t in ss if len(t) > 5  ]
-      ss = [  t.split(":") for t in ss]
-      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
-      print(ss)
 
-  elif isinstance(tables, list):
-      ss = [ [ ti, ti] for ti in tables  ]
+    """
+    if isinstance(tables, str):
+        ### Parse YAML file
+        ss = tables.split("\n")
+        ss = [t for t in ss if len(t) > 5  ]
+        ss = [  t.split(":") for t in ss]
+        ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
+        print(ss)
 
-  for x in ss :
-    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
-    log(x[0], cmd)
-    log( os.system( cmd ) )
+    elif isinstance(tables, list):
+        ss = [ [ ti, ti] for ti in tables  ]
+
+    for x in ss :
+        cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
+        log(x[0], cmd)
+        log( os.system( cmd ) )
 
 
 
 def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
-        """
+    """
 
-        """
-        if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
-            with open(query_or_sqlfile, mode='r') as fp:
-                query = query_or_sqlfile.readlines()
-                query = "".join(query)
-        else :
-            query = query_or_sqlfile
+    """
+    if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
+        with open(query_or_sqlfile, mode='r') as fp:
+            query = query_or_sqlfile.readlines()
+            query = "".join(query)
+    else :
+        query = query_or_sqlfile
 
-        hiveql = "./zhiveql_tmp.sql"
-        print(query)
-        print(hiveql, flush=True)
+    hiveql = "./zhiveql_tmp.sql"
+    print(query)
+    print(hiveql, flush=True)
 
-        with open(hiveql, mode='w') as f:
-            f.write(query)
+    with open(hiveql, mode='w') as f:
+        f.write(query)
 
-        with open("nohup.out", mode='a') as f:
-            f.write("\n\n\n\n###################################################################")
-            f.write(query + "\n########################" )
+    with open("nohup.out", mode='a') as f:
+        f.write("\n\n\n\n###################################################################")
+        f.write(query + "\n########################" )
 
-        if test == 1 :
-            return
+    if test == 1 :
+        return
 
-        if nohup > 0:
-           os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
-        else :
-           os.system( f" hive -f {hiveql}      " )
-        print('finish')
+    if nohup > 0:
+        os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
+    else :
+        os.system( f" hive -f {hiveql}      " )
+    print('finish')
 
 
 
