@@ -653,7 +653,7 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
 
 
 def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
-    """ get the percentage of value absent in the column
+    """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols, str): cols= [ cols]
 
@@ -666,7 +666,12 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
         try :
            n_null    = df.where( f"{coli} is null").count()
            npct_null = np.round( n_null / n , 5)
-           dfres.append([ coli, n,  n_null, npct_null  ])
+           grouped_df = df.groupBy(coli).count()
+           most_frequent = grouped_df.orderBy(col('count').desc()).take(1)
+           most_frequent_with_count = {most_frequent[0][0]:most_frequent[0][1]}
+           least_frequent = grouped_df.orderBy(col('count').asc()).take(1)
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
+           dfres.append([ coli, n,  n_null, npct_null,most_frequent_with_count,least_frequent_with_count ])
         except :
             log( 'error: ' + coli)
 
