@@ -214,13 +214,6 @@ def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
     format: parquet, csv, json, orc ...
 
     """
-    # try:
-    #     df = sparksession.read_parquet(dirin, **kw)
-    # except:     
-    #     df = sparksession.read_csv(dirin, **kw)
-
-    # return df
-
     if format:
         df = sparksession.read.format(format).load(dirin, **kw)
         return df
