@@ -164,11 +164,11 @@ def hive_get_dblist():
     cmd = f'show databases '
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
-    ltable = []
+    ldb = []
     for li in lines :
         if 'database_name' in li : continue
-        ltable.append(li.strip())
-    return ltable
+        ldb.append(li.strip())
+    return ldb
 
 
 
@@ -178,11 +178,20 @@ def hive_get_tablechema(tablename):
     cmd = f'describe {tablename} '
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
-    ltable = []
+    table_info = {}
     for li in lines :
         if 'col_name' in li : continue
-        ltable.append(li.strip())
-    return ltable
+        tmp = []
+        for item in li.split(" "):
+            if item:
+                tmp.append(item)
+        if len(item) < 3:
+            continue
+        col_name = item[0]
+        data_type = item[1]
+        comment = item[2]
+        table_info[col_name] = [data_type, comment]
+    return table_info
 
 
 
@@ -194,7 +203,7 @@ def hive_get_tabledetails(table):
     cmd = f'describe formatted {table}'
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
-    ltable = []
+    table_info = {}
     for li in lines :
         if 'col_name' in li : continue
         ltable.append(li.strip())
