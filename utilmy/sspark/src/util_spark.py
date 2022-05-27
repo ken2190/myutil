@@ -185,11 +185,9 @@ def hive_get_tablechema(tablename):
         for item in li.split(" "):
             if item:
                 tmp.append(item)
-        if len(item) < 3:
-            continue
         col_name = item[0]
         data_type = item[1]
-        comment = item[2]
+        comment = item[2] if len(item)>=3 else ""
         table_info[col_name] = {"data_type": data_type, "comment": comment}
     return table_info
 
@@ -203,7 +201,7 @@ def hive_get_tabledetails(table):
     cmd = f'describe formatted {table}'
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
-    table_info = {}
+    ltable = []
     for li in lines :
         if 'col_name' in li : continue
         ltable.append(li.strip())
