@@ -193,7 +193,7 @@ def hdfs_dir_stats(dirin, recursive=True):
 def hive_get_tablelist(dbname):
     """Get Hive tables from database_name    
     """
-    cmd = f'show tables from {dbname}'
+    cmd = f"hive -e 'show tables from {dbname}'"
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
     ltable = []
@@ -207,7 +207,7 @@ def hive_get_tablelist(dbname):
 def hive_get_dblist():
     """ Get  databases
     """
-    cmd = f'show databases '
+    cmd = f"hive -e  'show databases '"
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
     ldb = []
@@ -221,7 +221,7 @@ def hive_get_dblist():
 def hive_get_tablechema(tablename):
     """Get  databases
     """
-    cmd = f'describe {tablename} '
+    cmd = f"hive -e 'describe {tablename}'"
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
     table_info = {}
@@ -246,7 +246,7 @@ def hive_get_tabledetails(table):
     Doc::
     describe formatted table
     """
-    cmd = f'describe formatted {table}'
+    cmd = f"hive -e 'describe formatted {table}'"
     stdout,stderr = os_system(cmd)
     lines = stdout.split("\n")
     table_info = {}
@@ -276,32 +276,27 @@ def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
     try: # parquet
         df = sparksession.read.parquet(dirin, **kw)
         return df
-    except:
-        pass
+    except: pass
 
     try: # csv
         df = sparksession.read.csv(dirin, **kw)
         return df
-    except:
-        pass
+    except: pass
 
     try: # table
         df = sparksession.read.table(dirin, **kw)
         return df
-    except:
-        pass
+    except: pass
 
     try: # orc
         df = sparksession.read.orc(dirin, **kw)
         return df
-    except:
-        pass
+    except: pass
 
     try: # json
         df = sparksession.read.json(dirin, **kw)
         return df
-    except:
-        pass
+    except: pass
 
 
 
