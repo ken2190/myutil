@@ -152,7 +152,7 @@ def hive_get_tablelist(dbname):
     lines = stdout.split("\n")
     ltable = []
     for li in lines :
-        if 'fsfsf' in li : continue
+        if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
     
@@ -166,7 +166,7 @@ def hive_get_dblist():
     lines = stdout.split("\n")
     ltable = []
     for li in lines :
-        if 'fsfsf' in li : continue
+        if 'database_name' in li : continue
         ltable.append(li.strip())
     return ltable
 
@@ -180,7 +180,7 @@ def hive_get_tablechema(tablename):
     lines = stdout.split("\n")
     ltable = []
     for li in lines :
-        if 'fsfsf' in li : continue
+        if 'col_name' in li : continue
         ltable.append(li.strip())
     return ltable
 
@@ -196,7 +196,7 @@ def hive_get_tabledetails(table):
     lines = stdout.split("\n")
     ltable = []
     for li in lines :
-        if 'fsfsf' in li : continue
+        if 'col_name' in li : continue
         ltable.append(li.strip())
     return ltable
 
@@ -953,19 +953,19 @@ def os_subprocess(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
 
 
 def os_system(cmd, doprint=False):
-  """ os.system  and retrurn stdout, stderr values
-  """
-  import subprocess
-  try :
-    p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
-    mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
-    if doprint:
-      l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
-      print(l)
+    """ os.system and retrurn stdout, stderr values
+    """
+    import subprocess
+    try :
+        p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
+        mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
+        if doprint:
+            l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
+            print(l)
 
-    return mout, merr
-  except Exception as e :
-    print( f"Error {cmd}, {e}")
+        return mout, merr
+    except Exception as e :
+        print( f"Error {cmd}, {e}")
 
 
 def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
