@@ -1,13 +1,13 @@
 
-/home/ubuntu/proj/notebook contains many ipny notebook files.
+${HOME}/proj/notebook contains many ipny notebook files.
 
 
 A)
 Create a script to scan folder recursively,
-and create files in this folder  /home/ubuntu/proj/notebook_script/
+and create files in this folder  ${HOME}/proj/notebook_script/
 
 
-Folder to be scan : /home/ubuntu/proj/notebook
+Folder to be scan : ${HOME}/proj/notebook
 
 
 ##### Pseudo code  ####################################
@@ -17,7 +17,7 @@ for f in list_files
   new_file = new_folder + f.filename
 
   ### Convert , create folder if needed, and write on disk
-  ###  /home/ubuntu/proj/notebook_script/myfile.ipny   --->  /home/ubuntu/proj/notebook_script/myfile.py
+  ###  ${HOME}/proj/notebook_script/myfile.ipny   --->  ${HOME}/proj/notebook_script/myfile.py
   convert_topython(f, new_file)
 
 

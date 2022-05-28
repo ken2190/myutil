@@ -90,16 +90,16 @@ Please re-use existing functions in [util.py](https://github.com/arita37/mlmodel
 
      ### Use path_norm to normalize your path.
      data_path = path_norm("dataset/text/myfile.txt")
-        --> FULL_ PATH   /home/ubuntu/mlmodels/dataset/text/myfile.txt
+        --> FULL_ PATH   ${HOME}/mlmodels/dataset/text/myfile.txt
 
 
      ### Use path_norm to normalize your path.
      data_path = path_norm("ztest/text/myfile.txt")
-        --> FULL_ PATH   /home/ubuntu/mlmodels/ztest/text/myfile.txt
+        --> FULL_ PATH   ${HOME}/mlmodels/ztest/text/myfile.txt
 
 
      data_path = path_norm("ztest/text/myfile.txt")
-        --> FULL_ PATH   /home/ubuntu/mlmodels/ztest/text/myfile.txt
+        --> FULL_ PATH   ${HOME}/mlmodels/ztest/text/myfile.txt
 
 
 ## 4) Create JSON For Parameters

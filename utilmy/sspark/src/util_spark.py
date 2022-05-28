@@ -72,11 +72,9 @@ Doc::
 
 """
 import os, sys, yaml, calendar, datetime, json, pytz, subprocess, time,zlib
-import pandas  as pd
-import numpy as np
+import pandas  as pd, numpy as np
 from box import Box
 from typing import Union
-
 
 import pyspark
 from pyspark import SparkConf
@@ -88,8 +86,6 @@ sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
 def log(*s):
     print(*s, flush=True)
-
-
 
 
 ##################################################################################
@@ -151,8 +147,8 @@ def test1():
     spark.submit.deployMode            : 'client'
     """
     cfg = config_parser_yaml(ss)
-    sparksession = spark_get_session(cfg)
-
+    log(cfg)
+    sparksession = spark_get_session_local()
 
     spark_config_print(sparksession)
 
@@ -180,39 +176,85 @@ def run_cli_sspark():
 ###### TODO : list of function to be completed later ###########################################
 
 
-def hdfs_dir_stats(dirin,recursive=True):
+def hdfs_dir_stats(dirin, recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
 
     """
-    if hdfs_dir_exists(dirin):
-        hdfs_list_dir(dirin,recursive)
-        hdfs_size_dir(dirin)
-    else:
+    fdict = Box({})
+    try:
+        fdict = hdfs_size_dir(dirin)
+    except:
         print("{} does not exist!".format(dirin))
-    
+    return fdict
 
 
 
 def hive_get_tablelist(dbname):
-
-    cmd = f'show tables from {dbname}'
-
+    """Get Hive tables from database_name    
+    """
+    cmd = f"hive -e 'show tables from {dbname}'"
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ltable = []
+    for li in lines :
+        if 'tab_name' in li : continue
+        ltable.append(li.strip())
+    return ltable
+    
 
 
 def hive_get_dblist():
-
-    cmd = f'show databases '
+    """ Get  databases
+    """
+    cmd = f"hive -e  'show databases '"
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    ldb = []
+    for li in lines :
+        if 'database_name' in li : continue
+        ldb.append(li.strip())
+    return ldb
 
 
 
 def hive_get_tablechema(tablename):
-    cmd = f'show schema '
+    """Get  databases
+    """
+    cmd = f"hive -e 'describe {tablename}'"
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    table_info = {}
+    for li in lines :
+        if 'col_name' in li : continue
+        tmp = []
+        for item in li.split(" "):
+            if item:
+                tmp.append(item)
+        if len(item) < 3:
+            continue
+        col_name = item[0]
+        data_type = item[1]
+        comment = item[2]
+        table_info[col_name] = {"data_type": data_type, "comment": comment}
+    return table_info
 
 
 
 def hive_get_tabledetails(table):
-    cmd = f'described formatted {table}'
+    """
+    Doc::
+    describe formatted table
+    """
+    cmd = f"hive -e 'describe formatted {table}'"
+    stdout,stderr = os_system(cmd)
+    lines = stdout.split("\n")
+    table_info = {}
+    ltable = []
+    for li in lines :
+        if 'col_name' in li : continue
+        ltable.append(li.strip())
+    return ltable
 
 
 
@@ -222,19 +264,40 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
     """ Universal HDFS file reader
     Doc::
+    format: parquet, csv, json, orc ...
 
     """
+    if format:
+        df = sparksession.read.format(format).load(dirin, **kw)
+        return df
 
-    try:
-        df = sparksession.read_parquet(dirin, **kw)
-    except:     
-        df = sparksession.read_csv(dirin, **kw)
+    try: # parquet
+        df = sparksession.read.parquet(dirin, **kw)
+        return df
+    except: pass
 
-    return df
+    try: # csv
+        df = sparksession.read.csv(dirin, **kw)
+        return df
+    except: pass
 
+    try: # table
+        df = sparksession.read.table(dirin, **kw)
+        return df
+    except: pass
+
+    try: # orc
+        df = sparksession.read.orc(dirin, **kw)
+        return df
+    except: pass
+
+    try: # json
+        df = sparksession.read.json(dirin, **kw)
+        return df
+    except: pass
 
 
 
@@ -514,7 +577,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "append", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "overwrite", format:str= "parquet"):
     """
     Doc::
         saveMode: append, overwrite, ignore, error
@@ -900,8 +963,9 @@ def config_load(config_path:str):
     return dd
 
 
+
 def config_parser_yaml(config):
-    """
+    """ Parse string YAML
     Doc::
 
             spark.master                       : 'local[1]'   # 'spark://virtual:7077'
@@ -941,19 +1005,19 @@ def os_subprocess(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
 
 
 def os_system(cmd, doprint=False):
-  """ os.system  and retrurn stdout, stderr values
-  """
-  import subprocess
-  try :
-    p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
-    mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
-    if doprint:
-      l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
-      print(l)
+    """ os.system and retrurn stdout, stderr values
+    """
+    import subprocess
+    try :
+        p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
+        mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
+        if doprint:
+            l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
+            print(l)
 
-    return mout, merr
-  except Exception as e :
-    print( f"Error {cmd}, {e}")
+        return mout, merr
+    except Exception as e :
+        print( f"Error {cmd}, {e}")
 
 
 def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],

@@ -22,7 +22,7 @@ standard_library.install_aliases()
 # CFG   = {'plat': sys.platform[:3]+"-"+os.path.expanduser('~').split("\\")[-1].split("/")[-1],
 # "ver": sys.version_info.major}
 # DIRCWD= {'win-asus1': 'D:/_devs/Python01/project27/', 'win-unerry': 'G:/_devs/project27/',
-# 'lin-noel': '/home/noel/project27/', 'lin-ubuntu': '/home/ubuntu/project27/' }[CFG['plat']]
+# 'lin-noel': '/home/noel/project27/', 'lin-ubuntu': '${HOME}/project27/' }[CFG['plat']]
 # DIRCWD= os.environ["DIRCWD"];
 # os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
 # f= open(DIRCWD+'/__config/config.py'); CFG= dict2(dict(CFG,  **eval(f.read()))); f.close()
