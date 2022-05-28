@@ -1,4 +1,1850 @@
-# -*- coding: utf-8 -*-
+
+
+##############################################################################################
+##############################################################################################
+Swapping pairs make sum equal 
+  Easy Accuracy: 41.35% Submissions: 19608 Points: 2
+  Given two arrays of integers A[] and B[] of size N and M, the task is to check 
+  if a pair of values (one value from each array) exists such that swapping the elements 
+  of the pair will make the sum of two arrays equal.
+
+ 
+
+Example 1:
+    Input: N = 6, M = 4
+    A[] = {4, 1, 2, 1, 1, 2}
+    B[] = (3, 6, 3, 3)
+    
+    Output: 1
+    Explanation: Sum of elements in A[] = 11
+    Sum of elements in B[] = 15, To get same 
+    sum from both arrays, we can swap following 
+    values: 1 from A[] and 3 from B[]
+
+      
+Example 2:
+
+    Input: N = 4, M = 4
+    A[] = {5, 7, 4, 6}
+    B[] = {1, 2, 3, 8}
+    Output: 1
+    Explanation: We can swap 6 from array 
+    A[] and 2 from array B[]
+
+Should I write code ? or explain ?
+for this one, we can write code here
+
+
+Method 4 (Hashing) 
+     We can solve this problem in O(m+n) time and O(m) auxiliary space. 
+
+python code:
+  
+  m = len(array1)
+  n = len(array2)
+  
+  # Find sum1 and sum2   
+  sum1 = sum(array1)
+  sum2 = sum(array2)
+  
+  # Now, lets make the hashset for array1
+  set1 = {}
+  for x in array1:
+    set1.insert(x)
+  
+  # The key idea :
+  # We want to chose elements in array1 and array2 such that their difference is (sum1-sum2)/2
+  # Swapping them would make the array sums equal
+  ## are you here ????
+  
+  diff= (sum1-sum2)/2
+  for i in range(0, n):
+    
+    ### dont understand this condition, 
+    ### Cool let me explain it 
+    if array2[i]+diff in set1:
+      print(array2[i]+diff,  array2[i]  )
+      flag = True
+      break
+  
+	### The main idea is to find 2 elements say x in array1 and y in array2 such that swapping would make sums equal
+    ### sum1_new = sum1 + y - x
+    ### sum2_new = sum2 + x - y
+    
+    ### We need the sum1_new and sum2_new to be equal right so,
+    ### sum1_new 
+
+     OK, I understand NOW, BUT how to get this idea ???
+      Is it a standard pattern ?
+      
+    ### Say sum1 > sum2 , intutively u would want to chose a larger element from array1 and a smaller from array2 and swap right ?
+
+    
+  x1-y2 = (sum1-sum2)/2
+  
+  sum1_new = sum1 -x1 + y2 = sum1 - (sum1-sum2)/2
+  sum2_new = sum2 -y2 + x1 = sum2 + (sum1-sum2)/2
+   
+  ### it';s just the  math condition  ( Right )
+  sum1_new = sum2_new
+  sum1 -x1 + y2  =  sum2 -y2 + x1
+  sum1-sum2 =    2*(x1-y2)
+  x1-y2 = (sum1-sum2)/2
+  
+  for x1 in array1:
+    if x1+ diff0 in set_array2 :
+      then OK works.   ## hash == O(1)  
+  
+     ### USe a hash to have O(1)
+   No need to say stupid remark on hash, 
+    oviously we dont build the hash map n times.... (cool)
+    
+    This OK, it's directly yhe MATH condition + Hash
+
+  Correct !!!
+    OK, lets move to next problem and skip the stupid solution.
+  ( The majority element one right ??? )
+  
+  
+  ### Invariant  is  (sum1-sum2)/2
+  ####
+  
+yes, we just implement the description below  
+// assume array1 is small i.e. (m < n)
+// where m is array1.length and n is array2.length
+
+1. Find sum1(sum of small array elements) ans sum2
+
+  (sum of larger array elements). // time O(m+n)
+
+2. Make a hashset for small array(here array1).
+
+3. Calculate diff as (sum1-sum2)/2.
+
+4. Run a loop for array2
+
+     for (int i equal to 0 to n-1)
+
+       if (hashset contains (array2[i]+diff))
+
+           print array2[i]+diff and array2[i]
+
+           set flag  and break;
+
+5. If flag is unset then there is no such kind of 
+
+pair.
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Majority Element 
+    Medium Accuracy: 48.6% Submissions: 100k+ Points: 4
+    Given an array A of N elements. Find the majority element in the array. 
+    A majority element in an array A of size N is 
+    an element that appears more than N/2 times in the array.
+ 
+Example 1:
+    Input:
+    N = 3 
+    A[] = {1,2,3} 
+    Output:
+    -1
+    Explanation:
+    Since, each element in 
+    {1,2,3} appears only once so there 
+    is no majority element.
+    
+  
+Example 2:
+    Input:
+    N = 5 
+    A[] = {3,1,3,3,2} 
+    Output:
+    3
+    Explanation:
+    Since, 3 is present more
+    than N/2 times, so it is 
+    the majority element
+
+
+  METHOD 4 (Using Hashmap): 
+
+
+Approach: This method is somewhat similar to Moore voting algorithm 
+  in terms of time complexity, but in this case,
+  there is no need for the second step of Moore voting algorithm. 
+  But as usual, here space complexity becomes O(n). 
+In Hashmap(key-value pair), at value, maintain a count for each element(key) and whenever the count is greater than half of the array length, return that key(majority element). 
+ 
+  
+Algorithm:
+    Create a hashmap to store a key-value pair, i.e. element-frequency pair.
+    Traverse the array from start to end.
+    For every element in the array, insert the element in the hashmap 
+    if the element does not exist as key, else fetch the value of the key ( array[i] ), 
+    and increase the value by 1
+    
+    If the count is greater than half then print the majority element and break.
+    If no majority element is found print "No Majority element"
+
+    is very easy
+    
+    ddict = {}
+    for x in range(array1):
+      if x not in ddict : ddict[x]=1
+      else: ddict[x] +=1 
+    
+    for key,val in ddict.items():
+      if val > n//2 : return key
+    return -1
+  
+  no, it was vrey easy, usually hashmap are very easy.
+  
+  let move to next ( COOL )
+      ( Yeah this is correct )
+    ( So is there any doubt ??? )
+Should I use hashmaps or the moore voting algo ???
+
+hashmap is MORE generic solution, 
+
+Cool will explain that just that moore is better in terms of space ( Its O(1))
+
+ctr_map = {}
+for x in array:
+  if x not in ctr_map:
+    ctr_map[x] = 1
+  else:
+    ctr_map[x] += 1
+
+# Python3 program for finding out majority 
+# element in an array 
+
+def findMajority(arr, size):
+    m = {}
+    for i in range(size):
+        if arr[i] in m:
+            m[arr[i]] += 1
+        else:
+            m[arr[i]] = 1
+    count = 0
+    for key in m:
+        if m[key] > size / 2:
+            count = 1
+            print("Majority found :-",key)
+            break
+    if(count == 0):
+        print("No Majority element")
+
+# Driver code 
+arr = [2, 2, 2, 2, 5, 5, 2, 3, 3] 
+n = len(arr)
+
+# Function calling 
+findMajority(arr, n)
+
+# This code is contributed by ankush_953
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+
+Find Missing And Repeating 
+Medium Accuracy: 37.77% Submissions: 100k+ Points: 4
+Given an unsorted array Arr of size N of positive integers.
+One number 'A' from set {1, 2, …N} is missing and one number 'B' occurs twice in array. 
+Find these two numbers.
+
+Example 1:
+    Input:
+    N = 2
+    Arr[] = {2, 2}
+    Output: 2 1
+    Explanation: Repeating number is 2 and 
+    smallest positive missing number is 1.
+
+Example 2:
+    Input:
+    N = 3
+    Arr[] = {1, 3, 3}
+    Output: 3 2
+    Explanation: Repeating number is 3 and 
+    smallest positive missing number is 2.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(1)
+
+
+
+
+################################################################################
+Method 6 (Use a Map)
+    Approach: 
+    This method involves creating a Hashtable with the help of Map. 
+    In this, the elements are mapped to their natural index. 
+    In this process, if an element is mapped twice, then it is the repeating element. 
+    And if an element's mapping is not there, then it is the missing element.
+
+n = len(array)
+ctr_map = {}
+for x in array:
+  if x not in ctr_map:
+    ctr_map[x] = 1
+  else:
+    ctr_map[x] += 1
+  
+missing_ele, duplicate_ele = -1, -1
+for key in range(1,n+1):
+  if(key not in ctr_map):
+    missing_ele = key
+  elif(ctr_map[key]==2):
+    duplicate_ele = key
+  else:
+    pass
+
+### Is this fine ???
+yes, ahashmap is trivial, direcy solution
+
+### Should I explain an alternate with O(1) space ???
+No need,
+lets do below
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Maximum Index 
+    Medium Accuracy: 42.72% Submissions: 81531 Points: 4
+    Given an array A[] of N positive integers. 
+    The task is to find the maximum of j - i subjected to the constraint of A[i] < A[j] and i < j.
+
+
+Example 1:
+    Input:
+    N = 2
+    A[] = {1, 10}
+    Output:
+    1
+    Explanation:
+    A[0]<A[1] so (j-i) is 1-0 = 1.
+
+    
+Example 2:
+    Input:
+    N = 9
+    A[] = {34, 8, 10, 3, 2, 80, 30, 33, 1}
+    Output:
+    6
+    Explanation:
+    In the given array A[1] < A[7]
+    satisfying the required 
+    condition(A[i] < A[j]) thus giving 
+    the maximum difference of j - i 
+    which is 6(7-1).
+
+
+    
+#### Binary Search
+can you exa
+# For a given array arr,  calculates the maximum j – i  such that arr[j] > arr[i] 
+
+v = [34, 8, 10, 3, 2, 80, 30, 33, 1];
+n = len(v);
+maxFromEnd = [-38749432] * (n + 1);
+
+#### what is it ????
+# Create an array maxfromEnd
+for i in range(n - 1, 0, -1):
+    maxFromEnd[i] = max(maxFromEnd[i + 1], 
+                        v[i]);
+    
+result = 0;
+for i in range(0, n):
+    low  = i + 1; 
+    high = n - 1; 
+    ans  = i;
+
+    ### Binary search
+    while (low <= high):
+        mid = int((low + high) / 2);
+
+        if (v[i] <= maxFromEnd[mid]):
+
+            # We store this as currentanswer and look for further larger number to the right side
+            ans = max(ans, mid);
+            low = mid + 1;
+        else:
+            high = mid - 1;        
+
+    # Keeping a track of the maximum difference in indices
+    result = max(result, ans - i);
+
+print(result, end = "");
+    
+
+
+  
+
+    
+    
+# Python3 program to find the maximum j – i such that arr[j] > arr[i] For a given array arr[], returns
+# the maximum j – i such that arr[j] > arr[i]
+
+### N**2 , stupid solution
+def maxIndexDiff(arr, n):
+    maxDiff = -1
+    for i in range(0, n):
+        j = n - 1
+        while(j > i):
+            if arr[j] > arr[i] and maxDiff < (j - i):  ### update the max
+                maxDiff = j - i
+            j -= 1
+
+    return maxDiff
+
+arr = [9, 2, 3, 4, 5, 6, 7, 8, 18, 0]
+n = len(arr)
+maxDiff = maxIndexDiff(arr, n)
+print(maxDiff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Median in a stream of integers (running integers)
+    Difficulty Level : Hard
+    Last Updated : 28 Mar, 2022
+    https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+        
+
+    Given that integers are read from a data stream. Find median of elements read so 
+    for in an efficient way. For simplicity assume, there are no duplicates. 
+    For example, let us consider the stream 5, 15, 1, 3 … 
+
+
+    After reading 1st element of stream - 5 -> median - 5
+    After reading 2nd element of stream - 5, 15 -> median - 10
+    After reading 3rd element of stream - 5, 15, 1 -> median - 5
+    After reading 4th element of stream - 5, 15, 1, 3 -> median - 4, so on...
+    Making it clear, when the input size is odd, we take the middle element of sorted data. 
+    If the input size is even, we pick the average of the middle two elements in the sorted stream.
+    Note that output is the effective median of integers read from the stream so far. 
+    Such an algorithm is called an online algorithm. 
+    Any algorithm that can guarantee the output of i-elements after processing i-th element, 
+    is said to be online algorithm. Let us discuss three solutions to the above problem.
+
+
+    Time Complexity: If we omit the way how stream was read, complexity of median finding is O(N log N), 
+    as we need to read the stream, and due to heap insertions/deletions.
+    Auxiliary Space: O(N)
+    At first glance the above code may look complex. If you read the code carefully, it is simple algorithm.   
+
+
+### Key idea :
+     Heap based
+     Maintain 2 heaps ( A left heap & aa right heap )
+        Left :  min values heap 
+        Right: max values heap
+
+    Left Right 
+    # Condition : val_Left <= val_RIght & (size_Right - size_Left) <=1  
+                    size_Left = size_Right     (Even) OR   Left = Right-1   (Odd)
+    Left : Min,   Right : Max
+
+    A= [5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4]
+
+    Left -> [] Right -> [5]
+    Left -> [5] Right -> [15]
+    Left -> [1] Right -> [5,15] =>  ###  why 5 is needed in [5,15]
+    Left -> [3] Right -> [  ] =>    ###
+
+
+
+##### Solution in O(N)  ####################################################
+#### Insert in Heap is Log(n), crossing the tree 
+for i,x in enumerate(arr):
+  	# IF i is even : 
+  	if i%2 == 0:
+      	# Intially size(Left) == size(Right)
+        # Finally  size(Left) == size(Right) - 1
+        # So, u need to increase size of right by 1 
+        if x < min(Left):  ### New Min
+          	val = Left.min_pop()  ## remove the current min
+            Left.insert(x)        ## Insert min
+            Right.insert(val)     ## moving old min to the right
+        else:
+          	Right.insert(x)   ### keep the min in Left,  only change the right.
+            
+	else:
+      	if x > max(Right):  ### New MAx
+            val = Right.max_pop()   ### Remove Old Max
+            Right.insert(x)         ### Add new one
+            Left.insert(val)        ### Old Max added to left Min.
+        else:
+          Left.insert(x)   ### Add to the Max
+
+          
+#### Sliding window  based on position of X,           
+    A[i1:i2]      and i1, i2 are moving....      
+
+  Why left and right  ?  
+  why not only  i1, i2 indexes ....
+    We can only use index   i1, i2
+    sometimes, there are problem with i1, i2 in sliding window....   A[i1:i2]  
+       Inserting is log(n)
+       --> total is n.log(n)      
+      
+    
+def getMedian():
+    if len(Left) != len(Right):
+        return Right[0]
+    else:
+        return (Right[0] + Left[0])/2
+        
+        
+### pseudo code is ok,
+python : by default its a minheap,  so negative value for Maxheap.  --> - values for MaxHeap
+    https://www.geeksforgeeks.org/heap-queue-or-heapq-in-python/  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Maximum Product Subarray 
+    Medium Accuracy: 29.84% Submissions: 100k+ Points: 4
+    Given an array Arr[] that contains N integers (may be positive, negative or zero). 
+    Find the product of the maximum product subarray.
+
+Example 1:
+      Input:
+      N = 5
+      Arr[] = {6, -3, -10, 0, 2}
+      Output: 180
+      Explanation: Subarray with maximum product
+      is [6, -3, -10] which gives product as 180.
+      
+      
+Example 2:
+    Input:
+    N = 6
+    Arr[] = {2, 3, 4, 5, -1, 0}
+    Output: 120
+    Explanation: Subarray with maximum product
+    is [2, 3, 4, 5] which gives product as 120.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(1)
+
+Constraints:
+1 ≤ N ≤ 500
+-102 ≤ Arri ≤ 102
+
+
+#########################################################################################
+#####  Solution in O(N)  OPtimal Function to find maximum  product subarray
+def maxProduct(arr, n):
+    # Variables to store maximum and  minimum product till ith index.
+    minVal = arr[0]
+    maxVal = arr[0]
+    maxProduct = arr[0]
+
+    for i in range(1, n, 1):
+        # When multiplied by negative number,maxVal becomes minVal
+        # and minVal becomes maxVal.
+        """
+        if (arr[i] < 0):   ### Reverse  min <--> max
+            temp = maxVal
+            maxVal = minVal
+            minVal = temp
+            
+        # maxVal and minVal stores the  product of subarray ending at arr[i].
+        maxVal = max(arr[i], maxVal * arr[i])
+        minVal = min(arr[i], minVal * arr[i])
+        """
+        
+        ""
+        ### to handl negative values product .... , need to keep minVal  (can be negative) and maxVal.
+        maxVal = max(a[i],  a[i]*minVal,  a[i]*maxVal  )
+        minVal = min(a[i],  a[i]*minVal,  a[i]*maxVal )
+        
+        ### Max Product of array.
+        maxProduct = max(maxProduct, maxVal)
+
+    # Return maximum product found in array.
+    return maxProduct
+
+
+Example  
+    [0,  1,  3]   -->    3 
+     max(1, 0*....)  =1 ,    ### reset of the product at each step, more 
+    
+    
+ Instead of product, Max sum  --->  we just to keep  MaxVal ONLY.
+   teshnically
+      + current maxVal vs a[i]   (intermediate maxVal  to handle issues/special case of negative, what ever things we need to manage.... )  
+      + Global_MaxVal
+  
+    Sliding window way with only one step, 
+    Good pattern.
+
+
+
+
+###### O(n2)  Solution #############################
+# Python3 program to find Maximum Product Subarray Returns the product of max product subarray.
+def maxSubarrayProduct(arr, n):
+    # Initializing result
+    result = arr[0]
+ 
+    for i in range(n):     
+        mul = arr[i]
+       
+        # traversing in current subarray
+        for j in range(i + 1, n):
+         
+            # updating result every time
+            # to keep an eye over the maximum product
+            result = max(result, mul)
+            mul *= arr[j]
+         
+        # updating the result for (n-1)th index.
+        result = max(result, mul)
+     
+    return result
+ 
+# Driver code
+arr = [ 1, -2, -3, 0, 7, -8, -2 ]
+n = len(arr)
+print("Maximum Sub array product is" , maxSubarrayProduct(arr, n))
+
+The idea is to traverse array from left to right keeping two variables minVal and maxVal which
+represents the minimum and maximum product value till the ith index of the array. 
+Now, if the ith element of the array is negative that means now the values of minVal 
+and maxVal will be swapped as value of maxVal will become minimum by multiplying it with a negative number.
+Now, compare the minVal and maxVal. 
+The value of minVal and maxVal depends on the current index element or the product of the current index element and the previous minVal and maxVal respectively.
+
+ 
+
+
+
+##############################################################################################
+##############################################################################################
+Triplet Sum in Array 
+    Medium Accuracy: 49.0% Submissions: 100k+ Points: 4
+    Given an array arr of size n and an integer X. Find if there's a triplet in the array which sums up to the given integer X.
+
+
+Example 1:
+
+    Input:
+    n = 6, X = 13
+    arr[] = [1 4 45 6 10 8]
+    Output:
+    1
+    Explanation:
+    The triplet {1, 4, 8} in 
+    the array sums up to 13.
+
+    
+Example 2:
+
+    Input:
+    n = 5, X = 10
+    arr[] = [1 2 4 3 6]
+    Output:
+    1
+    Explanation:
+    The triplet {1, 3, 6} in 
+    the array sums up to 10.
+
+    Expected Time Complexity: O(n2)
+    Expected Auxiliary Space: O(1)
+
+#### Best is hash map on the last value.      
+   a[i], a[j], a[k]  in A  and a[k]   = X
+
+  for i in range(n):
+    for j in range(i+1,n):  ### Sliding
+      # X - a[i] - a[j] is present in the array using Has in O(1)
+  
+  4 numbers , total sum = X   ---> is it in O(N3)  ???/
+      is it a DP ????
+  https://leetcode.com/problems/4sum/
+
+    Time Complexity: O(n^{k - 1})O(n k−1 ), or O(n^3)O(n 3
+ ) for 4Sum. We have k - 2k−2 loops, and twoSum is O(n)O(n).  
+  
+  Hash is much better/simpler.
+  
+  
+  
+
+  # returns true if there is triplet
+# with sum equal to 'sum' present
+# in A[]. Also, prints the triplet
+def find3Numbers(A, arr_size, sum):
+    # Sort the elements 
+    A.sort()
+
+    # Now fix the first element 
+    # one by one and find the
+    # other two elements 
+    for i in range(0, arr_size-2):
+    
+        # To find the other two elements,
+        # start two index variables from
+        # two corners of the array and
+        # move them toward each other
+        
+        # index of the first element
+        # in the remaining elements
+        l = i + 1 
+        
+        # index of the last element
+        r = arr_size-1 
+        while (l < r):
+        
+            if( A[i] + A[l] + A[r] == sum):
+                print("Triplet is", A[i], 
+                     ', ', A[l], ', ', A[r]);
+                return True
+            
+            elif (A[i] + A[l] + A[r] < sum):
+                l += 1
+            else: # A[i] + A[l] + A[r] > sum
+                r -= 1
+
+    # If we reach here, then
+    # no triplet was found
+    return False
+
+
+  
+
+A = [1, 4, 45, 6, 10, 8]
+sum = 22
+arr_size = len(A)
+
+find3Numbers(A, arr_size, sum)
+
+
+  
+  
+  
+  
+# Python3 program to find a triplet 
+# that sum to a given value
+
+# returns true if there is triplet with
+# sum equal to 'sum' present in A[]. 
+# Also, prints the triplet
+def find3Numbers(A, arr_size, sum):
+
+    # Fix the first element as A[i]
+    for i in range( 0, arr_size-2):
+
+        # Fix the second element as A[j]
+        for j in range(i + 1, arr_size-1): 
+            
+            # Now look for the third number
+            for k in range(j + 1, arr_size):
+                if A[i] + A[j] + A[k] == sum:
+                    print("Triplet is", A[i],
+                          ", ", A[j], ", ", A[k])
+                    return True
+    
+    # If we reach here, then no 
+    # triplet was found
+    return False
+
+# Driver program to test above function 
+A = [1, 4, 45, 6, 10, 8]
+sum = 22
+arr_size = len(A)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+##############################################################################################
+##############################################################################################
+
+Sum of Middle Elements of two sorted arrays 
+Medium Accuracy: 61.07% Submissions: 7817 Points: 4
+Given 2 sorted arrays Ar1 and Ar2 of size N each. Merge the given arrays and find the sum of the two middle elements of the merged array.
+
+ 
+
+Example 1:
+
+Input:
+N = 5
+Ar1[] = {1, 2, 4, 6, 10}
+Ar2[] = {4, 5, 6, 9, 12}
+Output: 11
+Explanation: The merged array looks like
+{1,2,4,4,5,6,6,9,10,12}. Sum of middle
+elements is 11 (5 + 6).
+ 
+
+Example 2:
+
+Input:
+N = 5
+Ar1[] = {1, 12, 15, 26, 38}
+Ar2[] = {2, 13, 17, 30, 45}
+Output: 32
+Explanation: The merged array looks like
+{1, 2, 12, 13, 15, 17, 26, 30, 38, 45} 
+sum of middle elements is 32 (15 + 17).
+ 
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function findMidSum() which takes  ar1, ar2 and n as input parameters and returns the sum of middle elements. 
+
+ 
+
+Expected Time Complexity: O(log N)
+Expected Auxiliary Space: O(1)
+
+ 
+
+Constraints:
+1 <= N <= 103
+1 <= Ar1[i] <= 106
+1 <= Ar2[i] <= 106
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Smallest Positive missing number  
+    Medium Accuracy: 45.09% Submissions: 100k+ Points: 4
+    You are given an array arr[] of N integers including 0. 
+    The task is to find the smallest positive number missing from the array.
+
+     missing.
+  mex of an array 
+  mex -> is the smalles +ve number that is not present in the array 
+
+Example 1:
+
+    Input:
+    N = 5
+    arr[] = {1,2,3,4,5}
+    Output: 6      why 6 is missing ????
+    Explanation: Smallest positive missing 
+    number is 6.
+    
+    
+Example 2:
+    Input:
+    N = 5
+    arr[] = {0,-10,1,3,-20}
+    Output: 2      3 is max
+    Explanation: Smallest positive missing 
+    number is 2.
+    Your Task:
+    The task is to complete the function missingNumber() which returns the smallest positive missing number in the array.
+
+    Expected Time Complexity: O(N).
+    Expected Auxiliary Space: O(1).
+
+Constraints:
+1 <= N <= 106
+-106 <= arr[i] <= 106
+
+
+###### Soliution 2, using Hash key
+https://leetcode.com/problems/first-missing-positive/solution/
+##ok 
+
+### Distribution of val : frequency,   
+## we check the one missing.
+### checking any side conditions, if it is ok.
+
+def findMissingPositive(arr: list[int]) -> int: 
+  maxint =107
+  
+  hash_list = [0] * maxint    ### all values, dict
+  
+  for element in arr: 
+    if element <= 0:
+      continue
+  
+    #### element < 107
+    hash_list[element] += 1 ## increase frequency
+  
+  ans = 1 
+  
+  while True: 
+    if hash_list[ans] == 0:  ## missing 
+      return ans ####
+    
+    ans += 1 
+
+    
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Count Inversions 
+    Medium Accuracy: 39.43% Submissions: 100k+ Points: 4
+    Given an array of integers. Find the Inversion Count in the array. 
+
+    Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted.
+    If array is already sorted then the inversion count is 0. 
+    If an array is sorted in the reverse order then the inversion count is the maximum. 
+    
+    ####  Not merge sort invresion
+    Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+
+
+Example 1:
+    Input: N = 5, arr[] = {2, 4, 1, 3, 5}
+    Output: 3
+    Explanation: The sequence 2, 4, 1, 3, 5 
+    has three inversions (2, 1), (4, 1), (4, 3).
+
+Example 2:
+    Input: N = 5
+    arr[] = {2, 3, 4, 5, 6}
+    Output: 0
+    Explanation: As the sequence is already 
+    sorted so there is no inversion count.
+
+Example 3:
+    Input: N = 3, arr[] = {10, 10, 10}
+    Output: 0
+    Explanation: As all the elements of array 
+    are same, so there is no inversion count.
+
+Expected Time Complexity: O(NLogN).
+Expected Auxiliary Space: O(N).
+
+
+#######  
+O(N2), Naive solution
+# Python3 program to count inversions in an array
+def getInvCount(arr, n):
+
+    inv_count = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            if (arr[i] > arr[j]): ###  parse in i,j the array if elements are sorted.
+                inv_count += 1
+
+    return inv_count
+
+arr = [1, 20, 6, 4, 5]
+n = len(arr)
+print("Number of inversions are",      getInvCount(arr, n))
+
+
+
+###
+def solution(array: list[int], N: int) -> int: 
+  
+  
+  array_element_indices = {} 
+  
+  sorted_array = array
+  sorted_array.sort()    ### N log_N
+  
+  index = 0 
+  for array_element in array: 
+    array_element_indices[array_element] = index 
+    index += 1 
+  
+  
+  inversion_count = 0 
+  for i in range(n): 
+    
+    #### your Condition   <-->   two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+    #### Comparison current array state with Global Sorted,
+    #### if elt_i not sorted --> permute to have it sorted. and count as one inversion.
+    ### Sort 1st, and just follow the sorted values.
+    if array[i] != sorted_array[i]: 
+      inversion_count += 1 
+      
+      swap(array[i] , array[ array_element_indices[sorted_array[i]]  ]  )
+
+      ioriginal = array_element_indices[ sorted_array[i] ] 
+      tmp = array[i]
+      array[i] = array[ ioriginal  ]  ####  sorted value 
+      array[ ioriginal  ]  = tmp
+        
+  return inversion_count
+  
+#### More genneric pattern
+  1) we sort to get correct state/
+  2) compare correct/final state with initial state 
+     and iterate to count the wrong item.
+    
+    MergeSort couting <> than the condition couting, Be careful !!!!!
+    
+    
+  
+  
+  
+array [ 7,3,2]
+array_drot  [ 2,3,7 ]
+
+array_indices = {
+  7: 0, 
+  3: 1, 
+  2: 2, 
+}
+
+array = [2 , 3 , 7]
+array_sorted = []
+---> 2 investions
+
+Final step: array is sorted.
+### a sort step by step  with comparisng
+
+  
+ 
+
+
+
+New URL for zoom , sorry , please reconnect using below
+Join Zoom Meeting
+https://us05web.zoom.us/j/2933746463?pwd=WUhRWkx0NWNZRVBFVjZ4enV6Y1R2QT09
+
+
+
+
+
+
+######
+https://leetcode.com/problems/global-and-local-inversions/solution/
+
+  
+  
+  
+  
+  
+
+##############################################################################################
+##############################################################################################
+Subarray with given sum 
+    Easy Accuracy: 39.71% Submissions: 100k+ Points: 2
+    Given an unsorted array A of size N that contains only non-negative integers, 
+    find a continuous sub-array which adds to a given number S.
+
+    In case of multiple subarrays, return the subarray which comes first on moving from left to right.
+    Empty [] 
+
+ 
+
+Example 1:
+    Input:
+    N = 5, S = 12
+    A[] = {1,2,3,7,5}
+    Output: 2 4
+    Explanation: The sum of elements 
+    from 2nd position to 4th position 
+    is 12.
+
+
+Example 2:
+    Input:
+    N = 10, S = 15
+    A[] = {1,2,3,4,5,6,7,8,9,10}
+    Output: 1 5
+    Explanation: The sum of elements 
+    from 1st position to 5th position
+    is 15.
+
+    O(N) complexity
+    
+##### Write down the idea    
+  window array, to keep track on going sum
+  and check with target sum.
+  
+  while i < n :  ### while not finish the array  
+    
+    ### sliding window
+    while curr_sum > taget_sum and istart <= i :  ## can remove all of them.
+        ### Decrease size of window array.
+        remove 1st element at  istart
+        increase start of current array
+        
+    curr_sum =+  arr[i]     
+    i = i + 1
+        
+    if curr_sum = target_sum  : exit
+    
+    thats ok for today.
+    no need to do more. thanks you.
+    
+    2-3 times as week , we can adujust schedule., no worries
+    thaknk yoyu vem
+    
+Still in O[N]    
+    
+    curr_sum =
+    
+    Good problems today
+    
+    
+    
+    
+# Returns true if the 
+# there is a subarray 
+# of arr[] with sum
+# equal to 'sum' 
+# otherwise returns 
+# false. Also, prints 
+# the result.
+def subArraySum(arr, n, sum_):
+    
+    # Initialize curr_sum as
+    # value of first element
+    # and starting point as 0 
+    curr_sum = arr[0]
+    start = 0
+
+    # Add elements one by 
+    # one to curr_sum and 
+    # if the curr_sum exceeds 
+    # the sum, then remove 
+    # starting element 
+    i = 1
+    while i <= n:
+        
+        # If curr_sum exceeds
+        # the sum, then remove
+        # the starting elements
+        while curr_sum > sum_ and start < i-1:
+        
+            curr_sum = curr_sum - arr[start]
+            start += 1
+            
+        # If curr_sum becomes
+        # equal to sum, then
+        # return true
+        if curr_sum == sum_:
+            print ("Sum found between indexes")
+            print ("% d and % d"%(start, i-1))
+            return 1
+
+        # Add this element 
+        # to curr_sum
+        if i < n:
+            curr_sum = curr_sum + arr[i]
+        i += 1
+
+    # If we reach here, 
+    # then no subarray
+    print ("No subarray found")
+    return 0
+
+# Driver program
+arr = [15, 2, 4, 8, 9, 5, 10, 23]
+n = len(arr)
+sum_ = 23
+
+subArraySum(arr, n, sum_)
+
+# This code is Contributed by shreyanshi_arun.
+
+
+
+
+
+
+
+    
+    
+    
+O(N2), naive solution
+# equal to 'sum' 
+# otherwise returns
+# false. Also, prints
+# the result 
+def subArraySum(arr, n, sum_):
+    
+    # Pick a starting 
+    # point
+    for i in range(n):
+        curr_sum = arr[i]
+    
+        # try all subarrays
+        # starting with 'i'
+        j = i + 1
+        while j <= n:
+        
+            if curr_sum == sum_:
+                print ("Sum found between")
+                print("indexes % d and % d"%( i, j-1))
+                
+                return 1
+                
+            if curr_sum > sum_ or j == n:
+                break
+            
+            curr_sum = curr_sum + arr[j]
+            j += 1
+
+    print ("No subarray found")
+    return 0
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Longest Prefix Suffix 
+Medium Accuracy: 49.39% Submissions: 41665 Points: 4
+Given a string of characters, find the length of the longest proper prefix which is also a proper suffix.
+
+NOTE: Prefix and suffix can be overlapping but they should not be equal to the entire string.
+
+Example 1:
+
+Input: s = "abab"
+Output: 2
+Explanation: "ab" is the longest proper 
+prefix and suffix. 
+Example 2:
+
+Input: s = "aaaa"
+Output: 3
+Explanation: "aaa" is the longest proper 
+prefix and suffix. 
+Your task:
+You do not need to read any input or print anything. The task is to complete the function lps(), which takes a string as input and returns an integer.
+
+Expected Time Complexity: O(|s|)
+Expected Auxiliary Space: O(|s|)
+
+Constraints:
+1 ≤ |s| ≤ 105
+s contains lower case English alphabets
+
+
+
+# Python3 program to find length 
+# of the longest prefix which 
+# is also suffix
+def longestPrefixSuffix(s) :
+    n = len(s)
+    
+    for res in range(n // 2, 0, -1) :
+        
+        # Check for shorter lengths
+        # of first half.
+        prefix = s[0: res]
+        suffix = s[n - res: n]
+        
+        if (prefix == suffix) :
+            return res
+            
+
+    # if no prefix and suffix match 
+    # occurs
+    return 0
+    
+# Driver Code
+if __name__ == "__main__":
+    s = "blablabla"
+    print(longestPrefixSuffix(s))
+
+
+
+# Efficient Python 3 program
+# to find length of 
+# the longest prefix 
+# which is also suffix
+
+# Returns length of the longest prefix
+# which is also suffix and the two do
+# not overlap. This function mainly is
+# copy computeLPSArray() of in below post
+# https://www.geeksforgeeks.org/searching-for-patterns-set-2-kmp-algorithm/
+def longestPrefixSuffix(s) :
+    n = len(s)
+    lps = [0] * n   # lps[0] is always 0
+ 
+    # length of the previous
+    # longest prefix suffix
+    l = 0 
+    
+    # the loop calculates lps[i]
+    # for i = 1 to n-1
+    i = 1 
+    while (i < n) :
+        if (s[i] == s[l]) :
+            l = l + 1
+            lps[i] = l
+            i = i + 1
+        
+        else :
+
+            # (pat[i] != pat[len])
+            # This is tricky. Consider
+            # the example. AAACAAAA
+            # and i = 7. The idea is
+            # similar to search step.
+            if (l != 0) :
+                l = lps[l-1]
+ 
+                # Also, note that we do
+                # not increment i here
+            
+            else :
+
+                # if (len == 0)
+                lps[i] = 0
+                i = i + 1
+ 
+    res = lps[n-1]
+ 
+    # Since we are looking for
+    # non overlapping parts.
+    if(res > n/2) :
+        return n//2 
+    else : 
+        return res
+        
+ 
+# Driver program to test above function
+s = "abcab"
+print(longestPrefixSuffix(s))
+
+
+# This code is contributed
+# by Nikita Tiwari.
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+
+Parenthesis Checker 
+Easy Accuracy: 49.12% Submissions: 100k+ Points: 2
+Given an expression string x. Examine whether the pairs and the orders of “{“,”}”,”(“,”)”,”[“,”]” are correct in exp.
+For example, the function should return 'true' for exp = “[()]{}{[()()]()}” and 'false' for exp = “[(])”.
+
+Example 1:
+
+Input:
+{([])}
+Output: 
+true
+Explanation: 
+{ ( [ ] ) }. Same colored brackets can form 
+balaced pairs, with 0 number of 
+unbalanced bracket.
+Example 2:
+
+Input: 
+()
+Output: 
+true
+Explanation: 
+(). Same bracket can form balanced pairs, 
+and here only 1 type of bracket is 
+present and in balanced way.
+Example 3:
+
+Input: 
+([]
+Output: 
+false
+Explanation: 
+([]. Here square bracket is balanced but 
+the small bracket is not balanced and 
+Hence , the output will be unbalanced.
+Your Task:
+This is a function problem. You only need to complete the function ispar() that takes a string as a parameter and returns a boolean value true if brackets are balanced else returns false. The printing is done automatically by the driver code.
+
+Expected Time Complexity: O(|x|)
+Expected Auixilliary Space: O(|x|)
+
+
+
+# Python3 program to check for
+# balanced brackets.
+
+# function to check if
+# brackets are balanced
+
+
+def areBracketsBalanced(expr):
+    stack = []
+
+    # Traversing the Expression
+    for char in expr:
+        if char in ["(", "{", "["]:
+
+            # Push the element in the stack
+            stack.append(char)
+        else:
+
+            # IF current character is not opening
+            # bracket, then it must be closing.
+            # So stack cannot be empty at this point.
+            if not stack:
+                return False
+            current_char = stack.pop()
+            if current_char == '(':
+                if char != ")":
+                    return False
+            if current_char == '{':
+                if char != "}":
+                    return False
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+Generate IP Addresses 
+Medium Accuracy: 43.42% Submissions: 14933 Points: 4
+Given a string S containing only digits, Your task is to complete the function genIp() which returns a vector containing all possible combinations of valid IPv4 IP addresses and takes only a string S as its only argument.
+Note: Order doesn't matter.
+
+For string 11211 the IP address possible are 
+1.1.2.11
+1.1.21.1
+1.12.1.1
+11.2.1.1
+
+Example 1:
+
+Input:
+S = 1111
+Output: 1.1.1.1
+Example 2:
+
+Input:
+S = 55
+Output: -1
+
+Your Task:
+
+Your task is to complete the function genIp() which returns a vector containing all possible combinations of valid IPv4 IP addresses in sorted order or -1 if no such IP address could be generated through the input string S, the only argument to the function.
+
+Expected Time Complexity: O(N * N * N * N)
+Expected Auxiliary Space: O(N * N * N * N)
+
+
+
+
+# Python3 code to check valid possible IP
+ 
+# Function checks whether IP digits
+# are valid or not.
+def is_valid(ip):
+ 
+    # Splitting by "."
+    ip = ip.split(".")
+     
+    # Checking for the corner cases
+    for i in ip:
+        if (len(i) > 3 or int(i) < 0 or
+                          int(i) > 255):
+            return False
+        if len(i) > 1 and int(i) == 0:
+            return False
+        if (len(i) > 1 and int(i) != 0 and
+            i[0] == '0'):
+            return False
+             
+    return True
+ 
+# Function converts string to IP address
+def convert(s):
+     
+    sz = len(s)
+ 
+    # Check for string size
+    if sz > 12:
+        return []
+    snew = s
+    l = []
+ 
+    # Generating different combinations.
+    for i in range(1, sz - 2):
+        for j in range(i + 1, sz - 1):
+            for k in range(j + 1, sz):
+                snew = snew[:k] + "." + snew[k:]
+                snew = snew[:j] + "." + snew[j:]
+                snew = snew[:i] + "." + snew[i:]
+                 
+                # Check for the validity of combination
+                if is_valid(snew):
+                    l.append(snew)
+                     
+                snew = s
+                 
+    return l
+ 
+# Driver code        
+A = "25525511135"
+B = "25505011535"
+
+
+
+
+##############################################################################################
+##############################################################################################
+Longest Prefix Suffix 
+Given a string of characters, find the length of the longest proper prefix which is also a proper suffix.
+
+NOTE: Prefix and suffix can be overlapping but they should not be equal to the entire string.
+
+Example 1:
+
+Input: s = "abab"
+Output: 2
+Explanation: "ab" is the longest proper 
+prefix and suffix. 
+Example 2:
+
+Input: s = "aaaa"
+Output: 3
+Explanation: "aaa" is the longest proper 
+prefix and suffix
+
+
+
+Simple Solution: Since overlapping prefixes
+ and suffixes is not allowed, we break the string from the middle and start matching left and right strings. If they are equal return size of one string, else they try for shorter lengths on both sides.
+Below is a solution to the above approach!
+
+
+
+# Python3 program to find length 
+# of the longest prefix which 
+# is also suffix
+def longestPrefixSuffix(s) :
+    n = len(s)
+    
+    for res in range(n // 2, 0, -1) :
+        
+        # Check for shorter lengths
+        # of first half.
+        prefix = s[0: res]
+        suffix = s[n - res: n]
+        
+        if (prefix == suffix) :
+            return res
+            
+
+    # if no prefix and suffix match 
+    # occurs
+    return 0
+    
+# Driver Code
+if __name__ == "__main__":
+    s = "blablabla"
+    print(longestPrefixSuffix(s))
+
+# This code is contributed by Nikita Tiwari.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################################
+##############################################################################################
+https://practice.geeksforgeeks.org/problems/smallest-window-in-a-string-containing-all-the-characters-of-another-string-1587115621/1/?page=1&difficulty[]=1&category[]=Strings&curated[]=1&sortBy=submissions
+
+        Smallest window in a string containing all the characters of another string 
+        Medium Accuracy: 42.59% Submissions: 48080 Points: 4
+        Given two strings S and P. Find the smallest window in the string S consisting of all the characters(including duplicates) of the string P.  Return "-1" in case there is no such window present. In case there are multiple such windows of same length, return the one with the least starting index. 
+
+        Example 1:
+
+        Input:
+        S = "timetopractice"
+        P = "toc"
+        Output: 
+        toprac
+        Explanation: "toprac" is the smallest
+        substring in which "toc" can be found.
+        Example 2:
+
+        Input:
+        S = "zoomlazapzo"
+        P = "oza"
+        Output: 
+        apzo
+        Explanation: "apzo" is the smallest 
+        substring in which "oza" can be found.
+
+
+
+Method 1 ( Brute force solution ) 
+        1- Generate all substrings of string1 ("this is a test string") 
+        2- For each substring, check whether the substring contains all characters of string2 ("tist") 
+        3- Finally, print the smallest substring containing all characters of string2.
+  
+Method 2 ( Efficient Solution ) 
+
+
+        First check if the length of the string is less than the length of the given pattern, if yes then "no such window can exist ".
+        Store the occurrence of characters of the given pattern in a hash_pat[].
+        we will be using two pointer technique basically
+        Start matching the characters of pattern with the characters of string i.e. increment count if a character matches.
+        Check if (count == length of pattern ) this means a window is found.
+        If such a window found, try to minimize it by removing extra characters from the beginning of the current window.
+        delete one character from first and again find this deleted key at right, once found apply step 5 .
+        Update min_length.
+        Print the minimum length window.
+
+
+
+# Python3 program to find the smallest window
+# containing all characters of a pattern.
+no_of_chars = 256
+
+# Function to find smallest window
+# containing all characters of 'pat'
+def findSubString(string, pat):
+
+    len1 = len(string)
+    len2 = len(pat)
+
+    # Check if string's length is
+    # less than pattern's
+    # length. If yes then no such
+    # window can exist
+    if len1 < len2:
+
+        print("No such window exists")
+        return ""
+
+    hash_pat = [0] * no_of_chars
+    hash_str = [0] * no_of_chars
+
+    # Store occurrence ofs characters of pattern
+    for i in range(0, len2):
+        hash_pat[ord(pat[i])] += 1
+
+    start, start_index, min_len = 0, -1, float('inf')
+
+    # Start traversing the string
+    count = 0  # count of characters
+    for j in range(0, len1):
+
+        # count occurrence of characters of string
+        hash_str[ord(string[j])] += 1
+
+        # If string's char matches with
+        # pattern's char then increment count
+        if (hash_str[ord(string[j])] <=
+                hash_pat[ord(string[j])]):
+            count += 1
+
+        # if all the characters are matched
+        if count == len2:
+
+            # Try to minimize the window
+            while (hash_str[ord(string[start])] >
+                   hash_pat[ord(string[start])] or
+                   hash_pat[ord(string[start])] == 0):
+
+                if (hash_str[ord(string[start])] >
+                        hash_pat[ord(string[start])]):
+                    hash_str[ord(string[start])] -= 1
+                start += 1
+
+            # update window size
+            len_window = j - start + 1
+            if min_len > len_window:
+
+                min_len = len_window
+                start_index = start
+
+    # If no window found
+    if start_index == -1:
+        print("No such window exists")
+        return ""
+
+    # Return substring starting from
+    # start_index and length min_len
+    return string[start_index: start_index + min_len]
+
+
+# Driver code
+if __name__ == "__main__":
+
+    string = "this is a test string"
+    pat = "tist"
+
+    print("Smallest window is : ")
+    print(findSubString(string, pat))
+
+# This code is contributed by Rituraj Jain
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -69,17 +1915,6 @@ def longestPalSubstr(string):
 # Driver program to test above functions
 string = ("forgeeksskeegfor")
 print("Length is: " + str(longestPalSubstr(string)))
-
-
-
-
-
-
-
-
-
-
-
 
 
 

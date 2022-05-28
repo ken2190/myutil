@@ -89,7 +89,7 @@ def template_dataset_classifier_XXXXX(nrows=500, **kw):
 
 ####################################################################################################
 ########## Classification ##########################################################################
-def test_dataset_classifier_fake(nrows=500):
+def test_dataset_classifier_fake(nrows=500, normalized=0):
     """function test_dataset_classifier_fake.
     Doc::
             
@@ -98,6 +98,12 @@ def test_dataset_classifier_fake(nrows=500):
             Returns:
                 
     """
+    if normalized:
+        colsX = [ 'c' +str(i) for i in range(0, 5) ]
+        df = pd.DataFrame( np.random.random((nrows,5)), columns = colsX )
+        df['y'] =   np.random.randint(0,2, len(df))
+        return df, {'colnum':colsX, 'coly': 'y' }
+
     from sklearn import datasets as sklearn_datasets
     ndim    =11
     coly    = 'y'
@@ -109,7 +115,7 @@ def test_dataset_classifier_fake(nrows=500):
     df[coly]   = y.reshape(-1, 1)
 
     for ci in colcat :
-      df[ci] = np.random.randint(0,1, len(df))
+      df[ci] = np.random.randint(0,2, len(df))
 
     pars = { 'colnum': colnum, 'colcat': colcat, "coly": coly }
     return df, pars

@@ -7,16 +7,19 @@ on:
     inputs:  
 
     
-#  push:
-#    branches:
-#    - main
-
-
+  push:
+    branches:
+    - main
+  
+  
   schedule:
-    # - cron:  '0 2 * * *'      #### 60mins
-    #    - cron:  '*/10 * * * *'
-    - cron:  '0 0 * * 0'    
-
+     - cron:  '0 0 */2 * *'      #### 60mins
+     #   #    - cron:  '*/10 * * * *'
+     #   - cron:  '* * */2 * *'    
+  
+concurrency: 
+  group: ${{ github.ref }}_long
+  cancel-in-progress: true
 
 
 jobs:
@@ -44,40 +47,34 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**config/conda/py36_big.txt') }}
-          
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36_docfull.txt') }}
 
+          
     #- name: Install numpy
     #  if: steps.cache-pipenv.outputs.cache-hit != 'true'
     #  run: pip install numpy==1.18.2   pillow==6.2.1  scipy
       
-
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-           pip install -r  config/conda/py36_min.txt
+           pip install -r  py36_min.txt
+
+
+
+    - name: Install repo requirements   2
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run:  |
+        ls .
+        pip install -r  py36_docfull.txt
+
 
 
     - name: Install utilmy
       run:  |
         pip install -e .
         python -c "import utilmy"
-
-           
-    - name: Install repo requirements   2
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
-      run:  |
-        ls .
-        pip install -r  config/conda/py36_big.txt
-
-
-    - name: test_import
-      run: |
-           python -c "import os, pandas as pd; print(os)"
-           python -c "import utilmy"        
+        python -c "import os, pandas as pd; print(os)"
         
-
-
     ########  Runs All test  ######################################
     - name: test_setup
       run: |
@@ -91,8 +88,47 @@ jobs:
     #   run: |
     #       python test.py test_deeplearning_torch
 
-    - name: test long
-      # continue-on-error: true 
+
+    - name: test utilmy.nlp.ttorch
+      continue-on-error: true 
       run: |
           python test.py test_long
+
+
+    - name:  sspark/src/util_spark.py test_all
+      # continue-on-error: true 
+      run: |
+          python utilmy/sspark/src/util_spark.py test_all
+
+
+    - name: utilmy/deeplearning/ttorch/model_ensemble.py  
+      # continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/ttorch/model_ensemble.py   test_all
+
+
+
+    - name: utilmy/deeplearning/ttorch/  util_model.py
+      # continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/ttorch/util_model.py     test_all
+
+
+
+    - name: utilmy/deeplearning/util_embedding.py 
+      continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/util_embedding.py test_all
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,14 +1,14 @@
 
 1) Installation as follow
    source activate yourCOndaEnv
-   cd /home/ubuntu/aagit/aapackage/
+   cd ${HOME}/aagit/aapackage/
    pip install -e .
 
 This will install editable package, and this can be used
    from aapackage.mlmodel import models
 
 2) All code and data are in this folder
-  /home/ubuntu/aagit/aapackage/mlmodel/
+  ${HOME}/aagit/aapackage/mlmodel/
 
 
 ############### conda DL #######################################################
@@ -39,7 +39,7 @@ anaconda3/envs/py36d/bin/pip install --ignore-installed --upgrade  https://githu
 
 
 
-anaconda3/envs/py36c/bin/pip install -e /home/ubuntu/aagit/aapackage/
+anaconda3/envs/py36c/bin/pip install -e ${HOME}/aagit/aapackage/
 
 
 
