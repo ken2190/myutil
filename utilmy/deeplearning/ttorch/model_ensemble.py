@@ -106,7 +106,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
-
+import torchvision
+from torchvision import transforms, datasets, models
 #############################################################################################
 from utilmy import log, log2
 
@@ -127,7 +128,7 @@ def test_all():
     test2a()
     test2b()
     test2c()
-
+    test2d()
 
 def test1():    
     """     
@@ -172,11 +173,11 @@ def test1():
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'modelA1'
-    ARG.modelA.nn_model    = None        
+    ARG.modelA.nn_model      = None        
     ARG.modelA.architect     = [ 5, 100, 16 ]
     ARG.modelA.dataset       = Box()
     ARG.modelA.nn_model      = None
-    ARG.modelA.layer_emb_id          = ""
+    ARG.modelA.layer_emb_id  = ""
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
     modelA = modelA_create(ARG.modelA)
@@ -184,12 +185,12 @@ def test1():
 
     ### modelB  ########################################################
     ARG.modelB               = Box()   
-    ARG.modelB.name         = 'modelB1'
-    ARG.modelB.nn_model    = None
+    ARG.modelB.name          = 'modelB1'
+    ARG.modelB.nn_model      = None
     ARG.modelB.architect     = [5,100,16]
     ARG.modelB.dataset       = Box()
     ARG.modelB.nn_model      = None
-    ARG.modelB.layer_emb_id          = ""
+    ARG.modelB.layer_emb_id  = ""
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
     modelB = modelB_create(ARG.modelB )
@@ -362,7 +363,6 @@ def test2b():
         return (trainx, trainy,validx,validy,testx,testy)
 
     #### SEPARATE the models completetly, and create duplicate
-    import torchvision.models as models
     ### modelA  ########################################################
     model_ft = models.resnet18(pretrained=True)
     embA_dim = model_ft.fc.in_features  ###
@@ -370,7 +370,7 @@ def test2b():
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'resnet18'
     ARG.modelA.nn_model      = model_ft
-    ARG.modelA.layer_emb_id          = 'fc'
+    ARG.modelA.layer_emb_id  = 'fc'
     ARG.modelA.architect     = [ embA_dim]  ### head s
     ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
@@ -385,7 +385,7 @@ def test2b():
     ARG.modelB               = Box()   
     ARG.modelB.name          = 'resnet50'
     ARG.modelB.nn_model      = model_ft
-    ARG.modelB.layer_emb_id          = 'fc'
+    ARG.modelB.layer_emb_id  = 'fc'
     ARG.modelB.architect     = [embB_dim ]   ### head size
     ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
@@ -406,7 +406,6 @@ def test2b():
     ARG.merge_model.train_config  = train_config
     model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
 
-
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
     # prepro_dataset = modelB_create.prepro_dataset
@@ -424,7 +423,6 @@ def test2c():
     """     
     """    
     from box import Box ; from copy import deepcopy
-    import torchvision.models as models
 
     ARG = Box({
         'MODE'   : 'mode1',
@@ -541,6 +539,142 @@ def test2c():
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
     inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+def test2d():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+####################################################################
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+    
+    def load_DataFrame():
+        return df  
+
+    ##################################################################
+    train_config                     = Box({})
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config                           = Box({})
+        train_config.LR                        = 0.001
+        train_config.SEED                      = 42
+        train_config.DEVICE                    = 'cpu'
+        train_config.BATCH_SIZE                = 64
+        train_config.EPOCHS                    = 1
+        train_config.EARLY_STOPPING_THLD       = 10
+        train_config.VALID_FREQ                = 1
+        train_config.SAVE_FILENAME             = './model.pt'
+        train_config.TRAIN_RATIO               = 0.7
+        train_config.VAL_RATIO                 = 0.2
+        train_config.TEST_RATIO                = 0.1
+
+    def test_dataset_f_mnist(samples=100):
+        """function test_dataset_f_mnist
+        """
+        # Generate the transformations
+        train_list_transforms = [transforms.ToTensor(),transforms.Lambda(lambda x: x.repeat(3, 1, 1))]
+        train_dataset = datasets.FashionMNIST(root="data",train=True,
+                                              transform=transforms.Compose(train_list_transforms),download=True)
+        
+        #sampling the requred no. of samples from dataset 
+        dataset = torch.utils.data.Subset(train_dataset, np.arange(samples))
+        data_smpls    = []
+        trgt_smpls    = []
+        for data, targets in dataset:
+            data_smpls.append(data)
+            trgt_smpls.append(targets)
+
+        #Converting list to tensor format
+        data_smpls,trgt_smpl = torch.stack(data_smpls),torch.Tensor(trgt_smpls) 
+
+        train_ratio = train_config.TRAIN_RATIO
+        test_ratio  = train_config.TEST_RATIO
+        val_ratio   = train_config.VAL_RATIO
+        
+        train_X, test_X, train_y, test_y = train_test_split(data_smpls,  trgt_smpl,  test_size=1 - train_ratio)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio))
+        return (train_X, train_y, valid_X, valid_y, test_X , test_y)
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        train_X ,train_y,valid_X ,valid_y,test_X, test_y = test_dataset_f_mnist(samples=100)
+        return train_X ,train_y,valid_X ,valid_y,test_X,test_y
+
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    model_ft = models.resnet18(pretrained=True)
+    embA_dim = model_ft.fc.in_features  ###
+
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet18'
+    ARG.modelA.nn_model      = model_ft
+    ARG.modelA.layer_emb_id  = 'fc'
+    ARG.modelA.architect     = [ embA_dim]  ### head s
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+    
+    ### modelB  ########################################################
+    model_ft = models.resnet50(pretrained=True)
+    embB_dim = int(model_ft.fc.in_features)
+
+    ARG.modelB               = Box()   
+    ARG.modelB.name          = 'resnet50'
+    ARG.modelB.nn_model      = model_ft
+    ARG.modelB.layer_emb_id  = 'fc'
+    ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+    # ### modelC  ########################################################
+    embC_dim                 = 0
+    model_ft                 = models.resnet152(pretrained=True)
+    embC_dim                 = model_ft.fc.in_features
+    ARG.modelC               = Box()   
+    ARG.modelC.name          = 'resnet152'
+    ARG.modelC.nn_model      = model_ft
+    ARG.modelC.layer_emb_id  = 'fc'
+    ARG.modelC.architect     = [ embC_dim ]   ### head size
+    ARG.modelC.dataset       = Box()
+    ARG.modelC.dataset.dirin = "/"
+    ARG.modelC.dataset.coly  = 'ytarget'
+    modelC = modelC_create(ARG.modelC )
+
+
+    ### merge_model  ###################################################
+    ### EXPLICIT DEPENDENCY  : because it's merge
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=modelC)
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt')
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((train_config.BATCH_SIZE,3,28,28)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
 
@@ -807,8 +941,6 @@ class MergeModel_create(BaseModel):
                 embA = torch_norm_l2(embA)
                 embV.append(embA)
 
-
-
                 if self.modelB is not None:
                    embB = self.modelB_net.get_embedding(x)
                    embB = torch_norm_l2(embB)
@@ -819,8 +951,6 @@ class MergeModel_create(BaseModel):
                    embC = self.modelC_net.get_embedding(x)                
                    embC = torch_norm_l2(embC)
                    embV.append(embC)                    
-
-
 
                 ###### Concatenerate   #############################
                 if self.merge == 'cat_combine':
@@ -882,7 +1012,6 @@ class MergeModel_create(BaseModel):
         for param in self.modelA.net.parameters():
             param.requires_grad = True
 
-
         if(self.modelB is not None):
             for param in self.modelB.net.parameters():
                 param.requires_grad = True
@@ -890,7 +1019,6 @@ class MergeModel_create(BaseModel):
         if(self.modelC is not None):
             for param in self.modelC.net.parameters():
                 param.requires_grad = False
-
 
     def create_loss(self,):
         """ Simple Head task loss
@@ -988,7 +1116,7 @@ class modelA_create(BaseModel):
         nn_model_base = self.arg.nn_model
         layer_id      = self.arg.layer_emb_id
 
-        if not modelA_nn: return modelA_nn
+        #if not modelA_nn: return modelA_nn
 
         ### Default version
         class modelA(torch.nn.Module):
@@ -1220,7 +1348,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     if train_X is not None :
         train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
-        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True,drop_last=True)
         log("data size", len(train_X) )
 
     if valid_X is not None :
@@ -1280,8 +1408,7 @@ def torch_norm_l2(X):
     X_norm = X / X_norm
     return X_norm
 
-
 ###############################################################################################################
-
 if __name__ == "__main__":
     import fire
+    fire.Fire()
