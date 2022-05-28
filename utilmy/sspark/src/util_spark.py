@@ -123,6 +123,7 @@ def test_all():
     test2()
 
 
+
 def test1():
     ss="""
     spark.master                       : 'local[1]'   # 'spark://virtual:7077'
@@ -156,6 +157,7 @@ def test1():
     spark_config_check()
 
 
+
 def test2():
     sparksession = spark_get_session_local()
     df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
@@ -174,8 +176,6 @@ def run_cli_sspark():
 
 ################################################################################################
 ###### TODO : list of function to be completed later ###########################################
-
-
 def hdfs_dir_stats(dirin, recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
