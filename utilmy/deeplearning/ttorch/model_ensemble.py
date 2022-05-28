@@ -34,19 +34,29 @@ Code::
 
         #### SEPARATE the models completetly, and create duplicate
         ### modelA  ########################################################
+        model_ft = models.resnet18(pretrained=True)
+        embA_dim = int(model_ft.fc.in_features)  ###
+
         ARG.modelA               = Box()   #MODEL_TASK
-        ARG.modelA.name          = 'modelA1'
-        ARG.modelA.architect     = [ 5, 100, 16 ]
+        ARG.modelA.name          = 'resnet18'
+        ARG.modelA.nn_model      = model_ft
+        ARG.modelA.layer_emb_id          = 'fc'
+        ARG.modelA.architect     = [ embA_dim]  ### head s
         ARG.modelA.dataset       = Box()
         ARG.modelA.dataset.dirin = "/"
         ARG.modelA.dataset.coly  = 'ytarget'
         modelA = modelA_create(ARG.modelA)
-
+        
 
         ### modelB  ########################################################
-        ARG.modelB               = Box()   #MODEL_RULE
-        ARG.modelB.name         = 'modelB1'
-        ARG.modelB.architect     = [5,100,16]
+        model_ft = models.resnet50(pretrained=True)
+        embB_dim = int(model_ft.fc.in_features)
+
+        ARG.modelB               = Box()   
+        ARG.modelB.name          = 'resnet50'
+        ARG.modelB.nn_model      = model_ft
+        ARG.modelB.layer_emb_id          = 'fc'
+        ARG.modelB.architect     = [embB_dim ]   ### head size
         ARG.modelB.dataset       = Box()
         ARG.modelB.dataset.dirin = "/"
         ARG.modelB.dataset.coly  = 'ytarget'
@@ -96,10 +106,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
-
+import torchvision
+from torchvision import transforms, datasets, models
 #############################################################################################
 from utilmy import log, log2
 
+
+##############################################################################################
 def help():
     """function help        
     """
@@ -110,6 +123,13 @@ def help():
 
 
 ##############################################################################################
+def test_all():
+    test1()
+    test2a()
+    test2b()
+    test2c()
+    test2d()
+
 def test1():    
     """     
     """    
@@ -153,18 +173,24 @@ def test1():
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'modelA1'
+    ARG.modelA.nn_model      = None        
     ARG.modelA.architect     = [ 5, 100, 16 ]
     ARG.modelA.dataset       = Box()
+    ARG.modelA.nn_model      = None
+    ARG.modelA.layer_emb_id  = ""
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
     modelA = modelA_create(ARG.modelA)
 
 
     ### modelB  ########################################################
-    ARG.modelB               = Box()   #MODEL_RULE
-    ARG.modelB.name         = 'modelB1'
+    ARG.modelB               = Box()   
+    ARG.modelB.name          = 'modelB1'
+    ARG.modelB.nn_model      = None
     ARG.modelB.architect     = [5,100,16]
     ARG.modelB.dataset       = Box()
+    ARG.modelB.nn_model      = None
+    ARG.modelB.layer_emb_id  = ""
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
     modelB = modelB_create(ARG.modelB )
@@ -181,8 +207,7 @@ def test1():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
-
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
 
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
@@ -192,11 +217,9 @@ def test1():
 
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
-    inputs = torch.randn((1,5)).to(model.device)
+    inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
-
-
 
 
 def test2a():    
@@ -241,9 +264,11 @@ def test2a():
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'resnet50'
+    ARG.modelA.name          = 'modelA1'
     ARG.modelA.architect     = [ 5, 100, 16 ]
     ARG.modelA.dataset       = Box()
+    ARG.modelA.nn_model      = None
+    ARG.modelA.layer_emb_id          = ""
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
     ARG.modelA.seed          = 42
@@ -251,10 +276,12 @@ def test2a():
 
 
     ### modelB  ########################################################
-    ARG.modelB               = Box()   #MODEL_RULE
-    ARG.modelB.name         = 'resnet18'
+    ARG.modelB               = Box()
+    ARG.modelB.name         = 'modelB1'
     ARG.modelB.architect     = [5,100,16]
     ARG.modelB.dataset       = Box()
+    ARG.modelB.nn_model      = None
+    ARG.modelB.layer_emb_id          = ""
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
     ARG.modelB.seed          = 42
@@ -273,7 +300,7 @@ def test2a():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
 
 
     #### Run Model   ###################################################
@@ -284,10 +311,9 @@ def test2a():
 
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
-    inputs = torch.randn((1,5)).to(model.device)
+    inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
-
 
 
 def test2b():    
@@ -337,7 +363,6 @@ def test2b():
         return (trainx, trainy,validx,validy,testx,testy)
 
     #### SEPARATE the models completetly, and create duplicate
-    import torchvision.models as models
     ### modelA  ########################################################
     model_ft = models.resnet18(pretrained=True)
     embA_dim = model_ft.fc.in_features  ###
@@ -345,7 +370,7 @@ def test2b():
     ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'resnet18'
     ARG.modelA.nn_model      = model_ft
-    ARG.modelA.tune          = 'fc'
+    ARG.modelA.layer_emb_id  = 'fc'
     ARG.modelA.architect     = [ embA_dim]  ### head s
     ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
@@ -357,10 +382,10 @@ def test2b():
     model_ft = models.resnet50(pretrained=True)
     embB_dim = model_ft.fc.in_features
 
-    ARG.modelB               = Box()   #MODEL_RULE
+    ARG.modelB               = Box()   
     ARG.modelB.name          = 'resnet50'
     ARG.modelB.nn_model      = model_ft
-    ARG.modelB.tune          = 'fc'
+    ARG.modelB.layer_emb_id  = 'fc'
     ARG.modelB.architect     = [embB_dim ]   ### head size
     ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
@@ -379,8 +404,7 @@ def test2b():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelB=modelB, modelA=modelA)
-
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
 
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
@@ -395,7 +419,264 @@ def test2b():
     print(outputs)
 
 
+def test2c():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
 
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+
+    ####################################################################
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+
+    def load_DataFrame():
+        return df  
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        trainx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        trainy = torch.rand(train_config.BATCH_SIZE)
+        validx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        validy = torch.rand(train_config.BATCH_SIZE)
+        testx = torch.rand(train_config.BATCH_SIZE,3,224,224)
+        testy = torch.rand(train_config.BATCH_SIZE)
+        return (trainx, trainy,validx,validy,testx,testy)
+
+
+    ##################################################################
+    train_config                     = Box({})
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config
+        train_config.LR                  = 0.001
+        train_config.SEED                = 42
+        train_config.DEVICE              = 'cpu'
+        train_config.BATCH_SIZE          = 4
+        train_config.EPOCHS              = 1
+        train_config.EARLY_STOPPING_THLD = 10
+        train_config.VALID_FREQ          = 1
+        train_config.SAVE_FILENAME       = './model.pt'
+        train_config.TRAIN_RATIO         = 0.7
+        train_config.VAL_RATIO           = 0.2
+        train_config.TEST_RATIO          = 0.1
+
+
+    #### SEPARATE the models completetly, and create duplicate
+    
+    ### modelA  ########################################################
+    model_ft = models.resnet18(pretrained=True)
+    embA_dim = int(model_ft.fc.in_features)  ###
+
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet18'
+    ARG.modelA.nn_model      = model_ft
+    ARG.modelA.layer_emb_id          = 'fc'
+    ARG.modelA.architect     = [ embA_dim]  ### head s
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+    
+
+
+    ### modelB  ########################################################
+    model_ft = models.resnet50(pretrained=True)
+    embB_dim = int(model_ft.fc.in_features)
+
+    ARG.modelB               = Box()   
+    ARG.modelB.name          = 'resnet50'
+    ARG.modelB.nn_model      = model_ft
+    ARG.modelB.layer_emb_id          = 'fc'
+    ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+
+    # ### modelC  ########################################################
+    embC_dim                 = 0
+    model_ft                 = models.vgg11(pretrained=True)
+    embC_dim                 = int(model_ft.classifier[-1].in_features)
+    ARG.modelC               = Box()   
+    ARG.modelC.name          = 'resnet50'
+    ARG.modelC.nn_model      = model_ft
+    ARG.modelC.layer_emb_id          = 'fc'
+    ARG.modelC.architect     = [ embC_dim ]   ### head size
+    ARG.modelC.dataset       = Box()
+    ARG.modelC.dataset.dirin = "/"
+    ARG.modelC.dataset.coly  = 'ytarget'
+    modelC = modelC_create(ARG.modelC )
+
+
+
+    ### merge_model  ###################################################
+    ### EXPLICIT DEPENDENCY  : because it's merge
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=modelC)
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt') 
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
+
+def test2d():    
+    """     
+    """    
+    from box import Box ; from copy import deepcopy
+    ARG = Box({
+        'MODE'   : 'mode1',
+        'DATASET': {},
+        'MODEL_INFO' : {},
+    })
+    PARAMS = Box()
+
+####################################################################
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+    
+    def load_DataFrame():
+        return df  
+
+    ##################################################################
+    train_config                     = Box({})
+    if ARG.MODE == 'mode1':
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config                           = Box({})
+        train_config.LR                        = 0.001
+        train_config.SEED                      = 42
+        train_config.DEVICE                    = 'cpu'
+        train_config.BATCH_SIZE                = 64
+        train_config.EPOCHS                    = 1
+        train_config.EARLY_STOPPING_THLD       = 10
+        train_config.VALID_FREQ                = 1
+        train_config.SAVE_FILENAME             = './model.pt'
+        train_config.TRAIN_RATIO               = 0.7
+        train_config.VAL_RATIO                 = 0.2
+        train_config.TEST_RATIO                = 0.1
+
+    def test_dataset_f_mnist(samples=100):
+        """function test_dataset_f_mnist
+        """
+        # Generate the transformations
+        train_list_transforms = [transforms.ToTensor(),transforms.Lambda(lambda x: x.repeat(3, 1, 1))]
+        train_dataset = datasets.FashionMNIST(root="data",train=True,
+                                              transform=transforms.Compose(train_list_transforms),download=True)
+        
+        #sampling the requred no. of samples from dataset 
+        dataset = torch.utils.data.Subset(train_dataset, np.arange(samples))
+        data_smpls    = []
+        trgt_smpls    = []
+        for data, targets in dataset:
+            data_smpls.append(data)
+            trgt_smpls.append(targets)
+
+        #Converting list to tensor format
+        data_smpls,trgt_smpl = torch.stack(data_smpls),torch.Tensor(trgt_smpls) 
+
+        train_ratio = train_config.TRAIN_RATIO
+        test_ratio  = train_config.TEST_RATIO
+        val_ratio   = train_config.VAL_RATIO
+        
+        train_X, test_X, train_y, test_y = train_test_split(data_smpls,  trgt_smpl,  test_size=1 - train_ratio)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio))
+        return (train_X, train_y, valid_X, valid_y, test_X , test_y)
+
+    def prepro_dataset(self,df:pd.DataFrame=None):
+        train_X ,train_y,valid_X ,valid_y,test_X, test_y = test_dataset_f_mnist(samples=100)
+        return train_X ,train_y,valid_X ,valid_y,test_X,test_y
+
+    #### SEPARATE the models completetly, and create duplicate
+    ### modelA  ########################################################
+    model_ft = models.resnet18(pretrained=True)
+    embA_dim = model_ft.fc.in_features  ###
+
+    ARG.modelA               = Box()   #MODEL_TASK
+    ARG.modelA.name          = 'resnet18'
+    ARG.modelA.nn_model      = model_ft
+    ARG.modelA.layer_emb_id  = 'fc'
+    ARG.modelA.architect     = [ embA_dim]  ### head s
+    ARG.modelA.dataset       = Box()
+    ARG.modelA.dataset.dirin = "/"
+    ARG.modelA.dataset.coly  = 'ytarget'
+    modelA = modelA_create(ARG.modelA)
+    
+    ### modelB  ########################################################
+    model_ft = models.resnet50(pretrained=True)
+    embB_dim = int(model_ft.fc.in_features)
+
+    ARG.modelB               = Box()   
+    ARG.modelB.name          = 'resnet50'
+    ARG.modelB.nn_model      = model_ft
+    ARG.modelB.layer_emb_id  = 'fc'
+    ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.dataset       = Box()
+    ARG.modelB.dataset.dirin = "/"
+    ARG.modelB.dataset.coly  = 'ytarget'
+    modelB = modelB_create(ARG.modelB )
+
+    # ### modelC  ########################################################
+    embC_dim                 = 0
+    model_ft                 = models.resnet152(pretrained=True)
+    embC_dim                 = model_ft.fc.in_features
+    ARG.modelC               = Box()   
+    ARG.modelC.name          = 'resnet152'
+    ARG.modelC.nn_model      = model_ft
+    ARG.modelC.layer_emb_id  = 'fc'
+    ARG.modelC.architect     = [ embC_dim ]   ### head size
+    ARG.modelC.dataset       = Box()
+    ARG.modelC.dataset.dirin = "/"
+    ARG.modelC.dataset.coly  = 'ytarget'
+    modelC = modelC_create(ARG.modelC )
+
+
+    ### merge_model  ###################################################
+    ### EXPLICIT DEPENDENCY  : because it's merge
+    ARG.merge_model           = Box()
+    ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
+
+    ARG.merge_model.MERGE = 'cat'
+
+    ARG.merge_model.dataset       = Box()
+    ARG.merge_model.dataset.dirin = "/"
+    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.train_config  = train_config
+    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=modelC)
+
+    #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
+    model.build()
+    model.training(load_DataFrame, prepro_dataset) 
+
+    model.save_weight('ztmp/model_x5.pt')
+    model.load_weights('ztmp/model_x5.pt')
+    inputs = torch.randn((train_config.BATCH_SIZE,3,28,28)).to(model.device)
+    outputs = model.predict(inputs)
+    print(outputs)
 
 
 
@@ -421,8 +702,27 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
+class model_template_MLP(torch.nn.Module):
+    def __init__(self,layers_dim=[20,100,16]):
+        super(modelA, self).__init__()
+        self.layers_dim = layers_dim 
+        self.output_dim = layers_dim[-1]
+        # self.head_task = nn.Sequential()
+        self.head_task = []
+        input_dim = layers_dim[0]
+        for layer_dim in layers_dim[:-1]:
+            self.head_task.append(nn.Linear(input_dim, layer_dim))
+            self.head_task.append(nn.ReLU())
+            input_dim = layer_dim
+        self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
+        self.head_task = nn.Sequential(*self.head_task)
+
+    def forward(self, x,**kwargs):
+        return self.head_task(x)
 
 
+
+##############################################################################################
 class BaseModel(object):
     """This is BaseClass for model create
 
@@ -568,21 +868,18 @@ class BaseModel(object):
         return output 
 
 
-##############################################################################################
 
-
-
-##############################################################################################
 class MergeModel_create(BaseModel):
     """
     """
-    def __init__(self,arg:dict=None, modelA=None, modelB=None):
+    def __init__(self,arg:dict=None, modelA=None, modelB=None, modelC=None):
         """
                       
         """
         super(MergeModel_create,self).__init__(arg)
         self.modelA = modelA_create(arg.modelA)   if modelA is None else (modelA)
         self.modelB = modelB_create(arg.modelB)   if modelB is None else (modelB)
+        self.modelC = modelC
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
@@ -590,16 +887,27 @@ class MergeModel_create(BaseModel):
         layers_dim = self.arg.merge_model.architect.layers_dim
 
         class Modelmerge(torch.nn.Module):
-            def __init__(self,modelB, modelA, merge='cat', layers_dim=None, ):
+            def __init__(self ,modelA=None, modelB=None, modelC=None, merge='cat', layers_dim=None, ):
                 super(Modelmerge, self).__init__()
+                
+                self.modelA = modelA
+                self.modelB = modelB
+                self.modelC = modelC
 
-                #### rule encoder
-                self.modelB_net = copy.deepcopy(modelB.net)
-                self.modelB_net.load_state_dict(modelB.net.state_dict())
+                ###
+                if(modelA is not None):
+                    self.modelA_net = copy.deepcopy(modelA.net)
+                    self.modelA_net.load_state_dict(modelA.net.state_dict())
+                
 
-                ###3 data encoder
-                self.modelA_net = copy.deepcopy(modelA.net)
-                self.modelA_net.load_state_dict(modelA.net.state_dict())
+                if(modelB is not None):
+                    self.modelB_net = copy.deepcopy(modelB.net)
+                    self.modelB_net.load_state_dict(modelB.net.state_dict())
+
+                ###
+                if(modelC is not None):
+                    self.modelC_net = copy.deepcopy(modelC.net)
+                    self.modelC_net.load_state_dict(modelC.net.state_dict())
 
                 ##### Check Input Dims are OK 
                 ### assert self.modelA_net =               
@@ -628,37 +936,48 @@ class MergeModel_create(BaseModel):
                 scale = kw.get('scale',1)
         
                 ## with torch.no_grad():
-                embA = self.modelA_net.get_embedding(x)                
-                embB = self.modelB_net.get_embedding(x)                
-
-                ##### L2 normalize
+                embV = []
+                embA = self.modelA_net.get_embedding(x)
                 embA = torch_norm_l2(embA)
-                embB = torch_norm_l2(embB)
+                embV.append(embA)
 
-                ###### Concatenerate
+                if self.modelB is not None:
+                   embB = self.modelB_net.get_embedding(x)
+                   embB = torch_norm_l2(embB)
+                   embV.append(embB)
+
+
+                if self.modelC is not None:
+                   embC = self.modelC_net.get_embedding(x)                
+                   embC = torch_norm_l2(embC)
+                   embV.append(embC)                    
+
+                ###### Concatenerate   #############################
                 if self.merge == 'cat_combine':
                     z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
 
                 elif self.merge == 'cat':
                     ### May need scale 
-                    z = torch.cat((embB, embA), dim=-1)
+                    z = torch.cat(embV, dim=-1)
                 return self.head_task(z)    # predict absolute values
-
 
             def get_embedding(self, x,**kw):
                  return self.forward
 
-        return Modelmerge(self.modelB, self.modelA, self.merge, layers_dim, )
+        return Modelmerge(self.modelA, self.modelB, self.modelC, self.merge, layers_dim)
 
 
     def build(self):
         # super(MergeModel_create,self).build()
+        log("modelA:")
+        self.modelA.build()
+
         log("modelB:")
         self.modelB.build()
 
-        log("modelA:")
-        self.modelA.build()
-        
+        log("modelC:")
+        self.modelC.build() if self.modelC is not None else None
+
         log("MergeModel:")
         self.net       = self.create_model().to(self.device)
         self.loss_calc = self.create_loss()#.to(self.device)
@@ -680,17 +999,26 @@ class MergeModel_create(BaseModel):
         for param in self.modelA.net.parameters():
             param.requires_grad = False
 
-        for param in self.modelB.net.parameters():
-            param.requires_grad = False
+        if(self.modelB is not None):
+            for param in self.modelB.net.parameters():
+                param.requires_grad = False
+
+        if(self.modelC is not None):
+            for param in self.modelC.net.parameters():
+                param.requires_grad = False
 
 
     def unfreeze_all(self,):
         for param in self.modelA.net.parameters():
             param.requires_grad = True
 
-        for param in self.modelB.net.parameters():
-            param.requires_grad = True
+        if(self.modelB is not None):
+            for param in self.modelB.net.parameters():
+                param.requires_grad = True
 
+        if(self.modelC is not None):
+            for param in self.modelC.net.parameters():
+                param.requires_grad = False
 
     def create_loss(self,):
         """ Simple Head task loss
@@ -776,6 +1104,65 @@ class MergeModel_create(BaseModel):
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
 
 
+class modelA_create(BaseModel):
+    """ modelA
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self, modelA_nn:torch.nn.Module=None):
+        super(modelA_create,self).create_model()
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        layer_id      = self.arg.layer_emb_id
+
+        #if not modelA_nn: return modelA_nn
+
+        ### Default version
+        class modelA(torch.nn.Module):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  ):   
+                super(modelA, self).__init__()
+                self.head_task = []
+                self.layer_id  = layer_id  ##flag meaning ????  layer 
+
+                ##### Pre-trained model   #########################################
+                if len(self.layer_id) !=0 :
+                    self.nn_model_base = nn_model_base
+                    #setattr(self.nn_model_base, self.layer_id, self.head_task)  #### head 
+                    self.head_task = self.nn_model_base
+                    return 
+
+                ###### Normal MLP Head   #########################################
+                self.layers_dim = layers_dim 
+                self.output_dim = layers_dim[-1]
+                # self.head_task = nn.Sequential()
+
+                input_dim = layers_dim[0]
+                for layer_dim in layers_dim[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                self.head_task = nn.Sequential(*self.head_task)
+
+
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
+
+
+            def get_embedding(self, x,**kwargs):
+                layer_l2= model_getlayer(self.head_task, pos_layer=-2)
+                embA = self.forward(x)
+                embA = layer_l2.output.squeeze()
+                return embA
+
+        return modelA(layers_dim, nn_model_base, layer_id)
+
+    def create_loss(self, loss_fun=None) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        if not loss_fun : loss_fun
+        return torch.nn.BCELoss()
+
 
 class modelB_create(BaseModel):
     """ modelB Creatio 
@@ -788,24 +1175,21 @@ class modelB_create(BaseModel):
         super(modelB_create,self).create_model()
         layers_dim    = self.arg.architect
         nn_model_base = self.arg.nn_model
-        tune_l        = self.arg.tune
+        layer_id        = self.arg.layer_emb_id
         
         class modelB(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  )   :
                 super(modelB, self).__init__()                
                 self.head_task = [None]
-                self.tune_l    = tune_l
+                self.layer_id    = layer_id
 
                 ##### Pre-trained model   #########################################
-                if len(self.tune_l) !=0 :
+                if len(self.layer_id) !=0 :
                     self.nn_model_base = nn_model_base
-
                     #### Adding head task on top of 
-                    ## setattr(self.nn_model_base, self.tune_l, self.head_task)
-
+                    ## setattr(self.nn_model_base, self.layer_id, self.head_task)
                     self.head_task = self.nn_model_base
                     return 
-
 
                 ###### Normal MLP Head   #########################################
                 self.head_task = []
@@ -819,62 +1203,56 @@ class modelB_create(BaseModel):
                     input_dim = layer_dim
                 self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
                 self.head_task = nn.Sequential(*self.head_task)
-                
-
 
             def forward(self, x,**kwargs):
                 return self.head_task(x)
 
             def get_embedding(self,x, **kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
-                emb = self.forward(x)
-                emb = layer_l2.output.squeeze()
-                return emb
+                embB = self.forward(x)
+                embB = layer_l2.output.squeeze()
+                return embB
                 #self.foward(x) # bs x c x h x w
-                            
-
-        return modelB(layers_dim, nn_model_base, tune_l )
+        return modelB(layers_dim, nn_model_base, layer_id )
         
-
 
     def create_loss(self) -> torch.nn.Module:
         super(modelB_create,self).create_loss()
         return torch.nn.BCELoss()
 
 
-
-class modelA_create(BaseModel):
-    """ modelA
+class modelC_create(BaseModel):
+    """ modelC Creatio 
     """
     def __init__(self,arg):
-        super(modelA_create,self).__init__(arg)
+        super(modelC_create,self).__init__(arg)
+        self.nn_model_base = arg.nn_model
 
     def create_model(self):
-        super(modelA_create,self).create_model()
+        super(modelC_create,self).create_model()
         layers_dim    = self.arg.architect
         nn_model_base = self.arg.nn_model
-        tune_l        = self.arg.tune
-
-        class modelA(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, tune_l=0  )   :
-                super(modelA, self).__init__()
-                self.head_task = []
-                self.tune_l    = tune_l
-
+        layer_id        = self.arg.layer_emb_id
+        
+        class modelC(torch.nn.Module):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  )   :
+                super(modelC, self).__init__()                
+                self.head_task = [None]
+                self.layer_id    = layer_id
 
                 ##### Pre-trained model   #########################################
-                if len(self.tune_l) !=0 :
+                if len(self.layer_id) !=0 :
                     self.nn_model_base = nn_model_base
-                    #setattr(self.nn_model_base, self.tune_l, self.head_task)
+                    #### Adding head task on top of 
+                    ## setattr(self.nn_model_base, self.layer_id, self.head_task)
                     self.head_task = self.nn_model_base
                     return 
 
-
                 ###### Normal MLP Head   #########################################
+                self.head_task = []
                 self.layers_dim = layers_dim 
                 self.output_dim = layers_dim[-1]
                 # self.head_task = nn.Sequential()
-
                 input_dim = layers_dim[0]
                 for layer_dim in layers_dim[:-1]:
                     self.head_task.append(nn.Linear(input_dim, layer_dim))
@@ -883,25 +1261,24 @@ class modelA_create(BaseModel):
                 self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
                 self.head_task = nn.Sequential(*self.head_task)
 
-
-
             def forward(self, x,**kwargs):
                 return self.head_task(x)
 
-            def get_embedding(self, x,**kwargs):
+            def get_embedding(self,x, **kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
-                emb = self.forward(x)
-                emb = layer_l2.output.squeeze()
-                return emb
-
-        return modelA(layers_dim, nn_model_base, tune_l)
+                embC = self.forward(x)
+                embC = layer_l2.output.squeeze()
+                return embC
+                #self.foward(x) # bs x c x h x w
+        return modelC(layers_dim, nn_model_base, layer_id )
 
     def create_loss(self) -> torch.nn.Module:
-        super(modelA_create,self).create_loss()
+        super(modelC_create,self).create_loss()
         return torch.nn.BCELoss()
 
 
 
+##############################################################################################
 def get_embedding():
     """
         https://www.kaggle.com/code/sironghuang/understanding-pytorch-hooks/notebook
@@ -933,9 +1310,6 @@ def get_embedding():
     """
     pass
 
-
-
-##############################################################################################
 def device_setup(arg, device='cpu', seed=67):
     """function device_setup        
     """
@@ -956,8 +1330,6 @@ def device_setup(arg, device='cpu', seed=67):
             device = 'cpu'
     return device
 
-
-
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                             device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
     """function dataloader_create
@@ -976,7 +1348,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     if train_X is not None :
         train_X, train_y = torch.tensor(train_X, dtype=torch.float32, device=device), torch.tensor(train_y, dtype=torch.float32, device=device)
-        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True)
+        train_loader = DataLoader(TensorDataset(train_X, train_y), batch_size=batch_size, shuffle=True,drop_last=True)
         log("data size", len(train_X) )
 
     if valid_X is not None :
@@ -990,16 +1362,6 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
         log("data size:", len(test_X) )
 
     return train_loader, valid_loader, test_loader
-
-
-def torch_norm_l2(X):
-    """
-    normalize the torch  tensor X by L2 norm.
-    """
-    X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
-    X_norm = X / X_norm
-    return X_norm
-
 
 def prepro_dataset_custom(df:pd.DataFrame):
     coly = 'cardio'
@@ -1037,35 +1399,16 @@ def prepro_dataset_custom(df:pd.DataFrame):
     train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
     valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
     return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
-    
 
-class model_template_MLP(torch.nn.Module):
-    def __init__(self,layers_dim=[20,100,16]):
-        super(modelA, self).__init__()
-        self.layers_dim = layers_dim 
-        self.output_dim = layers_dim[-1]
-        # self.head_task = nn.Sequential()
-        self.head_task = []
-        input_dim = layers_dim[0]
-        for layer_dim in layers_dim[:-1]:
-            self.head_task.append(nn.Linear(input_dim, layer_dim))
-            self.head_task.append(nn.ReLU())
-            input_dim = layer_dim
-        self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))   #####  Do not use Sigmoid 
-        self.head_task = nn.Sequential(*self.head_task)
-
-    def forward(self, x,**kwargs):
-        return self.head_task(x)
-
-
-
-
-
-
-
+def torch_norm_l2(X):
+    """
+    normalize the torch  tensor X by L2 norm.
+    """
+    X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
+    X_norm = X / X_norm
+    return X_norm
 
 ###############################################################################################################
 if __name__ == "__main__":
     import fire
     fire.Fire()
-
