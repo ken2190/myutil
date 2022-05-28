@@ -1044,25 +1044,25 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     log(flist)
 
     for fi in flist :
-      flag = False
-      with open(fi,'r') as fp:
-        lines = fp.readlines()
+        flag = False
+        with open(fi,'r') as fp:
+            lines = fp.readlines()
 
-      ss = []
-      for li in lines :
-        if txt1 in li :
-          flag = True
-          li = li.replace(txt1, txt2)
-        ss.append(li)
+        ss = []
+        for li in lines :
+            if txt1 in li :
+                flag = True
+                li = li.replace(txt1, txt2)
+            ss.append(li)
 
-      if flag  :
-        log('update', fi)
-        # log(ss)
-        # break
-        if test == 0 :
-          with open(fi, mode='w') as fp :
-             fp.writelines("".join(ss))
-        # break
+        if flag  :
+            log('update', fi)
+            # log(ss)
+            # break
+            if test == 0 :
+                with open(fi, mode='w') as fp :
+                    fp.writelines("".join(ss))
+            # break
 
 
 
