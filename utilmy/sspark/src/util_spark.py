@@ -228,7 +228,7 @@ def hive_get_tablechema(tablename):
     for li in lines :
         if 'col_name' in li : continue
         tmp = []
-        for item in li.split(" "):
+        for item in li.split(" "): # assume li = "id   int   comment '' "
             if item:
                 tmp.append(item)
         col_name = item[0]
