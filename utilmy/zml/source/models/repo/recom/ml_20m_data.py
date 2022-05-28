@@ -45,7 +45,7 @@ First, download the dataset at http://files.grouplens.org/datasets/movielens/ml-
 """
 
 ### change `DATA_DIR` to the location where movielens-20m dataset sits
-DATA_DIR = '/home/ubuntu/data/'
+DATA_DIR = '${HOME}/data/'
 
 import urllib
 import os
@@ -72,7 +72,7 @@ First, download the dataset at http://files.grouplens.org/datasets/movielens/ml-
 """
 
 ### change `DATA_DIR` to the location where movielens-20m dataset sits
-DATA_DIR = '/home/ubuntu/data/ml-20m/'
+DATA_DIR = '${HOME}/data/ml-20m/'
 
 raw_data = pd.read_csv(os.path.join(DATA_DIR, 'ratings.csv'), header=0)
 

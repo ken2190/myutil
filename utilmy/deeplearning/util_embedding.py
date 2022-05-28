@@ -197,7 +197,7 @@ class EmbeddingViz:
         self.coordinate_xy       = pos
 
         if dirout is not None :
-            os.makedirs(dir_out, exist_ok=True)
+            os.makedirs(dirout, exist_ok=True)
             df = pd.DataFrame(pos, columns=['x', 'y'] )
             for ci in [ 'x', 'y' ] :
                df[ ci ] = df[ ci ].astype('float32')

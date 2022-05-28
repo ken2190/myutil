@@ -182,5 +182,5 @@ dependencies:
     - urllib3==1.24.2
     - wcwidth==0.1.7
     - wheel==0.33.1
-prefix: /home/ubuntu/anaconda3/envs/py36d
+prefix: ${HOME}/anaconda3/envs/py36d
 

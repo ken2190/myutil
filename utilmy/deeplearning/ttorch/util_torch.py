@@ -92,32 +92,21 @@ def test1():
 
 
 ###################################################################################################
-def test2):
-    """
-    Args:
-      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
-  
-    """    
-    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
-
-    return dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                                                              batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
-
-
 def test3():
     model = nn.Sequential(nn.Linear(50, 20),
                           nn.Linear(20, 1))
-    train_loader, *_ = test_dataloader_create()
+
+    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
+
+    train_loader, *_  = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
+                            batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
+
     args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
             'dir_modelsave': 'model.pt', 'valid_freq': 1}
     #set_trace()
     model_train(model, nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
 
-# def test_model_eval():
-#     model = nn.Sequential(nn.Linear(40, 20),
-#                         nn.Linear(20, 2))
-#     dataset_load1 = 
-#     model_evaluation(model, nn.CrossEntropyLoss(), )
+
 
 def test4(dir_checkpoint, torch_model):
     model = model_load(dir_checkpoint, torch_model, doeval=True)
@@ -404,37 +393,39 @@ def model_train(model, loss_calc, optimizer=None, train_loader=None, valid_loade
               counter_early_stopping += 1
 
 
-def model_evaluation(model_eval, loss_task_fun, test_loader, arg, ):
+def model_evaluation(model, loss_task_fun, test_loader, arg, ):
     """function model_evaluation
-    Args:
-        model_eval:   
-        loss_task_func:   
-        arg:   
-        dataset_load1:   
-        dataset_preprocess1:   
-    Returns:
-        utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = ['mean_squared_error', 'mean_absolute_error'], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
-    
-    https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
+    Doc::
+
+        Args:
+            model:
+            loss_task_func:
+            arg:
+            dataset_load1:
+            dataset_preprocess1:
+        Returns:
+            utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = ['mean_squared_error', 'mean_absolute_error'], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
+
+        https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
     """
 
 
-    import utilmy.deeplearning.util_dl.metrics_eval
+    from utilmy.deeplearning.util_dl import metrics_eval
     dfmetric = pd.DataFrame()
 
-    model_eval.eval()
+    model.eval()
     with torch.no_grad():
-      for te_x, te_y in test_loader:
-        te_y = te_y.unsqueeze(-1)
+      for Xval, yval in test_loader:
+        yval = yval.unsqueeze(-1)
 
-      ypred         = model(te_x)
+      ypred         = model(Xval)
 
-      loss_val = loss_task_fun(ypred, te_y.view(ypred.size())).item()
-      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(), 
+      loss_val = loss_task_fun(ypred, yval.view(ypred.size())).item()
+      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(),
                             metric_list= [ 'accuracy_score' ])
       
 
-      dfmetric = pd.concat(dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']))
+      dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']) ))
     return dfmetric
 
 
@@ -800,6 +791,101 @@ def test_dataset_classification_fake(nrows=500):
 
     pars = { 'colnum': colnum, 'colcat': colcat, "coly": coly }
     return df, pars
+
+
+def test_dataset_fashion_mnist(samples=100, random_crop=False, random_erasing=False, 
+                            convert_to_RGB=False,val_set_ratio=0.2, test_set_ratio=0.1,num_workers=1):
+    """function test_dataset_f_mnist
+    """
+    # Generate the transformations
+    train_list_transforms = [
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,)),
+    ]
+
+    test_list_transforms = [
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,)),
+    ]
+
+    # Add random cropping to the list of transformations
+    if random_crop:
+        train_list_transforms.insert(0, transforms.RandomCrop(28, padding=4))
+
+    # Add random erasing to the list of transformations
+    if random_erasing:
+        train_list_transforms.append(
+            transforms.RandomErasing(
+                p=0.5,
+                scale=(0.02, 0.33),
+                ratio=(0.3, 3.3),
+                value="random",
+                inplace=False,
+            )
+        )
+    #creating RGB channels
+    if convert_to_RGB:
+        convert_to_RGB = transforms.Lambda(lambda x: x.repeat(3, 1, 1))
+        train_list_transforms.append(convert_to_RGB)
+        test_list_transforms.append(convert_to_RGB)
+
+    # Train Data
+    train_transform = transforms.Compose(train_list_transforms)
+
+    train_dataset = datasets.FashionMNIST(
+                    root="data", train=True, transform=train_transform, download=True)
+
+    # Define the size of the training set and the validation set
+    train_set_length = int(  len(train_dataset) * (100 - val_set_ratio*100) / 100)
+    val_set_length = int(len(train_dataset) - train_set_length)
+    
+    train_set, val_set = torch.utils.data.random_split(
+        train_dataset, (train_set_length, val_set_length)
+    )
+    
+    #Custom data samples for ensemble model training
+    train_set_smpls = int(samples - (val_set_ratio*100))
+    val_set_smpls   = int(samples - train_set_smpls)
+    test_set_smpls  = int(samples*test_set_ratio)
+
+    #train dataset loader
+    train_loader = torch.utils.data.DataLoader(
+        train_set,
+        batch_size=train_set_smpls,
+        shuffle=True,
+        num_workers=num_workers,
+    )
+
+    #validation dataset dataloader
+    val_loader = torch.utils.data.DataLoader(
+                    val_set, batch_size=val_set_smpls, shuffle=True, num_workers=1,
+                )
+
+
+    # Test Data
+    test_transform = transforms.Compose(test_list_transforms)
+
+    test_set = datasets.FashionMNIST(
+        root="./data", train=False, transform=test_transform, download=True
+    )
+
+    test_loader = torch.utils.data.DataLoader(
+        test_set,
+        batch_size=test_set_smpls,
+        shuffle=False,
+        num_workers=num_workers,
+    )
+
+    #Dataloader iterators, provides number of samples
+    #configured in respective dataloaders
+    #returns tensors of size- (samples*3*28*28)
+    train_X, train_y = next(iter(train_loader))
+    valid_X, valid_y = next(iter(val_loader))
+    test_X, test_y = next(iter(test_loader))
+
+    return train_X, train_y,   valid_X, valid_y,   test_X , test_y
+
 
 
 

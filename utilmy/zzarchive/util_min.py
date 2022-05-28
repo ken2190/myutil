@@ -7,11 +7,11 @@ import os, sys, gc, numpy as np
 #####################################################################################
 import argparse, os, sys,  platform, random, arrow
 CFG   = {'plat': sys.platform[:3]+"-"+os.path.expanduser('~').split("\\")[-1].split("/")[-1], "ver": sys.version_info.major}
-DIRCWD= { 'win-asus1': 'D:/_devs/Python01/project27/', 'win-unerry': 'G:/_devs/project27/' , 'lin-noel': '/home/noel/project27/', 'lin-ubuntu': '/home/ubuntu/project27/' }[CFG['plat']]
+DIRCWD= { 'win-asus1': 'D:/_devs/Python01/project27/', 'win-unerry': 'G:/_devs/project27/' , 'lin-noel': '/home/noel/project27/', 'lin-ubuntu': '${HOME}/project27/' }[CFG['plat']]
 os.chdir(DIRCWD)
 
 __path__= DIRCWD +'/aapackage/'
-EC2CWD=   '/home/ubuntu/notebook/'
+EC2CWD=   '${HOME}/notebook/'
 ####################################################################################################
 
 

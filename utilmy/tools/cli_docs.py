@@ -1053,7 +1053,7 @@ def ztest():
     Returns:
         
     """
-    # DIRCWD = "/home/ubuntu/ztest/"
+    # DIRCWD = "${HOME}/ztest/"
     print(os.getcwd())
     os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
@@ -1098,7 +1098,7 @@ def ztest_mod(mod):
     Returns:
         
     """
-    DIRCWD = "/home/ubuntu/ztest/"
+    DIRCWD = "${HOME}/ztest/"
     
     log("### Unit Tests")
     # os_folder_create("/ztest")
