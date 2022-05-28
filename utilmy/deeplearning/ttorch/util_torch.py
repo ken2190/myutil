@@ -858,6 +858,101 @@ def test_dataset_classification_fake(nrows=500):
     return df, pars
 
 
+def test_dataset_fashion_mnist(samples=100, random_crop=False, random_erasing=False, 
+                            convert_to_RGB=False,val_set_ratio=0.2, test_set_ratio=0.1,num_workers=1):
+    """function test_dataset_f_mnist
+    """
+    # Generate the transformations
+    train_list_transforms = [
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,)),
+    ]
+
+    test_list_transforms = [
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,)),
+    ]
+
+    # Add random cropping to the list of transformations
+    if random_crop:
+        train_list_transforms.insert(0, transforms.RandomCrop(28, padding=4))
+
+    # Add random erasing to the list of transformations
+    if random_erasing:
+        train_list_transforms.append(
+            transforms.RandomErasing(
+                p=0.5,
+                scale=(0.02, 0.33),
+                ratio=(0.3, 3.3),
+                value="random",
+                inplace=False,
+            )
+        )
+    #creating RGB channels
+    if convert_to_RGB:
+        convert_to_RGB = transforms.Lambda(lambda x: x.repeat(3, 1, 1))
+        train_list_transforms.append(convert_to_RGB)
+        test_list_transforms.append(convert_to_RGB)
+
+    # Train Data
+    train_transform = transforms.Compose(train_list_transforms)
+
+    train_dataset = datasets.FashionMNIST(
+                    root="data", train=True, transform=train_transform, download=True)
+
+    # Define the size of the training set and the validation set
+    train_set_length = int(  len(train_dataset) * (100 - val_set_ratio*100) / 100)
+    val_set_length = int(len(train_dataset) - train_set_length)
+    
+    train_set, val_set = torch.utils.data.random_split(
+        train_dataset, (train_set_length, val_set_length)
+    )
+    
+    #Custom data samples for ensemble model training
+    train_set_smpls = int(samples - (val_set_ratio*100))
+    val_set_smpls   = int(samples - train_set_smpls)
+    test_set_smpls  = int(samples*test_set_ratio)
+
+    #train dataset loader
+    train_loader = torch.utils.data.DataLoader(
+        train_set,
+        batch_size=train_set_smpls,
+        shuffle=True,
+        num_workers=num_workers,
+    )
+
+    #validation dataset dataloader
+    val_loader = torch.utils.data.DataLoader(
+                    val_set, batch_size=val_set_smpls, shuffle=True, num_workers=1,
+                )
+
+
+    # Test Data
+    test_transform = transforms.Compose(test_list_transforms)
+
+    test_set = datasets.FashionMNIST(
+        root="./data", train=False, transform=test_transform, download=True
+    )
+
+    test_loader = torch.utils.data.DataLoader(
+        test_set,
+        batch_size=test_set_smpls,
+        shuffle=False,
+        num_workers=num_workers,
+    )
+
+    #Dataloader iterators, provides number of samples
+    #configured in respective dataloaders
+    #returns tensors of size- (samples*3*28*28)
+    train_X, train_y = next(iter(train_loader))
+    valid_X, valid_y = next(iter(val_loader))
+    test_X, test_y = next(iter(test_loader))
+
+    return train_X, train_y,   valid_X, valid_y,   test_X , test_y
+
+
+
 
 ###################################################################################################
 def load_partially_compatible(model,device='cpu'):
