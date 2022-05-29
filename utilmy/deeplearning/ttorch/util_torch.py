@@ -397,18 +397,17 @@ def model_evaluation(model, loss_task_fun, test_loader, arg, ):
     dfmetric = pd.DataFrame()
 
     model.eval()
+
     with torch.no_grad():
-      for Xval, yval in test_loader:
-        yval = yval.unsqueeze(-1)
+        for Xval, yval in test_loader:
+            yval = yval.unsqueeze(-1)
+            ypred = model(Xval) 
 
-      ypred         = model(Xval)
+            loss_val = loss_task_fun(ypred, yval.view(ypred.size(0))).item() # modified by Abrham 
+            ypred = torch.argmax(ypred, dim=1) # Added by Abrham
 
-      loss_val = loss_task_fun(ypred, yval.view(ypred.size())).item()
-      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(),
-                            metric_list= [ 'accuracy_score' ])
-      
-
-      dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']) ))
+            dfi = metrics_eval(ypred.numpy(), yval.numpy(), metric_list=['accuracy_score']) # modified by Abrham
+            dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame([['loss', loss_val]], columns=['name', 'metric_val'])))
     return dfmetric
 
 
@@ -898,3 +897,63 @@ def gradwalk_run(graph):
         gradwalk(param)
 
 
+###################################################################################################
+def test1():
+    """
+    Args:
+      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
+  
+    """    
+    X, y = sklearn.datasets.make_classification(n_samples=100, n_features=7)
+
+    tr_dl, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
+                             batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
+
+
+def test2():
+    model = nn.Sequential(nn.Linear(50, 20),
+                          nn.Linear(20, 1))
+    
+    X, y = sklearn.datasets.make_classification(n_samples=100, n_features=50)
+    train_loader, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y)
+    
+    args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
+            'dir_modelsave': 'model.pt', 'valid_freq': 1}
+    
+    model_train(model=model, loss_calc=nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
+
+
+
+
+def test3():
+    model = models.resnet50()
+    torch.save({'model_state_dict': model.state_dict()}, 'resnet50_ckpt.pth')
+
+    model = model_load(dir_checkpoint='resnet50_ckpt.pth', torch_model=model, doeval=True)
+
+    model = model_load(dir_checkpoint='resnet50_ckpt.pth', torch_model=model, doeval=False, dotrain=True)
+
+
+def test4():
+    model = nn.Sequential(nn.Linear(40, 20),
+                        nn.Linear(20, 2))
+    
+    X, y = torch.randn(100, 40), torch.randint(0, 2, size=(100,))
+    test_loader = DataLoader(dataset=TensorDataset(X, y), batch_size=16)
+
+    args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
+            'dir_modelsave': 'model.pt', 'valid_freq': 1}
+    
+    model_evaluation(model=model, loss_task_fun=nn.CrossEntropyLoss(), test_loader=test_loader, arg=args)
+
+
+
+def test5():
+    model = models.resnet50()
+    kwargs = {'input_size': (3, 224, 224)}
+    
+    model_summary(model=model, **kwargs)
+
+def test6():
+    model = models.resnet50()
+    model_load_state_dict_with_low_memory(model=model, state_dict=model.state_dict())
