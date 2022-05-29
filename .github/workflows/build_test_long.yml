@@ -101,6 +101,13 @@ jobs:
           python utilmy/sspark/src/util_spark.py test_all
 
 
+
+    - name: utilmy/deeplearning/ttorch/util_torch.py  
+      continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/ttorch/util_torch.py   test_all
+
+
     - name: utilmy/deeplearning/ttorch/model_ensemble.py  
       # continue-on-error: true 
       run: |
@@ -109,7 +116,7 @@ jobs:
 
 
     - name: utilmy/deeplearning/ttorch/  util_model.py
-      # continue-on-error: true 
+      continue-on-error: true 
       run: |
           python utilmy/deeplearning/ttorch/util_model.py     test_all
 
