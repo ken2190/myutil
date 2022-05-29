@@ -46,7 +46,8 @@ def test_all():
     """
     log(MNAME)
     test1()
-    # test2()
+    test2()
+    test3()
 
 
 def test1():
@@ -85,10 +86,8 @@ def test1():
 
 
 ###################################################################################################
-def test1():
+def test2():
     """
-    Args:
-      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
     """    
     X, y = sklearn.datasets.make_classification(n_samples=100, n_features=7)
 
@@ -96,9 +95,7 @@ def test1():
                              batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
 
 
-def test2():
-    model = nn.Sequential(nn.Linear(50, 20),
-                          nn.Linear(20, 1))
+    model = nn.Sequential(nn.Linear(50, 20),      nn.Linear(20, 1))
     
     X, y = sklearn.datasets.make_classification(n_samples=100, n_features=50)
     train_loader, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y)
@@ -133,8 +130,7 @@ def test2():
     model_summary(model=model, **kwargs)
 
 
-
-def test6():
+def test3():
 
 
 
