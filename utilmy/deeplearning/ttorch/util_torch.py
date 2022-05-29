@@ -34,8 +34,7 @@ from utilmy import log, log2, os_module_name
 MNAME = os_module_name(__file__)
 
 def help():
-    """function help        
-    """
+    """function help  """
     from utilmy import help_create
     ss = help_create(MNAME)
     log(ss)
@@ -43,21 +42,16 @@ def help():
 
 #############################################################################################
 def test_all():
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all  
     """
     log(MNAME)
     test1()
-    # test2()
+    test2()
+    test3()
 
 
 def test1():
     """function test2
-    Args:
-    Returns:
-        
     """
     arg = Box({
       "dataurl":  "https://github.com/caravanuden/cardio/raw/master/cardio_train.csv",
@@ -91,69 +85,60 @@ def test1():
     })
 
 
-
-def test12():
+###################################################################################################
+def test2():
     """
-    Args:
-      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
-
-    """
+    """    
     X, y = sklearn.datasets.make_classification(n_samples=100, n_features=7)
 
     tr_dl, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                             batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
+                             batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4) 
 
 
-# def test_model_eval():
-#     model = nn.Sequential(nn.Linear(40, 20),
-#                         nn.Linear(20, 2))
-#     dataset_load1 =
-#     model_evaluation(model, nn.CrossEntropyLoss(), )
+    model = nn.Sequential(nn.Linear(50, 20),      nn.Linear(20, 1))
+    
+    X, y = sklearn.datasets.make_classification(n_samples=100, n_features=50)
+    train_loader, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y)
+    
+    args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
+            'dir_modelsave': 'model.pt', 'valid_freq': 1}
+    
+    model_train(model=model, loss_calc=nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
 
 
+    model = models.resnet50()
+    torch.save({'model_state_dict': model.state_dict()}, 'resnet50_ckpt.pth')
 
-def test3(dir_checkpoint, torch_model):
-    model = model_load(dir_checkpoint, torch_model, doeval=True)
+    model = model_load(dir_checkpoint='resnet50_ckpt.pth', torch_model=model, doeval=True)
 
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == False, "Model expected to be in evaluation mode"
-
-    model = model_load(dir_checkpoint, torch_model, doeval=False, dotrain=True)
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == True, "Model expected to be in training mode"
-
-    print("All tests passed!")
+    model = model_load(dir_checkpoint='resnet50_ckpt.pth', torch_model=model, doeval=False, dotrain=True)
 
 
-def test4():
-    model = nn.Sequential(nn.Linear(50, 20),
-                          nn.Linear(20, 1))
-
-    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
-
-    train_loader, *_  = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                            batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
+    
+    model = nn.Sequential(nn.Linear(40, 20),      nn.Linear(20, 2))
+    X, y = torch.randn(100, 40), torch.randint(0, 2, size=(100,))
+    test_loader = DataLoader(dataset=TensorDataset(X, y), batch_size=16)
 
     args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
             'dir_modelsave': 'model.pt', 'valid_freq': 1}
-    #set_trace()
-    model_train(model, nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
+    
+    model_evaluation(model=model, loss_task_fun=nn.CrossEntropyLoss(), test_loader=test_loader, arg=args)
 
-###################################################################################################
+    model = models.resnet50()
+    kwargs = {'input_size': (3, 224, 224)}
+    
+    model_summary(model=model, **kwargs)
+
+
+def test3():
 
 
 
-def test4(dir_checkpoint, torch_model):
-    model = model_load(dir_checkpoint, torch_model, doeval=True)
 
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == False, "Model expected to be in evaluation mode"
 
-    model = model_load(dir_checkpoint, torch_model, doeval=False, dotrain=True)
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == True, "Model expected to be in training mode"
 
-    print("All tests passed!")
+
+
 
 
 
@@ -449,18 +434,17 @@ def model_evaluation(model, loss_task_fun, test_loader, arg, ):
     dfmetric = pd.DataFrame()
 
     model.eval()
+
     with torch.no_grad():
-      for Xval, yval in test_loader:
-        yval = yval.unsqueeze(-1)
+        for Xval, yval in test_loader:
+            yval = yval.unsqueeze(-1)
+            ypred = model(Xval) 
 
-      ypred         = model(Xval)
+            loss_val = loss_task_fun(ypred, yval.view(ypred.size(0))).item() # modified by Abrham 
+            ypred = torch.argmax(ypred, dim=1) # Added by Abrham
 
-      loss_val = loss_task_fun(ypred, yval.view(ypred.size())).item()
-      dfi      = metrics_eval(ypred.tonumpy(), yval.tonumpy(),
-                            metric_list= [ 'accuracy_score' ])
-      
-
-      dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame(['loss', loss_val], columns=['name', 'metric_val']) ))
+            dfi = metrics_eval(ypred.numpy(), yval.numpy(), metric_list=['accuracy_score']) # modified by Abrham
+            dfmetric = pd.concat((dfmetric, dfi, pd.DataFrame([['loss', loss_val]], columns=['name', 'metric_val'])))
     return dfmetric
 
 
@@ -544,72 +528,6 @@ def model_summary(model, **kw):
         from torchsummary import summary
 
     return summary(model, **kw)
-
-
-###############################################################################################
-########### Custom layer ######################################################################
-class SmeLU(nn.Module):
-    """
-    This class implements the Smooth ReLU (SmeLU) activation function proposed in:
-    https://arxiv.org/pdf/2202.06499.pdf
-
-
-    Example :
-        def main() -> None:
-            # Init figures
-            fig, ax = plt.subplots(1, 1)
-            fig_grad, ax_grad = plt.subplots(1, 1)
-            # Iterate over some beta values
-            for beta in [0.5, 1., 2., 3., 4.]:
-                # Init SemLU
-                smelu: SmeLU = SmeLU(beta=beta)
-                # Make input
-                input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
-                # Get activations
-                output: torch.Tensor = smelu(input)
-                # Compute gradients
-                output.sum().backward()
-                # Plot activation and gradients
-                ax.plot(input.detach(), output.detach(), label=str(beta))
-                ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))
-            # Show legend, title and grid
-            ax.legend()
-            ax_grad.legend()
-            ax.set_title("SemLU")
-            ax_grad.set_title("SemLU gradient")
-            ax.grid()
-            ax_grad.grid()
-            # Show plots
-            plt.show()
-
-    """
-
-    def __init__(self, beta: float = 2.) -> None:
-        """
-        Constructor method.
-        beta (float): Beta value if the SmeLU activation function. Default 2.
-        """
-        # Call super constructor
-        super(SmeLU, self).__init__()
-        # Check beta
-        assert beta >= 0., f"Beta must be equal or larger than zero. beta={beta} given."
-        # Save parameter
-        self.beta: float = beta
-
-    def forward(self, input: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        input (torch.Tensor): Tensor of any shape
-        :return (torch.Tensor): Output activation tensor of the same shape as the input tensor
-        """
-        output: torch.Tensor = torch.where(input >= self.beta, input,
-                                           torch.tensor([0.], device=input.device, dtype=input.dtype))
-        output: torch.Tensor = torch.where(torch.abs(input) <= self.beta,
-                                           ((input + self.beta) ** 2) / (4. * self.beta), output)
-        return output
-
-
-
 
 
 
@@ -1014,5 +932,10 @@ def gradwalk(x, _depth=0):
 def gradwalk_run(graph):
     for name, param in graph.named_parameters():
         gradwalk(param)
+
+
+
+    model = models.resnet50()
+    model_load_state_dict_with_low_memory(model=model, state_dict=model.state_dict())
 
 
