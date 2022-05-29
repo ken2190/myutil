@@ -100,6 +100,11 @@ def test1():
 
 
 
+
+
+
+
+
 ###############################################################################################
 def device_setup( device='cpu', seed=42, arg:dict=None):
     """Setup 'cpu' or 'gpu' for device and seed for torch
