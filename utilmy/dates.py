@@ -17,7 +17,7 @@ def help():
         
     """
     from utilmy import help_create
-    print(  help_create(MNAME) )
+    print(  help_create(__file__) )
 
 
 ####################################################################################################
