@@ -92,68 +92,11 @@ def test1():
 
 
 
-def test12():
-    """
-    Args:
-      phase: The phase of the dataloader to be tested must be one of 'train', 'val', 'test', or 'all'
-
-    """
-    X, y = sklearn.datasets.make_classification(n_samples=100, n_features=7)
-
-    tr_dl, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                             batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
-
-
-# def test_model_eval():
-#     model = nn.Sequential(nn.Linear(40, 20),
-#                         nn.Linear(20, 2))
-#     dataset_load1 =
-#     model_evaluation(model, nn.CrossEntropyLoss(), )
 
 
 
-def test3(dir_checkpoint, torch_model):
-    model = model_load(dir_checkpoint, torch_model, doeval=True)
-
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == False, "Model expected to be in evaluation mode"
-
-    model = model_load(dir_checkpoint, torch_model, doeval=False, dotrain=True)
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == True, "Model expected to be in training mode"
-
-    print("All tests passed!")
 
 
-def test4():
-    model = nn.Sequential(nn.Linear(50, 20),
-                          nn.Linear(20, 1))
-
-    X, y = sklearn.datasets.make_classification(n_samples=1024, n_features=50)
-
-    train_loader, *_  = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
-                            batch_size=64, shuffle=True, device='cpu', batch_size_val=4, batch_size_test=4)
-
-    args = {'model_info': {'simple':None}, 'lr':1e-3, 'epochs':2, 'model_type': 'simple',
-            'dir_modelsave': 'model.pt', 'valid_freq': 1}
-    #set_trace()
-    model_train(model, nn.MSELoss(), train_loader=train_loader, valid_loader=train_loader, arg=args)
-
-###################################################################################################
-
-
-
-def test4(dir_checkpoint, torch_model):
-    model = model_load(dir_checkpoint, torch_model, doeval=True)
-
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == False, "Model expected to be in evaluation mode"
-
-    model = model_load(dir_checkpoint, torch_model, doeval=False, dotrain=True)
-    assert isinstance(model, nn.Module), "Expected model to be a subclass of torch.nn.Module"
-    assert model.training == True, "Model expected to be in training mode"
-
-    print("All tests passed!")
 
 
 
