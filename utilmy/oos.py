@@ -20,7 +20,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = help_create(MNAME) + HELP
+    ss = help_create(__file__) 
     print(ss)
 
 
