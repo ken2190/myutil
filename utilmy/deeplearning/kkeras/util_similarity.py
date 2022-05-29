@@ -18,7 +18,7 @@ def help():
         
     """
     from utilmy import help_create
-    ss = help_create("utilmy.deeplearning.keras.util_similarity") + HELP
+    ss = help_create("utilmy.deeplearning.keras.util_similarity") 
     print(ss)
 
 

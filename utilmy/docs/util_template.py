@@ -259,7 +259,7 @@ from utilmy import log, log2
 def help():
     """function help"""
     from utilmy import help_create
-    print( HELP + help_create(MNAME) )
+    print( HELP + help_create(__file__) )
 
 
 #### BLOCK test  ####################################
