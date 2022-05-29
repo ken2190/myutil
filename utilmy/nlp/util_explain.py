@@ -24,7 +24,7 @@ from utilmy import log, log2
 def help():
     """function help"""
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 

@@ -207,7 +207,7 @@ def help():
                 
     """
     from utilmy import help_create
-    ss = help_create("utilmy.ppolars") + HELP
+    ss = help_create("utilmy.ppolars") 
     print(ss)
 
 
