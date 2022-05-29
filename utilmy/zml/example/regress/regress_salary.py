@@ -20,13 +20,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -91,13 +93,15 @@ cols_input_type_1 = {
 
 ####### y normalization #############################################################   
 def y_norm(y, inverse=True, mode='boxcox'):
-    """function y_norm
-    Args:
-        y:   
-        inverse:   
-        mode:   
-    Returns:
-        
+    """function y_norm.
+    Doc::
+            
+            Args:
+                y:   
+                inverse:   
+                mode:   
+            Returns:
+                
     """
     ## Normalize the input/output
     if mode == 'boxcox':
@@ -129,9 +133,11 @@ def y_norm(y, inverse=True, mode='boxcox'):
 ####################################################################################
 ##### Params########################################################################
 def salary_lightgbm(path_model_out="") :
-    """
-        Huber Loss includes L1  regurarlization
-        We test different features combinaison, default params is optimal
+    """.
+    Doc::
+            
+                Huber Loss includes L1  regurarlization
+                We test different features combinaison, default params is optimal
     """
     data_name     = "salary"
     model_class   = 'LGBMRegressor'
@@ -189,11 +195,13 @@ def salary_lightgbm(path_model_out="") :
 
  
 def salary_elasticnetcv(path_model_out=""):
-    """function salary_elasticnetcv
-    Args:
-        path_model_out:   
-    Returns:
-        
+    """function salary_elasticnetcv.
+    Doc::
+            
+            Args:
+                path_model_out:   
+            Returns:
+                
     """
     global model_name
     model_name        = 'ElasticNetCV'
@@ -245,11 +253,13 @@ def salary_elasticnetcv(path_model_out=""):
 
 
 def salary_bayesian_pyro(path_model_out="") :
-    """function salary_bayesian_pyro
-    Args:
-        path_model_out:   
-    Returns:
-        
+    """function salary_bayesian_pyro.
+    Doc::
+            
+            Args:
+                path_model_out:   
+            Returns:
+                
     """
     global model_name
     model_name        = 'model_bayesian_pyro'
@@ -303,11 +313,13 @@ def salary_bayesian_pyro(path_model_out="") :
 
 
 def salary_glm( path_model_out="") :
-    """function salary_glm
-    Args:
-        path_model_out:   
-    Returns:
-        
+    """function salary_glm.
+    Doc::
+            
+            Args:
+                path_model_out:   
+            Returns:
+                
     """
     global model_name
     model_name        = 'TweedieRegressor'
@@ -374,10 +386,12 @@ from core_run import train
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 

@@ -35,11 +35,13 @@ UNTIL_CLS_DEF = '^(?:(?!class\s+[\w_][\w\d_]*).)*'
 
 
 def _wipe_docstrings_comments(src):
-    """function _wipe_docstrings_comments
-    Args:
-        src:   
-    Returns:
-        
+    """function _wipe_docstrings_comments.
+    Doc::
+            
+            Args:
+                src:   
+            Returns:
+                
     """
 
     for docstring in re.findall('""".*?"""', src, re.MULTILINE | re.DOTALL):
@@ -53,11 +55,13 @@ def _wipe_docstrings_comments(src):
 
 
 def _match_kwarg(signature):
-    """function _match_kwarg
-    Args:
-        signature:   
-    Returns:
-        
+    """function _match_kwarg.
+    Doc::
+            
+            Args:
+                signature:   
+            Returns:
+                
     """
     LOGGER.debug(signature)
     for name, pattern in VAL_PATTERNS:
@@ -84,11 +88,13 @@ FORMAT = u'%(levelname)-9s [%(module)9s:%(lineno)3s - %(funcName)9s]--> %(messag
 
 
 def _match(signature):
-    """function _match
-    Args:
-        signature:   
-    Returns:
-        
+    """function _match.
+    Doc::
+            
+            Args:
+                signature:   
+            Returns:
+                
     """
     # trim whitespaces
     signature = re.sub('^\s+', '', signature)
@@ -137,11 +143,13 @@ def _match(signature):
 
 
 def _parse_arglist(arglist):
-    """function _parse_arglist
-    Args:
-        arglist:   
-    Returns:
-        
+    """function _parse_arglist.
+    Doc::
+            
+            Args:
+                arglist:   
+            Returns:
+                
     """
     args, kwargs = _match(arglist)
 
@@ -159,11 +167,13 @@ def _parse_arglist(arglist):
 
 
 def _extract_functions(src):
-    """function _extract_functions
-    Args:
-        src:   
-    Returns:
-        
+    """function _extract_functions.
+    Doc::
+            
+            Args:
+                src:   
+            Returns:
+                
     """
     defs = re.findall(
         '^def[ \t]+([\w_][\w\d_]*)\((.*?)\)[\s]*:', src, re.MULTILINE | re.DOTALL)
@@ -182,11 +192,13 @@ def _extract_functions(src):
 
 
 def _calc_indent(indent):
-    """function _calc_indent
-    Args:
-        indent:   
-    Returns:
-        
+    """function _calc_indent.
+    Doc::
+            
+            Args:
+                indent:   
+            Returns:
+                
     """
     if config.TAB:
         return indent.count(' ') / config.TAB
@@ -194,11 +206,13 @@ def _calc_indent(indent):
 
 
 def _next_class(src):
-    """function _next_class
-    Args:
-        src:   
-    Returns:
-        
+    """function _next_class.
+    Doc::
+            
+            Args:
+                src:   
+            Returns:
+                
     """
     tmpcls = re.match(CLS_DEF, src, re.MULTILINE | re.DOTALL)
     if not tmpcls:
@@ -217,11 +231,13 @@ def _next_class(src):
 
 
 def _extract_classes(src):
-    """function _extract_classes
-    Args:
-        src:   
-    Returns:
-        
+    """function _extract_classes.
+    Doc::
+            
+            Args:
+                src:   
+            Returns:
+                
     """
     clz = re.findall(CLS_PATTERN, src, re.MULTILINE | re.DOTALL)
 
@@ -276,11 +292,13 @@ def _extract_classes(src):
 
 
 def _analyze_classes(sourcefiles):
-    """function _analyze_classes
-    Args:
-        sourcefiles:   
-    Returns:
-        
+    """function _analyze_classes.
+    Doc::
+            
+            Args:
+                sourcefiles:   
+            Returns:
+                
     """
     results = {}
     for path in sourcefiles:
@@ -303,11 +321,13 @@ def _analyze_classes(sourcefiles):
 
 
 def _analyze_functions(sourcefiles):
-    """function _analyze_functions
-    Args:
-        sourcefiles:   
-    Returns:
-        
+    """function _analyze_functions.
+    Doc::
+            
+            Args:
+                sourcefiles:   
+            Returns:
+                
     """
     results = {}
 
@@ -331,12 +351,14 @@ def _analyze_functions(sourcefiles):
 
 
 def _documentation(classes, functions):
-    """function _documentation
-    Args:
-        classes:   
-        functions:   
-    Returns:
-        
+    """function _documentation.
+    Doc::
+            
+            Args:
+                classes:   
+                functions:   
+            Returns:
+                
     """
     lines = []
 
@@ -406,11 +428,13 @@ def _documentation(classes, functions):
 
 
 def analyze(sourcefiles):
-    """function analyze
-    Args:
-        sourcefiles:   
-    Returns:
-        
+    """function analyze.
+    Doc::
+            
+            Args:
+                sourcefiles:   
+            Returns:
+                
     """
     functions = _analyze_functions(sourcefiles)
     classes = _analyze_classes(sourcefiles)

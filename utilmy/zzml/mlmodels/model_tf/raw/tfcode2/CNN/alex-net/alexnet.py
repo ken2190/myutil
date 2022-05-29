@@ -19,13 +19,15 @@ from train import train
 
 class Alexnet:
     def __init__(self, input_size, output_dimension, learning_rate):
-        """ Alexnet:__init__
-        Args:
-            input_size:     
-            output_dimension:     
-            learning_rate:     
-        Returns:
-           
+        """ Alexnet:__init__.
+        Doc::
+                
+                    Args:
+                        input_size:     
+                        output_dimension:     
+                        learning_rate:     
+                    Returns:
+                       
         """
         self.X = tf.placeholder(tf.float32, (None, input_size, input_size, 3))
         self.Y = tf.placeholder(tf.float32, (None, output_dimension))
@@ -76,11 +78,13 @@ class Alexnet:
 
 
 def unpickle(file):
-    """function unpickle
-    Args:
-        file:   
-    Returns:
-        
+    """function unpickle.
+    Doc::
+            
+            Args:
+                file:   
+            Returns:
+                
     """
     with open(file, "rb") as fo:
         dict = cPickle.load(fo, encoding="latin1")

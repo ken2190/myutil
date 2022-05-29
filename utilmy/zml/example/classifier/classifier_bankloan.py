@@ -20,13 +20,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -90,10 +92,12 @@ cols_input_type_2 = {
 
 ####################################################################################
 def bank_lightgbm():
-    """function bank_lightgbm
-    Args:
-    Returns:
-        
+    """function bank_lightgbm.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
 
     data_name = "bank"  ### in data/input/
@@ -203,10 +207,12 @@ from core_run import train
 ###################################################################################
 ######### Check data ##############################################################
 def check():
-   """function check
-   Args:
-   Returns:
-       
+   """function check.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 

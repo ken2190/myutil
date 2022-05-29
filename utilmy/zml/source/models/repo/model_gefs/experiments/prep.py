@@ -4,11 +4,13 @@ import pandas as pd
 
 # Auxiliary functions
 def get_dummies(data):
-    """function get_dummies
-    Args:
-        data:   
-    Returns:
-        
+    """function get_dummies.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     data = data.copy()
     if isinstance(data, pd.Series):
@@ -20,24 +22,26 @@ def get_dummies(data):
 
 
 def learncats(data, classcol=None, continuous_ids=[]):
-    """
-        Learns the number of categories in each variable and standardizes the data.
-
-        Parameters
-        ----------
-        data: numpy n x m
-            Numpy array comprising n realisations (instances) of m variables.
-        classcol: int
-            The column index of the class variables (if any).
-        continuous_ids: list of ints
-            List containing the indices of known continuous variables. Useful for
-            discrete data like age, which is better modeled as continuous.
-
-        Returns
-        -------
-        ncat: numpy m
-            The number of categories of each variable. One if the variable is
-            continuous.
+    """.
+    Doc::
+            
+                Learns the number of categories in each variable and standardizes the data.
+        
+                Parameters
+                ----------
+                data: numpy n x m
+                    Numpy array comprising n realisations (instances) of m variables.
+                classcol: int
+                    The column index of the class variables (if any).
+                continuous_ids: list of ints
+                    List containing the indices of known continuous variables. Useful for
+                    discrete data like age, which is better modeled as continuous.
+        
+                Returns
+                -------
+                ncat: numpy m
+                    The number of categories of each variable. One if the variable is
+                    continuous.
     """
     data = data.copy()
     ncat = np.ones(data.shape[1])
@@ -53,25 +57,27 @@ def learncats(data, classcol=None, continuous_ids=[]):
 
 
 def get_stats(data, ncat=None):
-    """
-        Compute univariate statistics for continuous variables.
-
-        Parameters
-        ----------
-        data: numpy n x m
-            Numpy array comprising n realisations (instances) of m variables.
-
-        Returns
-        -------
-        data: numpy n x m
-            The normalized data.
-        maxv, minv: numpy m
-            The maximum and minimum values of each variable. One and zero, resp.
-            if the variable is categorical.
-        mean, std: numpy m
-            The mean and standard deviation of the variable. Zero and one, resp.
-            if the variable is categorical.
-
+    """.
+    Doc::
+            
+                Compute univariate statistics for continuous variables.
+        
+                Parameters
+                ----------
+                data: numpy n x m
+                    Numpy array comprising n realisations (instances) of m variables.
+        
+                Returns
+                -------
+                data: numpy n x m
+                    The normalized data.
+                maxv, minv: numpy m
+                    The maximum and minimum values of each variable. One and zero, resp.
+                    if the variable is categorical.
+                mean, std: numpy m
+                    The mean and standard deviation of the variable. Zero and one, resp.
+                    if the variable is categorical.
+        
     """
     data = data.copy()
     maxv = np.ones(data.shape[1])
@@ -100,21 +106,23 @@ def get_stats(data, ncat=None):
 
 
 def normalize_data(data, maxv, minv):
-    """
-        Normalizes the data given the maximum and minimum values of each variable.
-
-        Parameters
-        ----------
-        data: numpy n x m
-            Numpy array comprising n realisations (instances) of m variables.
-        maxv, minv: numpy m
-            The maximum and minimum values of each variable. One and zero, resp.
-            if the variable is categorical.
-
-        Returns
-        -------
-        data: numpy n x m
-            The normalized data.
+    """.
+    Doc::
+            
+                Normalizes the data given the maximum and minimum values of each variable.
+        
+                Parameters
+                ----------
+                data: numpy n x m
+                    Numpy array comprising n realisations (instances) of m variables.
+                maxv, minv: numpy m
+                    The maximum and minimum values of each variable. One and zero, resp.
+                    if the variable is categorical.
+        
+                Returns
+                -------
+                data: numpy n x m
+                    The normalized data.
     """
     data = data.copy()
     for v in range(data.shape[1]):
@@ -124,22 +132,24 @@ def normalize_data(data, maxv, minv):
 
 
 def standardize_data(data, mean, std):
-    """
-        Standardizes the data given the mean and standard deviations values of
-        each variable.
-
-        Parameters
-        ----------
-        data: numpy n x m
-            Numpy array comprising n realisations (instances) of m variables.
-        mean, std: numpy m
-            The mean and standard deviation of the variable. Zero and one, resp.
-            if the variable is categorical.
-
-        Returns
-        -------
-        data: numpy n x m
-            The standardized data.
+    """.
+    Doc::
+            
+                Standardizes the data given the mean and standard deviations values of
+                each variable.
+        
+                Parameters
+                ----------
+                data: numpy n x m
+                    Numpy array comprising n realisations (instances) of m variables.
+                mean, std: numpy m
+                    The mean and standard deviation of the variable. Zero and one, resp.
+                    if the variable is categorical.
+        
+                Returns
+                -------
+                data: numpy n x m
+                    The standardized data.
     """
     data = data.copy()
     for v in range(data.shape[1]):
@@ -151,14 +161,16 @@ def standardize_data(data, mean, std):
 
 
 def is_continuous(data):
-    """
-        Returns true if data was sampled from a continuous variables, and false
-        Otherwise.
-
-        Parameters
-        ----------
-        data: numpy
-            One dimensional array containing the values of one variable.
+    """.
+    Doc::
+            
+                Returns true if data was sampled from a continuous variables, and false
+                Otherwise.
+        
+                Parameters
+                ----------
+                data: numpy
+                    One dimensional array containing the values of one variable.
     """
     observed = data[~np.isnan(data)]  # not consider missing values for this.
     rules = [np.min(observed) < 0,
@@ -171,14 +183,16 @@ def is_continuous(data):
 
 
 def train_test_split(data, ncat, train_ratio=0.7, prep='std'):
-    """function train_test_split
-    Args:
-        data:   
-        ncat:   
-        train_ratio:   
-        prep:   
-    Returns:
-        
+    """function train_test_split.
+    Doc::
+            
+            Args:
+                data:   
+                ncat:   
+                train_ratio:   
+                prep:   
+            Returns:
+                
     """
     assert train_ratio >= 0
     assert train_ratio <= 1
@@ -201,11 +215,13 @@ def train_test_split(data, ncat, train_ratio=0.7, prep='std'):
 
 # Preprocessing functions
 def adult(data):
-    """function adult
-    Args:
-        data:   
-    Returns:
-        
+    """function adult.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['workclass', 'education', 'education-num', 'marital-status', 'occupation',
                'relationship', 'race', 'sex', 'native-country', 'y']
@@ -217,11 +233,13 @@ def adult(data):
 
 
 def australia(data):
-    """function australia
-    Args:
-        data:   
-    Returns:
-        
+    """function australia.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['A1', 'A4', 'A5', 'A6', 'A7', 'A9', 'A10', 'A12', 'A13', 'class']
     cont_cols = ['A2', 'A3', 'A8', 'A11', 'A14', 'A15']
@@ -232,11 +250,13 @@ def australia(data):
 
 
 def bank(data):
-    """function bank
-    Args:
-        data:   
-    Returns:
-        
+    """function bank.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['job', 'marital', 'education', 'default', 'housing', 'loan',
        'contact', 'month', 'day_of_week', 'poutcome', 'y']
@@ -249,11 +269,13 @@ def bank(data):
 
 
 def credit(data):
-    """function credit
-    Args:
-        data:   
-    Returns:
-        
+    """function credit.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['SEX', 'EDUCATION', 'MARRIAGE', 'default payment next month']
     cont_cols = ['LIMIT_BAL', 'AGE', 'PAY_0', 'PAY_2',
@@ -266,11 +288,13 @@ def credit(data):
 
 
 def electricity(data):
-    """function electricity
-    Args:
-        data:   
-    Returns:
-        
+    """function electricity.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['day', 'class']
     cont_cols = ['date', 'period', 'nswprice', 'nswdemand', 'vicprice',
@@ -281,11 +305,13 @@ def electricity(data):
 
 
 def segment(data):
-    """function segment
-    Args:
-        data:   
-    Returns:
-        
+    """function segment.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     data = data.drop(columns=['region.centroid.col', 'region.pixel.count'])
     cat_cols = ['short.line.density.5', 'short.line.density.2', 'class']
@@ -298,11 +324,13 @@ def segment(data):
 
 
 def german(data):
-    """function german
-    Args:
-        data:   
-    Returns:
-        
+    """function german.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = [0, 2, 3, 5, 6, 8, 9, 11, 13, 14, 16, 18, 19, 20]
     cont_cols = [1, 4, 7, 10, 12, 15, 17]
@@ -312,11 +340,13 @@ def german(data):
 
 
 def vowel(data):
-    """function vowel
-    Args:
-        data:   
-    Returns:
-        
+    """function vowel.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['Speaker_Number', 'Sex', 'Class']
     data.loc[:, cat_cols] = get_dummies(data[cat_cols])
@@ -325,11 +355,13 @@ def vowel(data):
 
 
 def cmc(data):
-    """function cmc
-    Args:
-        data:   
-    Returns:
-        
+    """function cmc.
+    Doc::
+            
+            Args:
+                data:   
+            Returns:
+                
     """
     cat_cols = ['Wifes_education', 'Husbands_education', 'Wifes_religion', 'Wifes_now_working%3F',
             'Husbands_occupation', 'Standard-of-living_index', 'Media_exposure', 'Contraceptive_method_used']
@@ -340,11 +372,13 @@ def cmc(data):
 
 
 def get_data(name):
-    """function get_data
-    Args:
-        name:   
-    Returns:
-        
+    """function get_data.
+    Doc::
+            
+            Args:
+                name:   
+            Returns:
+                
     """
     if 'wine' in name:
         data_red = pd.read_csv('../data/winequality_red.csv')

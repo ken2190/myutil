@@ -63,13 +63,15 @@ VERBOSE = False
 #### Model defintion
 class Model(object) :
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None) :
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         ## Empty model for Seaialization
         if model_pars is None and compute_pars is None :
@@ -84,14 +86,16 @@ class Model(object) :
 
 ########################################################################################################################
 def get_params(choice="", data_path="dataset/", config_mode="test", **kw):
-    """function get_params
-    Args:
-        choice:   
-        data_path:   
-        config_mode:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                choice:   
+                data_path:   
+                config_mode:   
+                **kw:   
+            Returns:
+                
     """
     if choice == "json":
        return _config_process(data_path, config_mode=config_mode)
@@ -125,12 +129,14 @@ def get_params(choice="", data_path="dataset/", config_mode="test", **kw):
 
 ########################################################################################################################
 def test(data_path="dataset/", choice=""):
-    """function test
-    Args:
-        data_path:   
-        choice:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                choice:   
+            Returns:
+                
     """
     ### Local test
 

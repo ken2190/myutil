@@ -20,7 +20,7 @@ print("version", version)
 
 
 ##### Requirements ###################################################################
-#with open('install/reqs_image.txt') as fp:
+#with open('install/reqs_image.cmd') as fp:
 #    install_requires = fp.read()
 install_requires = ['pyyaml', 'stdlib_list', 'python-box', 'fire' ]
 
@@ -43,20 +43,42 @@ githash = get_current_githash()
 #####################################################################################
 ss1 = f"""
 
-1000's of One Liner Utilities for 
+1000's of One Liner functions for 
    Visualization
    Data processing
    Data pipelining
    Batching
-   Distributed compute
+   Pytorch
+   Keras
+   Image
+   NLP Transformers
+   Tabular Transformers
+
    
+Stats usage:
+   > 1 million Donwload !
+   https://pepy.tech/project/utilmy
+
+
+   https://pypistats.org/packages/utilmy
+
+
 
 Details:
-https://packagegalaxy.com/python/utilmy
+   https://packagegalaxy.com/python/utilmy
 
 
-Docs/Support:
-https://groups.google.com/g/utilmy
+
+To get access to the docs, 
+please Follow me on Github:
+
+   https://tinyurl.com/2p848smu
+
+
+Then, you will receive invite for the doc here:
+   https://groups.google.com/g/utilmy
+
+
 
 
 Hash:
@@ -89,32 +111,20 @@ entry_points={ 'console_scripts': [
     'templates = utilmy.templates.cli:run_cli',
 
     #### generic
-    'utilmy = utilmy.cli:run_cli',
+    'utilmy = utilmy.cli:run_cli_utilmy',
+
+
+    #### generic for All code
+    'utilmy2 = utilmy.cli:run_all_utilmy2',
+
+    ###  sspark
+    'sspark = utilmy.sspark.src.util_spark:run_cli_sspark',
+
+
+    ###  image
+    'image = utilmy.images.util_image:run_cli',
 
  ] }
-
-"""
-
-from setuptools import setup, find_packages
-
-
-setup(
-    name='xpdtools',
-    version='0.2.0',
-    packages=find_packages(),
-    description='data processing module',
-    zip_safe=False,
-    package_data={'xpdan': ['config/*']},
-    include_package_data=True,
-    entry_points={'console_scripts': 'iq = xpdtools.raw_to_iq:main_cli'}
-)
-
-
-def main_cli(): fire.Fire(main)
-    
-    
-"""
-
 
 
 
@@ -179,9 +189,26 @@ setup(
 
 
 
+def os_bash_append(cmd):
+  """  Append to bashrc
+  """
+  try :
+    fpath = os.path.expanduser("~/.bashrc")
+    with open(fpath, "r") as bashrc:
+        bashrc = "".join( bashrc.readlines())
+
+    #if cmd in bashrc :
+    #    return False   #### Already exist
+
+    with open(fpath, "at") as bashrc:
+        bashrc.write("\n"+ cmd +"\n")
+    return True
+  except Exception as e:
+    print(e)  
+    return False
 
 
-#### Add environemment variables  utilmy
+#### Add environemment variables  utilmy path
 try :
     repopath = os.path.dirname( os.path.abspath(__file__).replace("\\", "/") )  + "/utilmy/"
     if 'win' in sys.platform :
@@ -189,7 +216,7 @@ try :
         os.system(f" setx utilmy='{repopath}/' ")  ### Current session
 
     elif 'linux' in sys.platform :
-        os.system(f""" echo 'export utilmy={repopath}/' >> ~/.bashrc      """)
+        os_bash_append(f"""export utilmy={repopath}/    """)
         os.system(f" export utilmy={repopath}/ ")
         print(' source  ~/.bashrc  ')
 
@@ -197,6 +224,92 @@ try :
 
 except :
     pass
+
+
+
+def os_cmd_to_bashrc(cmd):
+    try :
+        if 'win' in sys.platform :
+            os.system(f""" set  {cmd} """)  ### Any new session
+            os.system(f""" setx {cmd} """)  ### Current session
+
+        elif 'linux' in sys.platform :
+            os_bash_append(f"""{cmd}""")
+            print(' source  ~/.bashrc  ')
+
+    except :
+        pass
+
+
+#### Spark Alias for command line
+# cmd= "alias sspark='python $utilmy/sspark/src/util_spark.py '"
+# os_cmd_to_bashrc(cmd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+alias sspark='python /workspace/myutil/utilmy/sspark/src/util_spark.py'
+
+
+from setuptools import setup, find_packages
+
+
+setup(
+    name='xpdtools',
+    version='0.2.0',
+    packages=find_packages(),
+    description='data processing module',
+    zip_safe=False,
+    package_data={'xpdan': ['config/*']},
+    include_package_data=True,
+    entry_points={'console_scripts': 'iq = xpdtools.raw_to_iq:main_cli'}
+)
+
+
+def main_cli(): fire.Fire(main)
+    
+    
+"""
+
+
+
 
 
 """

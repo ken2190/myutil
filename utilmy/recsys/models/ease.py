@@ -15,30 +15,36 @@ from tqdm import tqdm
 
 class EASE:
     def __init__(self):
-        """ EASE:__init__
-        Args:
-        Returns:
-           
+        """ EASE:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.user_enc = LabelEncoder()
         self.item_enc = LabelEncoder()
 
     def _get_users_and_items(self, df):
-        """ EASE:_get_users_and_items
-        Args:
-            df:     
-        Returns:
-           
+        """ EASE:_get_users_and_items.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         users = self.user_enc.fit_transform(df.loc[:, 'user_id'])
         items = self.item_enc.fit_transform(df.loc[:, 'item_id'])
         return users, items
 
     def fit(self, df, lambda_: float = 0.5, implicit=True):
-        """
-        df: pandas.DataFrame with columns user_id, item_id and (rating)
-        lambda_: l2-regularization term
-        implicit: if True, ratings are ignored and taken as 1, else normalized ratings are used
+        """.
+        Doc::
+                
+                    df: pandas.DataFrame with columns user_id, item_id and (rating)
+                    lambda_: l2-regularization term
+                    implicit: if True, ratings are ignored and taken as 1, else normalized ratings are used
         """
         users, items = self._get_users_and_items(df)
         values = np.ones(df.shape[0]) if implicit else df['rating'].to_numpy() / df['rating'].max()
@@ -57,14 +63,16 @@ class EASE:
         self.pred = X.dot(B)
 
     def predict(self, train, users, items, k):
-        """ EASE:predict
-        Args:
-            train:     
-            users:     
-            items:     
-            k:     
-        Returns:
-           
+        """ EASE:predict.
+        Doc::
+                
+                    Args:
+                        train:     
+                        users:     
+                        items:     
+                        k:     
+                    Returns:
+                       
         """
         df = pd.DataFrame()
         items = self.item_enc.transform(items)

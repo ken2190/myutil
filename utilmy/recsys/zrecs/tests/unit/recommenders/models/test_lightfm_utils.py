@@ -24,10 +24,12 @@ TEST_ITEM_ID = 1
 # note user and item ID need to be sequential for similar users and similar items to work
 @pytest.fixture(scope="module")
 def df():
-    """function df
-    Args:
-    Returns:
-        
+    """function df.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     mock_data = {
         "userID": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -63,11 +65,13 @@ def df():
 
 @pytest.fixture(scope="module")
 def interactions(df):
-    """function interactions
-    Args:
-        df:   
-    Returns:
-        
+    """function interactions.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     movie_genre = [x.split("|") for x in df["genre"]]
     all_movie_genre = sorted(list(set(itertools.chain.from_iterable(movie_genre))))
@@ -102,23 +106,27 @@ def interactions(df):
 
 @pytest.fixture(scope="module")
 def model():
-    """function model
-    Args:
-    Returns:
-        
+    """function model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return LightFM(loss="warp", random_state=np.random.RandomState(SEEDNO))
 
 
 @pytest.fixture(scope="module")
 def fitting(model, interactions, df):
-    """function fitting
-    Args:
-        model:   
-        interactions:   
-        df:   
-    Returns:
-        
+    """function fitting.
+    Doc::
+            
+            Args:
+                model:   
+                interactions:   
+                df:   
+            Returns:
+                
     """
     train_interactions, test_interactions, item_features, user_features = interactions
     output, fitted_model = track_model_metrics(
@@ -135,12 +143,14 @@ def fitting(model, interactions, df):
 
 @pytest.fixture(scope="module")
 def sim_users(interactions, fitting):
-    """function sim_users
-    Args:
-        interactions:   
-        fitting:   
-    Returns:
-        
+    """function sim_users.
+    Doc::
+            
+            Args:
+                interactions:   
+                fitting:   
+            Returns:
+                
     """
     _, _, _, user_features = interactions
     _, fitted_model = fitting
@@ -151,12 +161,14 @@ def sim_users(interactions, fitting):
 
 @pytest.fixture(scope="module")
 def sim_items(interactions, fitting):
-    """function sim_items
-    Args:
-        interactions:   
-        fitting:   
-    Returns:
-        
+    """function sim_items.
+    Doc::
+            
+            Args:
+                interactions:   
+                fitting:   
+            Returns:
+                
     """
     _, _, item_features, _ = interactions
     _, fitted_model = fitting
@@ -166,11 +178,13 @@ def sim_items(interactions, fitting):
 
 
 def test_interactions(interactions):
-    """function test_interactions
-    Args:
-        interactions:   
-    Returns:
-        
+    """function test_interactions.
+    Doc::
+            
+            Args:
+                interactions:   
+            Returns:
+                
     """
     train_interactions, test_interactions, item_features, user_features = interactions
     assert train_interactions.shape == (10, 10)
@@ -180,11 +194,13 @@ def test_interactions(interactions):
 
 
 def test_fitting(fitting):
-    """function test_fitting
-    Args:
-        fitting:   
-    Returns:
-        
+    """function test_fitting.
+    Doc::
+            
+            Args:
+                fitting:   
+            Returns:
+                
     """
     output, _ = fitting
     assert output.shape == (4, 4)
@@ -201,20 +217,24 @@ def test_fitting(fitting):
 
 
 def test_sim_users(sim_users):
-    """function test_sim_users
-    Args:
-        sim_users:   
-    Returns:
-        
+    """function test_sim_users.
+    Doc::
+            
+            Args:
+                sim_users:   
+            Returns:
+                
     """
     assert sim_users.shape == (5, 2)
 
 
 def test_sim_items(sim_items):
-    """function test_sim_items
-    Args:
-        sim_items:   
-    Returns:
-        
+    """function test_sim_items.
+    Doc::
+            
+            Args:
+                sim_items:   
+            Returns:
+                
     """
     assert sim_items.shape == (5, 2)

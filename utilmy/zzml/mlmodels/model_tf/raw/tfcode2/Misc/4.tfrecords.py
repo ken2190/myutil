@@ -40,34 +40,40 @@ test_X.shape
 
 
 def _int64_feature(value):
-    """function _int64_feature
-    Args:
-        value:   
-    Returns:
-        
+    """function _int64_feature.
+    Doc::
+            
+            Args:
+                value:   
+            Returns:
+                
     """
     return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
 
 
 def _bytes_feature(value):
-    """function _bytes_feature
-    Args:
-        value:   
-    Returns:
-        
+    """function _bytes_feature.
+    Doc::
+            
+            Args:
+                value:   
+            Returns:
+                
     """
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 
 def convert_to(dataset, labels, name, i):
-    """function convert_to
-    Args:
-        dataset:   
-        labels:   
-        name:   
-        i:   
-    Returns:
-        
+    """function convert_to.
+    Doc::
+            
+            Args:
+                dataset:   
+                labels:   
+                name:   
+                i:   
+            Returns:
+                
     """
     if not os.path.exists(name):
         os.mkdir(name)
@@ -124,11 +130,13 @@ pool.join()
 
 
 def read_and_decode(filename_queue):
-    """function read_and_decode
-    Args:
-        filename_queue:   
-    Returns:
-        
+    """function read_and_decode.
+    Doc::
+            
+            Args:
+                filename_queue:   
+            Returns:
+                
     """
     reader = tf.TFRecordReader()
     _, serialized_example = reader.read(filename_queue)
@@ -169,35 +177,41 @@ images, labels = tf.train.shuffle_batch(
 
 
 def convolutionize(x, conv_w, h=1):
-    """function convolutionize
-    Args:
-        x:   
-        conv_w:   
-        h:   
-    Returns:
-        
+    """function convolutionize.
+    Doc::
+            
+            Args:
+                x:   
+                conv_w:   
+                h:   
+            Returns:
+                
     """
     return tf.nn.conv2d(input=x, filter=conv_w, strides=[1, h, h, 1], padding="SAME")
 
 
 def pooling(wx):
-    """function pooling
-    Args:
-        wx:   
-    Returns:
-        
+    """function pooling.
+    Doc::
+            
+            Args:
+                wx:   
+            Returns:
+                
     """
     return tf.nn.max_pool(wx, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME")
 
 
 def create_network(X, scope="conv", reuse=False):
-    """function create_network
-    Args:
-        X:   
-        scope:   
-        reuse:   
-    Returns:
-        
+    """function create_network.
+    Doc::
+            
+            Args:
+                X:   
+                scope:   
+                reuse:   
+            Returns:
+                
     """
     with tf.variable_scope(scope, reuse=reuse):
         w1 = tf.Variable(tf.random_normal([3, 3, 1, 2], stddev=0.5))

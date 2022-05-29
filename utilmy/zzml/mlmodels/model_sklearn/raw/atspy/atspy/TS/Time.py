@@ -31,10 +31,12 @@ class cTimeInfo:
     sDatePartComputer["MonthOfYear"] = lambda iTimeValue : iTimeValue.month        
 
     def __init__(self):
-        """ cTimeInfo:__init__
-        Args:
-        Returns:
-           
+        """ cTimeInfo:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mSignalFrame = pd.DataFrame()
         self.mTimeMin = None;
@@ -46,10 +48,12 @@ class cTimeInfo:
         self.mSplit = None
 
     def info(self):
-        """ cTimeInfo:info
-        Args:
-        Returns:
-           
+        """ cTimeInfo:info.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lStr2 = "TimeVariable='" + self.mTime +"'";
         lStr2 += " TimeMin=" + str(self.mTimeMin) +"";
@@ -60,10 +64,12 @@ class cTimeInfo:
 
 
     def to_json(self):
-        """ cTimeInfo:to_json
-        Args:
-        Returns:
-           
+        """ cTimeInfo:to_json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         dict1 = {};
         dict1["TimeVariable"] =  self.mTime;
@@ -73,11 +79,13 @@ class cTimeInfo:
         return dict1;
 
     def addVars(self, df):
-        """ cTimeInfo:addVars
-        Args:
-            df:     
-        Returns:
-           
+        """ cTimeInfo:addVars.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         df[self.mRowNumberColumn] = self.mSignalFrame[self.mRowNumberColumn]
         df[self.mTime] = self.mSignalFrame[self.mTime]
@@ -86,32 +94,38 @@ class cTimeInfo:
         df[self.mOriginalSignal] = self.mSignalFrame[self.mOriginalSignal]
 
     def get_time_dtype(self):
-        """ cTimeInfo:get_time_dtype
-        Args:
-        Returns:
-           
+        """ cTimeInfo:get_time_dtype.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # print(self.mTimeMax, type(self.mTimeMax))
         lType = np.dtype(self.mTimeMax);
         return lType;
 
     def cast_to_time_dtype(self, iTimeValue):
-        """ cTimeInfo:cast_to_time_dtype
-        Args:
-            iTimeValue:     
-        Returns:
-           
+        """ cTimeInfo:cast_to_time_dtype.
+        Doc::
+                
+                    Args:
+                        iTimeValue:     
+                    Returns:
+                       
         """
         lType1 = self.get_time_dtype();
         lTimeValue = np.array([iTimeValue]).astype(lType1)[0];
         return lTimeValue;
 
     def checkDateAndSignalTypesForNewDataset(self, df):
-        """ cTimeInfo:checkDateAndSignalTypesForNewDataset
-        Args:
-            df:     
-        Returns:
-           
+        """ cTimeInfo:checkDateAndSignalTypesForNewDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         if(self.mTimeMax is not None):
             lType1 = self.get_time_dtype();
@@ -122,11 +136,13 @@ class cTimeInfo:
         
 
     def transformDataset(self, df):
-        """ cTimeInfo:transformDataset
-        Args:
-            df:     
-        Returns:
-           
+        """ cTimeInfo:transformDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         self.checkDateAndSignalTypesForNewDataset(df);
         # new row
@@ -143,29 +159,35 @@ class cTimeInfo:
 
 
     def isPhysicalTime(self):
-        """ cTimeInfo:isPhysicalTime
-        Args:
-        Returns:
-           
+        """ cTimeInfo:isPhysicalTime.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         type1 = np.dtype(self.mSignalFrame[self.mTime])
         return (type1.kind == 'M');
 
 
     def get_date_part_value_computer(self , iDatePart):
-        """ cTimeInfo:get_date_part_value_computer
-        Args:
-            iDatePart:     
-        Returns:
-           
+        """ cTimeInfo:get_date_part_value_computer.
+        Doc::
+                
+                    Args:
+                        iDatePart:     
+                    Returns:
+                       
         """
         return cTimeInfo.sDatePartComputer[iDatePart];
     
     def analyzeSeasonals(self):
-        """ cTimeInfo:analyzeSeasonals
-        Args:
-        Returns:
-           
+        """ cTimeInfo:analyzeSeasonals.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         if(not self.isPhysicalTime()):
             return;
@@ -194,10 +216,12 @@ class cTimeInfo:
 
 
     def checkDateAndSignalTypes(self):
-        """ cTimeInfo:checkDateAndSignalTypes
-        Args:
-        Returns:
-           
+        """ cTimeInfo:checkDateAndSignalTypes.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # print(self.mSignalFrame.info());
         type1 = np.dtype(self.mSignalFrame[self.mTime])
@@ -210,10 +234,12 @@ class cTimeInfo:
 
 
     def adaptTimeDeltaToTimeResolution(self):
-        """ cTimeInfo:adaptTimeDeltaToTimeResolution
-        Args:
-        Returns:
-           
+        """ cTimeInfo:adaptTimeDeltaToTimeResolution.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         if(not self.isPhysicalTime()):
             return;
@@ -238,10 +264,12 @@ class cTimeInfo:
         pass
     
     def get_lags_for_time_resolution(self):
-        """ cTimeInfo:get_lags_for_time_resolution
-        Args:
-        Returns:
-           
+        """ cTimeInfo:get_lags_for_time_resolution.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         if(not self.isPhysicalTime()):
             return None;
@@ -254,10 +282,12 @@ class cTimeInfo:
         return lARORder.get(self.mResolution , None)
     
     def computeTimeDelta(self):
-        """ cTimeInfo:computeTimeDelta
-        Args:
-        Returns:
-           
+        """ cTimeInfo:computeTimeDelta.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         #print(self.mSignalFrame.columns);
         # print(self.mSignalFrame[self.mTime].head());
@@ -289,10 +319,12 @@ class cTimeInfo:
         self.adaptTimeDeltaToTimeResolution();
 
     def estimate(self):
-        """ cTimeInfo:estimate
-        Args:
-        Returns:
-           
+        """ cTimeInfo:estimate.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         #print(self.mSignalFrame.columns);
         #print(self.mSignalFrame[self.mTime].head());
@@ -317,20 +349,24 @@ class cTimeInfo:
         self.dump();
 
     def dump(self):
-        """ cTimeInfo:dump
-        Args:
-        Returns:
-           
+        """ cTimeInfo:dump.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         time_info = self.info(); 
         
 
     def compute_normalize_date_column(self, idate_column):
-        """ cTimeInfo:compute_normalize_date_column
-        Args:
-            idate_column:     
-        Returns:
-           
+        """ cTimeInfo:compute_normalize_date_column.
+        Doc::
+                
+                    Args:
+                        idate_column:     
+                    Returns:
+                       
         """
         if(self.mEstimCount == 1):
             return 0.0;
@@ -338,11 +374,13 @@ class cTimeInfo:
 
     @tsutil.cMemoize
     def normalizeTime(self , iTime):
-        """ cTimeInfo:normalizeTime
-        Args:
-            iTime:     
-        Returns:
-           
+        """ cTimeInfo:normalizeTime.
+        Doc::
+                
+                    Args:
+                        iTime:     
+                    Returns:
+                       
         """
         if(self.mEstimCount == 1):
             return 0.0;
@@ -350,12 +388,14 @@ class cTimeInfo:
         return output
 
     def nextTime(self, df, iSteps):
-        """ cTimeInfo:nextTime
-        Args:
-            df:     
-            iSteps:     
-        Returns:
-           
+        """ cTimeInfo:nextTime.
+        Doc::
+                
+                    Args:
+                        df:     
+                        iSteps:     
+                    Returns:
+                       
         """
         #print(df.tail(1)[self.mTime]);
         lLastTime = df[self.mTime].values[-1]

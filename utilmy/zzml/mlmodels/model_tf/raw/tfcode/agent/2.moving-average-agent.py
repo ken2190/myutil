@@ -44,13 +44,15 @@ signals
 
 
 def buy_stock(real_movement, signal, initial_money=10000, max_buy=20, max_sell=20):
-    """
-    real_movement = actual movement in the real world
-    delay = how much interval you want to delay to change our decision from buy to sell, vice versa
-    initial_state = 1 is buy, 0 is sell
-    initial_money = 1000, ignore what kind of currency
-    max_buy = max quantity for share to buy
-    max_sell = max quantity for share to sell
+    """.
+    Doc::
+            
+            real_movement = actual movement in the real world
+            delay = how much interval you want to delay to change our decision from buy to sell, vice versa
+            initial_state = 1 is buy, 0 is sell
+            initial_money = 1000, ignore what kind of currency
+            max_buy = max quantity for share to buy
+            max_sell = max quantity for share to sell
     """
     starting_money = initial_money
     states_sell = []

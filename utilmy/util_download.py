@@ -91,6 +91,7 @@ def download_google(url_or_id="https://drive.google.com/file/d/1iFrhCPWRITarabHf
                     fileout="./ztmp/", unzip=True ):
       """Download  file from google drive on disk + unzip.
       Doc::
+
           url_or_id: "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing"
 
           ### Using file
@@ -230,6 +231,137 @@ def download_custom_pageimage(query, fileout="query1", genre_en='', id0="", cat=
 
 
 
+def upload_google(src_folder_name , dst_folder_name, auth_key ):
+    """ Upload Folder to Google Drive, using Auth Key
+    Doc::
+
+        https://gist.github.com/jmlrt/f524e1a45205a0b9f169eb713a223330
+
+    """
+
+    # Import Google libraries
+    from pydrive.auth import GoogleAuth
+    from pydrive.drive import GoogleDrive
+    from pydrive.files import GoogleDriveFileList
+    import googleapiclient.errors
+
+    # Import general libraries
+    from argparse import ArgumentParser
+    from os import chdir, listdir, stat
+    from sys import exit
+    import ast
+
+
+    def authenticate():
+        """  Authenticate to Google API
+        """
+        gauth = GoogleAuth()
+        return GoogleDrive(gauth)
+
+
+    def get_folder_id(drive, parent_folder_id, folder_name):
+        """ 
+            Check if destination folder exists and return it's ID
+        """
+
+        # Auto-iterate through all files in the parent folder.
+        file_list = GoogleDriveFileList()
+        try:
+            file_list = drive.ListFile(
+                {'q': "'{0}' in parents and trashed=false".format(parent_folder_id)}
+            ).GetList()
+        # Exit if the parent folder doesn't exist
+        except googleapiclient.errors.HttpError as err:
+            # Parse error message
+            message = ast.literal_eval(err.content)['error']['message']
+            if message == 'File not found: ':
+                print(message + folder_name)
+                exit(1)
+            # Exit with stacktrace in case of other error
+            else:
+                raise
+
+        # Find the the destination folder in the parent folder's files
+        for file1 in file_list:
+            if file1['title'] == folder_name:
+                print('title: %s, id: %s' % (file1['title'], file1['id']))
+                return file1['id']
+
+
+    def create_folder(drive, folder_name, parent_folder_id):
+        """ 
+            Create folder on Google Drive
+        """
+        
+        folder_metadata = {
+            'title': folder_name,
+            # Define the file type as folder
+            'mimeType': 'application/vnd.google-apps.folder',
+            # ID of the parent folder        
+            'parents': [{"kind": "drive#fileLink", "id": parent_folder_id}]
+        }
+
+        folder = drive.CreateFile(folder_metadata)
+        folder.Upload()
+
+        # Return folder informations
+        print('title: %s, id: %s' % (folder['title'], folder['id']))
+        return folder['id']
+
+
+    def upload_files(drive, folder_id, src_folder_name):
+        """ 
+            Upload files in the local folder to Google Drive 
+        """
+
+        # Enter the source folder
+        try:
+            chdir(src_folder_name)
+        # Print error if source folder doesn't exist
+        except OSError:
+            print(src_folder_name + 'is missing')
+        # Auto-iterate through all files in the folder.
+        for file1 in listdir('.'):
+            # Check the file's size
+            statinfo = stat(file1)
+            if statinfo.st_size > 0:
+                print('uploading ' + file1)
+                # Upload file to folder.
+                f = drive.CreateFile(
+                    {"parents": [{"kind": "drive#fileLink", "id": folder_id}]})
+                f.SetContentFile(file1)
+                f.Upload()
+            # Skip the file if it's empty
+            else:
+                print('file {0} is empty'.format(file1))
+
+
+
+        #src_folder_name = args.source
+        #dst_folder_name = args.destination
+        parent_folder_name =  dst_folder_name.split("/")[-2]
+
+        # Authenticate to Google API
+        drive = authenticate()
+        
+        # Get parent folder ID
+        parent_folder_id = get_folder_id(drive, 'root', parent_folder_name)
+        # Get destination folder ID
+        folder_id = get_folder_id(drive, parent_folder_id, dst_folder_name)
+        
+        # Create the folder if it doesn't exists
+        if not folder_id:
+            print('creating folder ' + dst_folder_name)
+            folder_id = create_folder(drive, dst_folder_name, parent_folder_id)
+        else:
+            print('folder {0} already exists'.format(dst_folder_name))
+
+        # Upload the files    
+        upload_files(drive, folder_id, src_folder_name)
+
+
+
+
 
 ################################################################################################################
 def donwload_and_extract(url, dirout='./ztmp/', unzip=True):
@@ -257,17 +389,19 @@ def donwload_and_extract(url, dirout='./ztmp/', unzip=True):
 
 def os_extract_archive(file_path, dirout="./ztmp/", archive_format="auto"):
     """Extracts an archive if it matches tar, tar.gz, tar.bz, or zip formats.
-    Args:
-        file_path: path to the archive file
-        dirout: path to extract the archive file
-        archive_format: Archive format to try for extracting the file.
-            Options are 'auto', 'tar', 'zip', and None.
-            'tar' includes tar, tar.gz, and tar.bz files.
-            The default 'auto' is ['tar', 'zip'].
-            None or an empty list will return no matches found.
-    Returns:
-        True if a match was found and an archive extraction was completed,
-        False otherwise.
+    Docs::
+
+        Args:
+            file_path: path to the archive file
+            dirout: path to extract the archive file
+            archive_format: Archive format to try for extracting the file.
+                Options are 'auto', 'tar', 'zip', and None.
+                'tar' includes tar, tar.gz, and tar.bz files.
+                The default 'auto' is ['tar', 'zip'].
+                None or an empty list will return no matches found.
+        Returns:
+            True if a match was found and an archive extraction was completed,
+            False otherwise.
     """
     import tarfile, zipfile
 
@@ -337,6 +471,8 @@ def download_with_progress(url, fileout):
                        total=int(response.headers.get('content-length', 0))) as fout:
         for chunk in response.iter_content(chunk_size=4096):
             fout.write(chunk)
+
+
 
 
 

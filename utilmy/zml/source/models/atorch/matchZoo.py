@@ -83,12 +83,14 @@ CALLBACKS = {
 
 ###########################################################################################################
 def get_task(model_pars, task):
-    """function get_task
-    Args:
-        model_pars:   
-        task:   
-    Returns:
-        
+    """function get_task.
+    Doc::
+            
+            Args:
+                model_pars:   
+                task:   
+            Returns:
+                
     """
     # _task = model_pars['task']
     _task = task
@@ -129,12 +131,14 @@ def get_task(model_pars, task):
 
 
 def get_glove_embedding_matrix(term_index, dimension):
-    """function get_glove_embedding_matrix
-    Args:
-        term_index:   
-        dimension:   
-    Returns:
-        
+    """function get_glove_embedding_matrix.
+    Doc::
+            
+            Args:
+                term_index:   
+                dimension:   
+            Returns:
+                
     """
     glove_embedding  = mz.datasets.embeddings.load_glove_embedding(dimension=dimension)
     embedding_matrix = glove_embedding.build_matrix(term_index)
@@ -145,14 +149,16 @@ def get_glove_embedding_matrix(term_index, dimension):
 
 
 def get_data_loader(model_name, preprocessor, preprocess_pars, raw_data):
-    """function get_data_loader
-    Args:
-        model_name:   
-        preprocessor:   
-        preprocess_pars:   
-        raw_data:   
-    Returns:
-        
+    """function get_data_loader.
+    Doc::
+            
+            Args:
+                model_name:   
+                preprocessor:   
+                preprocess_pars:   
+                raw_data:   
+            Returns:
+                
     """
 
     pp = preprocess_pars
@@ -228,10 +234,12 @@ def update_model_param(params, model, task, preprocessor):
 
 
 def get_config_file():
-    """function get_config_file
-    Args:
-    Returns:
-        
+    """function get_config_file.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     return os.path.join(os_package_root_path(__file__, 1), 'config', 'model_tch', 'Imagecnn.json')
 
@@ -248,12 +256,14 @@ def get_config_file():
 #         raise Exception(f"Not support choice {dataset_name} dataset yet")
 
 def get_raw_dataset(data_info, **args):
-    """function get_raw_dataset
-    Args:
-        data_info:   
-        **args:   
-    Returns:
-        
+    """function get_raw_dataset.
+    Doc::
+            
+            Args:
+                data_info:   
+                **args:   
+            Returns:
+                
     """
     if data_info["dataset"] == "WIKI_QA":
         filter = args.get("filter", False)
@@ -275,14 +285,16 @@ def get_raw_dataset(data_info, **args):
 ###########################################################################################################
 class Model:
     def __init__(self, model_pars=None, data_pars=None, compute_pars=None, out_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-            compute_pars:     
-            out_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                        compute_pars:     
+                        out_pars:     
+                    Returns:
+                       
         """
         self.model_pars   = deepcopy( model_pars)
         self.compute_pars = deepcopy( compute_pars)
@@ -350,14 +362,16 @@ class Model:
 
 
 def get_dataset(_model, preprocessor,_preprocessor_pars , data_pars):
-    """function get_dataset
-    Args:
-        _model:   
-        preprocessor:   
-        _preprocessor_pars:   
-        data_pars:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                _model:   
+                preprocessor:   
+                _preprocessor_pars:   
+                data_pars:   
+            Returns:
+                
     """
     from mlmodels.dataloader import DataLoader
     
@@ -387,15 +401,17 @@ def get_dataset(_model, preprocessor,_preprocessor_pars , data_pars):
 
 
 def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
-    """function fit
-    Args:
-        model:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-        **kwargs:   
-    Returns:
-        
+    """function fit.
+    Doc::
+            
+            Args:
+                model:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+                **kwargs:   
+            Returns:
+                
     """
     model0 = model.model
     #epochs = compute_pars["epochs"]
@@ -451,29 +467,31 @@ def fit(model, data_pars=None, compute_pars=None, out_pars=None, **kwargs):
 
 
 def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=None):
-    """
-        https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L341
-
-       Trainer:
-        def predict(
-        self,
-        dataloader: DataLoader
-    ) -> np.array:
+    """.
+    Doc::
+            
+                https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L341
         
-        Generate output predictions for the input samples.
-        dataloader: input DataLoader
-        :return: predictions
-    
-        with torch.no_grad():
-            self._model.eval()
-            predictions = []
-            for batch in dataloader:
-                inputs = batch[0]
-                outputs = self._model(inputs).detach().cpu()
-                predictions.append(outputs)
-            self._model.train()
-            return torch.cat(predictions, dim=0).numpy()
-
+               Trainer:
+                def predict(
+                self,
+                dataloader: DataLoader
+            ) -> np.array:
+                
+                Generate output predictions for the input samples.
+                dataloader: input DataLoader
+                :return: predictions
+            
+                with torch.no_grad():
+                    self._model.eval()
+                    predictions = []
+                    for batch in dataloader:
+                        inputs = batch[0]
+                        outputs = self._model(inputs).detach().cpu()
+                        predictions.append(outputs)
+                    self._model.train()
+                    return torch.cat(predictions, dim=0).numpy()
+        
     """
 
     ### Data Loader        #####################################
@@ -501,27 +519,31 @@ def predict(model, session=None, data_pars=None, compute_pars=None, out_pars=Non
 
 
 def evaluate(model, data_pars=None, compute_pars=None, out_pars=None):
-    """function evaluate
-    Args:
-        model:   
-        data_pars:   
-        compute_pars:   
-        out_pars:   
-    Returns:
-        
+    """function evaluate.
+    Doc::
+            
+            Args:
+                model:   
+                data_pars:   
+                compute_pars:   
+                out_pars:   
+            Returns:
+                
     """
     pass
 
 
 def save(model, session=None, save_pars=None):
-    """
-      trainer == session
-          save_dir: Directory to save trainer.
-`       save_all: Bool. If True, save `Trainer` instance; If False,
-        only save model. Defaults to False.
-
-     https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L369   
-
+    """.
+    Doc::
+            
+              trainer == session
+                  save_dir: Directory to save trainer.
+        `       save_all: Bool. If True, save `Trainer` instance; If False,
+                only save model. Defaults to False.
+        
+             https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L369   
+        
     """
     session.save_dir = save_pars['path']   # save_dir: Directory to save trainer.
     session.save()
@@ -530,10 +552,12 @@ def save(model, session=None, save_pars=None):
 
 
 def load(load_pars):
-    """
-     need trainer instance
-     https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L415
- 
+    """.
+    Doc::
+            
+             need trainer instance
+             https://github.com/NTMC-Community/MatchZoo-py/blob/master/matchzoo/trainers/trainer.py#L415
+         
     """
     pass
 
@@ -541,12 +565,14 @@ def load(load_pars):
 
 
 def get_params(param_pars=None, **kw):
-    """function get_params
-    Args:
-        param_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                param_pars:   
+                **kw:   
+            Returns:
+                
     """
     pp          = param_pars
     choice      = pp['choice']
@@ -570,13 +596,15 @@ def get_params(param_pars=None, **kw):
 ###########################################################################################################
 ###########################################################################################################
 def test_train(data_path, pars_choice, model_name):
-    """function test_train
-    Args:
-        data_path:   
-        pars_choice:   
-        model_name:   
-    Returns:
-        
+    """function test_train.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+                model_name:   
+            Returns:
+                
     """
     ### Local test
 

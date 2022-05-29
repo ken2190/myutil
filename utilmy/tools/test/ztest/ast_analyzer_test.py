@@ -7,19 +7,23 @@ from src import ast_analyzer
 
 class TestFileFinder(unittest.TestCase):
     def test_corner_cases(self):
-        """ TestFileFinder:test_corner_cases
-        Args:
-        Returns:
-           
+        """ TestFileFinder:test_corner_cases.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         with self.assertRaises(SyntaxError):
             ast_analyzer.analyzeSource("Lorem ipsum dolor sit amet.")
 
     def test_file_finder(self):
-        """ TestFileFinder:test_file_finder
-        Args:
-        Returns:
-           
+        """ TestFileFinder:test_file_finder.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         variables = ast_analyzer.analyzeSource(
             """

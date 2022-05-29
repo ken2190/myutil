@@ -8,7 +8,7 @@ mapleaf
 '''
 # %autoreload
 import os, sys
-DIRCWD=  'D:/_devs/Python01/project27/' if sys.platform.find('win')> -1   else  '/home/ubuntu/notebook/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'
+DIRCWD=  'D:/_devs/Python01/project27/' if sys.platform.find('win')> -1   else  '${HOME}/notebook/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'
 os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage'); # sys.path.append(DIRCWD + '/linux/aapackage')
 execfile( DIRCWD + '/aapackage/allmodule.py')
 import util,  numpy as np, gc
@@ -22,14 +22,16 @@ import arrow
 
 
 def df_to_geojson(df, col_properties, lat='latitude', lon='longitude'):
-    """function df_to_geojson
-    Args:
-        df:   
-        col_properties:   
-        lat:   
-        lon:   
-    Returns:
-        
+    """function df_to_geojson.
+    Doc::
+            
+            Args:
+                df:   
+                col_properties:   
+                lat:   
+                lon:   
+            Returns:
+                
     """
     geojson = {'type':'FeatureCollection', 'features':[]}
     

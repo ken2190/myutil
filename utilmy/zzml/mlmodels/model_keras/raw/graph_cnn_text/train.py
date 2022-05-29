@@ -78,15 +78,17 @@ sess = tf.Session(config=session_conf)
 
 # Define model evaluation function
 def evaluate(features, support, labels, mask, placeholders):
-    """function evaluate
-    Args:
-        features:   
-        support:   
-        labels:   
-        mask:   
-        placeholders:   
-    Returns:
-        
+    """function evaluate.
+    Doc::
+            
+            Args:
+                features:   
+                support:   
+                labels:   
+                mask:   
+                placeholders:   
+            Returns:
+                
     """
     t_test = time.time()
     feed_dict_val = construct_feed_dict(

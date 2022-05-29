@@ -18,10 +18,12 @@ observed = np.array([[23, 40, 16, 2], [11, 75, 107, 14], [1, 31, 60, 10]])
 expected = np.array([[7.3, 30.3, 38.0, 5.4], [18.6, 77.5, 97.1, 13.8], [9.1, 38.2, 47.9, 6.8]])
 
 def test_chi_square_contingency():
-    """ TestChiSquareContingency:test_chi_square_contingency
-    Args:
-    Returns:
-       
+    """ TestChiSquareContingency:test_chi_square_contingency.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
     c = ChiSquareContingency(observed, expected)
 
@@ -45,10 +47,12 @@ def test_chi_square_contingency():
     assert_almost_equal(c.chi_square, c2.chi_square)
 
 def test_chi_square_contingency_no_continuity():
-    """ TestChiSquareContingency:test_chi_square_contingency_no_continuity
-    Args:
-    Returns:
-       
+    """ TestChiSquareContingency:test_chi_square_contingency_no_continuity.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
     obs = np.array([[23, 40], [11, 75]])
     exp = np.array([[7.3, 30.3], [18.6, 77.5]])
@@ -66,10 +70,12 @@ def test_chi_square_contingency_no_continuity():
     assert not c.continuity
 
 def test_chi_square_contingency_no_expected():
-    """ TestChiSquareContingency:test_chi_square_contingency_no_expected
-    Args:
-    Returns:
-       
+    """ TestChiSquareContingency:test_chi_square_contingency_no_expected.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
     c = ChiSquareContingency(observed)
 
@@ -82,10 +88,12 @@ def test_chi_square_contingency_no_expected():
     assert c.degrees_freedom == 6
 
 def test_chi_square_exceptions():
-    """ TestChiSquareContingency:test_chi_square_exceptions
-    Args:
-    Returns:
-       
+    """ TestChiSquareContingency:test_chi_square_exceptions.
+    Doc::
+            
+            Args:
+            Returns:
+               
     """
     with pytest.raises(ValueError):
         ChiSquareContingency(observed, expected[:1])
@@ -96,10 +104,12 @@ r2 = [0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
 r3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0]
 
 def test_cochranq():
-    """ TestCochranQ:test_cochranq
-    Args:
-    Returns:
-
+    """ TestCochranQ:test_cochranq.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     c = CochranQ(r1, r2, r3)
 
@@ -108,10 +118,12 @@ def test_cochranq():
     assert c.degrees_freedom == 2
 
 def test_cochranq_exceptions():
-    """ TestCochranQ:test_cochranq_exceptions
-    Args:
-    Returns:
-
+    """ TestCochranQ:test_cochranq_exceptions.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     r1, r2, r3 = [0, 1, 1], [1, 1, 0], [0, 0, 1, 1]
 
@@ -145,10 +157,12 @@ sample_data = np.array([[59, 6], [16, 80]])
 #     assert_almost_equal(m.mcnemar_x2_statistic, m2.mcnemar_x2_statistic)
 
 def test_mcnemartest_exceptions():
-    """ TestMcNemarTest:test_mcnemartest_exceptions
-    Args:
-    Returns:
-
+    """ TestMcNemarTest:test_mcnemartest_exceptions.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
 
     with pytest.raises(ValueError):
@@ -170,10 +184,12 @@ cont_table2 = np.array([[[10, 10, 20], [20, 20, 10]]])
 cont_table3 = np.array([10, 10, 20])
 
 def test_table_margins():
-    """ TestTableMargins:test_table_margins
-    Args:
-    Returns:
-
+    """ TestTableMargins:test_table_margins.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     t = table_margins(cont_table)
     t2 = table_margins(cont_table3)
@@ -182,19 +198,23 @@ def test_table_margins():
     assert all(t2[0] == cont_table3)
 
 def test_margins_exceptions():
-    """ TestTableMargins:test_margins_exceptions
-    Args:
-    Returns:
-
+    """ TestTableMargins:test_margins_exceptions.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     with pytest.raises(ValueError):
         table_margins(cont_table2)
 
 def test_expected_frequencies():
-    """ TestTableMargins:test_expected_frequencies
-    Args:
-    Returns:
-
+    """ TestTableMargins:test_expected_frequencies.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     e = expected_frequencies(cont_table)
 
@@ -202,10 +222,12 @@ def test_expected_frequencies():
                                                       [16.66666667, 16.66666667, 16.66666667]]))
 
 def test_expected_frequencies_exceptions():
-    """ TestTableMargins:test_expected_frequencies_exceptions
-    Args:
-    Returns:
-
+    """ TestTableMargins:test_expected_frequencies_exceptions.
+    Doc::
+            
+            Args:
+            Returns:
+        
     """
     with pytest.raises(ValueError):
         expected_frequencies(cont_table2)

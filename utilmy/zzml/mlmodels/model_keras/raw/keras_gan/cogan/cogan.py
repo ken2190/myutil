@@ -18,10 +18,12 @@ import numpy as np
 class COGAN():
     """Reference: https://wiseodd.github.io/techblog/2017/02/18/coupled_gan/"""
     def __init__(self):
-        """ COGAN:__init__
-        Args:
-        Returns:
-           
+        """ COGAN:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.img_rows = 28
         self.img_cols = 28
@@ -63,10 +65,12 @@ class COGAN():
                                     optimizer=optimizer)
 
     def build_generators(self):
-        """ COGAN:build_generators
-        Args:
-        Returns:
-           
+        """ COGAN:build_generators.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         # Shared weights between generators
@@ -100,10 +104,12 @@ class COGAN():
         return Model(noise, img1), Model(noise, img2)
 
     def build_discriminators(self):
-        """ COGAN:build_discriminators
-        Args:
-        Returns:
-           
+        """ COGAN:build_discriminators.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
 
         img1 = Input(shape=self.img_shape)
@@ -128,13 +134,15 @@ class COGAN():
         return Model(img1, validity1), Model(img2, validity2)
 
     def train(self, epochs, batch_size=128, sample_interval=50):
-        """ COGAN:train
-        Args:
-            epochs:     
-            batch_size:     
-            sample_interval:     
-        Returns:
-           
+        """ COGAN:train.
+        Doc::
+                
+                    Args:
+                        epochs:     
+                        batch_size:     
+                        sample_interval:     
+                    Returns:
+                       
         """
 
         # Load the dataset
@@ -195,11 +203,13 @@ class COGAN():
                 self.sample_images(epoch)
 
     def sample_images(self, epoch):
-        """ COGAN:sample_images
-        Args:
-            epoch:     
-        Returns:
-           
+        """ COGAN:sample_images.
+        Doc::
+                
+                    Args:
+                        epoch:     
+                    Returns:
+                       
         """
         r, c = 4, 4
         noise = np.random.normal(0, 1, (r * int(c/2), 100))

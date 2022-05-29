@@ -1,7 +1,0 @@
-HELP ="""
-Spark related
-
-
-"""
-
-

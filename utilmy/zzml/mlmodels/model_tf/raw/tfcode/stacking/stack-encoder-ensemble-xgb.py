@@ -47,15 +47,17 @@ close_normalize.shape
 
 class encoder:
     def __init__(self, input_, dimension=2, learning_rate=0.01, hidden_layer=256, epoch=20):
-        """ encoder:__init__
-        Args:
-            input_:     
-            dimension:     
-            learning_rate:     
-            hidden_layer:     
-            epoch:     
-        Returns:
-           
+        """ encoder:__init__.
+        Doc::
+                
+                    Args:
+                        input_:     
+                        dimension:     
+                        learning_rate:     
+                        hidden_layer:     
+                        epoch:     
+                    Returns:
+                       
         """
         input_size = input_.shape[1]
         self.X = tf.placeholder("float", [None, input_.shape[1]])
@@ -100,11 +102,13 @@ class encoder:
                 print("epoch:", i + 1, "loss:", loss, "time:", time.time() - last_time)
 
     def encode(self, input_):
-        """ encoder:encode
-        Args:
-            input_:     
-        Returns:
-           
+        """ encoder:encode.
+        Doc::
+                
+                    Args:
+                        input_:     
+                    Returns:
+                       
         """
         return self.sess.run(self.second_layer_encoder, feed_dict={self.X: input_})
 
@@ -236,11 +240,13 @@ date_original = pd.Series(date_ori).dt.strftime(date_format="%Y-%m-%d").tolist()
 
 
 def reverse_close(array):
-    """function reverse_close
-    Args:
-        array:   
-    Returns:
-        
+    """function reverse_close.
+    Doc::
+            
+            Args:
+                array:   
+            Returns:
+                
     """
     return minmax.inverse_transform(array.reshape((-1, 1))).reshape((-1))
 
@@ -275,12 +281,14 @@ xgb_list = xgb_pred.tolist()
 
 
 def predict(count, history=5):
-    """function predict
-    Args:
-        count:   
-        history:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                count:   
+                history:   
+            Returns:
+                
     """
     for i in range(count):
         roll = np.array(xgb_list[-history:])

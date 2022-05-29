@@ -22,8 +22,10 @@ logger = logging.getLogger("surprise_svd")
 
 
 def svd_training(params):
-    """
-    Train Surprise SVD using the given hyper-parameters
+    """.
+    Doc::
+            
+            Train Surprise SVD using the given hyper-parameters
     """
     logger.debug("Start training...")
     train_data = pd.read_pickle(
@@ -115,10 +117,12 @@ def svd_training(params):
 
 
 def get_params():
-    """function get_params
-    Args:
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     parser = argparse.ArgumentParser()
     # Data path
@@ -165,11 +169,13 @@ def get_params():
 
 
 def main(params):
-    """function main
-    Args:
-        params:   
-    Returns:
-        
+    """function main.
+    Doc::
+            
+            Args:
+                params:   
+            Returns:
+                
     """
     logger.debug("Args: %s", str(params))
     logger.debug("Number of epochs %d", params["n_epochs"])

@@ -58,12 +58,14 @@ from mlmodels.util import os_package_root_path, log, path_norm
 ####################################################################################################
 class Model:
   def __init__(self, model_pars=None, data_pars=None):
-        """ Model:__init__
-        Args:
-            model_pars:     
-            data_pars:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        data_pars:     
+                    Returns:
+                       
         """
         # 4.Define Model    
         config_class, model_class, tokenizer_class = MODEL_CLASSES[args['model_type']]
@@ -84,24 +86,28 @@ class Model:
 
 ##################################################################################################
 def _preprocess_XXXX(df, **kw):
-    """function _preprocess_XXXX
-    Args:
-        df:   
-        **kw:   
-    Returns:
-        
+    """function _preprocess_XXXX.
+    Doc::
+            
+            Args:
+                df:   
+                **kw:   
+            Returns:
+                
     """
     return df, linear_cols, dnn_cols, train, test, target
 
 
 
 def get_dataset(data_pars=None, **kw):
-    """function get_dataset
-    Args:
-        data_pars:   
-        **kw:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                data_pars:   
+                **kw:   
+            Returns:
+                
     """
     processor   = processors[task]()
     output_mode = args['output_mode']
@@ -145,17 +151,19 @@ def get_dataset(data_pars=None, **kw):
 
 
 def fit(model, data_pars=None, model_pars={}, compute_pars=None, out_pars=None, *args, **kw):
-    """function fit
-    Args:
-        model:   
-        data_pars:   
-        model_pars:   
-        compute_pars:   
-        out_pars:   
-        *args:   
-        **kw:   
-    Returns:
-        
+    """function fit.
+    Doc::
+            
+            Args:
+                model:   
+                data_pars:   
+                model_pars:   
+                compute_pars:   
+                out_pars:   
+                *args:   
+                **kw:   
+            Returns:
+                
     """
     tb_writer        = SummaryWriter()
     torch.manual_seed(1)
@@ -258,16 +266,18 @@ def fit(model, data_pars=None, model_pars={}, compute_pars=None, out_pars=None, 
 
 
 def predict(model, sess=None, data_pars=None, out_pars=None, compute_pars=None, **kw):
-    """function predict
-    Args:
-        model:   
-        sess:   
-        data_pars:   
-        out_pars:   
-        compute_pars:   
-        **kw:   
-    Returns:
-        
+    """function predict.
+    Doc::
+            
+            Args:
+                model:   
+                sess:   
+                data_pars:   
+                out_pars:   
+                compute_pars:   
+                **kw:   
+            Returns:
+                
     """
     ##  Model is class
     ## load test dataset
@@ -292,12 +302,14 @@ def predict(model, sess=None, data_pars=None, out_pars=None, compute_pars=None, 
 
 
 def get_mismatched(labels, preds):
-    """function get_mismatched
-    Args:
-        labels:   
-        preds:   
-    Returns:
-        
+    """function get_mismatched.
+    Doc::
+            
+            Args:
+                labels:   
+                preds:   
+            Returns:
+                
     """
     mismatched = labels != preds
     examples = processor.get_dev_examples(args['data_dir'])
@@ -306,12 +318,14 @@ def get_mismatched(labels, preds):
     return wrong
 
 def get_eval_report(labels, preds):
-    """function get_eval_report
-    Args:
-        labels:   
-        preds:   
-    Returns:
-        
+    """function get_eval_report.
+    Doc::
+            
+            Args:
+                labels:   
+                preds:   
+            Returns:
+                
     """
     mcc = matthews_corrcoef(labels, preds)
     tn, fp, fn, tp = confusion_matrix(labels, preds).ravel()
@@ -325,26 +339,30 @@ def get_eval_report(labels, preds):
 
 
 def metrics(task_name, preds, labels):
-    """function metrics
-    Args:
-        task_name:   
-        preds:   
-        labels:   
-    Returns:
-        
+    """function metrics.
+    Doc::
+            
+            Args:
+                task_name:   
+                preds:   
+                labels:   
+            Returns:
+                
     """
     assert len(preds) == len(labels)
     return get_eval_report(labels, preds)
 
 
 def evaluate(model, tokenizer, prefix=""):
-    """function evaluate
-    Args:
-        model:   
-        tokenizer:   
-        prefix:   
-    Returns:
-        
+    """function evaluate.
+    Doc::
+            
+            Args:
+                model:   
+                tokenizer:   
+                prefix:   
+            Returns:
+                
     """
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_output_dir = args['output_dir']
@@ -411,10 +429,12 @@ def evaluate(model, tokenizer, prefix=""):
 
 
 def reset_model():
-    """function reset_model
-    Args:
-    Returns:
-        
+    """function reset_model.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     pass
 
@@ -424,24 +444,28 @@ def reset_model():
 ########################################################################################################################
 class Model_empty(object):
     def __init__(self, model_pars=None, compute_pars=None):
-        """ Model_empty:__init__
-        Args:
-            model_pars:     
-            compute_pars:     
-        Returns:
-           
+        """ Model_empty:__init__.
+        Doc::
+                
+                    Args:
+                        model_pars:     
+                        compute_pars:     
+                    Returns:
+                       
         """
         ## Empty model for Seaialization
         self.model = None
 
 
 def save(model, out_pars):
-    """function save
-    Args:
-        model:   
-        out_pars:   
-    Returns:
-        
+    """function save.
+    Doc::
+            
+            Args:
+                model:   
+                out_pars:   
+            Returns:
+                
     """
     # Save model checkpoint
     output_dir = path  # = os.path.join(args['output_dir'], 'checkpoint-{}'.format(global_step))
@@ -453,11 +477,13 @@ def save(model, out_pars):
 
 
 def load(out_pars=None):
-    """function load
-    Args:
-        out_pars:   
-    Returns:
-        
+    """function load.
+    Doc::
+            
+            Args:
+                out_pars:   
+            Returns:
+                
     """
     if not os.path.exists(path):
         print("model file do not exist!")
@@ -472,13 +498,15 @@ def load(out_pars=None):
 
 ########################################################################################################################
 def path_setup(out_folder="", sublevel=0, data_path="dataset/"):
-    """function path_setup
-    Args:
-        out_folder:   
-        sublevel:   
-        data_path:   
-    Returns:
-        
+    """function path_setup.
+    Doc::
+            
+            Args:
+                out_folder:   
+                sublevel:   
+                data_path:   
+            Returns:
+                
     """
     #### Relative path
     data_path = os_package_root_path( path_add=data_path)
@@ -489,13 +517,15 @@ def path_setup(out_folder="", sublevel=0, data_path="dataset/"):
 
 
 def get_params(choice=0, data_path="dataset/", **kw):
-    """function get_params
-    Args:
-        choice:   
-        data_path:   
-        **kw:   
-    Returns:
-        
+    """function get_params.
+    Doc::
+            
+            Args:
+                choice:   
+                data_path:   
+                **kw:   
+            Returns:
+                
     """
     if choice == 0:
         log("#### Path params   ###################################################")
@@ -513,10 +543,12 @@ def get_params(choice=0, data_path="dataset/", **kw):
 
 
 def metrics_evaluate():
-    """function metrics_evaluate
-    Args:
-    Returns:
-        
+    """function metrics_evaluate.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log("#### metrics   ####################################################")
     results = {}
@@ -543,12 +575,14 @@ def metrics_evaluate():
 ########################################################################################################################
 ########################################################################################################################
 def test(data_path="dataset/", pars_choice=0):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+            Returns:
+                
     """
     ### Local test
     log("#### Loading params   ##############################################")

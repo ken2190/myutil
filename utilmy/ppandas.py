@@ -1,5 +1,60 @@
 # -*- coding: utf-8 -*-
-HELP= """
+""" Pandas utils
+Doc::
+
+    l1 = [1,2,3]
+    l2 = [2,3,4]
+    l  = np_list_intersection(l1,l2)
+    assert len(l) == 2, "Intersection failed"
+
+    l = np_add_remove(set(l1),[1,2],4)
+    assert l == set([3,4]), "Add remove failed"
+
+    to_timeunix(datex="2018-01-16")
+    to_timeunix(datetime.datetime(2018,1,16))
+    to_datetime("2018-01-16")
+    from utilmy import os_makedirs
+    os_makedirs("testdata/ppandas")
+
+    df1 = pd_random(100)
+    df2 = pd_random(100)
+    df3 = pd.DataFrame({"a":[1,1,2,2,2]})
+    df_str = pd.DataFrame({"a": ["A", "B", "B", "C", "C"],
+                           "b": [1, 2, 3, 4, 5]})
+
+    pd_plot_histogram(df1["a"],path_save="testdata/ppandas/histogram")
+
+    pd_merge(df1, df2, on="b")
+
+    df = pd_filter(df3, filter_dict="a>1")
+    assert df.shape[0] == 3, "not filtered properly"
+
+    pd_to_file(df1, "testdata/ppandas/file.csv")
+    pd_sample_strat(df1, col="a", n=10)
+
+    bins = pd_col_bins(df1, "a", 5)
+    assert len(np.unique(bins)) == 5, "bins not formed"
+
+    pd_dtype_reduce(df1)
+    pd_dtype_count_unique(df1,col_continuous=['b'])
+
+    df = pd_dtype_to_category(df_str, col_exclude=["b"], treshold=0.7)
+    assert df.dtypes["a"] == "category", "Columns was not converted to category"
+
+    pd_dtype_getcontinuous(df_str,cols_exclude=["a"])
+    pd_add_noise(df1,level=0.01,cols_exclude=["a"])
+
+    pd_cols_unique_count(df_str)
+    pd_del(df_str,cols=["a"])
+
+    # pd_plot_multi function needs to be fixed before writing test case
+    # ax = m.pd_plot_multi(df1,plot_type='pair',cols_axe1=['a','b'])
+
+    a = pd.DataFrame({"a":[1,2,3,4,5]})
+    b = pd.DataFrame({"b":[1,2,3,4,5]})
+    pd_cartesian(a,b)
+
+    pd_show(df_str)
 
 
 """
@@ -8,12 +63,14 @@ import os, sys, time, datetime,inspect, json, yaml, gc, glob, pandas as pd, nump
 from utilmy.parallel import pd_read_file, pd_read_file2
 
 
+
 ###################################################################################
-from utilmy.utilmy import log, log2
+from utilmy.utilmy import log, log2, os_module_name
+MNAME= os_module_name(__file__) 
 
 def help():
     from utilmy import help_create
-    ss = help_create("utilmy.ppandas") + HELP
+    ss = help_create(__file__) 
     print(ss)
 
 
@@ -21,7 +78,6 @@ def help():
 def test_all():
     from utilmy import os_makedirs
     os_makedirs("testdata/ppandas")
-
 
     df1 = pd_random(100)
     df2 = pd_random(100)
@@ -109,19 +165,21 @@ def pd_schema_enforce(df, int_default:int=0, dtype_dict:dict=None):
     
 
 def pd_to_mapdict(df, colkey='ranid', colval='item_tag', naval='0', colkey_type='str', colval_type='str', npool=5, nrows=900900900, verbose=True):
-    """function pd_to_mapdict
-    Args:
-        df:   
-        colkey:   
-        colval:   
-        naval:   
-        colkey_type:   
-        colval_type:   
-        npool:   
-        nrows:   
-        verbose:   
-    Returns:
-        
+    """function pd_to_mapdict.
+    Doc::
+            
+            Args:
+                df:   
+                colkey:   
+                colval:   
+                naval:   
+                colkey_type:   
+                colval_type:   
+                npool:   
+                nrows:   
+                verbose:   
+            Returns:
+                
     """
     ### load Pandas into key-val dict, for apply-map
     if isinstance(df, str):
@@ -145,8 +203,10 @@ def pd_to_mapdict(df, colkey='ranid', colval='item_tag', naval='0', colkey_type=
 
 
 def pd_to_hiveparquet(dirin, dirout="/ztmp_hive_parquet/df.parquet", verbose=False):
-    """  Hive parquet needs special headers to read, only fastparquet can do it
-              fastparquet.write(filename, data, row_group_offsets=50000000, compression=None, file_scheme='simple', open_with=<built-in function open>, mkdirs=<function default_mkdirs>, has_nulls=True, write_index=None, partition_on=[], fixed_text=None, append=False, object_encoding='infer', times='int64', custom_metadata=None)[source]
+    """  Hive parquet needs special headers to read, only fastparquet can do it.
+    Doc::
+            
+                      fastparquet.write(filename, data, row_group_offsets=50000000, compression=None, file_scheme='simple', open_with=<built-in function open>, mkdirs=<function default_mkdirs>, has_nulls=True, write_index=None, partition_on=[], fixed_text=None, append=False, object_encoding='infer', times='int64', custom_metadata=None)[source]
     """
     import fastparquet as fp   
     from utilmy import glob_glob
@@ -168,11 +228,13 @@ def pd_to_hiveparquet(dirin, dirout="/ztmp_hive_parquet/df.parquet", verbose=Fal
     
     
 def pd_random(nrows=100):
-   """function pd_random
-   Args:
-       nrows:   
-   Returns:
-       
+   """function pd_random.
+   Doc::
+           
+          Args:
+              nrows:   
+          Returns:
+              
    """
    df = pd.DataFrame(np.random.randint(0, 10, size=(nrows, 4)), 
                      columns=list('abcd'))
@@ -180,14 +242,16 @@ def pd_random(nrows=100):
 
 
 def pd_merge(df1, df2, on=None, colkeep=None):
-  """function pd_merge
-  Args:
-      df1:   
-      df2:   
-      on:   
-      colkeep:   
-  Returns:
-      
+  """function pd_merge.
+  Doc::
+          
+        Args:
+            df1:   
+            df2:   
+            on:   
+            colkeep:   
+        Returns:
+            
   """
   ### Faster merge
   cols = list(df2.columns) if colkeep is None else on + colkeep
@@ -195,16 +259,18 @@ def pd_merge(df1, df2, on=None, colkeep=None):
 
 
 def pd_plot_multi(df, plot_type=None, cols_axe1:list=[], cols_axe2:list=[],figsize=(8,4), spacing=0.1, **kwargs):
-    """function pd_plot_multi
-    Args:
-        df:   
-        plot_type:   
-        cols_axe1 ( list ) :   
-        cols_axe2 ( list ) :   
-        figsize:   
-        4:   
-    Returns:
-        
+    """function pd_plot_multi.
+    Doc::
+            
+            Args:
+                df:   
+                plot_type:   
+                cols_axe1 ( list ) :   
+                cols_axe2 ( list ) :   
+                figsize:   
+                4:   
+            Returns:
+                
     """
     from pandas import plotting
     from pandas.plotting import _matplotlib
@@ -256,18 +322,20 @@ def pd_plot_multi(df, plot_type=None, cols_axe1:list=[], cols_axe2:list=[],figsi
 
 
 def pd_plot_histogram(dfi, path_save=None, nbin=20.0, q5=0.005, q95=0.995, nsample= -1, show=False, clear=True) :
-    """function pd_plot_histogram
-    Args:
-        dfi:   
-        path_save:   
-        nbin:   
-        q5:   
-        q95:   
-        nsample:   
-        show:   
-        clear:   
-    Returns:
-        
+    """function pd_plot_histogram.
+    Doc::
+            
+            Args:
+                dfi:   
+                path_save:   
+                nbin:   
+                q5:   
+                q95:   
+                nsample:   
+                show:   
+                clear:   
+            Returns:
+                
     """
     ### Plot histogram
     from matplotlib import pyplot as plt
@@ -294,10 +362,12 @@ def pd_plot_histogram(dfi, path_save=None, nbin=20.0, q5=0.005, q95=0.995, nsamp
 
 
 def pd_filter(df, filter_dict="shop_id=11, l1_genre_id>600, l2_genre_id<80311," , verbose=False) :
-    """
-     dfi = pd_filter2(dfa, "shop_id=11, l1_genre_id>600, l2_genre_id<80311," )
-     dfi2 = pd_filter(dfa, {"shop_id" : 11} )
-     ### Dilter dataframe with basic expr
+    """.
+    Doc::
+            
+             dfi = pd_filter2(dfa, "shop_id=11, l1_genre_id>600, l2_genre_id<80311," )
+             dfi2 = pd_filter(dfa, {"shop_id" : 11} )
+             ### Dilter dataframe with basic expr
     """
     #### Dict Filter
     if isinstance(filter_dict, dict) :
@@ -332,16 +402,18 @@ def pd_filter(df, filter_dict="shop_id=11, l1_genre_id>600, l2_genre_id<80311," 
 
 
 def pd_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
-  """function pd_to_file
-  Args:
-      df:   
-      filei:   
-      check:   
-      verbose:   
-      show:   
-      **kw:   
-  Returns:
-      
+  """function pd_to_file.
+  Doc::
+          
+        Args:
+            df:   
+            filei:   
+            check:   
+            verbose:   
+            show:   
+            **kw:   
+        Returns:
+            
   """
   import os, gc
   from pathlib import Path
@@ -371,13 +443,15 @@ def pd_to_file(df, filei,  check=0, verbose=True, show='shape',   **kw):
 
 
 def pd_sample_strat(df, col, n):
-  """function pd_sample_strat
-  Args:
-      df:   
-      col:   
-      n:   
-  Returns:
-      
+  """function pd_sample_strat.
+  Doc::
+          
+        Args:
+            df:   
+            col:   
+            n:   
+        Returns:
+            
   """
   ### Stratified sampling
   # n   = min(n, df[col].value_counts().min())
@@ -387,12 +461,14 @@ def pd_sample_strat(df, col, n):
 
 
 def pd_cartesian(df1, df2) :
-  """function pd_cartesian
-  Args:
-      df1:   
-      df2:   
-  Returns:
-      
+  """function pd_cartesian.
+  Doc::
+          
+        Args:
+            df1:   
+            df2:   
+        Returns:
+            
   """
   ### Cartesian preoduct
   import pandas as pd
@@ -409,13 +485,15 @@ def pd_cartesian(df1, df2) :
 
 
 def pd_col_bins(df, col, nbins=5):
-  """function pd_col_bins
-  Args:
-      df:   
-      col:   
-      nbins:   
-  Returns:
-      
+  """function pd_col_bins.
+  Doc::
+          
+        Args:
+            df:   
+            col:   
+            nbins:   
+        Returns:
+            
   """
   ### Shortcuts for easy bin of numerical values
   import pandas as pd, numpy as np
@@ -424,9 +502,11 @@ def pd_col_bins(df, col, nbins=5):
 
 
 def pd_dtype_reduce(dfm, int0 ='int32', float0 = 'float32') :
-    """ Reduce dtype
-
-
+    """ Reduce dtype.
+    Doc::
+            
+        
+        
     """
     import numpy as np
     for c in dfm.columns :
@@ -437,15 +517,17 @@ def pd_dtype_reduce(dfm, int0 ='int32', float0 = 'float32') :
 
 
 def pd_dtype_count_unique(df, col_continuous=[]):
-    """Learns the number of categories in each variable and standardizes the data.
-        ----------
-        data: pd.DataFrame
-        continuous_ids: list of ints
-            List containing the indices of known continuous variables. Useful for
-            discrete data like age, which is better modeled as continuous.
-        Returns
-        -------
-        ncat:  number of categories of each variable. -1 if the variable is  continuous.
+    """Learns the number of categories in each variable and standardizes the data..
+    Doc::
+            
+                ----------
+                data: pd.DataFrame
+                continuous_ids: list of ints
+                    List containing the indices of known continuous variables. Useful for
+                    discrete data like age, which is better modeled as continuous.
+                Returns
+                -------
+                ncat:  number of categories of each variable. -1 if the variable is  continuous.
     """
     import numpy as np
     def gef_is_continuous(data, dtype):
@@ -476,8 +558,10 @@ def pd_dtype_count_unique(df, col_continuous=[]):
 
 
 def pd_dtype_to_category(df, col_exclude, treshold=0.5):
-  """
-    Convert string to category
+  """.
+  Doc::
+          
+          Convert string to category
   """
   import pandas as pd
   if isinstance(df, pd.DataFrame):
@@ -495,13 +579,15 @@ def pd_dtype_to_category(df, col_exclude, treshold=0.5):
 
 
 def pd_dtype_getcontinuous(df, cols_exclude:list=[], nsample=-1) :
-    """function pd_dtype_getcontinuous
-    Args:
-        df:   
-        cols_exclude ( list ) :   
-        nsample:   
-    Returns:
-        
+    """function pd_dtype_getcontinuous.
+    Doc::
+            
+            Args:
+                df:   
+                cols_exclude ( list ) :   
+                nsample:   
+            Returns:
+                
     """
     ### Return continuous variable
     clist = {}
@@ -519,12 +605,14 @@ def pd_dtype_getcontinuous(df, cols_exclude:list=[], nsample=-1) :
 
 
 def pd_del(df, cols:list):
-    """function pd_del
-    Args:
-        df:   
-        cols ( list ) :   
-    Returns:
-        
+    """function pd_del.
+    Doc::
+            
+            Args:
+                df:   
+                cols ( list ) :   
+            Returns:
+                
     """
     ### Delete columns without errors
     for col in cols :
@@ -535,13 +623,15 @@ def pd_del(df, cols:list):
 
 
 def pd_add_noise(df, level=0.05, cols_exclude:list=[]) :
-    """function pd_add_noise
-    Args:
-        df:   
-        level:   
-        cols_exclude ( list ) :   
-    Returns:
-        
+    """function pd_add_noise.
+    Doc::
+            
+            Args:
+                df:   
+                level:   
+                cols_exclude ( list ) :   
+            Returns:
+                
     """
     import numpy as np, pandas as pd
     df2 = pd.DataFrame()
@@ -557,13 +647,15 @@ def pd_add_noise(df, level=0.05, cols_exclude:list=[]) :
 
 
 def pd_cols_unique_count(df, cols_exclude:list=[], nsample=-1) :
-    """function pd_cols_unique_count
-    Args:
-        df:   
-        cols_exclude ( list ) :   
-        nsample:   
-    Returns:
-        
+    """function pd_cols_unique_count.
+    Doc::
+            
+            Args:
+                df:   
+                cols_exclude ( list ) :   
+                nsample:   
+            Returns:
+                
     """
     ### Return cadinat=lity
     clist = {}
@@ -583,7 +675,9 @@ def pd_cols_unique_count(df, cols_exclude:list=[], nsample=-1) :
 
 
 def pd_show(df, nrows=100, reader='notepad.exe', **kw):
-    """ Show from Dataframe
+    """ Show from Dataframe.
+    Doc::
+            
     """
     import pandas as pd
     from utilmy import os_makedirs
@@ -600,32 +694,38 @@ def pd_show(df, nrows=100, reader='notepad.exe', **kw):
 class dict_to_namespace(object):
     #### Dict to namespace
     def __init__(self, d):
-        """ dict_to_namespace:__init__
-        Args:
-            d:     
-        Returns:
-           
+        """ dict_to_namespace:__init__.
+        Doc::
+                
+                    Args:
+                        d:     
+                    Returns:
+                       
         """
         self.__dict__ = d
 
 
 def to_dict(**kw):
-  """function to_dict
-  Args:
-      **kw:   
-  Returns:
-      
+  """function to_dict.
+  Doc::
+          
+        Args:
+            **kw:   
+        Returns:
+            
   """
   ## return dict version of the params
   return kw
 
 
 def to_timeunix(datex="2018-01-16"):
-  """function to_timeunix
-  Args:
-      datex:   
-  Returns:
-      
+  """function to_timeunix.
+  Doc::
+          
+        Args:
+            datex:   
+        Returns:
+            
   """
   if isinstance(datex, str)  :
      return int(time.mktime(datetime.datetime.strptime(datex, "%Y-%m-%d").timetuple()) * 1000)
@@ -635,35 +735,41 @@ def to_timeunix(datex="2018-01-16"):
 
 
 def to_datetime(x) :
-  """function to_datetime
-  Args:
-      x:   
-  Returns:
-      
+  """function to_datetime.
+  Doc::
+          
+        Args:
+            x:   
+        Returns:
+            
   """
   import pandas as pd
   return pd.to_datetime( str(x) )
 
 
 def np_list_intersection(l1, l2) :
-  """function np_list_intersection
-  Args:
-      l1:   
-      l2:   
-  Returns:
-      
+  """function np_list_intersection.
+  Doc::
+          
+        Args:
+            l1:   
+            l2:   
+        Returns:
+            
   """
   return [x for x in l1 if x in l2]
 
 
 def np_add_remove(set_, to_remove, to_add):
-    """function np_add_remove
-    Args:
-        set_:   
-        to_remove:   
-        to_add:   
-    Returns:
-        
+    """function np_add_remove.
+    Doc::
+            
+            Args:
+                set_:   
+                to_remove:   
+                to_add:   
+            Returns:
+                
     """
     # a function that removes list of elements and adds an element from a set
     result_temp = set_.copy()
@@ -674,11 +780,13 @@ def np_add_remove(set_, to_remove, to_add):
 
 
 def to_float(x):
-    """function to_float
-    Args:
-        x:   
-    Returns:
-        
+    """function to_float.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     try :
         return float(x)
@@ -687,11 +795,13 @@ def to_float(x):
 
 
 def to_int(x):
-    """function to_int
-    Args:
-        x:   
-    Returns:
-        
+    """function to_int.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     try :
         return int(x)
@@ -700,11 +810,13 @@ def to_int(x):
 
 
 def is_int(x):
-    """function is_int
-    Args:
-        x:   
-    Returns:
-        
+    """function is_int.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     try :
         int(x)
@@ -713,11 +825,13 @@ def is_int(x):
         return False    
 
 def is_float(x):
-    """function is_float
-    Args:
-        x:   
-    Returns:
-        
+    """function is_float.
+    Doc::
+            
+            Args:
+                x:   
+            Returns:
+                
     """
     try :
         float(x)

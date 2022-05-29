@@ -57,12 +57,14 @@ df["Close_Price"].describe()
 
 
 def detect(signal, treshold=2.0):
-    """function detect
-    Args:
-        signal:   
-        treshold:   
-    Returns:
-        
+    """function detect.
+    Doc::
+            
+            Args:
+                signal:   
+                treshold:   
+            Returns:
+                
     """
     detected = []
     for i in range(len(signal)):
@@ -162,15 +164,17 @@ plt.show()
 
 
 def df_shift(df, lag=0, start=1, skip=1, rejected_columns=[]):
-    """function df_shift
-    Args:
-        df:   
-        lag:   
-        start:   
-        skip:   
-        rejected_columns:   
-    Returns:
-        
+    """function df_shift.
+    Doc::
+            
+            Args:
+                df:   
+                lag:   
+                start:   
+                skip:   
+                rejected_columns:   
+            Returns:
+                
     """
     df = df.copy()
     if not lag:
@@ -233,12 +237,14 @@ plt.show()
 
 
 def moving_average(signal, period):
-    """function moving_average
-    Args:
-        signal:   
-        period:   
-    Returns:
-        
+    """function moving_average.
+    Doc::
+            
+            Args:
+                signal:   
+                period:   
+            Returns:
+                
     """
     buffer = [np.nan] * period
     for i in range(period, len(signal)):
@@ -293,15 +299,17 @@ dates = pd.to_datetime(df.iloc[:, 0]).tolist()
 
 class Model:
     def __init__(self, learning_rate, num_layers, size, size_layer, forget_bias=0.8):
-        """ Model:__init__
-        Args:
-            learning_rate:     
-            num_layers:     
-            size:     
-            size_layer:     
-            forget_bias:     
-        Returns:
-           
+        """ Model:__init__.
+        Doc::
+                
+                    Args:
+                        learning_rate:     
+                        num_layers:     
+                        size:     
+                        size_layer:     
+                        forget_bias:     
+                    Returns:
+                       
         """
         def lstm_cell(size_layer):
             return tf.nn.rnn_cell.LSTMCell(size_layer, state_is_tuple=False)
@@ -371,14 +379,16 @@ for i in range(epoch):
 
 
 def predict_future(future_count, df, dates, indices={}):
-    """function predict_future
-    Args:
-        future_count:   
-        df:   
-        dates:   
-        indices:   
-    Returns:
-        
+    """function predict_future.
+    Doc::
+            
+            Args:
+                future_count:   
+                df:   
+                dates:   
+                indices:   
+            Returns:
+                
     """
     date_ori = dates[:]
     cp_df = df.copy()
@@ -434,12 +444,14 @@ def predict_future(future_count, df, dates, indices={}):
 
 
 def anchor(signal, weight):
-    """function anchor
-    Args:
-        signal:   
-        weight:   
-    Returns:
-        
+    """function anchor.
+    Doc::
+            
+            Args:
+                signal:   
+                weight:   
+            Returns:
+                
     """
     buffer = []
     last = signal[0]

@@ -15,10 +15,12 @@ from . import Utils as tsutil
 class cExogenousInfo:
 
     def __init__(self):
-        """ cExogenousInfo:__init__
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mExogenousVariables = None;
         self.mEncodedExogenous = None;
@@ -30,29 +32,35 @@ class cExogenousInfo:
         self.mExcluded = [];
         
     def info(self):
-        """ cExogenousInfo:info
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:info.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         lStr2 = "ExogenousVariables = '" + self.mExogD +"'";
         return lStr2;
 
 
     def to_json(self):
-        """ cExogenousInfo:to_json
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:to_json.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         dict1 = {};
         return dict1;
 
     def fit(self):
-        """ cExogenousInfo:fit
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:fit.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mExogenousDataFrame = self.mExogenousData[0];
         self.mExogenousVariables = self.mExogenousData[1];
@@ -63,11 +71,13 @@ class cExogenousInfo:
         # print("preProcessExogenousVariables , dummy columns", self.mEncodedExogenous);
 
     def addVars(self, df):
-        """ cExogenousInfo:addVars
-        Args:
-            df:     
-        Returns:
-           
+        """ cExogenousInfo:addVars.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         lExogDate = self.mDateVariable;
         N = df.shape[0]
@@ -100,11 +110,13 @@ class cExogenousInfo:
         return df2;
 
     def transformDataset(self, df):
-        """ cExogenousInfo:transformDataset
-        Args:
-            df:     
-        Returns:
-           
+        """ cExogenousInfo:transformDataset.
+        Doc::
+                
+                    Args:
+                        df:     
+                    Returns:
+                       
         """
         # print("BEFORE_EXOG_TRANSFORM_DATASET" , df.shape, df.columns);
         df1 = self.addVars(df);
@@ -112,10 +124,12 @@ class cExogenousInfo:
         return df1;
         
     def createEncodedExogenous(self):
-        """ cExogenousInfo:createEncodedExogenous
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:createEncodedExogenous.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.mExogDummiesDataFrame = pd.DataFrame();
         self.mEncodedExogenous = [];
@@ -143,10 +157,12 @@ class cExogenousInfo:
 
 
     def updateExogenousVariableInfo(self):
-        """ cExogenousInfo:updateExogenousVariableInfo
-        Args:
-        Returns:
-           
+        """ cExogenousInfo:updateExogenousVariableInfo.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         # print(self.mExogenousDataFrame.info());
         self.mExogenousVariableCategories = {};

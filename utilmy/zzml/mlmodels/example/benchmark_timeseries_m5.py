@@ -228,8 +228,10 @@ next(iter(train_ds))
 
 
 def gluonts_create_dynamic(df_dynamic, submission=1, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
+    """.
+    Doc::
+            
+                N_cat x N-timseries
     """
     v = df_dynamic.values.T if transpose else df_dynamic.values
 
@@ -243,9 +245,11 @@ def gluonts_create_dynamic(df_dynamic, submission=1, single_pred_length=28, subm
 
 
 def gluonts_create_static(df_static, submission=1, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
-
+    """.
+    Doc::
+            
+                N_cat x N-timseries
+        
     """
     ####### Static Features 
     for col in df_static :
@@ -260,8 +264,10 @@ def gluonts_create_static(df_static, submission=1, single_pred_length=28, submis
 
 
 def gluonts_create_timeseries(df_timeseries, submission=1, single_pred_length=28, submission_pred_length=10, n_timeseries=1, transpose=1) :
-    """
-        N_cat x N-timseries
+    """.
+    Doc::
+            
+                N_cat x N-timseries
     """
     #### Remove Categories colum
     train_target_values = df_timeseries.values
@@ -281,28 +287,32 @@ def gluonts_create_timeseries(df_timeseries, submission=1, single_pred_length=28
 
 #### Start Dates for each time series
 def create_startdate(date="2011-01-29", freq="1D", n_timeseries=1):
-   """function create_startdate
-   Args:
-       date:   
-       freq:   
-       n_timeseries:   
-   Returns:
-       
+   """function create_startdate.
+   Doc::
+           
+          Args:
+              date:   
+              freq:   
+              n_timeseries:   
+          Returns:
+              
    """
    start_dates_list = [pd.Timestamp(date, freq=freq) for _ in range(n_timeseries)]
    return start_dates_list
 
 
 def gluonts_create_dataset(train_timeseries_list, start_dates_list, train_dynamic_list,  train_static_list, freq="D" ) :
-    """function gluonts_create_dataset
-    Args:
-        train_timeseries_list:   
-        start_dates_list:   
-        train_dynamic_list:   
-        train_static_list:   
-        freq:   
-    Returns:
-        
+    """function gluonts_create_dataset.
+    Doc::
+            
+            Args:
+                train_timeseries_list:   
+                start_dates_list:   
+                train_dynamic_list:   
+                train_static_list:   
+                freq:   
+            Returns:
+                
     """
     from gluonts.dataset.common import load_datasets, ListDataset
     from gluonts.dataset.field_names import FieldName
@@ -343,14 +353,16 @@ df_timeseries = sales_train_val.drop(["id","item_id","dept_id","cat_id","store_i
 
 
 def pandas_to_gluonts_multiseries(df_timeseries, df_dynamic, df_static, pars=None) :
-    """function pandas_to_gluonts_multiseries
-    Args:
-        df_timeseries:   
-        df_dynamic:   
-        df_static:   
-        pars:   
-    Returns:
-        
+    """function pandas_to_gluonts_multiseries.
+    Doc::
+            
+            Args:
+                df_timeseries:   
+                df_dynamic:   
+                df_static:   
+                pars:   
+            Returns:
+                
     """
 
     submission             = pars['submission']
@@ -530,15 +542,17 @@ if not os.path.exists(directory):
     os.makedirs(directory)
     
 def plot_prob_forecasts(ts_entry, forecast_entry, path, sample_id, inline=True):
-    """function plot_prob_forecasts
-    Args:
-        ts_entry:   
-        forecast_entry:   
-        path:   
-        sample_id:   
-        inline:   
-    Returns:
-        
+    """function plot_prob_forecasts.
+    Doc::
+            
+            Args:
+                ts_entry:   
+                forecast_entry:   
+                path:   
+                sample_id:   
+                inline:   
+            Returns:
+                
     """
     plot_length = 150
     pred_intervals = (50, 67, 95, 99)

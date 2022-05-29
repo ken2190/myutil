@@ -12,13 +12,23 @@ from pprint import pprint
 # from utilmy import log, log2, help_create
 
 def log(*s) : 
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
+    """
     print(*s, flush=True)
 
 
 #################################################################################################################
 def test1():
-    """ python utilmy/docs/format2.py  test1 
-    
+    """ python utilmy/docs/format2.py  test1 .
+    Doc::
+            
+            
     """
     #### cd myutil
     dirtest = "utilmy/docs/"
@@ -40,6 +50,14 @@ def test1():
 
 ##### Run Scripts ###############################################################################################
 def format_utilmy(nfile=10):
+    """function format_utilmy.
+    Doc::
+            
+            Args:
+                nfile:   
+            Returns:
+                
+    """
     dirin = os.getcwd() + "/utilmy/"
     direxclude ="*utilmy/z*"
 
@@ -57,6 +75,15 @@ def format_utilmy(nfile=10):
 
 
 def format_file2(file_path, output_file):
+    """function format_file2.
+    Doc::
+            
+            Args:
+                file_path:   
+                output_file:   
+            Returns:
+                
+    """
     new_all_lines = format_file(file_path)
     # new_all_lines = ss.split("\n")
     print(str(new_all_lines)[:100] )
@@ -66,6 +93,15 @@ def format_file2(file_path, output_file):
 
 
 def format_file3(file_path, output_file):
+    """function format_file3.
+    Doc::
+            
+            Args:
+                file_path:   
+                output_file:   
+            Returns:
+                
+    """
     ## Safe Modification
     batch_format_file(in_file= file_path, dirout= output_file, 
                     format_list= [ format_file ])
@@ -74,6 +110,14 @@ def format_file3(file_path, output_file):
 
 ###### Core formatter ###########################################################################################
 def format_file(file_path):
+    """function format_file.
+    Doc::
+            
+            Args:
+                file_path:   
+            Returns:
+                
+    """
     all_lines = get_file(file_path)
     info = extrac_block(all_lines)
 
@@ -98,9 +142,11 @@ def format_file(file_path):
 
 
 def normalize_header(file_name, lines):
-    """Nomarlize Header block
-
-    Args input is a array of lines.
+    """Nomarlize Header block.
+    Doc::
+            
+        
+            Args input is a array of lines.
     """
     #### not need of regex, code easier to read 
 
@@ -131,8 +177,10 @@ def normalize_header(file_name, lines):
 
 
 def normalize_import(lines):
-    """  merge all import in one line and append others
-
+    """  merge all import in one line and append others.
+    Doc::
+            
+        
     """
     import_list = []
     from_list = []
@@ -175,6 +223,14 @@ def normalize_import(lines):
 
 
 def normalize_logger(lines):
+    """function normalize_logger.
+    Doc::
+            
+            Args:
+                lines:   
+            Returns:
+                
+    """
     lines2 = []
     if len(lines) >0:
         if "from utilmy import log" not in lines[0]:
@@ -194,7 +250,7 @@ def normalize_logger(lines):
     if not is_exist_help:
         lines2.extend([
             'def help():\n',
-            '   print( help_create(MNAME) )\n',
+            '   print( help_create(__file__) )\n',
             '\n',
             '\n'
         ])
@@ -203,6 +259,14 @@ def normalize_logger(lines):
 
 
 def normalize_test(lines):
+    """function normalize_test.
+    Doc::
+            
+            Args:
+                lines:   
+            Returns:
+                
+    """
     lines2 = []
 
     # check test_all function:
@@ -261,10 +325,26 @@ def normalize_test(lines):
 
 
 def normalize_core(lines):
+    """function normalize_core.
+    Doc::
+            
+            Args:
+                lines:   
+            Returns:
+                
+    """
     return lines
 
 
 def normalize_footer(lines):
+    """function normalize_footer.
+    Doc::
+            
+            Args:
+                lines:   
+            Returns:
+                
+    """
 
     lines2 = []
 
@@ -294,11 +374,13 @@ def normalize_footer(lines):
 
 #################################################################################################################
 def get_file(file_path):
-    """function _get_all_line
-    Args:
-        file_path:   
-    Returns:
-        
+    """function _get_all_line.
+    Doc::
+            
+            Args:
+                file_path:   
+            Returns:
+                
     """
     # print(file_path)
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -307,16 +389,18 @@ def get_file(file_path):
     
 
 def extrac_block(lines):
-    """ Split the code source into Code Blocks:
-        header
-        import
-        variable
-        logger
-        test
-        core
-
-        footer
-
+    """ Split the code source into Code Blocks:.
+    Doc::
+            
+                header
+                import
+                variable
+                logger
+                test
+                core
+        
+                footer
+        
     """
     dd = {}
     # lines = txt.split("/n")       

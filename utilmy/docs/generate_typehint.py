@@ -25,30 +25,36 @@ os.environ["MONKEYTYPE_TRACE_MODULES"] = 'utilmy,site-packages'
 from utilmy import log, log2, os_makedirs
 import utilmy
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 ####################################################################################
 def test_all():
-  """function test_all
-  Args:
-  Returns:
-      
+  """function test_all.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   test1()
 
 
 def test1():
-  """function test1
-  Args:
-  Returns:
-      
+  """function test1.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   log(utilmy.__file__)
 
@@ -64,11 +70,13 @@ def test1():
 
 
 def run_utilmy(nfile=10000):
-  """function run_utilmy
-  Args:
-      nfile:   
-  Returns:
-      
+  """function run_utilmy.
+  Doc::
+          
+        Args:
+            nfile:   
+        Returns:
+            
   """
   log(utilmy.__file__)
   exclude = "";
@@ -84,11 +92,13 @@ def run_utilmy(nfile=10000):
 
 
 def run_utilmy_overwrite(nfile=100000):
-  """function run_utilmy2
-  Args:
-      nfile:   
-  Returns:
-      
+  """function run_utilmy2.
+  Doc::
+          
+        Args:
+            nfile:   
+        Returns:
+            
   """
   log('OVERWRITE FILES')
   exclude = ""; 
@@ -106,10 +116,12 @@ def run_utilmy_overwrite(nfile=100000):
 
 
 def test2():
-  """function test2
-  Args:
-  Returns:
-      
+  """function test2.
+  Doc::
+          
+        Args:
+        Returns:
+            
   """
   log(utilmy.__file__)
 
@@ -127,11 +139,13 @@ def test2():
 
 
 def os_path_norm(diroot):
-    """function os_path_norm
-    Args:
-        diroot:   
-    Returns:
-        
+    """function os_path_norm.
+    Doc::
+            
+            Args:
+                diroot:   
+            Returns:
+                
     """
     diroot = diroot.replace("\\", "/")
     return diroot + "/" if diroot[-1] != "/" else  diroot
@@ -139,14 +153,16 @@ def os_path_norm(diroot):
 
 
 def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
-    """function glob_glob_python
-    Args:
-        dirin:   
-        suffix :   
-        nfile:   
-        exclude:   
-    Returns:
-        
+    """function glob_glob_python.
+    Doc::
+            
+            Args:
+                dirin:   
+                suffix :   
+                nfile:   
+                exclude:   
+            Returns:
+                
     """
     flist = glob.glob(dirin + suffix) 
     flist = flist + glob.glob(dirin + "/**/" + suffix ) 
@@ -158,20 +174,22 @@ def glob_glob_python(dirin, suffix ="*.py", nfile=7, exclude=""):
 
 
 def run_monkeytype(dirin:str, dirout:str, diroot:str=None, mode="stub", nfile=10, exclude="" ):
-    """Generate type hints for files
-          Args:
-              dirin (str): _description_
-              dirout (str): _description_
-              diroot (str, optional): _description_. Defaults to None.
-              mode (str, optional): _description_. Defaults to "stub".
-              nfile (int, optional): _description_. Defaults to 10.
-              exclude (str, optional): _description_. Defaults to "".
-            exclude = ""; nfile= 10
-            dir0 = os.getcwd()
-            dirin  = dir0 + "/utilmy/tabular/" 
-            dirout = dir0 + "/docs/stub/"
-            diroot = dir0        
-            dirin = dirin.replace("\\", "/") + '/'
+    """Generate type hints for files.
+    Doc::
+            
+                  Args:
+                      dirin (str): _description_
+                      dirout (str): _description_
+                      diroot (str, optional): _description_. Defaults to None.
+                      mode (str, optional): _description_. Defaults to "stub".
+                      nfile (int, optional): _description_. Defaults to 10.
+                      exclude (str, optional): _description_. Defaults to "".
+                    exclude = ""; nfile= 10
+                    dir0 = os.getcwd()
+                    dirin  = dir0 + "/utilmy/tabular/" 
+                    dirout = dir0 + "/docs/stub/"
+                    diroot = dir0        
+                    dirin = dirin.replace("\\", "/") + '/'
     """   
 
     import os, sys

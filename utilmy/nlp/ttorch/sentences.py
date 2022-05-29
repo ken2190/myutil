@@ -27,6 +27,7 @@ Doc::
 
 
 """
+MNAME='utilmy.nlp.ttorch.sentences'
 import sys, os, gzip, csv, random, math, logging, pandas as pd, numpy as np, glob
 from typing import List, Optional, Tuple, Union
 from datetime import datetime
@@ -61,7 +62,7 @@ Dataframe_str = Union[str, pd.DataFrame, None]
 
 from utilmy import log, log2, help_create
 def help():
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 #############################################################################################
@@ -144,6 +145,7 @@ def test1():
               normalize_embeddings=True  #### sub encode params
               )  
     if df is not None : log(df.head(3))
+    
     
 def test2():
     model = model_load("distilbert-base-nli-mean-tokens")
@@ -318,7 +320,7 @@ def model_finetune(modelname_or_path='distilbert-base-nli-mean-tokens',
         log('### Show eval metrics')
         model_evaluate(model, dirdata=eval_path, dirout= dirout +"/eval/")
         
-        log("\n******************< finish  > ********************")
+        log("\n******************< finish  > ***************************")
         return model
 
 
@@ -327,13 +329,13 @@ def model_check_cos_sim(model, sentence1 = "sentence 1" , sentence2 = "sentence 
   """  
   log('model', model)
   #Compute embedding for both lists
-  embeddings1 = model.encode(sentence1, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
+  embed1 = model.encode(sentence1, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
   
   # , convert_to_tensor=True)
-  embeddings2 = model.encode(sentence2, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
+  embed2 = model.encode(sentence2, convert_to_tensor=True, convert_to_numpy=False, normalize_embeddings=True)
 
   #Compute cosine-similarity
-  cosine_scores = util.cos_sim(embeddings1, embeddings2)
+  cosine_scores = util.cos_sim(embed1, embed2)
   log( f"{sentence1} \t {sentence2} \n cosine-similarity Score: {cosine_scores[0][0]}" )
 
 
@@ -361,25 +363,26 @@ def model_encode(model = "model name or path or object", dirdata:Dataframe_str="
         embs_all = model.encode(dfi, convert_to_numpy=True, **kw)
         embs_all = {'id': np.arange(0, len(embs_all)) ,  'emb': embs_all }
 
-    elif isinstance( dirdata, list) :
+    else:
+      if isinstance( dirdata, list) :
         flist = dirdata 
-    else :
+      else :
         flist = glob_glob(dirdata)
-        log('Nfiles', len(flist))
 
-        embs_all={ 'id':[], 'emb':[]}
-        for ii, fi in enumerate(flist) :
-            try :
-                dfi  = pd_read_file3(fi)
-                ### Unique ID
-                idvals = int(ii*10**9) + np.arange(0, len(dfi))   if colid not in dfi.columns else  dfi[colid].values 
-                    
-                dfi  = dfi[coltext].values
-                embs = model.encode(dfi, convert_to_numpy=True, **kw)   ###list of numpy vectors
-                embs_all['emb'].extend(embs)
-                embs_all['id'].extend( idvals )
-            except Exception as e :
-                log(ii, fi, e)     
+      log('Nfiles', len(flist))
+      embs_all={ 'id':[], 'emb':[]}
+      for ii, fi in enumerate(flist) :
+        try :
+            dfi  = pd_read_file3(fi)
+            ### Unique ID
+            idvals = int(ii*10**9) + np.arange(0, len(dfi))   if colid not in dfi.columns else  dfi[colid].values 
+                
+            dfi  = dfi[coltext].values
+            embs = model.encode(dfi, convert_to_numpy=True, **kw)   ### List of numpy vectors
+            embs_all['emb'].extend(embs)
+            embs_all['id'].extend( idvals )
+        except Exception as e :
+            log(ii, fi, e)     
 
     embs_all = pd.DataFrame(embs_all )    
     log(embs_all.shape)
@@ -390,11 +393,11 @@ def model_encode(model = "model name or path or object", dirdata:Dataframe_str="
         pd_to_file(embs_all, dirout, show=1)   
 
 
-def model_encode_batch(model = "model name or path or object", dirdata:Dataframe_str="data/*.parquet", 
+def model_encode_batch(model = "model name or path or object", dirdata:str="data/*.parquet", 
                 coltext:str='sentence1', colid=None,
                 dirout:str="embs/myfile.parquet", nsplit=5, imin=0, imax=500,   **kw ):
     """   Sentence encoder in parallel batch mode
-      file_{ii}.parquet  with ii= imin, imax
+      file_{ii}.parquet  with ii= imin, imax.
 
     """  
     flist = glob_glob(dirdata)

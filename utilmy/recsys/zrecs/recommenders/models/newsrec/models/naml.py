@@ -25,14 +25,16 @@ class NAMLModel(BaseModel):
     """
 
     def __init__(self, hparams, iterator_creator, seed=None):
-        """Initialization steps for NAML.
-        Compared with the BaseModel, NAML need word embedding.
-        After creating word embedding matrix, BaseModel's __init__ method will be called.
-
-        Args:
-            hparams (object): Global hyper-parameters. Some key setttings such as filter_num are there.
-            iterator_creator_train (object): NAML data loader class for train data.
-            iterator_creator_test (object): NAML data loader class for test and validation data
+        """Initialization steps for NAML..
+        Doc::
+                
+                    Compared with the BaseModel, NAML need word embedding.
+                    After creating word embedding matrix, BaseModel's __init__ method will be called.
+            
+                    Args:
+                        hparams (object): Global hyper-parameters. Some key setttings such as filter_num are there.
+                        iterator_creator_train (object): NAML data loader class for train data.
+                        iterator_creator_test (object): NAML data loader class for test and validation data
         """
 
         self.word2vec_embedding = self._init_embedding(hparams.wordEmb_file)
@@ -41,11 +43,13 @@ class NAMLModel(BaseModel):
         super().__init__(hparams, iterator_creator, seed=seed)
 
     def _get_input_label_from_iter(self, batch_data):
-        """ NAMLModel:_get_input_label_from_iter
-        Args:
-            batch_data:     
-        Returns:
-           
+        """ NAMLModel:_get_input_label_from_iter.
+        Doc::
+                
+                    Args:
+                        batch_data:     
+                    Returns:
+                       
         """
         input_feat = [
             batch_data["clicked_title_batch"],
@@ -61,12 +65,14 @@ class NAMLModel(BaseModel):
         return input_feat, input_label
 
     def _get_user_feature_from_iter(self, batch_data):
-        """get input of user encoder
-        Args:
-            batch_data: input batch data from user iterator
-
-        Returns:
-            numpy.ndarray: input user feature (clicked title batch)
+        """get input of user encoder.
+        Doc::
+                
+                    Args:
+                        batch_data: input batch data from user iterator
+            
+                    Returns:
+                        numpy.ndarray: input user feature (clicked title batch)
         """
         input_feature = [
             batch_data["clicked_title_batch"],
@@ -78,12 +84,14 @@ class NAMLModel(BaseModel):
         return input_feature
 
     def _get_news_feature_from_iter(self, batch_data):
-        """get input of news encoder
-        Args:
-            batch_data: input batch data from news iterator
-
-        Returns:
-            numpy.ndarray: input news feature (candidate title batch)
+        """get input of news encoder.
+        Doc::
+                
+                    Args:
+                        batch_data: input batch data from news iterator
+            
+                    Returns:
+                        numpy.ndarray: input news feature (candidate title batch)
         """
         input_feature = [
             batch_data["candidate_title_batch"],
@@ -95,24 +103,28 @@ class NAMLModel(BaseModel):
         return input_feature
 
     def _build_graph(self):
-        """Build NAML model and scorer.
-
-        Returns:
-            object: a model used to train.
-            object: a model used to evaluate and inference.
+        """Build NAML model and scorer..
+        Doc::
+                
+            
+                    Returns:
+                        object: a model used to train.
+                        object: a model used to evaluate and inference.
         """
 
         model, scorer = self._build_naml()
         return model, scorer
 
     def _build_userencoder(self, newsencoder):
-        """The main function to create user encoder of NAML.
-
-        Args:
-            newsencoder (object): the news encoder of NAML.
-
-        Return:
-            object: the user encoder of NAML.
+        """The main function to create user encoder of NAML..
+        Doc::
+                
+            
+                    Args:
+                        newsencoder (object): the news encoder of NAML.
+            
+                    Return:
+                        object: the user encoder of NAML.
         """
         hparams = self.hparams
         his_input_title_body_verts = keras.Input(
@@ -133,14 +145,16 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_newsencoder(self, embedding_layer):
-        """The main function to create news encoder of NAML.
-        news encoder in composed of title encoder, body encoder, vert encoder and subvert encoder
-
-        Args:
-            embedding_layer (object): a word embedding layer.
-
-        Return:
-            object: the news encoder of NAML.
+        """The main function to create news encoder of NAML..
+        Doc::
+                
+                    news encoder in composed of title encoder, body encoder, vert encoder and subvert encoder
+            
+                    Args:
+                        embedding_layer (object): a word embedding layer.
+            
+                    Return:
+                        object: the news encoder of NAML.
         """
         hparams = self.hparams
         input_title_body_verts = keras.Input(
@@ -182,13 +196,15 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_titleencoder(self, embedding_layer):
-        """build title encoder of NAML news encoder.
-
-        Args:
-            embedding_layer (object): a word embedding layer.
-
-        Return:
-            object: the title encoder of NAML.
+        """build title encoder of NAML news encoder..
+        Doc::
+                
+            
+                    Args:
+                        embedding_layer (object): a word embedding layer.
+            
+                    Return:
+                        object: the title encoder of NAML.
         """
         hparams = self.hparams
         sequences_input_title = keras.Input(shape=(hparams.title_size,), dtype="int32")
@@ -211,13 +227,15 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_bodyencoder(self, embedding_layer):
-        """build body encoder of NAML news encoder.
-
-        Args:
-            embedding_layer (object): a word embedding layer.
-
-        Return:
-            object: the body encoder of NAML.
+        """build body encoder of NAML news encoder..
+        Doc::
+                
+            
+                    Args:
+                        embedding_layer (object): a word embedding layer.
+            
+                    Return:
+                        object: the body encoder of NAML.
         """
         hparams = self.hparams
         sequences_input_body = keras.Input(shape=(hparams.body_size,), dtype="int32")
@@ -240,10 +258,12 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_vertencoder(self):
-        """build vert encoder of NAML news encoder.
-
-        Return:
-            object: the vert encoder of NAML.
+        """build vert encoder of NAML news encoder..
+        Doc::
+                
+            
+                    Return:
+                        object: the vert encoder of NAML.
         """
         hparams = self.hparams
         input_vert = keras.Input(shape=(1,), dtype="int32")
@@ -265,10 +285,12 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_subvertencoder(self):
-        """build subvert encoder of NAML news encoder.
-
-        Return:
-            object: the subvert encoder of NAML.
+        """build subvert encoder of NAML news encoder..
+        Doc::
+                
+            
+                    Return:
+                        object: the subvert encoder of NAML.
         """
         hparams = self.hparams
         input_subvert = keras.Input(shape=(1,), dtype="int32")
@@ -290,12 +312,14 @@ class NAMLModel(BaseModel):
         return model
 
     def _build_naml(self):
-        """The main function to create NAML's logic. The core of NAML
-        is a user encoder and a news encoder.
-
-        Returns:
-            object: a model used to train.
-            object: a model used to evaluate and predict.
+        """The main function to create NAML's logic. The core of NAML.
+        Doc::
+                
+                    is a user encoder and a news encoder.
+            
+                    Returns:
+                        object: a model used to train.
+                        object: a model used to evaluate and predict.
         """
         hparams = self.hparams
 

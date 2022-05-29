@@ -49,13 +49,15 @@ test_X.shape
 
 
 def get_one_triplet(input_data, input_labels, n_labels):
-    """function get_one_triplet
-    Args:
-        input_data:   
-        input_labels:   
-        n_labels:   
-    Returns:
-        
+    """function get_one_triplet.
+    Doc::
+            
+            Args:
+                input_data:   
+                input_labels:   
+                n_labels:   
+            Returns:
+                
     """
     index = np.random.choice(n_labels, 2, replace=False)
     label_positive = index[0]
@@ -78,35 +80,41 @@ def get_one_triplet(input_data, input_labels, n_labels):
 
 
 def convolutionize(x, conv_w, h=1):
-    """function convolutionize
-    Args:
-        x:   
-        conv_w:   
-        h:   
-    Returns:
-        
+    """function convolutionize.
+    Doc::
+            
+            Args:
+                x:   
+                conv_w:   
+                h:   
+            Returns:
+                
     """
     return tf.nn.conv2d(input=x, filter=conv_w, strides=[1, h, h, 1], padding="SAME")
 
 
 def pooling(wx):
-    """function pooling
-    Args:
-        wx:   
-    Returns:
-        
+    """function pooling.
+    Doc::
+            
+            Args:
+                wx:   
+            Returns:
+                
     """
     return tf.nn.max_pool(wx, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME")
 
 
 def create_network(X, scope="conv", reuse=False):
-    """function create_network
-    Args:
-        X:   
-        scope:   
-        reuse:   
-    Returns:
-        
+    """function create_network.
+    Doc::
+            
+            Args:
+                X:   
+                scope:   
+                reuse:   
+            Returns:
+                
     """
     with tf.variable_scope(scope, reuse=reuse):
         w1 = tf.Variable(tf.random_normal([3, 3, 1, 2], stddev=0.5))
@@ -126,26 +134,30 @@ def create_network(X, scope="conv", reuse=False):
 
 
 def compute_euclidean_distance(x, y):
-    """function compute_euclidean_distance
-    Args:
-        x:   
-        y:   
-    Returns:
-        
+    """function compute_euclidean_distance.
+    Doc::
+            
+            Args:
+                x:   
+                y:   
+            Returns:
+                
     """
     d = tf.square(tf.subtract(x, y))
     return tf.sqrt(tf.reduce_sum(d))
 
 
 def compute_triplet_loss(anchor_feature, positive_feature, negative_feature, margin=0.01):
-    """function compute_triplet_loss
-    Args:
-        anchor_feature:   
-        positive_feature:   
-        negative_feature:   
-        margin:   
-    Returns:
-        
+    """function compute_triplet_loss.
+    Doc::
+            
+            Args:
+                anchor_feature:   
+                positive_feature:   
+                negative_feature:   
+                margin:   
+            Returns:
+                
     """
     d_p_squared = tf.square(compute_euclidean_distance(anchor_feature, positive_feature))
     d_n_squared = tf.square(compute_euclidean_distance(anchor_feature, negative_feature))
@@ -155,10 +167,12 @@ def compute_triplet_loss(anchor_feature, positive_feature, negative_feature, mar
 
 class Siamese:
     def __init__(self):
-        """ Siamese:__init__
-        Args:
-        Returns:
-           
+        """ Siamese:__init__.
+        Doc::
+                
+                    Args:
+                    Returns:
+                       
         """
         self.ANCHOR = tf.placeholder(tf.float32, [None, 28, 28, 1])
         self.POSITIVE = tf.placeholder(tf.float32, [None, 28, 28, 1])

@@ -46,8 +46,10 @@ from deepctr.layers import custom_objects
 ####################################################################################################
 # Helper functions
 def os_package_root_path(filepath, sublevel=0, path_add=""):
-    """
-       get the module package root folder
+    """.
+    Doc::
+            
+               get the module package root folder
     """
     from pathlib import Path
     path = Path(os.path.realpath(filepath)).parent
@@ -59,13 +61,15 @@ def os_package_root_path(filepath, sublevel=0, path_add=""):
 
 
 def log(*s, n=0, m=1):
-    """function log
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     sspace = "#" * n
     sjump = "\n" * m
@@ -76,12 +80,14 @@ def log(*s, n=0, m=1):
 
 ##################################################################################################
 def _preprocess_criteo(df, **kw):
-    """function _preprocess_criteo
-    Args:
-        df:   
-        **kw:   
-    Returns:
-        
+    """function _preprocess_criteo.
+    Doc::
+            
+            Args:
+                df:   
+                **kw:   
+            Returns:
+                
     """
     hash_feature = kw.get('hash_feature')
     sparse_col = ['C' + str(i) for i in range(1, 27)]
@@ -119,12 +125,14 @@ def _preprocess_criteo(df, **kw):
 
 
 def _preprocess_movielens(df, **kw):
-    """function _preprocess_movielens
-    Args:
-        df:   
-        **kw:   
-    Returns:
-        
+    """function _preprocess_movielens.
+    Doc::
+            
+            Args:
+                df:   
+                **kw:   
+            Returns:
+                
     """
     multiple_value = kw.get('multiple_value')
     sparse_col = ["movie_id", "user_id", "gender", "age", "occupation", "zip"]
@@ -218,12 +226,14 @@ def _preprocess_movielens(df, **kw):
 
 
 def _preprocess_none(df, **kw):
-        """function _preprocess_none
-        Args:
-            df:   
-            **kw:   
-        Returns:
-            
+        """function _preprocess_none.
+        Doc::
+                
+                    Args:
+                        df:   
+                        **kw:   
+                    Returns:
+                        
         """
         linear_cols = kw['linear_cols']
         dnn_cols = kw['dnn_cols']
@@ -235,11 +245,13 @@ def _preprocess_none(df, **kw):
 
 
 def get_dataset(**kw):
-    """function get_dataset
-    Args:
-        **kw:   
-    Returns:
-        
+    """function get_dataset.
+    Doc::
+            
+            Args:
+                **kw:   
+            Returns:
+                
     """
     ##check whether dataset is of kind train or test
     data_path = kw['train_data_path']
@@ -259,12 +271,14 @@ def get_dataset(**kw):
 ########################################################################################################################
 ########################################################################################################################
 def test(data_path="dataset/", pars_choice=0):
-    """function test
-    Args:
-        data_path:   
-        pars_choice:   
-    Returns:
-        
+    """function test.
+    Doc::
+            
+            Args:
+                data_path:   
+                pars_choice:   
+            Returns:
+                
     """
     ### Local test
 

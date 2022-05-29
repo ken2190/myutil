@@ -40,6 +40,19 @@ def get_verbosity(verbose:int=None):
 verbose = get_verbosity()   ### Global setting
 
 
+def direpo():
+    try :
+       import utilmy
+       dir_repo1 =  utilmy.__path__[0].replace("\\","/")  + "/"
+    except:
+       dir_repo1 = os.path.dirname(os.path.abspath(__file__)).replace("\\","/")
+    return dir_repo1
+
+
+
+
+
+###################################################################################################
 def log(*s, **kw):
     print(*s, flush=True, **kw)
 
@@ -52,7 +65,6 @@ def log3(*s, **kw):
 def help():
     suffix = "\n\n\n###############################"
     ss     = help_create(modulename='utilmy', prefixs=None) + suffix
-    ss += HELP
     print(ss)
 
 
@@ -178,6 +190,9 @@ def help_signature(f):
 def help_create(modulename='utilmy.nnumpy', prefixs=None):
     """ Extract code source from test code
     """
+    if ".py" in modulename :
+      modulename = os_module_name(modulename)
+         
     import importlib
     prefixs = ['test']
     module1 = importlib.import_module(modulename)
@@ -193,10 +208,16 @@ def help_create(modulename='utilmy.nnumpy', prefixs=None):
 
 
 ###################################################################################################
-def get_verbosity(verbose:int=None):
-    if verbose is None :
-        verbose = os.environ.get('verbose', 1)
-    return verbose
+def os_module_name(filepath=None, mode='importname'):
+    try:
+        dir1 = os.path.abspath(filepath).replace("\\","/")
+
+        if mode == 'importname':
+            dir1 = 'utilmy.' + dir1.split("utilmy/")[-1].replace("/", ".").replace(".py", "")
+            return dir1
+    except :
+        return direpo()
+
 
 
 def get_loggers(mode='print', n_loggers=2, verbose_level=None):
@@ -216,6 +237,10 @@ def get_loggers(mode='print', n_loggers=2, verbose_level=None):
         if n_loggers >=  2:    ttuple.append(log2)
         if n_loggers >=  3:    ttuple.append(log3)
         return tuple(ttuple)
+
+
+#### Universal config Loader
+from utilmy.configs.util_config import config_load
 
 
 ###################################################################################################

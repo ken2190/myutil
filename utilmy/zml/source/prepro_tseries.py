@@ -28,29 +28,35 @@ from utilmy import global_verbosity, os_makedirs
 verbosity = global_verbosity(__file__, "/../config.json" ,default= 5)
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 1 : print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
@@ -66,13 +72,15 @@ from util_feature import (load, save_list, load_function_uri,  save,
                           save_features, load_features)
 
 def logd(*s, n=0, m=0):
-    """function logd
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function logd.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     if DEBUG :
         sspace = "#" * n
@@ -95,11 +103,13 @@ except:
 ###########################################################################################
 ###########################################################################################
 def pd_prepro_custom(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-    Example of custom Processor Combining
-    Usage :
-    ,{"uri":  THIS_FILEPATH + "::pd_dsa2_custom",   "pars": {'coldate': 'date'}, "cols_family": "coldate",   "cols_out": "coldate_features1",  "type": "" },
-
+    """.
+    Doc::
+            
+            Example of custom Processor Combining
+            Usage :
+            ,{"uri":  THIS_FILEPATH + "::pd_dsa2_custom",   "pars": {'coldate': 'date'}, "cols_family": "coldate",   "cols_out": "coldate_features1",  "type": "" },
+        
     """
     prefix = "coltseries_custom"
     #### Inference time LOAD previous pars  ###########################################
@@ -140,17 +150,19 @@ def pd_prepro_custom(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_prepro_custom2(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """   Generic template for feature generation
-       'colnum' : ['sales1' 'units' ]
-      'pars_function_list' :  [
-       { 'name': 'deltapy.transform::robust_scaler',                 'pars': {'drop':["Close_1"]} },
-       { 'name': 'deltapy.transform::standard_scaler',               'pars': {'drop':["Close_1"]} },
-       ]e
-
-    df:
-    col:
-    pars:
-    :return:
+    """   Generic template for feature generation.
+    Doc::
+            
+               'colnum' : ['sales1' 'units' ]
+              'pars_function_list' :  [
+               { 'name': 'deltapy.transform::robust_scaler',                 'pars': {'drop':["Close_1"]} },
+               { 'name': 'deltapy.transform::standard_scaler',               'pars': {'drop':["Close_1"]} },
+               ]e
+        
+            df:
+            col:
+            pars:
+            :return:
     """
     prefix = "coltseries_custom2"
     #### Inference time LOAD previous pars  ###########################################
@@ -202,13 +214,15 @@ def pd_prepro_custom2(df: pd.DataFrame, cols: list=None, pars: dict=None):
 ###########################################################################################
 ###########################################################################################
 def pd_ts_date(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """function pd_ts_date
-    Args:
-        df (  pd.DataFrame ) :   
-        cols (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_ts_date.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                cols (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
 
     df      = df[cols]
@@ -240,13 +254,15 @@ def pd_ts_date(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_groupby(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """
-        Generates features by groupBy over category
-        groupby(shop_id) ---> per each date,  mean, max, min ...
-        groupby(zone_id) ---> per each date,  mean, max, min ...
-
-        groupby(key_lis).agg( col_stat )
-
+    """.
+    Doc::
+            
+                Generates features by groupBy over category
+                groupby(shop_id) ---> per each date,  mean, max, min ...
+                groupby(zone_id) ---> per each date,  mean, max, min ...
+        
+                groupby(key_lis).agg( col_stat )
+        
     """
     colgroup  = pars.get('colgroupby')    #### list of list of columns for aggregation
     colstat   = pars.get('colstat')     ####  column whwere : sales, amount,
@@ -264,12 +280,14 @@ def pd_ts_groupby(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_onehot(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """
-       category to oneHot (ie week, weekday, shop, ..)
-    df:
-    col:
-    pars:
-    :return:
+    """.
+    Doc::
+            
+               category to oneHot (ie week, weekday, shop, ..)
+            df:
+            col:
+            pars:
+            :return:
     """
     df_onehot = pd.get_dummies(df[cols])
     # df = pd.concat([df, dummy_cols], axis=1)
@@ -278,19 +296,23 @@ def pd_ts_onehot(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_autoregressive(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """
-        Using past data for same column ; Rolling
-        item_id sales -->  per each date, Moving Average, Min, Max over 1month, ...
-        shop_id sales -->  per each date, Moving Average, Min, Max over 1month, ...
+    """.
+    Doc::
+            
+                Using past data for same column ; Rolling
+                item_id sales -->  per each date, Moving Average, Min, Max over 1month, ...
+                shop_id sales -->  per each date, Moving Average, Min, Max over 1month, ...
     """
     pass
 
 
 
 def pd_ts_rolling(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """
-      Rolling statistics
-
+    """.
+    Doc::
+            
+              Rolling statistics
+        
     """
     cat_cols     = []
     col_new      = []
@@ -332,13 +354,15 @@ def pd_ts_rolling(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_lag(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """function pd_ts_lag
-    Args:
-        df (  pd.DataFrame ) :   
-        cols (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_ts_lag.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                cols (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     col_new = []
     cat_cols     = []
@@ -359,13 +383,15 @@ def pd_ts_lag(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_difference(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """function pd_ts_difference
-    Args:
-        df (  pd.DataFrame ) :   
-        cols (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_ts_difference.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                cols (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     lag  = pars.get('lag', 1)
     df = df[cols]
@@ -417,13 +443,15 @@ def pd_ts_difference(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_tsfresh_features(df: pd.DataFrame, cols: list=None, pars: dict=None):
-    """function pd_ts_tsfresh_features
-    Args:
-        df (  pd.DataFrame ) :   
-        cols (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_ts_tsfresh_features.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                cols (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     from tsfresh import extract_relevant_features, extract_features
     from tsfresh.utilities.dataframe_functions import roll_time_series
@@ -438,9 +466,11 @@ def pd_ts_tsfresh_features(df: pd.DataFrame, cols: list=None, pars: dict=None):
 
 
 def pd_ts_deltapy_generic(df: pd.DataFrame, cols: list=None, pars: dict=None ):
-    """
-       { 'name': 'deltapy.transform::robust_scaler',                 'pars': {'drop':["Close_1"]} },
-
+    """.
+    Doc::
+            
+               { 'name': 'deltapy.transform::robust_scaler',                 'pars': {'drop':["Close_1"]} },
+        
     """
     ###### Custom code ################################################################
     model_name = pars['name']
@@ -477,11 +507,13 @@ def pd_ts_deltapy_generic(df: pd.DataFrame, cols: list=None, pars: dict=None ):
 ########################################################################################################################
 ########################################################################################################################
 def test_get_sampledata(url="https://github.com/firmai/random-assets-two/raw/master/numpy/tsla.csv"):
-    """function test_get_sampledata
-    Args:
-        url="https:   
-    Returns:
-        
+    """function test_get_sampledata.
+    Doc::
+            
+            Args:
+                url="https:   
+            Returns:
+                
     """
     df = pd.read_csv(url)
     df["Close_1"] = df["Close"].shift(-1)
@@ -493,10 +525,12 @@ def test_get_sampledata(url="https://github.com/firmai/random-assets-two/raw/mas
 
 
 def test_deltapy_all():
-    """function test_deltapy_all
-    Args:
-    Returns:
-        
+    """function test_deltapy_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     df = test_get_sampledata();
     df.head()
@@ -601,10 +635,12 @@ def test_deltapy_all():
 
 
 def test_prepro_v1():
-    """function test_prepro_v1
-    Args:
-    Returns:
-        
+    """function test_prepro_v1.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     df         = test_get_sampledata()
     time_eng  = pd_ts_date(df, ['Date'], pars = {})
@@ -637,11 +673,13 @@ if __name__ == "__main__":
 
 
 def test_deltapy_get_method(df):
-    """function test_deltapy_get_method
-    Args:
-        df:   
-    Returns:
-        
+    """function test_deltapy_get_method.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     prepro_list = [
         {'name': 'deltapy.transform::robust_scaler', 'pars': {'drop': ["Close_1"]}},
@@ -730,10 +768,12 @@ def test_deltapy_get_method(df):
 
 
 def test_deltapy_all2():
-    """function test_deltapy_all2
-    Args:
-    Returns:
-        
+    """function test_deltapy_all2.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     df          = test_get_sampledata()
     prepro_list = test_deltapy_get_method(df)
@@ -757,10 +797,12 @@ def test_deltapy_all2():
 
 
 def m5_dataset():
-    """
-     https://www.kaggle.com/ratan123/m5-forecasting-lightgbm-with-timeseries-splits
-
-
+    """.
+    Doc::
+            
+             https://www.kaggle.com/ratan123/m5-forecasting-lightgbm-with-timeseries-splits
+        
+        
     """
     import gc
     def read_df():

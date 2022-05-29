@@ -58,10 +58,12 @@ from zlocal import root
 
 ####################################################################################################
 def cli_load_argument(config_file=None):
-    """ arg = to_namespace({ "do": root + "/data/pos/",   
-                           "config" : "offline.config.prod.itemid_model" ,
-                           "mode" : "prod", "verbose": True })    
-         vars(arg)      
+    """ arg = to_namespace({ "do": root + "/data/pos/",   .
+    Doc::
+            
+                                   "config" : "offline.config.prod.itemid_model" ,
+                                   "mode" : "prod", "verbose": True })    
+                 vars(arg)      
     """
     import argparse
     p = argparse.ArgumentParser()
@@ -108,13 +110,15 @@ if not os_variable_exist( "X_transform" ,globals()) :
 
 
 def create_metrics_summary(path_model, im=40, verbose=True):
-   """function create_metrics_summary
-   Args:
-       path_model:   
-       im:   
-       verbose:   
-   Returns:
-       
+   """function create_metrics_summary.
+   Doc::
+           
+          Args:
+              path_model:   
+              im:   
+              verbose:   
+          Returns:
+              
    """
    import matplotlib.pyplot as plt 
    path_model = path_model + "/"
@@ -153,16 +157,18 @@ def create_metrics_summary(path_model, im=40, verbose=True):
 
 
 def create_mae_summary( path , path_modelgroup, tag="", ytarget="porder_s2", agg_level= None, verbose=True) :
-    """function create_mae_summary
-    Args:
-        path:   
-        path_modelgroup:   
-        tag:   
-        ytarget:   
-        agg_level:   
-        verbose:   
-    Returns:
-        
+    """function create_mae_summary.
+    Doc::
+            
+            Args:
+                path:   
+                path_modelgroup:   
+                tag:   
+                ytarget:   
+                agg_level:   
+                verbose:   
+            Returns:
+                
     """
     import json
     to_path = path # path +"/metrics/"
@@ -202,15 +208,17 @@ def create_mae_summary( path , path_modelgroup, tag="", ytarget="porder_s2", agg
 
 
 def pd_check_na(name, dfXy, verbose = False, debug=False, train_path="ztmp/") :
-  """function pd_check_na
-  Args:
-      name:   
-      dfXy:   
-      verbose :   
-      debug:   
-      train_path:   
-  Returns:
-      
+  """function pd_check_na.
+  Doc::
+          
+        Args:
+            name:   
+            dfXy:   
+            verbose :   
+            debug:   
+            train_path:   
+        Returns:
+            
   """
   log(name, "checking")
   # if verbose :  log_pd(dfXy, n_tail=10)
@@ -224,14 +232,16 @@ def pd_check_na(name, dfXy, verbose = False, debug=False, train_path="ztmp/") :
 
 
 def train_enhance(dfi, colsref, ytarget, n_sample=5):
-    """function train_enhance
-    Args:
-        dfi:   
-        colsref:   
-        ytarget:   
-        n_sample:   
-    Returns:
-        
+    """function train_enhance.
+    Doc::
+            
+            Args:
+                dfi:   
+                colsref:   
+                ytarget:   
+                n_sample:   
+            Returns:
+                
     """
     return dfi
     import copy
@@ -257,11 +267,13 @@ def train_enhance(dfi, colsref, ytarget, n_sample=5):
 
     
 def add_dates(df):
-    """function add_dates
-    Args:
-        df:   
-    Returns:
-        
+    """function add_dates.
+    Doc::
+            
+            Args:
+                df:   
+            Returns:
+                
     """
     return df
     #### new date
@@ -559,8 +571,8 @@ python offline/amodel_train.py --do mae_summary --config offline.config.prod.ite
 CLI Params: {'do': 'mae_summary', 'mode': 'prod', 'config': 'offline.config.prod.itemid_model', 'verbose': True}
 Importing:,agg_level_data,agg_level_model,colsX,compute_pars,date_now_jp,debug,exp_save_all_params,iimax,iimin,metric_name,metrics,metrics_cols,model_date,model_group,model_name,model_pars,model_tag,modelx,path_key_all,pd,pos_path,pred_date,pred_end,pred_group,pred_path,pred_path_input,pred_path_output,pred_prefix,pred_start,pred_tag,root,root_model,shop_list,test_period,train_path,train_path_X,train_path_y,verbose,ytarget,zlocal,
 ###### Paths ###################################################################
-Train Input:  /a/adigcb301/ipsvols05/offline/test//data/train/all/
-Model Output:  /a/adigcb301/ipsvols05/offline/test//model//itemid_20200802/shop_id-RandomForestRegressordaily/
+Train Input:  /301/s05/offline/test//data/train/all/
+Model Output:  /301/s05/offline/test//model//itemid_20200802/shop_id-RandomForestRegressordaily/
 
 
 

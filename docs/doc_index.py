@@ -12,7 +12,7 @@ test1()
 test_all()
 test_dataset_classifier_covtype(nrows = 500)
 test_dataset_classifier_diabetes_traintest()
-test_dataset_classifier_fake(nrows = 500)
+test_dataset_classifier_fake(nrows = 500, normalized = 0)
 test_dataset_classifier_petfinder(nrows = 1000)
 test_dataset_classifier_pmlb(name = '', return_X_y = False)
 test_dataset_regression_boston_traintest()
@@ -22,13 +22,58 @@ test_dataset_regression_fake(nrows = 500, n_features = 17)
 
 utilmy/cli.py
 -------------------------functions----------------------
-load_function_uri(uri_name="myfolder/myfile.py = "myfolder/myfile.py::myFunction")
-log(*s)
-run_cli()
+run_all_utilmy2()
+run_cli_utilmy()
+show1(dirin:str)
 
 
 
 utilmy/configs/__init__.py
+
+
+utilmy/configs/logs/__init__.py
+
+
+utilmy/configs/logs/test_log.py
+-------------------------functions----------------------
+test1()
+test2()
+test_launch_server()
+test_server()
+
+-------------------------methods----------------------
+LoggingStreamHandler.handle(self)
+
+
+utilmy/configs/logs/util_log.py
+-------------------------functions----------------------
+log(*s)
+log2(*s)
+log3(*s)
+logc(*s)
+loge(*s)
+logger_setup(log_config_path: str  =  None, log_template: str  =  "default", **kwargs)
+logr(*s)
+logw(*s)
+test()
+z_logger_custom_1()
+z_logger_stdout_override()
+
+
+
+utilmy/configs/logs/util_log_std.py
+-------------------------functions----------------------
+create_appid(filename)
+create_logfilename(filename)
+create_uniqueid()
+load_arguments(config_file = None, arg_list = None)
+logger_handler_console(formatter = None)
+logger_handler_file(isrotate = False, rotate_time = "midnight", formatter = None, log_file_used = None)
+logger_setup(logger_name = None, log_file = None, formatter = FORMATTER_1, isrotate = False, isconsole_output = True, logging_level = logging.DEBUG, )
+logger_setup2(name = __name__, level = None)
+printlog(s = "", s1 = "", s2 = "", s3 = "", s4 = "", s5 = "", s6 = "", s7 = "", s8 = "", s9 = "", s10 = "", app_id = "", logfile = None, iswritelog = True, )
+writelog(m = "", f = None)
+
 
 
 utilmy/configs/test.py
@@ -44,7 +89,7 @@ utilmy/configs/util_config.py
 -------------------------functions----------------------
 config_isvalid_pydantic(config_dict: dict, pydanctic_schema: str  =  'config_py.yaml', silent: bool  =  False)
 config_isvalid_yamlschema(config_dict: dict, schema_path: str  =  'config_val.yaml', silent: bool  =  False)
-config_load(config_path:    str   =  None, path_default:   str   =  None, config_default: dict  =  None, save_default:   bool  =  False, to_dataclass:   bool  =  True, )
+config_load(config_path:    str   =  None, to_dataclass:   bool  =  True, path_default:   str   =  None, config_default: dict  =  None, save_default:   bool  =  False, )
 convert_dict_to_pydantic(config_dict: dict, schema_name: str)
 convert_yaml_to_box(yaml_path: str)
 global_verbosity(cur_path, path_relative = "/../../config.json", default = 5, key = 'verbosity', )
@@ -56,6 +101,25 @@ test_example()
 test_pydanticgenrator()
 test_yamlschema()
 zzz_config_load_validate(config_path: str, schema_path: str, silent: bool  =  False)
+
+
+
+utilmy/configs/util_dirs.py
+-------------------------functions----------------------
+_get_win_folder_from_environ(csidl_name)
+_get_win_folder_from_registry(csidl_name)
+_get_win_folder_with_ctypes(csidl_name)
+_get_win_folder_with_jna(csidl_name)
+user_cache_dir(appname = None, appauthor = None, version = None, opinion = True)
+user_config_dir(appname = None, appauthor = None, version = None, roaming = False)
+user_data_dir(appname = None, appauthor = None, version = None, roaming = False)
+user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
+
+
+
+utilmy/configs/util_log.py
+-------------------------functions----------------------
+os_getenv_dict()
 
 
 
@@ -156,11 +220,15 @@ utilmy/debug.py
 help()
 log(*s)
 log10(*s, nmax = 60)
-log5(*s)
 log_trace(msg = "", dump_path = "", globs = None)
+logic(*s)
+os_get_function_name()
+os_get_function_parameters_and_values()
+os_typehint_check(fun)
 print_everywhere()
 profiler_start()
 profiler_stop()
+test2()
 
 
 
@@ -563,30 +631,105 @@ X3DHead.init_weights(self)
 
 utilmy/deeplearning/ttorch/model_ensemble.py
 -------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
-device_setup(arg)
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = 'cpu', batch_size = 16, )
+device_setup(arg, device = 'cpu', seed = 67)
+get_embedding()
 help()
-loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
-model_build(arg:dict, mode = 'train')
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
-model_load(arg)
-model_train(model, losses, train_loader, valid_loader, arg:dict = None)
-test()
+prepro_dataset_custom(df:pd.DataFrame)
+test1()
+test2a()
+test2b()
+test2c()
+test2d()
 test_all()
+torch_norm_l2(X)
 
 -------------------------methods----------------------
-DataEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-DataEncoder.forward(self, x)
-NaiveModel.__init__(self)
-NaiveModel.forward(self, x, alpha = 0.0)
-Net.__init__(self, input_dim, output_dim, rule_encoder, data_encoder, hidden_dim = 4, n_layers = 2, merge = 'cat', skip = False, input_type = 'state')
-Net.forward(self, x, alpha = 0.0)
-Net.get_z(self, x, alpha = 0.0)
-RuleEncoder.__init__(self, input_dim, output_dim, hidden_dim = 4)
-RuleEncoder.forward(self, x)
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+MergeModel_create.__init__(self, arg:dict = None, modelA = None, modelB = None, modelC = None)
+MergeModel_create.build(self)
+MergeModel_create.create_loss(self, )
+MergeModel_create.create_model(self, )
+MergeModel_create.freeze_all(self, )
+MergeModel_create.prepro_dataset(self, df:pd.DataFrame = None)
+MergeModel_create.training(self, load_DataFrame = None, prepro_dataset = None)
+MergeModel_create.unfreeze_all(self, )
+modelA_create.__init__(self, arg)
+modelA_create.create_loss(self, loss_fun = None)
+modelA_create.create_model(self, modelA_nn:torch.nn.Module = None)
+modelB_create.__init__(self, arg)
+modelB_create.create_loss(self)
+modelB_create.create_model(self)
+modelC_create.__init__(self, arg)
+modelC_create.create_loss(self)
+modelC_create.create_model(self)
+model_getlayer.__init__(self, network, backward = False, pos_layer = -2)
+model_getlayer.close(self)
+model_getlayer.get_layers_in_order(self, network)
+model_getlayer.hook_fn(self, module, input, output)
+model_template_MLP.__init__(self, layers_dim = [20, 100, 16])
+model_template_MLP.forward(self, x, **kwargs)
 
 
 utilmy/deeplearning/ttorch/models/__init__.py
+
+
+utilmy/deeplearning/ttorch/models/rule_encoder4.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
+help()
+test1()
+test2_new()
+test_all()
+
+-------------------------methods----------------------
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
 
 
 utilmy/deeplearning/ttorch/models/sentences_model.py
@@ -614,106 +757,51 @@ check_lstm()
 
 
 
-utilmy/deeplearning/ttorch/rule_encoder.py
+utilmy/deeplearning/ttorch/util_model.py
 -------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
-dataset_load()
-dataset_load_prepro(arg)
-help()
+model_add_layers(model, modules  =  [])
+model_delete_layers(model, del_ids  =  [])
+model_freezeparams(model, params_to_freeze  =  None, freeze  =  True)
+model_get_alllayers(model)
+model_getparams(model, params_to_get  =  None, detach  =  True)
 test1()
-test2_new()
+test2()
+test3()
 test_all()
 
 -------------------------methods----------------------
-BaseModel.__init__(self, arg)
-BaseModel.build(self, )
-BaseModel.create_loss(self, )
-BaseModel.create_model(self, )
-BaseModel.device(self, )
-BaseModel.device(self, )
-BaseModel.device_setup(self, arg)
-BaseModel.eval(self)
-BaseModel.evaluate(self)
-BaseModel.load_DataFrame(self, path = None)
-BaseModel.load_weights(self, path)
-BaseModel.predict(self, x, **kwargs)
-BaseModel.prepro_dataset(self, csv)
-BaseModel.save_weight(self, path, meta_data = None)
-BaseModel.train(self)
-BaseModel.training(self, )
-DataEncoder_Create.__init__(self, arg)
-DataEncoder_Create.create_loss(self)
-DataEncoder_Create.create_model(self)
-MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
-MergeEncoder_Create.build(self)
-MergeEncoder_Create.create_loss(self, )
-MergeEncoder_Create.create_model(self, )
-MergeEncoder_Create.prepro_dataset(self, df = None)
-MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
-RuleEncoder_Create.__init__(self, arg:dict)
-RuleEncoder_Create.create_loss(self, )
-RuleEncoder_Create.create_model(self)
-RuleEncoder_Create.load_DataFrame(self, )
-RuleEncoder_Create.prepro_dataset(self, df)
-
-
-utilmy/deeplearning/ttorch/rule_encoder4.py
--------------------------functions----------------------
-dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
-dataset_load()
-dataset_load_prepro(arg)
-help()
-test1()
-test2_new()
-test_all()
-
--------------------------methods----------------------
-BaseModel.__init__(self, arg)
-BaseModel.build(self, )
-BaseModel.create_loss(self, )
-BaseModel.create_model(self, )
-BaseModel.device(self, )
-BaseModel.device(self, )
-BaseModel.device_setup(self, arg)
-BaseModel.eval(self)
-BaseModel.evaluate(self)
-BaseModel.load_DataFrame(self, path = None)
-BaseModel.load_weights(self, path)
-BaseModel.predict(self, x, **kwargs)
-BaseModel.prepro_dataset(self, csv)
-BaseModel.save_weight(self, path, meta_data = None)
-BaseModel.train(self)
-BaseModel.training(self, )
-DataEncoder_Create.__init__(self, arg)
-DataEncoder_Create.create_loss(self)
-DataEncoder_Create.create_model(self)
-MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
-MergeEncoder_Create.build(self)
-MergeEncoder_Create.create_loss(self, )
-MergeEncoder_Create.create_model(self, )
-MergeEncoder_Create.prepro_dataset(self, df = None)
-MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
-RuleEncoder_Create.__init__(self, arg:dict)
-RuleEncoder_Create.create_loss(self, )
-RuleEncoder_Create.create_model(self)
-RuleEncoder_Create.load_DataFrame(self, )
-RuleEncoder_Create.prepro_dataset(self, df)
+SmeLU.__init__(self, beta: float  =  2.)
+SmeLU.forward(self, input: torch.Tensor)
+model_LayerRecorder.__init__(self, module, record_input  =  False, record_output  =  False, record_params  =  False, params_to_get  =  None, backward  =  False, custom_fn  =  None, save_to  =  None, **kwargs)
+model_LayerRecorder._custom_wrapper(self, module, input, output)
+model_LayerRecorder._fn_in_out_params(self, module, input, output, record_what  =  None)
+model_LayerRecorder.close(self)
+model_getlayer.__init__(self, network, backward = False, pos_layer = -2)
+model_getlayer.close(self)
+model_getlayer.get_layers_in_order(self, network)
+model_getlayer.hook_fn(self, module, input, output)
 
 
 utilmy/deeplearning/ttorch/util_torch.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, batch_size = 64, shuffle = True, device = 'cpu', batch_size_val = None, batch_size_test = None)
-device_setup(arg)
+device_setup(device = 'cpu', seed = 42, arg:dict = None)
+gradwalk(x, _depth = 0)
+gradwalk_run(graph)
 help()
-model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+load_partially_compatible(model, device = 'cpu')
+model_evaluation(model, loss_task_fun, test_loader, arg, )
 model_load(dir_checkpoint:str, torch_model = None, doeval = True, dotrain = False, device = 'cpu', input_shape = None, **kw)
 model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor])
 model_save(torch_model = None, dir_checkpoint:str = "./checkpoint/check.pt", optimizer = None, cc:dict = None, epoch = -1, loss_val = 0.0, show = 1, **kw)
 model_summary(model, **kw)
 model_train(model, loss_calc, optimizer = None, train_loader = None, valid_loader = None, arg:dict = None)
 test1()
+test3()
+test4(dir_checkpoint, torch_model)
 test_all()
 test_dataset_classification_fake(nrows = 500)
+test_dataset_fashion_mnist(samples = 100, random_crop = False, random_erasing = False, convert_to_RGB = False, val_set_ratio = 0.2, test_set_ratio = 0.1, num_workers = 1)
 
 -------------------------methods----------------------
 SmeLU.__init__(self, beta: float  =  2.)
@@ -723,7 +811,104 @@ test_model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
 test_model_dummy.forward(self, x)
 
 
-utilmy/deeplearning/ttorch/zrule_encoder2.py
+utilmy/deeplearning/ttorch/zsave/__init__.py
+
+
+utilmy/deeplearning/ttorch/zsave/model_ensemble_detail.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
+device_setup(arg)
+help()
+loss_rule_calc(model, batch_train_x, loss_rule_func, output, arg:dict)
+model_build(arg:dict, mode = 'train')
+model_evaluation(model_eval, loss_task_func, arg, dataset_load1, dataset_preprocess1)
+model_load(arg)
+model_train(model, losses, train_loader, valid_loader, arg:dict = None)
+mytrain(x1, x2)
+test2_new()
+torch_norm_l2(X)
+
+-------------------------methods----------------------
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+MergeModel_create.__init__(self, arg, modelA = None, modelB = None)
+MergeModel_create.build(self)
+MergeModel_create.create_loss1(self, )
+MergeModel_create.create_loss2(self, )
+MergeModel_create.create_model(self, )
+MergeModel_create.freeze_all(self, )
+MergeModel_create.prepro_dataset(self, df = None)
+MergeModel_create.training(self, load_DataFrame = None, prepro_dataset = None)
+MergeModel_create.unfreeze_all(self, )
+modelA_create.__init__(self, arg)
+modelA_create.create_loss(self)
+modelA_create.create_model(self)
+modelB_create.__init__(self, arg)
+modelB_create.create_loss(self)
+modelB_create.create_model(self)
+
+
+utilmy/deeplearning/ttorch/zsave/rule_encoder.py
+-------------------------functions----------------------
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = None, batch_size = None)
+dataset_load()
+dataset_load_prepro(arg)
+help()
+test1()
+test2_new()
+test_all()
+
+-------------------------methods----------------------
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, **kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+DataEncoder_Create.__init__(self, arg)
+DataEncoder_Create.create_loss(self)
+DataEncoder_Create.create_model(self)
+MergeEncoder_Create.__init__(self, arg, data_encoder = None, rule_encoder = None)
+MergeEncoder_Create.build(self)
+MergeEncoder_Create.create_loss(self, )
+MergeEncoder_Create.create_model(self, )
+MergeEncoder_Create.prepro_dataset(self, df = None)
+MergeEncoder_Create.training(self, load_DataFrame = None, prepro_dataset = None)
+RuleEncoder_Create.__init__(self, arg:dict)
+RuleEncoder_Create.create_loss(self, )
+RuleEncoder_Create.create_model(self)
+RuleEncoder_Create.load_DataFrame(self, )
+RuleEncoder_Create.prepro_dataset(self, df)
+
+
+utilmy/deeplearning/ttorch/zsave/test_usage.py
+
+
+utilmy/deeplearning/ttorch/zsave/zrule_encoder2.py
 -------------------------functions----------------------
 dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, arg = None)
 dataset_load(arg, mode = 'eval')
@@ -783,7 +968,7 @@ utilmy/deeplearning/util_embedding.py
 embedding_compare_plotlabels(embeddings_1:list, embeddings_2:list, labels_1:list, labels_2:list, plot_title, plot_width = 1200, plot_height = 600, xaxis_font_size = '12pt', yaxis_font_size = '12pt')
 embedding_create_vizhtml(dirin = "in/model.vec", dirout = "ztmp/", dim_reduction = 'umap', nmax = 100, ntrain = 10)
 embedding_extract_fromtransformer(model, Xinput:list)
-embedding_load_parquet(dirin = "df.parquet", colid =  'id', col_embed =  'pred_emb', nmax =  500)
+embedding_load_parquet(dirin = "df.parquet", colid =  'id', col_embed =  'emb', nmax =  500)
 embedding_load_pickle(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Noneimport pickleembs = Nonedirin)for fi in flist  = Noneimport pickleembs = Nonedirin)for fi in flist :)
 embedding_load_word2vec(dirin = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun = None)
 embedding_rawtext_to_parquet(dirin = None, dirout = None, skip = 0, nmax = 10 ** 8, is_linevalid_fun=Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None  = Nonedirout) ; os_makedirs(dirout)  ; time.sleep(4)if is_linevalid_fun is None : #### Validate linew):)
@@ -801,10 +986,10 @@ topk_nearest_vector(x0:np.ndarray, vector_list:list, topk = 3, engine = 'faiss',
 
 -------------------------methods----------------------
 EmbeddingViz.__init__(self, path = "myembed.parquet", num_clusters = 5, sep = ";", config:dict = None)
-EmbeddingViz.create_clusters(self, after_dim_reduction = True)
-EmbeddingViz.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, show_server = False, **kw)
-EmbeddingViz.dim_reduction(self, mode = "mds", ndim = 2, nmax =  5000, dir_out = None, ntrain = 10000, npool = 2)
-EmbeddingViz.draw_hiearchy(self)
+EmbeddingViz.create_clusters(self, method = 'kmeans', after_dim_reduction = True)
+EmbeddingViz.create_visualization(self, dir_out = "ztmp/", mode = 'd3', cols_label = None, start_server = False, **kw)
+EmbeddingViz.dim_reduction(self, mode = "mds", ndim = 2, nmax =  5000, dirout = None, ntrain = 10000, npool = 2)
+EmbeddingViz.draw_cluster_hiearchy(self)
 EmbeddingViz.load_data(self, col_embed = 'embed', nmax =  5000, npool = 2)
 EmbeddingViz.run_all(self, dim_reduction = "mds", col_embed = 'embed', ndim = 2, nmax =  5000, dirout = "ztmp/", ntrain = 10000)
 
@@ -816,6 +1001,7 @@ run_hyper_optuna(obj_fun, pars_dict_init, pars_dict_range, engine_pars, ntrials 
 test1_optuna()
 test2_optuna()
 test3_optuna()
+test_ablation()
 test_all()
 
 -------------------------methods----------------------
@@ -887,8 +1073,8 @@ load(to_file = "")
 load_serialize(name)
 log_mem(*s)
 os_lock_acquireLock(plock:str = "tmp/plock.lock")
-os_lock_execute(fun_run, fun_args = None, ntry = 5, plock = "tmp/plock.lock", sleep = 5)
 os_lock_releaseLock(locked_file_descriptor)
+os_lock_run(fun_run, fun_args = None, ntry = 5, plock = "tmp/plock.lock", sleep = 5)
 save(dd, to_file = "", verbose = False)
 save_serialize(name, value)
 test_all()
@@ -970,14 +1156,15 @@ write_to_file(uri, type, list_functions, list_classes, list_imported, dict_funct
 
 utilmy/docs/docstring.py
 -------------------------functions----------------------
-docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
-generate_docstring(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+docstring_generate(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+docstring_update1(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True, nfile = 10000)
 help()
-run_all(mode = 'overwrite')
+run_generate_all(mode = 'overwrite')
+run_update_all(mode = 'overwrite', dirin = 'utilmy/')
 test1(mode = 'test')
+test2(mode = 'test')
 test_all()
-update_all(mode = 'overwrite')
-update_docstring(dirin: Union[str, Path], dirout: Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
+zzz_docstring_from_type_hints(dirin: Union[str, Path], dirout:Union[str, Path], overwrite: bool  =  False, test: bool  =  True)
 
 
 
@@ -1022,6 +1209,100 @@ os_path_norm(diroot)
 run_monkeytype(dirin:str, dirout:str, diroot:str = None, mode = "stub", nfile = 10, exclude = "")
 run_utilmy(nfile = 10000)
 run_utilmy_overwrite(nfile = 100000)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script/test_script_no_core.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script/test_script_no_header.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script/test_script_no_logger.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script/test_script_normalize_import.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script_no_core.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script_no_header.py
+-------------------------functions----------------------
+help()
+log3()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script_no_logger.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/test_script/output/test_script_normalize_import.py
+-------------------------functions----------------------
+core1(sasas)
+core2(sasas)
+core3(sasas)
+core4(sasas)
+help()
+log3()
 test1()
 test2()
 test_all()
@@ -1089,6 +1370,18 @@ test_all()
 
 
 utilmy/docs/util_template.py
+-------------------------functions----------------------
+codesource_extrac_block(txt){})  ## storage of block"/n")       ### codelineblock = []flag_test= Falselines)  =  []flag_test= Falselines) :)
+help()
+normalize_header(txt)
+reformat_code(txt)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/docs/util_template2.py
 -------------------------functions----------------------
 help()
 test1()
@@ -1180,55 +1473,11 @@ image_resize_ratio(img : npArrayLike, width :Int_none  = None, height :Int_none 
 image_save(img:npArrayLike, dirfile:str = "/myimage.jpeg")
 image_show_in_row(image_list:Union[dict, list, None] = None)
 npz_image_dumpsample(path_npz, keys = ['train'], path = "", tag = "", n_sample = 3, renorm = True)
+run_cli()
 test1()
 test2()
 test_all()
 test_diskcache()
-
-
-
-utilmy/logs/__init__.py
-
-
-utilmy/logs/test_log.py
--------------------------functions----------------------
-test1()
-test2()
-test_launch_server()
-test_server()
-
--------------------------methods----------------------
-LoggingStreamHandler.handle(self)
-
-
-utilmy/logs/util_log.py
--------------------------functions----------------------
-log(*s)
-log2(*s)
-log3(*s)
-logc(*s)
-loge(*s)
-logger_setup(log_config_path: str  =  None, log_template: str  =  "default", **kwargs)
-logr(*s)
-logw(*s)
-test()
-z_logger_custom_1()
-z_logger_stdout_override()
-
-
-
-utilmy/logs/util_log_std.py
--------------------------functions----------------------
-create_appid(filename)
-create_logfilename(filename)
-create_uniqueid()
-load_arguments(config_file = None, arg_list = None)
-logger_handler_console(formatter = None)
-logger_handler_file(isrotate = False, rotate_time = "midnight", formatter = None, log_file_used = None)
-logger_setup(logger_name = None, log_file = None, formatter = FORMATTER_1, isrotate = False, isconsole_output = True, logging_level = logging.DEBUG, )
-logger_setup2(name = __name__, level = None)
-printlog(s = "", s1 = "", s2 = "", s3 = "", s4 = "", s5 = "", s6 = "", s7 = "", s8 = "", s9 = "", s10 = "", app_id = "", logfile = None, iswritelog = True, )
-writelog(m = "", f = None)
 
 
 
@@ -1259,6 +1508,36 @@ SentenceEncoder.call(self, inputs, **kwargs)
 utilmy/nlp/ttorch/__init__.py
 
 
+utilmy/nlp/ttorch/model_patent.py
+-------------------------functions----------------------
+calculate_loss(batch, model, return_outputs = True, device = "cpu")
+calculate_metrics(predictions, targets, device = "cpu")
+create_folds(data_frame, targets, groups, folds = 5, seed = 42, shuffle = True, fold_column = "fold")
+format_metrics(metrics, sep = " - ", add_sep_to_start = True)
+get_targets(batch)
+make_directory(directory, overwriting = False)
+model_checkpointing(loss, metrics, model, optimizer = None, scheduler = None, step = None, previous_loss = None, previous_metrics = None)
+optimization_step(model, optimizer, scaler = None)
+scheduling_step(scheduler = None, loss = None)
+test_run()
+training_loop(train_loader, model, optimizer, scheduler = None, scheduling_after = "step", epochs = 1, validation_loader = None, gradient_accumulation_steps = 1, gradient_scaling = False, gradient_norm = 1, validation_steps = 100, amp = False, recalculate_metrics_at_end = True, return_validation_outputs = True, debug = True, verbose = 1, device = "cpu", time_format="{hours} = "{hours}:{minutes}:{seconds}", logger = "print")
+training_step(batch, model, optimizer, gradient_norm = 1.0, amp = False, gradient_accumulation_steps = 1, scaler = None, device = "cpu")
+validation_loop(loader, model, gradient_accumulation_steps = 1, amp = False, return_outputs = True, recalculate_metrics_at_end = True, verbose = 1, device = "cpu", time_format="{hours} = "{hours}:{minutes}:{seconds}", logger = "print")
+
+-------------------------methods----------------------
+Collator.__call__(self, batch)
+Collator.__init__(self, return_targets = True, **kwargs)
+Dataset.__getitem__(self, index)
+Dataset.__init__(self, texts, pair_texts, tokenizer, contexts = None, sep = None, targets = None, max_length = 128)
+Dataset.__len__(self)
+DynamicPadding.__call__(self, tokenized)
+DynamicPadding.__init__(self, tokenizer, max_length = None, padding = True, pad_to_multiple_of = None, return_tensors = "pt")
+Model.__init__(self, model_path = "microsoft/deberta-base", config_path = None, config_updates = {}, reinitialization_layers = 0)
+Model.forward(self, input_ids, attention_mask = None)
+Model.init_weights(self, module, std = 0.02)
+Model.reinit_layers(self, layers, n = 0, std = 0.02)
+
+
 utilmy/nlp/ttorch/sentences.py
 -------------------------functions----------------------
 dataset_download(name = 'AllNLI.tsv.gz', dirout = '/content/sample_data/sent_tans/')
@@ -1270,7 +1549,7 @@ load_evaluator(path_or_df:Dataframe_str = "", dname = 'sts', cc:dict = None)
 load_loss(model, lossname  = 'cosine', cc:dict =  None)
 model_check_cos_sim(model, sentence1  =  "sentence 1", sentence2  =  "sentence 2", )
 model_encode(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", show = 1, **kw)
-model_encode_batch(model  =  "model name or path or object", dirdata:Dataframe_str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", nsplit = 5, imin = 0, imax = 500, **kw)
+model_encode_batch(model  =  "model name or path or object", dirdata:str = "data/*.parquet", coltext:str = 'sentence1', colid = None, dirout:str = "embs/myfile.parquet", nsplit = 5, imin = 0, imax = 500, **kw)
 model_evaluate(model  = "modelname OR path OR model object", dirdata = './*.csv', dirout = './', cc:dict =  None, batch_size = 16, name = 'sts-test')
 model_finetune(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
 model_finetune_classifier(modelname_or_path = 'distilbert-base-nli-mean-tokens', taskname = "classifier", lossname = "cosinus", datasetname  =  'sts', cols =  ['sentence1', 'sentence2', 'label', 'score' ], train_path = "train/*.csv", val_path   = "val/*.csv", eval_path  = "eval/*.csv", metricname = 'cosinus', dirout  = "mymodel_save/", nsample = 100000, cc:dict =  None)
@@ -1320,9 +1599,14 @@ train_model(dirinput = "./data.cor", dirout = "./modelout/model.bin", **params)
 utilmy/nlp/util_embedding.py
 -------------------------functions----------------------
 help()
+help()
+test1()
 test1()
 test_all()
+test_all()
 test_text_get_embedding()
+test_text_get_embedding()
+test_text_sentence_extraction()
 test_text_sentence_extraction()
 
 
@@ -1597,7 +1881,7 @@ utilmy/parallel.py
 -------------------------functions----------------------
 help()
 multiproc_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
-multiproc_tochunk(flist, npool = 2)
+multiproc_tochunk(flist:list, npool = 2)
 multithread_run(fun_async, input_list: list, n_pool = 5, start_delay = 0.1, verbose = True, input_fixed:dict = None, npool = None, **kw)
 multithread_run_list(**kwargs)
 pd_apply_parallel(df, fun_apply = None, npool = 5, verbose = True)
@@ -1660,6 +1944,17 @@ dict_to_namespace.__init__(self, d)
 
 
 utilmy/ppolars.py
+-------------------------functions----------------------
+help()
+pivot_table_polars(df_or_path, columns:list, index:list, values:list, aggfunc:str = 'sum', dirout = "./mypivot.parquet")
+pl_groupby_join(df,  colgroup = "colgroup", col='colstr', sep=",",)
+pl_split(df,  col = 'colstr', sep=",",  colnew="colstr_split",)
+pl_to_file(df, filei, check = 0, verbose = True, show = 'shape', **kw)
+test1()
+test2()
+test_all()
+test_create_parquet()
+
 
 
 utilmy/prepro/__init__.py
@@ -2178,8 +2473,12 @@ BootstrapCV._iter_train_mask(self, u, i, r)
 utilmy/recsys/util_sequencepattern.py
 -------------------------functions----------------------
 help()
+help()
+pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
 pd_get_sequence_patterns(df:pd.DataFrame, col_itemid:str, col_price:str, min_freq:int = 2, price_min:int=None, price_max:int=None, sep=",")
 test1()
+test1()
+test_all()
 test_all()
 
 
@@ -2687,13 +2986,13 @@ utilmy/recsys/zrecs/tools/generate_conda_file.py
 utilmy/recsys/zrecs/tools/generate_requirements_txt.py
 
 
-utilmy/spark/__init__.py
+utilmy/sspark/__init__.py
 
 
-utilmy/spark/conda/script.py
+utilmy/sspark/conda/script.py
 
 
-utilmy/spark/main.py
+utilmy/sspark/main.py
 -------------------------functions----------------------
 config_default()
 config_getdefault()
@@ -2704,45 +3003,149 @@ test()
 
 
 
-utilmy/spark/script/hadoopVersion.py
+utilmy/sspark/script/hadoopVersion.py
 
 
-utilmy/spark/script/pysparkTest.py
+utilmy/sspark/script/pysparkTest.py
 -------------------------functions----------------------
 inside(p)
 
 
 
-utilmy/spark/setup.py
+utilmy/sspark/setup.py
 
 
-utilmy/spark/src/__init__.py
+utilmy/sspark/src/__init__.py
 
 
-utilmy/spark/src/afpgrowth/main.py
+utilmy/sspark/src/afpgrowth/__init__.py
 
 
-utilmy/spark/src/functions/GetFamiliesFromUserAgent.py
+utilmy/sspark/src/afpgrowth/main.py
+
+
+utilmy/sspark/src/functions/GetFamiliesFromUserAgent.py
 -------------------------functions----------------------
 getall_families_from_useragent(ua_string)
 
 
 
-utilmy/spark/src/tables/table_predict_session_length.py
+utilmy/sspark/src/functions/__init__.py
+
+
+utilmy/sspark/src/functions/dim_datetime_utilities.py
+-------------------------functions----------------------
+generate_dim_date(spark, start_year = 1901, number_years_out_from_start = 300)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/__init__.py
+
+
+utilmy/sspark/src/functions/pandas_udfs/datetime_udfs.py
+-------------------------functions----------------------
+pd_is_holiday_usa(target_col)
+pd_normalize_date_dm(target_col)
+pd_normalize_date_md(target_col)
+pd_normalize_timestamp_dm(target_col)
+pd_normalize_timestamp_md(target_col)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/datetime_udfs_base_functions.py
+-------------------------functions----------------------
+is_holiday_usa(dt)
+to_datetime_dm(dt_str)
+to_datetime_md(dt_str)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/fuzzy_match_udfs.py
+-------------------------functions----------------------
+pd_damerau_levenshtein_distance(col1, col2)
+pd_fuzz_partial_ratio(col1, col2)
+pd_fuzz_partial_token_set_ratio(col1, col2)
+pd_fuzz_partial_token_sort_ratio(col1, col2)
+pd_fuzz_ratio(col1, col2)
+pd_fuzz_token_set_ratio(col1, col2)
+pd_fuzz_token_sort_ratio(col1, col2)
+pd_hamming_distance(col1, col2)
+pd_jaro_distance(col1, col2)
+pd_jaro_winkler(col1, col2)
+pd_match_rating_codex(target_col)
+pd_match_rating_comparison(col1, col2)
+pd_metaphone(target_col)
+pd_nysiis(target_col)
+pd_porter_stem(target_col)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/general_udfs.py
+-------------------------functions----------------------
+pd_clean_string(target_col)
+pd_empty_string_to_null(target_col)
+pd_generate_uuid(target_col)
+pd_map_booleans_ynu(target_col)
+pd_string_to_double_cfd(target_col)
+pd_string_to_double_pfd(target_col)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/general_udfs_base_functions.py
+-------------------------functions----------------------
+clean_string(target_str)
+empty_string_to_null(target_str)
+extract_number_from_string(target_str)
+map_booleans_ynu(target_val)
+string_is_number(target_str)
+string_to_double_cfd(target_str)
+string_to_double_pfd(target_str)
+string_to_float(target_str, comma_for_decimal = False)
+
+
+
+utilmy/sspark/src/functions/pandas_udfs/general_udfs_base_functions_test.py
+-------------------------methods----------------------
+TestGeneralUDFBaseFunctions.test_clean_string(self)
+TestGeneralUDFBaseFunctions.test_empty_string_to_null(self)
+TestGeneralUDFBaseFunctions.test_map_booleans_ynu(self)
+TestGeneralUDFBaseFunctions.test_string_to_double(self)
+
+
+utilmy/sspark/src/functions/pandas_udfs/timeseries.py
+-------------------------functions----------------------
+holt_winters_time_series_udf(data)
+test()
+
+
+
+utilmy/sspark/src/functions/spark_udfs/__init__.py
+
+
+utilmy/sspark/src/ml/notebooks/inception_utils.py
+-------------------------functions----------------------
+inception_arg_scope(weight_decay = 0.00004, use_batch_norm = True, batch_norm_decay = 0.9997, batch_norm_epsilon = 0.001, activation_fn = tf.nn.relu, batch_norm_updates_collections = tf.GraphKeys.UPDATE_OPS)
+
+
+
+utilmy/sspark/src/tables/__init__.py
+
+
+utilmy/sspark/src/tables/table_predict_session_length.py
 -------------------------functions----------------------
 preprocess(spark, conf, check = True)
 run(spark:SparkSession, config_path: str = 'config.yaml', mode:str = 'train,pred')
 
 
 
-utilmy/spark/src/tables/table_predict_url_unique.py
+utilmy/sspark/src/tables/table_predict_url_unique.py
 -------------------------functions----------------------
 preprocess(spark, conf, check = True)
 run(spark:SparkSession, config_path: str = 'config.yaml', mode:str = 'train,pred')
 
 
 
-utilmy/spark/src/tables/table_predict_volume.py
+utilmy/sspark/src/tables/table_predict_volume.py
 -------------------------functions----------------------
 model_predict(df:pd.DataFrame, conf_model:dict, verbose:bool = True)
 model_train(df:object, conf_model:dict, verbose:bool = True)
@@ -2751,44 +3154,155 @@ run(spark:SparkSession, config_path: str = 'config.yaml')
 
 
 
-utilmy/spark/src/tables/table_user_log.py
+utilmy/sspark/src/tables/table_user_log.py
 -------------------------functions----------------------
 create_userid(userlogDF:pyspark.sql.DataFrame)
 run(spark:SparkSession, config_name:str)
 
 
 
-utilmy/spark/src/tables/table_user_session_log.py
+utilmy/sspark/src/tables/table_user_session_log.py
 -------------------------functions----------------------
 run(spark:SparkSession, config_name = 'config.yaml')
 
 
 
-utilmy/spark/src/tables/table_user_session_stats.py
+utilmy/sspark/src/tables/table_user_session_stats.py
 -------------------------functions----------------------
 run(spark:SparkSession, config_name: str = 'config.yaml')
 
 
 
-utilmy/spark/src/util_hadoop.py
+utilmy/sspark/src/util_hadoop.py
 -------------------------functions----------------------
-hdfs_down(from_dir = "", to_dir = "", verbose = False, n_pool = 1, **kw)
+_quote_hive_query(query)
+date_format(datestr:str = "", fmt = "%Y%m%d", add_days = 0, add_hours = 0, timezone = 'Asia/Tokyo', fmt_input = "%Y-%m-%d", returnval = 'str,int,datetime')
+hadoop_print_config(dirout = None)
+hdfs_copy_fromlocal(local_dir, hdfs_dir, overwrite = False)
+hdfs_copy_tolocal(hdfs_dir, local_dir)
+hdfs_dir_exists(path)
+hdfs_download(dirin = "", dirout = "./", verbose = False, n_pool = 1, **kw)
+hdfs_file_exists(filename)
+hdfs_help()
+hdfs_list_dir(path, recursive = False)
+hdfs_ls(path, filename_only = False)
+hdfs_mkdir(hdfs_dir)
+hdfs_pd_read_parquet(path=  'hdfs =   'hdfs://user/test/myfile.parquet/', cols = None, n_rows = 1000, file_start = 0, file_end = 100000, verbose = 1, )
+hdfs_pd_write_parquet(df, hdfs_dir=  'hdfs =   'hdfs:///user/pppp/clean_v01.parquet/', cols = None, n_rows = 1000, partition_cols = None, overwrite = True, verbose = 1, )
+hdfs_rm_dir(path)
+hdfs_size_dir(path)
+hive_csv_tohive(folder, tablename = "ztmp", tableref = "nono2.table2")
+hive_df_tohive(df, tableref = "nono2.table2")
+hive_exec(query = "", nohup:int = 1, dry = False, end0 = None)
+hive_get_partitions(url = "", user = "myuser_hadoop", table = 'mydb.mytable', dirout = "myexport/")
+hive_query2(query, args = [])
+hive_query_with_exception(query, args = [])
+hive_run(query, logdir = "ztmp/loghive/", tag = 'v01', dry = 1, ### only fake runnohup = 0, ### backgroundexplain=0query)if explain>0 = 0query)if explain>0:)
+hive_sql_todf(sql, header_hive_sql:str = '', verbose = 1, save_dir = None, **kwargs)
+hive_update_partitions_table(hr, dt, location, table_name)
+hive_update_partitions_table(hr, dt, location, table_name)
+hivemall_getsqlheader(dir_hivemall_jar = "/mypath/hivemall/hivemall-all-0.6.0.jar", dir_hivemall_conf = "/mypath/define-all.hive ")
+log(*s)
+os_makedirs(path:str)
+os_subprocess(args_list, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+os_system(cmd, doprint = False)
+query_clean(q)
 
 
 
-utilmy/spark/src/util_models.py
+utilmy/sspark/src/util_models.py
+-------------------------functions----------------------
+ExtractFeatureImp(featureImp, dataset, featuresCol)
+Predict(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str = None, conf_model:dict = None)
+TimeSeriesSplit(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object)
+Train(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str = None, conf_model:dict = None)
+log(*s)
+os_makedirs(path:str)
+
+-------------------------methods----------------------
+FeatureImpSelector.__init__(self, estimator = None, selectorType = "numTopFeatures", numTopFeatures = 20, threshold = 0.01, outputCol = "features")
+FeatureImpSelector._fit(self, dataset)
+FeatureImpSelector.getEstimator(self)
+FeatureImpSelector.getNumTopFeatures(self)
+FeatureImpSelector.getSelectorType(self)
+FeatureImpSelector.getThreshold(self)
+FeatureImpSelector.setEstimator(self, value)
+FeatureImpSelector.setNumTopFeatures(self, value)
+FeatureImpSelector.setParams(self, estimator = None, selectorType = "numTopFeatures", numTopFeatures = 20, threshold = 0.01, outputCol = "features")
+FeatureImpSelector.setSelectorType(self, value)
+FeatureImpSelector.setThreshold(self, value)
+
+
+utilmy/sspark/src/util_spark.py
+-------------------------functions----------------------
+analyze_parquet(dirin, dirout, tag = '', nfiles = 1, nrows = 10, minimal = True, random_sample = True, verbose = 1, cols = None)
+config_load(config_path:str)
+config_parser_yaml(config)
+date_get_month_days(dt)
+date_get_timekey(unix_ts)
+date_get_unix_day_from_datetime(dt_with_timezone)
+date_get_unix_from_datetime(dt_with_timezone)
+date_now(datenow:Union[str, int, datetime.datetime] = "", fmt = "%Y%m%d", add_days = 0, add_hours = 0, timezone = 'Asia/Tokyo', fmt_input = "%Y-%m-%d", force_dayofmonth = -1, ###  01 first of monthforce_dayofweek = -1, force_hourofday = -1, returnval = 'str,int,datetime/unix')
+hdfs_dir_stats(dirin, recursive = True)
+hive_check_table(tables:Union[list, str], add_jar_cmd = "")
+hive_db_dumpall()
+hive_get_dblist()
+hive_get_tablechema(tablename)
+hive_get_tabledetails(table)
+hive_get_tablelist(dbname)
+hive_run_sql(query_or_sqlfile = "", nohup:int = 1, test = 0, end0 = None)
+json_compress(raw_obj)
+json_decompress(data)
+log(*s)
+os_file_replace(dirin = ["myfolder/**/*.sh", "myfolder/**/*.conf", ], textold = '/mypath2/', textnew = '/mypath2/', test = 1)
+os_subprocess(args_list, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+os_system(cmd, doprint = False)
+run_cli_sspark()
+show_parquet(path, nfiles = 1, nrows = 10, verbose = 1, cols = None)
+spark_add_jar(sparksession, hive_jar_cmd = None)
+spark_config_check()
+spark_config_create(mode = '', dirout = "./conf_spark/")
+spark_config_print(sparksession)
+spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
+spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
+spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, )
+spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
+spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
+spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
+spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
+spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
+spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, numPartitions:int = None, saveMode:str =  "overwrite", format:str =  "parquet")
+spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
+spark_get_session_local(config:str = "/default.yaml", keyfield = 'sparkconfig')
+spark_metrics_classifier_summary(df_labels_preds)
+spark_metrics_roc_summary(labels_and_predictions_df)
+spark_read(sparksession = None, dirin="hdfs = "hdfs://", format = None, **kw)
+spark_run_sqlfile(sparksession = None, spark_config:dict = None, sql_path:str = "", map_sql_variables:dict = None)
+test1()
+test2()
+test_all()
+
+
+
+utilmy/sspark/src/util_sparkml.py
 -------------------------functions----------------------
 Predict(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str = None, conf_model:dict = None)
 TimeSeriesSplit(df_m:pyspark.sql.DataFrame, splitRatio:float, sparksession:object)
 Train(spark, df_m:pyspark.sql.DataFrame, features:list, regressor:str, path:str = None, conf_model:dict = None)
+log(*s)
 os_makedirs(path:str)
 
 
 
-utilmy/spark/src/util_spark.py
+utilmy/sspark/src/util_trick.py
+-------------------------functions----------------------
+info1()
+info2()
+pyudf()
 
 
-utilmy/spark/src/utils.py
+
+utilmy/sspark/src/utils.py
 -------------------------functions----------------------
 config_load(config_path:str)
 log(*s)
@@ -2803,17 +3317,17 @@ spark_check(df:pyspark.sql.DataFrame, conf:dict = None, path:str = "", nsample:i
 to_namespace.__init__(self, d)
 
 
-utilmy/spark/tests/__init__.py
+utilmy/sspark/tests/__init__.py
 
 
-utilmy/spark/tests/conftest.py
+utilmy/sspark/tests/conftest.py
 -------------------------functions----------------------
 config()
 spark_session(config: dict)
 
 
 
-utilmy/spark/tests/test_common.py
+utilmy/sspark/tests/test_common.py
 -------------------------functions----------------------
 assert_equal_spark_df(expected_df: DataFrame, actual_df: DataFrame, df_name: str)
 assert_equal_spark_df_schema(expected_schema: [tuple], actual_schema: [tuple], df_name: str)
@@ -2821,19 +3335,19 @@ assert_equal_spark_df_sorted(expected_sorted_df: DataFrame, actual_sorted_df: Da
 
 
 
-utilmy/spark/tests/test_functions.py
+utilmy/sspark/tests/test_functions.py
 -------------------------functions----------------------
 test_getall_families_from_useragent(spark_session: SparkSession)
 
 
 
-utilmy/spark/tests/test_table_user_log.py
+utilmy/sspark/tests/test_table_user_log.py
 -------------------------functions----------------------
 test_table_user_log_run(spark_session: SparkSession, config: dict)
 
 
 
-utilmy/spark/tests/test_table_user_session_log.py
+utilmy/sspark/tests/test_table_user_session_log.py
 -------------------------functions----------------------
 test_table_user_session_log(spark_session: SparkSession, config: dict)
 test_table_user_session_log_run(spark_session: SparkSession)
@@ -2841,7 +3355,7 @@ test_table_usersession_log_stats(spark_session: SparkSession, config: dict)
 
 
 
-utilmy/spark/tests/test_table_user_session_stats.py
+utilmy/sspark/tests/test_table_user_session_stats.py
 -------------------------functions----------------------
 test_table_user_session_stats(spark_session: SparkSession, config: dict)
 test_table_user_session_stats_ip(spark_session: SparkSession, config: dict)
@@ -2849,13 +3363,13 @@ test_table_user_session_stats_run(spark_session: SparkSession)
 
 
 
-utilmy/spark/tests/test_table_volume_predict.py
+utilmy/sspark/tests/test_table_volume_predict.py
 -------------------------functions----------------------
 test_preprocess(spark_session: SparkSession, config: dict)
 
 
 
-utilmy/spark/tests/test_utils.py
+utilmy/sspark/tests/test_utils.py
 -------------------------functions----------------------
 test_spark_check(spark_session: SparkSession, config: dict)
 
@@ -3075,30 +3589,24 @@ test1()
 test3()
 test_all()
 test_anova(df:pd.DataFrame, col1, col2)
-test_hypothesis(df_obs:pd.DataFrame, df_true:pd.DataFrame, method = 'chisquare', **kw)
+test_check_mean()
+test_chisquare(df_obs:pd.DataFrame, df_true:pd.DataFrame, method = 'chisquare', **kw)
 test_independance(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
 test_independance_Xinput_vs_ytarget(df: pd.DataFrame, colsX = None, coly = 'y', bonferroni_adjuster = True, threshold = 0.1)
 test_mutualinfo(error, Xtest, colname = None, bins = 5)
 test_normality2(df:pd.DataFrame, column, test_type)
 test_plot_qqplot(df:pd.DataFrame, col_name)
-test_same_mean(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1)
+test_same_mean(df: pd.DataFrame, cols = None, bonferroni_adjuster = True, threshold = 0.1, pcritic = 0.5)
 
 
 
 utilmy/tabular/__init__.py
 
 
-utilmy/tabular/ppolars.py
--------------------------functions----------------------
-help()
-load_function_uri(uri_name = "path_norm")
-pandas_test()
-pd_compare(df, dfp)
-pivot_table_polars(df_or_path, columns:list, index:list, values:list, aggfunc:str = 'sum', dirout = "./mypivot.parquet")
-polars_test()
-test1()
-test_all()
+utilmy/tabular/causal/__init__.py
 
+
+utilmy/tabular/causal/util_causal.py
 
 
 utilmy/tabular/sparse/test_data.py
@@ -3145,7 +3653,6 @@ utilmy/tabular/util_activelearning.py
 -------------------------functions----------------------
 generate_train_samples(model, Xtrain, ytrain, Xnew, ynew)
 help()
-load_function_uri(uri_name = "path_norm")
 model_evaluate(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor], data_pars:dict)
 model_extract_rules(model: Union[RuleFitRegressor, FIGSRegressor, SLIMRegressor])
 model_fit(name:str = 'imodels.SLIMRegressor', model_pars:dict = None, data_pars:dict = None, do_eval: bool = True, **kw)
@@ -3297,7 +3804,6 @@ to_int(x)
 utilmy/tabular/util_uncertainty.py
 -------------------------functions----------------------
 help()
-load_function_uri(uri_name: str = "path_norm")
 model_eval2(clf, Xval, yval, dirout = "")
 model_evaluate(model: Union[MapieClassifier, MapieRegressor], data_pars:dict, predict_pars:dict)
 model_fit(name: str  =  'mapie.regression.MapieRegressor', model: Optional[Union[RandomForestClassifier, DecisionTreeClassifier, LinearRegression]] = None, mapie_pars:dict = None, predict_pars:dict = None, data_pars:dict = None, do_prefit: bool = False, do_eval: bool = True, test_size: float = 0.3)
@@ -3653,14 +4159,6 @@ scan(data_file)
 
 
 
-utilmy/tools/cli_github_search.py
--------------------------functions----------------------
-get_arguments()
-main()
-search_github(args, start_time)
-
-
-
 utilmy/tools/cli_json.py
 -------------------------functions----------------------
 dict_update(fields_list, d, value)
@@ -3786,6 +4284,12 @@ test_toplvl()
 
 
 
+utilmy/tools/mybash/mybash/github_getallrepo.py
+-------------------------functions----------------------
+gather_clone_urls(account, no_forks = True)
+
+
+
 utilmy/tools/test/cli_convert_ipynb.py
 -------------------------functions----------------------
 check(file_list, dump = False)
@@ -3874,6 +4378,109 @@ os_file_replacestring2(findstr, replacestr, some_dir, pattern = "*.*", dirlevel 
 utilmy/tseries/__init__.py
 
 
+utilmy/tseries/models/model_bayesian_numpyro.py
+-------------------------functions----------------------
+fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+get_dataset(data_pars = None, task_type = "train", **kw)
+get_params(param_pars = {}, **kw)
+init(*kw, **kwargs)
+init(*kw, **kwargs)
+load_info(path = "")
+load_model(path = "")
+log(*s)
+log(*s)
+log2(*s)
+log3(*s)
+predict(Xpred = None, data_pars = {}, compute_pars = None, out_pars = {}, **kw)
+preprocess(prepro_pars)
+reset()
+reset()
+save(path = None, info = None)
+
+-------------------------methods----------------------
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
+
+
+utilmy/tseries/models/model_bayesian_pyro.py
+-------------------------functions----------------------
+fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+get_dataset(data_pars = None, task_type = "train", **kw)
+init(*kw, **kwargs)
+load_info(path = "")
+load_model(path = "")
+log(*s)
+log2(*s)
+log3(*s)
+model_class_loader(m_name = 'BayesianRegression', class_list:list = None)
+predict(Xpred = None, data_pars = {}, compute_pars = None, out_pars = {}, **kw)
+reset()
+save(path = None, info = None)
+test(nrows = 1000)
+test_dataset_regress_fake(nrows = 500)
+y_norm(y, inverse = True, mode = 'boxcox')
+
+-------------------------methods----------------------
+BayesianRegression.__init__(self, X_dim:int = 17, y_dim:int = 1)
+BayesianRegression.forward(self, x, y = None)
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
+
+
+utilmy/tseries/models/model_tseries.py
+-------------------------functions----------------------
+LighGBM_recursive(lightgbm_pars= {'objective' =  {'objective':'quantile', 'alpha': 0.5}, forecaster_pars = {'window_length' =  {'window_length': 4})
+fit(data_pars = None, compute_pars = None, out_pars = None, **kw)
+get_dataset(data_pars = None, task_type = "train", **kw)
+init(*kw, **kwargs)
+load_info(path = "")
+load_model(path = "")
+log(*s)
+log2(*s)
+log3(*s)
+predict(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
+predict_forward(Xpred = None, data_pars = {}, compute_pars = {}, out_pars = {}, **kw)
+reset()
+save(path = None, info = None)
+test()
+test2(nrows = 1000, file_path = None, coly = None, coldate = None, colcat = None)
+test_dataset_tseries(nrows = 10000, coly = None, coldate = None, colcat = None)
+time_train_test_split(df, test_size  =  0.4, cols = None, coltime  = "time_key", sort = True, minsize = 5, n_sample = 5, verbose = False)
+
+-------------------------methods----------------------
+Model.__init__(self, model_pars = None, data_pars = None, compute_pars = None)
+
+
+utilmy/tseries/prepro_tseries.py
+-------------------------functions----------------------
+log(*s)
+log2(*s)
+log3(*s)
+logd(*s, n = 0, m = 0)
+m5_dataset()
+pd_prepro_custom(df: pd.DataFrame, col: list = None, pars: dict = None)
+pd_prepro_custom2(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_autoregressive(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_date(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_deltapy_generic(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_difference(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_groupby(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_lag(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_onehot(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_rolling(df: pd.DataFrame, cols: list = None, pars: dict = None)
+pd_ts_tsfresh_features(df: pd.DataFrame, cols: list = None, pars: dict = None)
+test_deltapy_all()
+test_deltapy_all2()
+test_deltapy_get_method(df)
+test_get_sampledata(url="https = "https://github.com/firmai/random-assets-two/raw/master/numpy/tsla.csv")
+test_prepro_v1()
+
+
+
+utilmy/tseries/torch_lstm (1).py
+
+
+utilmy/tseries/torch_lstm.py
+
+
 utilmy/tseries/torch_outlier.py
 -------------------------functions----------------------
 dataset_ECG5000_fetch_pandas(nrows = 100, dirout = "./ztmp/")
@@ -3943,6 +4550,9 @@ modelRecurrentAutoencoder.forward(self, x)
 
 
 utilmy/tseries/util_tseries.py
+-------------------------functions----------------------
+bootstrap_sequential()
+
 
 
 utilmy/util_batch.py
@@ -4042,19 +4652,6 @@ NodeStatsCollector.init(self)
 NodeStatsCollector.run(self)
 
 
-utilmy/util_dirs.py
--------------------------functions----------------------
-_get_win_folder_from_environ(csidl_name)
-_get_win_folder_from_registry(csidl_name)
-_get_win_folder_with_ctypes(csidl_name)
-_get_win_folder_with_jna(csidl_name)
-user_cache_dir(appname = None, appauthor = None, version = None, opinion = True)
-user_config_dir(appname = None, appauthor = None, version = None, roaming = False)
-user_data_dir(appname = None, appauthor = None, version = None, roaming = False)
-user_log_dir(appname = None, appauthor = None, version = None, opinion = True)
-
-
-
 utilmy/util_download.py
 -------------------------functions----------------------
 donwload_and_extract(url, dirout = './ztmp/', unzip = True)
@@ -4067,15 +4664,7 @@ os_extract_archive(file_path, dirout = "./ztmp/", archive_format = "auto")
 test1()
 test_all()
 to_file(s, filep)
-
-
-
-utilmy/util_hadoop.py
-
-
-utilmy/util_log.py
--------------------------functions----------------------
-os_getenv_dict()
+upload_google(src_folder_name, dst_folder_name, auth_key)
 
 
 
@@ -4093,13 +4682,13 @@ unzip(dirin, dirout)
 
 utilmy/utilmy.py
 -------------------------functions----------------------
+direpo()
 find_fuzzy(word:str, wlist:list, threshold = 0.0)
 get_loggers(mode = 'print', n_loggers = 2, verbose_level = None)
 get_verbosity(verbose:int = None)
 git_current_hash(mode = 'full')
 git_repo_root()
 glob_glob(dirin:Union[str, list] = "**/*.py", nfile = 1000, direxclude:Union[str, list] = "", exclude:Union[str, list] = "", recursive = True, silent = False, show = 0, **kw)
-google_download(url_or_id="https = "https://drive.google.com/file/d/1iFrhCPWRITarabHfBZvR-V9B2yTlbVhH/view?usp=sharing", dirout = "./ztmp/", unzip = True)
 help()
 help_create(modulename = 'utilmy.nnumpy', prefixs = None)
 help_get_codesource(func)
@@ -4109,6 +4698,7 @@ help_info(fun_name:str = "os.system", doprint = True)
 help_signature(f)
 import_function(fun_name = None, module_name = None, fuzzy_match = False)
 load(to_file = "")
+load_function_uri(uri_name: str = "MyFolder/myfile.py:my_function")
 log(*s, **kw)
 log2(*s, **kw)
 log3(*s, **kw)
@@ -4119,7 +4709,9 @@ pip_install(pkg_str = " pandas ")
 save(dd, to_file = "", verbose = False)
 sys_exit(msg = "exited", err_int = 0)
 sys_install(cmd = "")
+sys_path_append(path = "__file__", level_above = 2)
 test_all()
+test_load_function_uri()
 
 -------------------------methods----------------------
 Index0.__init__(self, findex:str = "ztmp_file.txt")
@@ -4266,6 +4858,20 @@ main(url = "", path_pdf = "data/scraper/v1/pdf/", path_txt = "data/scraper/v1/tx
 parse_main_page(url)
 process_and_paginate_soup(response_soup)
 process_url(url_data, idx, list_len, path_pdf = "", path_txt = "")
+
+
+
+utilmy/webscraper/cli_github_gist_search.py
+-------------------------functions----------------------
+run(url= "https =  "https://gist.github.com/search?p={}&q=pyspark+UDF", logs = True, download = True, dirout = "./zdown_github/")
+
+
+
+utilmy/webscraper/cli_github_search.py
+-------------------------functions----------------------
+get_arguments()
+main()
+search_github(args, start_time)
 
 
 

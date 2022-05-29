@@ -12,14 +12,16 @@ warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 For each of the entry create a hash function
 '''
 def create_hash(df, column_name, threshold, num_perm):
-    """function create_hash
-    Args:
-        df:   
-        column_name:   
-        threshold:   
-        num_perm:   
-    Returns:
-        
+    """function create_hash.
+    Doc::
+            
+            Args:
+                df:   
+                column_name:   
+                threshold:   
+                num_perm:   
+            Returns:
+                
     """
     #Create LSH 
     lsh = MinHashLSH(threshold=threshold, num_perm=num_perm)
@@ -47,14 +49,16 @@ For each of the hash function find a cluster and assign unique id to the datafra
 '''
 
 def find_clusters(df, column_name, threshold, num_perm):
-    """function find_clusters
-    Args:
-        df:   
-        column_name:   
-        threshold:   
-        num_perm:   
-    Returns:
-        
+    """function find_clusters.
+    Doc::
+            
+            Args:
+                df:   
+                column_name:   
+                threshold:   
+                num_perm:   
+            Returns:
+                
     """
  
     #MAster cluster ids

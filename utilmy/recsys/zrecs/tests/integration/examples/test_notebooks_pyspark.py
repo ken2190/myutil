@@ -17,13 +17,15 @@ ABS_TOL = 0.05
 @pytest.mark.spark
 @pytest.mark.integration
 def test_als_pyspark_integration(notebooks, output_notebook, kernel_name):
-    """function test_als_pyspark_integration
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_als_pyspark_integration.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["als_pyspark"]
     pm.execute_notebook(
@@ -51,13 +53,15 @@ def test_als_pyspark_integration(notebooks, output_notebook, kernel_name):
 @pytest.mark.skip(reason="It takes too long in the current test machine")
 @pytest.mark.skipif(sys.platform == "win32", reason="Not implemented on Windows")
 def test_mmlspark_lightgbm_criteo_integration(notebooks, output_notebook, kernel_name):
-    """function test_mmlspark_lightgbm_criteo_integration
-    Args:
-        notebooks:   
-        output_notebook:   
-        kernel_name:   
-    Returns:
-        
+    """function test_mmlspark_lightgbm_criteo_integration.
+    Doc::
+            
+            Args:
+                notebooks:   
+                output_notebook:   
+                kernel_name:   
+            Returns:
+                
     """
     notebook_path = notebooks["mmlspark_lightgbm_criteo"]
     pm.execute_notebook(

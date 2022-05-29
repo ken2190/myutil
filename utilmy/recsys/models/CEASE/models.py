@@ -18,13 +18,15 @@ from baselines.vlm.vlm_pytorch import VLM_PyTorch
 from SLIM import SLIM, SLIMatrix
 
 def run_itemknn(X_train, X_test, test_dict):
-    """function run_itemknn
-    Args:
-        X_train:   
-        X_test:   
-        test_dict:   
-    Returns:
-        
+    """function run_itemknn.
+    Doc::
+            
+            Args:
+                X_train:   
+                X_test:   
+                test_dict:   
+            Returns:
+                
     """
     # Compute item-item matrix with cosine similarities
     S_cosine = util.compute_cosine(X_train)
@@ -38,16 +40,18 @@ def run_itemknn(X_train, X_test, test_dict):
     return results_cosine
 
 def run_cVAE(X_train, X_meta, X_val, X_test, val_dict, test_dict):
-    """function run_cVAE
-    Args:
-        X_train:   
-        X_meta:   
-        X_val:   
-        X_test:   
-        val_dict:   
-        test_dict:   
-    Returns:
-        
+    """function run_cVAE.
+    Doc::
+            
+            Args:
+                X_train:   
+                X_meta:   
+                X_val:   
+                X_test:   
+                val_dict:   
+                test_dict:   
+            Returns:
+                
     """
     # Parameters for cVAE
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -174,18 +178,20 @@ def run_cVAE(X_train, X_meta, X_val, X_test, val_dict, test_dict):
     return results_cVAE
 
 def run_VLM(X_train_subset, train_users, X_meta, X_val, X_test, val_dict, test_dict, side_info = True):
-    """function run_VLM
-    Args:
-        X_train_subset:   
-        train_users:   
-        X_meta:   
-        X_val:   
-        X_test:   
-        val_dict:   
-        test_dict:   
-        side_info :   
-    Returns:
-        
+    """function run_VLM.
+    Doc::
+            
+            Args:
+                X_train_subset:   
+                train_users:   
+                X_meta:   
+                X_val:   
+                X_test:   
+                val_dict:   
+                test_dict:   
+                side_info :   
+            Returns:
+                
     """
     # Parameters for VLM
     var_prior = 1.0
@@ -305,19 +311,21 @@ def run_VLM(X_train_subset, train_users, X_meta, X_val, X_test, val_dict, test_d
     return VLM_results
 
 def run_VLM_PyTorch(X_train, train_users, X_meta, X_val, X_test, val_dict, test_dict, side_info, eval_style = 'strong'):
-    """function run_VLM_PyTorch
-    Args:
-        X_train:   
-        train_users:   
-        X_meta:   
-        X_val:   
-        X_test:   
-        val_dict:   
-        test_dict:   
-        side_info:   
-        eval_style :   
-    Returns:
-        
+    """function run_VLM_PyTorch.
+    Doc::
+            
+            Args:
+                X_train:   
+                train_users:   
+                X_meta:   
+                X_val:   
+                X_test:   
+                val_dict:   
+                test_dict:   
+                side_info:   
+                eval_style :   
+            Returns:
+                
     """
     # Parameters for VLM
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -489,19 +497,21 @@ def run_VLM_PyTorch(X_train, train_users, X_meta, X_val, X_test, val_dict, test_
     return results_VLM
 
 def run_SLIM(X_train, train_users, X_meta, X_val, X_test, val_dict, test_dict, side_info, eval_style = 'strong'):
-    """function run_SLIM
-    Args:
-        X_train:   
-        train_users:   
-        X_meta:   
-        X_val:   
-        X_test:   
-        val_dict:   
-        test_dict:   
-        side_info:   
-        eval_style :   
-    Returns:
-        
+    """function run_SLIM.
+    Doc::
+            
+            Args:
+                X_train:   
+                train_users:   
+                X_meta:   
+                X_val:   
+                X_test:   
+                val_dict:   
+                test_dict:   
+                side_info:   
+                eval_style :   
+            Returns:
+                
     """
     # Values for grid-search
     NDCG_values = []

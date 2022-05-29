@@ -14,11 +14,13 @@ import random
 import sys
 
 def make_soup(url):
-    """function make_soup
-    Args:
-        url:   
-    Returns:
-        
+    """function make_soup.
+    Doc::
+            
+            Args:
+                url:   
+            Returns:
+                
     """
     thepage = urllib.request.urlopen(url)
     soupdata = BeautifulSoup(thepage, "lxml")

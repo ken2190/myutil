@@ -23,25 +23,25 @@ def log3(*s, **kw):
 # Test functions
 def test_functions():
     """Check that list function is working.
-    os_lock_releaseLock, os_lock_releaseLock, os_lock_execute
+    os_lock_releaseLock, os_lock_releaseLock, os_lock_run
     Basic test on only 1 thread
     """
     # test function
     def running(fun_args):
         log(f'Function running with arg: {fun_args}')
 
-    # test that os_lock_execute is working
-    os_lock_execute(running, 'Test_args', plock='tmp/plock.lock')
-    os_lock_execute(running, [1, 2, 3], plock='tmp/plock.lock')
+    # test that os_lock_run is working
+    os_lock_run(running, 'Test_args', plock='tmp/plock.lock')
+    os_lock_run(running, [1, 2, 3], plock='tmp/plock.lock')
 
 
 def test_funtions_thread():
     """Check that list function is working.
-    os_lock_releaseLock, os_lock_releaseLock, os_lock_execute
+    os_lock_releaseLock, os_lock_releaseLock, os_lock_run
     Multi threads
     How the test work.
     - Create and run 5 threads. These threads try to access and use 1 function `running`
-    with os_lock_execute. So in one 1, only 1 thread can access and use this function.
+    with os_lock_run. So in one 1, only 1 thread can access and use this function.
     """
     import threading
 
@@ -54,7 +54,7 @@ def test_funtions_thread():
     # define test thread
     def thread_running(number):
         log(f'Thread {number} START')
-        os_lock_execute(running, number, plock='tmp/plock2.lock')
+        os_lock_run(running, number, plock='tmp/plock2.lock')
         log(f'Thread {number} sleeping in {number*3}s')
         time.sleep(number* 0.5)
         log(f'Thread {number} END')

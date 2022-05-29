@@ -37,7 +37,7 @@ from utilmy import log, log2
 def help():
     """function help """
     #from utilmy import help_create
-    #print( help_create(MNAME) )
+    #print( help_create(__file__) )
 
 
 
@@ -282,7 +282,7 @@ def format_add_helper_logger(txt):
     def help():
         ### helper shows list of all tests  
         from utilmy import help_create
-        print( help_create(MNAME) )
+        print( help_create(__file__) )
     """
     new = new.replace( " " * 4, "")
 

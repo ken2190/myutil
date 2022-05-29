@@ -55,11 +55,13 @@ from utilmy.docs import code_parser as cp
 
 
 def os_remove(filepath):
-    """function os_remove
-    Args:
-        filepath:   
-    Returns:
-        
+    """function os_remove.
+    Doc::
+            
+            Args:
+                filepath:   
+            Returns:
+                
     """
     try:
         os.remove(filepath)
@@ -67,18 +69,20 @@ def os_remove(filepath):
 
 
 def run_cli():
-    """ Usage
-    cd myutil
-    pip install -e  .
-
-    docs  help
-    docs markdown --repo_url  https://github.com/arita37/spacefusion.git   --dirout docs/
-
-    docs  callgraph  --repo_dir utilmy/      --dirout docs/
-    docs  csv        --repo_dir utilmy/      --dirout docs/
-    docs  txt        --repo_dir utilmy/      --dirout docs/
-
-
+    """ Usage.
+    Doc::
+            
+            cd myutil
+            pip install -e  .
+        
+            docs  help
+            docs markdown --repo_url  https://github.com/arita37/spacefusion.git   --dirout docs/
+        
+            docs  callgraph  --repo_dir utilmy/      --dirout docs/
+            docs  csv        --repo_dir utilmy/      --dirout docs/
+            docs  txt        --repo_dir utilmy/      --dirout docs/
+        
+        
     """
     p   = argparse.ArgumentParser()
     add = p.add_argument

@@ -29,11 +29,13 @@ from mlmodels.util import get_recursive_files2, path_norm, path_norm_dict
            
 ####################################################################################################
 def os_bash(cmd):
-  """function os_bash
-  Args:
-      cmd:   
-  Returns:
-      
+  """function os_bash.
+  Doc::
+          
+        Args:
+            cmd:   
+        Returns:
+            
   """
   # os_bash("dir ")  
   import subprocess  
@@ -46,22 +48,26 @@ def os_bash(cmd):
 
 
 def log_separator(space=140):
-   """function log_separator
-   Args:
-       space:   
-   Returns:
-       
+   """function log_separator.
+   Doc::
+           
+          Args:
+              space:   
+          Returns:
+              
    """
    print("\n" * 5, "*" * space, flush=True )
 
 
 def log_info_repo(arg=None):
-   """
-      Grab Github Variables
-      https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables    
-
-      log_info_repo(arg=None)
-
+   """.
+   Doc::
+           
+             Grab Github Variables
+             https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables    
+       
+             log_info_repo(arg=None)
+       
    """ 
    #print( "Check", os_bash(  "echo $GITHUB_REF" ),  os_bash(  "echo $GITHUB_REPOSITORY" ),  os_bash(  "echo $GITHUB_SHA" )  )
    # repo = arg.repo
@@ -116,12 +122,14 @@ def log_info_repo(arg=None):
 
 
 def to_logfile(prefix="", dateformat='+%Y-%m-%d_%H:%M:%S,%3N' ) : 
-    """function to_logfile
-    Args:
-        prefix:   
-        dateformat='+%Y-%m-%d_%H:   
-    Returns:
-        
+    """function to_logfile.
+    Doc::
+            
+            Args:
+                prefix:   
+                dateformat='+%Y-%m-%d_%H:   
+            Returns:
+                
     """
     ### On Linux System
     if dateformat == "" :
@@ -132,10 +140,12 @@ def to_logfile(prefix="", dateformat='+%Y-%m-%d_%H:%M:%S,%3N' ) :
 
 
 def os_file_current_path():
-    """function os_file_current_path
-    Args:
-    Returns:
-        
+    """function os_file_current_path.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     import inspect, os
     val = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -147,14 +157,16 @@ def os_file_current_path():
 
 
 def os_system(cmd, dolog=1, prefix="", dateformat='+%Y-%m-%d_%H:%M:%S,%3N') :
-    """function os_system
-    Args:
-        cmd:   
-        dolog:   
-        prefix:   
-        dateformat='+%Y-%m-%d_%H:   
-    Returns:
-        
+    """function os_system.
+    Doc::
+            
+            Args:
+                cmd:   
+                dolog:   
+                prefix:   
+                dateformat='+%Y-%m-%d_%H:   
+            Returns:
+                
     """
     if dolog :
         cmd = cmd + to_logfile(prefix, dateformat)
@@ -163,11 +175,13 @@ def os_system(cmd, dolog=1, prefix="", dateformat='+%Y-%m-%d_%H:%M:%S,%3N') :
 
 
 def json_load(path) :
-  """function json_load
-  Args:
-      path:   
-  Returns:
-      
+  """function json_load.
+  Doc::
+          
+        Args:
+            path:   
+        Returns:
+            
   """
   try :
     return json.load(open( path, mode='r'))
@@ -177,11 +191,13 @@ def json_load(path) :
 
 ####################################################################################################
 def log_remote_start(arg=None):
-   """function log_remote_start
-   Args:
-       arg:   
-   Returns:
-       
+   """function log_remote_start.
+   Doc::
+           
+          Args:
+              arg:   
+          Returns:
+              
    """
    ## Download remote log on disk 
    s = """ cd /home/runner/work/mlmodels/  && git clone git@github.com:arita37/mlmodels_store.git  &&  ls && pwd
@@ -194,11 +210,13 @@ def log_remote_start(arg=None):
 
 
 def log_remote_push(arg=None):
-   """function log_remote_push
-   Args:
-       arg:   
-   Returns:
-       
+   """function log_remote_push.
+   Doc::
+           
+          Args:
+              arg:   
+          Returns:
+              
    """
    ### Pushing to mlmodels_store   with --force
    # tag ="ml_store" & arg.name

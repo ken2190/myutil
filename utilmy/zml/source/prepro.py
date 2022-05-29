@@ -12,29 +12,35 @@ from utilmy import global_verbosity, os_makedirs
 verbosity = global_verbosity(__file__, "/../config.json" ,default= 5)
 
 def log(*s):
-    """function log
-    Args:
-        *s:   
-    Returns:
-        
+    """function log.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 1 : print(*s, flush=True)
 
 def log2(*s):
-    """function log2
-    Args:
-        *s:   
-    Returns:
-        
+    """function log2.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 2 : print(*s, flush=True)
 
 def log3(*s):
-    """function log3
-    Args:
-        *s:   
-    Returns:
-        
+    """function log3.
+    Doc::
+            
+            Args:
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 3 : print(*s, flush=True)
 
@@ -49,37 +55,43 @@ import util_feature
 
 ####################################################################################################
 def log4(*s, n=0, m=1):
-    """function log4
-    Args:
-        *s:   
-        n:   
-        m:   
-    Returns:
-        
+    """function log4.
+    Doc::
+            
+            Args:
+                *s:   
+                n:   
+                m:   
+            Returns:
+                
     """
     if verbosity >= 4:
        print(*s,"\n", flush=True)
 
 def log4_pd(name, df, *s):
-    """function log4_pd
-    Args:
-        name:   
-        df:   
-        *s:   
-    Returns:
-        
+    """function log4_pd.
+    Doc::
+            
+            Args:
+                name:   
+                df:   
+                *s:   
+            Returns:
+                
     """
     if verbosity >= 4: 
        print("\n",name, df.head(3),  df.shape, df.reset_index().dtypes )
 
 def _pd_colnum(df, col, pars):
-    """function _pd_colnum
-    Args:
-        df:   
-        col:   
-        pars:   
-    Returns:
-        
+    """function _pd_colnum.
+    Doc::
+            
+            Args:
+                df:   
+                col:   
+                pars:   
+            Returns:
+                
     """
     colnum = col
     for x in colnum:
@@ -87,13 +99,15 @@ def _pd_colnum(df, col, pars):
     return df
 
 def _pd_colnum_fill_na_median(df, col, pars):
-    """function _pd_colnum_fill_na_median
-    Args:
-        df:   
-        col:   
-        pars:   
-    Returns:
-        
+    """function _pd_colnum_fill_na_median.
+    Doc::
+            
+            Args:
+                df:   
+                col:   
+                pars:   
+            Returns:
+                
     """
     for quant_col in col:
         df[quant_col].fillna((df[quant_col].median()), inplace=True)
@@ -102,7 +116,9 @@ def _pd_colnum_fill_na_median(df, col, pars):
 ####################################################################################################
 ####################################################################################################
 def prepro_load(prefix, pars):
-    """  Load previously savec preprocessors
+    """  Load previously savec preprocessors.
+    Doc::
+            
     """
     prepro = None
     pars_saved = None
@@ -116,7 +132,9 @@ def prepro_load(prefix, pars):
 
 
 def prepro_save(prefix, pars, df_new, cols_new, prepro) -> (pd.DataFrame, dict) :
-    """  Save preprocessors and export
+    """  Save preprocessors and export.
+    Doc::
+            
     """
     ### Clean Pars of extra heavy data
     pars2= {}
@@ -139,15 +157,17 @@ def prepro_save(prefix, pars, df_new, cols_new, prepro) -> (pd.DataFrame, dict) 
 
 
 def pd_col_atemplate(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-    Example of custom Processor
-    Used at prediction time
-        "path_pipeline"  :
-
-    Training time :
-        "path_features_store" :  to store intermediate dataframe
-        "path_pipeline_export":  to store pipeline  for later usage
-
+    """.
+    Doc::
+            
+            Example of custom Processor
+            Used at prediction time
+                "path_pipeline"  :
+        
+            Training time :
+                "path_features_store" :  to store intermediate dataframe
+                "path_pipeline_export":  to store pipeline  for later usage
+        
     """
     prefix = "myfun"
 
@@ -180,13 +200,15 @@ def pd_col_atemplate(df: pd.DataFrame, col: list=None, pars: dict=None):
 ###########################################################################################
 ##### Label processing   ##################################################################
 def pd_coly_clean(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """function pd_coly_clean
-    Args:
-        df (  pd.DataFrame ) :   
-        col (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_coly_clean.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                col (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     path_features_store = pars['path_features_store']
     # path_pipeline_export = pars['path_pipeline_export']
@@ -203,13 +225,15 @@ def pd_coly_clean(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_coly(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """function pd_coly
-    Args:
-        df (  pd.DataFrame ) :   
-        col (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_coly.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                col (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     ##### Filtering / cleaning rows :   ################
     coly=col
@@ -248,10 +272,12 @@ def pd_coly(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colnum_normalize(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """ Float num INTO [0,1]
-      'quantile_cutoff', 'quantile_cutoff_2', 'minmax'      
-      'name': 'fillna', 'na_val' : 0.0 
-
+    """ Float num INTO [0,1].
+    Doc::
+            
+              'quantile_cutoff', 'quantile_cutoff_2', 'minmax'      
+              'name': 'fillna', 'na_val' : 0.0 
+        
     """
     prefix ='colnum_norm'   ### == cols_out
     df     = df[col]
@@ -284,8 +310,10 @@ def pd_colnum_normalize(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colnum_quantile_norm(df: pd.DataFrame, col: list=None, pars: dict=None):
-  """
-     colnum normalization by quantile
+  """.
+  Doc::
+          
+           colnum normalization by quantile
   """
   prefix  = "colnum_quantile_norm"
   df      = df[col]
@@ -367,11 +395,13 @@ def pd_colnum_quantile_norm(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colnum_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """  float column into  binned columns
-    df:
-    col:
-    pars:
-    :return:
+    """  float column into  binned columns.
+    Doc::
+            
+            df:
+            col:
+            pars:
+            :return:
     """
     from util_feature import  pd_colnum_tocat
 
@@ -409,13 +439,15 @@ def pd_colnum_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colnum_binto_onehot(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """function pd_colnum_binto_onehot
-    Args:
-        df (  pd.DataFrame ) :   
-        col (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_colnum_binto_onehot.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                col (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     assert isinstance(col, list) and isinstance(df, pd.DataFrame)
 
@@ -447,8 +479,10 @@ def pd_colnum_binto_onehot(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colcat_to_onehot(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-
+    """.
+    Doc::
+            
+        
     """
     log("#### colcat to onehot")
     col         = [col]  if isinstance(col, str) else col
@@ -490,13 +524,15 @@ def pd_colcat_to_onehot(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colcat_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """function pd_colcat_bin
-    Args:
-        df (  pd.DataFrame ) :   
-        col (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_colcat_bin.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                col (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     # dfbum_bin = df[col]
     path_pipeline  = pars.get('path_pipeline', False)
@@ -531,9 +567,11 @@ def pd_colcat_bin(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colcross(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-     cross_feature_new =  feat1 X feat2  (pair feature)
-
+    """.
+    Doc::
+            
+             cross_feature_new =  feat1 X feat2  (pair feature)
+        
     """
     log("#####  Cross Features From OneHot Features   ######################################")
     prefix = 'colcross_onehot'
@@ -609,13 +647,15 @@ def pd_colcross(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_coldate(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """function pd_coldate
-    Args:
-        df (  pd.DataFrame ) :   
-        col (  list ) :   
-        pars (  dict ) :   
-    Returns:
-        
+    """function pd_coldate.
+    Doc::
+            
+            Args:
+                df (  pd.DataFrame ) :   
+                col (  list ) :   
+                pars (  dict ) :   
+            Returns:
+                
     """
     log("##### Coldate processing   ##########################################")
     from utils import util_date
@@ -640,26 +680,28 @@ def pd_coldate(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def pd_colcat_encoder_generic(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-        Create a Class or decorator
-        https://pypi.org/project/category-encoders/
-        encoder = ce.BackwardDifferenceEncoder(cols=[...])
-        encoder = ce.BaseNEncoder(cols=[...])
-        encoder = ce.BinaryEncoder(cols=[...])
-        encoder = ce.CatBoostEncoder(cols=[...])
-        encoder = ce.CountEncoder(cols=[...])
-        encoder = ce.GLMMEncoder(cols=[...])
-        encoder = ce.HashingEncoder(cols=[...])
-        encoder = ce.HelmertEncoder(cols=[...])
-        encoder = ce.JamesSteinEncoder(cols=[...])
-        encoder = ce.LeaveOneOutEncoder(cols=[...])
-        encoder = ce.MEstimateEncoder(cols=[...])
-        encoder = ce.OneHotEncoder(cols=[...])
-        encoder = ce.OrdinalEncoder(cols=[...])
-        encoder = ce.SumEncoder(cols=[...])
-        encoder = ce.PolynomialEncoder(cols=[...])
-        encoder = ce.TargetEncoder(cols=[...])
-        encoder = ce.WOEEncoder(cols=[...])
+    """.
+    Doc::
+            
+                Create a Class or decorator
+                https://pypi.org/project/category-encoders/
+                encoder = ce.BackwardDifferenceEncoder(cols=[...])
+                encoder = ce.BaseNEncoder(cols=[...])
+                encoder = ce.BinaryEncoder(cols=[...])
+                encoder = ce.CatBoostEncoder(cols=[...])
+                encoder = ce.CountEncoder(cols=[...])
+                encoder = ce.GLMMEncoder(cols=[...])
+                encoder = ce.HashingEncoder(cols=[...])
+                encoder = ce.HelmertEncoder(cols=[...])
+                encoder = ce.JamesSteinEncoder(cols=[...])
+                encoder = ce.LeaveOneOutEncoder(cols=[...])
+                encoder = ce.MEstimateEncoder(cols=[...])
+                encoder = ce.OneHotEncoder(cols=[...])
+                encoder = ce.OrdinalEncoder(cols=[...])
+                encoder = ce.SumEncoder(cols=[...])
+                encoder = ce.PolynomialEncoder(cols=[...])
+                encoder = ce.TargetEncoder(cols=[...])
+                encoder = ce.WOEEncoder(cols=[...])
     """
     prefix     = "colcat_encoder_generic"
     pars_model = None
@@ -702,10 +744,12 @@ def pd_colcat_encoder_generic(df: pd.DataFrame, col: list=None, pars: dict=None)
 
 
 def pd_colcat_minhash(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-       MinHash Algo for category
-       https://booking.ai/dont-be-tricked-by-the-hashing-trick-192a6aae3087
-
+    """.
+    Doc::
+            
+               MinHash Algo for category
+               https://booking.ai/dont-be-tricked-by-the-hashing-trick-192a6aae3087
+        
     """
     prefix = 'colcat_minhash'
     colcat              = col
@@ -740,11 +784,13 @@ def pd_colcat_minhash(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 
 def os_convert_topython_code(txt):
-    """function os_convert_topython_code
-    Args:
-        txt:   
-    Returns:
-        
+    """function os_convert_topython_code.
+    Doc::
+            
+            Args:
+                txt:   
+            Returns:
+                
     """
     # from sympy import sympify
     # converter = {
@@ -761,13 +807,15 @@ def os_convert_topython_code(txt):
 
 
 def save_json(js, pfile, mode='a'):
-    """function save_json
-    Args:
-        js:   
-        pfile:   
-        mode:   
-    Returns:
-        
+    """function save_json.
+    Doc::
+            
+            Args:
+                js:   
+                pfile:   
+                mode:   
+            Returns:
+                
     """
     import  json
     with open(pfile, mode=mode) as fp :
@@ -775,9 +823,11 @@ def save_json(js, pfile, mode='a'):
 
 
 def pd_col_genetic_transform(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-        Find Symbolic formulae for faeture engineering
-
+    """.
+    Doc::
+            
+                Find Symbolic formulae for faeture engineering
+        
     """
     prefix = 'genetic'
 
@@ -859,9 +909,11 @@ def pd_col_genetic_transform(df: pd.DataFrame, col: list=None, pars: dict=None):
 
 ######################################################################################
 def test():
-    """
-      python example/prepro.py test
-    :return:
+    """.
+    Doc::
+            
+              python example/prepro.py test
+            :return:
     """
     from util_feature import test_get_classification_data
     dfX, dfy = test_get_classification_data()

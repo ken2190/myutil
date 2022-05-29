@@ -53,22 +53,26 @@ from typing import List, Optional, Tuple, Union
 from utilmy import log, log2
 
 def help():
-    """function help
-    Args:
-    Returns:
-        
+    """function help.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 
 #############################################################################################
 def test_all() -> None:
-    """function test_all
-    Args:
-    Returns:
-        
+    """function test_all.
+    Doc::
+            
+            Args:
+            Returns:
+                
     """
     log(MNAME)
     test1()
@@ -76,10 +80,12 @@ def test_all() -> None:
 
 
 def test1() -> None:
-   """function test1
-   Args:
-   Returns:
-       
+   """function test1.
+   Doc::
+           
+          Args:
+          Returns:
+              
    """
    pass
 

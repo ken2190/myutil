@@ -20,13 +20,15 @@ from source.util_feature import save,os_get_function_name
 
 
 def global_pars_update(model_dict,  data_name, config_name):
-    """function global_pars_update
-    Args:
-        model_dict:   
-        data_name:   
-        config_name:   
-    Returns:
-        
+    """function global_pars_update.
+    Doc::
+            
+            Args:
+                model_dict:   
+                data_name:   
+                config_name:   
+            Returns:
+                
     """
     print("config_name", config_name)
     dir_data  = root_repo + "/data/"  ; print("dir_data", dir_data)
@@ -144,8 +146,10 @@ cols_input_type_2 = {
 ############################################################################################################
 ##### category, numerics
 def config1(path_model_out="") :
-    """
-       Contains all needed informations
+    """.
+    Doc::
+            
+               Contains all needed informations
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -261,8 +265,10 @@ def config1(path_model_out="") :
 ############################################################################################################
 ##### Text
 def config2(path_model_out="") :
-    """
-       Contains all needed informations
+    """.
+    Doc::
+            
+               Contains all needed informations
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -328,8 +334,10 @@ def config2(path_model_out="") :
 ##################################################################################################
 ##### Time Series
 def config4(path_model_out="") :
-    """
-
+    """.
+    Doc::
+            
+        
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -409,8 +417,10 @@ def config4(path_model_out="") :
 ############################################################################################################
 ############################################################################################################
 def config9(path_model_out="") :
-    """
-       python  example/test_features.py  train       --nsample 500 --config config1
+    """.
+    Doc::
+            
+               python  example/test_features.py  train       --nsample 500 --config config1
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
@@ -478,15 +488,17 @@ def config9(path_model_out="") :
 
 
 def pd_col_amyfun(df: pd.DataFrame, col: list=None, pars: dict=None):
-    """
-    Example of custom Processor
-    Used at prediction time
-        "path_pipeline"  :
-
-    Training time :
-        "path_features_store" :  to store intermediate dataframe
-        "path_pipeline_export":  to store pipeline  for later usage
-
+    """.
+    Doc::
+            
+            Example of custom Processor
+            Used at prediction time
+                "path_pipeline"  :
+        
+            Training time :
+                "path_features_store" :  to store intermediate dataframe
+                "path_pipeline_export":  to store pipeline  for later usage
+        
     """
     prefix = "myfun"
     #### Inference time LOAD previous pars  ###########################################
@@ -571,8 +583,10 @@ if __name__ == "__main__":
 
 """
 def config3(path_model_out="") :
-    """
-       Contains all needed informations
+    """.
+    Doc::
+            
+               Contains all needed informations
     """
     config_name  = os_get_function_name()
     data_name    = "titanic"         ### in data/input/
