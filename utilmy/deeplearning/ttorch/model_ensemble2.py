@@ -905,11 +905,10 @@ class MergeModel_create(BaseModel):
 
                      input_dim = 1200, ### embA + embB + embC
 
-                     merge='cat', 
-                     
-                     merge_custom= None,
-                     merge_layers_dim = [1024, 768]
 
+                     merge='cat',                      
+                     merge_layers_dim = [1024, 768]
+                     merge_custom= None,
 
                      head_layers_dim=[512, 128, 10],  ## 10 classe                      
                      head_custom=None 
@@ -946,8 +945,6 @@ class MergeModel_create(BaseModel):
                         input_dim = layer_dim
                     self.merge_task.append(nn.Linear(input_dim, layers_dim[-1]))
 
-                    ###### Not good in model due to compute errors, keep into Losss
-                    # self.merge_task.append(nn.Sigmoid())  #### output layer
 
                     ##### MLP merge task
                     self.merge_task = nn.Sequential(*self.merge_task)
