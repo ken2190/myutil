@@ -896,34 +896,14 @@ class MergeModel_create(BaseModel):
     def create_model(self,):
         super(MergeModel_create,self).create_model()
         self.merge_type = self.arg.merge_model.get('MERGE','add')
-        layers_dim      = self.arg.merge_model.architect.layers_dim
-        models_list     = self.models_list
+        layers_dim = self.arg.merge_model.architect.layers_dim
+        models_list = self.models_list
 
         class Modelmerge(torch.nn.Module):
-            def __init__(self ,models_list=None, merge='cat', 
-            
-
-                         ### Task Layers
-                         layers_dim=None,             
-                         head_custom=None, 
-
-
-                         input_dim = 'embA_dim + embC_dim +'  
-
-            
-                         ### Merge Layers
-                         merge_layers_dim=[1024, 768],
-                         mergetask_custom=None
-
-
-
-                         
-                          ):
+            def __init__(self ,models_list=None, merge='cat', layers_dim=None, head_custom=None ):
                 super(Modelmerge, self).__init__()
 
                 self.merge_type = merge ### merge type
-
-
 
 
                 #### Create instance of each model   ############################
@@ -936,32 +916,6 @@ class MergeModel_create(BaseModel):
 
                 ##### Check Input Dims are OK
                 ### assert self.modelA_net =
-
-
-
-                # ##### Merge Layer: COmmon to All task  ###########################
-                # """  We want to extract embedding from the Merge layer output
-
-                # """
-                # if mergetask_custom is None :   ### Default head
-                #     self.merge_task = []
-                #     input_dim = layers_dim[0]
-                #     for layer_dim in merge_layers_dim[1:-1]:
-                #         self.merge_task.append(nn.Linear(input_dim, layer_dim))
-                #         self.merge_task.append(nn.ReLU())
-                #         input_dim = layer_dim
-                #     self.merge_task.append(nn.Linear(input_dim, merge_layers_dim[-1]))
-
-                #     ##### MLP merge task
-                #     self.merge_task = nn.Sequential(*self.merge_task)
-                # else:
-                #     self.merge_task = mergetask_custom
-
-
-
-
-
-
 
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
