@@ -2,6 +2,33 @@
 """#
 Doc::
 
+    utilmy/deeplearning/ttorch/util_torch.py
+    -------------------------functions----------------------
+    dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, batch_size = 64, shuffle = True, device = 'cpu', batch_size_val = None, batch_size_test = None)
+    device_setup(device = 'cpu', seed = 42, arg:dict = None)
+    gradwalk(x, _depth = 0)
+    gradwalk_run(graph)
+    help()
+    load_partially_compatible(model, device = 'cpu')
+    model_evaluation(model, loss_task_fun, test_loader, arg, )
+    model_load(dir_checkpoint:str, torch_model = None, doeval = True, dotrain = False, device = 'cpu', input_shape = None, **kw)
+    model_load_state_dict_with_low_memory(model: nn.Module, state_dict: Dict[str, torch.Tensor])
+    model_save(torch_model = None, dir_checkpoint:str = "./checkpoint/check.pt", optimizer = None, cc:dict = None, epoch = -1, loss_val = 0.0, show = 1, **kw)
+    model_summary(model, **kw)
+    model_train(model, loss_calc, optimizer = None, train_loader = None, valid_loader = None, arg:dict = None)
+    test1()
+    test3()
+    test4(dir_checkpoint, torch_model)
+    test_all()
+    test_dataset_classification_fake(nrows = 500)
+    test_dataset_fashion_mnist(samples = 100, random_crop = False, random_erasing = False, convert_to_RGB = False, val_set_ratio = 0.2, test_set_ratio = 0.1, num_workers = 1)
+
+    -------------------------methods----------------------
+    test_model_dummy2.__init__(self)
+    test_model_dummy.__init__(self, input_dim, output_dim, hidden_dim = 4)
+    test_model_dummy.forward(self, x)
+
+
     Utils for torch training
     TVM optimizer
     https://spell.ml/blog/optimizing-pytorch-models-using-tvm-YI7pvREAACMAwYYz
