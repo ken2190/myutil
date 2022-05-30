@@ -536,6 +536,13 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 #########################################################################################
 ###### Dataframe ########################################################################
 #from pyspark.sql.functions import col, explode, array, lit
+def spark_df_isempty(df):
+    try :
+        return len(df.sample(1)) == 0
+
+    except: return True    
+
+
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                    save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
