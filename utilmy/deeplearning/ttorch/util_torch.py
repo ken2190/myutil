@@ -47,7 +47,7 @@ def test_all():
     log(MNAME)
     test1()
     test2()
-    test3()
+
 
 
 def test1():
@@ -88,7 +88,8 @@ def test1():
 ###################################################################################################
 def test2():
     """
-    """    
+    """
+    from torchvision import models
     X, y = sklearn.datasets.make_classification(n_samples=100, n_features=7)
 
     tr_dl, val_dl, tt_dl = dataloader_create(train_X=X, train_y=y, valid_X=X, valid_y=y, test_X=X, test_y=y,
@@ -130,7 +131,8 @@ def test2():
     model_summary(model=model, **kwargs)
 
 
-def test3():
+    model = models.resnet50()
+    model_load_state_dict_with_low_memory(model=model, state_dict=model.state_dict())
 
 
 
@@ -816,6 +818,10 @@ def test_dataset_fashion_mnist(samples=100, random_crop=False, random_erasing=Fa
                             convert_to_RGB=False,val_set_ratio=0.2, test_set_ratio=0.1,num_workers=1):
     """function test_dataset_f_mnist
     """
+
+    from torchvision.transforms import transforms
+    from torchvision import datasets
+    
     # Generate the transformations
     train_list_transforms = [
         transforms.RandomHorizontalFlip(),
@@ -933,9 +939,5 @@ def gradwalk_run(graph):
     for name, param in graph.named_parameters():
         gradwalk(param)
 
-
-
-    model = models.resnet50()
-    model_load_state_dict_with_low_memory(model=model, state_dict=model.state_dict())
 
 
