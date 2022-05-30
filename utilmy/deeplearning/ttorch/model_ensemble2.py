@@ -902,6 +902,9 @@ class MergeModel_create(BaseModel):
         class Modelmerge(torch.nn.Module):
             def __init__(self ,models_list=None, 
             
+
+                     input_dim = 1200, ### embA + embB + embC
+
                      merge='cat', 
                      
                      merge_custom= None,
@@ -929,11 +932,14 @@ class MergeModel_create(BaseModel):
                 ##### Check Input Dims are OK
                 ### assert self.modelA_net =
 
+
+
+
                 ##### Merge    #############################################
                 if merge_custom is None :   ### Default merge
                     # self.merge_task = nn.Sequential()
                     self.merge_task = []
-                    input_dim = layers_dim[0]
+                    input_dim = self.input_dim
                     for layer_dim in layers_dim[1:-1]:
                         self.merge_task.append(nn.Linear(input_dim, layer_dim))
                         self.merge_task.append(nn.ReLU())
@@ -946,7 +952,7 @@ class MergeModel_create(BaseModel):
                     ##### MLP merge task
                     self.merge_task = nn.Sequential(*self.merge_task)
                 else:
-
+                    self.merge_task = merge_custom
 
 
 
@@ -973,6 +979,9 @@ class MergeModel_create(BaseModel):
                     self.head_task = nn.Sequential(*self.head_task)
                 else:
                     self.head_task = head_custom
+
+
+               self.head_full = nn.Sequential( self.merge_task ,  self.head_task )
 
 
             def forward(self, x,**kw):
