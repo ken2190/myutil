@@ -895,9 +895,17 @@ class MergeModel_create(BaseModel):
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
-        self.merge_type = self.arg.merge_model.get('MERGE','add')
-        layers_dim = self.arg.merge_model.architect.layers_dim
-        models_list = self.models_list
+        models_list     = self.models_list
+
+        self.input_dim       = self.arg.merge_model.architect.input_dim    
+
+        self.merge_type =      self.arg.merge_model.get('MERGE','add')
+        self.merge_layers_dim= self.arg.merge_model.architect.get('merge_layers_dim', [1024, 768] )    
+        self.merge_custom=     self.arg.merge_model.architect.get('merge_custom', None)
+
+        self.head_layers_dim= self.arg.merge_model.architect.get('layers_dim', [512, 128, 10] )                 
+        self.head_custom=     self.arg.merge_model.architect.get('head_custom', None)
+
 
         class Modelmerge(torch.nn.Module):
             def __init__(self ,models_list=None, 
@@ -1005,7 +1013,17 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                  return self.forward
 
-        return Modelmerge(models_list, self.merge_type, layers_dim,)
+        return Modelmerge(models_list,
+                     input_dim = self.input_dim, ### embA + embB + embC
+
+                     merge= self.merge_type,                      
+                     merge_layers_dim = self.merge_layers_dim,
+                     merge_custom=      self.merge_custom,
+
+                     head_layers_dim= self.head_layers_dim,  ## 10 classe                      
+                     head_custom=     self.head_custom,                                                
+        
+        )
 
 
     def build(self):
