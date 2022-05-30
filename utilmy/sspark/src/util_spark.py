@@ -176,6 +176,19 @@ def test2():
 
 
 
+def test_get_dataframe_fake(mode='city'):
+    sparksession = spark_get_session_local()
+    from pyspark.sql.types import StructType,StructField, StringType
+
+    if mode == 'city':
+        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
+            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+        df = sparksession.createDataFrame(data)
+
+        
+    return sparksession, df
+
+
 
 
 def run_cli_sspark():
