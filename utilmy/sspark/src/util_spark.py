@@ -169,8 +169,10 @@ def test1():
 
 
 
+
+
 def test2():
-    sparksession, df =  test_get_dataframe_fake(mode='city')
+    sparksession, df =  test_get_dataframe_fake()
 
     dres = spark_df_stats_null(df,df.columns,-1,True)
     log(dfres)
