@@ -821,7 +821,7 @@ def test_dataset_fashion_mnist(samples=100, random_crop=False, random_erasing=Fa
 
     from torchvision.transforms import transforms
     from torchvision import datasets
-    
+
     # Generate the transformations
     train_list_transforms = [
         transforms.RandomHorizontalFlip(),
