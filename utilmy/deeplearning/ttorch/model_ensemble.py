@@ -207,7 +207,9 @@ def test1():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
+    modelC = None
+    model_create_list = [modelA, modelB, modelC]
+    model = model = MergeModel_create(ARG, model_create_list)
 
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
@@ -300,7 +302,9 @@ def test2a():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
+    modelC = None
+    model_create_list = [modelA, modelB, modelC]
+    model = model = MergeModel_create(ARG, model_create_list)
 
 
     #### Run Model   ###################################################
@@ -404,7 +408,9 @@ def test2b():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=None)
+    modelC = None
+    model_create_list = [modelA, modelB, modelC]
+    model = MergeModel_create(ARG, model_create_list)
 
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
@@ -528,8 +534,8 @@ def test2c():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=modelC)
-
+    model_create_list = [modelA, modelB, modelC]
+    model = model = MergeModel_create(ARG, model_create_list)
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
     # prepro_dataset = modelB_create.prepro_dataset
@@ -639,10 +645,10 @@ def test2d():
 
     # ### modelC  ########################################################
     embC_dim                 = 0
-    model_ft                 = models.resnet152(pretrained=True)
-    embC_dim                 = model_ft.fc.in_features
+    model_ft                 = models.efficientnet_b0(pretrained=True)
+    embC_dim                 = model_ft.classifier[1].in_features
     ARG.modelC               = Box()   
-    ARG.modelC.name          = 'resnet152'
+    ARG.modelC.name          = 'efficientnet_b0'
     ARG.modelC.nn_model      = model_ft
     ARG.modelC.layer_emb_id  = 'fc'
     ARG.modelC.architect     = [ embC_dim ]   ### head size
@@ -650,7 +656,6 @@ def test2d():
     ARG.modelC.dataset.dirin = "/"
     ARG.modelC.dataset.coly  = 'ytarget'
     modelC = modelC_create(ARG.modelC )
-
 
     ### merge_model  ###################################################
     ### EXPLICIT DEPENDENCY  : because it's merge
@@ -664,7 +669,8 @@ def test2d():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = MergeModel_create(ARG, modelA=modelA, modelB=modelB, modelC=modelC)
+    model_create_list = [modelA, modelB, modelC]
+    model = MergeModel_create(ARG,model_create_list)
 
     #### Run Model   ###################################################
     # load_DataFrame = modelB_create.load_DataFrame   
@@ -872,62 +878,63 @@ class BaseModel(object):
 class MergeModel_create(BaseModel):
     """
     """
-    def __init__(self,arg:dict=None, modelA=None, modelB=None, modelC=None):
+    def __init__(self,arg:dict=None, model_create_list = None):
         """
-                      
         """
         super(MergeModel_create,self).__init__(arg)
-        self.modelA = modelA_create(arg.modelA)   if modelA is None else (modelA)
-        self.modelB = modelB_create(arg.modelB)   if modelB is None else (modelB)
-        self.modelC = modelC
+        self.models_list = []
+        if(len(model_create_list)!=0):
+            for i in range(len(model_create_list)):
+                if model_create_list[i] is not None:
+                    self.models_list.append(model_create_list[i])
+
+        #To handle if all models are selected as None
+        if len(self.models_list)==0 or len(model_create_list)==0:
+            raise Exception("No models are selected for embeddings")
+
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
-        self.merge = self.arg.merge_model.get('MERGE','add')
+        self.merge_type = self.arg.merge_model.get('MERGE','add')
         layers_dim = self.arg.merge_model.architect.layers_dim
+        models_list = self.models_list
 
         class Modelmerge(torch.nn.Module):
-            def __init__(self ,modelA=None, modelB=None, modelC=None, merge='cat', layers_dim=None, ):
+            def __init__(self ,models_list=None, merge='cat', layers_dim=None, head_custom=None ):
                 super(Modelmerge, self).__init__()
-                
-                self.modelA = modelA
-                self.modelB = modelB
-                self.modelC = modelC
 
-                ###
-                if(modelA is not None):
-                    self.modelA_net = copy.deepcopy(modelA.net)
-                    self.modelA_net.load_state_dict(modelA.net.state_dict())
-                
+                self.merge_type = merge ### merge type
 
-                if(modelB is not None):
-                    self.modelB_net = copy.deepcopy(modelB.net)
-                    self.modelB_net.load_state_dict(modelB.net.state_dict())
 
-                ###
-                if(modelC is not None):
-                    self.modelC_net = copy.deepcopy(modelC.net)
-                    self.modelC_net.load_state_dict(modelC.net.state_dict())
+                #### Create instance of each model   ############################
+                self.model_nets = []
+                for i in range(len(models_list)):
+                    if(models_list[i] is not None):
+                        self.model_nets.append(models_list[i])
+                        self.model_nets[i] = copy.deepcopy(models_list[i].net)
+                        self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
 
-                ##### Check Input Dims are OK 
-                ### assert self.modelA_net =               
+                ##### Check Input Dims are OK
+                ### assert self.modelA_net =
 
-                self.merge = merge
-                ##### Head Task   #####################
-                # self.head_task = nn.Sequential()
-                self.head_task = []
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[1:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                ##### Head Task   #############################################
+                if head_custom is None :   ### Default head
+                    # self.head_task = nn.Sequential()
+                    self.head_task = []
+                    input_dim = layers_dim[0]
+                    for layer_dim in layers_dim[1:-1]:
+                        self.head_task.append(nn.Linear(input_dim, layer_dim))
+                        self.head_task.append(nn.ReLU())
+                        input_dim = layer_dim
+                    self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
 
-                ###### Not good in model due to compute errors, keep into Losss
-                # self.head_task.append(nn.Sigmoid())  #### output layer
+                    ###### Not good in model due to compute errors, keep into Losss
+                    # self.head_task.append(nn.Sigmoid())  #### output layer
 
-                ##### MLP Head task
-                self.head_task = nn.Sequential(*self.head_task)
+                    ##### MLP Head task
+                    self.head_task = nn.Sequential(*self.head_task)
+                else:
+                    self.head_task = head_custom
 
 
             def forward(self, x,**kw):
@@ -937,26 +944,17 @@ class MergeModel_create(BaseModel):
         
                 ## with torch.no_grad():
                 embV = []
-                embA = self.modelA_net.get_embedding(x)
-                embA = torch_norm_l2(embA)
-                embV.append(embA)
-
-                if self.modelB is not None:
-                   embB = self.modelB_net.get_embedding(x)
-                   embB = torch_norm_l2(embB)
-                   embV.append(embB)
-
-
-                if self.modelC is not None:
-                   embC = self.modelC_net.get_embedding(x)                
-                   embC = torch_norm_l2(embC)
-                   embV.append(embC)                    
+                for model in self.model_nets:
+                    if model is not None:
+                        emb = model.get_embedding(x)
+                        emb = torch_norm_l2(emb)
+                        embV.append(emb)
 
                 ###### Concatenerate   #############################
-                if self.merge == 'cat_combine':
-                    z = torch.cat((alpha*embB, (1-alpha)*embA), dim=-1)
+                if self.merge_type == 'cat_combine':
+                    z = torch.cat((alpha*embV[1], (1-alpha)*embV[0]), dim=-1)
 
-                elif self.merge == 'cat':
+                elif self.merge_type == 'cat':
                     ### May need scale 
                     z = torch.cat(embV, dim=-1)
                 return self.head_task(z)    # predict absolute values
@@ -964,19 +962,15 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                  return self.forward
 
-        return Modelmerge(self.modelA, self.modelB, self.modelC, self.merge, layers_dim)
+        return Modelmerge(models_list, self.merge_type, layers_dim,)
 
 
     def build(self):
         # super(MergeModel_create,self).build()
-        log("modelA:")
-        self.modelA.build()
-
-        log("modelB:")
-        self.modelB.build()
-
-        log("modelC:")
-        self.modelC.build() if self.modelC is not None else None
+        
+        for i in range(len(self.models_list)):
+            log("model:{}".format(i))
+            self.models_list[i].build() if self.models_list[i] is not None else None
 
         log("MergeModel:")
         self.net       = self.create_model().to(self.device)
@@ -996,29 +990,16 @@ class MergeModel_create(BaseModel):
 
 
     def freeze_all(self,):
-        for param in self.modelA.net.parameters():
-            param.requires_grad = False
-
-        if(self.modelB is not None):
-            for param in self.modelB.net.parameters():
-                param.requires_grad = False
-
-        if(self.modelC is not None):
-            for param in self.modelC.net.parameters():
-                param.requires_grad = False
-
+        for i in range(len(self.models_list)):
+            if(self.models_list[i] is not None):
+                for param in self.models_list[i].net.parameters():
+                        param.requires_grad = False           
 
     def unfreeze_all(self,):
-        for param in self.modelA.net.parameters():
-            param.requires_grad = True
-
-        if(self.modelB is not None):
-            for param in self.modelB.net.parameters():
-                param.requires_grad = True
-
-        if(self.modelC is not None):
-            for param in self.modelC.net.parameters():
-                param.requires_grad = False
+        for i in range(len(self.models_list)):
+            if(self.models_list[i] is not None):
+                for param in self.models_list[i].net.parameters():
+                        param.requires_grad = True 
 
     def create_loss(self,):
         """ Simple Head task loss
