@@ -953,11 +953,6 @@ class MergeModel_create(BaseModel):
 
 
 
-
-
-
-
-
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
                     # self.head_task = nn.Sequential()
@@ -977,8 +972,6 @@ class MergeModel_create(BaseModel):
                 else:
                     self.head_task = head_custom
 
-
-               self.head_full = nn.Sequential( self.merge_task ,  self.head_task )
 
 
             def forward(self, x,**kw):
@@ -1001,7 +994,13 @@ class MergeModel_create(BaseModel):
                 elif self.merge_type == 'cat':
                     ### May need scale 
                     z = torch.cat(embV, dim=-1)
-                return self.head_task(z)    # predict absolute values
+
+
+                z1 = self.merge_task(z)
+                z2 = self.head_task(z1)  
+
+                return z2    # predict absolute values
+
 
             def get_embedding(self, x,**kw):
                  return self.forward
