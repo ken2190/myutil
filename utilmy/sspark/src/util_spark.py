@@ -173,20 +173,16 @@ def test1():
 
 def test2():
     sparksession, df =  test_get_dataframe_fake()
-
-    dres = spark_df_stats_null(df,df.columns,-1,True)
+    dfres = spark_df_stats_null(df,df.columns,-1,True)
     log(dfres)
 
 
-
 def test_get_dataframe_fake(mode='city'):
-    sparksession = spark_get_session_local()
-    
+    sparksession = spark_get_session_local()  
     if mode == 'city':
         data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
             {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
         df = sparksession.createDataFrame(data)
-
 
     return sparksession, df
 
