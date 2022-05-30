@@ -80,6 +80,9 @@ import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+
 from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
@@ -167,25 +170,21 @@ def test1():
 
 
 def test2():
-    sparksession = spark_get_session_local()
-    from pyspark.sql.types import StructType,StructField, StringType
-    data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
-        {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
-    df = sparksession.createDataFrame(data)
+    sparksession, df =  test_get_dataframe_fake(mode='city')
+    
     spark_df_stats_null(df,df.columns,-1,True)
 
 
 
 def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
-    from pyspark.sql.types import StructType,StructField, StringType
-
+    
     if mode == 'city':
         data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
             {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
         df = sparksession.createDataFrame(data)
 
-        
+
     return sparksession, df
 
 
