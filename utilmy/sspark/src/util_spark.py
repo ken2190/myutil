@@ -160,8 +160,12 @@ def test1():
 
 def test2():
     sparksession = spark_get_session_local()
-    df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
-    df = sparksession.createDataFrame(df)
+    from pyspark.sql.types import StructType,StructField, StringType
+    data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
+        {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+    df = sparksession.createDataFrame(data)
+    spark_df_stats_null(df,df.columns,-1,True)
+
 
 
 
@@ -674,9 +678,9 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
            n_null    = df.where( f"{coli} is null").count()
            npct_null = np.round( n_null / n , 5)
            grouped_df = df.groupBy(coli).count()
-           most_frequent = grouped_df.orderBy(col('count').desc()).take(1)
+           most_frequent = grouped_df.orderBy(F.col('count').desc()).take(1)
            most_frequent_with_count = {most_frequent[0][0]:most_frequent[0][1]}
-           least_frequent = grouped_df.orderBy(col('count').asc()).take(1)
+           least_frequent = grouped_df.orderBy(F.col('count').asc()).take(1)
            least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
            dfres.append([ coli, n,  n_null, npct_null,most_frequent_with_count,least_frequent_with_count ])
         except :
