@@ -729,16 +729,37 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
         try :
            n_null    = df.where( f"{coli} is null").count()
            npct_null = np.round( n_null / n , 5)
-           grouped_df = df.groupBy(coli).count()
-           most_frequent = grouped_df.orderBy(F.col('count').desc()).take(1)
-           most_frequent_with_count = {most_frequent[0][0]:most_frequent[0][1]}
-           least_frequent = grouped_df.orderBy(F.col('count').asc()).take(1)
-           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
-           dfres.append([ coli, n,  n_null, npct_null,most_frequent_with_count,least_frequent_with_count ])
+           dfres.append([ coli, n,  n_null, npct_null ])
         except :
             log( 'error: ' + coli)
 
-    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null', ])
+    if doprint :print(dfres)
+    return dfres
+
+
+def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True):
+    """ get the percentage of value absent and most frequent and least frequent value  in the column
+    """
+    if isinstance(cols_cat, str): cols_cat= [ cols_cat]
+
+    if sample_fraction>0 :
+         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    
+    n = df.count()
+    dfres = []
+    for coli in cols_cat :
+        try :
+           grouped_df = df.groupBy(coli).count()
+           most_frequent             = grouped_df.orderBy(F.col('count').desc()).take(1)
+           most_frequent_with_count  = {most_frequent[0][0]:most_frequent[0][1]}
+           least_frequent            = grouped_df.orderBy(F.col('count').asc()).take(1)
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
+           dfres.append([ coli, n,   most_frequent_with_count,least_frequent_with_count ])
+        except :
+            log( 'error: ' + coli)
+
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'most_frequent-count','least_frequent-count' ])
     if doprint :print(dfres)
     return dfres
 
