@@ -45,12 +45,12 @@ Doc::
     spark_config_print(sparksession)
     spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
     spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
-    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, )
+    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
     spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
-    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
+    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
     spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
@@ -628,7 +628,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:str= "overwrite", format:str= "parquet",
-                   show:int=0,, check=0):
+                   show:int=0, check=0):
     """
     Doc::
         mode: append, overwrite, ignore, error
@@ -647,24 +647,31 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
 
 
 
-def spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, ):
-    print("Count of df before over sampling is  "+ str(df.count()))
+def spark_df_over_sample(df:sp_dataframe, coltarget:str='animal', 
+                         major_label='cat', minor_label='dog', target_ratio=0.2, ):
+
+    n = df.count()                         
+    log(f"Count of df before over sampling is  {n}")
     major_df = df.filter(F.col(coltarget) == major_label)
+
+
     minor_df = df.filter(F.col(coltarget) == minor_label)
-    a = range(ratio)
+    nratio = int( target_ratio * n)
+    a = range(nratio)
     # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
+    minor_df_oversample = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
+    
     # combine both oversampled minority rows and previous majority rows
-    combined_df = major_df.unionAll(oversampled_df)
-    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
+    combined_df = major_df.unionAll(minor_df_oversample)
+    log("Count of combined df after over sampling is  "+ str(combined_df.count()))
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio,):
+def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio,):
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(F.col(coltarget) == major_label)
     minor_df = df.filter(F.col(coltarget) == minor_label)
-    sampled_majority_df = major_df.sample(False, ratio,seed=33)
+    sampled_majority_df = major_df.sample(False, target_ratio,seed=33)
     combined_df = sampled_majority_df.unionAll(minor_df)
     print("Count of combined df after under sampling is  " + str(combined_df.count()))
     return combined_df
@@ -676,7 +683,7 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
 
             # Splitting data into train and test
             # we maintain the time-order while splitting
-            # if split ratio = 0.7 then first 70% of data is train data
+            # if split target_ratio = 0.7 then first 70% of data is train data
             Args:
                 df_m:
                 splitRatio:
