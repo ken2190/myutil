@@ -80,12 +80,23 @@ import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+
 from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
-def log(*s):
-    print(*s, flush=True)
+from utilmy import log, log2, os_module_name
+MNAME = os_module_name(__file__)
+
+def help():
+    """function help  """
+    from utilmy import help_create
+    ss = help_create(MNAME)
+    log(ss)
+
+
 
 
 ##################################################################################
@@ -123,6 +134,7 @@ def test_all():
     test2()
 
 
+
 def test1():
     ss="""
     spark.master                       : 'local[1]'   # 'spark://virtual:7077'
@@ -156,10 +168,27 @@ def test1():
     spark_config_check()
 
 
+
+
+
 def test2():
+    sparksession, df =  test_get_dataframe_fake()
+
+    dres = spark_df_stats_null(df,df.columns,-1,True)
+    log(dfres)
+
+
+
+def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
-    df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
-    df = sparksession.createDataFrame(df)
+
+    if mode == 'city':
+        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
+            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+        df = sparksession.createDataFrame(data)
+
+
+    return sparksession, df
 
 
 
@@ -174,8 +203,6 @@ def run_cli_sspark():
 
 ################################################################################################
 ###### TODO : list of function to be completed later ###########################################
-
-
 def hdfs_dir_stats(dirin, recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
@@ -191,7 +218,7 @@ def hdfs_dir_stats(dirin, recursive=True):
 
 
 def hive_get_tablelist(dbname):
-    """Get Hive tables from database_name    
+    """Get Hive tables from database_name
     """
     cmd = f"hive -e 'show tables from {dbname}'"
     stdout,stderr = os_system(cmd)
@@ -201,7 +228,7 @@ def hive_get_tablelist(dbname):
         if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
-    
+
 
 
 def hive_get_dblist():
@@ -228,14 +255,12 @@ def hive_get_tablechema(tablename):
     for li in lines :
         if 'col_name' in li : continue
         tmp = []
-        for item in li.split(" "):
+        for item in li.split(" "): # assume li = "id   int   comment '' "
             if item:
                 tmp.append(item)
-        if len(item) < 3:
-            continue
         col_name = item[0]
         data_type = item[1]
-        comment = item[2]
+        comment = item[2] if len(item)>=3 else ""
         table_info[col_name] = {"data_type": data_type, "comment": comment}
     return table_info
 
@@ -383,9 +408,9 @@ def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
 
-            sparksession = spark_get_session_local()  
+            sparksession = spark_get_session_local()
 
-            sparksession = spark_get_session_local('mypath/conffig.yaml)  
+            sparksession = spark_get_session_local('mypath/conffig.yaml)
 
     """
     from utilmy.utilmy import direpo
@@ -538,6 +563,13 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 #########################################################################################
 ###### Dataframe ########################################################################
 #from pyspark.sql.functions import col, explode, array, lit
+def spark_df_isempty(df):
+    try :
+        return len(df.sample(1)) == 0
+
+    except: return True
+
+
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                    save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
@@ -645,7 +677,7 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
 
 
 def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1):
-    """ get most recent (ie date desc, rank=1) record of userid
+    """ get most recent (ie date desc, rank=1) record for each userid
     """
     partition_by = colid
     dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(col_orderby))))\
@@ -655,20 +687,25 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
 
 
 def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
-    """ get the percentage of value absent in the column
+    """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols, str): cols= [ cols]
 
     if sample_fraction>0 :
          df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+
     n = df.count()
     dfres = []
     for coli in cols :
         try :
            n_null    = df.where( f"{coli} is null").count()
            npct_null = np.round( n_null / n , 5)
-           dfres.append([ coli, n,  n_null, npct_null  ])
+           grouped_df = df.groupBy(coli).count()
+           most_frequent = grouped_df.orderBy(F.col('count').desc()).take(1)
+           most_frequent_with_count = {most_frequent[0][0]:most_frequent[0][1]}
+           least_frequent = grouped_df.orderBy(F.col('count').asc()).take(1)
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]}
+           dfres.append([ coli, n,  n_null, npct_null,most_frequent_with_count,least_frequent_with_count ])
         except :
             log( 'error: ' + coli)
 
@@ -687,7 +724,7 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
 
     if sample_fraction>0 :
          df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+
 
     n = df.count()
     dfres = []
@@ -741,64 +778,63 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 
 
 def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
-  """ Check Hive table using Hive
-  Doc::
-
-       tables = [  'mydb.mytable'   ]
-       OR
-          myalias : mydb.mytable
-
+    """ Check Hive table using Hive
+    Doc::
+        tables = [  'mydb.mytable'   ]
+        OR
+        myalias : mydb.mytable
 
 
-  """
-  if isinstance(tables, str):
-      ### Parse YAML file
-      ss = tables.split("\n")
-      ss = [t for t in ss if len(t) > 5  ]
-      ss = [  t.split(":") for t in ss]
-      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
-      print(ss)
 
-  elif isinstance(tables, list):
-      ss = [ [ ti, ti] for ti in tables  ]
+    """
+    if isinstance(tables, str):
+        ### Parse YAML file
+        ss = tables.split("\n")
+        ss = [t for t in ss if len(t) > 5  ]
+        ss = [  t.split(":") for t in ss]
+        ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
+        print(ss)
 
-  for x in ss :
-    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
-    log(x[0], cmd)
-    log( os.system( cmd ) )
+    elif isinstance(tables, list):
+        ss = [ [ ti, ti] for ti in tables  ]
+
+    for x in ss :
+        cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
+        log(x[0], cmd)
+        log( os.system( cmd ) )
 
 
 
 def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
-        """
+    """
 
-        """
-        if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
-            with open(query_or_sqlfile, mode='r') as fp:
-                query = query_or_sqlfile.readlines()
-                query = "".join(query)
-        else :
-            query = query_or_sqlfile
+    """
+    if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
+        with open(query_or_sqlfile, mode='r') as fp:
+            query = query_or_sqlfile.readlines()
+            query = "".join(query)
+    else :
+        query = query_or_sqlfile
 
-        hiveql = "./zhiveql_tmp.sql"
-        print(query)
-        print(hiveql, flush=True)
+    hiveql = "./zhiveql_tmp.sql"
+    print(query)
+    print(hiveql, flush=True)
 
-        with open(hiveql, mode='w') as f:
-            f.write(query)
+    with open(hiveql, mode='w') as f:
+        f.write(query)
 
-        with open("nohup.out", mode='a') as f:
-            f.write("\n\n\n\n###################################################################")
-            f.write(query + "\n########################" )
+    with open("nohup.out", mode='a') as f:
+        f.write("\n\n\n\n###################################################################")
+        f.write(query + "\n########################" )
 
-        if test == 1 :
-            return
+    if test == 1 :
+        return
 
-        if nohup > 0:
-           os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
-        else :
-           os.system( f" hive -f {hiveql}      " )
-        print('finish')
+    if nohup > 0:
+        os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
+    else :
+        os.system( f" hive -f {hiveql}      " )
+    print('finish')
 
 
 
@@ -875,7 +911,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0,
              timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
@@ -1042,25 +1078,25 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     log(flist)
 
     for fi in flist :
-      flag = False
-      with open(fi,'r') as fp:
-        lines = fp.readlines()
+        flag = False
+        with open(fi,'r') as fp:
+            lines = fp.readlines()
 
-      ss = []
-      for li in lines :
-        if txt1 in li :
-          flag = True
-          li = li.replace(txt1, txt2)
-        ss.append(li)
+        ss = []
+        for li in lines :
+            if txt1 in li :
+                flag = True
+                li = li.replace(txt1, txt2)
+            ss.append(li)
 
-      if flag  :
-        log('update', fi)
-        # log(ss)
-        # break
-        if test == 0 :
-          with open(fi, mode='w') as fp :
-             fp.writelines("".join(ss))
-        # break
+        if flag  :
+            log('update', fi)
+            # log(ss)
+            # break
+            if test == 0 :
+                with open(fi, mode='w') as fp :
+                    fp.writelines("".join(ss))
+            # break
 
 
 
