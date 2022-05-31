@@ -628,7 +628,7 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:str= "overwrite", format:str= "parquet",
-                   show:int=0,, check=0):
+                   show:int=0, check=0):
     """
     Doc::
         mode: append, overwrite, ignore, error
