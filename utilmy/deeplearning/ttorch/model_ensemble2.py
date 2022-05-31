@@ -1016,10 +1016,16 @@ class MergeModel_create(BaseModel):
                     self.head_task = head_custom
 
             def forward(self, x,**kw):
+                z1 = self.forward_merge(x, **kw)
+                z2 = self.head_task(z1)
+                return z2    # predict absolute values
+
+
+            def forward_merge(self, x,**kw):
                 # merge: cat or add
                 alpha = kw.get('alpha',0) # default only use YpredA
                 scale = kw.get('scale',1)
-        
+
                 ## with torch.no_grad():
                 embV = []
                 for model in self.model_nets:
@@ -1033,18 +1039,17 @@ class MergeModel_create(BaseModel):
                     z = torch.cat((alpha*embV[1], (1-alpha)*embV[0]), dim=-1)
 
                 elif self.merge_type == 'cat':
-                    ### May need scale 
+                    ### May need scale
                     z = torch.cat(embV, dim=-1)
 
-
-                z1 = self.merge_task(z)
-                z2 = self.head_task(z1)  
-
-                return z2    # predict absolute values
+                merge_emb = self.merge_task(z)
+                return merge_emb
 
 
             def get_embedding(self, x,**kw):
-                 return self.forward
+                z1 = self.forward_merge(x, **kw)
+                return z1
+
 
 
         return Modelmerge(models_list,
