@@ -738,7 +738,7 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
         except :
             log( 'error: ' + coli)
 
-    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null','most_frequent_with_count','least_frequent_with_count' ])
     if doprint :print(dfres)
     return dfres
 
