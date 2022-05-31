@@ -1182,6 +1182,70 @@ class MergeModel_create(BaseModel):
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
 
 
+
+###################################################################
+class model_create(BaseModel):
+    """ modelA
+    """
+    def __init__(self,arg):
+        super(modelA_create,self).__init__(arg)
+
+    def create_model(self, modelA_nn:torch.nn.Module=None):
+        super(modelA_create,self).create_model()
+        layers_dim    = self.arg.architect
+        nn_model_base = self.arg.nn_model
+        layer_id      = self.arg.layer_emb_id
+
+        #if not modelA_nn: return modelA_nn
+
+        ### Default version
+        class modelA(torch.nn.Module):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  ):   
+                super(modelA, self).__init__()
+                self.head_task = []
+                self.layer_id  = layer_id  ##flag meaning ????  layer 
+
+                ##### Pre-trained model   #########################################
+                if len(self.layer_id) !=0 :
+                    self.nn_model_base = nn_model_base
+                    #setattr(self.nn_model_base, self.layer_id, self.head_task)  #### head 
+                    self.head_task = self.nn_model_base
+                    return 
+
+                ###### Normal MLP Head   #########################################
+                self.layers_dim = layers_dim 
+                self.output_dim = layers_dim[-1]
+                # self.head_task = nn.Sequential()
+
+                input_dim = layers_dim[0]
+                for layer_dim in layers_dim[:-1]:
+                    self.head_task.append(nn.Linear(input_dim, layer_dim))
+                    self.head_task.append(nn.ReLU())
+                    input_dim = layer_dim
+                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                self.head_task = nn.Sequential(*self.head_task)
+
+
+            def forward(self, x,**kwargs):
+                return self.head_task(x)
+
+
+            def get_embedding(self, x,**kwargs):
+                layer_l2= model_getlayer(self.head_task, pos_layer=-2)
+                embA = self.forward(x)
+                embA = layer_l2.output.squeeze()
+                return embA
+
+        return modelA(layers_dim, nn_model_base, layer_id)
+
+    def create_loss(self, loss_fun=None) -> torch.nn.Module:
+        super(modelA_create,self).create_loss()
+        if not loss_fun : loss_fun
+        return torch.nn.BCELoss()
+
+
+
+
 class modelA_create(BaseModel):
     """ modelA
     """
