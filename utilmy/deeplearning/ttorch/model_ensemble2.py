@@ -114,6 +114,7 @@ def help():
     log(ss)
 
 
+
 ##############################################################################################
 def test_all():
     test1()
@@ -570,6 +571,7 @@ def test2d():
     })
     PARAMS = Box()
 
+
 ####################################################################
     from utilmy.adatasets import test_dataset_classifier_fake
     df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
@@ -724,6 +726,7 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
+
 class model_template_MLP(torch.nn.Module):
     def __init__(self,layers_dim=[20,100,16]):
         super(modelA, self).__init__()
@@ -741,6 +744,7 @@ class model_template_MLP(torch.nn.Module):
 
     def forward(self, x,**kwargs):
         return self.head_task(x)
+
 
 ##############################################################################################
 class BaseModel(object):
@@ -887,6 +891,7 @@ class BaseModel(object):
         output = self.net(x,**kwargs)
         return output 
 
+
 class MergeModel_create(BaseModel):
     """
     """
@@ -932,6 +937,7 @@ class MergeModel_create(BaseModel):
 
                 self.merge_type = merge_type ### merge type
                 self.input_dim  = input_dim
+                # assert head_layers_dim[0] == merge_layers_dim[-1]
 
                 #### Create instance of each model   ############################
                 self.model_nets = []
@@ -1138,6 +1144,7 @@ class MergeModel_create(BaseModel):
             
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
 
+
 ###################################################################
 class model_create(BaseModel):
     """ modelA
@@ -1198,6 +1205,7 @@ class model_create(BaseModel):
         if not loss_fun : loss_fun
         return torch.nn.BCELoss()
 
+
 class modelA_create(BaseModel):
     """ modelA
     """
@@ -1257,6 +1265,7 @@ class modelA_create(BaseModel):
         if not loss_fun : loss_fun
         return torch.nn.BCELoss()
 
+
 class modelB_create(BaseModel):
     """ modelB Creatio 
     """
@@ -1312,6 +1321,7 @@ class modelB_create(BaseModel):
         super(modelB_create,self).create_loss()
         return torch.nn.BCELoss()
 
+
 class modelC_create(BaseModel):
     """ modelC Creatio 
     """
@@ -1366,6 +1376,9 @@ class modelC_create(BaseModel):
         super(modelC_create,self).create_loss()
         return torch.nn.BCELoss()
 
+
+
+#################################################################################################
 def device_setup(arg, device='cpu', seed=67):
     """function device_setup        
     """
@@ -1385,6 +1398,7 @@ def device_setup(arg, device='cpu', seed=67):
             log(e)
             device = 'cpu'
     return device
+
 
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                             device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
@@ -1419,6 +1433,7 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     return train_loader, valid_loader, test_loader
 
+
 def torch_norm_l2(X):
     """
     normalize the torch  tensor X by L2 norm.
@@ -1426,6 +1441,7 @@ def torch_norm_l2(X):
     X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
     X_norm = X / X_norm
     return X_norm
+
 
 ###############################################################################################################
 if __name__ == "__main__":
