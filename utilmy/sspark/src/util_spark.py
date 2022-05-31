@@ -117,7 +117,7 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs,
+pd_write_parquet_hdfs,
 
 
 ### hive
