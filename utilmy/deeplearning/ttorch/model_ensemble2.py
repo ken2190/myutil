@@ -114,7 +114,7 @@ from utilmy import log, log2, os_module_name
 
 ##############################################################################################
 def help():
-    """function help        
+    """function help
     """
     from utilmy import help_create
     ss =  help_create(__file__)
@@ -203,10 +203,11 @@ def test1():
     #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
     #ARG.merge_model.architect.merge_type= 'cat'
 
+    ARG.merge_model.architect = {}
     ARG.merge_model.architect.input_dim        =  200
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [100, 32]
-    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -302,12 +303,13 @@ def test2a():
     #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
     #ARG.merge_model.architect.merge_type= 'cat'
 
+    ARG.merge_model.architect = {}
     ARG.merge_model.architect.input_dim        =  200
 
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [100, 32]
 
-    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
 
 
     ARG.merge_model.dataset       = Box()
@@ -414,19 +416,18 @@ def test2b():
     ARG.merge_model.name      = 'modelmerge1'
     #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
     #ARG.merge_model.architect.merge_type= 'cat'
-
+    ARG.merge_model.architect                  = {}
     ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim
-
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [512, 32]
     ARG.merge_model.architect.merge_custom     = None
 
-    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
     ARG.merge_model.architect.head_custom      = None
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
-    ARG.merge_model.dataset.coly = 'ytarget'
+    ARG.merge_model.dataset.coly  = 'ytarget'
     ARG.merge_model.train_config  = train_config
     modelC = None
     model_create_list = [modelA, modelB, modelC]
@@ -549,13 +550,14 @@ def test2c():
 
     #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
     #ARG.merge_model.architect.merge_type= 'cat'
+    ARG.merge_model.architect                  = {}
     ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
-
+    
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [512, 32]
     ARG.merge_model.architect.merge_custom     = None
 
-    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
     ARG.merge_model.architect.head_custom      = None
 
 
@@ -693,14 +695,14 @@ def test2d():
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
-
+    ARG.merge_model.architect                  = {}
     ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
 
     ARG.merge_model.architect.merge_type       = 'cat'
-    ARG.merge_model.architect.merge_layers_dim = [1024, 768] 
+    ARG.merge_model.architect.merge_layers_dim = [1024, 768]
     ARG.merge_model.architect.merge_custom     = None
 
-    ARG.merge_model.architect.head_layers_dim  = [512, 128, 10]                  
+    ARG.merge_model.architect.head_layers_dim  = [768, 128, 1]        
     ARG.merge_model.architect.head_custom      = None
   
 
@@ -934,7 +936,7 @@ class MergeModel_create(BaseModel):
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
-        models_list     = self.models_list
+        models_list           = self.models_list
 
         self.input_dim        = self.arg.merge_model.architect.input_dim
 
@@ -963,7 +965,7 @@ class MergeModel_create(BaseModel):
 
                 self.merge_type = merge_type ### merge type
                 self.input_dim  = input_dim
-
+                assert head_layers_dim[0] == merge_layers_dim[-1]
 
                 #### Create instance of each model   ############################
                 self.model_nets = []
@@ -976,9 +978,6 @@ class MergeModel_create(BaseModel):
                 ##### Check Input Dims are OK
                 ### assert self.modelA_net =
 
-
-
-
                 ##### Merge    #################################################
                 if merge_custom is None :   ### Default merge
                     self.merge_task = []
@@ -989,19 +988,16 @@ class MergeModel_create(BaseModel):
                         input_dim = layer_dim
                     self.merge_task.append(nn.Linear(input_dim, merge_layers_dim[-1]))
 
-
                     ##### MLP merge task
                     self.merge_task = nn.Sequential(*self.merge_task)
                 else:
                     self.merge_task = merge_custom
 
-
-
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
                     self.head_task = []
-                    input_dim = head_layers_dim[0]
-                    for layer_dim in head_layers_dim[1:-1]:
+                    input_dim = merge_layers_dim[-1]
+                    for layer_dim in head_layers_dim[0:-1]:
                         self.head_task.append(nn.Linear(input_dim, layer_dim))
                         self.head_task.append(nn.ReLU())
                         input_dim = layer_dim
@@ -1014,6 +1010,7 @@ class MergeModel_create(BaseModel):
                     self.head_task = nn.Sequential(*self.head_task)
                 else:
                     self.head_task = head_custom
+                
 
             def forward(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
@@ -1492,4 +1489,5 @@ def torch_norm_l2(X):
 ###############################################################################################################
 if __name__ == "__main__":
     import fire
+    test_all()
     fire.Fire()
