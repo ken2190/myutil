@@ -51,7 +51,7 @@ Doc::
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
     spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
-    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, numPartitions:int = None, saveMode:str =  "append", format:str =  "parquet")
+    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
     spark_metrics_roc_summary(labels_and_predictions_df)
@@ -611,19 +611,23 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "overwrite", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:str= "overwrite", format:str= "parquet",
+                   show:int=0,, check=0):
     """
     Doc::
-        saveMode: append, overwrite, ignore, error
+        mode: append, overwrite, ignore, error
         format: parquet, csv, json ...
     """
-    if numPartitions:
-        df.coalesce(numPartitions).write.mode(saveMode).save(dirout, format)
+    if npartitions:
+        df.coalesce(npartitions).write.mode(mode).save(dirout, format)
     else:
-        df.write.mode(saveMode).save(dirout, format)
+        df.write.mode(mode).save(dirout, format)
 
-    if show:
+    if show>0:
         df.show(3)
+
+    if check>0:
+       log('exist', hdfs_dir_exists(dirout) )
 
 
 
