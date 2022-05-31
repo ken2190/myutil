@@ -957,6 +957,7 @@ def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
         date_now(20211005, fmt='%Y-%m-%d', fmt_input='%Y%m%d', returnval='str')    -->  '2021-10-05'
 
+        date_now(20211005,  fmt_input='%Y%m%d', returnval='unix')    -->  1634324632848
 
     """
     from pytz import timezone as tzone
@@ -997,8 +998,6 @@ def date_get_month_days(dt):
 def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
 
-def date_get_unix_from_datetime(dt_with_timezone):
-    return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
 
 def date_get_unix_day_from_datetime(dt_with_timezone):
     return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
