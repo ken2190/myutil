@@ -1188,10 +1188,10 @@ class model_create(BaseModel):
     """ modelA
     """
     def __init__(self,arg):
-        super(modelA_create,self).__init__(arg)
+        super(model_create,self).__init__(arg)
 
     def create_model(self, modelA_nn:torch.nn.Module=None):
-        super(modelA_create,self).create_model()
+        super(model_create,self).create_model()
         layers_dim    = self.arg.architect
         nn_model_base = self.arg.nn_model
         layer_id      = self.arg.layer_emb_id
@@ -1239,7 +1239,7 @@ class model_create(BaseModel):
         return modelA(layers_dim, nn_model_base, layer_id)
 
     def create_loss(self, loss_fun=None) -> torch.nn.Module:
-        super(modelA_create,self).create_loss()
+        super(model_create,self).create_loss()
         if not loss_fun : loss_fun
         return torch.nn.BCELoss()
 
