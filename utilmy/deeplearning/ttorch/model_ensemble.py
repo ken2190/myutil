@@ -68,7 +68,7 @@ Code::
         ARG.merge_model.name      = 'modelmerge1'
         ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
 
-        ARG.merge_model.MERGE = 'cat'
+        ARG.merge_model.architect.merge_type= 'cat'
 
         ARG.merge_model.dataset       = Box()
         ARG.merge_model.dataset.dirin = "/"
@@ -109,7 +109,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import torchvision
 from torchvision import transforms, datasets, models
 #############################################################################################
-from utilmy import log, log2
+from utilmy import log, log2, os_module_name
 
 
 ##############################################################################################
@@ -117,8 +117,7 @@ def help():
     """function help        
     """
     from utilmy import help_create
-    MNAME =  'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", "")   ###'.deeplearning.ttorch.model_ensemble.'
-    ss =  help_create(MNAME)
+    ss =  help_create(__file__)
     log(ss)
 
 
@@ -129,6 +128,8 @@ def test_all():
     test2b()
     test2c()
     test2d()
+
+
 
 def test1():    
     """     
@@ -199,9 +200,13 @@ def test1():
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+    #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+    #ARG.merge_model.architect.merge_type= 'cat'
 
-    ARG.merge_model.MERGE = 'cat'
+    ARG.merge_model.architect.input_dim        =  200
+    ARG.merge_model.architect.merge_type       = 'cat'
+    ARG.merge_model.architect.merge_layers_dim = [100, 32]
+    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -294,9 +299,16 @@ def test2a():
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+    #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
+    #ARG.merge_model.architect.merge_type= 'cat'
 
-    ARG.merge_model.MERGE = 'cat'
+    ARG.merge_model.architect.input_dim        =  200
+
+    ARG.merge_model.architect.merge_type       = 'cat'
+    ARG.merge_model.architect.merge_layers_dim = [100, 32]
+
+    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -400,9 +412,17 @@ def test2b():
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
+    #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
+    #ARG.merge_model.architect.merge_type= 'cat'
 
-    ARG.merge_model.MERGE = 'cat'
+    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim
+
+    ARG.merge_model.architect.merge_type       = 'cat'
+    ARG.merge_model.architect.merge_layers_dim = [512, 32]
+    ARG.merge_model.architect.merge_custom     = None
+
+    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_custom      = None
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -526,9 +546,18 @@ def test2c():
     ### EXPLICIT DEPENDENCY  : because it's merge
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
 
-    ARG.merge_model.MERGE = 'cat'
+    #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
+    #ARG.merge_model.architect.merge_type= 'cat'
+    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
+
+    ARG.merge_model.architect.merge_type       = 'cat'
+    ARG.merge_model.architect.merge_layers_dim = [512, 32]
+    ARG.merge_model.architect.merge_custom     = None
+
+    ARG.merge_model.architect.head_layers_dim  = [16, 8, 1]
+    ARG.merge_model.architect.head_custom      = None
+
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -658,13 +687,22 @@ def test2d():
     ARG.modelC.dataset.coly  = 'ytarget'
     modelC = modelC_create(ARG.modelC )
 
+
     ### merge_model  ###################################################
     ### EXPLICIT DEPENDENCY  : because it's merge
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
+    #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
 
-    ARG.merge_model.MERGE = 'cat'
+    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
+
+    ARG.merge_model.architect.merge_type       = 'cat'
+    ARG.merge_model.architect.merge_layers_dim = [1024, 768] 
+    ARG.merge_model.architect.merge_custom     = None
+
+    ARG.merge_model.architect.head_layers_dim  = [512, 128, 10]                  
+    ARG.merge_model.architect.head_custom      = None
+  
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -896,15 +934,35 @@ class MergeModel_create(BaseModel):
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
-        self.merge_type = self.arg.merge_model.get('MERGE','add')
-        layers_dim = self.arg.merge_model.architect.layers_dim
-        models_list = self.models_list
+        models_list     = self.models_list
+
+        self.input_dim        = self.arg.merge_model.architect.input_dim
+
+        self.merge_type =      self.arg.merge_model.get('merge_type','cat')
+        self.merge_layers_dim= self.arg.merge_model.architect.get('merge_layers_dim', [1024, 768] )    
+        self.merge_custom=     self.arg.merge_model.architect.get('merge_custom', None)
+
+        self.head_layers_dim=  self.arg.merge_model.architect.get('head_layers_dim', [512, 128, 10] )
+        self.head_custom=      self.arg.merge_model.architect.get('head_custom', None)
+
 
         class Modelmerge(torch.nn.Module):
-            def __init__(self ,models_list=None, merge='cat', layers_dim=None, head_custom=None ):
+            def __init__(self, models_list=None,
+
+                         input_dim = 1200,  ### embA + embB + embC
+
+                         merge_type       = 'cat',
+                         merge_layers_dim = [1024, 768],
+                         merge_custom     = None,
+
+                         head_layers_dim  = [512, 128, 10],  ## 10 classe
+                         head_custom      = None
+
+                         ):
                 super(Modelmerge, self).__init__()
 
-                self.merge_type = merge ### merge type
+                self.merge_type = merge_type ### merge type
+                self.input_dim  = input_dim
 
 
                 #### Create instance of each model   ############################
@@ -918,16 +976,36 @@ class MergeModel_create(BaseModel):
                 ##### Check Input Dims are OK
                 ### assert self.modelA_net =
 
+
+
+
+                ##### Merge    #################################################
+                if merge_custom is None :   ### Default merge
+                    self.merge_task = []
+                    input_dim = self.input_dim
+                    for layer_dim in merge_layers_dim[1:-1]:
+                        self.merge_task.append(nn.Linear(input_dim, layer_dim))
+                        self.merge_task.append(nn.ReLU())
+                        input_dim = layer_dim
+                    self.merge_task.append(nn.Linear(input_dim, merge_layers_dim[-1]))
+
+
+                    ##### MLP merge task
+                    self.merge_task = nn.Sequential(*self.merge_task)
+                else:
+                    self.merge_task = merge_custom
+
+
+
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
-                    # self.head_task = nn.Sequential()
                     self.head_task = []
-                    input_dim = layers_dim[0]
-                    for layer_dim in layers_dim[1:-1]:
+                    input_dim = head_layers_dim[0]
+                    for layer_dim in head_layers_dim[1:-1]:
                         self.head_task.append(nn.Linear(input_dim, layer_dim))
                         self.head_task.append(nn.ReLU())
                         input_dim = layer_dim
-                    self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
+                    self.head_task.append(nn.Linear(input_dim, head_layers_dim[-1]))
 
                     ###### Not good in model due to compute errors, keep into Losss
                     # self.head_task.append(nn.Sigmoid())  #### output layer
@@ -937,12 +1015,17 @@ class MergeModel_create(BaseModel):
                 else:
                     self.head_task = head_custom
 
-
             def forward(self, x,**kw):
+                z1 = self.forward_merge(x, **kw)
+                z2 = self.head_task(z1)
+                return z2    # predict absolute values
+
+
+            def forward_merge(self, x,**kw):
                 # merge: cat or add
                 alpha = kw.get('alpha',0) # default only use YpredA
                 scale = kw.get('scale',1)
-        
+
                 ## with torch.no_grad():
                 embV = []
                 for model in self.model_nets:
@@ -956,14 +1039,30 @@ class MergeModel_create(BaseModel):
                     z = torch.cat((alpha*embV[1], (1-alpha)*embV[0]), dim=-1)
 
                 elif self.merge_type == 'cat':
-                    ### May need scale 
+                    ### May need scale
                     z = torch.cat(embV, dim=-1)
-                return self.head_task(z)    # predict absolute values
+
+                merge_emb = self.merge_task(z)
+                return merge_emb
+
 
             def get_embedding(self, x,**kw):
-                 return self.forward
+                z1 = self.forward_merge(x, **kw)
+                return z1
 
-        return Modelmerge(models_list, self.merge_type, layers_dim,)
+
+
+        return Modelmerge(models_list,
+                          input_dim        = self.input_dim,  ### embA + embB + embC
+
+                          merge_type=        self.merge_type,
+                          merge_layers_dim = self.merge_layers_dim,
+                          merge_custom=      self.merge_custom,
+
+                          head_layers_dim=   self.head_layers_dim,  ## 10 classe
+                          head_custom=       self.head_custom,
+
+                          )
 
 
     def build(self):
@@ -1378,7 +1477,7 @@ def prepro_dataset_custom(df:pd.DataFrame):
     train_ratio = arg.merge_model.train_config.TRAIN_RATIO
     test_ratio =  arg.merge_model.train_config.TEST_RATIO
     val_ratio =   arg.merge_model.train_config.TEST_RATIO
-    train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+    train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
     valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
     return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
 
