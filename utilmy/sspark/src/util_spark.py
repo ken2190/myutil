@@ -173,16 +173,22 @@ def test1():
 
 def test2():
     sparksession, df =  test_get_dataframe_fake()
-    dfres = spark_df_stats_null(df,df.columns,-1,True)
+
+    dfres = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True)   
+    dfdeup =  spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
     log(dfres)
+    log(dfdeup.show())
+
 
 
 def test_get_dataframe_fake(mode='city'):
-    sparksession = spark_get_session_local()  
+    sparksession = spark_get_session_local()
+    
     if mode == 'city':
-        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
-            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+        data = [{"id": 'A', "city": "LA","residency_date":"2015-01-01"},{"id": 'B', "city": "LA","residency_date":"2018-01-01"},
+            {"id": 'C', "city": "LA","residency_date":"2019-01-01"},{"id": 'A', "city": "LI","residency_date":"2022-01-01"},{"id":'E',"city":None,"residency_date":"2017-01-01"},{"id":'C',"city":"NY","residency_date":"2017-01-01"}]
         df = sparksession.createDataFrame(data)
+
 
     return sparksession, df
 
