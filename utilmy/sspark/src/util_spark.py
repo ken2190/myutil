@@ -51,7 +51,7 @@ Doc::
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
     spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
-    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, numPartitions:int = None, saveMode:str =  "append", format:str =  "parquet")
+    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
     spark_metrics_roc_summary(labels_and_predictions_df)
@@ -117,7 +117,7 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs,
+pd_write_parquet_hdfs,
 
 
 ### hive
@@ -174,8 +174,26 @@ def test1():
 def test2():
     sparksession, df =  test_get_dataframe_fake()
 
-    dres = spark_df_stats_null(df,df.columns,-1,True)
+    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True) 
     log(dfres)
+
+    dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
+    log(dfres.show())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -183,18 +201,13 @@ def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
     
     if mode == 'city':
-        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
-            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+        data = [{"id": 'A', "city": "LA","residency_date":"2015-01-01"},{"id": 'B', "city": "LA","residency_date":"2018-01-01"},
+            {"id": 'C', "city": "LA","residency_date":"2019-01-01"},{"id": 'A', "city": "LI","residency_date":"2022-01-01"},{"id":'E',"city":None,"residency_date":"2017-01-01"},{"id":'C',"city":"NY","residency_date":"2017-01-01"}]
         df = sparksession.createDataFrame(data)
 
-    if mode == 'city':
-        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
-            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
-        df = sparksession.createDataFrame(data)
 
     return sparksession, df
 
-    return sparksession, df
 
 
 
@@ -223,7 +236,7 @@ def hdfs_dir_stats(dirin, recursive=True):
 
 
 def hive_get_tablelist(dbname):
-    """Get Hive tables from database_name
+    """Get Hive tables from database_name    
     """
     cmd = f"hive -e 'show tables from {dbname}'"
     stdout,stderr = os_system(cmd)
@@ -233,7 +246,7 @@ def hive_get_tablelist(dbname):
         if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
-
+    
 
 
 def hive_get_dblist():
@@ -413,9 +426,9 @@ def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
 
-            sparksession = spark_get_session_local()
+            sparksession = spark_get_session_local()  
 
-            sparksession = spark_get_session_local('mypath/conffig.yaml)
+            sparksession = spark_get_session_local('mypath/conffig.yaml)  
 
     """
     from utilmy.utilmy import direpo
@@ -614,19 +627,23 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "overwrite", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:str= "overwrite", format:str= "parquet",
+                   show:int=0,, check=0):
     """
     Doc::
-        saveMode: append, overwrite, ignore, error
+        mode: append, overwrite, ignore, error
         format: parquet, csv, json ...
     """
-    if numPartitions:
-        df.coalesce(numPartitions).write.mode(saveMode).save(dirout, format)
+    if npartitions:
+        df.coalesce(npartitions).write.mode(mode).save(dirout, format)
     else:
-        df.write.mode(saveMode).save(dirout, format)
+        df.write.mode(mode).save(dirout, format)
 
-    if show:
+    if show>0:
         df.show(3)
+
+    if check>0:
+       log('exist', hdfs_dir_exists(dirout) )
 
 
 
@@ -729,7 +746,7 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
 
     if sample_fraction>0 :
          df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-
+    
 
     n = df.count()
     dfres = []
@@ -916,7 +933,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0,
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
              timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
