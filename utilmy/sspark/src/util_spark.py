@@ -174,10 +174,26 @@ def test1():
 def test2():
     sparksession, df =  test_get_dataframe_fake()
 
-    dfres = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True)   
-    dfdeup =  spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
+    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True) 
     log(dfres)
-    log(dfdeup.show())
+
+    dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
+    log(dfres.show())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
