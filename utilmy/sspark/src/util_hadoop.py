@@ -461,9 +461,9 @@ def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/',
     print(flist)
 
 
-hdfs_pd_write_parquet =  pd_write_file_hdfs   
+hdfs_pd_write_parquet =  pd_write_parquet_hdfs   
 hdfs_pd_read_parquet  =  pd_read_parquet_hdfs 
-hdfs_pd_read_csv  =  pd_read_csv_hdfs 
+hdfs_pd_read_csv      =  pd_read_csv_hdfs 
 
 
 
