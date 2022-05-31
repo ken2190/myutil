@@ -181,15 +181,20 @@ def test2():
 
 def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
+    
+    if mode == 'city':
+        data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
+            {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
+        df = sparksession.createDataFrame(data)
 
     if mode == 'city':
         data = [{"id": 'A', "city": "LA"},{"id": 'B', "city": "LA"},
             {"id": 'C', "city": "LA"},{"id": 'D', "city": "LI"},{"id":'E',"city":None}]
         df = sparksession.createDataFrame(data)
 
-
     return sparksession, df
 
+    return sparksession, df
 
 
 
@@ -567,7 +572,7 @@ def spark_df_isempty(df):
     try :
         return len(df.sample(1)) == 0
 
-    except: return True
+    except: return True    
 
 
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
@@ -693,7 +698,7 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
 
     if sample_fraction>0 :
          df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-
+    
     n = df.count()
     dfres = []
     for coli in cols :
@@ -704,7 +709,7 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
            most_frequent = grouped_df.orderBy(F.col('count').desc()).take(1)
            most_frequent_with_count = {most_frequent[0][0]:most_frequent[0][1]}
            least_frequent = grouped_df.orderBy(F.col('count').asc()).take(1)
-           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]}
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
            dfres.append([ coli, n,  n_null, npct_null,most_frequent_with_count,least_frequent_with_count ])
         except :
             log( 'error: ' + coli)
