@@ -49,7 +49,7 @@ def pd_generate_data(ncols=7, nrows=100):
    
 #########################################################################################
 def test_import():
-
+    os.chdir(  os.getcwd() + "/../../")
     import utilmy.sspark.src.util_spark
     import utilmy.sspark.src.util_hadoop
     import utilmy.deeplearning.ttorch.util_torch
