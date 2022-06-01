@@ -96,6 +96,12 @@ jobs:
 
 
     ################################################################
+    - name: test_import
+      #continue-on-error: true
+      run: |
+          python test.py test_import
+
+
     - name: test_cli
       continue-on-error: true
       run: |

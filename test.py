@@ -48,6 +48,18 @@ def pd_generate_data(ncols=7, nrows=100):
    
    
 #########################################################################################
+def test_import():
+
+    import utilmy.sspark.src.util_spark
+    import utilmy.sspark.src.util_hadoop
+    import utilmy.deeplearning.ttorch.util_torch
+    import utilmy.deeplearning.ttorch.util_model
+    import utilmy.utilmy
+    import utilmy.ppandas
+
+
+
+
 def test_utilmy():
    from utilmy import utilmy as m
    m.test_all()
