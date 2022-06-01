@@ -54,7 +54,11 @@ def test_import():
     import utilmy.sspark.src.util_hadoop
     import utilmy.deeplearning.ttorch.util_torch
     import utilmy.deeplearning.ttorch.util_model
+    import utilmy.deeplearning.ttorch.model_ensemble
     import utilmy.utilmy
+    import utilmy.ppandas
+    import utilmy.nlp.ttorch.sentences
+    import utilmy.distributed
     import utilmy.ppandas
     log('All imported OK')
 
