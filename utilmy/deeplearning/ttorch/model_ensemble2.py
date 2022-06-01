@@ -6,8 +6,6 @@ Doc::
         me.test1()
         me.help()
 
-
-
         https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
         https://discuss.pytorch.org/t/merging-3-models/66230/3
@@ -91,26 +89,21 @@ TODO :
 
 
 """
-import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
+import os, random, numpy as np, pandas as pd ;from box import Box
 from copy import deepcopy
 import copy, collections
 from abc import abstractmethod
 
-from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
-from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 import torchvision
 from torchvision import transforms, datasets, models
 #############################################################################################
-from utilmy import log, log2, os_module_name
-
+from utilmy import log
 
 ##############################################################################################
 def help():
@@ -169,7 +162,6 @@ def test1():
         train_config.VAL_RATIO           = 0.2
         train_config.TEST_RATIO          = 0.1
 
-
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
@@ -218,11 +210,8 @@ def test1():
     model = model = MergeModel_create(ARG, model_create_list)
 
     #### Run Model   ###################################################
-    # load_DataFrame = modelB_create.load_DataFrame   
-    # prepro_dataset = modelB_create.prepro_dataset
     model.build()        
     model.training(load_DataFrame, prepro_dataset) 
-
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
@@ -295,20 +284,14 @@ def test2a():
     ARG.modelB.seed          = 42
     modelB = modelB_create(ARG.modelB )
 
-    
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     ARG.merge_model.seed      = 42
-    #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
-    #ARG.merge_model.architect.merge_type= 'cat'
-
     ARG.merge_model.architect = {}
     ARG.merge_model.architect.input_dim        =  200
-
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [100, 32]
-
     ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
 
 
@@ -702,7 +685,7 @@ def test2d():
     ARG.merge_model.architect.merge_layers_dim = [1024, 768]
     ARG.merge_model.architect.merge_custom     = None
 
-    ARG.merge_model.architect.head_layers_dim  = [768, 128, 1]        
+    ARG.merge_model.architect.head_layers_dim  = [128, 1]        
     ARG.merge_model.architect.head_custom      = None
   
 
@@ -714,8 +697,6 @@ def test2d():
     model = MergeModel_create(ARG,model_create_list)
 
     #### Run Model   ###################################################
-    # load_DataFrame = modelB_create.load_DataFrame   
-    # prepro_dataset = modelB_create.prepro_dataset
     model.build()
     model.training(load_DataFrame, prepro_dataset) 
 
@@ -724,8 +705,6 @@ def test2d():
     inputs = torch.randn((train_config.BATCH_SIZE,3,28,28)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
-
-
 
 ##############################################################################################
 class model_getlayer():
@@ -767,7 +746,6 @@ class model_template_MLP(torch.nn.Module):
 
     def forward(self, x,**kwargs):
         return self.head_task(x)
-
 
 
 ##############################################################################################
@@ -951,22 +929,18 @@ class MergeModel_create(BaseModel):
 
         class Modelmerge(torch.nn.Module):
             def __init__(self, models_list=None,
-
                          input_dim = 1200,  ### embA + embB + embC
-
                          merge_type       = 'cat',
                          merge_layers_dim = [1024, 768],
                          merge_custom     = None,
-
                          head_layers_dim  = [512, 128, 10],  ## 10 classe
                          head_custom      = None
-
                          ):
                 super(Modelmerge, self).__init__()
 
                 self.merge_type = merge_type ### merge type
                 self.input_dim  = input_dim
-                assert head_layers_dim[0] == merge_layers_dim[-1]
+                # assert head_layers_dim[0] == merge_layers_dim[-1]
 
                 #### Create instance of each model   ############################
                 self.model_nets = []
@@ -975,9 +949,6 @@ class MergeModel_create(BaseModel):
                         self.model_nets.append(models_list[i])
                         self.model_nets[i] = copy.deepcopy(models_list[i].net)
                         self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
-
-                ##### Check Input Dims are OK
-                ### assert self.modelA_net =
 
                 ##### Merge    #################################################
                 if merge_custom is None :   ### Default merge
@@ -1047,19 +1018,13 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
                 return z1
-
-
-
         return Modelmerge(models_list,
                           input_dim        = self.input_dim,  ### embA + embB + embC
-
                           merge_type=        self.merge_type,
                           merge_layers_dim = self.merge_layers_dim,
                           merge_custom=      self.merge_custom,
-
                           head_layers_dim=   self.head_layers_dim,  ## 10 classe
                           head_custom=       self.head_custom,
-
                           )
 
 
@@ -1090,13 +1055,13 @@ class MergeModel_create(BaseModel):
     def freeze_all(self,):
         for i in range(len(self.models_list)):
             if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
+                for param in self.models_nets[i].parameters():
                         param.requires_grad = False           
 
     def unfreeze_all(self,):
         for i in range(len(self.models_list)):
             if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
+                for param in self.models_nets[i].parameters():
                         param.requires_grad = True 
 
     def create_loss(self,):
@@ -1245,8 +1210,6 @@ class model_create(BaseModel):
         return torch.nn.BCELoss()
 
 
-
-
 class modelA_create(BaseModel):
     """ modelA
     """
@@ -1355,7 +1318,6 @@ class modelB_create(BaseModel):
                 embB = self.forward(x)
                 embB = layer_l2.output.squeeze()
                 return embB
-                #self.foward(x) # bs x c x h x w
         return modelB(layers_dim, nn_model_base, layer_id )
         
 
@@ -1412,46 +1374,12 @@ class modelC_create(BaseModel):
                 embC = self.forward(x)
                 embC = layer_l2.output.squeeze()
                 return embC
-                #self.foward(x) # bs x c x h x w
         return modelC(layers_dim, nn_model_base, layer_id )
 
     def create_loss(self) -> torch.nn.Module:
         super(modelC_create,self).create_loss()
         return torch.nn.BCELoss()
 
-
-
-##############################################################################################
-def get_embedding():
-    """
-        https://www.kaggle.com/code/sironghuang/understanding-pytorch-hooks/notebook
-
-         https://discuss.pytorch.org/t/how-can-i-extract-intermediate-layer-output-from-loaded-cnn-model/77301/11
-
-        model = Resnet50() 
-        model.load_state_dict(torch.load('path_to_model.bin'))
-        model.to(device) 
-
-        # now using function hook, I was able to get the output after the conv3 layer like this :
-        model.model.layer4[1].conv3.register_forward_hook(get_activation("some_key_name")) 
-
-
-        x = torch.randn(1, 10)
-
-        # out of place
-        model = MyModel()
-        sd = model.state_dict()
-        model.fc.register_forward_hook(lambda m, input, output: print(output))
-        out = model(x)
-
-        # inplace
-        model = MyModel(inplace=True)
-        model.load_state_dict(sd)
-        model.fc.register_forward_hook(lambda m, input, output: print(output))
-        out = model(x)
-
-    """
-    pass
 
 def device_setup(arg, device='cpu', seed=67):
     """function device_setup        
@@ -1506,43 +1434,6 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     return train_loader, valid_loader, test_loader
 
-def prepro_dataset_custom(df:pd.DataFrame):
-    coly = 'cardio'
-    y     = df[coly]
-    X_raw = df.drop([coly], axis=1)
-    arg= {}
-
-    # log("Target class ratio:")
-    # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
-
-    column_trans = ColumnTransformer(
-        [('age_norm', StandardScaler(), ['age']),
-        ('height_norm', StandardScaler(), ['height']),
-        ('weight_norm', StandardScaler(), ['weight']),
-        ('gender_cat', OneHotEncoder(), ['gender']),
-        ('ap_hi_norm', StandardScaler(), ['ap_hi']),
-        ('ap_lo_norm', StandardScaler(), ['ap_lo']),
-        ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
-        ('gluc_cat', OneHotEncoder(), ['gluc']),
-        ('smoke_cat', OneHotEncoder(), ['smoke']),
-        ('alco_cat', OneHotEncoder(), ['alco']),
-        ('active_cat', OneHotEncoder(), ['active']),
-        ], remainder='passthrough'
-    )
-
-    X = column_trans.fit_transform(X_raw)
-    nsamples = X.shape[0]
-    X_np = X.copy()
-
-    ##### Split   #########################################################################
-    seed= 42 
-    train_ratio = arg.merge_model.train_config.TRAIN_RATIO
-    test_ratio =  arg.merge_model.train_config.TEST_RATIO
-    val_ratio =   arg.merge_model.train_config.TEST_RATIO
-    train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_ratio, random_state=seed)
-    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
-    return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
-
 def torch_norm_l2(X):
     """
     normalize the torch  tensor X by L2 norm.
@@ -1551,8 +1442,8 @@ def torch_norm_l2(X):
     X_norm = X / X_norm
     return X_norm
 
+
 ###############################################################################################################
 if __name__ == "__main__":
     import fire
-
     fire.Fire()
