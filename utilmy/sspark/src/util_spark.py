@@ -183,6 +183,9 @@ def test2():
     dfsamp = spark_df_under_sample(df=df,coltarget = "city", major_label="LA",minor_label = "LI",ratio=0.1)
     log(dfsamp.show())
 
+    dftest = spark_df_isempty(df)
+    log(dftest)
+
 
 
 
