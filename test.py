@@ -56,6 +56,7 @@ def test_import():
     import utilmy.deeplearning.ttorch.util_model
     import utilmy.utilmy
     import utilmy.ppandas
+    log('All imported OK')
 
 
 
