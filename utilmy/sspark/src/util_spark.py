@@ -87,7 +87,7 @@ from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
-from utilmy import log, log2, os_module_name
+from utilmy.utilmy import log, log2, os_module_name
 MNAME = os_module_name(__file__)
 
 def help():
