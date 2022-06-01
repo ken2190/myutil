@@ -1,13 +1,15 @@
 
 # -*- coding: utf-8 -*-
-"""
-python test.py   test_all
-python test.py   test_viz_vizhtml
-Rules to follow :
-   Put import only inside the function.
-   def  test_{pythonfilename.py}() :
-       from utilmy import parallel as m
-       m.test_all()
+""" tests
+Docs::
+
+        python test.py   test_all
+        python test.py   test_viz_vizhtml
+        Rules to follow :
+           Put import only inside the function.
+           def  test_{pythonfilename.py}() :
+               from utilmy import parallel as m
+               m.test_all()
 """
 import os, sys, time, datetime,inspect, random, pandas as pd, random, numpy as np, glob
 
