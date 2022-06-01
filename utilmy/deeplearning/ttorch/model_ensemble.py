@@ -910,7 +910,8 @@ class MergeModel_create(BaseModel):
                 self.model_nets = []
                 for i in range(len(models_list)):
                     if(models_list[i] is not None):
-                        self.model_nets.append(models_list[i])
+                        # self.model_nets.append(models_list[i])
+                        self.model_nets.append(None )                        
                         self.model_nets[i] = copy.deepcopy(models_list[i].net)
                         self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
 
