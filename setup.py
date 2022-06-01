@@ -48,8 +48,6 @@ ss1 = f"""
    Data processing
    Data pipelining
    Batching
-   Distributed compute
-   Spark
    Pytorch
    Keras
    Image
@@ -71,7 +69,13 @@ Details:
 
 
 
-Docs/Support:
+To get access to the docs, 
+please Follow me on Github:
+
+   https://tinyurl.com/2p848smu
+
+
+Then, you will receive invite for the doc here:
    https://groups.google.com/g/utilmy
 
 

@@ -23,7 +23,7 @@ from box import Box
 from utilmy import log, log2, help_create
 
 def help():
-    print( HELP + help_create(MNAME) )
+    print( HELP + help_create(__file__) )
 
 
 

@@ -31,7 +31,7 @@ from sklearn.decomposition import pca
 
 import fast, util
 
-DIRCWD=  'D:/_devs/Python01/project27/' if sys.platform[:3]=='win'   else  '/home/ubuntu/project27/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'
+DIRCWD=  'D:/_devs/Python01/project27/' if sys.platform[:3]=='win'   else  '${HOME}/project27/' if os.environ['HOME'].find('ubuntu')>-1 else '/media/sf_project27/'
 __path__= DIRCWD +'/aapackage/'
 
 ############# CONSTANT   #######################################################################

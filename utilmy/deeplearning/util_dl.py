@@ -15,7 +15,7 @@ from box import Box
 from utilmy import log, log2
 def help():
     from utilmy import help_create
-    print( help_create(MNAME) )
+    print( help_create(__file__) )
 
 
 ################################################################################################
@@ -118,6 +118,8 @@ def gpu_available():
     print( deviceid_free )        
     return deviceid_free
             
+gpu = gpu_available  ### alias
+gpu2 = gpu_usage
             
    
 
