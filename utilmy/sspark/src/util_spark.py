@@ -45,7 +45,7 @@ Doc::
     spark_config_print(sparksession)
     spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
     spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
-    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
+    spark_df_sampleover(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
     spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
@@ -647,8 +647,8 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
 
 
 
-def spark_df_over_sample(df:sp_dataframe, coltarget:str='animal', 
-                         major_label='cat', minor_label='dog', target_ratio=0.2, ):
+def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal', 
+                         major_label='dog', minor_label='frog', target_ratio=0.2, ):
 
     n = df.count()                         
     log(f"Count of df before over sampling is  {n}")
@@ -667,7 +667,8 @@ def spark_df_over_sample(df:sp_dataframe, coltarget:str='animal',
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio,):
+def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal', 
+                         major_label='dog', minor_label='frog', target_ratio=0.2):
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(F.col(coltarget) == major_label)
     minor_df = df.filter(F.col(coltarget) == minor_label)
