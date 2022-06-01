@@ -307,7 +307,7 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw)->sp_dataframe:
     """ Universal HDFS file reader
     Doc::
     format: parquet, csv, json, orc ...
@@ -648,7 +648,7 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
 
 
 def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal', 
-                         major_label='dog', minor_label='frog', target_ratio=0.2, ):
+                         major_label='dog', minor_label='frog', target_ratio=0.2, )->sp_dataframe:
 
     n = df.count()                         
     log(f"Count of df before over sampling is  {n}")
@@ -668,7 +668,7 @@ def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal',
 
 
 def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal', 
-                         major_label='dog', minor_label='frog', target_ratio=0.2):
+                         major_label='dog', minor_label='frog', target_ratio=0.2)->sp_dataframe:
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(F.col(coltarget) == major_label)
     minor_df = df.filter(F.col(coltarget) == minor_label)
@@ -678,7 +678,7 @@ def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal',
     return combined_df
 
 
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)->sp_dataframe:
     """.
     Doc::
 
@@ -706,7 +706,7 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
     return df_train, df_test
 
 
-def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1):
+def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1)->sp_dataframe:
     """ get most recent (ie date desc, rank=1) record for each userid
     """
     partition_by = colid
@@ -716,13 +716,12 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
     """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
     n = df.count()
     dfres = []
@@ -739,13 +738,12 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
     return dfres
 
 
-def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True):
+def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
     """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols_cat, str): cols_cat= [ cols_cat]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
     n = df.count()
     dfres = []
@@ -768,13 +766,12 @@ def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fracti
 
 
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
-                       metric_list=['null', 'n5', 'n95' ], doprint=True):
+                       metric_list=['null', 'n5', 'n95' ], doprint=True)->pd.DataFrame:
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
     
 
     n = df.count()
@@ -795,11 +792,14 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     return dfres
 
 
-def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True):
+def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
     """
 
 
     """
+
+    if fractions < 0.0 or fractions >=1.0 : return df
+
     if col_stratify:
         df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
         return df1
@@ -1019,10 +1019,6 @@ def date_get_month_days(dt):
 
 def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
-
-
-def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 
 
