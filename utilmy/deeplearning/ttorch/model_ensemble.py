@@ -219,6 +219,7 @@ def test1():
     outputs = model.predict(inputs)
     print(outputs)
 
+
 def test2a():
     """
     """
@@ -315,6 +316,7 @@ def test2a():
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2b():
     """
@@ -426,6 +428,7 @@ def test2b():
     inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2c():
     """
@@ -559,6 +562,7 @@ def test2c():
     inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2d():
     """
@@ -928,6 +932,7 @@ class MergeModel_create(BaseModel):
         self.head_custom=      self.arg.merge_model.architect.get('head_custom', None)
 
 
+
         class Modelmerge(torch.nn.Module):
             def __init__(self, models_list=None,
                          input_dim = 1200,  ### embA + embB + embC
@@ -944,10 +949,11 @@ class MergeModel_create(BaseModel):
                 # assert head_layers_dim[0] == merge_layers_dim[-1]
 
                 #### Create instance of each model   ############################
-                self.model_nets = []
+                self.model_nets = [None] * len(models_list)
+
                 for i in range(len(models_list)):
                     if(models_list[i] is not None):
-                        self.model_nets.append(models_list[i])
+                        #self.model_nets.append(None)
                         self.model_nets[i] = copy.deepcopy(models_list[i].net)
                         self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
 
@@ -985,6 +991,19 @@ class MergeModel_create(BaseModel):
                     self.head_task = head_custom
 
 
+            def freeze_all(self,):
+                for i in range(len(self.models_nets)):
+                    if (self.models_nets[i] is not None):
+                        for param in self.models_nets[i].net.parameters():
+                                param.requires_grad = False
+
+            def unfreeze_all(self,):
+                for i in range(len(self.models_nets)):
+                    if (self.models_nets[i] is not None):
+                        for param in self.models_nets[i].net.parameters():
+                                param.requires_grad = True
+
+
             def forward(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
                 z2 = self.head_task(z1)
@@ -1019,6 +1038,11 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
                 return z1
+
+
+
+
+
         return Modelmerge(models_list,
                           input_dim        = self.input_dim,  ### embA + embB + embC
                           merge_type=        self.merge_type,
@@ -1050,20 +1074,10 @@ class MergeModel_create(BaseModel):
 
 
         #### Freeze modelA, modelB, to stop gradients.
-        self.freeze_all()
+        self.net.freeze_all()
+        # self.freeze_all()
 
 
-    def freeze_all(self,):
-        for i in range(len(self.models_list)):
-            if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
-                        param.requires_grad = False
-
-    def unfreeze_all(self,):
-        for i in range(len(self.models_list)):
-            if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
-                        param.requires_grad = True
 
     def create_loss(self,):
         """ Simple Head task loss
