@@ -747,6 +747,7 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
+
 class model_template_MLP(torch.nn.Module):
     def __init__(self,layers_dim=[20,100,16]):
         super(modelA, self).__init__()
@@ -1000,8 +1001,8 @@ class MergeModel_create(BaseModel):
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
                     self.head_task = []
-                    input_dim = head_layers_dim[0]
-                    for layer_dim in head_layers_dim[1:-1]:
+                    input_dim = merge_layers_dim[-1]
+                    for layer_dim in head_layers_dim[0:-1]:
                         self.head_task.append(nn.Linear(input_dim, layer_dim))
                         self.head_task.append(nn.ReLU())
                         input_dim = layer_dim
