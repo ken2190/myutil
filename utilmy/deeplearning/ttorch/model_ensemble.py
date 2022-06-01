@@ -6,6 +6,8 @@ Doc::
         me.test1()
         me.help()
 
+
+
         https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/45
 
         https://discuss.pytorch.org/t/merging-3-models/66230/3
@@ -66,7 +68,7 @@ Code::
         ARG.merge_model.name      = 'modelmerge1'
         ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
 
-        ARG.merge_model.architect.merge_type= 'cat'
+        ARG.merge_model.MERGE = 'cat'
 
         ARG.merge_model.dataset       = Box()
         ARG.merge_model.dataset.dirin = "/"
@@ -89,30 +91,35 @@ TODO :
 
 
 """
-import os, random, numpy as np, pandas as pd ;from box import Box
+import os, random, numpy as np, glob, pandas as pd, matplotlib.pyplot as plt ;from box import Box
 from copy import deepcopy
 import copy, collections
 from abc import abstractmethod
 
+from sklearn.preprocessing import OneHotEncoder, Normalizer, StandardScaler, Binarizer
+from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 import torchvision
 from torchvision import transforms, datasets, models
 #############################################################################################
-from utilmy import log
+from utilmy import log, log2
+
 
 ##############################################################################################
 def help():
-    """function help
+    """function help        
     """
     from utilmy import help_create
-    ss =  help_create(__file__)
+    MNAME =  'utilmy' + __file__.split("utilmy")[1].replace("/", ".").replace(".py", "")   ###'.deeplearning.ttorch.model_ensemble.'
+    ss =  help_create(MNAME)
     log(ss)
-
 
 
 ##############################################################################################
@@ -122,8 +129,6 @@ def test_all():
     test2b()
     test2c()
     test2d()
-
-
 
 def test1():    
     """     
@@ -163,6 +168,7 @@ def test1():
         train_config.VAL_RATIO           = 0.2
         train_config.TEST_RATIO          = 0.1
 
+
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
     ARG.modelA               = Box()   #MODEL_TASK
@@ -193,14 +199,9 @@ def test1():
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    #ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
-    #ARG.merge_model.architect.merge_type= 'cat'
+    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
 
-    ARG.merge_model.architect = {}
-    ARG.merge_model.architect.input_dim        =  200
-    ARG.merge_model.architect.merge_type       = 'cat'
-    ARG.merge_model.architect.merge_layers_dim = [100, 32]
-    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
+    ARG.merge_model.MERGE = 'cat'
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -211,13 +212,17 @@ def test1():
     model = model = MergeModel_create(ARG, model_create_list)
 
     #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
     model.build()        
     model.training(load_DataFrame, prepro_dataset) 
+
     model.save_weight('ztmp/model_x5.pt') 
     model.load_weights('ztmp/model_x5.pt')
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2a():    
     """     
@@ -284,16 +289,14 @@ def test2a():
     ARG.modelB.seed          = 42
     modelB = modelB_create(ARG.modelB )
 
+    
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
     ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = {}
-    ARG.merge_model.architect.input_dim        =  200
-    ARG.merge_model.architect.merge_type       = 'cat'
-    ARG.merge_model.architect.merge_layers_dim = [100, 32]
-    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
+    ARG.merge_model.architect = { 'layers_dim': [ 200, 32, 1 ] }
 
+    ARG.merge_model.MERGE = 'cat'
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -315,6 +318,7 @@ def test2a():
     inputs = torch.randn((train_config.BATCH_SIZE,5)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2b():    
     """     
@@ -396,20 +400,13 @@ def test2b():
     ### merge_model  ###################################################
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
-    #ARG.merge_model.architect.merge_type= 'cat'
-    ARG.merge_model.architect                  = {}
-    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim
-    ARG.merge_model.architect.merge_type       = 'cat'
-    ARG.merge_model.architect.merge_layers_dim = [512, 32]
-    ARG.merge_model.architect.merge_custom     = None
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim, 32, 1 ] }
 
-    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
-    ARG.merge_model.architect.head_custom      = None
+    ARG.merge_model.MERGE = 'cat'
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
-    ARG.merge_model.dataset.coly  = 'ytarget'
+    ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
     modelC = None
     model_create_list = [modelA, modelB, modelC]
@@ -426,6 +423,7 @@ def test2b():
     inputs = torch.randn((train_config.BATCH_SIZE,3,224,224)).to(model.device)
     outputs = model.predict(inputs)
     print(outputs)
+
 
 def test2c():    
     """     
@@ -528,19 +526,9 @@ def test2c():
     ### EXPLICIT DEPENDENCY  : because it's merge
     ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
 
-    #ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
-    #ARG.merge_model.architect.merge_type= 'cat'
-    ARG.merge_model.architect                  = {}
-    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
-    
-    ARG.merge_model.architect.merge_type       = 'cat'
-    ARG.merge_model.architect.merge_layers_dim = [512, 32]
-    ARG.merge_model.architect.merge_custom     = None
-
-    ARG.merge_model.architect.head_layers_dim  = [32, 8, 1]
-    ARG.merge_model.architect.head_custom      = None
-
+    ARG.merge_model.MERGE = 'cat'
 
     ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
@@ -562,22 +550,27 @@ def test2c():
 
 def test2d():    
     """     
-    """
-    from utilmy.deeplearning.ttorch import model_ensemble as me
+    """    
     from box import Box ; from copy import deepcopy
     ARG = Box({
         'MODE'   : 'mode1',
         'DATASET': {},
         'MODEL_INFO' : {},
     })
+    PARAMS = Box()
 
-
-    ####################################################################
+####################################################################
+    from utilmy.adatasets import test_dataset_classifier_fake
+    df, cols_dict = test_dataset_classifier_fake(100, normalized=True)
+    
     def load_DataFrame():
-        return None
+        return df  
 
+    ##################################################################
+    train_config                     = Box({})
     if ARG.MODE == 'mode1':
-        train_config                           = Box({})
+        ARG.MODEL_INFO.TYPE = 'dataonly' 
+        #train_config                           = Box({})
         train_config.LR                        = 0.001
         train_config.SEED                      = 42
         train_config.DEVICE                    = 'cpu'
@@ -590,114 +583,98 @@ def test2d():
         train_config.VAL_RATIO                 = 0.2
         train_config.TEST_RATIO                = 0.1
 
-
     def test_dataset_f_mnist(samples=100):
         """function test_dataset_f_mnist
         """
-        from sklearn.model_selection import train_test_split
-        from torchvision import transforms, datasets
         # Generate the transformations
         train_list_transforms = [transforms.ToTensor(),transforms.Lambda(lambda x: x.repeat(3, 1, 1))]
-
-        dataset1 = datasets.FashionMNIST(root="data",train=True,
-                                         transform=transforms.Compose(train_list_transforms),download=True,)
+        train_dataset = datasets.FashionMNIST(root="data",train=True,
+                                              transform=transforms.Compose(train_list_transforms),download=True)
         
         #sampling the requred no. of samples from dataset 
-        dataset1 = torch.utils.data.Subset(dataset1, np.arange(samples))
-        X,Y    = [],  []
-        for data, targets in dataset1:
-            X.append(data)
-            Y.append(targets)
+        dataset = torch.utils.data.Subset(train_dataset, np.arange(samples))
+        data_smpls    = []
+        trgt_smpls    = []
+        for data, targets in dataset:
+            data_smpls.append(data)
+            trgt_smpls.append(targets)
 
         #Converting list to tensor format
-        X,y = torch.stack(X),torch.Tensor(Y)
+        data_smpls,trgt_smpl = torch.stack(data_smpls),torch.Tensor(trgt_smpls) 
 
-
-        train_r, test_r, val_r  = train_config.TRAIN_RATIO, train_config.TEST_RATIO,train_config.VAL_RATIO
-        train_X, test_X, train_y, test_y = train_test_split(X,  y,  test_size=1 - train_r)
-        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_r / (test_r + val_r))
+        train_ratio = train_config.TRAIN_RATIO
+        test_ratio  = train_config.TEST_RATIO
+        val_ratio   = train_config.VAL_RATIO
+        
+        train_X, test_X, train_y, test_y = train_test_split(data_smpls,  trgt_smpl,  test_size=1 - train_ratio)
+        valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio))
         return (train_X, train_y, valid_X, valid_y, test_X , test_y)
-
 
     def prepro_dataset(self,df:pd.DataFrame=None):
         train_X ,train_y,valid_X ,valid_y,test_X, test_y = test_dataset_f_mnist(samples=100)
         return train_X ,train_y,valid_X ,valid_y,test_X,test_y
 
-
-
-    ######################################################################
     #### SEPARATE the models completetly, and create duplicate
-
-    ### modelA  ##########################################################
-    from torchvision import  models
+    ### modelA  ########################################################
     model_ft = models.resnet18(pretrained=True)
     embA_dim = model_ft.fc.in_features  ###
 
-    ARG.modelA               = {}     #MODEL_TASK
+    ARG.modelA               = Box()   #MODEL_TASK
     ARG.modelA.name          = 'resnet18'
     ARG.modelA.nn_model      = model_ft
     ARG.modelA.layer_emb_id  = 'fc'
     ARG.modelA.architect     = [ embA_dim]  ### head s
-    ARG.modelA.dataset       = {}
+    ARG.modelA.dataset       = Box()
     ARG.modelA.dataset.dirin = "/"
     ARG.modelA.dataset.coly  = 'ytarget'
-    modelA = me.model_create(ARG.modelA)
-
-
-    ### modelB  ##########################################################
-    from torchvision import  models
+    modelA = modelA_create(ARG.modelA)
+    
+    ### modelB  ########################################################
     model_ft = models.resnet50(pretrained=True)
     embB_dim = int(model_ft.fc.in_features)
 
-    ARG.modelB               = {}
+    ARG.modelB               = Box()   
     ARG.modelB.name          = 'resnet50'
     ARG.modelB.nn_model      = model_ft
     ARG.modelB.layer_emb_id  = 'fc'
     ARG.modelB.architect     = [embB_dim ]   ### head size
-    ARG.modelB.dataset       = {}
+    ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
-    modelB = me.model_create(ARG.modelB )
-
+    modelB = modelB_create(ARG.modelB )
 
     # ### modelC  ########################################################
-    from torchvision import  models
+    embC_dim                 = 0
     model_ft                 = models.efficientnet_b0(pretrained=True)
     embC_dim                 = model_ft.classifier[1].in_features
-    ARG.modelC               = {}
+    ARG.modelC               = Box()   
     ARG.modelC.name          = 'efficientnet_b0'
     ARG.modelC.nn_model      = model_ft
     ARG.modelC.layer_emb_id  = 'fc'
     ARG.modelC.architect     = [ embC_dim ]   ### head size
-    ARG.modelC.dataset       = {}
+    ARG.modelC.dataset       = Box()
     ARG.modelC.dataset.dirin = "/"
     ARG.modelC.dataset.coly  = 'ytarget'
-    modelC = me.model_create(ARG.modelC )
-
+    modelC = modelC_create(ARG.modelC )
 
     ### merge_model  ###################################################
     ### EXPLICIT DEPENDENCY  : because it's merge
-    ARG.merge_model           = {}
+    ARG.merge_model           = Box()
     ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.architect                  = {}
-    ARG.merge_model.architect.input_dim        =  embA_dim + embB_dim + embC_dim
+    ARG.merge_model.architect = { 'layers_dim': [ embA_dim + embB_dim + embC_dim, 32, 1 ] }
 
-    ARG.merge_model.architect.merge_type       = 'cat'         #### Common to all tasks
-    ARG.merge_model.architect.merge_layers_dim = [1024, 768]
-    ARG.merge_model.architect.merge_custom     = None
+    ARG.merge_model.MERGE = 'cat'
 
-    ARG.merge_model.architect.head_layers_dim  = [128, 1]  ### Input embedding is 768
-    ARG.merge_model.architect.head_custom      = None
-  
-
-    ARG.merge_model.dataset       = {}
+    ARG.merge_model.dataset       = Box()
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = me.MergeModel_create(ARG, model_create_list=  [modelA, modelB, modelC] )
-
+    model_create_list = [modelA, modelB, modelC]
+    model = MergeModel_create(ARG,model_create_list)
 
     #### Run Model   ###################################################
+    # load_DataFrame = modelB_create.load_DataFrame   
+    # prepro_dataset = modelB_create.prepro_dataset
     model.build()
     model.training(load_DataFrame, prepro_dataset) 
 
@@ -705,7 +682,8 @@ def test2d():
     model.load_weights('ztmp/model_x5.pt')
     inputs = torch.randn((train_config.BATCH_SIZE,3,28,28)).to(model.device)
     outputs = model.predict(inputs)
-    log(outputs)
+    print(outputs)
+
 
 
 ##############################################################################################
@@ -730,7 +708,6 @@ class model_getlayer():
       for layer in network.children():
         self.get_layers_in_order(layer)
 
-
 class model_template_MLP(torch.nn.Module):
     def __init__(self,layers_dim=[20,100,16]):
         super(modelA, self).__init__()
@@ -748,6 +725,7 @@ class model_template_MLP(torch.nn.Module):
 
     def forward(self, x,**kwargs):
         return self.head_task(x)
+
 
 
 ##############################################################################################
@@ -896,6 +874,7 @@ class BaseModel(object):
         return output 
 
 
+
 class MergeModel_create(BaseModel):
     """
     """
@@ -916,65 +895,39 @@ class MergeModel_create(BaseModel):
 
     def create_model(self,):
         super(MergeModel_create,self).create_model()
-        models_list           = self.models_list
-
-        self.input_dim        = self.arg.merge_model.architect.input_dim
-
-        self.merge_type =      self.arg.merge_model.get('merge_type','cat')
-        self.merge_layers_dim= self.arg.merge_model.architect.get('merge_layers_dim', [1024, 768] )    
-        self.merge_custom=     self.arg.merge_model.architect.get('merge_custom', None)
-
-        self.head_layers_dim=  self.arg.merge_model.architect.get('head_layers_dim', [512, 128, 10] )
-        self.head_custom=      self.arg.merge_model.architect.get('head_custom', None)
-
+        self.merge_type = self.arg.merge_model.get('MERGE','add')
+        layers_dim = self.arg.merge_model.architect.layers_dim
+        models_list = self.models_list
 
         class Modelmerge(torch.nn.Module):
-            def __init__(self, models_list=None,
-                         input_dim = 1200,  ### embA + embB + embC
-                         merge_type       = 'cat',
-                         merge_layers_dim = [1024, 768],
-                         merge_custom     = None,
-                         head_layers_dim  = [512, 128, 10],  ## 10 classe
-                         head_custom      = None
-                         ):
+            def __init__(self ,models_list=None, merge='cat', layers_dim=None, head_custom=None ):
                 super(Modelmerge, self).__init__()
 
-                self.merge_type = merge_type ### merge type
-                self.input_dim  = input_dim
-                # assert head_layers_dim[0] == merge_layers_dim[-1]
+                self.merge_type = merge ### merge type
+
 
                 #### Create instance of each model   ############################
                 self.model_nets = []
                 for i in range(len(models_list)):
                     if(models_list[i] is not None):
-                        self.model_nets.append(models_list[i])
+                        # self.model_nets.append(models_list[i])
+                        self.model_nets.append(None )                        
                         self.model_nets[i] = copy.deepcopy(models_list[i].net)
                         self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
 
-                ##### Merge    #################################################
-                if merge_custom is None :   ### Default merge
-                    self.merge_task = []
-                    input_dim = self.input_dim
-                    for layer_dim in merge_layers_dim[1:-1]:
-                        self.merge_task.append(nn.Linear(input_dim, layer_dim))
-                        self.merge_task.append(nn.ReLU())
-                        input_dim = layer_dim
-                    self.merge_task.append(nn.Linear(input_dim, merge_layers_dim[-1]))
-
-                    ##### MLP merge task
-                    self.merge_task = nn.Sequential(*self.merge_task)
-                else:
-                    self.merge_task = merge_custom
+                ##### Check Input Dims are OK
+                ### assert self.modelA_net =
 
                 ##### Head Task   #############################################
                 if head_custom is None :   ### Default head
+                    # self.head_task = nn.Sequential()
                     self.head_task = []
-                    input_dim = merge_layers_dim[-1]
-                    for layer_dim in head_layers_dim[0:-1]:
+                    input_dim = layers_dim[0]
+                    for layer_dim in layers_dim[1:-1]:
                         self.head_task.append(nn.Linear(input_dim, layer_dim))
                         self.head_task.append(nn.ReLU())
                         input_dim = layer_dim
-                    self.head_task.append(nn.Linear(input_dim, head_layers_dim[-1]))
+                    self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
 
                     ###### Not good in model due to compute errors, keep into Losss
                     # self.head_task.append(nn.Sigmoid())  #### output layer
@@ -983,19 +936,13 @@ class MergeModel_create(BaseModel):
                     self.head_task = nn.Sequential(*self.head_task)
                 else:
                     self.head_task = head_custom
-                
+
 
             def forward(self, x,**kw):
-                z1 = self.forward_merge(x, **kw)
-                z2 = self.head_task(z1)
-                return z2    # predict absolute values
-
-
-            def forward_merge(self, x,**kw):
                 # merge: cat or add
                 alpha = kw.get('alpha',0) # default only use YpredA
                 scale = kw.get('scale',1)
-
+        
                 ## with torch.no_grad():
                 embV = []
                 for model in self.model_nets:
@@ -1009,24 +956,14 @@ class MergeModel_create(BaseModel):
                     z = torch.cat((alpha*embV[1], (1-alpha)*embV[0]), dim=-1)
 
                 elif self.merge_type == 'cat':
-                    ### May need scale
+                    ### May need scale 
                     z = torch.cat(embV, dim=-1)
-
-                merge_emb = self.merge_task(z)
-                return merge_emb
-
+                return self.head_task(z)    # predict absolute values
 
             def get_embedding(self, x,**kw):
-                z1 = self.forward_merge(x, **kw)
-                return z1
-        return Modelmerge(models_list,
-                          input_dim        = self.input_dim,  ### embA + embB + embC
-                          merge_type=        self.merge_type,
-                          merge_layers_dim = self.merge_layers_dim,
-                          merge_custom=      self.merge_custom,
-                          head_layers_dim=   self.head_layers_dim,  ## 10 classe
-                          head_custom=       self.head_custom,
-                          )
+                 return self.forward
+
+        return Modelmerge(models_list, self.merge_type, layers_dim,)
 
 
     def build(self):
@@ -1056,13 +993,13 @@ class MergeModel_create(BaseModel):
     def freeze_all(self,):
         for i in range(len(self.models_list)):
             if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
+                for param in self.models_nets[i].parameters():
                         param.requires_grad = False           
 
     def unfreeze_all(self,):
         for i in range(len(self.models_list)):
             if(self.models_list[i] is not None):
-                for param in self.models_list[i].net.parameters():
+                for param in self.models_nets[i].parameters():
                         param.requires_grad = True 
 
     def create_loss(self,):
@@ -1147,67 +1084,6 @@ class MergeModel_create(BaseModel):
             loss_val /= len(valid_loader.dataset) # mean on dataset
             
             self.save_weight(  path = path_save, meta_data = { 'epoch' : epoch, 'loss_train': loss_train, 'loss_val': loss_val, } )
-
-
-###################################################################
-class model_create(BaseModel):
-    """ modelA
-    """
-    def __init__(self,arg):
-        super(model_create,self).__init__(arg)
-
-    def create_model(self, modelA_nn:torch.nn.Module=None):
-        super(model_create,self).create_model()
-        layers_dim    = self.arg.architect
-        nn_model_base = self.arg.nn_model
-        layer_id      = self.arg.layer_emb_id
-
-        #if not modelA_nn: return modelA_nn
-
-        ### Default version
-        class modelA(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  ):   
-                super(modelA, self).__init__()
-                self.head_task = []
-                self.layer_id  = layer_id  ##flag meaning ????  layer 
-
-                ##### Pre-trained model   #########################################
-                if len(self.layer_id) !=0 :
-                    self.nn_model_base = nn_model_base
-                    #setattr(self.nn_model_base, self.layer_id, self.head_task)  #### head 
-                    self.head_task = self.nn_model_base
-                    return 
-
-                ###### Normal MLP Head   #########################################
-                self.layers_dim = layers_dim 
-                self.output_dim = layers_dim[-1]
-                # self.head_task = nn.Sequential()
-
-                input_dim = layers_dim[0]
-                for layer_dim in layers_dim[:-1]:
-                    self.head_task.append(nn.Linear(input_dim, layer_dim))
-                    self.head_task.append(nn.ReLU())
-                    input_dim = layer_dim
-                self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
-                self.head_task = nn.Sequential(*self.head_task)
-
-
-            def forward(self, x,**kwargs):
-                return self.head_task(x)
-
-
-            def get_embedding(self, x,**kwargs):
-                layer_l2= model_getlayer(self.head_task, pos_layer=-2)
-                embA = self.forward(x)
-                embA = layer_l2.output.squeeze()
-                return embA
-
-        return modelA(layers_dim, nn_model_base, layer_id)
-
-    def create_loss(self, loss_fun=None) -> torch.nn.Module:
-        super(model_create,self).create_loss()
-        if not loss_fun : loss_fun
-        return torch.nn.BCELoss()
 
 
 class modelA_create(BaseModel):
@@ -1318,6 +1194,7 @@ class modelB_create(BaseModel):
                 embB = self.forward(x)
                 embB = layer_l2.output.squeeze()
                 return embB
+                #self.foward(x) # bs x c x h x w
         return modelB(layers_dim, nn_model_base, layer_id )
         
 
@@ -1374,6 +1251,7 @@ class modelC_create(BaseModel):
                 embC = self.forward(x)
                 embC = layer_l2.output.squeeze()
                 return embC
+                #self.foward(x) # bs x c x h x w
         return modelC(layers_dim, nn_model_base, layer_id )
 
     def create_loss(self) -> torch.nn.Module:
@@ -1382,7 +1260,38 @@ class modelC_create(BaseModel):
 
 
 
-#################################################################################################
+##############################################################################################
+def get_embedding():
+    """
+        https://www.kaggle.com/code/sironghuang/understanding-pytorch-hooks/notebook
+
+         https://discuss.pytorch.org/t/how-can-i-extract-intermediate-layer-output-from-loaded-cnn-model/77301/11
+
+        model = Resnet50() 
+        model.load_state_dict(torch.load('path_to_model.bin'))
+        model.to(device) 
+
+        # now using function hook, I was able to get the output after the conv3 layer like this :
+        model.model.layer4[1].conv3.register_forward_hook(get_activation("some_key_name")) 
+
+
+        x = torch.randn(1, 10)
+
+        # out of place
+        model = MyModel()
+        sd = model.state_dict()
+        model.fc.register_forward_hook(lambda m, input, output: print(output))
+        out = model(x)
+
+        # inplace
+        model = MyModel(inplace=True)
+        model.load_state_dict(sd)
+        model.fc.register_forward_hook(lambda m, input, output: print(output))
+        out = model(x)
+
+    """
+    pass
+
 def device_setup(arg, device='cpu', seed=67):
     """function device_setup        
     """
@@ -1402,7 +1311,6 @@ def device_setup(arg, device='cpu', seed=67):
             log(e)
             device = 'cpu'
     return device
-
 
 def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, test_X=None, test_y=None,  
                             device='cpu', batch_size=16,)->torch.utils.data.DataLoader:
@@ -1437,6 +1345,42 @@ def dataloader_create(train_X=None, train_y=None, valid_X=None, valid_y=None, te
 
     return train_loader, valid_loader, test_loader
 
+def prepro_dataset_custom(df:pd.DataFrame):
+    coly = 'cardio'
+    y     = df[coly]
+    X_raw = df.drop([coly], axis=1)
+    arg= {}
+
+    # log("Target class ratio:")
+    # log("# of y=1: {}/{} ({:.2f}%)".format(np.sum(y==1), len(y), 100*np.sum(y==1)/len(y)))
+
+    column_trans = ColumnTransformer(
+        [('age_norm', StandardScaler(), ['age']),
+        ('height_norm', StandardScaler(), ['height']),
+        ('weight_norm', StandardScaler(), ['weight']),
+        ('gender_cat', OneHotEncoder(), ['gender']),
+        ('ap_hi_norm', StandardScaler(), ['ap_hi']),
+        ('ap_lo_norm', StandardScaler(), ['ap_lo']),
+        ('cholesterol_cat', OneHotEncoder(), ['cholesterol']),
+        ('gluc_cat', OneHotEncoder(), ['gluc']),
+        ('smoke_cat', OneHotEncoder(), ['smoke']),
+        ('alco_cat', OneHotEncoder(), ['alco']),
+        ('active_cat', OneHotEncoder(), ['active']),
+        ], remainder='passthrough'
+    )
+
+    X = column_trans.fit_transform(X_raw)
+    nsamples = X.shape[0]
+    X_np = X.copy()
+
+    ##### Split   #########################################################################
+    seed= 42 
+    train_ratio = arg.merge_model.train_config.TRAIN_RATIO
+    test_ratio =  arg.merge_model.train_config.TEST_RATIO
+    val_ratio =   arg.merge_model.train_config.TEST_RATIO
+    train_X, test_X, train_y, test_y = train_test_split(X_src,  y_src,  test_size=1 - train_ratio, random_state=seed)
+    valid_X, test_X, valid_y, test_y = train_test_split(test_X, test_y, test_size= test_ratio / (test_ratio + val_ratio), random_state=seed)
+    return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
 
 def torch_norm_l2(X):
     """
@@ -1445,7 +1389,6 @@ def torch_norm_l2(X):
     X_norm = torch.norm(X, p=2, dim=1, keepdim=True)
     X_norm = X / X_norm
     return X_norm
-
 
 ###############################################################################################################
 if __name__ == "__main__":
