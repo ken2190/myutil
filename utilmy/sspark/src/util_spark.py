@@ -186,7 +186,9 @@ def test2():
     df2 = spark_df_isempty(df)
     log(df2)
 
-
+    df2  = spark_df_check(df=df, tag="check", conf=None, dirout= "/test", nsample=1,
+                   save=True, verbose=True, returnval=False)
+    log(df2)
 
 
 
