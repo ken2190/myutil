@@ -953,18 +953,5 @@ def load_partially_compatible(model,device='cpu'):
 
 
 
-###################################################################################################
-def gradwalk(x, _depth=0):
-    if hasattr(x, 'grad_fn'):
-        x = x.grad_fn
-    if hasattr(x, 'next_functions'):
-        for fn in x.next_functions:
-            print(' ' * _depth + str(fn))
-            gradwalk(fn[0], _depth+1)
-
-def gradwalk_run(graph):
-    for name, param in graph.named_parameters():
-        gradwalk(param)
-
 
 

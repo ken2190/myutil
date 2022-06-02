@@ -199,6 +199,8 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
   """  Read file in parallel from HDFS : very Fast
   Doc::
 
+    Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
+
     dirin = "hdfs:///mypat/myparquet/"
     df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
             drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
@@ -209,8 +211,12 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
   def log(*s, **kw):
       print(*s, flush=True, **kw)
 
-  log( "pd_read_file_hdfs" )
-  hdfs = pa.hdfs.connect()
+  log( "connect to HDFS" )
+  try: hdfs = pa.hdfs.connect()
+  except Exception as e:
+     log(e, "\n,Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`" ) ; 1/0
+
+
   def pd_reader_obj(fi, cols=None, **kw):
       try :
         table = pq.read_table(fi, columns=cols)
