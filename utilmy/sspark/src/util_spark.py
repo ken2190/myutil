@@ -180,7 +180,7 @@ def test2():
     dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
     log(dfres.show())
 
-    dfsamp = spark_df_under_sample(df=df,coltarget = "city", major_label="LA",minor_label = "LI",ratio=0.1)
+    dfsamp = spark_df_sampleunder(df=df,coltarget = "city", major_label="LA",minor_label = "LI",ratio=0.1)
     log(dfsamp.show())
 
     dftest = spark_df_isempty(df)
