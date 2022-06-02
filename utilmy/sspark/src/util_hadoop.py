@@ -124,10 +124,9 @@ def log(*s):
 
 
 
-##################################################################################
+################################################################################################################
 def hadoop_print_config(dirout=None):
   """ Print configuration variable for Hadoop, Spark
-
 
   """
   names =[
@@ -140,11 +139,6 @@ def hadoop_print_config(dirout=None):
   dd= []
   for ni in names:
     dd.append( [ni, os.environ.get(ni, '') ] )
-
-  ### Print configuration files on disk
-  ### SPARK_HOME/conf/spark_env.sh
-  
-   
 
 
 
@@ -205,9 +199,9 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
   """  Read file in parallel from HDFS : very Fast
   Doc::
 
-            dirin = "hdfs:///mypat/myparquet/"
-            df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
-                    drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
+    dirin = "hdfs:///mypat/myparquet/"
+    df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
+            drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
 
   """
   import glob, gc,  pandas as pd, os
@@ -851,7 +845,7 @@ def hive_update_partitions_table( hr, dt, location, table_name):
             (table_name=table_name, dt=dt,  hr=hr, loc=location)
     hive_query(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
     hive_query(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
+    log('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
 
     
 
@@ -870,19 +864,15 @@ if 'insert_pandas_into_hive' :
              hive 1.2
 
              CREATE EXTERNAL TABLE n=st (
-              siid   ,
-            )
-            STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
+                siid   ,
+             )
+             STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
 
 
-          hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
+             hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
 
-          hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  nono3.map_siid_ranid_v15test  ;"
 
-          hadoop dfs  -rmr    /r/0/
-
-          hadoop dfs  -put   /aur/0/   /useca_pur/
-
+             hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  n  ;"
 
         """
 
@@ -926,7 +916,7 @@ if 'insert_pandas_into_hive' :
             fp.write(dirout, dirin, fixed_text=None, compression='SNAPPY', file_scheme='hive')
             return dirin.iloc[:10, :]
 
-        flist = glob_glob(dirin, 1000)  ### only 1 file is for Meta-Data
+        flist = glob.glob(dirin)  ### only 1 file is for Meta-Data
         fi    = flist[-1]
         df    = pd.read_parquet( fi  )
         df    = df.iloc[:100, :]   ### Prevent RAM overflow
@@ -1030,7 +1020,13 @@ if 'insert_pandas_into_hive' :
 
 
 
-############################################################################################################### 
+###############################################################################################################
+def to_file(txt, dirout, mode='a'):
+    with open(dirout, mode=mode) as fp:
+        fp.write(txt)
+
+
+
 def os_makedirs(path:str):
   """function os_makedirs in HDFS or local
   """

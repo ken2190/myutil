@@ -45,12 +45,12 @@ Doc::
     spark_config_print(sparksession)
     spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
     spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
-    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
+    spark_df_sampleover(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
     spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
-    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
+    spark_df_sampleunder(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
     spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
@@ -87,7 +87,7 @@ from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
-from utilmy.utilmy import log, log2, os_module_name
+from utilmy import log, log2, os_module_name
 MNAME = os_module_name(__file__)
 
 def help():
@@ -174,11 +174,17 @@ def test1():
 def test2():
     sparksession, df =  test_get_dataframe_fake()
 
-    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True) 
+    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True)
     log(dfres)
 
     dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
     log(dfres.show())
+
+    dfsamp = spark_df_sampleunder(df=df,coltarget = "city", major_label="LA",minor_label = "LI",target_ratio=0.1)
+    log(dfsamp.show())
+
+    dftest = spark_df_isempty(df)
+    log(dftest)
 
 
 
@@ -199,7 +205,7 @@ def test2():
 
 def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
-    
+
     if mode == 'city':
         data = [{"id": 'A', "city": "LA","residency_date":"2015-01-01"},{"id": 'B', "city": "LA","residency_date":"2018-01-01"},
             {"id": 'C', "city": "LA","residency_date":"2019-01-01"},{"id": 'A', "city": "LI","residency_date":"2022-01-01"},{"id":'E',"city":None,"residency_date":"2017-01-01"},{"id":'C',"city":"NY","residency_date":"2017-01-01"}]
@@ -236,7 +242,7 @@ def hdfs_dir_stats(dirin, recursive=True):
 
 
 def hive_get_tablelist(dbname):
-    """Get Hive tables from database_name    
+    """Get Hive tables from database_name
     """
     cmd = f"hive -e 'show tables from {dbname}'"
     stdout,stderr = os_system(cmd)
@@ -246,7 +252,7 @@ def hive_get_tablelist(dbname):
         if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
-    
+
 
 
 def hive_get_dblist():
@@ -307,7 +313,7 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw)->sp_dataframe:
     """ Universal HDFS file reader
     Doc::
     format: parquet, csv, json, orc ...
@@ -426,9 +432,9 @@ def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
 
-            sparksession = spark_get_session_local()  
+            sparksession = spark_get_session_local()
 
-            sparksession = spark_get_session_local('mypath/conffig.yaml)  
+            sparksession = spark_get_session_local('mypath/conffig.yaml)
 
     """
     from utilmy.utilmy import direpo
@@ -585,7 +591,7 @@ def spark_df_isempty(df):
     try :
         return len(df.sample(1)) == 0
 
-    except: return True    
+    except: return True
 
 
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
@@ -647,10 +653,10 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
 
 
 
-def spark_df_over_sample(df:sp_dataframe, coltarget:str='animal', 
-                         major_label='cat', minor_label='dog', target_ratio=0.2, ):
+def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal',
+                         major_label='dog', minor_label='frog', target_ratio=0.2, )->sp_dataframe:
 
-    n = df.count()                         
+    n = df.count()
     log(f"Count of df before over sampling is  {n}")
     major_df = df.filter(F.col(coltarget) == major_label)
 
@@ -660,14 +666,15 @@ def spark_df_over_sample(df:sp_dataframe, coltarget:str='animal',
     a = range(nratio)
     # duplicate the minority rows
     minor_df_oversample = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
-    
+
     # combine both oversampled minority rows and previous majority rows
     combined_df = major_df.unionAll(minor_df_oversample)
     log("Count of combined df after over sampling is  "+ str(combined_df.count()))
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio,):
+def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal',
+                         major_label='dog', minor_label='frog', target_ratio=0.2)->sp_dataframe:
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(F.col(coltarget) == major_label)
     minor_df = df.filter(F.col(coltarget) == minor_label)
@@ -677,7 +684,7 @@ def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, 
     return combined_df
 
 
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)->sp_dataframe:
     """.
     Doc::
 
@@ -705,7 +712,7 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
     return df_train, df_test
 
 
-def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1):
+def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1)->sp_dataframe:
     """ get most recent (ie date desc, rank=1) record for each userid
     """
     partition_by = colid
@@ -715,14 +722,13 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
     """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
     n = df.count()
     dfres = []
     for coli in cols :
@@ -738,14 +744,13 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
     return dfres
 
 
-def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True):
+def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
     """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols_cat, str): cols_cat= [ cols_cat]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
     n = df.count()
     dfres = []
     for coli in cols_cat :
@@ -754,7 +759,7 @@ def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fracti
            most_frequent             = grouped_df.orderBy(F.col('count').desc()).take(1)
            most_frequent_with_count  = {most_frequent[0][0]:most_frequent[0][1]}
            least_frequent            = grouped_df.orderBy(F.col('count').asc()).take(1)
-           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]} 
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]}
            dfres.append([ coli, n,   most_frequent_with_count,least_frequent_with_count ])
         except :
             log( 'error: ' + coli)
@@ -767,14 +772,13 @@ def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fracti
 
 
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
-                       metric_list=['null', 'n5', 'n95' ], doprint=True):
+                       metric_list=['null', 'n5', 'n95' ], doprint=True)->pd.DataFrame:
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
 
     n = df.count()
     dfres = []
@@ -794,11 +798,14 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     return dfres
 
 
-def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True):
+def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
     """
 
 
     """
+
+    if fractions < 0.0 or fractions >=1.0 : return df
+
     if col_stratify:
         df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
         return df1
@@ -961,7 +968,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0,
              timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
@@ -1018,10 +1025,6 @@ def date_get_month_days(dt):
 
 def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
-
-
-def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 
 
