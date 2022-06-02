@@ -992,15 +992,15 @@ class MergeModel_create(BaseModel):
 
 
             def freeze_all(self,):
-                for i in range(len(self.models_nets)):
-                    if (self.models_nets[i] is not None):
-                        for param in self.models_nets[i].parameters():
+                for i in range(len(self.model_nets)):
+                    if (self.model_nets[i] is not None):
+                        for param in self.model_nets[i].net.parameters():
                                 param.requires_grad = False
 
             def unfreeze_all(self,):
-                for i in range(len(self.models_nets)):
+                for i in range(len(self.model_nets)):
                     if (self.models_nets[i] is not None):
-                        for param in self.models_nets[i].parameters():
+                        for param in self.model_nets[i].net.parameters():
                                 param.requires_grad = True
 
 
