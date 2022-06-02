@@ -1110,7 +1110,7 @@ class MergeModel_create(BaseModel):
         return (train_X, train_y, valid_X,  valid_y, test_X,  test_y, )
 
 
-    def training(self,load_DataFrame=None,prepro_dataset=None):
+    def training(self,load_DataFrame=None,prepro_dataset=None, dataloader_custom=None):
         """ Train Loop
         Docs:
 
@@ -1122,15 +1122,19 @@ class MergeModel_create(BaseModel):
         EPOCHS     = self.arg.merge_model.train_config.EPOCHS
         path_save  = self.arg.merge_model.train_config.SAVE_FILENAME
 
-        df = load_DataFrame() if load_DataFrame else self.load_DataFrame()
-        if prepro_dataset:
-            train_X, train_y, valid_X,  valid_y, test_X,  test_y  = prepro_dataset(self,df)
-        else:
-            train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)
 
-        train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, valid_X,  valid_y,
-                                                                    test_X,  test_y,
-                                                                    device=self.device, batch_size=batch_size)
+        if dataloader_custom is None :
+            df = load_DataFrame() if load_DataFrame else self.load_DataFrame()
+            if prepro_dataset:
+                train_X, train_y, valid_X,  valid_y, test_X,  test_y  = prepro_dataset(self,df)
+            else:
+                train_X, train_y, valid_X,  valid_y, test_X,  test_y = self.prepro_dataset(df)
+
+            train_loader, valid_loader, test_loader =  dataloader_create(train_X, train_y, valid_X,  valid_y,
+                                                                        test_X,  test_y,
+                                                                        device=self.device, batch_size=batch_size)
+        else :
+            train_loader, valid_loader, test_loader = dataloader_custom()
 
         for epoch in range(1,EPOCHS+1):
             self.train()
