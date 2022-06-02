@@ -295,6 +295,8 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
       """  Read file in parallel from HDFS using pyarrow
       Docs:
 
+            Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
+
             dirin = "hdfs:///mypat/"
             df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, ,
                     drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)

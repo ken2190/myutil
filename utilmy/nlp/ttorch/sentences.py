@@ -49,7 +49,7 @@ try :
     from sentence_transformers.readers import InputExample
     from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
 except Exception as e:
-    print(e)
+    print(e) ; 1/0
 
 
 #### read data on disk
@@ -431,7 +431,7 @@ def model_evaluate(model ="modelname OR path OR model object", dirdata='./*.csv'
     log( pd_read_file(dirout +"/*" ))
 
 
-def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None)->SentenceTransformer: 
+def model_setup_compute(model, use_gpu=0, ngpu=1, ncpu=1, cc:Dict_none=None):
     """#
     Doc::
     
