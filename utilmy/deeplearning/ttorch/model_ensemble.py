@@ -165,15 +165,16 @@ def test1():
 
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
-    ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'modelA1'
-    ARG.modelA.nn_model      = None
-    ARG.modelA.architect     = [ 5, 100, 16 ]
-    ARG.modelA.dataset       = Box()
-    ARG.modelA.nn_model      = None
-    ARG.modelA.layer_emb_id  = ""
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA                            = Box()   #MODEL_TASK
+    ARG.modelA.name                       = 'modelA1'
+    ARG.modelA.nn_model                   = None
+    ARG.modelA.architect                  = [ 5, 100, 16 ]
+    ARG.modelA.architect.input_dim        = [train_config.BATCH_SIZE,5]
+    ARG.modelA.dataset                    = Box()
+    ARG.modelA.nn_model                   = None
+    ARG.modelA.layer_emb_id               = ""
+    ARG.modelA.dataset.dirin              = "/"
+    ARG.modelA.dataset.coly               = 'ytarget'
     modelA = modelA_create(ARG.modelA)
 
 
@@ -182,6 +183,7 @@ def test1():
     ARG.modelB.name          = 'modelB1'
     ARG.modelB.nn_model      = None
     ARG.modelB.architect     = [5,100,16]
+    ARG.modelB.architect.input_dim = [train_config.BATCH_SIZE,5]
     ARG.modelB.dataset       = Box()
     ARG.modelB.nn_model      = None
     ARG.modelB.layer_emb_id  = ""
@@ -261,35 +263,37 @@ def test2a():
 
     #### SEPARATE the models completetly, and create duplicate
     ### modelA  ########################################################
-    ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'modelA1'
-    ARG.modelA.architect     = [ 5, 100, 16 ]
-    ARG.modelA.dataset       = Box()
-    ARG.modelA.nn_model      = None
-    ARG.modelA.layer_emb_id          = ""
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
-    ARG.modelA.seed          = 42
+    ARG.modelA                     = Box()   #MODEL_TASK
+    ARG.modelA.name                = 'modelA1'
+    ARG.modelA.architect           = [ 5, 100, 16 ]
+    ARG.modelA.architect.input_dim = [train_config.BATCH_SIZE,5]
+    ARG.modelA.dataset             = Box()
+    ARG.modelA.nn_model            = None
+    ARG.modelA.layer_emb_id        = ""
+    ARG.modelA.dataset.dirin       = "/"
+    ARG.modelA.dataset.coly        = 'ytarget'
+    ARG.modelA.seed                = 42
     modelA = modelA_create(ARG.modelA)
 
 
     ### modelB  ########################################################
-    ARG.modelB               = Box()
-    ARG.modelB.name         = 'modelB1'
-    ARG.modelB.architect     = [5,100,16]
-    ARG.modelB.dataset       = Box()
-    ARG.modelB.nn_model      = None
-    ARG.modelB.layer_emb_id          = ""
-    ARG.modelB.dataset.dirin = "/"
-    ARG.modelB.dataset.coly  = 'ytarget'
-    ARG.modelB.seed          = 42
+    ARG.modelB                     = Box()
+    ARG.modelB.name                = 'modelB1'
+    ARG.modelB.architect           = [5,100,16]
+    ARG.modelB.architect.input_dim = [train_config.BATCH_SIZE,5]
+    ARG.modelB.dataset             = Box()
+    ARG.modelB.nn_model            = None
+    ARG.modelB.layer_emb_id        = ""
+    ARG.modelB.dataset.dirin       = "/"
+    ARG.modelB.dataset.coly        = 'ytarget'
+    ARG.modelB.seed                = 42
     modelB = modelB_create(ARG.modelB )
 
     ### merge_model  ###################################################
-    ARG.merge_model           = Box()
-    ARG.merge_model.name      = 'modelmerge1'
-    ARG.merge_model.seed      = 42
-    ARG.merge_model.architect = {}
+    ARG.merge_model                            = Box()
+    ARG.merge_model.name                       = 'modelmerge1'
+    ARG.merge_model.seed                       = 42
+    ARG.merge_model.architect                  = {}
     ARG.merge_model.architect.input_dim        =  200
     ARG.merge_model.architect.merge_type       = 'cat'
     ARG.merge_model.architect.merge_layers_dim = [100, 32]
@@ -369,14 +373,15 @@ def test2b():
     model_ft = models.resnet18(pretrained=True)
     embA_dim = model_ft.fc.in_features  ###
 
-    ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'resnet18'
-    ARG.modelA.nn_model      = model_ft
-    ARG.modelA.layer_emb_id  = 'fc'
-    ARG.modelA.architect     = [ embA_dim]  ### head s
-    ARG.modelA.dataset       = Box()
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA                     = Box()   #MODEL_TASK
+    ARG.modelA.name                = 'resnet18'
+    ARG.modelA.nn_model            = model_ft
+    ARG.modelA.layer_emb_id        = 'fc'
+    ARG.modelA.architect           = [ embA_dim]  ### head s
+    ARG.modelA.architect.input_dim = [train_config.BATCH_SIZE,3,224,224]
+    ARG.modelA.dataset             = Box()
+    ARG.modelA.dataset.dirin       = "/"
+    ARG.modelA.dataset.coly        = 'ytarget'
     modelA = modelA_create(ARG.modelA)
 
     #model_ft.fc = modelA
@@ -384,14 +389,15 @@ def test2b():
     model_ft = models.resnet50(pretrained=True)
     embB_dim = model_ft.fc.in_features
 
-    ARG.modelB               = Box()
-    ARG.modelB.name          = 'resnet50'
-    ARG.modelB.nn_model      = model_ft
-    ARG.modelB.layer_emb_id  = 'fc'
-    ARG.modelB.architect     = [embB_dim ]   ### head size
-    ARG.modelB.dataset       = Box()
-    ARG.modelB.dataset.dirin = "/"
-    ARG.modelB.dataset.coly  = 'ytarget'
+    ARG.modelB                     = Box()
+    ARG.modelB.name                = 'resnet50'
+    ARG.modelB.nn_model            = model_ft
+    ARG.modelB.layer_emb_id        = 'fc'
+    ARG.modelB.architect           = [embB_dim ]   ### head size
+    ARG.modelB.architect.input_dim = [train_config.BATCH_SIZE,3,224,224]
+    ARG.modelB.dataset             = Box()
+    ARG.modelB.dataset.dirin       = "/"
+    ARG.modelB.dataset.coly        = 'ytarget'
     modelB = modelB_create(ARG.modelB )
 
 
@@ -484,14 +490,15 @@ def test2c():
     model_ft = models.resnet18(pretrained=True)
     embA_dim = int(model_ft.fc.in_features)  ###
 
-    ARG.modelA               = Box()   #MODEL_TASK
-    ARG.modelA.name          = 'resnet18'
-    ARG.modelA.nn_model      = model_ft
+    ARG.modelA                       = Box()   #MODEL_TASK
+    ARG.modelA.name                  = 'resnet18'
+    ARG.modelA.nn_model              = model_ft
     ARG.modelA.layer_emb_id          = 'fc'
-    ARG.modelA.architect     = [ embA_dim]  ### head s
-    ARG.modelA.dataset       = Box()
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
+    ARG.modelA.architect             = [ embA_dim]  ### head s
+    ARG.modelA.architect.input_dim   = [train_config.BATCH_SIZE,3,224,224]
+    ARG.modelA.dataset               = Box()
+    ARG.modelA.dataset.dirin         = "/"
+    ARG.modelA.dataset.coly          = 'ytarget'
     modelA = modelA_create(ARG.modelA)
 
 
@@ -505,6 +512,7 @@ def test2c():
     ARG.modelB.nn_model      = model_ft
     ARG.modelB.layer_emb_id          = 'fc'
     ARG.modelB.architect     = [embB_dim ]   ### head size
+    ARG.modelB.architect.input_dim = [train_config.BATCH_SIZE,3,224,224]
     ARG.modelB.dataset       = Box()
     ARG.modelB.dataset.dirin = "/"
     ARG.modelB.dataset.coly  = 'ytarget'
@@ -520,6 +528,7 @@ def test2c():
     ARG.modelC.nn_model      = model_ft
     ARG.modelC.layer_emb_id          = 'fc'
     ARG.modelC.architect     = [ embC_dim ]   ### head size
+    ARG.modelC.architect.input_dim = [train_config.BATCH_SIZE,3,224,224]
     ARG.modelC.dataset       = Box()
     ARG.modelC.dataset.dirin = "/"
     ARG.modelC.dataset.coly  = 'ytarget'
@@ -637,15 +646,16 @@ def test2d():
     model_ft = models.resnet18(pretrained=True)
     embA_dim = model_ft.fc.in_features  ###
 
-    ARG.modelA               = {}     #MODEL_TASK
-    ARG.modelA.name          = 'resnet18'
-    ARG.modelA.nn_model      = model_ft
-    ARG.modelA.layer_emb_id  = 'fc'
-    ARG.modelA.architect     = [ embA_dim]  ### head s
-    ARG.modelA.dataset       = {}
-    ARG.modelA.dataset.dirin = "/"
-    ARG.modelA.dataset.coly  = 'ytarget'
-    modelA = me.model_create(ARG.modelA)
+    ARG.modelA                     = {}     #MODEL_TASK
+    ARG.modelA.name                = 'resnet18'
+    ARG.modelA.nn_model            = model_ft
+    ARG.modelA.layer_emb_id        = 'fc'
+    ARG.modelA.architect           = [ embA_dim]  ### head s
+    ARG.modelA.architect.input_dim = [train_config.BATCH_SIZE,3,28,28]
+    ARG.modelA.dataset             = {}
+    ARG.modelA.dataset.dirin       = "/"
+    ARG.modelA.dataset.coly        = 'ytarget'
+    modelA = model_create(ARG.modelA)
 
 
     ### modelB  ##########################################################
@@ -653,31 +663,32 @@ def test2d():
     model_ft = models.resnet50(pretrained=True)
     embB_dim = int(model_ft.fc.in_features)
 
-    ARG.modelB               = {}
-    ARG.modelB.name          = 'resnet50'
-    ARG.modelB.nn_model      = model_ft
-    ARG.modelB.layer_emb_id  = 'fc'
-    ARG.modelB.architect     = [embB_dim ]   ### head size
-    ARG.modelB.dataset       = {}
-    ARG.modelB.dataset.dirin = "/"
-    ARG.modelB.dataset.coly  = 'ytarget'
-    modelB = me.model_create(ARG.modelB )
+    ARG.modelB                     = {}
+    ARG.modelB.name                = 'resnet50'
+    ARG.modelB.nn_model            = model_ft
+    ARG.modelB.layer_emb_id        = 'fc'
+    ARG.modelB.architect           = [embB_dim ]   ### head size
+    ARG.modelB.architect.input_dim = [train_config.BATCH_SIZE,3,28,28]
+    ARG.modelB.dataset             = {}
+    ARG.modelB.dataset.dirin       = "/"
+    ARG.modelB.dataset.coly        = 'ytarget'
+    modelB = model_create(ARG.modelB )
 
 
     # ### modelC  ########################################################
     from torchvision import  models
-    model_ft                 = models.efficientnet_b0(pretrained=True)
-    embC_dim                 = model_ft.classifier[1].in_features
-    ARG.modelC               = {}
-    ARG.modelC.name          = 'efficientnet_b0'
-    ARG.modelC.nn_model      = model_ft
-    ARG.modelC.layer_emb_id  = 'fc'
-    ARG.modelC.architect     = [ embC_dim ]   ### head size
-    ARG.modelC.dataset       = {}
-    ARG.modelC.dataset.dirin = "/"
-    ARG.modelC.dataset.coly  = 'ytarget'
-    modelC = me.model_create(ARG.modelC )
-
+    model_ft                       = models.efficientnet_b0(pretrained=True)
+    embC_dim                       = model_ft.classifier[1].in_features
+    ARG.modelC                     = {}
+    ARG.modelC.name                = 'efficientnet_b0'
+    ARG.modelC.nn_model            = model_ft
+    ARG.modelC.layer_emb_id        = 'fc'
+    ARG.modelC.architect           = [ embC_dim ]   ### head size
+    ARG.modelC.architect.input_dim = [train_config.BATCH_SIZE,3,28,28]
+    ARG.modelC.dataset             = {}
+    ARG.modelC.dataset.dirin       = "/"
+    ARG.modelC.dataset.coly        = 'ytarget'
+    modelC = model_create(ARG.modelC )
 
     ### merge_model  ###################################################
     ### EXPLICIT DEPENDENCY  : because it's merge
@@ -698,7 +709,7 @@ def test2d():
     ARG.merge_model.dataset.dirin = "/"
     ARG.merge_model.dataset.coly = 'ytarget'
     ARG.merge_model.train_config  = train_config
-    model = me.MergeModel_create(ARG, model_create_list=  [modelA, modelB, modelC] )
+    model = MergeModel_create(ARG, model_create_list=  [modelA, modelB, modelC] )
 
 
     #### Run Model   ###################################################
@@ -890,9 +901,36 @@ class BaseModel(object):
             ckp.update(meta_data)
         else:
             ckp.update({'meta_data':meta_data,})
-
-
       torch.save(ckp,path)
+
+    def grad_check(self,):
+        for i in range(len(self.net.models_nets)):
+            net_model = self.net.models_nets[i]
+            kk = 0
+            for param1, param2 in zip(self.models_list[i].net.parameters(),net_model.parameters()):
+                if kk > 5 : break
+                kk = kk + 1 
+                # torch.testing.assert_close(param1.data, param2.data)
+                if(param2.requires_grad==True):
+                   raise Exception("Gradients are updated in models_nets {}".format(i) )
+
+
+    def validate_dim(self,train_loader,val_loader):
+        train = iter(train_loader)
+        train_inp, _ = next(train)
+
+        #Validating sizes of train data loader
+        for i in range(len(self.models_list)):
+            expeted_size = self.models_list[i].arg.architect.input_dim
+            for dim in range(train_inp.dim()):
+                assert expeted_size[dim] == train_inp.size()[dim],"invalid train data for model{}".format(i)
+
+         #Validating sizes of val_loader
+        val = iter(val_loader)
+        val_input, _ = next(val)
+        assert val_input.size()[1:] == train_inp.size()[1:],"invalid validating data"
+
+        
 
     def predict(self,x,**kwargs):
         # raise NotImplementedError
@@ -949,13 +987,13 @@ class MergeModel_create(BaseModel):
                 # assert head_layers_dim[0] == merge_layers_dim[-1]
 
                 #### Create instance of each model   ############################
-                self.model_nets = [None] * len(models_list)
+                self.models_nets = [None] * len(models_list)
 
                 for i in range(len(models_list)):
                     if(models_list[i] is not None):
-                        #self.model_nets.append(None)
-                        self.model_nets[i] = copy.deepcopy(models_list[i].net)
-                        self.model_nets[i].load_state_dict(models_list[i].net.state_dict())
+                        #self.models_nets.append(None)
+                        self.models_nets[i] = copy.deepcopy(models_list[i].net)
+                        self.models_nets[i].load_state_dict(models_list[i].net.state_dict())
 
                 ##### Merge    #################################################
                 if merge_custom is None :   ### Default merge
@@ -990,19 +1028,17 @@ class MergeModel_create(BaseModel):
                 else:
                     self.head_task = head_custom
 
-
             def freeze_all(self,):
-                for i in range(len(self.model_nets)):
-                    if (self.model_nets[i] is not None):
-                        for param in self.model_nets[i].net.parameters():
+                for i in range(len(self.models_nets)):
+                    if (self.models_nets[i] is not None):
+                        for param in self.models_nets[i].parameters():
                                 param.requires_grad = False
 
             def unfreeze_all(self,):
-                for i in range(len(self.model_nets)):
+                for i in range(len(self.models_nets)):
                     if (self.models_nets[i] is not None):
-                        for param in self.model_nets[i].net.parameters():
+                        for param in self.models_nets[i].parameters():
                                 param.requires_grad = True
-
 
             def forward(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
@@ -1017,7 +1053,7 @@ class MergeModel_create(BaseModel):
 
                 ## with torch.no_grad():
                 embV = []
-                for model in self.model_nets:
+                for model in self.models_nets:
                     if model is not None:
                         emb = model.get_embedding(x)
                         emb = torch_norm_l2(emb)
@@ -1038,10 +1074,6 @@ class MergeModel_create(BaseModel):
             def get_embedding(self, x,**kw):
                 z1 = self.forward_merge(x, **kw)
                 return z1
-
-
-
-
 
         return Modelmerge(models_list,
                           input_dim        = self.input_dim,  ### embA + embB + embC
@@ -1136,13 +1168,14 @@ class MergeModel_create(BaseModel):
         else :
             train_loader, valid_loader, test_loader = dataloader_custom()
 
+
+        self.validate_dim(train_loader,valid_loader)
         for epoch in range(1,EPOCHS+1):
             self.train()
             loss_train = 0
             with torch.autograd.set_detect_anomaly(True):
                 for inputs,targets in train_loader:
                     self.optimizer.zero_grad()
-
                     predict = self.predict(inputs)
                     predict = torch.reshape(predict,(predict.shape[0],))
                     loss    = self.loss_calc(predict, targets)
@@ -1152,6 +1185,7 @@ class MergeModel_create(BaseModel):
                     loss_train += loss * inputs.size(0)
                 loss_train /= len(train_loader.dataset) # mean on dataset
 
+            self.grad_check()
             ##### Evaluation #######################################
             loss_val = 0
             self.eval()
@@ -1184,7 +1218,7 @@ class model_create(BaseModel):
 
         ### Default version
         class modelA(torch.nn.Module):
-            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0  ):
+            def __init__(self,layers_dim=[20,100,16], nn_model_base=None, layer_id=0):
                 super(modelA, self).__init__()
                 self.head_task = []
                 self.layer_id  = layer_id  ##flag meaning ????  layer
@@ -1209,10 +1243,8 @@ class model_create(BaseModel):
                 self.head_task.append(nn.Linear(input_dim, layers_dim[-1]))
                 self.head_task = nn.Sequential(*self.head_task)
 
-
             def forward(self, x,**kwargs):
                 return self.head_task(x)
-
 
             def get_embedding(self, x,**kwargs):
                 layer_l2= model_getlayer(self.head_task, pos_layer=-2)
@@ -1226,7 +1258,6 @@ class model_create(BaseModel):
         super(model_create,self).create_loss()
         if not loss_fun : loss_fun
         return torch.nn.BCELoss()
-
 
 class modelA_create(BaseModel):
     """ modelA
@@ -1468,4 +1499,5 @@ def torch_norm_l2(X):
 ###############################################################################################################
 if __name__ == "__main__":
     import fire
-    fire.Fire()
+    test_all()
+
