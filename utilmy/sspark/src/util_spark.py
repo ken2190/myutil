@@ -190,6 +190,9 @@ def test2():
                    save=True, verbose=True, returnval=False)
     log(df2)
 
+    df2 = spark_df_sampleover(df=df, coltarget="city", major_label="LA", minor_label='LI', target_ratio=0.1 )
+    log(df2.show())
+
 
 
 
