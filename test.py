@@ -63,7 +63,7 @@ def test_import():
     import utilmy.deeplearning.ttorch.model_ensemble
     import utilmy.utilmy
     import utilmy.ppandas
-    import utilmy.nlp.ttorch.sentences
+    # import utilmy.nlp.ttorch.sentences
     import utilmy.distributed
     import utilmy.ppandas
     log('All imported OK')
