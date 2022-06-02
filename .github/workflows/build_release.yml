@@ -70,6 +70,7 @@ jobs:
       run:  |
         pip install -e .
         python -c "import utilmy"
+        pip list
 
 
 
