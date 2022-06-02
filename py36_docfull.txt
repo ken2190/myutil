@@ -137,7 +137,8 @@ torch==1.10.0+cpu
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
 torchvision>=0.11.0+cpu
 sentence-transformers
-
+protobuf
+transformers
 
 ### visualize emb
 mpld3
