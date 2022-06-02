@@ -45,7 +45,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36.txt') }}
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**py36_docfull.txt') }}
           
 
     #- name: Install numpy
@@ -63,14 +63,14 @@ jobs:
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run:  |
         ls .
-        pip install -r  py36.txt
-        #pip install -r install/requirements_fake.txt
+        pip install -r  py36_docfull.txt
 
 
     - name: Install utilmy
       run:  |
         pip install -e .
         python -c "import utilmy"
+        pip list
 
 
 
@@ -96,6 +96,12 @@ jobs:
 
 
     ################################################################
+    - name: test_import
+      #continue-on-error: true
+      run: |
+          python test.py test_import
+
+
     - name: test_cli
       continue-on-error: true
       run: |

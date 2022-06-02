@@ -124,10 +124,9 @@ def log(*s):
 
 
 
-##################################################################################
+################################################################################################################
 def hadoop_print_config(dirout=None):
   """ Print configuration variable for Hadoop, Spark
-
 
   """
   names =[
@@ -140,11 +139,6 @@ def hadoop_print_config(dirout=None):
   dd= []
   for ni in names:
     dd.append( [ni, os.environ.get(ni, '') ] )
-
-  ### Print configuration files on disk
-  ### SPARK_HOME/conf/spark_env.sh
-  
-   
 
 
 
@@ -200,7 +194,207 @@ def hdfs_file_exists(filename):
 
 ############################################################################################################### 
 ############################################################################################################### 
-def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/', 
+def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True, n_pool=1,
+                      drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None,  **kw)->pd.DataFrame:
+  """  Read file in parallel from HDFS : very Fast
+  Doc::
+
+    Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
+
+    dirin = "hdfs:///mypat/myparquet/"
+    df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
+            drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
+
+  """
+  import glob, gc,  pandas as pd, os
+  import pyarrow as pa, gc,  pyarrow.parquet as pq
+  def log(*s, **kw):
+      print(*s, flush=True, **kw)
+
+  log( "connect to HDFS" )
+  try: hdfs = pa.hdfs.connect()
+  except Exception as e:
+     log(e, "\n,Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`" ) ; 1/0
+
+
+  def pd_reader_obj(fi, cols=None, **kw):
+      try :
+        table = pq.read_table(fi, columns=cols)
+        df1   = table.to_pandas()
+        # timestamp_as_object=True,
+        # date_as_object= True ,
+        # safe = False,
+        # split_blocks =True, self_destruct=True)
+        return df1
+      except Exception as e:
+        log( e)
+        return None
+
+  #### File  ################################
+  dirlist   = dirlist.split(";") if isinstance(dirlist, str)  else dirlist
+  file_list = []
+  for fi in dirlist :
+    log(fi)
+    file_list.append( hdfs.ls(fi))
+
+  file_list = sorted(list(set(file_list)))
+  n_file    = len(file_list)
+  if verbose: log(file_list)
+
+  #### Pool count  ##########################
+  from multiprocessing.pool import ThreadPool
+  if n_pool < 1 :  n_pool = 1
+  if n_file <= 0:  m_job  = 0
+  elif n_file <= 2:
+    m_job  = n_file
+    n_pool = 1
+  else  :
+    m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
+  if verbose : log(n_file,  n_file // n_pool )
+
+  pool   = ThreadPool(processes=n_pool)
+  dfall  = pd.DataFrame()
+  for j in range(0, m_job ) :
+      if verbose : print("Pool", j, end=",")
+      job_list = []
+      for i in range(n_pool):
+         if n_pool*j + i >= n_file  : break
+         filei         = file_list[n_pool*j + i]
+
+         ### TODO : use with kewyword arguments
+         job_list.append( pool.apply_async(pd_reader_obj, (filei, )))
+         log(j, filei)
+
+      for i in range(n_pool):
+        if i >= len(job_list): break
+        dfi   = job_list[ i].get()
+
+        if dfi is None : continue
+
+        if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+        if cols is not None :       dfi = dfi[cols]
+        if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+        if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+        gc.collect()
+
+        dfall = pd.concat( (dfall, dfi), ignore_index=ignore_index, sort= concat_sort)
+        #log("Len", n_pool*j + i, len(dfall))
+        del dfi; gc.collect()
+
+  pool.terminate() ; pool.join()  ; pool = None
+  if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
+  return dfall
+
+
+
+
+def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1, concat_sort=False, n_pool=1,
+                      drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None, 
+                      compression='gzip', encoding='utf-8', sep=',', header=None, on_bad_lines='skip', 
+                     **kw)->pd.DataFrame:
+      """  Read file in parallel from HDFS using pyarrow
+      Docs:
+
+            Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
+
+            dirin = "hdfs:///mypat/"
+            df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, ,
+                    drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
+      
+      """
+      import glob, gc,  pandas as pd, os, copy
+      import pyarrow as pa, gc,  pyarrow.csv as pq
+      def log(*s, **kw):
+          print(*s, flush=True, **kw)
+
+      log( "pd_read_file_hdfs" )
+      hdfs = pa.hdfs.connect()
+
+      def pd_reader_obj(fi, cols=None, **kw):
+          try :
+            with hdfs.open(fi) as fi2:
+              dfi = pd.read_csv(fi2, encoding= encoding,compression= compression, names=cols, sep=sep,
+                                on_bad_lines=on_bad_lines, header=header, dtype=dtype)
+
+
+            if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+            if cols is not None :       dfi = dfi[cols]
+            if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+            if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+
+            return dfi
+          except Exception as e:
+            log( e)
+            return None
+
+      #### File  ################################
+      dirlist   = dirlist.split(";") if isinstance(dirlist, str)  else dirlist
+
+      flist = dirlist
+      for i in range(0, dirlevel):
+        flist2 = []
+        for fi in flist[:] :
+          log(fi)
+          flist2 = flist2 + hdfs.ls(fi)
+        flist = copy.deepcopy(flist2)
+        if len(flist) > nfile  : break
+
+      flist = [ fi for fi in flist if "." in fi.split("/")[-1] ]  ### only .csv.gz files
+      flist = sorted(list(set(flist)))
+      flist = flist[:nfile] if nfile>0 else flist
+      n_file    = len(flist)
+      log('Nfile', n_file)
+      if verbose: log(flist)
+      # return flist
+
+      #### Pool count  ##########################
+      from multiprocessing.pool import ThreadPool
+      if n_pool < 1 :  n_pool = 1
+      if n_file <= 0:  return pd.DataFrame()
+      elif n_file <= 2:
+        m_job  = n_file
+        n_pool = 1
+      else  :
+        m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
+      if verbose : log(n_file,  n_file // n_pool )
+
+      pool   = ThreadPool(processes=n_pool)
+      dfall  = pd.DataFrame()
+      for j in range(0, m_job ) :
+          if verbose : print("Pool", j, end=",")
+          job_list = []
+          for i in range(n_pool):
+             if n_pool*j + i >= n_file  : break
+             filei         = flist[n_pool*j + i]
+
+             ### TODO : use with kewyword arguments
+             job_list.append( pool.apply_async(pd_reader_obj, (filei, )))
+             if (j+100) % 100 == 0 : log(j, filei)
+
+          for i in range(n_pool):
+            if i >= len(job_list): break
+            dfi   = job_list[ i].get()
+
+            if dfi is None : continue
+
+            if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+            if cols is not None :       dfi = dfi[cols]
+            if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+            if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+            gc.collect()
+
+            dfall = pd.concat( (dfall, dfi), ignore_index=ignore_index, sort= concat_sort)
+            #log("Len", n_pool*j + i, len(dfall))
+            del dfi; gc.collect()
+
+      pool.terminate() ; pool.join()  ; pool = None
+      if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
+      return dfall
+
+
+
+
+def pd_read_parquet_simple_hdfs(path=  'hdfs://user/test/myfile.parquet/', 
                  cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
     """ Single Thread parquet file reading in HDFS
     Doc::
@@ -241,7 +435,7 @@ def hdfs_pd_read_parquet(path=  'hdfs://user/test/myfile.parquet/',
     return dfall
 
 
-def hdfs_pd_write_parquet(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/', 
+def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/', 
                  cols=None,n_rows=1000, partition_cols=None, overwrite=True, verbose=1, ) :
     """Pandas to HDFS
     Doc::
@@ -269,8 +463,9 @@ def hdfs_pd_write_parquet(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/',
     print(flist)
 
 
-pd_write_file_hdfs   =  hdfs_pd_write_parquet
-pd_read_parquet_hdfs =  hdfs_pd_read_parquet
+hdfs_pd_write_parquet =  pd_write_parquet_hdfs   
+hdfs_pd_read_parquet  =  pd_read_parquet_hdfs 
+hdfs_pd_read_csv      =  pd_read_csv_hdfs 
 
 
 
@@ -339,6 +534,10 @@ def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
   return res_list
 
  
+
+
+
+
 
 
 ############################################################################################################### 
@@ -584,7 +783,7 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 
     """
-    import subprocess, os
+    import subprocess, os, pandas as pd
     from collections import defaultdict
     sid = str(hash( str(sql) ))
 
@@ -641,6 +840,7 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 def hdfs_list_dir(path,recursive=False):
     subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
 
+
 def hdfs_size_dir(path):
     return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
     
@@ -653,7 +853,7 @@ def hive_update_partitions_table( hr, dt, location, table_name):
             (table_name=table_name, dt=dt,  hr=hr, loc=location)
     hive_query(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
     hive_query(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
+    log('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
 
     
 
@@ -672,19 +872,15 @@ if 'insert_pandas_into_hive' :
              hive 1.2
 
              CREATE EXTERNAL TABLE n=st (
-              siid   ,
-            )
-            STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
+                siid   ,
+             )
+             STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
 
 
-          hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
+             hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
 
-          hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  nono3.map_siid_ranid_v15test  ;"
 
-          hadoop dfs  -rmr    /r/0/
-
-          hadoop dfs  -put   /aur/0/   /useca_pur/
-
+             hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  n  ;"
 
         """
 
@@ -728,7 +924,7 @@ if 'insert_pandas_into_hive' :
             fp.write(dirout, dirin, fixed_text=None, compression='SNAPPY', file_scheme='hive')
             return dirin.iloc[:10, :]
 
-        flist = glob_glob(dirin, 1000)  ### only 1 file is for Meta-Data
+        flist = glob.glob(dirin)  ### only 1 file is for Meta-Data
         fi    = flist[-1]
         df    = pd.read_parquet( fi  )
         df    = df.iloc[:100, :]   ### Prevent RAM overflow
@@ -832,7 +1028,13 @@ if 'insert_pandas_into_hive' :
 
 
 
-############################################################################################################### 
+###############################################################################################################
+def to_file(txt, dirout, mode='a'):
+    with open(dirout, mode=mode) as fp:
+        fp.write(txt)
+
+
+
 def os_makedirs(path:str):
   """function os_makedirs in HDFS or local
   """

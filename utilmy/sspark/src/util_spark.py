@@ -45,13 +45,13 @@ Doc::
     spark_config_print(sparksession)
     spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
     spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
-    spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, )
+    spark_df_sampleover(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
     spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
-    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio, )
-    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, numPartitions:int = None, saveMode:str =  "append", format:str =  "parquet")
+    spark_df_sampleunder(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
+    spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
     spark_metrics_roc_summary(labels_and_predictions_df)
@@ -80,12 +80,23 @@ import pyspark
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql import types as T
+
+
 from pyspark.sql.window import Window
 
 sp_dataframe= pyspark.sql.DataFrame
 ##################################################################################
-def log(*s):
-    print(*s, flush=True)
+from utilmy import log, log2, os_module_name
+MNAME = os_module_name(__file__)
+
+def help():
+    """function help  """
+    from utilmy import help_create
+    ss = help_create(MNAME)
+    log(ss)
+
+
 
 
 ##################################################################################
@@ -106,7 +117,7 @@ from utilmy.sspark.src.util_hadoop import (
 hdfs_pd_read_parquet,
 hdfs_pd_write_parquet,
 pd_read_parquet_hdfs,
-pd_write_file_hdfs,
+pd_write_parquet_hdfs,
 
 
 ### hive
@@ -121,6 +132,7 @@ pd_write_file_hdfs,
 def test_all():
     test1()
     test2()
+
 
 
 def test1():
@@ -156,10 +168,51 @@ def test1():
     spark_config_check()
 
 
+
+
+
 def test2():
+    sparksession, df =  test_get_dataframe_fake()
+
+    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True)
+    log(dfres)
+
+    dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
+    log(dfres.show())
+
+    dfsamp = spark_df_sampleunder(df=df,coltarget = "city", major_label="LA",minor_label = "LI",target_ratio=0.1)
+    log(dfsamp.show())
+
+    dftest = spark_df_isempty(df)
+    log(dftest)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def test_get_dataframe_fake(mode='city'):
     sparksession = spark_get_session_local()
-    df = pd.DataFrame(np.random.random((27,  5)), columns=[ 'c'+str(i) for i in range(0,5) ])
-    df = sparksession.createDataFrame(df)
+
+    if mode == 'city':
+        data = [{"id": 'A', "city": "LA","residency_date":"2015-01-01"},{"id": 'B', "city": "LA","residency_date":"2018-01-01"},
+            {"id": 'C', "city": "LA","residency_date":"2019-01-01"},{"id": 'A', "city": "LI","residency_date":"2022-01-01"},{"id":'E',"city":None,"residency_date":"2017-01-01"},{"id":'C',"city":"NY","residency_date":"2017-01-01"}]
+        df = sparksession.createDataFrame(data)
+
+
+    return sparksession, df
 
 
 
@@ -174,8 +227,6 @@ def run_cli_sspark():
 
 ################################################################################################
 ###### TODO : list of function to be completed later ###########################################
-
-
 def hdfs_dir_stats(dirin, recursive=True):
     """  nfile, total size in bytes, last modified
          format of files,
@@ -191,7 +242,7 @@ def hdfs_dir_stats(dirin, recursive=True):
 
 
 def hive_get_tablelist(dbname):
-    """Get Hive tables from database_name    
+    """Get Hive tables from database_name
     """
     cmd = f"hive -e 'show tables from {dbname}'"
     stdout,stderr = os_system(cmd)
@@ -201,7 +252,7 @@ def hive_get_tablelist(dbname):
         if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
-    
+
 
 
 def hive_get_dblist():
@@ -228,14 +279,12 @@ def hive_get_tablechema(tablename):
     for li in lines :
         if 'col_name' in li : continue
         tmp = []
-        for item in li.split(" "):
+        for item in li.split(" "): # assume li = "id   int   comment '' "
             if item:
                 tmp.append(item)
-        if len(item) < 3:
-            continue
         col_name = item[0]
         data_type = item[1]
-        comment = item[2]
+        comment = item[2] if len(item)>=3 else ""
         table_info[col_name] = {"data_type": data_type, "comment": comment}
     return table_info
 
@@ -264,7 +313,7 @@ def hive_db_dumpall():
 
 
 
-def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw):
+def spark_read(sparksession=None, dirin="hdfs://", format=None, **kw)->sp_dataframe:
     """ Universal HDFS file reader
     Doc::
     format: parquet, csv, json, orc ...
@@ -383,9 +432,9 @@ def spark_get_session_local(config:str="/default.yaml", keyfield='sparkconfig'):
     """  Start Local session for debugging
     Docs::
 
-            sparksession = spark_get_session_local()  
+            sparksession = spark_get_session_local()
 
-            sparksession = spark_get_session_local('mypath/conffig.yaml)  
+            sparksession = spark_get_session_local('mypath/conffig.yaml)
 
     """
     from utilmy.utilmy import direpo
@@ -538,6 +587,13 @@ def spark_add_jar(sparksession, hive_jar_cmd=None):
 #########################################################################################
 ###### Dataframe ########################################################################
 #from pyspark.sql.functions import col, explode, array, lit
+def spark_df_isempty(df):
+    try :
+        return len(df.sample(1)) == 0
+
+    except: return True
+
+
 def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "", nsample:int=10,
                    save=True, verbose=True, returnval=False):
     """ Check dataframe for debugging
@@ -577,52 +633,64 @@ def spark_df_check(df:sp_dataframe, tag="check", conf:dict=None, dirout:str= "",
 
 
 
-def spark_df_write(df:sp_dataframe, dirout:str= "", show:int=0, numPartitions:int=None, saveMode:str= "overwrite", format:str= "parquet"):
+def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:str= "overwrite", format:str= "parquet",
+                   show:int=0, check=0):
     """
     Doc::
-        saveMode: append, overwrite, ignore, error
+        mode: append, overwrite, ignore, error
         format: parquet, csv, json ...
     """
-    if numPartitions:
-        df.coalesce(numPartitions).write.mode(saveMode).save(dirout, format)
+    if npartitions:
+        df.coalesce(npartitions).write.mode(mode).save(dirout, format)
     else:
-        df.write.mode(saveMode).save(dirout, format)
+        df.write.mode(mode).save(dirout, format)
 
-    if show:
+    if show>0:
         df.show(3)
 
+    if check>0:
+       log('exist', hdfs_dir_exists(dirout) )
 
 
-def spark_df_over_sample(df:sp_dataframe, coltarget:str, major_label, minor_label, ratio, ):
-    print("Count of df before over sampling is  "+ str(df.count()))
+
+def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal',
+                         major_label='dog', minor_label='frog', target_ratio=0.2, )->sp_dataframe:
+
+    n = df.count()
+    log(f"Count of df before over sampling is  {n}")
     major_df = df.filter(F.col(coltarget) == major_label)
+
+
     minor_df = df.filter(F.col(coltarget) == minor_label)
-    a = range(ratio)
+    nratio = int( target_ratio * n)
+    a = range(nratio)
     # duplicate the minority rows
-    oversampled_df = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
+    minor_df_oversample = minor_df.withColumn("dummy", F.explode(F.array([F.lit(x) for x in a]))).drop('dummy')
+
     # combine both oversampled minority rows and previous majority rows
-    combined_df = major_df.unionAll(oversampled_df)
-    print("Count of combined df after over sampling is  "+ str(combined_df.count()))
+    combined_df = major_df.unionAll(minor_df_oversample)
+    log("Count of combined df after over sampling is  "+ str(combined_df.count()))
     return combined_df
 
 
-def spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, ratio,):
+def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal',
+                         major_label='dog', minor_label='frog', target_ratio=0.2)->sp_dataframe:
     print("Count of df before under sampling is  "+ str(df.count()))
     major_df = df.filter(F.col(coltarget) == major_label)
     minor_df = df.filter(F.col(coltarget) == minor_label)
-    sampled_majority_df = major_df.sample(False, ratio,seed=33)
+    sampled_majority_df = major_df.sample(False, target_ratio,seed=33)
     combined_df = sampled_majority_df.unionAll(minor_df)
     print("Count of combined df after under sampling is  " + str(combined_df.count()))
     return combined_df
 
 
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object):
+def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)->sp_dataframe:
     """.
     Doc::
 
             # Splitting data into train and test
             # we maintain the time-order while splitting
-            # if split ratio = 0.7 then first 70% of data is train data
+            # if split target_ratio = 0.7 then first 70% of data is train data
             Args:
                 df_m:
                 splitRatio:
@@ -644,8 +712,8 @@ def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:
     return df_train, df_test
 
 
-def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1):
-    """ get most recent (ie date desc, rank=1) record of userid
+def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1)->sp_dataframe:
+    """ get most recent (ie date desc, rank=1) record for each userid
     """
     partition_by = colid
     dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(col_orderby))))\
@@ -654,25 +722,49 @@ def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='dat
     return dedupe_df
 
 
-def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True):
-    """ get the percentage of value absent in the column
+def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
+    """ get the percentage of value absent and most frequent and least frequent value  in the column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
     n = df.count()
     dfres = []
     for coli in cols :
         try :
            n_null    = df.where( f"{coli} is null").count()
            npct_null = np.round( n_null / n , 5)
-           dfres.append([ coli, n,  n_null, npct_null  ])
+           dfres.append([ coli, n,  n_null, npct_null ])
         except :
             log( 'error: ' + coli)
 
-    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null'])
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'n_null', 'npct_null', ])
+    if doprint :print(dfres)
+    return dfres
+
+
+def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
+    """ get the percentage of value absent and most frequent and least frequent value  in the column
+    """
+    if isinstance(cols_cat, str): cols_cat= [ cols_cat]
+
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
+    n = df.count()
+    dfres = []
+    for coli in cols_cat :
+        try :
+           grouped_df = df.groupBy(coli).count()
+           most_frequent             = grouped_df.orderBy(F.col('count').desc()).take(1)
+           most_frequent_with_count  = {most_frequent[0][0]:most_frequent[0][1]}
+           least_frequent            = grouped_df.orderBy(F.col('count').asc()).take(1)
+           least_frequent_with_count = {least_frequent[0][0]:least_frequent[0][1]}
+           dfres.append([ coli, n,   most_frequent_with_count,least_frequent_with_count ])
+        except :
+            log( 'error: ' + coli)
+
+    dfres = pd.DataFrame(dfres, columns=['col', 'ntot',  'most_frequent-count','least_frequent-count' ])
     if doprint :print(dfres)
     return dfres
 
@@ -680,14 +772,13 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
 
 
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
-                       metric_list=['null', 'n5', 'n95' ], doprint=True):
+                       metric_list=['null', 'n5', 'n95' ], doprint=True)->pd.DataFrame:
     """ TODO: get stats 5%, 95% for each column
     """
     if isinstance(cols, str): cols= [ cols]
 
-    if sample_fraction>0 :
-         df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
-    
+    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+
 
     n = df.count()
     dfres = []
@@ -707,11 +798,14 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     return dfres
 
 
-def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True):
+def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
     """
 
 
     """
+
+    if fractions < 0.0 or fractions >=1.0 : return df
+
     if col_stratify:
         df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
         return df1
@@ -741,64 +835,63 @@ def spark_run_sqlfile(sparksession=None, spark_config:dict=None,sql_path:str="",
 
 
 def hive_check_table(tables:Union[list,str], add_jar_cmd=""):
-  """ Check Hive table using Hive
-  Doc::
-
-       tables = [  'mydb.mytable'   ]
-       OR
-          myalias : mydb.mytable
-
+    """ Check Hive table using Hive
+    Doc::
+        tables = [  'mydb.mytable'   ]
+        OR
+        myalias : mydb.mytable
 
 
-  """
-  if isinstance(tables, str):
-      ### Parse YAML file
-      ss = tables.split("\n")
-      ss = [t for t in ss if len(t) > 5  ]
-      ss = [  t.split(":") for t in ss]
-      ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
-      print(ss)
 
-  elif isinstance(tables, list):
-      ss = [ [ ti, ti] for ti in tables  ]
+    """
+    if isinstance(tables, str):
+        ### Parse YAML file
+        ss = tables.split("\n")
+        ss = [t for t in ss if len(t) > 5  ]
+        ss = [  t.split(":") for t in ss]
+        ss = [ (t[0].strip(), t[1].strip().replace("'", "") ) for t in ss ]
+        print(ss)
 
-  for x in ss :
-    cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
-    log(x[0], cmd)
-    log( os.system( cmd ) )
+    elif isinstance(tables, list):
+        ss = [ [ ti, ti] for ti in tables  ]
+
+    for x in ss :
+        cmd = """hive -e   " """ + add_jar_cmd  +  f"""   describe formatted  {x[1]}  ; "  """
+        log(x[0], cmd)
+        log( os.system( cmd ) )
 
 
 
 def hive_run_sql(query_or_sqlfile="", nohup:int=1, test=0, end0=None):
-        """
+    """
 
-        """
-        if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
-            with open(query_or_sqlfile, mode='r') as fp:
-                query = query_or_sqlfile.readlines()
-                query = "".join(query)
-        else :
-            query = query_or_sqlfile
+    """
+    if ".sql" in query_or_sqlfile or ".txt" in query_or_sqlfile  :
+        with open(query_or_sqlfile, mode='r') as fp:
+            query = query_or_sqlfile.readlines()
+            query = "".join(query)
+    else :
+        query = query_or_sqlfile
 
-        hiveql = "./zhiveql_tmp.sql"
-        print(query)
-        print(hiveql, flush=True)
+    hiveql = "./zhiveql_tmp.sql"
+    print(query)
+    print(hiveql, flush=True)
 
-        with open(hiveql, mode='w') as f:
-            f.write(query)
+    with open(hiveql, mode='w') as f:
+        f.write(query)
 
-        with open("nohup.out", mode='a') as f:
-            f.write("\n\n\n\n###################################################################")
-            f.write(query + "\n########################" )
+    with open("nohup.out", mode='a') as f:
+        f.write("\n\n\n\n###################################################################")
+        f.write(query + "\n########################" )
 
-        if test == 1 :
-            return
+    if test == 1 :
+        return
 
-        if nohup > 0:
-           os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
-        else :
-           os.system( f" hive -f {hiveql}      " )
-        print('finish')
+    if nohup > 0:
+        os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
+    else :
+        os.system( f" hive -f {hiveql}      " )
+    print('finish')
 
 
 
@@ -875,7 +968,7 @@ def spark_metrics_roc_summary(labels_and_predictions_df):
 
 ##########################################################################################
 ###### Dates  ############################################################################
-def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0, 
+def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days=0, add_hours=0,
              timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
              force_dayofmonth=-1,   ###  01 first of month
              force_dayofweek=-1,
@@ -892,6 +985,7 @@ def date_now(datenow:Union[str,int,datetime.datetime]="", fmt="%Y%m%d", add_days
         date_now('2021-10-05',fmt='%Y%m%d', add_days=-5, returnval='int')    -->  20211001
         date_now(20211005, fmt='%Y-%m-%d', fmt_input='%Y%m%d', returnval='str')    -->  '2021-10-05'
 
+        date_now(20211005,  fmt_input='%Y%m%d', returnval='unix')    -->  1634324632848
 
     """
     from pytz import timezone as tzone
@@ -931,12 +1025,6 @@ def date_get_month_days(dt):
 
 def date_get_timekey(unix_ts):
     return int(unix_ts+9*3600)/86400
-
-def date_get_unix_from_datetime(dt_with_timezone):
-    return time.mktime(dt_with_timezone.astimezone(pytz.utc).timetuple())
-
-def date_get_unix_day_from_datetime(dt_with_timezone):
-    return int(date_get_unix_from_datetime(dt_with_timezone)) / 86400
 
 
 
@@ -1042,25 +1130,25 @@ def os_file_replace(dirin=["myfolder/**/*.sh",  "myfolder/**/*.conf",   ],
     log(flist)
 
     for fi in flist :
-      flag = False
-      with open(fi,'r') as fp:
-        lines = fp.readlines()
+        flag = False
+        with open(fi,'r') as fp:
+            lines = fp.readlines()
 
-      ss = []
-      for li in lines :
-        if txt1 in li :
-          flag = True
-          li = li.replace(txt1, txt2)
-        ss.append(li)
+        ss = []
+        for li in lines :
+            if txt1 in li :
+                flag = True
+                li = li.replace(txt1, txt2)
+            ss.append(li)
 
-      if flag  :
-        log('update', fi)
-        # log(ss)
-        # break
-        if test == 0 :
-          with open(fi, mode='w') as fp :
-             fp.writelines("".join(ss))
-        # break
+        if flag  :
+            log('update', fi)
+            # log(ss)
+            # break
+            if test == 0 :
+                with open(fi, mode='w') as fp :
+                    fp.writelines("".join(ss))
+            # break
 
 
 

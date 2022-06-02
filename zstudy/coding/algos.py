@@ -730,136 +730,136 @@ Triplet Sum in Array
     Given an array arr of size n and an integer X. Find if there's a triplet in the array which sums up to the given integer X.
 
 
-Example 1:
+    Example 1:
 
-    Input:
-    n = 6, X = 13
-    arr[] = [1 4 45 6 10 8]
-    Output:
-    1
-    Explanation:
-    The triplet {1, 4, 8} in 
-    the array sums up to 13.
+        Input:
+        n = 6, X = 13
+        arr[] = [1 4 45 6 10 8]
+        Output:
+        1
+        Explanation:
+        The triplet {1, 4, 8} in 
+        the array sums up to 13.
 
+        
+    Example 2:
+
+        Input:
+        n = 5, X = 10
+        arr[] = [1 2 4 3 6]
+        Output:
+        1
+        Explanation:
+        The triplet {1, 3, 6} in 
+        the array sums up to 10.
+
+        Expected Time Complexity: O(n2)
+        Expected Auxiliary Space: O(1)
+
+    #### Best is hash map on the last value.      
+    a[i], a[j], a[k]  in A  and a[k]   = X
+
+    for i in range(n):
+        for j in range(i+1,n):  ### Sliding
+        # X - a[i] - a[j] is present in the array using Has in O(1)
     
-Example 2:
+    4 numbers , total sum = X   ---> is it in O(N3)  ???/
+        is it a DP ????
+    https://leetcode.com/problems/4sum/
 
-    Input:
-    n = 5, X = 10
-    arr[] = [1 2 4 3 6]
-    Output:
-    1
-    Explanation:
-    The triplet {1, 3, 6} in 
-    the array sums up to 10.
-
-    Expected Time Complexity: O(n2)
-    Expected Auxiliary Space: O(1)
-
-#### Best is hash map on the last value.      
-   a[i], a[j], a[k]  in A  and a[k]   = X
-
-  for i in range(n):
-    for j in range(i+1,n):  ### Sliding
-      # X - a[i] - a[j] is present in the array using Has in O(1)
-  
-  4 numbers , total sum = X   ---> is it in O(N3)  ???/
-      is it a DP ????
-  https://leetcode.com/problems/4sum/
-
-    Time Complexity: O(n^{k - 1})O(n k−1 ), or O(n^3)O(n 3
- ) for 4Sum. We have k - 2k−2 loops, and twoSum is O(n)O(n).  
-  
-  Hash is much better/simpler.
-  
-  
-  
-
-  # returns true if there is triplet
-# with sum equal to 'sum' present
-# in A[]. Also, prints the triplet
-def find3Numbers(A, arr_size, sum):
-    # Sort the elements 
-    A.sort()
-
-    # Now fix the first element 
-    # one by one and find the
-    # other two elements 
-    for i in range(0, arr_size-2):
+        Time Complexity: O(n^{k - 1})O(n k−1 ), or O(n^3)O(n 3
+    ) for 4Sum. We have k - 2k−2 loops, and twoSum is O(n)O(n).  
     
-        # To find the other two elements,
-        # start two index variables from
-        # two corners of the array and
-        # move them toward each other
+    Hash is much better/simpler.
+    
+    
+    
+
+    # returns true if there is triplet
+    # with sum equal to 'sum' present
+    # in A[]. Also, prints the triplet
+    def find3Numbers(A, arr_size, sum):
+        # Sort the elements 
+        A.sort()
+
+        # Now fix the first element 
+        # one by one and find the
+        # other two elements 
+        for i in range(0, arr_size-2):
         
-        # index of the first element
-        # in the remaining elements
-        l = i + 1 
-        
-        # index of the last element
-        r = arr_size-1 
-        while (l < r):
-        
-            if( A[i] + A[l] + A[r] == sum):
-                print("Triplet is", A[i], 
-                     ', ', A[l], ', ', A[r]);
-                return True
+            # To find the other two elements,
+            # start two index variables from
+            # two corners of the array and
+            # move them toward each other
             
-            elif (A[i] + A[l] + A[r] < sum):
-                l += 1
-            else: # A[i] + A[l] + A[r] > sum
-                r -= 1
-
-    # If we reach here, then
-    # no triplet was found
-    return False
-
-
-  
-
-A = [1, 4, 45, 6, 10, 8]
-sum = 22
-arr_size = len(A)
-
-find3Numbers(A, arr_size, sum)
-
-
-  
-  
-  
-  
-# Python3 program to find a triplet 
-# that sum to a given value
-
-# returns true if there is triplet with
-# sum equal to 'sum' present in A[]. 
-# Also, prints the triplet
-def find3Numbers(A, arr_size, sum):
-
-    # Fix the first element as A[i]
-    for i in range( 0, arr_size-2):
-
-        # Fix the second element as A[j]
-        for j in range(i + 1, arr_size-1): 
+            # index of the first element
+            # in the remaining elements
+            l = i + 1 
             
-            # Now look for the third number
-            for k in range(j + 1, arr_size):
-                if A[i] + A[j] + A[k] == sum:
-                    print("Triplet is", A[i],
-                          ", ", A[j], ", ", A[k])
+            # index of the last element
+            r = arr_size-1 
+            while (l < r):
+            
+                if( A[i] + A[l] + A[r] == sum):
+                    print("Triplet is", A[i], 
+                        ', ', A[l], ', ', A[r]);
                     return True
+                
+                elif (A[i] + A[l] + A[r] < sum):
+                    l += 1
+                else: # A[i] + A[l] + A[r] > sum
+                    r -= 1
+
+        # If we reach here, then
+        # no triplet was found
+        return False
+
+
     
-    # If we reach here, then no 
-    # triplet was found
-    return False
 
-# Driver program to test above function 
-A = [1, 4, 45, 6, 10, 8]
-sum = 22
-arr_size = len(A)
-  
-  
-  
+    A = [1, 4, 45, 6, 10, 8]
+    sum = 22
+    arr_size = len(A)
+
+    find3Numbers(A, arr_size, sum)
+
+
+    
+    
+    
+    
+    # Python3 program to find a triplet 
+    # that sum to a given value
+
+    # returns true if there is triplet with
+    # sum equal to 'sum' present in A[]. 
+    # Also, prints the triplet
+    def find3Numbers(A, arr_size, sum):
+
+        # Fix the first element as A[i]
+        for i in range( 0, arr_size-2):
+
+            # Fix the second element as A[j]
+            for j in range(i + 1, arr_size-1): 
+                
+                # Now look for the third number
+                for k in range(j + 1, arr_size):
+                    if A[i] + A[j] + A[k] == sum:
+                        print("Triplet is", A[i],
+                            ", ", A[j], ", ", A[k])
+                        return True
+        
+        # If we reach here, then no 
+        # triplet was found
+        return False
+
+    # Driver program to test above function 
+    A = [1, 4, 45, 6, 10, 8]
+    sum = 22
+    arr_size = len(A)
+    
+    
+    
   
   
   
@@ -869,7 +869,6 @@ arr_size = len(A)
   
 ##############################################################################################
 ##############################################################################################
-
 Sum of Middle Elements of two sorted arrays 
 Medium Accuracy: 61.07% Submissions: 7817 Points: 4
 Given 2 sorted arrays Ar1 and Ar2 of size N each. Merge the given arrays and find the sum of the two middle elements of the merged array.

@@ -1,13 +1,15 @@
 
 # -*- coding: utf-8 -*-
-"""
-python test.py   test_all
-python test.py   test_viz_vizhtml
-Rules to follow :
-   Put import only inside the function.
-   def  test_{pythonfilename.py}() :
-       from utilmy import parallel as m
-       m.test_all()
+""" tests
+Docs::
+
+        python test.py   test_all
+        python test.py   test_viz_vizhtml
+        Rules to follow :
+           Put import only inside the function.
+           def  test_{pythonfilename.py}() :
+               from utilmy import parallel as m
+               m.test_all()
 """
 import os, sys, time, datetime,inspect, random, pandas as pd, random, numpy as np, glob
 
@@ -47,7 +49,42 @@ def pd_generate_data(ncols=7, nrows=100):
     return df   
    
    
+
+
+
+
 #########################################################################################
+def test_import():
+    os.chdir(  os.getcwd() + "/../../")
+    import utilmy.sspark.src.util_spark
+    import utilmy.sspark.src.util_hadoop
+    import utilmy.deeplearning.ttorch.util_torch
+    import utilmy.deeplearning.ttorch.util_model
+    import utilmy.deeplearning.ttorch.model_ensemble
+    import utilmy.utilmy
+    import utilmy.ppandas
+    # import utilmy.nlp.ttorch.sentences
+    import utilmy.distributed
+    import utilmy.ppandas
+    log('All imported OK')
+
+
+def test_import_all():
+    os.chdir(  os.getcwd() + "/../../")
+    import utilmy.sspark.src.util_spark
+    import utilmy.sspark.src.util_hadoop
+    import utilmy.deeplearning.ttorch.util_torch
+    import utilmy.deeplearning.ttorch.util_model
+    import utilmy.deeplearning.ttorch.model_ensemble
+    import utilmy.utilmy
+    import utilmy.ppandas
+    import utilmy.nlp.ttorch.sentences
+    import utilmy.distributed
+    import utilmy.ppandas
+    log('All imported OK')
+
+
+
 def test_utilmy():
    from utilmy import utilmy as m
    m.test_all()
