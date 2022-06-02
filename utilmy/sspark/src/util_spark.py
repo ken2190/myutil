@@ -50,7 +50,7 @@ Doc::
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
-    spark_df_under_sample(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
+    spark_df_sampleunder(df:sp_dataframe, coltarget, major_label, minor_label, target_ratio, )
     spark_df_write(df:sp_dataframe, dirout:str =  "", show:int = 0, npartitions:int = None, mode:str =  "append", format:str =  "parquet")
     spark_get_session(config:dict, config_key_name = 'spark_config', verbose = 0)
     spark_metrics_classifier_summary(df_labels_preds)
@@ -174,17 +174,17 @@ def test1():
 def test2():
     sparksession, df =  test_get_dataframe_fake()
 
-    dfres  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True) 
-    log(dfres)
+    df2  = spark_df_stats_null(df=df,cols=df.columns, sample_fraction=-1, doprint=True) 
+    log(df2)
 
-    dfres  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
-    log(dfres.show())
+    df2  = spark_df_filter_mostrecent(df=df, colid='id', col_orderby='residency_date', decreasing=1, rank=1)
+    log(df2.show())
 
-    dfsamp = spark_df_sampleunder(df=df,coltarget = "city", major_label="LA",minor_label = "LI",target_ratio=0.1)
-    log(dfsamp.show())
+    df2 = spark_df_sampleunder(df=df,coltarget = "city", major_label="LA",minor_label = "LI",target_ratio=0.1)
+    log(df2.show())
 
-    dftest = spark_df_isempty(df)
-    log(dftest)
+    df2 = spark_df_isempty(df)
+    log(df2)
 
 
 
