@@ -89,7 +89,7 @@ jobs:
     #       python test.py test_deeplearning_torch
 
     - name: test import_all
-      #continue-on-error: true 
+      continue-on-error: true 
       run: |
           python test.py test_import_all
 
