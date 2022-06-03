@@ -84,7 +84,7 @@ Doc:
     rm: Deletes one or more specified files. This command doesn�ft delete empty directories or files. To bypass the trash (if it�fs enabled) and delete the specified files immediately, specify the -skipTrash option.
     Usage: hdfs dfs -rm [-skipTrash] URI [URI ?]
     Example: hdfs dfs -rm hdfs://nn.example.com/file9
-    
+
     rmr: Serves as the recursive version of ?rm.
     Usage: hdfs dfs -rmr [-skipTrash] URI [URI ?]
     Example: hdfs dfs -rmr /user/hadoop/dir
@@ -108,16 +108,16 @@ Doc:
 
     text: Outputs a specified source file in text format. Valid input file formats are zip and TextRecordInputStream.
     Usage: hdfs dfs -text <src>
-    Example: hdfs dfs -text /user/hadoop/file8.zip  
+    Example: hdfs dfs -text /user/hadoop/file8.zip
 
     touchz: Creates a new, empty file of size 0 in the specified path.
     Usage: hdfs dfs -touchz <path>
-    Example: hdfs dfs -touchz /user/hadoop/file12  
+    Example: hdfs dfs -touchz /user/hadoop/file12
 
 """
 import os,sys, subprocess, time, datetime, glob
 import pandas as pd
-
+from box import Box
 
 def log(*s):
   print(*s, flush=True)
@@ -155,13 +155,13 @@ def hdfs_ls(path, filename_only=False):
     flist_full_address = [fn.split(' ')[-1] for fn in std_out.decode().split('\n')[1:]][:-1]
     return flist_full_address
 
-     
+
 def hdfs_mkdir(hdfs_dir):
     res = os_system( f"hdfs dfs -mkdir -p  '{hdfs_dir}' ", doprint=True)
 
 
 def hdfs_copy_fromlocal(local_dir, hdfs_dir, overwrite=False):
-    if overwrite: hdfs_rm_dir(hdfs_dir)
+    if overwrite: hdfs_dir_rm(hdfs_dir)
     res = os_system( f"hdfs dfs -copyFromLocal '{local_dir}'  '{hdfs_dir}' ", doprint=True)
 
 
@@ -169,7 +169,7 @@ def hdfs_copy_tolocal(hdfs_dir, local_dir):
     res = os_system( f"hdfs dfs -copyToLocal '{hdfs_dir}'  '{local_dir}' ", doprint=True)
 
 
-def hdfs_rm_dir(path):
+def hdfs_dir_rm(path):
     if hdfs_dir_exists(path):
         log("removing old file "+path)
         cat = subprocess.call(["hdfs", "dfs", "-rm", path ])
@@ -191,15 +191,18 @@ def hdfs_file_exists(filename):
         return False
 
 
-def hdfs_list_dir(path,recursive=False):
+def hdfs_dir_list(path,recursive=False):
     subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
 
 
-def hdfs_size_dir(path):
-    # return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+def hdfs_dir_info(path):
+    """  HDFS DIR : {"last_modified":last_modified,"format":format1 'size'}
 
-    cmd_ls = f"hadoop fs -ls {path}"
-    fdict = {}
+
+    """
+    fdict = Box({})
+
+    cmd_ls = f"hdfs dfs -ls {path}"
     stdout,stderr = os_system(cmd_ls, True)
     if stderr: return stderr
     lines = stdout.split("\n")
@@ -208,14 +211,15 @@ def hdfs_size_dir(path):
         tmp = []
         for v in li.split(" "):
             if v: tmp.append(v.strip())
+
             if len(tmp) < 8: continue
             k = tmp[-1].split("/")[-1]
             last_modified = " ".join(tmp[5:7])
-            format1=k.split(".")[-1] if "." in k else ""
+            format1       = k.split(".")[-1] if "." in k else ""
             fdict[k] = {"last_modified":last_modified,"format":format1}
 
 
-    cmd_du = f"hadoop fs -du {path}"
+    cmd_du = f"hdfs dfs -du {path}"
     stdout,stderr = os_system(cmd_du, True)
     if stderr: return stderr
     lines = stdout.split("\n")
@@ -224,16 +228,19 @@ def hdfs_size_dir(path):
         tmp = []
         for v in li.split(" "):
             if v: tmp.append(v.strip())
+
             if len(tmp) < 3: continue
             k = tmp[-1].split("/")[-1]
             size_bytes = tmp[0]
             if k in fdict:
-                fdict[k]["size_bytes"] = int(size_bytes)
+                fdict[k]["size"] = int(size_bytes)
             else:
-                fdict[k] = {"size_bytes",}
+                fdict[k]["size"] = -1
 
     return fdict
-   
+
+### alias
+hdfs_dir_stats = hdfs_dir_info
 
 
 def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
@@ -299,11 +306,11 @@ def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
   if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
   return res_list
 
- 
 
 
-############################################################################################################### 
-############################################################################################################### 
+
+###############################################################################################################
+###############################################################################################################
 def pd_read_parquet_schema(uri: str) -> pd.DataFrame:
     """Return a Pandas dataframe corresponding to the schema of a local URI of a parquet file.
 
@@ -411,8 +418,8 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
 
 
 def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1, concat_sort=False, n_pool=1,
-                      drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None, 
-                      compression='gzip', encoding='utf-8', sep=',', header=None, on_bad_lines='skip', 
+                      drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None,
+                      compression='gzip', encoding='utf-8', sep=',', header=None, on_bad_lines='skip',
                      **kw)->pd.DataFrame:
       """  Read file in parallel from HDFS using pyarrow
       Docs:
@@ -422,7 +429,7 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
             dirin = "hdfs:///mypat/"
             df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, ,
                     drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
-      
+
       """
       import glob, gc,  pandas as pd, os, copy
       import pyarrow as pa, gc,  pyarrow.csv as pq
@@ -515,7 +522,7 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
 
 
 
-def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1, 
+def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1,
                         concat_sort=False, n_pool=1,   drop_duplicates=None, col_filter=None,  col_filter_val=None,
                         dtype=None, compression='gzip', encoding='utf-8',  on_bad_lines='skip', dirlevel=1,
                         **kw):
@@ -614,45 +621,45 @@ def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False
 
 
 
-def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/', 
+def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/',
                  cols=None,n_rows=1000, partition_cols=None, overwrite=True, verbose=1, ) :
     """Pandas to HDFS
     Doc::
 
       pyarrow.parquet.write_table(table, where, row_group_size=None, version='1.0', use_dictionary=True, compression='snappy', write_statistics=True, use_deprecated_int96_timestamps=None, coerce_timestamps=None, allow_truncated_timestamps=False, data_page_size=None, flavor=None, filesystem=None, compression_level=None, use_byte_stream_split=False, data_page_version='1.0', **kwargs)
-      
+
       https://arrow.apache.org/docs/python/generated/pyarrow.parquet.write_to_dataset.html#pyarrow.parquet.write_to_dataset
-       
+
     """
     import pyarrow as pa
     import pyarrow.parquet as pq
-    hdfs = pa.hdfs.connect()    
+    hdfs = pa.hdfs.connect()
     n_rows = 999999999 if n_rows < 0  else n_rows
     df = df.iloc[:n_rows, :]
-    
+
     table = pa.Table.from_pandas(df)
-    
+
     if overwrite :
         hdfs.rm(hdfs_dir.replace("hdfs://", ""), recursive=True)
     hdfs.mkdir(hdfs_dir.replace("hdfs://", ""))
     pq.write_to_dataset(table, root_dir=hdfs_dir,
                         partition_cols=partition_cols, filesystem=hdfs)
-    
-    flist = hdfs.ls( hdfs_dir )  
+
+    flist = hdfs.ls( hdfs_dir )
     log(flist)
 
 
 
-hdfs_pd_write_parquet =  pd_write_parquet_hdfs   
-hdfs_pd_read_parquet  =  pd_read_parquet_hdfs 
-hdfs_pd_read_csv      =  pd_read_csv_hdfs 
+hdfs_pd_write_parquet =  pd_write_parquet_hdfs
+hdfs_pd_read_parquet  =  pd_read_parquet_hdfs
+hdfs_pd_read_csv      =  pd_read_csv_hdfs
 
 
 
 
 
-############################################################################################################### 
-############################################################################################################### 
+###############################################################################################################
+###############################################################################################################
 hive_header_template =  '''
         set  hive.vectorized.execution.enabled = true;  set hive.vectorized.execution.reduce.enabled = true;
         set  hive.execution.engine=tez; set  hive.cli.print.header=true;    
@@ -707,36 +714,36 @@ hive_header_template =  '''
 
 
 
-def hive_run(query, logdir="ztmp/loghive/", tag='v01', 
-             dry=1,       ### only fake run 
+def hive_run(query, logdir="ztmp/loghive/", tag='v01',
+             dry=1,       ### only fake run
              nohup=0,     ### background
              explain=0):  ### Explain query
-    """ HIVE SQL RUN    
+    """ HIVE SQL RUN
     Doc::
 
             cfg = Box(ConfigReader.from_yaml(config))
-            logdir   = cfg.log_hive      
+            logdir   = cfg.log_hive
             start_dt = date_now('now', add_days= -1-30, fmt='%Y-%m-%d') if len(start_dt) < 7 else start_dt
             end_dt   = date_now('now', add_days= -1,    fmt='%Y-%m-%d') if len(end_dt)   < 7 else end_dt
-            
+
             cv_start_dt = date_now('now', add_days= -1-120, fmt='%Y-%m-%d')
 
 
             qq = os_file_read('queries/myhive.sql')
             qq = qq.format(start_dt=start_dt, end_dt=end_dt,  )
             hive_run(qq, dry=1, logdir= logdir, tag=tag, explain=1)
-        
+
     """
     # query =  header_sql0  + "\n" +  query  ### Default works well
     query = query_clean(query)
 
     if explain>0:
         for key in [  'CREATE ', 'INSERT '  ]:
-          if key in query.upper() :  query = query.replace(key, "EXPLAIN "+key)        
+          if key in query.upper() :  query = query.replace(key, "EXPLAIN "+key)
 
         for key in [ 'DROP ', 'ALTER ',   ]:
-          if key in query.upper() :  query = query.replace(key, "-- "+key)      
-            
+          if key in query.upper() :  query = query.replace(key, "-- "+key)
+
     tag2     = f"{tag}_" + str( int(time.time()) )
     hivefile = f"{logdir}/hiveql_{tag2}.sql"
     os.makedirs(os.path.dirname( os.path.abspath(hivefile)), exist_ok=True)
@@ -744,11 +751,11 @@ def hive_run(query, logdir="ztmp/loghive/", tag='v01',
         fp.write(query)
 
 
-    logfile = f"{logdir}/hiveql_{tag2}_log.py"  
+    logfile = f"{logdir}/hiveql_{tag2}_log.py"
     with open(logfile, mode='a') as f:
         f.write(hivefile)
         f.write("\n\n\n\n###################################################################")
-        f.write(query + "\n########################" )      
+        f.write(query + "\n########################" )
 
     cmd = f"hive -f {hivefile} >> {logfile})   "
     log(query, "\n\nCMD: ", cmd)
@@ -762,12 +769,12 @@ def hive_run(query, logdir="ztmp/loghive/", tag='v01',
     else :
        os.system( f" hive -f {hivefile} >> {logfile}       " )
 
-    log('finish')   
+    log('finish')
 
 
 
 def hive_exec(query="", nohup:int=1, dry=False, end0=None, with_exception=False):
-        """  
+        """
 
         """
 
@@ -780,21 +787,21 @@ def hive_exec(query="", nohup:int=1, dry=False, end0=None, with_exception=False)
             return True
 
         hiveql = "./zhiveql_tmp.sql"
-        log(query)    
-        log(hiveql, flush=True) 
+        log(query)
+        log(hiveql, flush=True)
 
         with open(hiveql, mode='w') as f:
-            f.write(query)      
+            f.write(query)
 
         with open("nohup.out", mode='a') as f:
             f.write("\n\n\n\n###################################################################")
-            f.write(query + "\n########################" )      
+            f.write(query + "\n########################" )
 
         if nohup > 0:
            os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
         else :
-           os.system( f" hive -f {hiveql}      " )        
-        log('finish')   
+           os.system( f" hive -f {hiveql}      " )
+        log('finish')
 
 
 
@@ -937,13 +944,13 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
     except Exception as e:
         log(e)
 
- 
+
 
 
 
 ###############################################################################################################
 ########## Hive parquet #######################################################################################
-def parquet_to_hive_parquet(dirin=None, table=None, dirout=None):   ##  
+def parquet_to_hive_parquet(dirin=None, table=None, dirout=None):   ##
     """  Need Pyarrow 3.0 to make it work.
             hive 1.2
 
@@ -1117,7 +1124,7 @@ def os_system(cmd, doprint=False):
         log( f"Error {cmd}, {e}")
 
 
-def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
+def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d",
                 returnval='str,int,datetime'):
     """ One liner for date Formatter
     Doc::
@@ -1125,9 +1132,9 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
         datestr: 2012-02-12  or ""  emptry string for today's date.
         fmt:     output format # "%Y-%m-%d %H:%M:%S %Z%z"
 
-        date_format(timezone='Asia/Tokyo')    -->  "20200519" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19" 
-        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518 
+        date_format(timezone='Asia/Tokyo')    -->  "20200519"
+        date_format(timezone='Asia/Tokyo', fmt='%Y-%m-%d')    -->  "2020-05-19"
+        date_format(timezone='Asia/Tokyo', fmt='%Y%m%d', add_days=-1, returnval='int')    -->  20200518
 
 
     """
@@ -1135,7 +1142,7 @@ def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone=
     import datetime
 
     if len(str(datestr )) >7 :  ## Not None
-        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)       
+        now_utc = datetime.datetime.strptime( str(datestr), fmt_input)
     else:
         now_utc = datetime.datetime.now(tzone('UTC'))  # Current time in UTC
 
@@ -2219,7 +2226,7 @@ def hdfs_help():
     touchz: Creates a new, empty file of size 0 in the specified path.
     Usage: hdfs dfs -touchz <path>
     Example: hdfs dfs -touchz /user/hadoop/file12   """)
-     
+
 
 
 
