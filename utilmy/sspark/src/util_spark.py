@@ -657,6 +657,25 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
        log('exist', hdfs_dir_exists(dirout) )
 
 
+def spark_df_sample(df,  fractions:Union[dict, float]=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
+    """sample
+    Docs::
+
+            from pyspark.sql.functions import col
+            dataset = sqlContext.range(0, 100).select((col("id") % 3).alias("key"))
+            sampled = dataset.sampleBy("key", fractions={0: 0.1, 1: 0.2}, seed=0)
+            sampled.groupBy("key").count().orderBy("key").show()
+
+    """
+    if isinstance(fractions, dict) and col_stratify :
+        df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
+        return df1
+
+    if fractions <= 0.0 or fractions >=1.0 : return df
+
+    df1 = df.sample(with_replace, fraction=fractions, seed=None)
+    return df1
+
 
 def spark_df_sampleover(df:sp_dataframe, coltarget:str='animal', 
                          major_label='dog', minor_label='frog', target_ratio=0.2, )->sp_dataframe:
@@ -802,21 +821,6 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     if doprint :print(dfres)
     return dfres
 
-
-def spark_df_sample(df,  fractions=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
-    """
-
-
-    """
-
-    if fractions < 0.0 or fractions >=1.0 : return df
-
-    if col_stratify:
-        df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
-        return df1
-
-    df1 = df.sample(with_replace, fractions=fractions, seed=None)
-    return df1
 
 
 
