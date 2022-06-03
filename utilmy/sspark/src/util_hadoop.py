@@ -197,10 +197,8 @@ def hdfs_list_dir(path,recursive=False):
 
 def hdfs_size_dir(path):
     # return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
-    cmd_ls = f"hadoop fs -ls {path}"
-    cmd_du = f"hadoop fs -du {path}"
 
-    # f"hadoop fs -ls {path}"
+    cmd_ls = f"hadoop fs -ls {path}"
     fdict = {}
     stdout,stderr = os_system(cmd_ls, True)
     if stderr: return stderr
@@ -213,10 +211,11 @@ def hdfs_size_dir(path):
             if len(tmp) < 8: continue
             k = tmp[-1].split("/")[-1]
             last_modified = " ".join(tmp[5:7])
-            format=k.split(".")[-1] if "." in k else ""
-            fdict[k] = {"last_modified":last_modified,"format":format}
+            format1=k.split(".")[-1] if "." in k else ""
+            fdict[k] = {"last_modified":last_modified,"format":format1}
 
-    # f"hadoop fs -du {path}"
+
+    cmd_du = f"hadoop fs -du {path}"
     stdout,stderr = os_system(cmd_du, True)
     if stderr: return stderr
     lines = stdout.split("\n")
