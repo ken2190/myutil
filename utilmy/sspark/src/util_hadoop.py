@@ -534,31 +534,31 @@ def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False
 
         def pd_reader_obj(fi, cols=None, **kw):
             try :
-            with hdfs.open(fi) as fi2:
-                dfi = pd.read_json(fi2,lines=True,compression= compression)
+                with hdfs.open(fi) as fi2:
+                    dfi = pd.read_json(fi2,lines=True,compression= compression)
 
 
-            if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
-            if cols is not None :       dfi = dfi[cols]
-            if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
-            if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+                if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+                if cols is not None :       dfi = dfi[cols]
+                if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+                if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
 
-            return dfi
+                return dfi
             except Exception as e:
-            log( e)
-            return None
+                log( e)
+                return None
 
         #### File  ################################
         dirlist   = dirlist.split(";") if isinstance(dirlist, str)  else dirlist
 
         flist = dirlist
         for i in range(0, dirlevel):
-        flist2 = []
-        for fi in flist[:] :
-            log(fi)
-            flist2 = flist2 + hdfs.ls(fi)
-        flist = copy.deepcopy(flist2)
-        if len(flist) > nfile  : break
+            flist2 = []
+            for fi in flist[:] :
+                log(fi)
+                flist2 = flist2 + hdfs.ls(fi)
+            flist = copy.deepcopy(flist2)
+            if len(flist) > nfile  : break
 
         flist = [ fi for fi in flist if "." in fi.split("/")[-1] ]  ### only .csv.gz files
         flist = sorted(list(set(flist)))
@@ -573,10 +573,10 @@ def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False
         if n_pool < 1 :  n_pool = 1
         if n_file <= 0:  return pd.DataFrame()
         elif n_file <= 2:
-        m_job  = n_file
-        n_pool = 1
+            m_job  = n_file
+            n_pool = 1
         else  :
-        m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
+            m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
         if verbose : log(n_file,  n_file // n_pool )
 
         pool   = ThreadPool(processes=n_pool)
@@ -593,8 +593,8 @@ def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False
                 if (j+100) % 100 == 0 : log(j, filei)
 
             for i in range(n_pool):
-            if i >= len(job_list): break
-            dfi   = job_list[ i].get()
+                if i >= len(job_list): break
+                dfi   = job_list[ i].get()
 
             if dfi is None : continue
 
@@ -772,7 +772,7 @@ def hive_exec(query="", nohup:int=1, dry=False, end0=None, with_exception=False)
         """
 
         if with_exception:
-            return_code, stdout, stderr = os_subprocess(['hive'] + args + ['-e', query_clean_quote(query)])
+            return_code, stdout, stderr = os_subprocess(['hive'] +  ['-e', query_clean_quote(query)])
             if return_code == 0 :
                 log('query %s is updated with message %s', query, stdout)
             else:
@@ -817,10 +817,10 @@ def query_clean_quote(query):
 
 def hive_update_partitions_table( hr, dt, location, table_name):
     log('Updating latest partition location in {table_name} table'.format(table_name=table_name))
-    drop_partition_query =f"ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})"
-    add_partition_query = f"ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{location}'"
-    hive_query_with_exception(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    hive_query_with_exception(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
+    drop_partition_query = f"ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})"
+    add_partition_query  = f"ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{location}'"
+    hive_exec(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'], with_exception=True )
+    hive_exec(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'], with_exception=True)
     log(f'Updating latest partition location in {table_name} table completed successfully')
 
 
@@ -943,15 +943,6 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
 
 ###############################################################################################################
 ########## Hive parquet #######################################################################################
-def convert_pyarrow(dirin, dirout):
-    flist = reversed(glob.glob(dirin, 1000) )
-    for fi in flist :
-        log(fi)
-        df = pd.read_parquet(fi)
-        pd_to_file(df, dirout + fi.split("/")[-1] )
-
-
-  
 def parquet_to_hive_parquet(dirin=None, table=None, dirout=None):   ##  
     """  Need Pyarrow 3.0 to make it work.
             hive 1.2
@@ -975,7 +966,7 @@ def parquet_to_hive_parquet(dirin=None, table=None, dirout=None):   ##
 
     ########################################################################################################
     scheme = ""
-    df, dirouti, fi = pd_to_hive_parquet(dirin2, dirout=dirout, nfile=1, verbose=True)
+    df, dirouti, fi = parquet_to_hive_parquet2(dirin2, dirout=dirout, nfile=1, verbose=True)
     scheme      = hive_schema(df)
     log(dirouti)
 
@@ -1074,26 +1065,26 @@ def os_rename_parquet(dir0=None):   ## py rename
         flist  = []
 
         if dir0 is not None :
-        flist = flist + glob.glob( dir0 + "/*"  )
+            flist = flist + glob.glob( dir0 + "/*"  )
 
         flist += sorted( list(set(glob.glob( dir0 + "/**/*" ))) )
         flist += sorted( list(set(glob.glob( dir0 + "/*/*/*" ))) )
 
         log(len(flist))
         for fi in flist :
-        fend = fi.split("/")[-1]
-        if ".sh" in fend or ".py"  in fend or "COPY" in fend :
-            continue
+            fend = fi.split("/")[-1]
+            if ".sh" in fend or ".py"  in fend or "COPY" in fend :
+                continue
 
-        if  '.parquet' in fend    : continue
-        if not os.path.isfile(fi) : continue
+            if  '.parquet' in fend    : continue
+            if not os.path.isfile(fi) : continue
 
-        if '.' not in fend:
-            try :
-                log(fi)
-                os.rename(fi, fi + ".parquet")
-            except Exception as e :
-                log(e)
+            if '.' not in fend:
+                try :
+                    log(fi)
+                    os.rename(fi, fi + ".parquet")
+                except Exception as e :
+                    log(e)
 
 
 def to_file(txt, dirout, mode='a'):
