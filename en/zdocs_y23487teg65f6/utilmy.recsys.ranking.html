@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.recsys.ranking package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.sspark package" href="utilmy.sspark.html" />
+    <link rel="prev" title="utilmy.recsys package" href="utilmy.recsys.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="utilmy.recsys.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6 current"><a class="current reference internal" href="#">utilmy.recsys.ranking package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#utilmy-recsys-ranking-optim-rank-module">utilmy.recsys.ranking.optim_rank module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#utilmy-recsys-ranking-rank-fusion-module">utilmy.recsys.ranking.rank_fusion module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.recsys.ranking.rank_fusion_functions">utilmy.recsys.ranking.rank_fusion_functions module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.recsys.ranking.util_rank">utilmy.recsys.ranking.util_rank module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#utilmy-recsys-ranking-util-rankmerge-module">utilmy.recsys.ranking.util_rankmerge module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.recsys.ranking">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-ab-module">utilmy.recsys.ab module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#module-utilmy.recsys.metric">utilmy.recsys.metric module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-util-ltr-module">utilmy.recsys.util_ltr module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-util-rec-module">utilmy.recsys.util_rec module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-util-sequencepattern-module">utilmy.recsys.util_sequencepattern module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-util-tfranking-module">utilmy.recsys.util_tfranking module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-vectors-module">utilmy.recsys.vectors module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#utilmy-recsys-zprepro-recs-module">utilmy.recsys.zprepro_recs module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.recsys.html#module-utilmy.recsys">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+          <li><a href="utilmy.recsys.html">utilmy.recsys package</a> &raquo;</li>
+      <li>utilmy.recsys.ranking package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.recsys.ranking.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-recsys-ranking-package">
+<h1>utilmy.recsys.ranking package<a class="headerlink" href="#utilmy-recsys-ranking-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-recsys-ranking-optim-rank-module">
+<h2>utilmy.recsys.ranking.optim_rank module<a class="headerlink" href="#utilmy-recsys-ranking-optim-rank-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-recsys-ranking-rank-fusion-module">
+<h2>utilmy.recsys.ranking.rank_fusion module<a class="headerlink" href="#utilmy-recsys-ranking-rank-fusion-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.recsys.ranking.rank_fusion_functions">
+<span id="utilmy-recsys-ranking-rank-fusion-functions-module"></span><h2>utilmy.recsys.ranking.rank_fusion_functions module<a class="headerlink" href="#module-utilmy.recsys.ranking.rank_fusion_functions" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.compareCondor">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">compareCondor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.compareCondor" title="Permalink to this definition"></a></dt>
+<dd><p>function compareCondor.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">item1</span><span class="p">:</span>
+    <span class="n">item2</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.condor">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">condor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id_scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.condor" title="Permalink to this definition"></a></dt>
+<dd><p>function condor.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">doc_id_scores</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.expn_isr">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">expn_isr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.expn_isr" title="Permalink to this definition"></a></dt>
+<dd><p>function expn_isr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.expn_rrf">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">expn_rrf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.expn_rrf" title="Permalink to this definition"></a></dt>
+<dd><p>function expn_rrf.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.isr">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">isr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.isr" title="Permalink to this definition"></a></dt>
+<dd><p>function isr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.log_isr">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">log_isr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.log_isr" title="Permalink to this definition"></a></dt>
+<dd><p>function log_isr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.logn_isr">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">logn_isr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.logn_isr" title="Permalink to this definition"></a></dt>
+<dd><p>function logn_isr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.logn_rrf">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">logn_rrf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.logn_rrf" title="Permalink to this definition"></a></dt>
+<dd><p>function logn_rrf.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.max">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.max" title="Permalink to this definition"></a></dt>
+<dd><p>function max.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.min">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.min" title="Permalink to this definition"></a></dt>
+<dd><p>function min.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.mnz">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">mnz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.mnz" title="Permalink to this definition"></a></dt>
+<dd><p>function mnz.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.rr">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">rr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.rr" title="Permalink to this definition"></a></dt>
+<dd><p>function rr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.rrf">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">rrf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.rrf" title="Permalink to this definition"></a></dt>
+<dd><p>function rrf.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.sum">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.sum" title="Permalink to this definition"></a></dt>
+<dd><p>function sum.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.rank_fusion_functions.votes">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.rank_fusion_functions.</span></span><span class="sig-name descname"><span class="pre">votes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.rank_fusion_functions.votes" title="Permalink to this definition"></a></dt>
+<dd><p>function votes.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">result_list</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.recsys.ranking.util_rank">
+<span id="utilmy-recsys-ranking-util-rank-module"></span><h2>utilmy.recsys.ranking.util_rank module<a class="headerlink" href="#module-utilmy.recsys.ranking.util_rank" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.RankingSimilarity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">RankingSimilarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.RankingSimilarity" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class will include some similarity measures between two different
+ranked lists.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.RankingSimilarity.assert_p">
+<span class="sig-name descname"><span class="pre">assert_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.RankingSimilarity.assert_p" title="Permalink to this definition"></a></dt>
+<dd><p>Make sure p is between (0, 1), if so, assign it to self.p.
+:param p: The value p.
+:type p: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.RankingSimilarity.rbo">
+<span class="sig-name descname"><span class="pre">rbo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.RankingSimilarity.rbo" title="Permalink to this definition"></a></dt>
+<dd><p>This the weighted non-conjoint measures, namely, rank-biased overlap.
+Unlike Kendall tau which is correlation based, this is intersection
+based.
+The implementation if from Eq. (4) or Eq. (7) (for p != 1) from the
+RBO paper: <a class="reference external" href="http://www.williamwebber.com/research/papers/wmz10_tois.pdf">http://www.williamwebber.com/research/papers/wmz10_tois.pdf</a>
+If p=1, it returns to the un-bounded set-intersection overlap,
+according to Fagin et al.
+<a class="reference external" href="https://researcher.watson.ibm.com/researcher/files/us-fagin/topk.pdf">https://researcher.watson.ibm.com/researcher/files/us-fagin/topk.pdf</a>
+The fig. 5 in that RBO paper can be used as test case.
+Note there the choice of p is of great importance, since it
+essentically control the “top-weightness”. Simply put, to an extreme,
+a small p value will only consider first few items, whereas a larger p
+value will consider more itmes. See Eq. (21) for quantitative measure.
+:param k: The depth of evaluation.
+:type k: int
+:param p: Weight of each agreement at depth d:</p>
+<blockquote>
+<div><p>p**(d-1). When set to 1.0, there is no weight, the rbo returns
+to average overlap.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ext</strong> (<em>Boolean</em>) – If True, we will extrapolate the rbo,
+as in Eq. (23)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rbo at depth k (or extrapolated beyond)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.RankingSimilarity.rbo_ext">
+<span class="sig-name descname"><span class="pre">rbo_ext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.98</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.RankingSimilarity.rbo_ext" title="Permalink to this definition"></a></dt>
+<dd><p>This is the ultimate implementation of the rbo, namely, the
+extrapolated version. The corresponding formula is Eq. (32) in the rbo
+paper.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.RankingSimilarity.top_weightness">
+<span class="sig-name descname"><span class="pre">top_weightness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.RankingSimilarity.top_weightness" title="Permalink to this definition"></a></dt>
+<dd><p>This function will evaluate the degree of the top-weightness of the
+rbo. It is the implementation of Eq. (21) of the rbo paper.
+As a sanity check (per the rbo paper),
+top_weightness(p=0.9, d=10) should be 86%
+top_weightness(p=0.98, d=50) should be 86% too
+:param p: A value between zero and one.
+:type p: float
+:param d: Evaluation depth of the list.
+:type d: int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A float between [0, 1], that indicates the top-weightness.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.rank_adjust">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">rank_adjust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ll1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.rank_adjust" title="Permalink to this definition"></a></dt>
+<dd><p>Re-rank elements of list1 using ranking of list2
+20k dataframe : 6 sec ,  4sec if dict is pre-build</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.rank_biased_overlap">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">rank_biased_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.rank_biased_overlap" title="Permalink to this definition"></a></dt>
+<dd><p>rank based comparison between 2 lists.
+The parameter p is a tunable parameter in the range (0, 1) that can be used to determine
+the contribution of the top d ranks to the final value of the RBO similarity measure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.rank_topk_check">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">rank_topk_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fasttext'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.rank_topk_check" title="Permalink to this definition"></a></dt>
+<dd><p>Compare ranking in “,” format
+Compare id_list with ref_list  ranking and show some correlation numbers.
+id_list  : Vector based ranking  “,” separated
+ref_list : reference ranking (ie co-count).</p>
+<p>id, id_list,  ref_list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.rank_topk_kendall">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">rank_topk_kendall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.rank_topk_kendall" title="Permalink to this definition"></a></dt>
+<dd><p>kendall_top_k(np.array,np.array,k,p)
+#zero is equal 1 is max distance, compare with 1-scipy.stats.kendalltau(a,b)/2+1/2
+This function generalise kendall-tau as defined in [1] Fagin, Ronald, Ravi Kumar, and D. Sivakumar. “Comparing top k lists.” SIAM Journal on Discrete Mathematics 17.1 (2003): 134-160.
+It returns a distance: 0 for identical (in the sense of top-k) lists and 1 if completely different.
+.. rubric:: Example</p>
+<dl>
+<dt>Simply call it with two same-length arrays of ratings (or also rankings), length of the top elements k (default is the maximum length possible), and p (default is 0, see [1]) as parameters:</dt><dd><blockquote>
+<div><p>$ a = np.array([1,2,3,4,5])
+$ b = np.array([5,4,3,2,1])
+$ kendall_top_k(a,b,k=4)</p>
+</div></blockquote>
+<p>Author: Alessandro Checco  <a class="reference external" href="https://github.com/AlessandroChecco">https://github.com/AlessandroChecco</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.rbo_find_p">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">rbo_find_p</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.rbo_find_p" title="Permalink to this definition"></a></dt>
+<dd><p>function rbo_find_p
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.test">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.test" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.recsys.ranking.util_rank.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.recsys.ranking.util_rank.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.recsys.ranking.util_rank.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="utilmy-recsys-ranking-util-rankmerge-module">
+<h2>utilmy.recsys.ranking.util_rankmerge module<a class="headerlink" href="#utilmy-recsys-ranking-util-rankmerge-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.recsys.ranking">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.recsys.ranking" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.recsys.html" class="btn btn-neutral float-left" title="utilmy.recsys package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.sspark.html" class="btn btn-neutral float-right" title="utilmy.sspark package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

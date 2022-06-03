@@ -1,0 +1,94 @@
+utilmy.nlp package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   utilmy.nlp.kkeras
+   utilmy.nlp.ttorch
+
+Submodules
+----------
+
+utilmy.nlp.util\_cluster module
+-------------------------------
+
+.. automodule:: utilmy.nlp.util_cluster
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_cocount module
+-------------------------------
+
+.. automodule:: utilmy.nlp.util_cocount
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_embedding module
+---------------------------------
+
+.. automodule:: utilmy.nlp.util_embedding
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_explain module
+-------------------------------
+
+.. automodule:: utilmy.nlp.util_explain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_gensim module
+------------------------------
+
+.. automodule:: utilmy.nlp.util_gensim
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_ner module
+---------------------------
+
+.. automodule:: utilmy.nlp.util_ner
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_nlp module
+---------------------------
+
+.. automodule:: utilmy.nlp.util_nlp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_topk module
+----------------------------
+
+.. automodule:: utilmy.nlp.util_topk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.util\_transformers module
+------------------------------------
+
+.. automodule:: utilmy.nlp.util_transformers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.nlp
+   :members:
+   :undoc-members:
+   :show-inheritance:

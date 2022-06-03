@@ -1,0 +1,21 @@
+utilmy.nlp.kkeras package
+=========================
+
+Submodules
+----------
+
+utilmy.nlp.kkeras.sentences module
+----------------------------------
+
+.. automodule:: utilmy.nlp.kkeras.sentences
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.nlp.kkeras
+   :members:
+   :undoc-members:
+   :show-inheritance:

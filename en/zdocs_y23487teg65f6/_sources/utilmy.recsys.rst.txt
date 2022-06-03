@@ -1,0 +1,85 @@
+utilmy.recsys package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   utilmy.recsys.ranking
+
+Submodules
+----------
+
+utilmy.recsys.ab module
+-----------------------
+
+.. automodule:: utilmy.recsys.ab
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.metric module
+---------------------------
+
+.. automodule:: utilmy.recsys.metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.util\_ltr module
+------------------------------
+
+.. automodule:: utilmy.recsys.util_ltr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.util\_rec module
+------------------------------
+
+.. automodule:: utilmy.recsys.util_rec
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.util\_sequencepattern module
+------------------------------------------
+
+.. automodule:: utilmy.recsys.util_sequencepattern
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.util\_tfranking module
+------------------------------------
+
+.. automodule:: utilmy.recsys.util_tfranking
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.vectors module
+----------------------------
+
+.. automodule:: utilmy.recsys.vectors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.zprepro\_recs module
+----------------------------------
+
+.. automodule:: utilmy.recsys.zprepro_recs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.recsys
+   :members:
+   :undoc-members:
+   :show-inheritance:

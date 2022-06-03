@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.stats package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.stats.hypothesis package" href="utilmy.stats.hypothesis.html" />
+    <link rel="prev" title="utilmy.sspark.tests package" href="utilmy.sspark.tests.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">utilmy.stats package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="utilmy.stats.hypothesis.html">utilmy.stats.hypothesis package</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.stats.statistics">utilmy.stats.statistics module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.stats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+      <li>utilmy.stats package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.stats.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-stats-package">
+<h1>utilmy.stats package<a class="headerlink" href="#utilmy-stats-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.stats.hypothesis.html">utilmy.stats.hypothesis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html">utilmy.stats.hypothesis.tests package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#utilmy-stats-hypothesis-tests-test-aov-module">utilmy.stats.hypothesis.tests.test_aov module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_contingency">utilmy.stats.hypothesis.tests.test_contingency module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_critical_values">utilmy.stats.hypothesis.tests.test_critical_values module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_descriptive">utilmy.stats.hypothesis.tests.test_descriptive module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_factor_analysis">utilmy.stats.hypothesis.tests.test_factor_analysis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_gof">utilmy.stats.hypothesis.tests.test_gof module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#utilmy-stats-hypothesis-tests-test-hypothesis-module">utilmy.stats.hypothesis.tests.test_hypothesis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests.test_internal">utilmy.stats.hypothesis.tests.test_internal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#utilmy-stats-hypothesis-tests-test-nonparametric-module">utilmy.stats.hypothesis.tests.test_nonparametric module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#utilmy-stats-hypothesis-tests-test-posthoc-module">utilmy.stats.hypothesis.tests.test_posthoc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.hypothesis.tests.html#module-utilmy.stats.hypothesis.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.aov">utilmy.stats.hypothesis.aov module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#one-way-analysis-of-variance">One-Way Analysis of Variance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.contingency">utilmy.stats.hypothesis.contingency module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#contingency-tables">Contingency Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#other-functions">Other Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.critical">utilmy.stats.hypothesis.critical module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#critical-value-lookup-functions">Critical Value Lookup Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.descriptive">utilmy.stats.hypothesis.descriptive module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#correlation">Correlation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#variance-and-covariance">Variance and Covariance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#id1">Other Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.fa">utilmy.stats.hypothesis.fa module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.gof">utilmy.stats.hypothesis.gof module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#goodness-of-fit">Goodness-of-fit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.hypothesis">utilmy.stats.hypothesis.hypothesis module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#hypothesis-testing">Hypothesis Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.nonparametric">utilmy.stats.hypothesis.nonparametric module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#nonparametric-inference-methods">Nonparametric Inference Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#id2">Other Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.posthoc">utilmy.stats.hypothesis.posthoc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.stats.hypothesis.html#post-hoc-analysis">Post-Hoc Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.stats.statistics">
+<span id="utilmy-stats-statistics-module"></span><h2>utilmy.stats.statistics module<a class="headerlink" href="#module-utilmy.stats.statistics" title="Permalink to this heading"></a></h2>
+<p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Hypothesis testing easy.
+
+https://github.com/pranab/beymani
+
+https://github.com/topics/hypothesis-testing?l=python&amp;o=desc&amp;s=stars
+
+https://pypi.org/project/pysie/#description
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.bonferoni_adjuster">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">bonferoni_adjuster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.bonferoni_adjuster" title="Permalink to this definition"></a></dt>
+<dd><p>Bonferroni correction.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of discoveries is: </span><span class="si">{:,}</span><span class="s1">&#39;</span>  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span> <span class="o">/</span> <span class="n">n_trials</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">p_values</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Percentage of significant results: </span><span class="si">{:5.2%}</span><span class="s1">&#39;</span>  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span> <span class="o">/</span> <span class="n">n_trials</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">p_values</span><span class="p">])</span> <span class="o">/</span> <span class="n">n_trials</span><span class="p">))</span>
+
+<span class="c1"># Benjamini–Hochberg procedure</span>
+<span class="n">p_values</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p_values</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span> <span class="o">*</span> <span class="n">threshold</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="n">significant</span> <span class="o">=</span> <span class="n">p_values</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of discoveries is: </span><span class="si">{:,}</span><span class="s1">&#39;</span> <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">significant</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Percentage of significant results: </span><span class="si">{:5.2%}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">significant</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_trials</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.confidence_interval_boostrap_bayes">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">confidence_interval_boostrap_bayes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.confidence_interval_boostrap_bayes" title="Permalink to this definition"></a></dt>
+<dd><p>function estimator_boostrap_bayes.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">err</span><span class="p">:</span>
+    <span class="n">alpha</span><span class="p">:</span>
+    <span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.confidence_interval_bootstrap">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">confidence_interval_bootstrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_stat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.confidence_interval_bootstrap" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_stat</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="c1"># stat_val = np.mean(np.asmatrix(values),axis=axis)</span>
+<span class="c1"># stat_val = np.std(np.asmatrix(values),axis=axis)p.mean</span>
+<span class="n">stat_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asmatrix</span><span class="p">(</span><span class="n">values</span><span class="o">*</span><span class="n">values</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
+<span class="k">return</span> <span class="n">stat_val</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.confidence_interval_normal_std">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">confidence_interval_normal_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.confidence_interval_normal_std" title="Permalink to this definition"></a></dt>
+<dd><p>function estimator_std_normal.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">err</span><span class="p">:</span>
+    <span class="n">alpha</span><span class="p">:</span>   <span class="n">confidence</span> <span class="n">level</span>
+    <span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>   <span class="n">std_err</span><span class="p">,</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.error_test_heteroscedacity">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">error_test_heteroscedacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ypred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ytrue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_value_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.error_test_heteroscedacity" title="Permalink to this definition"></a></dt>
+<dd><p>function test_heteroscedacity.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="n">ytrue</span><span class="p">:</span>
+    <span class="n">ypred</span><span class="p">:</span>
+    <span class="n">pred_value_only</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.error_test_normality">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">error_test_normality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ypred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ytrue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distribution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'norm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.error_test_normality" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Test</span>  <span class="n">Is</span> <span class="n">Normal</span> <span class="n">distribution</span>
+<span class="n">F</span> <span class="n">pvalues</span> <span class="o">&lt;</span> <span class="mf">0.01</span> <span class="p">:</span> <span class="n">Rejected</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.error_test_residual_mutualinfo">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">error_test_residual_mutualinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dfX</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ypred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ytrue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colsX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.error_test_residual_mutualinfo" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Test</span>  <span class="n">Error</span> <span class="n">vs</span> <span class="n">Input</span> <span class="n">X</span> <span class="n">Variable</span> <span class="n">Independance</span> <span class="n">byt</span> <span class="n">Mutual</span> <span class="n">ifno</span>
+<span class="n">sklearn</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">mutual_info_classif</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">discrete_features</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.help" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.np_col_extractname">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">np_col_extractname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_onehot</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.np_col_extractname" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Column</span> <span class="n">extraction</span> <span class="kn">from</span> <span class="nn">onehot</span> <span class="n">name</span>
+<span class="n">col_onehotp</span>
+<span class="p">:</span><span class="k">return</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.np_conv_to_one_col">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">np_conv_to_one_col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">np_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep_char</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.np_conv_to_one_col" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">converts</span> <span class="n">string</span><span class="o">/</span><span class="n">numeric</span> <span class="n">columns</span> <span class="n">to</span> <span class="n">one</span> <span class="n">string</span> <span class="n">column</span>
+<span class="n">np_array</span><span class="p">:</span> <span class="n">the</span> <span class="n">numpy</span> <span class="n">array</span> <span class="k">with</span> <span class="n">more</span> <span class="n">than</span> <span class="n">one</span> <span class="n">column</span>
+<span class="n">sep_char</span><span class="p">:</span> <span class="n">the</span> <span class="n">separator</span> <span class="n">character</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.np_list_remove">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">np_list_remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colsremove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'exact'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.np_list_remove" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test0">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test0</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test0" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test1" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test3">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test3" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_anova">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_anova</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_anova" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ANOVA</span> <span class="n">test</span> <span class="n">two</span> <span class="n">categorical</span> <span class="n">features</span>
+<span class="n">Input</span> <span class="n">dfframe</span><span class="p">,</span> <span class="mi">1</span><span class="n">st</span> <span class="n">feature</span> <span class="ow">and</span> <span class="mi">2</span><span class="n">nd</span> <span class="n">feature</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_check_mean">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_check_mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_check_mean" title="Permalink to this definition"></a></dt>
+<dd><p>function test_check_mean.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_chisquare">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_chisquare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_true</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'chisquare'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_chisquare" title="Permalink to this definition"></a></dt>
+<dd><p>Hypothesis betweeb Obs and true values.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">aschleg</span><span class="o">/</span><span class="n">hypothetical</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_contingency</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_independance">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_independance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonferroni_adjuster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#utilmy.stats.statistics.test_independance" title="Permalink to this definition"></a></dt>
+<dd><p>Run ANOVA Test of independance.
+Doc:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_independance_Xinput_vs_ytarget">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_independance_Xinput_vs_ytarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colsX</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'y'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonferroni_adjuster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#utilmy.stats.statistics.test_independance_Xinput_vs_ytarget" title="Permalink to this definition"></a></dt>
+<dd><p>Run multiple T tests of Independance.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_values</span> <span class="o">=</span> <span class="n">multiple_comparisons</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_mutualinfo">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_mutualinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Xtest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_mutualinfo" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Test</span>  <span class="n">Error</span> <span class="n">vs</span> <span class="n">Input</span> <span class="n">Variable</span> <span class="n">Independance</span> <span class="n">byt</span> <span class="n">Mutual</span> <span class="n">ifno</span>
+<span class="n">sklearn</span><span class="o">.</span><span class="n">feature_selection</span><span class="o">.</span><span class="n">mutual_info_classif</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">discrete_features</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_normality2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_normality2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_normality2" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span> <span class="n">to</span> <span class="n">check</span> <span class="n">Normal</span> <span class="n">Distribution</span> <span class="n">of</span> <span class="n">a</span> <span class="n">Feature</span> <span class="n">by</span> <span class="mi">3</span> <span class="n">methods</span>
+<span class="n">Input</span> <span class="n">dfframe</span><span class="p">,</span> <span class="n">feature</span> <span class="n">name</span><span class="p">,</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">test</span> <span class="nb">type</span>
+<span class="n">Three</span> <span class="n">types</span> <span class="n">of</span> <span class="n">test</span>
+<span class="mi">1</span><span class="p">)</span><span class="s1">&#39;Shapiro&#39;</span>
+<span class="mi">2</span><span class="p">)</span><span class="s1">&#39;Normal&#39;</span>
+<span class="mi">3</span><span class="p">)</span><span class="s1">&#39;Anderson&#39;</span>
+
+<span class="n">output</span> <span class="n">the</span> <span class="n">statistical</span> <span class="n">test</span> <span class="n">score</span> <span class="ow">and</span> <span class="n">result</span> <span class="n">whether</span> <span class="n">accept</span> <span class="ow">or</span> <span class="n">reject</span>
+<span class="n">Accept</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">feature</span> <span class="ow">is</span> <span class="n">Gaussain</span>
+<span class="n">Reject</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">feature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Gaussain</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_plot_qqplot">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_plot_qqplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.statistics.test_plot_qqplot" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span> <span class="n">to</span> <span class="n">plot</span> <span class="n">boxplot</span><span class="p">,</span> <span class="n">histplot</span> <span class="ow">and</span> <span class="n">qqplot</span> <span class="k">for</span> <span class="n">numerical</span> <span class="n">feature</span> <span class="n">analyze</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.statistics.test_same_mean">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.statistics.</span></span><span class="sig-name descname"><span class="pre">test_same_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonferroni_adjuster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcritic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#utilmy.stats.statistics.test_same_mean" title="Permalink to this definition"></a></dt>
+<dd><p>Test if same mean for all columns
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">towardsdatascience</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">why</span><span class="o">-</span><span class="ow">is</span><span class="o">-</span><span class="n">anova</span><span class="o">-</span><span class="n">essential</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">science</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">practical</span><span class="o">-</span><span class="n">example</span><span class="o">-</span><span class="mi">615</span><span class="n">de10ba310</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.stats">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.stats" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.sspark.tests.html" class="btn btn-neutral float-left" title="utilmy.sspark.tests package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.stats.hypothesis.html" class="btn btn-neutral float-right" title="utilmy.stats.hypothesis package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

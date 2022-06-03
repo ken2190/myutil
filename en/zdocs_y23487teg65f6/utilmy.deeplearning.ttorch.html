@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.deeplearning.ttorch package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.deeplearning.ttorch.images package" href="utilmy.deeplearning.ttorch.images.html" />
+    <link rel="prev" title="utilmy.deeplearning.kkeras package" href="utilmy.deeplearning.kkeras.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="utilmy.deeplearning.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="utilmy.deeplearning.autoencoder.html">utilmy.deeplearning.autoencoder package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="utilmy.deeplearning.kkeras.html">utilmy.deeplearning.kkeras package</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">utilmy.deeplearning.ttorch package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html">utilmy.deeplearning.ttorch.images package</a></li>
+<li class="toctree-l8"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html">utilmy.deeplearning.ttorch.models package</a></li>
+<li class="toctree-l8"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html">utilmy.deeplearning.ttorch.zsave package</a></li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#utilmy-deeplearning-ttorch-graphnlp-module">utilmy.deeplearning.ttorch.graphnlp module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.deeplearning.ttorch.model_ensemble">utilmy.deeplearning.ttorch.model_ensemble module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.deeplearning.ttorch.model_ensemble2">utilmy.deeplearning.ttorch.model_ensemble2 module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.deeplearning.ttorch.util_model">utilmy.deeplearning.ttorch.util_model module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.deeplearning.ttorch.util_torch">utilmy.deeplearning.ttorch.util_torch module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.deeplearning.ttorch">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#utilmy-deeplearning-test-module">utilmy.deeplearning.test module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#module-utilmy.deeplearning.util_dl">utilmy.deeplearning.util_dl module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#module-utilmy.deeplearning.util_embedding">utilmy.deeplearning.util_embedding module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#module-utilmy.deeplearning.util_hyper">utilmy.deeplearning.util_hyper module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#utilmy-deeplearning-util-onnx-module">utilmy.deeplearning.util_onnx module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#module-utilmy.deeplearning.util_yolo">utilmy.deeplearning.util_yolo module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.deeplearning.html#module-utilmy.deeplearning">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+          <li><a href="utilmy.deeplearning.html">utilmy.deeplearning package</a> &raquo;</li>
+      <li>utilmy.deeplearning.ttorch package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.deeplearning.ttorch.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-deeplearning-ttorch-package">
+<h1>utilmy.deeplearning.ttorch package<a class="headerlink" href="#utilmy-deeplearning-ttorch-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html">utilmy.deeplearning.ttorch.images package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html#utilmy-deeplearning-ttorch-images-base-module">utilmy.deeplearning.ttorch.images.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html#utilmy-deeplearning-ttorch-images-i3d-module">utilmy.deeplearning.ttorch.images.i3d module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html#utilmy-deeplearning-ttorch-images-x3d-module">utilmy.deeplearning.ttorch.images.x3d module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.images.html#module-utilmy.deeplearning.ttorch.images">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html">utilmy.deeplearning.ttorch.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html#module-utilmy.deeplearning.ttorch.models.rule_encoder4">utilmy.deeplearning.ttorch.models.rule_encoder4 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html#utilmy-deeplearning-ttorch-models-sentences-model-module">utilmy.deeplearning.ttorch.models.sentences_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html#module-utilmy.deeplearning.ttorch.models.torch_lstm_check">utilmy.deeplearning.ttorch.models.torch_lstm_check module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.models.html#module-utilmy.deeplearning.ttorch.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html">utilmy.deeplearning.ttorch.zsave package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#utilmy-deeplearning-ttorch-zsave-model-ensemble-detail-module">utilmy.deeplearning.ttorch.zsave.model_ensemble_detail module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#utilmy-deeplearning-ttorch-zsave-rule-encoder-module">utilmy.deeplearning.ttorch.zsave.rule_encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#utilmy-deeplearning-ttorch-zsave-test-usage-module">utilmy.deeplearning.ttorch.zsave.test_usage module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#utilmy-deeplearning-ttorch-zsave-zrule-encoder2-module">utilmy.deeplearning.ttorch.zsave.zrule_encoder2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.deeplearning.ttorch.zsave.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-deeplearning-ttorch-graphnlp-module">
+<h2>utilmy.deeplearning.ttorch.graphnlp module<a class="headerlink" href="#utilmy-deeplearning-ttorch-graphnlp-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.deeplearning.ttorch.model_ensemble">
+<span id="utilmy-deeplearning-ttorch-model-ensemble-module"></span><h2>utilmy.deeplearning.ttorch.model_ensemble module<a class="headerlink" href="#module-utilmy.deeplearning.ttorch.model_ensemble" title="Permalink to this heading"></a></h2>
+<p>utils for model merge
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utilmy.deeplearning.ttorch.model_ensemble</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="n">me</span><span class="o">.</span><span class="n">test1</span><span class="p">()</span>
+<span class="n">me</span><span class="o">.</span><span class="n">help</span><span class="p">()</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">discuss</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">t</span><span class="o">/</span><span class="n">combining</span><span class="o">-</span><span class="n">trained</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">pytorch</span><span class="o">/</span><span class="mi">28383</span><span class="o">/</span><span class="mi">45</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">discuss</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">t</span><span class="o">/</span><span class="n">merging</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">models</span><span class="o">/</span><span class="mi">66230</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="n">Issue</span> <span class="n">wthen</span> <span class="n">reloading</span> <span class="n">jupyte</span>
+        <span class="kn">import</span> <span class="nn">library.Child</span>
+        <span class="n">reload</span><span class="p">(</span><span class="n">library</span><span class="p">)</span>
+        <span class="kn">import</span> <span class="nn">library.Child</span>
+</pre></div>
+</div>
+<p>Code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">ARG</span><span class="o">.</span><span class="n">MODE</span> <span class="o">==</span> <span class="s1">&#39;mode1&#39;</span><span class="p">:</span>
+    <span class="n">ARG</span><span class="o">.</span><span class="n">MODEL_INFO</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">=</span> <span class="s1">&#39;dataonly&#39;</span>
+    <span class="n">train_config</span>                     <span class="o">=</span> <span class="n">Box</span><span class="p">({})</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">LR</span>                  <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">DEVICE</span>              <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">BATCH_SIZE</span>          <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">EPOCHS</span>              <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">EARLY_STOPPING_THLD</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">VALID_FREQ</span>          <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">SAVE_FILENAME</span>       <span class="o">=</span> <span class="s1">&#39;./model.pt&#39;</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">TRAIN_RATIO</span>         <span class="o">=</span> <span class="mf">0.7</span>
+
+
+<span class="c1">#### SEPARATE the models completetly, and create duplicate</span>
+<span class="c1">### modelA  ########################################################</span>
+<span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embA_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model_ft</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>  <span class="c1">###</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span>               <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>   <span class="c1">#MODEL_TASK</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">name</span>          <span class="o">=</span> <span class="s1">&#39;resnet18&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">nn_model</span>      <span class="o">=</span> <span class="n">model_ft</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">layer_emb_id</span>          <span class="o">=</span> <span class="s1">&#39;fc&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">architect</span>     <span class="o">=</span> <span class="p">[</span> <span class="n">embA_dim</span><span class="p">]</span>  <span class="c1">### head s</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span>  <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">modelA</span> <span class="o">=</span> <span class="n">modelA_create</span><span class="p">(</span><span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="p">)</span>
+
+
+<span class="c1">### modelB  ########################################################</span>
+<span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet50</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embB_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model_ft</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span>               <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">name</span>          <span class="o">=</span> <span class="s1">&#39;resnet50&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">nn_model</span>      <span class="o">=</span> <span class="n">model_ft</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">layer_emb_id</span>          <span class="o">=</span> <span class="s1">&#39;fc&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">architect</span>     <span class="o">=</span> <span class="p">[</span><span class="n">embB_dim</span> <span class="p">]</span>   <span class="c1">### head size</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span>  <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">modelB</span> <span class="o">=</span> <span class="n">modelB_create</span><span class="p">(</span><span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span> <span class="p">)</span>
+
+
+<span class="c1">### merge_model  ###################################################</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span>           <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">name</span>      <span class="o">=</span> <span class="s1">&#39;modelmerge1&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">architect</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;layers_dim&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">}</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">architect</span><span class="o">.</span><span class="n">merge_type</span><span class="o">=</span> <span class="s1">&#39;cat&#39;</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span> <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">train_config</span>  <span class="o">=</span> <span class="n">train_config</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MergeModel_create</span><span class="p">(</span><span class="n">ARG</span><span class="p">,</span> <span class="n">modelB</span><span class="o">=</span><span class="n">modelB</span><span class="p">,</span> <span class="n">modelA</span><span class="o">=</span><span class="n">modelA</span><span class="p">)</span>
+
+
+<span class="c1">#### Run Model   ###################################################</span>
+<span class="c1"># load_DataFrame = modelB_create.load_DataFrame</span>
+<span class="c1"># prepro_dataset = modelB_create.prepro_dataset</span>
+<span class="n">model</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">training</span><span class="p">(</span><span class="n">load_DataFrame</span><span class="p">,</span> <span class="n">prepro_dataset</span><span class="p">)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>TODO :</dt><dd><p>make get_embedding works</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">BaseModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is BaseClass for model create</p>
+<dl class="simple">
+<dt>Method:</dt><dd><p>create_model : Initialize Model (torch.nn.Module)
+evaluate:
+prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+create_loss :   Initialize Loss Function
+training:   starting training
+build: create model, loss, optimizer (call before training)
+train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+device_setup:
+load_DataFrame: read pandas
+load_weight:
+save_weight:
+predict :</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.build" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.create_loss">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.create_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.device">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.device" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.device_setup">
+<span class="sig-name descname"><span class="pre">device_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.device_setup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.eval" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.evaluate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.grad_check">
+<span class="sig-name descname"><span class="pre">grad_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.grad_check" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.load_DataFrame">
+<span class="sig-name descname"><span class="pre">load_DataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.load_DataFrame" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.load_weights">
+<span class="sig-name descname"><span class="pre">load_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.load_weights" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.prepro_dataset">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepro_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.prepro_dataset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.save_weight">
+<span class="sig-name descname"><span class="pre">save_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.save_weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.train" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.training">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.BaseModel.validate_dim">
+<span class="sig-name descname"><span class="pre">validate_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_loader</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel.validate_dim" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">MergeModel_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_create_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.build" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Head task loss
+1) Only Head task loss : Classfieri head  ### Baseline
+Stop the gradient or not in modelA and modelB.</p>
+<blockquote>
+<div><p>embA_d = embA.detach()  ### Stop the gradient
+modelA_loss(x_a, embA)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.prepro_dataset">
+<span class="sig-name descname"><span class="pre">prepro_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.prepro_dataset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.training">
+<span class="sig-name descname"><span class="pre">training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_DataFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepro_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataloader_custom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.MergeModel_create.training" title="Permalink to this definition"></a></dt>
+<dd><p>Train Loop
+Docs:</p>
+<blockquote>
+<div><p># training with load_DataFrame and prepro_data function or default funtion in self.method</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.dataloader_create">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">dataloader_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataLoader</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.dataloader_create" title="Permalink to this definition"></a></dt>
+<dd><p>function dataloader_create
+:param train_X:
+:param train_y:
+:param valid_X:
+:param valid_y:
+:param test_X:
+:param test_y:
+:param arg:</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.device_setup">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">device_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">67</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.device_setup" title="Permalink to this definition"></a></dt>
+<dd><p>function device_setup</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelA_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">modelA_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelA_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelA</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelA_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelA_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelA_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelA_nn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Module</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelA_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelB_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">modelB_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelB_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelB Creatio</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelB_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelB_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelB_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelB_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelC_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">modelC_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelC_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelC Creatio</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelC_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelC_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.modelC_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.modelC_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">model_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelA</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelA_nn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Module</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_getlayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">model_getlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_getlayer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.get_layers_in_order">
+<span class="sig-name descname"><span class="pre">get_layers_in_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.get_layers_in_order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.hook_fn">
+<span class="sig-name descname"><span class="pre">hook_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_getlayer.hook_fn" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">model_template_MLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[20,</span> <span class="pre">100,</span> <span class="pre">16]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.model_template_MLP.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test2a">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test2a</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test2a" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test2b">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test2b</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test2b" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test2c">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test2c</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test2c" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test2d">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test2d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test2d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble.torch_norm_l2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble.</span></span><span class="sig-name descname"><span class="pre">torch_norm_l2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble.torch_norm_l2" title="Permalink to this definition"></a></dt>
+<dd><p>normalize the torch  tensor X by L2 norm.</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.deeplearning.ttorch.model_ensemble2">
+<span id="utilmy-deeplearning-ttorch-model-ensemble2-module"></span><h2>utilmy.deeplearning.ttorch.model_ensemble2 module<a class="headerlink" href="#module-utilmy.deeplearning.ttorch.model_ensemble2" title="Permalink to this heading"></a></h2>
+<p>utils for model merge
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utilmy.deeplearning.ttorch.model_ensemble</span> <span class="k">as</span> <span class="nn">me</span>
+<span class="n">me</span><span class="o">.</span><span class="n">test1</span><span class="p">()</span>
+<span class="n">me</span><span class="o">.</span><span class="n">help</span><span class="p">()</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">discuss</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">t</span><span class="o">/</span><span class="n">combining</span><span class="o">-</span><span class="n">trained</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">pytorch</span><span class="o">/</span><span class="mi">28383</span><span class="o">/</span><span class="mi">45</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">discuss</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">t</span><span class="o">/</span><span class="n">merging</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">models</span><span class="o">/</span><span class="mi">66230</span><span class="o">/</span><span class="mi">3</span>
+
+<span class="n">Issue</span> <span class="n">wthen</span> <span class="n">reloading</span> <span class="n">jupyte</span>
+        <span class="kn">import</span> <span class="nn">library.Child</span>
+        <span class="n">reload</span><span class="p">(</span><span class="n">library</span><span class="p">)</span>
+        <span class="kn">import</span> <span class="nn">library.Child</span>
+</pre></div>
+</div>
+<p>Code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">ARG</span><span class="o">.</span><span class="n">MODE</span> <span class="o">==</span> <span class="s1">&#39;mode1&#39;</span><span class="p">:</span>
+    <span class="n">ARG</span><span class="o">.</span><span class="n">MODEL_INFO</span><span class="o">.</span><span class="n">TYPE</span> <span class="o">=</span> <span class="s1">&#39;dataonly&#39;</span>
+    <span class="n">train_config</span>                     <span class="o">=</span> <span class="n">Box</span><span class="p">({})</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">LR</span>                  <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">DEVICE</span>              <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">BATCH_SIZE</span>          <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">EPOCHS</span>              <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">EARLY_STOPPING_THLD</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">VALID_FREQ</span>          <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">SAVE_FILENAME</span>       <span class="o">=</span> <span class="s1">&#39;./model.pt&#39;</span>
+    <span class="n">train_config</span><span class="o">.</span><span class="n">TRAIN_RATIO</span>         <span class="o">=</span> <span class="mf">0.7</span>
+
+
+<span class="c1">#### SEPARATE the models completetly, and create duplicate</span>
+<span class="c1">### modelA  ########################################################</span>
+<span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embA_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model_ft</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>  <span class="c1">###</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span>               <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>   <span class="c1">#MODEL_TASK</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">name</span>          <span class="o">=</span> <span class="s1">&#39;resnet18&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">nn_model</span>      <span class="o">=</span> <span class="n">model_ft</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">layer_emb_id</span>          <span class="o">=</span> <span class="s1">&#39;fc&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">architect</span>     <span class="o">=</span> <span class="p">[</span> <span class="n">embA_dim</span><span class="p">]</span>  <span class="c1">### head s</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span>  <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">modelA</span> <span class="o">=</span> <span class="n">modelA_create</span><span class="p">(</span><span class="n">ARG</span><span class="o">.</span><span class="n">modelA</span><span class="p">)</span>
+
+
+<span class="c1">### modelB  ########################################################</span>
+<span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet50</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">embB_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model_ft</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">in_features</span><span class="p">)</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span>               <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">name</span>          <span class="o">=</span> <span class="s1">&#39;resnet50&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">nn_model</span>      <span class="o">=</span> <span class="n">model_ft</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">layer_emb_id</span>          <span class="o">=</span> <span class="s1">&#39;fc&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">architect</span>     <span class="o">=</span> <span class="p">[</span><span class="n">embB_dim</span> <span class="p">]</span>   <span class="c1">### head size</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span>  <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">modelB</span> <span class="o">=</span> <span class="n">modelB_create</span><span class="p">(</span><span class="n">ARG</span><span class="o">.</span><span class="n">modelB</span> <span class="p">)</span>
+
+
+<span class="c1">### merge_model  ###################################################</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span>           <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">name</span>      <span class="o">=</span> <span class="s1">&#39;modelmerge1&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">architect</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;layers_dim&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">}</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">architect</span><span class="o">.</span><span class="n">merge_type</span><span class="o">=</span> <span class="s1">&#39;cat&#39;</span>
+
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span>       <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">dirin</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">coly</span> <span class="o">=</span> <span class="s1">&#39;ytarget&#39;</span>
+<span class="n">ARG</span><span class="o">.</span><span class="n">merge_model</span><span class="o">.</span><span class="n">train_config</span>  <span class="o">=</span> <span class="n">train_config</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MergeModel_create</span><span class="p">(</span><span class="n">ARG</span><span class="p">,</span> <span class="n">modelB</span><span class="o">=</span><span class="n">modelB</span><span class="p">,</span> <span class="n">modelA</span><span class="o">=</span><span class="n">modelA</span><span class="p">)</span>
+
+
+<span class="c1">#### Run Model   ###################################################</span>
+<span class="c1"># load_DataFrame = modelB_create.load_DataFrame</span>
+<span class="c1"># prepro_dataset = modelB_create.prepro_dataset</span>
+<span class="n">model</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">training</span><span class="p">(</span><span class="n">load_DataFrame</span><span class="p">,</span> <span class="n">prepro_dataset</span><span class="p">)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>TODO :</dt><dd><p>make get_embedding works</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">BaseModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is BaseClass for model create</p>
+<dl class="simple">
+<dt>Method:</dt><dd><p>create_model : Initialize Model (torch.nn.Module)
+evaluate:
+prepro_dataset:  (conver pandas.DataFrame to appropriate format)
+create_loss :   Initialize Loss Function
+training:   starting training
+build: create model, loss, optimizer (call before training)
+train: equavilent to model.train() in pytorch (auto enable dropout,vv..vv..)
+eval: equavilent to model.eval() in pytorch (auto disable dropout,vv..vv..)
+device_setup:
+load_DataFrame: read pandas
+load_weight:
+save_weight:
+predict :</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.build" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.create_loss">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.create_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.device">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.device" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.device_setup">
+<span class="sig-name descname"><span class="pre">device_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.device_setup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.eval" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.evaluate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.load_DataFrame">
+<span class="sig-name descname"><span class="pre">load_DataFrame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.load_DataFrame" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.load_weights">
+<span class="sig-name descname"><span class="pre">load_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.load_weights" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.prepro_dataset">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepro_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.prepro_dataset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.save_weight">
+<span class="sig-name descname"><span class="pre">save_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.save_weight" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.train" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.training">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">MergeModel_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_create_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.build" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd><p>Simple Head task loss
+1) Only Head task loss : Classfieri head  ### Baseline
+Stop the gradient or not in modelA and modelB.</p>
+<blockquote>
+<div><p>embA_d = embA.detach()  ### Stop the gradient
+modelA_loss(x_a, embA)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.freeze_all">
+<span class="sig-name descname"><span class="pre">freeze_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.freeze_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.prepro_dataset">
+<span class="sig-name descname"><span class="pre">prepro_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.prepro_dataset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.training">
+<span class="sig-name descname"><span class="pre">training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_DataFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prepro_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.training" title="Permalink to this definition"></a></dt>
+<dd><p>Train Loop
+Docs:</p>
+<blockquote>
+<div><p># training with load_DataFrame and prepro_data function or default funtion in self.method</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.unfreeze_all">
+<span class="sig-name descname"><span class="pre">unfreeze_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.MergeModel_create.unfreeze_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.dataloader_create">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">dataloader_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataLoader</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.dataloader_create" title="Permalink to this definition"></a></dt>
+<dd><p>function dataloader_create
+:param train_X:
+:param train_y:
+:param valid_X:
+:param valid_y:
+:param test_X:
+:param test_y:
+:param arg:</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.device_setup">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">device_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">67</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.device_setup" title="Permalink to this definition"></a></dt>
+<dd><p>function device_setup</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelA_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">modelA_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelA_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelA</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelA_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelA_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelA_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelA_nn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Module</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelA_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelB_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">modelB_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelB_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelB Creatio</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelB_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelB_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelB_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelB_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelC_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">modelC_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelC_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelC Creatio</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelC_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelC_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.modelC_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.modelC_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_create">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">model_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_create" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utilmy.deeplearning.ttorch.model_ensemble2.BaseModel" title="utilmy.deeplearning.ttorch.model_ensemble2.BaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>modelA</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_create.create_loss">
+<span class="sig-name descname"><span class="pre">create_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loss_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Module</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_create.create_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_create.create_model">
+<span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelA_nn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Module</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_create.create_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">model_getlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.get_layers_in_order">
+<span class="sig-name descname"><span class="pre">get_layers_in_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.get_layers_in_order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.hook_fn">
+<span class="sig-name descname"><span class="pre">hook_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_getlayer.hook_fn" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">model_template_MLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layers_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[20,</span> <span class="pre">100,</span> <span class="pre">16]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.model_template_MLP.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test2a">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test2a</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test2a" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test2b">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test2b</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test2b" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test2c">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test2c</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test2c" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test2d">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test2d</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test2d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.model_ensemble2.torch_norm_l2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.model_ensemble2.</span></span><span class="sig-name descname"><span class="pre">torch_norm_l2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.model_ensemble2.torch_norm_l2" title="Permalink to this definition"></a></dt>
+<dd><p>normalize the torch  tensor X by L2 norm.</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.deeplearning.ttorch.util_model">
+<span id="utilmy-deeplearning-ttorch-util-model-module"></span><h2>utilmy.deeplearning.ttorch.util_model module<a class="headerlink" href="#module-utilmy.deeplearning.ttorch.util_model" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.SmeLU">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">SmeLU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.SmeLU" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>This class implements the Smooth ReLU (SmeLU) activation function proposed in:
+<a class="reference external" href="https://arxiv.org/pdf/2202.06499.pdf">https://arxiv.org/pdf/2202.06499.pdf</a></p>
+<dl>
+<dt>Example :</dt><dd><dl>
+<dt>def main() -&gt; None:</dt><dd><p># Init figures
+fig, ax = plt.subplots(1, 1)
+fig_grad, ax_grad = plt.subplots(1, 1)
+# Iterate over some beta values
+for beta in [0.5, 1., 2., 3., 4.]:</p>
+<blockquote>
+<div><p># Init SemLU
+smelu: SmeLU = SmeLU(beta=beta)
+# Make input
+input: torch.Tensor = torch.linspace(-6, 6, 1000, requires_grad=True)
+# Get activations
+output: torch.Tensor = smelu(input)
+# Compute gradients
+output.sum().backward()
+# Plot activation and gradients
+ax.plot(input.detach(), output.detach(), label=str(beta))
+ax_grad.plot(input.detach(), input.grad.detach(), label=str(beta))</p>
+</div></blockquote>
+<p># Show legend, title and grid
+ax.legend()
+ax_grad.legend()
+ax.set_title(“SemLU”)
+ax_grad.set_title(“SemLU gradient”)
+ax.grid()
+ax_grad.grid()
+# Show plots
+plt.show()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.SmeLU.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.SmeLU.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Forward pass.
+input (torch.Tensor): Tensor of any shape
+:return (torch.Tensor): Output activation tensor of the same shape as the input tensor</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.SmeLU.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.SmeLU.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.gradwalk">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">gradwalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.gradwalk" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.gradwalk_run">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">gradwalk_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.gradwalk_run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_LayerRecorder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_LayerRecorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_to_get</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_LayerRecorder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Get input, output or parameters to a module/layer
+by registering forward or backward hooks</p>
+<p>module: a module of a class in torch.nn.modules</p>
+<dl>
+<dt>record_input: bool, default False, deciding if input to module will be</dt><dd><p>recorded</p>
+</dd>
+<dt>record_output: bool, default False, deciding if output to module will be</dt><dd><p>recorded</p>
+</dd>
+<dt>record_params: bool, default False, deciding if params of module will be</dt><dd><p>recorded</p>
+</dd>
+<dt>params_to_get: list of str, default None, specifying the parameters to be</dt><dd><p>recorded from the module (if None all parameters are recorded)
+NOTE: meaningful only if record_params</p>
+</dd>
+<dt>backward: bool, default False, deciding if a forward or backward hook</dt><dd><p>will be registered and the recprding will be performed accordingly</p>
+</dd>
+<dt>custom_fn: function, default None, to be executed in the forward or backward</dt><dd><blockquote>
+<div><p>pass.</p>
+<p>It must have the following signature:</p>
+<p>custom_fn(module, output, input, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwars)</p>
+<p>with kwars optional</p>
+<p>The signature follows the signature of functions to be registered
+in hooks. See for more details:
+<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.modules.module.register_module_forward_hook.html">https://pytorch.org/docs/stable/generated/torch.nn.modules.module.register_module_forward_hook.html</a></p>
+</div></blockquote>
+<dl class="simple">
+<dt>save_to: str, default None, specifying a path to a folder for all recordings</dt><dd><p>to be saved.
+NOTE: recodrings are saved with filename: recording_0, recording_1, recording_N</p>
+</dd>
+<dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs: if keyword args are specified they will be passed as to the</dt><dd><p>custom_fn</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>The attribute recording contains the output, input or params of a module</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_LayerRecorder.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_LayerRecorder.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_add_layers">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_add_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_add_layers" title="Permalink to this definition"></a></dt>
+<dd><p>Add layers/modules to torch.nn.modules.container.Sequential</p>
+<p>model: instance of class of base class torch.nn.Module</p>
+<dl>
+<dt>modules: list of dict</dt><dd><p>each dict has key:value pairs</p>
+<p>{
+‘name’: str
+‘position’: int
+‘module’: torch.nn.Module
+}</p>
+<dl>
+<dt>with:</dt><dd><p>name: str, name to be added in the nn.modules.container.Sequential</p>
+<p>position: int, [0,..N], with N&gt;0, also -1, where N the total
+nr of modules in the torch.nn.modules.container.Sequential
+-1 denotes the module that will be appended at the end</p>
+<p>module: torch.nn.Module</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="simple">
+<dt>model: model with added modules/layers that is an instance of</dt><dd><p>torch.nn.modules.container.Sequential</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_delete_layers">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_delete_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">del_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_delete_layers" title="Permalink to this definition"></a></dt>
+<dd><p>Delete layers from model</p>
+<p>model: model to be modified</p>
+<dl class="simple">
+<dt>del_ids: list, default [], of int the modules/layers</dt><dd><p>that will be deleted
+NOTE: 0, 1… denotes the 1st, 2nd etc layer</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>model: model with deleted modules/layers that is an instance of</dt><dd><p>torch.nn.modules.container.Sequential</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_freezeparams">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_freezeparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_to_freeze</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freeze</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_freezeparams" title="Permalink to this definition"></a></dt>
+<dd><p>Freeze or unfreeze the parametrs of a model</p>
+<p>model:  class instance based on the base class torch.nn.Module</p>
+<dl class="simple">
+<dt>params_to_freeze: list of str specifying the names of the params to be</dt><dd><p>frozen or unfrozen</p>
+</dd>
+<dt>freeze: bool, default True, specifying the freeze or</dt><dd><p>unfreeze of model params</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>model: class instance based on the base class torch.nn.Module with changed</dt><dd><p>requires_grad param for the anmes params in params_to_freeze
+(freeze = requires_grad is False unfreeze = requires_grad is True)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_get_alllayers">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_get_alllayers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_get_alllayers" title="Permalink to this definition"></a></dt>
+<dd><p>Get all the children (layers) from a model, even the ones that are nested</p>
+<p>model: class instance based on the base class torch.nn.Module</p>
+<p>all_layers: list of all layers of the model</p>
+<p>Adapted from:
+<a class="reference external" href="https://stackoverflow.com/questions/54846905/pytorch-get-all-layers-of-model">https://stackoverflow.com/questions/54846905/pytorch-get-all-layers-of-model</a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_getlayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_getlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_getlayer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Get a specific layer for embedding output
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet50</span><span class="p">()</span>
+<span class="n">layerI</span><span class="o">=</span> <span class="n">model_getlayer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">pos_layer</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">### Forward pass</span>
+<span class="n">Xin</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">model</span><span class="p">(</span><span class="n">Xin</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;emb&#39;</span><span class="p">)</span>
+<span class="n">Xemb</span> <span class="o">=</span> <span class="n">layerI</span><span class="o">.</span><span class="n">output</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Xemb</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Xemb</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_getlayer.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_getlayer.close" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_getlayer.get_layers_in_order">
+<span class="sig-name descname"><span class="pre">get_layers_in_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_getlayer.get_layers_in_order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_getlayer.hook_fn">
+<span class="sig-name descname"><span class="pre">hook_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_getlayer.hook_fn" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.model_getparams">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">model_getparams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params_to_get</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.model_getparams" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts the parameters, names, and ‘requires gradient’ status from a
+model</p>
+<p>model: class instance based on the base class torch.nn.Module</p>
+<dl class="simple">
+<dt>params_to_get: list of str, default=None, specifying the names of the</dt><dd><p>parameters to be extracted
+If None, then all parameters and names of parameters from the model
+will be extracted</p>
+</dd>
+</dl>
+<p>detach: bool, default True, detach the tensor from the computational graph</p>
+<p>params_name: list, contaning one str for each extracted parameter</p>
+<dl class="simple">
+<dt>params_values: list, containg one tensor corresponding to each</dt><dd><p>parameter.
+NOTE: The tensor is detached from the computation graph</p>
+</dd>
+<dt>req_grad: list, containing one Boolean variable for each parameter</dt><dd><p>denoting the requires_grad status of the tensor/parameter
+of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.test1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.test2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.test3">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">test3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.test3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_model.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_model.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_model.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utilmy.deeplearning.ttorch.util_torch">
+<span id="utilmy-deeplearning-ttorch-util-torch-module"></span><h2>utilmy.deeplearning.ttorch.util_torch module<a class="headerlink" href="#module-utilmy.deeplearning.ttorch.util_torch" title="Permalink to this heading"></a></h2>
+<p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">utilmy</span><span class="o">/</span><span class="n">deeplearning</span><span class="o">/</span><span class="n">ttorch</span><span class="o">/</span><span class="n">util_torch</span><span class="o">.</span><span class="n">py</span>
+<span class="o">-------------------------</span><span class="n">functions</span><span class="o">----------------------</span>
+<span class="n">dataloader_create</span><span class="p">(</span><span class="n">train_X</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">train_y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valid_X</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valid_y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">test_X</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span><span class="p">,</span> <span class="n">batch_size_val</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">batch_size_test</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">device_setup</span><span class="p">(</span><span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">gradwalk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">_depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">gradwalk_run</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="n">help</span><span class="p">()</span>
+<span class="n">load_partially_compatible</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+<span class="n">model_evaluation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_task_fun</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">model_load</span><span class="p">(</span><span class="n">dir_checkpoint</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">doeval</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dotrain</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="n">model_load_state_dict_with_low_memory</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">state_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">])</span>
+<span class="n">model_save</span><span class="p">(</span><span class="n">torch_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dir_checkpoint</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./checkpoint/check.pt&quot;</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cc</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">loss_val</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="n">model_summary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="n">model_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss_calc</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">train_loader</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valid_loader</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">test1</span><span class="p">()</span>
+<span class="n">test3</span><span class="p">()</span>
+<span class="n">test4</span><span class="p">(</span><span class="n">dir_checkpoint</span><span class="p">,</span> <span class="n">torch_model</span><span class="p">)</span>
+<span class="n">test_all</span><span class="p">()</span>
+<span class="n">test_dataset_classification_fake</span><span class="p">(</span><span class="n">nrows</span> <span class="o">=</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">test_dataset_fashion_mnist</span><span class="p">(</span><span class="n">samples</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">random_crop</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">random_erasing</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">convert_to_RGB</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">val_set_ratio</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">test_set_ratio</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">num_workers</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="o">-------------------------</span><span class="n">methods</span><span class="o">----------------------</span>
+<span class="n">test_model_dummy2</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="n">test_model_dummy</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">,</span> <span class="n">hidden_dim</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">test_model_dummy</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+
+<span class="n">Utils</span> <span class="k">for</span> <span class="n">torch</span> <span class="n">training</span>
+<span class="n">TVM</span> <span class="n">optimizer</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">spell</span><span class="o">.</span><span class="n">ml</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">optimizing</span><span class="o">-</span><span class="n">pytorch</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="n">using</span><span class="o">-</span><span class="n">tvm</span><span class="o">-</span><span class="n">YI7pvREAACMAwYYz</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">szymonmaszke</span><span class="o">/</span><span class="n">torchlayers</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Riccorl</span><span class="o">/</span><span class="n">transformers</span><span class="o">-</span><span class="n">embedder</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">szymonmaszke</span><span class="o">/</span><span class="n">torchfunc</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.dataloader_create">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">dataloader_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.dataloader_create" title="Permalink to this definition"></a></dt>
+<dd><p>Doc:</p>
+<p>Example</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.device_setup">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">device_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.device_setup" title="Permalink to this definition"></a></dt>
+<dd><p>Setup ‘cpu’ or ‘gpu’ for device and seed for torch</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.load_partially_compatible">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">load_partially_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.load_partially_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_evaluation">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_task_fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_evaluation" title="Permalink to this definition"></a></dt>
+<dd><p>function model_evaluation
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Args:
+    model:
+    loss_task_func:
+    arg:
+    dataset_load1:
+    dataset_preprocess1:
+Returns:
+    utilmy.deeplearning.util_dl.metrics_eval(ypred: Optional[numpy.ndarray] = None, ytrue: Optional[numpy.ndarray] = None, metric_list: list = [&#39;mean_squared_error&#39;, &#39;mean_absolute_error&#39;], ypred_proba: Optional[numpy.ndarray] = None, return_dict: bool = False, metric_pars: Optional[dict] = None)→ pandas.core.frame.DataFrame
+
+https://arita37.github.io/myutil/en/zdocs_y23487teg65f6/utilmy.deeplearning.html#utilmy.deeplearning.util_dl.metrics_eval
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_load">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_checkpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torch_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doeval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dotrain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_load" title="Permalink to this definition"></a></dt>
+<dd><p>function model_load from checkpoint
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dir_checkpoint</span> <span class="o">=</span> <span class="s2">&quot;./check/mycheck.pt&quot;</span>
+<span class="n">torch_model</span>    <span class="o">=</span> <span class="s2">&quot;./mymodel:NNClass.py&quot;</span>   <span class="c1">### or Torch Object</span>
+<span class="n">model_load</span><span class="p">(</span><span class="n">dir_checkpoint</span><span class="p">,</span> <span class="n">torch_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doeval</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dotrain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_load_state_dict_with_low_memory">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_load_state_dict_with_low_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_load_state_dict_with_low_memory" title="Permalink to this definition"></a></dt>
+<dd><p>using 1x RAM for large model
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+<span class="n">model_load_state_dict_with_low_memory</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;checkpoint.pt&quot;</span><span class="p">))</span>
+
+<span class="c1"># free up memory by placing the model in the `meta` device</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">FrancescoSaverioZuppichini</span><span class="o">/</span><span class="n">Loading</span><span class="o">-</span><span class="n">huge</span><span class="o">-</span><span class="n">PyTorch</span><span class="o">-</span><span class="n">models</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">linear</span><span class="o">-</span><span class="n">memory</span><span class="o">-</span><span class="n">consumption</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_save">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">torch_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_checkpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./checkpoint/check.pt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_save" title="Permalink to this definition"></a></dt>
+<dd><p>function model_save
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dir_checkpoint</span> <span class="o">=</span> <span class="s2">&quot;./check/mycheck.pt&quot;</span>
+<span class="n">model_save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dir_checkpoint</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_summary">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_summary" title="Permalink to this definition"></a></dt>
+<dd><p>PyTorch model to summarize.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://pypi.org/project/torch-summary/
+#######################
+import torchvision
+model = torchvision.models.resnet50()
+summary(model, (3, 224, 224), depth=3)
+#######################
+model (nn.Module):
+        PyTorch model to summarize.
+
+input_data (Sequence of Sizes or Tensors):
+        Example input tensor of the model (dtypes inferred from model input).
+        - OR -
+        Shape of input data as a List/Tuple/torch.Size
+        (dtypes must match model input, default is FloatTensors).
+        You should NOT include batch size in the tuple.
+        - OR -
+        If input_data is not provided, no forward pass through the network is
+        performed, and the provided model information is limited to layer names.
+        Default: None
+
+batch_dim (int):
+        Batch_dimension of input data. If batch_dim is None, the input data
+        is assumed to contain the batch dimension.
+        WARNING: in a future version, the default will change to None.
+        Default: 0
+
+branching (bool):
+        Whether to use the branching layout for the printed output.
+        Default: True
+
+col_names (Iterable[str]):
+        Specify which columns to show in the output. Currently supported:
+        (&quot;input_size&quot;, &quot;output_size&quot;, &quot;num_params&quot;, &quot;kernel_size&quot;, &quot;mult_adds&quot;)
+        If input_data is not provided, only &quot;num_params&quot; is used.
+        Default: (&quot;output_size&quot;, &quot;num_params&quot;)
+
+col_width (int):
+        Width of each column.
+        Default: 25
+
+depth (int):
+        Number of nested layers to traverse (e.g. Sequentials).
+        Default: 3
+
+device (torch.Device):
+        Uses this torch device for model and input_data.
+        If not specified, uses result of torch.cuda.is_available().
+        Default: None
+
+dtypes (List[torch.dtype]):
+        For multiple inputs, specify the size of both inputs, and
+        also specify the types of each parameter here.
+        Default: None
+
+verbose (int):
+        0 (quiet): No output
+        1 (default): Print model summary
+        2 (verbose): Show weight and bias layers in full detail
+        Default: 1
+
+*args, **kwargs:
+        Other arguments used in `model.forward` function.
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>ModelStatistics object</dt><dd><p>See torchsummary/model_statistics.py for more information.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.model_train">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">model_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_calc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_loader</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.model_train" title="Permalink to this definition"></a></dt>
+<dd><p>One liner for training a pytorch model.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utilmy.deepelearning.ttorch.util_torch</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="n">cc</span><span class="o">=</span> <span class="n">Box</span><span class="p">({})</span>
+<span class="n">cc</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="n">model</span><span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">test_model_dummy2</span><span class="p">()</span>
+<span class="n">log</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="n">ut</span><span class="o">.</span><span class="n">model_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
+     <span class="n">loss_calc</span><span class="o">=</span>
+     <span class="n">optimizer</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test1" title="Permalink to this definition"></a></dt>
+<dd><p>function test2</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_create_model_pytorch">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_create_model_pytorch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirsave</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_create_model_pytorch" title="Permalink to this definition"></a></dt>
+<dd><p>Create model classfor testing purpose</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_dataset_classification_fake">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_dataset_classification_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_dataset_classification_fake" title="Permalink to this definition"></a></dt>
+<dd><p>function test_dataset_classification_fake
+:param nrows:</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_dataset_fashion_mnist">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_dataset_fashion_mnist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_erasing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_to_RGB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_set_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_set_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_dataset_fashion_mnist" title="Permalink to this definition"></a></dt>
+<dd><p>function test_dataset_f_mnist</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_load_function_uri">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_load_function_uri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_load_function_uri" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_metrics1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_metrics1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_metrics1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_metrics2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_metrics2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_metrics2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_model_dummy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_model_dummy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_model_dummy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_model_dummy.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_model_dummy.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_model_dummy.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_model_dummy.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.test_model_dummy2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">test_model_dummy2</span></span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.test_model_dummy2" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequential</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.to_numpy">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">to_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.to_numpy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.torch_class_weights">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">torch_class_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.torch_class_weights" title="Permalink to this definition"></a></dt>
+<dd><p>Compute class weights for imbalanced classes</p>
+<dl class="simple">
+<dt>labels: torch.Tensor of shape (N,) of int ranging from 0,1,..C-1 where</dt><dd><p>C is the number of classes</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>weights: torch.Tensor of shape (C,) where C is the number of classes</dt><dd><p>with the weights of each class based on the occurence of each class
+NOTE: computed as weights_c = min(occurence) / occurence_c
+for class c</p>
+</dd>
+<dt>labels_weights: dict, with keys the unique int for each class and values</dt><dd><p>the weight assigned to each class based on the occurence of each class</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.torch_effective_dim">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">torch_effective_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.torch_effective_dim" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the effective dimension based on the eigenvalues of X</p>
+<p>X: tensor of shape (N,M) where N the samples and M the features</p>
+<p>center: bool, default True, indicating if X should be centered or not</p>
+<p>ed: effective dimension of X</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.torch_metric_accuracy">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">torch_metric_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.torch_metric_accuracy" title="Permalink to this definition"></a></dt>
+<dd><p>Classification accuracy calculation as acc = (TP + TN) / nr total pred</p>
+<dl class="simple">
+<dt>output: torch.Tensor of size (N,M) where N are the observations and</dt><dd><p>M the classes. Values must be such that highest values denote the
+most probable class prediction.</p>
+</dd>
+<dt>labels: torch.Tensor tensor of size (N,) of int denoting for each of the N</dt><dd><p>observations the class that it belongs to, thus int must be in the
+range 0 to M-1</p>
+</dd>
+</dl>
+<p>acc: float, accuracy of the predictions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.torch_pearson_coeff">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">torch_pearson_coeff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.torch_pearson_coeff" title="Permalink to this definition"></a></dt>
+<dd><p>Computes pearson correlation coefficient between two 1D tensors
+with torch</p>
+<p>x1: 1D torch.Tensor of shape (N,)</p>
+<p>x2: 1D torch.Tensor of shape (N,)</p>
+<p>r: scalar pearson correllation coefficient</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.deeplearning.ttorch.util_torch.torch_pearson_coeff_pairs">
+<span class="sig-prename descclassname"><span class="pre">utilmy.deeplearning.ttorch.util_torch.</span></span><span class="sig-name descname"><span class="pre">torch_pearson_coeff_pairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.deeplearning.ttorch.util_torch.torch_pearson_coeff_pairs" title="Permalink to this definition"></a></dt>
+<dd><p>Computes pearson correlation coefficient across
+the 1st dimension of a 2D tensor</p>
+<p>x: 2D torch.Tensor of shape (N,M)
+correlation coefficients will be computed between
+all unique pairs across the first dimension
+x[1,M] x[2,M], …x[i,M] x[j,M], for unique pairs (i,j)</p>
+<p>r: list of tuples such that r[n][0] scalar denoting the
+pearson correllation coefficient of the pair of tensors with idx in
+tuple r[n][1]</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.deeplearning.ttorch">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.deeplearning.ttorch" title="Permalink to this heading"></a></h2>
+<p>utilmy/deeplearning/ttorch/model_ensemble.py
+————————-functions———————-
+dataloader_create(train_X = None, train_y = None, valid_X = None, valid_y = None, test_X = None, test_y = None, device = ‘cpu’, batch_size = 16, )
+device_setup(arg, device = ‘cpu’, seed = 67)
+get_embedding()
+help()
+prepro_dataset_custom(df:pd.DataFrame)
+test1()
+test2a()
+test2b()
+test2c()
+test2d()
+test_all()
+torch_norm_l2(X)</p>
+<p>————————-methods———————-
+BaseModel.__init__(self, arg)
+BaseModel.build(self, )
+BaseModel.create_loss(self, )
+BaseModel.create_model(self, )
+BaseModel.device(self, )
+BaseModel.device(self, )
+BaseModel.device_setup(self, arg)
+BaseModel.eval(self)
+BaseModel.evaluate(self)
+BaseModel.load_DataFrame(self, path = None)
+BaseModel.load_weights(self, path)
+BaseModel.predict(self, x, <a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs)
+BaseModel.prepro_dataset(self, csv)
+BaseModel.save_weight(self, path, meta_data = None)
+BaseModel.train(self)
+BaseModel.training(self, )
+MergeModel_create.__init__(self, arg:dict = None, modelA = None, modelB = None, modelC = None)
+MergeModel_create.build(self)
+MergeModel_create.create_loss(self, )
+MergeModel_create.create_model(self, )
+MergeModel_create.freeze_all(self, )
+MergeModel_create.prepro_dataset(self, df:pd.DataFrame = None)
+MergeModel_create.training(self, load_DataFrame = None, prepro_dataset = None)
+MergeModel_create.unfreeze_all(self, )
+modelA_create.__init__(self, arg)
+modelA_create.create_loss(self, loss_fun = None)
+modelA_create.create_model(self, modelA_nn:torch.nn.Module = None)
+modelB_create.__init__(self, arg)
+modelB_create.create_loss(self)
+modelB_create.create_model(self)
+modelC_create.__init__(self, arg)
+modelC_create.create_loss(self)
+modelC_create.create_model(self)
+model_getlayer.__init__(self, network, backward = False, pos_layer = -2)
+model_getlayer.close(self)
+model_getlayer.get_layers_in_order(self, network)
+model_getlayer.hook_fn(self, module, input, output)
+model_template_MLP.__init__(self, layers_dim = [20, 100, 16])
+model_template_MLP.forward(self, x, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs)</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.deeplearning.kkeras.html" class="btn btn-neutral float-left" title="utilmy.deeplearning.kkeras package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.deeplearning.ttorch.images.html" class="btn btn-neutral float-right" title="utilmy.deeplearning.ttorch.images package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

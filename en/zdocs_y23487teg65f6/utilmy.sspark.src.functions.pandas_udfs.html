@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.sspark.src.functions.pandas_udfs package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.sspark.src.functions.spark_udfs package" href="utilmy.sspark.src.functions.spark_udfs.html" />
+    <link rel="prev" title="utilmy.sspark.src.functions package" href="utilmy.sspark.src.functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="utilmy.sspark.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6 current"><a class="reference internal" href="utilmy.sspark.src.html">utilmy.sspark.src package</a><ul class="current">
+<li class="toctree-l7 current"><a class="reference internal" href="utilmy.sspark.src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l8"><a class="reference internal" href="utilmy.sspark.src.afpgrowth.html">utilmy.sspark.src.afpgrowth package</a></li>
+<li class="toctree-l8 current"><a class="reference internal" href="utilmy.sspark.src.functions.html">utilmy.sspark.src.functions package</a><ul class="current">
+<li class="toctree-l9 current"><a class="reference internal" href="utilmy.sspark.src.functions.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l10 current"><a class="current reference internal" href="#">utilmy.sspark.src.functions.pandas_udfs package</a><ul>
+<li class="toctree-l11"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#utilmy-sspark-src-functions-pandas-udfs-datetime-udfs-module">utilmy.sspark.src.functions.pandas_udfs.datetime_udfs module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#module-utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions">utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#utilmy-sspark-src-functions-pandas-udfs-general-udfs-module">utilmy.sspark.src.functions.pandas_udfs.general_udfs module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#module-utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#utilmy-sspark-src-functions-pandas-udfs-general-udfs-base-functions-test-module">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions_test module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#utilmy-sspark-src-functions-pandas-udfs-timeseries-module">utilmy.sspark.src.functions.pandas_udfs.timeseries module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l10"><a class="reference internal" href="utilmy.sspark.src.functions.spark_udfs.html">utilmy.sspark.src.functions.spark_udfs package</a></li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="utilmy.sspark.src.functions.html#submodules">Submodules</a></li>
+<li class="toctree-l9"><a class="reference internal" href="utilmy.sspark.src.functions.html#utilmy-sspark-src-functions-getfamiliesfromuseragent-module">utilmy.sspark.src.functions.GetFamiliesFromUserAgent module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="utilmy.sspark.src.functions.html#utilmy-sspark-src-functions-dim-datetime-utilities-module">utilmy.sspark.src.functions.dim_datetime_utilities module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="utilmy.sspark.src.functions.html#module-utilmy.sspark.src.functions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="utilmy.sspark.src.tables.html">utilmy.sspark.src.tables package</a></li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src.util_hadoop">utilmy.sspark.src.util_hadoop module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src.util_models">utilmy.sspark.src.util_models module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src.util_spark">utilmy.sspark.src.util_spark module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src.util_sparkml">utilmy.sspark.src.util_sparkml module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#utilmy-sspark-src-util-trick-module">utilmy.sspark.src.util_trick module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src.utils">utilmy.sspark.src.utils module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.sspark.src.html#module-utilmy.sspark.src">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="utilmy.sspark.tests.html">utilmy.sspark.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.sspark.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.sspark.html#utilmy-sspark-main-module">utilmy.sspark.main module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.sspark.html#utilmy-sspark-setup-module">utilmy.sspark.setup module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.sspark.html#module-utilmy.sspark">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+          <li><a href="utilmy.sspark.html">utilmy.sspark package</a> &raquo;</li>
+          <li><a href="utilmy.sspark.src.html">utilmy.sspark.src package</a> &raquo;</li>
+          <li><a href="utilmy.sspark.src.functions.html">utilmy.sspark.src.functions package</a> &raquo;</li>
+      <li>utilmy.sspark.src.functions.pandas_udfs package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.sspark.src.functions.pandas_udfs.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-sspark-src-functions-pandas-udfs-package">
+<h1>utilmy.sspark.src.functions.pandas_udfs package<a class="headerlink" href="#utilmy-sspark-src-functions-pandas-udfs-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-sspark-src-functions-pandas-udfs-datetime-udfs-module">
+<h2>utilmy.sspark.src.functions.pandas_udfs.datetime_udfs module<a class="headerlink" href="#utilmy-sspark-src-functions-pandas-udfs-datetime-udfs-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions">
+<span id="utilmy-sspark-src-functions-pandas-udfs-datetime-udfs-base-functions-module"></span><h2>utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions module<a class="headerlink" href="#module-utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.is_holiday_usa">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">is_holiday_usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.is_holiday_usa" title="Permalink to this definition"></a></dt>
+<dd><p>Check whether a given date is a US holiday.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>Date</em><em>, </em><em>Timestamp</em>) – date to check for holiday status.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Y</cite>, <cite>N</cite>, or <cite>Unknown</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.to_datetime_dm">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">to_datetime_dm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.to_datetime_dm" title="Permalink to this definition"></a></dt>
+<dd><p>Apply <cite>pd.to_datetime</cite> with inferring datetime and null handling (DAY comes BEFORE MONTH).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt_str</strong> (<em>str</em>) – target str to parse to datetime.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>parsed from string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Timestamp</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.to_datetime_md">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">to_datetime_md</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.datetime_udfs_base_functions.to_datetime_md" title="Permalink to this definition"></a></dt>
+<dd><p>Apply <cite>pd.to_datetime</cite> with inferring datetime and null handling (MONTH comes BEFORE DAY).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt_str</strong> (<em>str</em>) – target str to parse to datetime.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>parsed from string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Timestamp</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utilmy-sspark-src-functions-pandas-udfs-general-udfs-module">
+<h2>utilmy.sspark.src.functions.pandas_udfs.general_udfs module<a class="headerlink" href="#utilmy-sspark-src-functions-pandas-udfs-general-udfs-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions">
+<span id="utilmy-sspark-src-functions-pandas-udfs-general-udfs-base-functions-module"></span><h2>utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions module<a class="headerlink" href="#module-utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.clean_string">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">clean_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.clean_string" title="Permalink to this definition"></a></dt>
+<dd><p>Remove ISO control characters and trim input string. Returns None if cleaned string is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_str</strong> (<em>st</em>) – string to be cleaned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cleaned input string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.empty_string_to_null">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">empty_string_to_null</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.empty_string_to_null" title="Permalink to this definition"></a></dt>
+<dd><p>Check if input string is empty, and return null if so (otherwise return input string).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_str</strong> (<em>str</em>) – string to check for emptiness.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>null if input string is empty else input string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.extract_number_from_string">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">extract_number_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.extract_number_from_string" title="Permalink to this definition"></a></dt>
+<dd><p>Extract number from string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_str</strong> (<em>str</em>) – containing number in string format.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>parsed from string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.map_booleans_ynu">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">map_booleans_ynu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.map_booleans_ynu" title="Permalink to this definition"></a></dt>
+<dd><p>Map boolean values to <cite>Y</cite>, <cite>N</cite>, <cite>Unknown</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_val</strong> (<em>any</em>) – value to check if it represents a boolean / indicator.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>Y</cite>, <cite>N</cite>, <cite>Unknown</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_is_number">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">string_is_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_is_number" title="Permalink to this definition"></a></dt>
+<dd><p>Check whether passed string can accurately be converted to a number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_str</strong> (<em>str</em>) – string to validate if parsable to number.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_double_cfd">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">string_to_double_cfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_double_cfd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_double_pfd">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">string_to_double_pfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_double_pfd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_float">
+<span class="sig-prename descclassname"><span class="pre">utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.</span></span><span class="sig-name descname"><span class="pre">string_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comma_for_decimal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions.string_to_float" title="Permalink to this definition"></a></dt>
+<dd><p>Convert string to float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_str</strong> (<em>str</em>) – target str to convert to double.</p></li>
+<li><p><strong>comma_for_decimal</strong> (<em>bool</em>) – whether commas represent decimal in passed string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted from input string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utilmy-sspark-src-functions-pandas-udfs-general-udfs-base-functions-test-module">
+<h2>utilmy.sspark.src.functions.pandas_udfs.general_udfs_base_functions_test module<a class="headerlink" href="#utilmy-sspark-src-functions-pandas-udfs-general-udfs-base-functions-test-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-sspark-src-functions-pandas-udfs-timeseries-module">
+<h2>utilmy.sspark.src.functions.pandas_udfs.timeseries module<a class="headerlink" href="#utilmy-sspark-src-functions-pandas-udfs-timeseries-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.sspark.src.functions.html" class="btn btn-neutral float-left" title="utilmy.sspark.src.functions package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.sspark.src.functions.spark_udfs.html" class="btn btn-neutral float-right" title="utilmy.sspark.src.functions.spark_udfs package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

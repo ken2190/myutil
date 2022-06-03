@@ -1,0 +1,53 @@
+utilmy.recsys.ranking package
+=============================
+
+Submodules
+----------
+
+utilmy.recsys.ranking.optim\_rank module
+----------------------------------------
+
+.. automodule:: utilmy.recsys.ranking.optim_rank
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.ranking.rank\_fusion module
+-----------------------------------------
+
+.. automodule:: utilmy.recsys.ranking.rank_fusion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.ranking.rank\_fusion\_functions module
+----------------------------------------------------
+
+.. automodule:: utilmy.recsys.ranking.rank_fusion_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.ranking.util\_rank module
+---------------------------------------
+
+.. automodule:: utilmy.recsys.ranking.util_rank
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.recsys.ranking.util\_rankmerge module
+--------------------------------------------
+
+.. automodule:: utilmy.recsys.ranking.util_rankmerge
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.recsys.ranking
+   :members:
+   :undoc-members:
+   :show-inheritance:

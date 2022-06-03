@@ -1,0 +1,21 @@
+utilmy.sspark.src.afpgrowth package
+===================================
+
+Submodules
+----------
+
+utilmy.sspark.src.afpgrowth.main module
+---------------------------------------
+
+.. automodule:: utilmy.sspark.src.afpgrowth.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.sspark.src.afpgrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,71 @@
+utilmy.sspark.src package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   utilmy.sspark.src.afpgrowth
+   utilmy.sspark.src.functions
+   utilmy.sspark.src.tables
+
+Submodules
+----------
+
+utilmy.sspark.src.util\_hadoop module
+-------------------------------------
+
+.. automodule:: utilmy.sspark.src.util_hadoop
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.util\_models module
+-------------------------------------
+
+.. automodule:: utilmy.sspark.src.util_models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.util\_spark module
+------------------------------------
+
+.. automodule:: utilmy.sspark.src.util_spark
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.util\_sparkml module
+--------------------------------------
+
+.. automodule:: utilmy.sspark.src.util_sparkml
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.util\_trick module
+------------------------------------
+
+.. automodule:: utilmy.sspark.src.util_trick
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.utils module
+------------------------------
+
+.. automodule:: utilmy.sspark.src.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.sspark.src
+   :members:
+   :undoc-members:
+   :show-inheritance:

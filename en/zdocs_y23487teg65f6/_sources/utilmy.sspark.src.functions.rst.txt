@@ -1,0 +1,38 @@
+utilmy.sspark.src.functions package
+===================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   utilmy.sspark.src.functions.pandas_udfs
+   utilmy.sspark.src.functions.spark_udfs
+
+Submodules
+----------
+
+utilmy.sspark.src.functions.GetFamiliesFromUserAgent module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.functions.GetFamiliesFromUserAgent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.functions.dim\_datetime\_utilities module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.functions.dim_datetime_utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.sspark.src.functions
+   :members:
+   :undoc-members:
+   :show-inheritance:

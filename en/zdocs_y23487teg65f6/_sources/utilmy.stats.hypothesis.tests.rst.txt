@@ -1,0 +1,93 @@
+utilmy.stats.hypothesis.tests package
+=====================================
+
+Submodules
+----------
+
+utilmy.stats.hypothesis.tests.test\_aov module
+----------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_aov
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_contingency module
+------------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_contingency
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_critical\_values module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_critical_values
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_descriptive module
+------------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_descriptive
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_factor\_analysis module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_factor_analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_gof module
+----------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_gof
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_hypothesis module
+-----------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_hypothesis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_internal module
+---------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_internal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_nonparametric module
+--------------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_nonparametric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.tests.test\_posthoc module
+--------------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.tests.test_posthoc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.stats.hypothesis.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

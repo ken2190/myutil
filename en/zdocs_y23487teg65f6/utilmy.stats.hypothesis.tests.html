@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.stats.hypothesis.tests package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.tabular package" href="utilmy.tabular.html" />
+    <link rel="prev" title="utilmy.stats.hypothesis package" href="utilmy.stats.hypothesis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="utilmy.stats.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6 current"><a class="reference internal" href="utilmy.stats.hypothesis.html">utilmy.stats.hypothesis package</a><ul class="current">
+<li class="toctree-l7 current"><a class="reference internal" href="utilmy.stats.hypothesis.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l8 current"><a class="current reference internal" href="#">utilmy.stats.hypothesis.tests package</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#utilmy-stats-hypothesis-tests-test-aov-module">utilmy.stats.hypothesis.tests.test_aov module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_contingency">utilmy.stats.hypothesis.tests.test_contingency module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_critical_values">utilmy.stats.hypothesis.tests.test_critical_values module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_descriptive">utilmy.stats.hypothesis.tests.test_descriptive module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_factor_analysis">utilmy.stats.hypothesis.tests.test_factor_analysis module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_gof">utilmy.stats.hypothesis.tests.test_gof module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#utilmy-stats-hypothesis-tests-test-hypothesis-module">utilmy.stats.hypothesis.tests.test_hypothesis module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests.test_internal">utilmy.stats.hypothesis.tests.test_internal module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#utilmy-stats-hypothesis-tests-test-nonparametric-module">utilmy.stats.hypothesis.tests.test_nonparametric module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#utilmy-stats-hypothesis-tests-test-posthoc-module">utilmy.stats.hypothesis.tests.test_posthoc module</a></li>
+<li class="toctree-l9"><a class="reference internal" href="#module-utilmy.stats.hypothesis.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.aov">utilmy.stats.hypothesis.aov module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.contingency">utilmy.stats.hypothesis.contingency module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.critical">utilmy.stats.hypothesis.critical module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.descriptive">utilmy.stats.hypothesis.descriptive module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.fa">utilmy.stats.hypothesis.fa module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.gof">utilmy.stats.hypothesis.gof module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.hypothesis">utilmy.stats.hypothesis.hypothesis module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.nonparametric">utilmy.stats.hypothesis.nonparametric module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis.posthoc">utilmy.stats.hypothesis.posthoc module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="utilmy.stats.hypothesis.html#module-utilmy.stats.hypothesis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.stats.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.stats.html#module-utilmy.stats.statistics">utilmy.stats.statistics module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.stats.html#module-utilmy.stats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+          <li><a href="utilmy.stats.html">utilmy.stats package</a> &raquo;</li>
+          <li><a href="utilmy.stats.hypothesis.html">utilmy.stats.hypothesis package</a> &raquo;</li>
+      <li>utilmy.stats.hypothesis.tests package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.stats.hypothesis.tests.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-stats-hypothesis-tests-package">
+<h1>utilmy.stats.hypothesis.tests package<a class="headerlink" href="#utilmy-stats-hypothesis-tests-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-stats-hypothesis-tests-test-aov-module">
+<h2>utilmy.stats.hypothesis.tests.test_aov module<a class="headerlink" href="#utilmy-stats-hypothesis-tests-test-aov-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_contingency">
+<span id="utilmy-stats-hypothesis-tests-test-contingency-module"></span><h2>utilmy.stats.hypothesis.tests.test_contingency module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_contingency" title="Permalink to this heading"></a></h2>
+<p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">utilmy</span><span class="o">/</span><span class="n">stats</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_contingency</span><span class="o">.</span><span class="n">py</span> <span class="n">test_chi_square_contingency</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_chi_square_contingency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquareContingency:test_chi_square_contingency.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency_no_continuity">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_chi_square_contingency_no_continuity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency_no_continuity" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquareContingency:test_chi_square_contingency_no_continuity.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency_no_expected">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_chi_square_contingency_no_expected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_contingency_no_expected" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquareContingency:test_chi_square_contingency_no_expected.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_chi_square_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_chi_square_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquareContingency:test_chi_square_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_cochranq">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_cochranq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_cochranq" title="Permalink to this definition"></a></dt>
+<dd><p>TestCochranQ:test_cochranq.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_cochranq_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_cochranq_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_cochranq_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestCochranQ:test_cochranq_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_expected_frequencies">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_expected_frequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_expected_frequencies" title="Permalink to this definition"></a></dt>
+<dd><p>TestTableMargins:test_expected_frequencies.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_expected_frequencies_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_expected_frequencies_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_expected_frequencies_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestTableMargins:test_expected_frequencies_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_margins_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_margins_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_margins_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestTableMargins:test_margins_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_mcnemartest_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_mcnemartest_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_mcnemartest_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestMcNemarTest:test_mcnemartest_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_contingency.test_table_margins">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_contingency.</span></span><span class="sig-name descname"><span class="pre">test_table_margins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_contingency.test_table_margins" title="Permalink to this definition"></a></dt>
+<dd><p>TestTableMargins:test_table_margins.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_critical_values">
+<span id="utilmy-stats-hypothesis-tests-test-critical-values-module"></span><h2>utilmy.stats.hypothesis.tests.test_critical_values module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_critical_values" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_critical_values.test_critical_values">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_critical_values.</span></span><span class="sig-name descname"><span class="pre">test_critical_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_critical_values.test_critical_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_critical_values.test_exceptions">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_critical_values.</span></span><span class="sig-name descname"><span class="pre">test_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_critical_values.test_exceptions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_descriptive">
+<span id="utilmy-stats-hypothesis-tests-test-descriptive-module"></span><h2>utilmy.stats.hypothesis.tests.test_descriptive module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_descriptive" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_descriptive.</span></span><span class="sig-name descname"><span class="pre">TestCorrelationCovariance</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.d">
+<span class="sig-name descname"><span class="pre">d</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">array([[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">2.569,</span> <span class="pre">3.58</span> <span class="pre">,</span> <span class="pre">0.76</span> <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.19</span> <span class="pre">,</span> <span class="pre">2.928,</span> <span class="pre">3.75</span> <span class="pre">,</span> <span class="pre">0.821],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.09</span> <span class="pre">,</span> <span class="pre">2.865,</span> <span class="pre">3.93</span> <span class="pre">,</span> <span class="pre">0.928],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.25</span> <span class="pre">,</span> <span class="pre">3.844,</span> <span class="pre">3.94</span> <span class="pre">,</span> <span class="pre">1.009],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">3.027,</span> <span class="pre">3.6</span>&#160; <span class="pre">,</span> <span class="pre">0.766],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.08</span> <span class="pre">,</span> <span class="pre">2.336,</span> <span class="pre">3.51</span> <span class="pre">,</span> <span class="pre">0.726],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">3.211,</span> <span class="pre">3.98</span> <span class="pre">,</span> <span class="pre">1.209],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[1.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.16</span> <span class="pre">,</span> <span class="pre">3.037,</span> <span class="pre">3.62</span> <span class="pre">,</span> <span class="pre">0.75</span> <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.05</span> <span class="pre">,</span> <span class="pre">2.074,</span> <span class="pre">4.09</span> <span class="pre">,</span> <span class="pre">1.036],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.17</span> <span class="pre">,</span> <span class="pre">2.885,</span> <span class="pre">4.06</span> <span class="pre">,</span> <span class="pre">1.094],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">3.378,</span> <span class="pre">4.87</span> <span class="pre">,</span> <span class="pre">1.635],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.25</span> <span class="pre">,</span> <span class="pre">3.906,</span> <span class="pre">4.98</span> <span class="pre">,</span> <span class="pre">1.517],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.17</span> <span class="pre">,</span> <span class="pre">2.782,</span> <span class="pre">4.38</span> <span class="pre">,</span> <span class="pre">1.197],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.15</span> <span class="pre">,</span> <span class="pre">3.018,</span> <span class="pre">4.65</span> <span class="pre">,</span> <span class="pre">1.244],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.17</span> <span class="pre">,</span> <span class="pre">3.383,</span> <span class="pre">4.69</span> <span class="pre">,</span> <span class="pre">1.495],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[2.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.19</span> <span class="pre">,</span> <span class="pre">3.447,</span> <span class="pre">4.4</span>&#160; <span class="pre">,</span> <span class="pre">1.026],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.07</span> <span class="pre">,</span> <span class="pre">2.505,</span> <span class="pre">3.76</span> <span class="pre">,</span> <span class="pre">0.912],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.99</span> <span class="pre">,</span> <span class="pre">2.315,</span> <span class="pre">4.44</span> <span class="pre">,</span> <span class="pre">1.398],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.06</span> <span class="pre">,</span> <span class="pre">2.667,</span> <span class="pre">4.38</span> <span class="pre">,</span> <span class="pre">1.197],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.02</span> <span class="pre">,</span> <span class="pre">2.39</span> <span class="pre">,</span> <span class="pre">4.67</span> <span class="pre">,</span> <span class="pre">1.613],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.15</span> <span class="pre">,</span> <span class="pre">3.021,</span> <span class="pre">4.48</span> <span class="pre">,</span> <span class="pre">1.476],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.2</span>&#160; <span class="pre">,</span> <span class="pre">3.085,</span> <span class="pre">4.78</span> <span class="pre">,</span> <span class="pre">1.571],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.2</span>&#160; <span class="pre">,</span> <span class="pre">3.308,</span> <span class="pre">4.57</span> <span class="pre">,</span> <span class="pre">1.506],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[3.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.17</span> <span class="pre">,</span> <span class="pre">3.231,</span> <span class="pre">4.56</span> <span class="pre">,</span> <span class="pre">1.458],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.22</span> <span class="pre">,</span> <span class="pre">2.838,</span> <span class="pre">3.89</span> <span class="pre">,</span> <span class="pre">0.944],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.03</span> <span class="pre">,</span> <span class="pre">2.351,</span> <span class="pre">4.05</span> <span class="pre">,</span> <span class="pre">1.241],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.14</span> <span class="pre">,</span> <span class="pre">3.001,</span> <span class="pre">4.05</span> <span class="pre">,</span> <span class="pre">1.023],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.01</span> <span class="pre">,</span> <span class="pre">2.439,</span> <span class="pre">3.92</span> <span class="pre">,</span> <span class="pre">1.067],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.99</span> <span class="pre">,</span> <span class="pre">2.199,</span> <span class="pre">3.27</span> <span class="pre">,</span> <span class="pre">0.693],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">3.318,</span> <span class="pre">3.95</span> <span class="pre">,</span> <span class="pre">1.085],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.2</span>&#160; <span class="pre">,</span> <span class="pre">3.601,</span> <span class="pre">4.27</span> <span class="pre">,</span> <span class="pre">1.242],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[4.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.08</span> <span class="pre">,</span> <span class="pre">3.291,</span> <span class="pre">3.85</span> <span class="pre">,</span> <span class="pre">1.017],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.91</span> <span class="pre">,</span> <span class="pre">1.532,</span> <span class="pre">4.04</span> <span class="pre">,</span> <span class="pre">1.084],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.15</span> <span class="pre">,</span> <span class="pre">2.552,</span> <span class="pre">4.16</span> <span class="pre">,</span> <span class="pre">1.151],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.14</span> <span class="pre">,</span> <span class="pre">3.083,</span> <span class="pre">4.79</span> <span class="pre">,</span> <span class="pre">1.381],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.05</span> <span class="pre">,</span> <span class="pre">2.33</span> <span class="pre">,</span> <span class="pre">4.42</span> <span class="pre">,</span> <span class="pre">1.242],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.99</span> <span class="pre">,</span> <span class="pre">2.079,</span> <span class="pre">3.47</span> <span class="pre">,</span> <span class="pre">0.673],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.22</span> <span class="pre">,</span> <span class="pre">3.366,</span> <span class="pre">4.41</span> <span class="pre">,</span> <span class="pre">1.137],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.05</span> <span class="pre">,</span> <span class="pre">2.416,</span> <span class="pre">4.64</span> <span class="pre">,</span> <span class="pre">1.455],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[5.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.13</span> <span class="pre">,</span> <span class="pre">3.1</span>&#160; <span class="pre">,</span> <span class="pre">4.57</span> <span class="pre">,</span> <span class="pre">1.325],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">2.813,</span> <span class="pre">3.76</span> <span class="pre">,</span> <span class="pre">0.8</span>&#160; <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">0.75</span> <span class="pre">,</span> <span class="pre">0.84</span> <span class="pre">,</span> <span class="pre">3.14</span> <span class="pre">,</span> <span class="pre">0.606],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.05</span> <span class="pre">,</span> <span class="pre">2.199,</span> <span class="pre">3.75</span> <span class="pre">,</span> <span class="pre">0.79</span> <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.02</span> <span class="pre">,</span> <span class="pre">2.132,</span> <span class="pre">3.99</span> <span class="pre">,</span> <span class="pre">0.853],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.05</span> <span class="pre">,</span> <span class="pre">1.949,</span> <span class="pre">3.34</span> <span class="pre">,</span> <span class="pre">0.61</span> <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.07</span> <span class="pre">,</span> <span class="pre">2.251,</span> <span class="pre">3.21</span> <span class="pre">,</span> <span class="pre">0.562],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.13</span> <span class="pre">,</span> <span class="pre">3.064,</span> <span class="pre">3.63</span> <span class="pre">,</span> <span class="pre">0.707],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[6.</span>&#160;&#160; <span class="pre">,</span> <span class="pre">1.11</span> <span class="pre">,</span> <span class="pre">2.469,</span> <span class="pre">3.95</span> <span class="pre">,</span> <span class="pre">0.952]])</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_covar_no_method">
+<span class="sig-name descname"><span class="pre">test_covar_no_method</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_covar_no_method" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_covar_no_method
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_naive_covariance">
+<span class="sig-name descname"><span class="pre">test_naive_covariance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_naive_covariance" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_naive_covariance
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_pearson">
+<span class="sig-name descname"><span class="pre">test_pearson</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_pearson" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_pearson
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_shifted_covariance">
+<span class="sig-name descname"><span class="pre">test_shifted_covariance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_shifted_covariance" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_shifted_covariance
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_spearman">
+<span class="sig-name descname"><span class="pre">test_spearman</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_spearman" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_spearman
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_two_pass_covariance">
+<span class="sig-name descname"><span class="pre">test_two_pass_covariance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestCorrelationCovariance.test_two_pass_covariance" title="Permalink to this definition"></a></dt>
+<dd><p>TestCorrelationCovariance:test_two_pass_covariance
+Args:
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_descriptive.</span></span><span class="sig-name descname"><span class="pre">TestKurtosis</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.s1">
+<span class="sig-name descname"><span class="pre">s1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[5,</span> <span class="pre">2,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">2,</span> <span class="pre">3]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.s1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.s2">
+<span class="sig-name descname"><span class="pre">s2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[4,</span> <span class="pre">6,</span> <span class="pre">4,</span> <span class="pre">3,</span> <span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">7]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.s2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.test_exceptions">
+<span class="sig-name descname"><span class="pre">test_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.test_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestSkewness:test_exceptions
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.test_kurtosis">
+<span class="sig-name descname"><span class="pre">test_kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestKurtosis.test_kurtosis" title="Permalink to this definition"></a></dt>
+<dd><p>TestKurtosis:test_kurtosis
+Args:
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_descriptive.</span></span><span class="sig-name descname"><span class="pre">TestMeanAbsoluteDeviation</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.s1">
+<span class="sig-name descname"><span class="pre">s1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[2,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">5,</span> <span class="pre">6]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.s1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.test_exceptions">
+<span class="sig-name descname"><span class="pre">test_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.test_exceptions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.test_mean_deviation">
+<span class="sig-name descname"><span class="pre">test_mean_deviation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestMeanAbsoluteDeviation.test_mean_deviation" title="Permalink to this definition"></a></dt>
+<dd><p>TestMeanAbsoluteDeviation:test_mean_deviation
+Args:
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_descriptive.</span></span><span class="sig-name descname"><span class="pre">TestSkewness</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.s1">
+<span class="sig-name descname"><span class="pre">s1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[5,</span> <span class="pre">2,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">2,</span> <span class="pre">3]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.s1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.s2">
+<span class="sig-name descname"><span class="pre">s2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[4,</span> <span class="pre">6,</span> <span class="pre">4,</span> <span class="pre">3,</span> <span class="pre">2,</span> <span class="pre">6,</span> <span class="pre">7]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.s2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.test_exceptions">
+<span class="sig-name descname"><span class="pre">test_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.test_exceptions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.test_skewness">
+<span class="sig-name descname"><span class="pre">test_skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestSkewness.test_skewness" title="Permalink to this definition"></a></dt>
+<dd><p>TestSkewness:test_skewness
+Args:
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_descriptive.</span></span><span class="sig-name descname"><span class="pre">TestVariance</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.f">
+<span class="sig-name descname"><span class="pre">f</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span>&#160; <span class="pre">1</span>&#160; <span class="pre">2</span>&#160; <span class="pre">3</span> <span class="pre">0</span>&#160; <span class="pre">1</span> <span class="pre">-1</span>&#160; <span class="pre">2</span>&#160; <span class="pre">2</span> <span class="pre">1</span> <span class="pre">-1</span>&#160; <span class="pre">2</span>&#160; <span class="pre">1</span> <span class="pre">-1</span> <span class="pre">2</span>&#160; <span class="pre">2</span>&#160; <span class="pre">1</span>&#160; <span class="pre">3</span>&#160; <span class="pre">2</span> <span class="pre">3</span>&#160; <span class="pre">2</span> <span class="pre">-1</span>&#160; <span class="pre">2</span>&#160; <span class="pre">1</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.f" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.fa">
+<span class="sig-name descname"><span class="pre">fa</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">array([[</span> <span class="pre">1,</span> <span class="pre">-1,</span>&#160; <span class="pre">2,</span>&#160; <span class="pre">2],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[-1,</span>&#160; <span class="pre">2,</span>&#160; <span class="pre">1,</span> <span class="pre">-1],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">2,</span>&#160; <span class="pre">1,</span>&#160; <span class="pre">3,</span>&#160; <span class="pre">2],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[</span> <span class="pre">2,</span> <span class="pre">-1,</span>&#160; <span class="pre">2,</span>&#160; <span class="pre">1]])</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.fa" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.h">
+<span class="sig-name descname"><span class="pre">h</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[[16,</span> <span class="pre">4,</span> <span class="pre">8,</span> <span class="pre">4],</span> <span class="pre">[4,</span> <span class="pre">10,</span> <span class="pre">8,</span> <span class="pre">4],</span> <span class="pre">[8,</span> <span class="pre">8,</span> <span class="pre">12,</span> <span class="pre">10],</span> <span class="pre">[4,</span> <span class="pre">4,</span> <span class="pre">10,</span> <span class="pre">12]]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.h" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_errors">
+<span class="sig-name descname"><span class="pre">test_errors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_errors" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_errors
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_stddev">
+<span class="sig-name descname"><span class="pre">test_stddev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_stddev" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_stddev
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_cond">
+<span class="sig-name descname"><span class="pre">test_var_cond</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_cond" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_var_cond
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_corrected_two_pass">
+<span class="sig-name descname"><span class="pre">test_var_corrected_two_pass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_corrected_two_pass" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_var_corrected_two_pass
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_standard_two_pass">
+<span class="sig-name descname"><span class="pre">test_var_standard_two_pass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_standard_two_pass" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_var_standard_two_pass
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_textbook_one_pass">
+<span class="sig-name descname"><span class="pre">test_var_textbook_one_pass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_textbook_one_pass" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_var_textbook_one_pass
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_youngs_cramer">
+<span class="sig-name descname"><span class="pre">test_var_youngs_cramer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_descriptive.TestVariance.test_var_youngs_cramer" title="Permalink to this definition"></a></dt>
+<dd><p>TestVariance:test_var_youngs_cramer
+Args:
+Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_factor_analysis">
+<span id="utilmy-stats-hypothesis-tests-test-factor-analysis-module"></span><h2>utilmy.stats.hypothesis.tests.test_factor_analysis module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_factor_analysis" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_factor_analysis.TestFactorAnalysis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_factor_analysis.</span></span><span class="sig-name descname"><span class="pre">TestFactorAnalysis</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_factor_analysis.TestFactorAnalysis" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_gof">
+<span id="utilmy-stats-hypothesis-tests-test-gof-module"></span><h2>utilmy.stats.hypothesis.tests.test_gof module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_gof" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_gof.</span></span><span class="sig-name descname"><span class="pre">TestChiSquare</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.exp">
+<span class="sig-name descname"><span class="pre">exp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[18,</span> <span class="pre">18,</span> <span class="pre">18,</span> <span class="pre">18,</span> <span class="pre">18,</span> <span class="pre">18,</span> <span class="pre">18,</span> <span class="pre">18]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.exp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.obs">
+<span class="sig-name descname"><span class="pre">obs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[29,</span> <span class="pre">19,</span> <span class="pre">18,</span> <span class="pre">25,</span> <span class="pre">17,</span> <span class="pre">10,</span> <span class="pre">15,</span> <span class="pre">11]</span></em><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.obs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquare_exceptions">
+<span class="sig-name descname"><span class="pre">test_chisquare_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquare_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquare:test_chisquare_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquare_no_exp">
+<span class="sig-name descname"><span class="pre">test_chisquare_no_exp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquare_no_exp" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquare:test_chisquare_no_exp.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest">
+<span class="sig-name descname"><span class="pre">test_chisquaretest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquare:test_chisquaretest.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest_arr">
+<span class="sig-name descname"><span class="pre">test_chisquaretest_arr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest_arr" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquare:test_chisquaretest_arr.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest_continuity">
+<span class="sig-name descname"><span class="pre">test_chisquaretest_continuity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestChiSquare.test_chisquaretest_continuity" title="Permalink to this definition"></a></dt>
+<dd><p>TestChiSquare:test_chisquaretest_continuity.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_gof.</span></span><span class="sig-name descname"><span class="pre">TestJarqueBera</span></span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera.test_jarquebera">
+<span class="sig-name descname"><span class="pre">test_jarquebera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera.test_jarquebera" title="Permalink to this definition"></a></dt>
+<dd><p>TestJarqueBera:test_jarquebera.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera.test_jarquebera_exceptions">
+<span class="sig-name descname"><span class="pre">test_jarquebera_exceptions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_gof.TestJarqueBera.test_jarquebera_exceptions" title="Permalink to this definition"></a></dt>
+<dd><p>TestJarqueBera:test_jarquebera_exceptions.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="utilmy-stats-hypothesis-tests-test-hypothesis-module">
+<h2>utilmy.stats.hypothesis.tests.test_hypothesis module<a class="headerlink" href="#utilmy-stats-hypothesis-tests-test-hypothesis-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.stats.hypothesis.tests.test_internal">
+<span id="utilmy-stats-hypothesis-tests-test-internal-module"></span><h2>utilmy.stats.hypothesis.tests.test_internal module<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests.test_internal" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_internal.test_array">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_internal.</span></span><span class="sig-name descname"><span class="pre">test_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_internal.test_array" title="Permalink to this definition"></a></dt>
+<dd><p>function test_array.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_internal.test_build_design_matrix">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_internal.</span></span><span class="sig-name descname"><span class="pre">test_build_design_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_internal.test_build_design_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>function test_build_design_matrix.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.stats.hypothesis.tests.test_internal.test_build_matrix">
+<span class="sig-prename descclassname"><span class="pre">utilmy.stats.hypothesis.tests.test_internal.</span></span><span class="sig-name descname"><span class="pre">test_build_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.stats.hypothesis.tests.test_internal.test_build_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>function test_build_matrix.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="utilmy-stats-hypothesis-tests-test-nonparametric-module">
+<h2>utilmy.stats.hypothesis.tests.test_nonparametric module<a class="headerlink" href="#utilmy-stats-hypothesis-tests-test-nonparametric-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-stats-hypothesis-tests-test-posthoc-module">
+<h2>utilmy.stats.hypothesis.tests.test_posthoc module<a class="headerlink" href="#utilmy-stats-hypothesis-tests-test-posthoc-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.stats.hypothesis.tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.stats.hypothesis.tests" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.stats.hypothesis.html" class="btn btn-neutral float-left" title="utilmy.stats.hypothesis package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.tabular.html" class="btn btn-neutral float-right" title="utilmy.tabular package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

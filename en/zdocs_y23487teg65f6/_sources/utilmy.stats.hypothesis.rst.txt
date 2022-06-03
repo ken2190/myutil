@@ -1,0 +1,93 @@
+utilmy.stats.hypothesis package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 20
+
+   utilmy.stats.hypothesis.tests
+
+Submodules
+----------
+
+utilmy.stats.hypothesis.aov module
+----------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.aov
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.contingency module
+------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.contingency
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.critical module
+---------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.critical
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.descriptive module
+------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.descriptive
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.fa module
+---------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.fa
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.gof module
+----------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.gof
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.hypothesis module
+-----------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.hypothesis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.nonparametric module
+--------------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.nonparametric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.stats.hypothesis.posthoc module
+--------------------------------------
+
+.. automodule:: utilmy.stats.hypothesis.posthoc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.stats.hypothesis
+   :members:
+   :undoc-members:
+   :show-inheritance:

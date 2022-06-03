@@ -1,0 +1,125 @@
+utilmy.deeplearning.kkeras package
+==================================
+
+Submodules
+----------
+
+utilmy.deeplearning.kkeras.loss\_graph module
+---------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.loss_graph
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.loss\_vq\_vae2 module
+------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.loss_vq_vae2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.train\_graph\_loss module
+----------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.train_graph_loss
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.train\_template module
+-------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.train_template
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.train\_vqvae\_loss module
+----------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.train_vqvae_loss
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_dataloader\_img module
+-------------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_dataloader_img
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_dataloader\_tab module
+-------------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_dataloader_tab
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_debug module
+---------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_debug
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_layers module
+----------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_layers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_loss module
+--------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_loss
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_models module
+----------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_similarity module
+--------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_similarity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.util\_train module
+---------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.util_train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.deeplearning.kkeras.zkeras\_torch\_sentence module
+---------------------------------------------------------
+
+.. automodule:: utilmy.deeplearning.kkeras.zkeras_torch_sentence
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.deeplearning.kkeras
+   :members:
+   :undoc-members:
+   :show-inheritance:

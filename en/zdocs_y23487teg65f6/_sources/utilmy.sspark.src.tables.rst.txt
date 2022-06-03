@@ -1,0 +1,61 @@
+utilmy.sspark.src.tables package
+================================
+
+Submodules
+----------
+
+utilmy.sspark.src.tables.table\_predict\_session\_length module
+---------------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_predict_session_length
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.tables.table\_predict\_url\_unique module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_predict_url_unique
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.tables.table\_predict\_volume module
+------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_predict_volume
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.tables.table\_user\_log module
+------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_user_log
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.tables.table\_user\_session\_log module
+---------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_user_session_log
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.sspark.src.tables.table\_user\_session\_stats module
+-----------------------------------------------------------
+
+.. automodule:: utilmy.sspark.src.tables.table_user_session_stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.sspark.src.tables
+   :members:
+   :undoc-members:
+   :show-inheritance:

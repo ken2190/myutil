@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.nlp.ttorch package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.optim package" href="utilmy.optim.html" />
+    <link rel="prev" title="utilmy.nlp.kkeras package" href="utilmy.nlp.kkeras.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="utilmy.nlp.html">utilmy.nlp package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="utilmy.nlp.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="utilmy.nlp.kkeras.html">utilmy.nlp.kkeras package</a></li>
+<li class="toctree-l6 current"><a class="current reference internal" href="#">utilmy.nlp.ttorch package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#utilmy-nlp-ttorch-model-patent-module">utilmy.nlp.ttorch.model_patent module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.nlp.ttorch.sentences">utilmy.nlp.ttorch.sentences module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#module-utilmy.nlp.ttorch">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_cluster">utilmy.nlp.util_cluster module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#utilmy-nlp-util-cocount-module">utilmy.nlp.util_cocount module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#utilmy-nlp-util-embedding-module">utilmy.nlp.util_embedding module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_explain">utilmy.nlp.util_explain module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_gensim">utilmy.nlp.util_gensim module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_ner">utilmy.nlp.util_ner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#utilmy-nlp-util-nlp-module">utilmy.nlp.util_nlp module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_topk">utilmy.nlp.util_topk module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp.util_transformers">utilmy.nlp.util_transformers module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="utilmy.nlp.html#module-utilmy.nlp">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+          <li><a href="utilmy.nlp.html">utilmy.nlp package</a> &raquo;</li>
+      <li>utilmy.nlp.ttorch package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.nlp.ttorch.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-nlp-ttorch-package">
+<h1>utilmy.nlp.ttorch package<a class="headerlink" href="#utilmy-nlp-ttorch-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-nlp-ttorch-model-patent-module">
+<h2>utilmy.nlp.ttorch.model_patent module<a class="headerlink" href="#utilmy-nlp-ttorch-model-patent-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.nlp.ttorch.sentences">
+<span id="utilmy-nlp-ttorch-sentences-module"></span><h2>utilmy.nlp.ttorch.sentences module<a class="headerlink" href="#module-utilmy.nlp.ttorch.sentences" title="Permalink to this heading"></a></h2>
+<p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sentence_tansformer wrapper
+
+python  utilmy/nlp/ttorch/sentences.py  test1
+
+
+Original file is located at
+https://colab.research.google.com/drive/1dPPD-2Vrn61v2uYZT1AXiujqqw7ZwzEA#scrollTo=TZCBsq36j4aH
+
+
+train Sentence Transformer with different Losses such as:**
+&gt; Softmax Loss
+&gt; Cusine Loss
+&gt; TripletHard Loss
+&gt; MultpleNegativesRanking Loss
+
+# !pip install sentence-transformers
+
+We create a new end-to-end example on how to use a custom inference.py script w
+ith a Sentence Transformer and a mean pooling layer to create sentence embeddings.🤯
+
+🖼  blog: https://lnkd.in/dXNu4R-G
+📈  notebook: https://lnkd.in/dkjDMNaC
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.dataset_download">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">dataset_download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AllNLI.tsv.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/content/sample_data/sent_tans/'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.dataset_download" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.dataset_fake">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">dataset_fake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AllNLI.tsv.gz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'data_fake.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.dataset_fake" title="Permalink to this definition"></a></dt>
+<dd><p>Fake text data for tests</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.dataset_fake2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">dataset_fake2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.dataset_fake2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.load_dataloader">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">load_dataloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">istrain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.load_dataloader" title="Permalink to this definition"></a></dt>
+<dd><p>dataframe –&gt; dataloader
+dfcheck[[ ‘sentence1’, ‘sentence2’, ‘label’, ‘score’  ]]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.load_evaluator">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">load_evaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.load_evaluator" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluator using df[[‘sentence1’, ‘sentence2’, ‘score’]]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.load_loss">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">load_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lossname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosine'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.load_loss" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_check_cos_sim">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_check_cos_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sentence</span> <span class="pre">1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sentence2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sentence</span> <span class="pre">2'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_check_cos_sim" title="Permalink to this definition"></a></dt>
+<dd><p>### function to compute cosinue similarity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_encode">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'model</span> <span class="pre">name</span> <span class="pre">or</span> <span class="pre">path</span> <span class="pre">or</span> <span class="pre">object'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'data/*.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sentence1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'embs/myfile.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_encode" title="Permalink to this definition"></a></dt>
+<dd><p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sentence</span> <span class="n">encoder</span>
+<span class="n">sentences</span>        <span class="p">:</span> <span class="n">the</span> <span class="n">sentences</span> <span class="n">to</span> <span class="n">embed</span>
+<span class="n">batch_size</span>       <span class="p">:</span> <span class="n">the</span> <span class="n">batch</span> <span class="n">size</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">computation</span>
+<span class="n">show_progress_bar</span><span class="p">:</span> <span class="n">Output</span> <span class="n">a</span> <span class="n">progress</span> <span class="n">bar</span> <span class="n">when</span> <span class="n">encode</span> <span class="n">sentences</span>
+<span class="n">output_value</span>     <span class="p">:</span> <span class="n">Default</span> <span class="n">sentence_embedding</span><span class="p">,</span> <span class="n">to</span> <span class="n">get</span> <span class="n">sentence</span> <span class="n">embeddings</span><span class="o">.</span> <span class="n">Can</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">token_embeddings</span> <span class="n">to</span> <span class="n">get</span> <span class="n">wordpiece</span> <span class="n">token</span> <span class="n">embeddings</span><span class="o">.</span> <span class="n">Set</span> <span class="n">to</span> <span class="kc">None</span><span class="p">,</span> <span class="n">to</span> <span class="n">get</span> <span class="nb">all</span> <span class="n">output</span> <span class="n">values</span>
+<span class="n">convert_to_numpy</span> <span class="p">:</span> <span class="n">If</span> <span class="n">true</span><span class="p">,</span>                    <span class="n">the</span> <span class="n">output</span> <span class="ow">is</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">numpy</span> <span class="n">vectors</span><span class="o">.</span> <span class="n">Else</span><span class="p">,</span>                                                               <span class="n">it</span> <span class="ow">is</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">pytorch</span> <span class="n">tensors</span><span class="o">.</span>
+<span class="n">convert_to_tensor</span><span class="p">:</span> <span class="n">If</span> <span class="n">true</span><span class="p">,</span>                    <span class="n">you</span> <span class="n">get</span> <span class="n">one</span> <span class="n">large</span> <span class="n">tensor</span> <span class="k">as</span> <span class="k">return</span><span class="o">.</span> <span class="n">Overwrites</span> <span class="nb">any</span> <span class="n">setting</span> <span class="kn">from</span> <span class="nn">convert_to_numpy</span>
+<span class="n">device</span>           <span class="p">:</span> <span class="n">Which</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">the</span> <span class="n">computation</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_encode_batch">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_encode_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'model</span> <span class="pre">name</span> <span class="pre">or</span> <span class="pre">path</span> <span class="pre">or</span> <span class="pre">object'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirdata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'data/*.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sentence1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'embs/myfile.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_encode_batch" title="Permalink to this definition"></a></dt>
+<dd><p>Sentence encoder in parallel batch mode
+file_{ii}.parquet  with ii= imin, imax.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_evaluate">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'modelname</span> <span class="pre">OR</span> <span class="pre">path</span> <span class="pre">OR</span> <span class="pre">model</span> <span class="pre">object'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirdata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sts-test'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_evaluate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_finetune">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_finetune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelname_or_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'distilbert-base-nli-mean-tokens'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taskname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classifier'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lossname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasetname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['sentence1',</span> <span class="pre">'sentence2',</span> <span class="pre">'label',</span> <span class="pre">'score']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'val/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eval/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metricname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mymodel_save/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_finetune" title="Permalink to this definition"></a></dt>
+<dd><p>“#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Load</span> <span class="n">pre</span><span class="o">-</span><span class="n">trained</span> <span class="n">model</span> <span class="ow">and</span> <span class="n">fine</span> <span class="n">tune</span> <span class="k">with</span> <span class="n">specific</span> <span class="n">dataset</span>
+
+<span class="n">cols</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sentence1&#39;</span><span class="p">,</span> <span class="s1">&#39;sentence2&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span> <span class="p">],</span>
+<span class="n">task</span><span class="o">=</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span>  <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;sentence1&#39;</span><span class="p">,</span> <span class="s1">&#39;sentence2&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">]]</span>
+
+ <span class="c1"># cc.epoch = 3</span>
+ <span class="c1"># cc.lr = 1E-5</span>
+ <span class="c1"># cc.warmup = 100</span>
+ <span class="c1"># cc.n_sample  = 1000</span>
+ <span class="c1"># cc.batch_size=16</span>
+ <span class="c1"># cc.mode = &#39;cpu/gpu&#39;</span>
+ <span class="c1"># cc.ncpu =5</span>
+ <span class="c1"># cc.ngpu= 2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_finetune_classifier">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_finetune_classifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelname_or_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'distilbert-base-nli-mean-tokens'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taskname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classifier'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lossname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasetname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['sentence1',</span> <span class="pre">'sentence2',</span> <span class="pre">'label',</span> <span class="pre">'score']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'val/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eval/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metricname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mymodel_save/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_finetune_classifier" title="Permalink to this definition"></a></dt>
+<dd><p>” Load pre-trained model and fine tune with specific dataset
+cols= [‘sentence1’, ‘sentence2’, ‘label’, ‘score’ ],
+task=’classifier’,  df[[‘sentence1’, ‘sentence2’, ‘label’]]</p>
+<blockquote>
+<div><p># cc.epoch = 3
+# cc.lr = 1E-5
+# cc.warmup = 100
+# cc.n_sample  = 1000
+# cc.batch_size=16
+# cc.mode = ‘cpu/gpu’
+# cc.ncpu =5
+# cc.ngpu= 2</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_finetune_qanswer">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_finetune_qanswer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelname_or_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'distilbert-base-nli-mean-tokens'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taskname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'classifier'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lossname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasetname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['sentence1',</span> <span class="pre">'sentence2',</span> <span class="pre">'label',</span> <span class="pre">'score']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'val/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eval/*.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metricname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosinus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mymodel_save/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nsample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_finetune_qanswer" title="Permalink to this definition"></a></dt>
+<dd><p>” Load pre-trained model and fine tune with specific dataset
+cols= [‘sentence1’, ‘sentence2’, ‘label’, ‘score’ ],
+task=’’,  df[[‘sentence1’, ‘sentence2’, ‘label’]]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_load">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_name_or_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_load" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_save">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_save" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.model_setup_compute">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">model_setup_compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.model_setup_compute" title="Permalink to this definition"></a></dt>
+<dd><p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model_setup_compute</span> <span class="n">_summary_</span>
+<span class="c1"># Tell pytorch to run this model on the multiple GPUs if available otherwise use all CPUs.</span>
+<span class="n">Args</span><span class="p">:</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">_description_</span>
+    <span class="n">use_gpu</span><span class="p">:</span> <span class="n">_description_</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="mf">0.</span>
+    <span class="n">ngpu</span><span class="p">:</span> <span class="n">_description_</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="mf">1.</span>
+    <span class="n">ncpu</span><span class="p">:</span> <span class="n">_description_</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="mf">1.</span>
+    <span class="n">cc</span><span class="p">:</span> <span class="n">_description_</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="kc">None</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.pd_read_file3">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">pd_read_file3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_or_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./myfile.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.pd_read_file3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.sentence_compare">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">sentence_compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cola</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.sentence_compare" title="Permalink to this definition"></a></dt>
+<dd><p>Compare 2 columns and return cosine similarity score</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd DataFrame</em>) – Pandas DataFrame containing the data</p></li>
+<li><p><strong>cola</strong> (<em>str</em>) – column A name</p></li>
+<li><p><strong>colb</strong> (<em>str</em>) – column B name</p></li>
+<li><p><strong>model</strong> (<em>model instance</em>) – Pretrained sentence transformer model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>‘cosine_similarity’ column and return df</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.test1" title="Permalink to this definition"></a></dt>
+<dd><p>#
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Run</span> <span class="n">Various</span> <span class="n">test</span> <span class="n">suing</span> <span class="n">sent</span> <span class="n">trans_former</span><span class="p">,</span>
+    <span class="o">&lt;&gt;</span> <span class="n">losses</span><span class="p">,</span> <span class="o">&lt;&gt;</span> <span class="n">tasks</span>    <span class="c1"># Mostly Single sentence   ---&gt; Classification</span>
+
+<span class="n">python</span> <span class="n">utilmy</span><span class="o">/</span><span class="n">nlp</span><span class="o">/</span><span class="n">ttorch</span><span class="o">/</span><span class="n">sentences</span><span class="o">.</span><span class="n">py</span> <span class="n">test1</span>
+
+
+<span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentences</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+        <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;sentence_embedding&#39;</span><span class="p">,</span>
+        <span class="n">convert_to_numpy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">convert_to_tensor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">normalize_embeddings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.test2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.ttorch.sentences.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.ttorch.sentences.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.ttorch.sentences.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.nlp.ttorch">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.nlp.ttorch" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.nlp.kkeras.html" class="btn btn-neutral float-left" title="utilmy.nlp.kkeras package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.optim.html" class="btn btn-neutral float-right" title="utilmy.optim package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>

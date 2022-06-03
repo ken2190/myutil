@@ -1,0 +1,29 @@
+utilmy.nlp.ttorch package
+=========================
+
+Submodules
+----------
+
+utilmy.nlp.ttorch.model\_patent module
+--------------------------------------
+
+.. automodule:: utilmy.nlp.ttorch.model_patent
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+utilmy.nlp.ttorch.sentences module
+----------------------------------
+
+.. automodule:: utilmy.nlp.ttorch.sentences
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: utilmy.nlp.ttorch
+   :members:
+   :undoc-members:
+   :show-inheritance:

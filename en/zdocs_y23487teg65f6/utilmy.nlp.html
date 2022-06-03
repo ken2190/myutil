@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utilmy.nlp package &mdash; utilmy 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utilmy.nlp.kkeras package" href="utilmy.nlp.kkeras.html" />
+    <link rel="prev" title="utilmy.images package" href="utilmy.images.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+            <a href="index.html" class="icon icon-home"> utilmy
+          </a>
+              <div class="version">
+                zdocs_y23487teg65f6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">utilmy</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="utilmy.html">utilmy package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="utilmy.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="utilmy.configs.html">utilmy.configs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.deeplearning.html">utilmy.deeplearning package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.docs.html">utilmy.docs package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.excel.html">utilmy.excel package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.images.html">utilmy.images package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">utilmy.nlp package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="utilmy.nlp.kkeras.html">utilmy.nlp.kkeras package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="utilmy.nlp.ttorch.html">utilmy.nlp.ttorch package</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_cluster">utilmy.nlp.util_cluster module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#utilmy-nlp-util-cocount-module">utilmy.nlp.util_cocount module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#utilmy-nlp-util-embedding-module">utilmy.nlp.util_embedding module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_explain">utilmy.nlp.util_explain module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_gensim">utilmy.nlp.util_gensim module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_ner">utilmy.nlp.util_ner module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#utilmy-nlp-util-nlp-module">utilmy.nlp.util_nlp module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_topk">utilmy.nlp.util_topk module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp.util_transformers">utilmy.nlp.util_transformers module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-utilmy.nlp">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.optim.html">utilmy.optim package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.prepro.html">utilmy.prepro package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.recsys.html">utilmy.recsys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.sspark.html">utilmy.sspark package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.stats.html">utilmy.stats package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tabular.html">utilmy.tabular package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.templates.html">utilmy.templates package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tools.html">utilmy.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.tseries.html">utilmy.tseries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.viz.html">utilmy.viz package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utilmy.webscraper.html">utilmy.webscraper package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.adatasets">utilmy.adatasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.cli">utilmy.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.data">utilmy.data module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.dates">utilmy.dates module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.debug">utilmy.debug module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.decorators">utilmy.decorators module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.distributed">utilmy.distributed module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.graph">utilmy.graph module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.iio">utilmy.iio module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.nnumpy">utilmy.nnumpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.oos">utilmy.oos module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.parallel">utilmy.parallel module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppandas">utilmy.ppandas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.ppolars">utilmy.ppolars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_batch">utilmy.util_batch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_colab">utilmy.util_colab module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_conda">utilmy.util_conda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#utilmy-util-cpu-module">utilmy.util_cpu module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_download">utilmy.util_download module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.util_zip">utilmy.util_zip module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utilmy">utilmy.utilmy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.utils">utilmy.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.z_test">utilmy.z_test module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy.zdocstring">utilmy.zdocstring module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utilmy.html#module-utilmy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">utilmy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">utilmy</a> &raquo;</li>
+          <li><a href="utilmy.html">utilmy package</a> &raquo;</li>
+      <li>utilmy.nlp package</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/maltfield/rtd-github-pages/blob/master/docs/utilmy.nlp.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utilmy-nlp-package">
+<h1>utilmy.nlp package<a class="headerlink" href="#utilmy-nlp-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.nlp.kkeras.html">utilmy.nlp.kkeras package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.kkeras.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.kkeras.html#utilmy-nlp-kkeras-sentences-module">utilmy.nlp.kkeras.sentences module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.kkeras.html#module-utilmy.nlp.kkeras">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilmy.nlp.ttorch.html">utilmy.nlp.ttorch package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.ttorch.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.ttorch.html#utilmy-nlp-ttorch-model-patent-module">utilmy.nlp.ttorch.model_patent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.ttorch.html#module-utilmy.nlp.ttorch.sentences">utilmy.nlp.ttorch.sentences module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilmy.nlp.ttorch.html#module-utilmy.nlp.ttorch">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.nlp.util_cluster">
+<span id="utilmy-nlp-util-cluster-module"></span><h2>utilmy.nlp.util_cluster module<a class="headerlink" href="#module-utilmy.nlp.util_cluster" title="Permalink to this heading"></a></h2>
+<p>#
+Doc:</p>
+<p>pip install datasketch
+<a class="reference external" href="https://github.com/topics/hypothesis-testing?l=python&amp;o=desc&amp;s=stars">https://github.com/topics/hypothesis-testing?l=python&amp;o=desc&amp;s=stars</a>
+<a class="reference external" href="https://pypi.org/project/pysie/#description">https://pypi.org/project/pysie/#description</a></p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.log">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.log" title="Permalink to this definition"></a></dt>
+<dd><p>function log.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+    <span class="o">*</span><span class="n">s</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.pd_text_getcluster">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">pd_text_getcluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'col'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_perm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.pd_text_getcluster" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">For</span> <span class="n">each</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">hash</span> <span class="n">function</span> <span class="n">find</span> <span class="n">a</span> <span class="n">cluster</span> <span class="ow">and</span> <span class="n">assign</span> <span class="n">unique</span> <span class="nb">id</span> <span class="n">to</span> <span class="n">the</span> <span class="n">dataframe</span> <span class="n">cluster_id</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.pd_text_hash_create_lsh">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">pd_text_hash_create_lsh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_perm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.pd_text_hash_create_lsh" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">For</span> <span class="n">each</span> <span class="n">of</span> <span class="n">the</span> <span class="n">entry</span> <span class="n">create</span> <span class="n">a</span> <span class="nb">hash</span> <span class="n">function</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.pd_text_similarity">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">pd_text_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#utilmy.nlp.util_cluster.pd_text_similarity" title="Permalink to this definition"></a></dt>
+<dd><p>.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Return</span> <span class="n">similarities</span> <span class="n">between</span> <span class="n">two</span> <span class="n">columns</span> <span class="k">with</span>
+<span class="n">python</span><span class="s1">&#39;s SequenceMatcher algorithm</span>
+<span class="n">Args</span><span class="p">:</span>
+    <span class="n">df</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span> <span class="n">Pandas</span> <span class="n">Dataframe</span><span class="o">.</span>
+    <span class="n">algo</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span>    <span class="p">:</span> <span class="n">rapidfuzz</span> <span class="o">|</span> <span class="n">editdistance</span>
+    <span class="n">cols</span> <span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="n">of</span> <span class="n">columns</span> <span class="n">name</span> <span class="p">(</span><span class="mi">2</span> <span class="n">columns</span><span class="p">)</span>
+<span class="n">Returns</span><span class="p">:</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.test">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.test" title="Permalink to this definition"></a></dt>
+<dd><p>function test.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.test2" title="Permalink to this definition"></a></dt>
+<dd><p>function test2.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_cluster.test_lsh">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_cluster.</span></span><span class="sig-name descname"><span class="pre">test_lsh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_cluster.test_lsh" title="Permalink to this definition"></a></dt>
+<dd><p>function test_lsh.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Args</span><span class="p">:</span>
+<span class="n">Returns</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="utilmy-nlp-util-cocount-module">
+<h2>utilmy.nlp.util_cocount module<a class="headerlink" href="#utilmy-nlp-util-cocount-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="utilmy-nlp-util-embedding-module">
+<h2>utilmy.nlp.util_embedding module<a class="headerlink" href="#utilmy-nlp-util-embedding-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.nlp.util_explain">
+<span id="utilmy-nlp-util-explain-module"></span><h2>utilmy.nlp.util_explain module<a class="headerlink" href="#module-utilmy.nlp.util_explain" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.MNAME">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">MNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utilmy.nlp_util_explain'</span></em><a class="headerlink" href="#utilmy.nlp.util_explain.MNAME" title="Permalink to this definition"></a></dt>
+<dd><p>utils for NL explanation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.explainer_attention">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">explainer_attention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_ngrams_detectors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(5,</span> <span class="pre">3)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_explain.explainer_attention" title="Permalink to this definition"></a></dt>
+<dd><p>Takes the weights of an Attention layer and builds an explainer.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">:</span> <span class="n">model</span> <span class="n">instance</span> <span class="p">(</span><span class="n">after</span> <span class="n">fitting</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="p">:</span> <span class="n">keras</span> <span class="n">tokenizer</span> <span class="p">(</span><span class="n">after</span> <span class="n">fitting</span><span class="p">)</span>
+<span class="n">txt_instance</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">raw</span> <span class="n">text</span>
+<span class="n">lst_ngrams_detectors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">-</span> <span class="p">[</span><span class="n">bigram</span> <span class="ow">and</span> <span class="n">trigram</span> <span class="n">models</span><span class="p">],</span> <span class="k">if</span> <span class="n">empty</span> <span class="n">doesn</span><span class="s1">&#39;t detect common n-grams</span>
+<span class="n">top</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">top</span> <span class="n">features</span> <span class="n">to</span> <span class="n">display</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>text html, it can be visualized on notebook with display(HTML(text))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.explainer_lime">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">explainer_lime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_explain.explainer_lime" title="Permalink to this definition"></a></dt>
+<dd><p>Use lime to build an a explainer.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">:</span> <span class="n">pipeline</span> <span class="k">with</span> <span class="n">vectorizer</span> <span class="ow">and</span> <span class="n">classifier</span>
+<span class="n">Y_train</span><span class="p">:</span> <span class="n">array</span>
+<span class="n">txt_instance</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">raw</span> <span class="n">text</span>
+<span class="n">top</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">top</span> <span class="n">features</span> <span class="n">to</span> <span class="n">display</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>dtf with explanations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.explainer_shap">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">explainer_shap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dic_vocabulary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_explain.explainer_shap" title="Permalink to this definition"></a></dt>
+<dd><p>Use shap to build an a explainer (works only if model has binary_crossentropy).
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="p">:</span> <span class="n">model</span> <span class="n">instance</span> <span class="p">(</span><span class="n">after</span> <span class="n">fitting</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">:</span> <span class="n">array</span>
+<span class="n">X_instance</span><span class="p">:</span> <span class="n">array</span> <span class="n">of</span> <span class="n">size</span> <span class="n">n</span> <span class="p">(</span><span class="n">n</span><span class="p">,)</span>
+<span class="n">dic_vocabulary</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">-</span> <span class="p">{</span><span class="s2">&quot;word&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+<span class="n">class_names</span><span class="p">:</span> <span class="nb">list</span> <span class="o">-</span> <span class="n">labels</span>
+<span class="n">top</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">top</span> <span class="n">features</span> <span class="n">to</span> <span class="n">display</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>dtf with explanations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.explainer_similarity_classif">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">explainer_similarity_classif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dic_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(20,</span> <span class="pre">10)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_explain.explainer_similarity_classif" title="Permalink to this definition"></a></dt>
+<dd><p>Plot a text instance into a 2d vector space and compute similarity.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tokenizer</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">tokenizer</span>
+<span class="n">nlp</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">bert</span>
+<span class="n">dic_clusters</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">-</span> <span class="nb">dict</span> <span class="o">-</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="n">lst_words</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">lst_words</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+<span class="n">txt_instance</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">raw</span> <span class="n">text</span>
+<span class="n">token_level</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">-</span> <span class="k">if</span> <span class="kc">True</span> <span class="n">the</span> <span class="n">text</span> <span class="ow">is</span> <span class="n">broken</span> <span class="n">down</span> <span class="n">into</span> <span class="n">tokens</span> <span class="n">otherwise</span> <span class="n">the</span> <span class="n">mean</span> <span class="n">vector</span> <span class="ow">is</span> <span class="n">taken</span>
+<span class="n">top</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">top</span> <span class="n">similarity</span> <span class="n">to</span> <span class="n">display</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_explain.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_explain.test1" title="Permalink to this definition"></a></dt>
+<dd><p>function test1
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_explain.test2" title="Permalink to this definition"></a></dt>
+<dd><p>function test2
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_explain.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_explain.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_explain.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.nlp.util_gensim">
+<span id="utilmy-nlp-util-gensim-module"></span><h2>utilmy.nlp.util_gensim module<a class="headerlink" href="#module-utilmy.nlp.util_gensim" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.MNAME">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">MNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utilmy.nlp.util_gensim'</span></em><a class="headerlink" href="#utilmy.nlp.util_gensim.MNAME" title="Permalink to this definition"></a></dt>
+<dd><p>Gensim model</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_generate_random_bigrams">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_generate_random_bigrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">word_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bigrams_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_generate_random_bigrams" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_get_list">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_get_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'name,</span> <span class="pre">proba'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_get_list" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_get_seq3">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_get_seq3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemtag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnorm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_get_seq3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_load_convert">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_load_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_load_convert" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_write_random_sentences_from_bigrams_to_file">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_write_random_sentences_from_bigrams_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_write_random_sentences_from_bigrams_to_file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.bigram_write_seq">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">bigram_write_seq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.bigram_write_seq" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.embedding_load_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">embedding_load_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'df.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.embedding_load_parquet" title="Permalink to this definition"></a></dt>
+<dd><p>id, emb (string , separated)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.embedding_model_to_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">embedding_model_to_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_vector_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'model.vec'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.embedding_model_to_parquet" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.embedding_to_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">embedding_to_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_linevalid_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.embedding_to_parquet" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.gensim_model_check">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">gensim_model_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.gensim_model_check" title="Permalink to this definition"></a></dt>
+<dd><p>various model check
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>score(sentences, total_sentences=1000000, chunksize=100, queue_factor=2, report_delay=1)
+Score the log probability for a sequence of sentences. This does not change the fitted model in any way (see train() for that).
+Gensim has currently only implemented score for the hierarchical softmax scheme, so you need to have run word2vec with hs=1 and negative=0 for this to work.
+Note that you should specify total_sentences; you’ll run into problems if you ask to score more than this number of sentences but it is inefficient to set the value too high.
+  Parameters
+  sentences (iterable of list of str) – The sentences iterable can be simply a list of lists of tokens, but for larger corpora, consider an iterable that streams the sentences directly from disk/network. See BrownCorpus, Text8Corpus or LineSentence in word2vec module for such examples.
+  total_sentences (int, optional) – Count of sentences.
+  chunksize (int, optional) – Chunksize of jobs
+  queue_factor (int, optional) – Multiplier for size of queue (number of workers * queue_factor).
+  report_delay (float, optional) – Seconds to wait before reporting progress.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.gensim_model_load">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">gensim_model_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modeltype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fastext'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.gensim_model_load" title="Permalink to this definition"></a></dt>
+<dd><p>Loads the FastText model from the given path</p>
+<p>dirin: the path of the saved model
+modeltye:
+kw:
+:return: loaded model</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.gensim_model_train_save">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">gensim_model_train_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_or_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirinput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lee_background.cor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./modelout/model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.gensim_model_train_save" title="Permalink to this definition"></a></dt>
+<dd><p>Trains the Fast text model and saves the model
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">classgensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">fasttext</span><span class="o">.</span><span class="n">FastText</span><span class="p">(</span><span class="n">sentences</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">corpus_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hs</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vector_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="n">alpha</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_vocab_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">word_ngrams</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sample</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+<span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_alpha</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">negative</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ns_exponent</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">cbow_mean</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="n">hashfxn</span><span class="o">=&lt;</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span> <span class="nb">hash</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">null_word</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_n</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="n">sorted_vocab</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bucket</span><span class="o">=</span><span class="mi">2000000</span><span class="p">,</span> <span class="n">trim_rule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="n">batch_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">(),</span> <span class="n">max_final_vocab</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shrink_windows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">radimrehurek</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">gensim</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">fasttext</span><span class="o">.</span><span class="n">html</span>
+
+
+<span class="n">train</span><span class="p">(</span><span class="n">corpus_iterable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">corpus_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">total_examples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">total_words</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">end_alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">word_count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">queue_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">report_delay</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span>
+
+
+<span class="n">model</span><span class="p">:</span> <span class="n">The</span> <span class="n">model</span> <span class="n">to</span> <span class="n">train</span>
+<span class="n">dirinput</span><span class="p">:</span> <span class="n">the</span> <span class="n">filepath</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">input</span> <span class="n">data</span>
+<span class="n">dirout</span><span class="p">:</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">save</span> <span class="n">the</span> <span class="n">model</span>
+<span class="p">:</span><span class="n">epochs</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">epochs</span> <span class="n">to</span> <span class="n">train</span> <span class="n">the</span> <span class="n">model</span>
+<span class="p">:</span><span class="n">pars</span><span class="p">:</span> <span class="n">parameters</span> <span class="n">of</span> <span class="n">the</span> <span class="n">creating</span> <span class="n">FastText</span>
+<span class="p">:</span><span class="k">return</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_get_sample">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_get_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lproba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_get_sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_intersec">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_intersec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">va</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_intersec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_matrix_to_str">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_matrix_to_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_matrix_to_str2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_matrix_to_str2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_matrix_to_str_sim">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_matrix_to_str_sim" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_str_to_array">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_str_to_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_str_to_array" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.np_vector_to_str">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">np_vector_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.np_vector_to_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.test_gensim1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">test_gensim1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.test_gensim1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.text_generate_random_sentences">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">text_generate_random_sentences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sentences</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.text_generate_random_sentences" title="Permalink to this definition"></a></dt>
+<dd><p>Generates Random sentences and Preprocesses them</p>
+<p>n_sentences: number of sentences to generate
+dirout: filepath do write the generated sentences
+:return: generated sentences</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_gensim.text_preprocess">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_gensim.</span></span><span class="sig-name descname"><span class="pre">text_preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lemmatizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_gensim.text_preprocess" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocessing Function
+sentence: sentence to preprocess
+lemmatizer: the class which lemmatizes the words
+stop_words: stop_words in english <a class="reference external" href="http://xpo6.com/list-of-english-stop-words/">http://xpo6.com/list-of-english-stop-words/</a>
+:return: preprocessed sentence</p>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.nlp.util_ner">
+<span id="utilmy-nlp-util-ner-module"></span><h2>utilmy.nlp.util_ner module<a class="headerlink" href="#module-utilmy.nlp.util_ner" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.MNAME">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">MNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utilmy.nlp.util_ner'</span></em><a class="headerlink" href="#utilmy.nlp.util_ner.MNAME" title="Permalink to this definition"></a></dt>
+<dd><p>utils for Name Entity Recognition</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.list_topk">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">list_topk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.list_topk" title="Permalink to this definition"></a></dt>
+<dd><p>Counts the elements in a list.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lst</span><span class="p">:</span> <span class="nb">list</span>
+<span class="n">top</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">number</span> <span class="n">of</span> <span class="n">top</span> <span class="n">elements</span> <span class="n">to</span> <span class="k">return</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>lst_top - list with top elements</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_features">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst_dics_tuples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_features" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Creates columns</dt><dd><p>lst_dics_tuples: [{(‘Texas’,’GPE’):1}, {(‘Trump’,’PERSON’):3}]
+tag: string - ‘PERSON’</p>
+</dd>
+<dt>:return</dt><dd><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_freq_spacy_tag">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_freq_spacy_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_freq_spacy_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Compute frequency of spacy tags.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_spacy_add_tag_features">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_spacy_add_tag_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_tag_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grams_join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_spacy_add_tag_features" title="Permalink to this definition"></a></dt>
+<dd><p>Apply spacy NER model and add tag features.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dtf</span><span class="p">:</span> <span class="n">dataframe</span> <span class="o">-</span> <span class="n">dtf</span> <span class="k">with</span> <span class="n">a</span> <span class="n">text</span> <span class="n">column</span>
+<span class="n">column</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">name</span> <span class="n">of</span> <span class="n">column</span> <span class="n">containing</span> <span class="n">text</span>
+<span class="n">ner</span><span class="p">:</span> <span class="n">spacy</span> <span class="nb">object</span> <span class="o">-</span> <span class="s2">&quot;en_core_web_lg&quot;</span><span class="p">,</span> <span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="s2">&quot;xx_ent_wiki_sm&quot;</span>
+<span class="n">lst_tag_filter</span><span class="p">:</span> <span class="nb">list</span> <span class="o">-</span> <span class="p">[</span><span class="s2">&quot;ORG&quot;</span><span class="p">,</span><span class="s2">&quot;PERSON&quot;</span><span class="p">,</span><span class="s2">&quot;NORP&quot;</span><span class="p">,</span><span class="s2">&quot;GPE&quot;</span><span class="p">,</span><span class="s2">&quot;EVENT&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span> <span class="n">takes</span> <span class="nb">all</span>
+<span class="n">grams_join</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="ow">or</span> <span class="n">more</span> <span class="p">(</span><span class="n">ex</span><span class="o">.</span> <span class="s2">&quot;new york&quot;</span> <span class="o">--&gt;</span> <span class="s2">&quot;new_york&quot;</span><span class="p">)</span>
+<span class="n">create_features</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">-</span> <span class="n">create</span> <span class="n">columns</span> <span class="k">with</span> <span class="n">category</span> <span class="n">features</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>dtf</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_spacy_displacy">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_spacy_displacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_tag_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_spacy_displacy" title="Permalink to this definition"></a></dt>
+<dd><p>Display the spacy NER model.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">txt</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">text</span> <span class="nb">input</span> <span class="k">for</span> <span class="n">the</span> <span class="n">model</span><span class="o">.</span>
+<span class="n">model</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="s2">&quot;en_core_web_lg&quot;</span><span class="p">,</span> <span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">,</span> <span class="s2">&quot;xx_ent_wiki_sm&quot;</span>
+<span class="n">lst_tag_filter</span><span class="p">:</span> <span class="nb">list</span> <span class="ow">or</span> <span class="kc">None</span> <span class="o">-</span> <span class="n">example</span> <span class="p">[</span><span class="s2">&quot;ORG&quot;</span><span class="p">,</span> <span class="s2">&quot;GPE&quot;</span><span class="p">,</span> <span class="s2">&quot;LOC&quot;</span><span class="p">],</span> <span class="kc">None</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">tags</span>
+<span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_spacy_retrain">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_spacy_retrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blank'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_spacy_retrain" title="Permalink to this definition"></a></dt>
+<dd><p>Retrain spacy NER model with new tags.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="p">:</span> <span class="nb">list</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;Who is Shaka Khan?&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;entities&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="s2">&quot;PERSON&quot;</span><span class="p">)]}),</span>
+        <span class="p">(</span><span class="s2">&quot;I like London and Berlin.&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;entities&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="s2">&quot;LOC&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;LOC&quot;</span><span class="p">)]}),</span>
+    <span class="p">]</span>
+<span class="n">output_dir</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="n">path</span> <span class="n">of</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">save</span> <span class="n">model</span>
+<span class="n">model</span><span class="p">:</span> <span class="n">string</span> <span class="o">-</span> <span class="s2">&quot;blanck&quot;</span> <span class="ow">or</span> <span class="s2">&quot;en_core_web_lg&quot;</span><span class="p">,</span> <span class="o">...</span>
+<span class="n">n_iter</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iteration</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.ner_spacy_text">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">ner_spacy_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lst_tag_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grams_join</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_ner.ner_spacy_text" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Find entities in text, replace strings with tags and extract tags:</dt><dd><p>Donald Trump –&gt; Donald_Trump
+[Donald Trump, PERSON]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_ner.test1" title="Permalink to this definition"></a></dt>
+<dd><p>function test1
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_ner.test2" title="Permalink to this definition"></a></dt>
+<dd><p>function test2
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_ner.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_ner.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_ner.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all</p>
+</dd></dl>
+
+</section>
+<section id="utilmy-nlp-util-nlp-module">
+<h2>utilmy.nlp.util_nlp module<a class="headerlink" href="#utilmy-nlp-util-nlp-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-utilmy.nlp.util_topk">
+<span id="utilmy-nlp-util-topk-module"></span><h2>utilmy.nlp.util_topk module<a class="headerlink" href="#module-utilmy.nlp.util_topk" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.MNAME">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">MNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utilmy.nlp.util_topk'</span></em><a class="headerlink" href="#utilmy.nlp.util_topk.MNAME" title="Permalink to this definition"></a></dt>
+<dd><p>Top-K retrieval</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.embedding_load_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">embedding_load_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'df.parquet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.embedding_load_parquet" title="Permalink to this definition"></a></dt>
+<dd><p>id, emb (string , separated)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.embedding_model_to_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">embedding_model_to_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_vector_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'model.vec'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.embedding_model_to_parquet" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.embedding_to_parquet">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">embedding_to_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dirout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_linevalid_fun</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.embedding_to_parquet" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.faiss_create_index">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">faiss_create_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_or_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'emb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IVF4096,Flat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emb_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.faiss_create_index" title="Permalink to this definition"></a></dt>
+<dd><p>1 billion size vector creation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.faiss_topk">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">faiss_topk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'id'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colemb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'emb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faiss_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.faiss_topk" title="Permalink to this definition"></a></dt>
+<dd><p>id, dist_list, id_list ex</p>
+<p><a class="reference external" href="https://github.com/facebookresearch/faiss/issues/632">https://github.com/facebookresearch/faiss/issues/632</a></p>
+<dl>
+<dt>This represents the quantization error for vectors inside the dataset.</dt><dd><p>For vectors in denser areas of the space, the quantization error is lower because the quantization centroids are bigger and vice versa.
+Therefore, there is no limit to this error that is valid over the whole space. However, it is possible to recompute the exact distances once you have the nearest neighbors, by accessing the uncompressed vectors.</p>
+<p>distance -&gt; similarity in uncompressed space is</p>
+<p>dis = 2 - 2 * sim</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_get_sample">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_get_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lproba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_get_sample" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_intersec">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_intersec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">va</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_intersec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_matrix_to_str">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_matrix_to_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_matrix_to_str2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_matrix_to_str2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_matrix_to_str_sim">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_matrix_to_str_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_matrix_to_str_sim" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_str_to_array">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_str_to_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_str_to_array" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.np_vector_to_str">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">np_vector_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.np_vector_to_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.test1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_topk.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_topk.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_topk.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utilmy.nlp.util_transformers">
+<span id="utilmy-nlp-util-transformers-module"></span><h2>utilmy.nlp.util_transformers module<a class="headerlink" href="#module-utilmy.nlp.util_transformers" title="Permalink to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.MNAME">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">MNAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'utilmy.'</span></em><a class="headerlink" href="#utilmy.nlp.util_transformers.MNAME" title="Permalink to this definition"></a></dt>
+<dd><p>utils for</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.embedding_bert">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">embedding_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_transformers.embedding_bert" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a feature matrix (num_docs x vector_size)
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">:</span> <span class="n">string</span> <span class="ow">or</span> <span class="nb">list</span>
+<span class="n">tokenizer</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">tokenizer</span>
+<span class="n">nlp</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">bert</span>
+<span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">-</span> <span class="nb">print</span> <span class="n">tokens</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>vector or matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.fit_bert_classif">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">fit_bert_classif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encode_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dic_y_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_transformers.fit_bert_classif" title="Permalink to this definition"></a></dt>
+<dd><p>Pre-trained Bert + Fine-tuning (transfer learning) with tf2 and transformers.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">:</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sequence</span>
+<span class="n">y_train</span><span class="p">:</span> <span class="n">array</span> <span class="n">of</span> <span class="n">classes</span>
+<span class="n">X_test</span><span class="p">:</span> <span class="n">array</span> <span class="n">of</span> <span class="n">sequence</span>
+<span class="n">model</span><span class="p">:</span> <span class="n">model</span> <span class="nb">object</span> <span class="o">-</span> <span class="n">model</span> <span class="n">to</span> <span class="n">fit</span> <span class="p">(</span><span class="n">before</span> <span class="n">fitting</span><span class="p">)</span>
+<span class="n">encode_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">-</span> <span class="n">whether</span> <span class="n">to</span> <span class="n">encode</span> <span class="n">y</span> <span class="k">with</span> <span class="n">a</span> <span class="n">dic_y_mapping</span>
+<span class="n">dic_y_mapping</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">-</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="s2">&quot;C&quot;</span><span class="p">}</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span> <span class="n">it</span> <span class="n">calculates</span>
+<span class="n">epochs</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">epochs</span> <span class="n">to</span> <span class="n">run</span>
+<span class="n">batch_size</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="n">it</span> <span class="n">does</span> <span class="n">backpropagation</span> <span class="n">every</span> <span class="n">batch</span><span class="p">,</span> <span class="n">the</span> <span class="n">more</span> <span class="n">the</span> <span class="n">faster</span> <span class="n">but</span> <span class="n">it</span> <span class="n">can</span> <span class="n">use</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">memory</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>model fitted and predictions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.help">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_transformers.help" title="Permalink to this definition"></a></dt>
+<dd><p>function help</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.test1">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">test1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_transformers.test1" title="Permalink to this definition"></a></dt>
+<dd><p>function test1
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.test2">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">test2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_transformers.test2" title="Permalink to this definition"></a></dt>
+<dd><p>function test2
+Args:
+Returns:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.test_all">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#utilmy.nlp.util_transformers.test_all" title="Permalink to this definition"></a></dt>
+<dd><p>function test_all</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.tokenize_bert">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">tokenize_bert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxlen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_transformers.tokenize_bert" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocess corpus to create features for Bert.
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">corpus</span><span class="p">:</span> <span class="nb">list</span> <span class="o">-</span> <span class="n">dtf</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+<span class="n">tokenizer</span><span class="p">:</span> <span class="n">transformer</span> <span class="n">tokenizer</span>
+<span class="n">maxlen</span><span class="p">:</span> <span class="n">num</span> <span class="o">-</span> <span class="nb">max</span> <span class="n">length</span> <span class="n">of</span> <span class="n">the</span> <span class="n">padded</span> <span class="n">sequence</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>tensor/list with idx, masks, segments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utilmy.nlp.util_transformers.utils_bert_embedding">
+<span class="sig-prename descclassname"><span class="pre">utilmy.nlp.util_transformers.</span></span><span class="sig-name descname"><span class="pre">utils_bert_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utilmy.nlp.util_transformers.utils_bert_embedding" title="Permalink to this definition"></a></dt>
+<dd><p>Word embedding with Bert (equivalent to nlp[“word”]).
+Doc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">txt</span><span class="p">:</span> <span class="n">string</span>
+<span class="n">tokenizer</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">tokenizer</span>
+<span class="n">nlp</span><span class="p">:</span> <span class="n">transformers</span> <span class="n">bert</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>:return</dt><dd><p>tensor sentences x words x vector (1x3x768)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utilmy.nlp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utilmy.nlp" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utilmy.images.html" class="btn btn-neutral float-left" title="utilmy.images package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utilmy.nlp.kkeras.html" class="btn btn-neutral float-right" title="utilmy.nlp.kkeras package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: zdocs_y23487teg65f6
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/myutil/es/zdocs_y23487teg65f6/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/">zdocs_y23487teg65f6</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.pdf">pdf</a></dd>
+        
+          <dd><a href="/myutil/en/zdocs_y23487teg65f6/utilmy-docs_en_zdocs_y23487teg65f6.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
