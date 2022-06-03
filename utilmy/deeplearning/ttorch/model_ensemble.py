@@ -748,7 +748,7 @@ class model_getlayer():
 
 class model_template_MLP(torch.nn.Module):
     def __init__(self,layers_dim=[20,100,16]):
-        super(modelA, self).__init__()
+        super(model_template_MLP, self).__init__()
         self.layers_dim = layers_dim
         self.output_dim = layers_dim[-1]
         # self.head_task = nn.Sequential()
