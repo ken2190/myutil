@@ -46,7 +46,7 @@ Doc::
     spark_df_check(df:sp_dataframe, tag = "check", conf:dict = None, dirout:str =  "", nsample:int = 10, save = True, verbose = True, returnval = False)
     spark_df_filter_mostrecent(df:sp_dataframe, colid = 'userid', col_orderby = 'date', decreasing = 1, rank = 1)
     spark_df_sampleover(df:sp_dataframe, coltarget:str, major_label, minor_label, target_ratio, )
-    spark_df_sample(df, fractions = 0.1, col_stratify = None, with_replace = True)
+    spark_df_sample(df, fraction = 0.1, col_stratify = None, with_replace = True)
     spark_df_stats_all(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, metric_list = ['null', 'n5', 'n95' ], doprint = True)
     spark_df_stats_null(df:sp_dataframe, cols:Union[list, str], sample_fraction = -1, doprint = True)
     spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)
@@ -657,7 +657,7 @@ def spark_df_write(df:sp_dataframe, dirout:str= "",  npartitions:int=None, mode:
        log('exist', hdfs_dir_exists(dirout) )
 
 
-def spark_df_sample(df,  fractions:Union[dict, float]=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
+def spark_df_sample(df,  fraction:Union[dict, float]=0.1, col_stratify=None, with_replace=True)->sp_dataframe:
     """sample
     Docs::
 
@@ -667,13 +667,13 @@ def spark_df_sample(df,  fractions:Union[dict, float]=0.1, col_stratify=None, wi
             sampled.groupBy("key").count().orderBy("key").show()
 
     """
-    if isinstance(fractions, dict) and col_stratify :
-        df1 = df.sampleBy(col= col_stratify, fractions=fractions, seed=None)
+    if isinstance(fraction, dict) and col_stratify :
+        df1 = df.sampleBy(col= col_stratify, fractions=fraction, seed=None)
         return df1
 
-    if fractions <= 0.0 or fractions >=1.0 : return df
+    if fraction <= 0.0 or fraction >=1.0 : return df
 
-    df1 = df.sample(with_replace, fraction=fractions, seed=None)
+    df1 = df.sample(with_replace, fraction=fraction, seed=None)
     return df1
 
 
@@ -751,7 +751,7 @@ def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1
     """
     if isinstance(cols, str): cols= [ cols]
 
-    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fraction= sample_fraction, col_stratify=None, with_replace=True)
     
     n = df.count()
     dfres = []
@@ -773,7 +773,7 @@ def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fracti
     """
     if isinstance(cols_cat, str): cols_cat= [ cols_cat]
 
-    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fraction= sample_fraction, col_stratify=None, with_replace=True)
     
     n = df.count()
     dfres = []
@@ -801,7 +801,7 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     """
     if isinstance(cols, str): cols= [ cols]
 
-    df = spark_df_sample(df,  fractions= sample_fraction, col_stratify=None, with_replace=True)
+    df = spark_df_sample(df,  fraction= sample_fraction, col_stratify=None, with_replace=True)
     
 
     n = df.count()
