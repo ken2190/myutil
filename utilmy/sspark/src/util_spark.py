@@ -104,13 +104,13 @@ from utilmy.sspark.src.util_hadoop import *
 from utilmy.sspark.src.util_hadoop import (
    hdfs_copy_tolocal,
    hdfs_copy_fromlocal,
-   hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
-   hdfs_dir_rm,
    hdfs_download,
    hdfs_ls,
+   hdfs_dir_rm,
    hdfs_dir_list,
+   hdfs_dir_exists,
    hdfs_dir_info,
    hdfs_dir_stats,
 
