@@ -239,7 +239,6 @@ def hdfs_dir_stats(dirin, recursive=True):
     """
     fdict = Box({})
     try:
-        # finished
         fdict = hdfs_size_dir(dirin)
     except:
         print("{} does not exist!".format(dirin))
