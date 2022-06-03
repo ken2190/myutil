@@ -840,7 +840,42 @@ def hdfs_list_dir(path,recursive=False):
 
 
 def hdfs_size_dir(path):
-    return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+    # return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+    cmd_ls = f"hadoop fs -ls {path}"
+    cmd_du = f"hadoop fs -du {path}"
+
+    # f"hadoop fs -ls {path}"
+    fdict = {}
+    stdout,stderr = os_system(cmd_ls, True)
+    lines = stdout.split("\n")
+    for li in lines:
+        if not li: continue
+        tmp = []
+        for v in li.split(" "):
+            if v: tmp.append(v.strip())
+            if len(tmp) < 8: continue
+            k = tmp[-1].split("/")[-1]
+            last_modified = " ".join(tmp[5:7])
+            format=k.split(".")[-1] if "." in k else ""
+            fdict[k] = {"last_modified":last_modified, "format":format}
+
+    # f"hadoop fs -du {path}"
+    stdout,stderr = os_system(cmd_du, True)
+    lines = stdout.split("\n")
+    for li in lines:
+        if not li: continue
+        tmp = []
+        for v in li.split(" "):
+            if v: tmp.append(v.strip())
+            if len(tmp) < 3: continue
+            k = tmp[-1].split("/")[-1]
+            size_bytes = tmp[0]
+            if k in fdict:
+                fdict[k]["size_bytes"] = int(size_bytes)
+            else:
+                fdict[k] = {"size_bytes": None}
+
+    return fdict
     
 
 def hive_update_partitions_table( hr, dt, location, table_name):

@@ -239,6 +239,7 @@ def hdfs_dir_stats(dirin, recursive=True):
     """
     fdict = Box({})
     try:
+        # finished
         fdict = hdfs_size_dir(dirin)
     except:
         print("{} does not exist!".format(dirin))
@@ -254,6 +255,7 @@ def hive_get_tablelist(dbname):
     lines = stdout.split("\n")
     ltable = []
     for li in lines :
+        if not li: continue
         if 'tab_name' in li : continue
         ltable.append(li.strip())
     return ltable
@@ -268,6 +270,7 @@ def hive_get_dblist():
     lines = stdout.split("\n")
     ldb = []
     for li in lines :
+        if not li: continue
         if 'database_name' in li : continue
         ldb.append(li.strip())
     return ldb
@@ -282,6 +285,7 @@ def hive_get_tablechema(tablename):
     lines = stdout.split("\n")
     table_info = {}
     for li in lines :
+        if not li: continue
         if 'col_name' in li : continue
         tmp = []
         for item in li.split(" "): # assume li = "id   int   comment '' "
@@ -306,6 +310,7 @@ def hive_get_tabledetails(table):
     table_info = {}
     ltable = []
     for li in lines :
+        if not li: continue
         if 'col_name' in li : continue
         ltable.append(li.strip())
     return ltable
