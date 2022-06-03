@@ -1040,19 +1040,19 @@ def os_makedirs(path:str):
     os.system(f"hdfs dfs mkdir -p '{path}'")
 
 def os_system(cmd, doprint=False):
-  """ os.system  and retrurn stdout, stderr values
-  """
-  import subprocess
-  try :
-    p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
-    mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
-    if doprint:
-      l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
-      print(l)
+    """ os.system  and retrurn stdout, stderr values
+    """
+    import subprocess
+    try :
+        p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
+        mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
+        if doprint:
+            l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
+            print(l)
 
-    return mout, merr
-  except Exception as e :
-    print( f"Error {cmd}, {e}")
+        return mout, merr
+    except Exception as e :
+        print( f"Error {cmd}, {e}")
 
 
 def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
