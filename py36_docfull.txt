@@ -109,7 +109,7 @@ pandas_profiling
 
 
 
-###############################
+#######################################################
 ## utilmy.tabular
 #statsmodels==0.11.1
 statsmodels
@@ -120,14 +120,14 @@ imodels   ### rule generator
 mapie  ### Uncertainty est.
 
 
-###############################
+#######################################################
 ## utilmy.recsys
 ## abracadabra
 
 
 ########################################################
 #### utilmy.deeplearning
-protobuf==3.16.0
+#protobuf==3.16.0
 faiss-cpu
 tensorflow-cpu==2.2.3
 -f https://download.pytorch.org/whl/torch_stable.html 
