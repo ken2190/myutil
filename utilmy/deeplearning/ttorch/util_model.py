@@ -352,24 +352,19 @@ class myMultiClassMultiHead(nn.Module):
 
 
 class MultilableHead(nn.Module):
-    def __init__(self, config, class_label):
+    def __init__(self, in_features=None,out_feature=None, inter_feat=None, dropout=0,class_label=None):
         super().__init__()
-        self.config       = config
-        self.in_features  = config['in_features']
-        self.inter_feat   = config['inter_feat']
-        self.class_label  = class_label
-        self.dropout_prob = config['dropout']
-        self.dropout = nn.Dropout(self.dropout_prob)
+
+        self.dropout = nn.Dropout(dropout)
         self.relu = nn.ReLU()
 
         # Layer 1
-        self.linear1        = nn.Linear(in_features=self.in_features, out_features=256, bias=False)        
+        self.linear1        = nn.Linear(in_features=in_features, out_features=out_feature, bias=False)        
         # Layer 2
-        self.linear2        = nn.Linear(in_features=256, out_features=self.inter_feat, bias=False)
+        self.linear2        = nn.Linear(in_features=out_feature, out_features=inter_feat, bias=False)
         ########################################################################
-        self.linear3        = nn.Linear(self.inter_feat, class_label)
+        self.linear3        = nn.Linear(inter_feat, class_label)
         self.head_task      = nn.Linear(class_label, 1)
-        
 
     def forward(self, x):
         x = self.relu(self.linear1(self.dropout(x)))
