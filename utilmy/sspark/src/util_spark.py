@@ -107,11 +107,12 @@ from utilmy.sspark.src.util_hadoop import (
    hdfs_dir_exists,
    hdfs_file_exists,
    hdfs_mkdir,
-   hdfs_rm_dir,
+   hdfs_dir_rm,
    hdfs_download,
    hdfs_ls,
-   hdfs_list_dir,
-   hdfs_size_dir,
+   hdfs_dir_list,
+   hdfs_dir_info,
+   hdfs_dir_stats,
 
 ### parquet
 hdfs_pd_read_parquet,
@@ -232,18 +233,6 @@ def run_cli_sspark():
 
 ################################################################################################
 ###### TODO : list of function to be completed later ###########################################
-def hdfs_dir_stats(dirin, recursive=True):
-    """  nfile, total size in bytes, last modified
-         format of files,
-
-    """
-    fdict = Box({})
-    try:
-        fdict = hdfs_size_dir(dirin)
-    except:
-        print("{} does not exist!".format(dirin))
-    return fdict
-
 
 
 def hive_get_tablelist(dbname):

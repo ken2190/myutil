@@ -117,7 +117,7 @@ Doc:
 """
 import os,sys, subprocess, time, datetime, glob
 import pandas as pd
-
+from box import Box
 
 def log(*s):
   print(*s, flush=True)
@@ -161,7 +161,7 @@ def hdfs_mkdir(hdfs_dir):
 
 
 def hdfs_copy_fromlocal(local_dir, hdfs_dir, overwrite=False):
-    if overwrite: hdfs_rm_dir(hdfs_dir)
+    if overwrite: hdfs_dir_rm(hdfs_dir)
     res = os_system( f"hdfs dfs -copyFromLocal '{local_dir}'  '{hdfs_dir}' ", doprint=True)
 
 
@@ -169,7 +169,7 @@ def hdfs_copy_tolocal(hdfs_dir, local_dir):
     res = os_system( f"hdfs dfs -copyToLocal '{hdfs_dir}'  '{local_dir}' ", doprint=True)
 
 
-def hdfs_rm_dir(path):
+def hdfs_dir_rm(path):
     if hdfs_dir_exists(path):
         log("removing old file "+path)
         cat = subprocess.call(["hdfs", "dfs", "-rm", path ])
@@ -191,15 +191,18 @@ def hdfs_file_exists(filename):
         return False
 
 
-def hdfs_list_dir(path,recursive=False):
+def hdfs_dir_list(path,recursive=False):
     subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
 
 
-def hdfs_size_dir(path):
-    # return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+def hdfs_dir_info(path):
+    """  HDFS DIR : {"last_modified":last_modified,"format":format1 'size'}
 
-    cmd_ls = f"hadoop fs -ls {path}"
-    fdict = {}
+
+    """
+    fdict = Box({})
+
+    cmd_ls = f"hdfs dfs -ls {path}"
     stdout,stderr = os_system(cmd_ls, True)
     if stderr: return stderr
     lines = stdout.split("\n")
@@ -208,14 +211,15 @@ def hdfs_size_dir(path):
         tmp = []
         for v in li.split(" "):
             if v: tmp.append(v.strip())
+
             if len(tmp) < 8: continue
             k = tmp[-1].split("/")[-1]
             last_modified = " ".join(tmp[5:7])
-            format1=k.split(".")[-1] if "." in k else ""
+            format1       = k.split(".")[-1] if "." in k else ""
             fdict[k] = {"last_modified":last_modified,"format":format1}
 
 
-    cmd_du = f"hadoop fs -du {path}"
+    cmd_du = f"hdfs dfs -du {path}"
     stdout,stderr = os_system(cmd_du, True)
     if stderr: return stderr
     lines = stdout.split("\n")
@@ -224,16 +228,19 @@ def hdfs_size_dir(path):
         tmp = []
         for v in li.split(" "):
             if v: tmp.append(v.strip())
+
             if len(tmp) < 3: continue
             k = tmp[-1].split("/")[-1]
             size_bytes = tmp[0]
             if k in fdict:
-                fdict[k]["size_bytes"] = int(size_bytes)
+                fdict[k]["size"] = int(size_bytes)
             else:
-                fdict[k] = {"size_bytes",}
+                fdict[k]["size"] = -1
 
     return fdict
-   
+
+### alias   
+hdfs_dir_stats = hdfs_dir_info
 
 
 def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
