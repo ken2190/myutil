@@ -748,7 +748,7 @@ class model_getlayer():
 
 class model_template_MLP(torch.nn.Module):
     def __init__(self,layers_dim=[20,100,16]):
-        super(modelA, self).__init__()
+        super(model_template_MLP, self).__init__()
         self.layers_dim = layers_dim
         self.output_dim = layers_dim[-1]
         # self.head_task = nn.Sequential()
@@ -912,8 +912,8 @@ class BaseModel(object):
                 kk = kk + 1 
                 # torch.testing.assert_close(param1.data, param2.data)
                 if(param2.requires_grad==True):
-                   raise Exception("Gradients are updated in models_nets {}".format(i) )
-
+                   #raise Exception("Gradients are updated in models_nets {}".format(i) )
+                   print(  "Gradients are updated in models_nets {}".format(i)  )
 
     def validate_dim(self,train_loader,val_loader):
         train = iter(train_loader)

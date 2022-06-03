@@ -39,7 +39,9 @@ jobs:
         python-version: 3.7.*
       
     - name: Install pipenv
-      uses: dschep/install-pipenv-action@v1
+      #uses: dschep/install-pipenv-action@v1
+      run: |
+           pip install pipenv==2022.4.30   
       
   
     - name: Cache pipenv virtualenv
@@ -89,13 +91,19 @@ jobs:
     #       python test.py test_deeplearning_torch
 
     - name: test import_all
-      #continue-on-error: true 
+      continue-on-error: true 
       run: |
           python test.py test_import_all
 
 
-    - name: test utilmy.nlp.ttorch.sentences
+    - name: utilmy/deeplearning/ttorch/model_ensemble.py  
       # continue-on-error: true 
+      run: |
+          python utilmy/deeplearning/ttorch/model_ensemble.py   test_all
+          
+
+    - name: test utilmy.nlp.ttorch.sentences
+      continue-on-error: true 
       run: |
           python utilmy/nlp/ttorch/sentences.py  test_all
 
@@ -113,10 +121,7 @@ jobs:
           python utilmy/deeplearning/ttorch/util_torch.py   test_all
 
 
-    - name: utilmy/deeplearning/ttorch/model_ensemble.py  
-      # continue-on-error: true 
-      run: |
-          python utilmy/deeplearning/ttorch/model_ensemble.py   test_all
+
 
 
 

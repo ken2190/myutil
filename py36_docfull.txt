@@ -109,7 +109,7 @@ pandas_profiling
 
 
 
-###############################
+#######################################################
 ## utilmy.tabular
 #statsmodels==0.11.1
 statsmodels
@@ -120,24 +120,28 @@ imodels   ### rule generator
 mapie  ### Uncertainty est.
 
 
-###############################
+#######################################################
 ## utilmy.recsys
 ## abracadabra
 
 
 ########################################################
 #### utilmy.deeplearning
-protobuf==3.16.0
+#protobuf==3.16.0
+protobuf==3.19.4
+#protobuf>=3.9.2,<3.20
 faiss-cpu
-tensorflow-cpu==2.2.3
+#tensorflow-cpu==2.6.3
+tensorflow-cpu==2.7.3
 -f https://download.pytorch.org/whl/torch_stable.html 
 torch==1.10.0+cpu 
 # torch==1.7.1
 #-f https://download.pytorch.org/whl/torch_stable.html
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
 torchvision>=0.11.0+cpu
-sentence-transformers
-
+sentence-transformers==2.1.0
+#protobuf<=3.20.1
+transformers<5.0.0
 
 ### visualize emb
 mpld3
@@ -149,6 +153,12 @@ optuna
 ### ONNX part
 onnxruntime
 # onnx
+
+
+
+
+
+
 
 
 
