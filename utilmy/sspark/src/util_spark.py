@@ -135,8 +135,7 @@ def test_all():
 
 
 
-def test1():
-    ss="""
+test_config =  """
     spark.master                       : 'local[1]'   # 'spark://virtual:7077'
     spark.app.name                     : 'logprocess'
     spark.driver.maxResultSize         : '10g'
@@ -157,8 +156,11 @@ def test1():
     #spark.sql.warehouse.dir           : '/user/myuser/warehouse'
     #spark.sql.warehouse.dir           : '/tmp'    
     spark.submit.deployMode            : 'client'
-    """
-    cfg = config_parser_yaml(ss)
+"""
+
+
+def test1():
+    cfg = config_parser_yaml(test_config)
     log(cfg)
     sparksession = spark_get_session_local()
 
