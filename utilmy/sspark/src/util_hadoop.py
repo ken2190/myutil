@@ -124,10 +124,9 @@ def log(*s):
 
 
 
-##################################################################################
+################################################################################################################
 def hadoop_print_config(dirout=None):
   """ Print configuration variable for Hadoop, Spark
-
 
   """
   names =[
@@ -140,11 +139,6 @@ def hadoop_print_config(dirout=None):
   dd= []
   for ni in names:
     dd.append( [ni, os.environ.get(ni, '') ] )
-
-  ### Print configuration files on disk
-  ### SPARK_HOME/conf/spark_env.sh
-  
-   
 
 
 
@@ -177,7 +171,7 @@ def hdfs_copy_tolocal(hdfs_dir, local_dir):
 
 def hdfs_rm_dir(path):
     if hdfs_dir_exists(path):
-        print("removing old file "+path)
+        log("removing old file "+path)
         cat = subprocess.call(["hdfs", "dfs", "-rm", path ])
 
 
@@ -197,26 +191,119 @@ def hdfs_file_exists(filename):
         return False
 
 
+def hdfs_list_dir(path,recursive=False):
+    subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
+
+
+def hdfs_size_dir(path):
+    return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
+   
+
+
+def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
+  """  Donwload files in parallel using pyarrow
+  Doc::
+
+        path_glob: list of HDFS pattern, or sep by ";"
+        :return:
+  """
+  import glob, gc,os
+  from multiprocessing.pool import ThreadPool
+
+  def log(*s, **kw):
+      log(*s, flush=True, **kw)
+
+  #### File ############################################
+  import pyarrow as pa
+  hdfs  = pa.hdfs.connect()
+  flist = [t for t in hdfs.ls(dirin)]
+
+  def fun_async(x):
+      hdfs.download(x[0], x[1])
+
+
+  ######################################################
+  file_list = sorted(list(set(flist)))
+  n_file    = len(file_list)
+  if verbose: log(file_list)
+
+  #### Pool count
+  if   n_pool < 1  :  n_pool = 1
+  if   n_file <= 0 :  m_job  = 0
+  elif n_file <= 2 :
+    m_job  = n_file
+    n_pool = 1
+  else  :
+    m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
+  if verbose : log(n_file,  n_file // n_pool )
+
+  pool   = ThreadPool(processes=n_pool)
+
+  res_list=[]
+  for j in range(0, m_job ) :
+      if verbose : log("Pool", j, end=",")
+      job_list = []
+      for i in range(n_pool):
+         if n_pool*j + i >= n_file  : break
+         filei = file_list[n_pool*j + i]
+
+         xi    = (filei, dirout + "/" + filei.split("/")[-1])
+
+         job_list.append( pool.apply_async(fun_async, (xi, )))
+         if verbose : log(j, filei)
+
+      for i in range(n_pool):
+        if i >= len(job_list): break
+        res_list.append( job_list[ i].get() )
+
+
+  pool.close()
+  pool.join()
+  pool = None
+  if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
+  return res_list
+
+ 
+
 
 ############################################################################################################### 
 ############################################################################################################### 
+def pd_read_parquet_schema(uri: str) -> pd.DataFrame:
+    """Return a Pandas dataframe corresponding to the schema of a local URI of a parquet file.
+
+    The returned dataframe has the columns: column, pa_dtype
+    """
+    import pandas as pd, pyarrow.parquet
+    # Ref: https://stackoverflow.com/a/64288036/
+    schema = pyarrow.parquet.read_schema(uri, memory_map=True)
+    schema = pd.DataFrame(({"column": name, "pa_dtype": str(pa_dtype)} for name, pa_dtype in zip(schema.names, schema.types)))
+    schema = schema.reindex(columns=["column", "pa_dtype"], fill_value=pd.NA)  # Ensures columns in case the parquet file has an empty dataframe.
+    return schema
+
+
 def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True, n_pool=1,
                       drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None,  **kw)->pd.DataFrame:
   """  Read file in parallel from HDFS : very Fast
   Doc::
 
-            dirin = "hdfs:///mypat/myparquet/"
-            df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
-                    drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
+    Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
+
+    dirin = "hdfs:///mypat/myparquet/"
+    df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, concat_sort=True,
+            drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None)
 
   """
   import glob, gc,  pandas as pd, os
   import pyarrow as pa, gc,  pyarrow.parquet as pq
   def log(*s, **kw):
-      print(*s, flush=True, **kw)
+      log(*s, flush=True, **kw)
 
-  log( "pd_read_file_hdfs" )
-  hdfs = pa.hdfs.connect()
+  log( "connect to HDFS" )
+  try: hdfs = pa.hdfs.connect()
+  except Exception as e:
+     log(e, "\n,Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`" ) ; 1/0
+
+
   def pd_reader_obj(fi, cols=None, **kw):
       try :
         table = pq.read_table(fi, columns=cols)
@@ -255,7 +342,7 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
   pool   = ThreadPool(processes=n_pool)
   dfall  = pd.DataFrame()
   for j in range(0, m_job ) :
-      if verbose : print("Pool", j, end=",")
+      if verbose : log("Pool", j, end=",")
       job_list = []
       for i in range(n_pool):
          if n_pool*j + i >= n_file  : break
@@ -287,13 +374,14 @@ def pd_read_parquet_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=Fa
 
 
 
-
 def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1, concat_sort=False, n_pool=1,
                       drop_duplicates=None, col_filter=None,  col_filter_val=None, dtype=None, 
                       compression='gzip', encoding='utf-8', sep=',', header=None, on_bad_lines='skip', 
                      **kw)->pd.DataFrame:
       """  Read file in parallel from HDFS using pyarrow
       Docs:
+
+            Require: export CLASSPATH=`$HADOOP_HOME/bin/hdfs classpath --glob`
 
             dirin = "hdfs:///mypat/"
             df = pd_read_csv_hdfs(dirlist=dirin, nfile=5000, n_pool=8, dirlevel=1, ignore_index=True,  cols=None, verbose=False, nrows=-1, ,
@@ -303,7 +391,7 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
       import glob, gc,  pandas as pd, os, copy
       import pyarrow as pa, gc,  pyarrow.csv as pq
       def log(*s, **kw):
-          print(*s, flush=True, **kw)
+          log(*s, flush=True, **kw)
 
       log( "pd_read_file_hdfs" )
       hdfs = pa.hdfs.connect()
@@ -359,7 +447,7 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
       pool   = ThreadPool(processes=n_pool)
       dfall  = pd.DataFrame()
       for j in range(0, m_job ) :
-          if verbose : print("Pool", j, end=",")
+          if verbose : log("Pool", j, end=",")
           job_list = []
           for i in range(n_pool):
              if n_pool*j + i >= n_file  : break
@@ -391,46 +479,103 @@ def pd_read_csv_hdfs(dirlist=None, dirlevel=1, ignore_index=True,  cols=None, ve
 
 
 
+def pd_read_json_hdfs(dirlist=None, ignore_index=True,  cols=None, verbose=False, nfile=10000, nrows=-1, 
+                        concat_sort=False, n_pool=1,   drop_duplicates=None, col_filter=None,  col_filter_val=None,
+                        dtype=None, compression='gzip', encoding='utf-8',  on_bad_lines='skip', dirlevel=1,
+                        **kw):
+        """  Read file in parallel from HDFS : very Fast using pyarrwo
+        Docs::
 
-def pd_read_parquet_simple_hdfs(path=  'hdfs://user/test/myfile.parquet/', 
-                 cols=None, n_rows=1000, file_start=0, file_end=100000, verbose=1, ) :
-    """ Single Thread parquet file reading in HDFS
-    Doc::
-    
-       Required HDFS connection
-       conda install libhdfs3 pyarrow
-       os.environ['ARROW_LIBHDFS_DIR'] = '/opt/cloudera/parcels/CDH/lib64/'
-    """
-    import pandas as pd
-    import pyarrow as pa, gc
-    import pyarrow.parquet as pq
-    hdfs = pa.hdfs.connect()    
-    
-    n_rows = 999999999 if n_rows < 0  else n_rows
-    
-    flist = hdfs.ls( path )  
-    flist = [ fi for fi in flist if  'hive' not in fi.split("/")[-1]  ]
-    flist = flist[file_start:file_end]  #### Allow batch load by partition
-    if verbose : print(flist)
-    dfall = None
-    for pfile in flist:
-        if not "parquet" in pfile and not ".db" in pfile :
-            continue
-        if verbose > 0 :print( pfile )            
-                    
-        arr_table = pq.read_table(pfile, columns=cols)
-        df        = arr_table.to_pandas()
-        del arr_table; gc.collect()
-        
-        dfall = pd.concat((dfall, df)) if dfall is None else df
-        del df
-        if len(dfall) > n_rows :
-            break
+                :param dir_list: list of pattern, or sep by ";"
+                :return:
+        """
+        import glob, gc,  pandas as pd, os, copy
+        import pyarrow as pa, gc,  pyarrow.csv as pq
+        def log(*s, **kw):
+            log(*s, flush=True, **kw)
 
-    if dfall is None : return None        
-    if verbose > 0 : print( dfall.head(2), dfall.shape )          
-    dfall = dfall.iloc[:n_rows, :]            
-    return dfall
+        hdfs = pa.hdfs.connect()
+
+        def pd_reader_obj(fi, cols=None, **kw):
+            try :
+            with hdfs.open(fi) as fi2:
+                dfi = pd.read_json(fi2,lines=True,compression= compression)
+
+
+            if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+            if cols is not None :       dfi = dfi[cols]
+            if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+            if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+
+            return dfi
+            except Exception as e:
+            log( e)
+            return None
+
+        #### File  ################################
+        dirlist   = dirlist.split(";") if isinstance(dirlist, str)  else dirlist
+
+        flist = dirlist
+        for i in range(0, dirlevel):
+        flist2 = []
+        for fi in flist[:] :
+            log(fi)
+            flist2 = flist2 + hdfs.ls(fi)
+        flist = copy.deepcopy(flist2)
+        if len(flist) > nfile  : break
+
+        flist = [ fi for fi in flist if "." in fi.split("/")[-1] ]  ### only .csv.gz files
+        flist = sorted(list(set(flist)))
+        flist = flist[:nfile] if nfile>0 else flist
+        n_file    = len(flist)
+        log('Nfile', n_file)
+        if verbose: log(flist)
+        # return flist
+
+        #### Pool count  ##########################
+        from multiprocessing.pool import ThreadPool
+        if n_pool < 1 :  n_pool = 1
+        if n_file <= 0:  return pd.DataFrame()
+        elif n_file <= 2:
+        m_job  = n_file
+        n_pool = 1
+        else  :
+        m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
+        if verbose : log(n_file,  n_file // n_pool )
+
+        pool   = ThreadPool(processes=n_pool)
+        dfall  = pd.DataFrame()
+        for j in range(0, m_job ) :
+            if verbose : log("Pool", j, end=",")
+            job_list = []
+            for i in range(n_pool):
+                if n_pool*j + i >= n_file  : break
+                filei         = flist[n_pool*j + i]
+
+                ### TODO : use with kewyword arguments
+                job_list.append( pool.apply_async(pd_reader_obj, (filei, )))
+                if (j+100) % 100 == 0 : log(j, filei)
+
+            for i in range(n_pool):
+            if i >= len(job_list): break
+            dfi   = job_list[ i].get()
+
+            if dfi is None : continue
+
+            if col_filter is not None : dfi = dfi[ dfi[col_filter] == col_filter_val ]
+            if cols is not None :       dfi = dfi[cols]
+            if nrows > 0        :       dfi = dfi.iloc[:nrows,:]
+            if drop_duplicates is not None  : dfi = dfi.drop_duplicates(drop_duplicates)
+            gc.collect()
+
+            dfall = pd.concat( (dfall, dfi), ignore_index=ignore_index, sort= concat_sort)
+            #log("Len", n_pool*j + i, len(dfall))
+            del dfi; gc.collect()
+
+        pool.terminate() ; pool.join()  ; pool = None
+        if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
+        return dfall
+
 
 
 def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/', 
@@ -458,7 +603,8 @@ def pd_write_parquet_hdfs(df, hdfs_dir=  'hdfs:///user/pppp/clean_v01.parquet/',
                         partition_cols=partition_cols, filesystem=hdfs)
     
     flist = hdfs.ls( hdfs_dir )  
-    print(flist)
+    log(flist)
+
 
 
 hdfs_pd_write_parquet =  pd_write_parquet_hdfs   
@@ -468,81 +614,9 @@ hdfs_pd_read_csv      =  pd_read_csv_hdfs
 
 
 
-def hdfs_download(dirin="", dirout="./", verbose=False, n_pool=1, **kw):
-  """  Donwload files in parallel using pyarrow
-  Doc::
-
-        path_glob: list of HDFS pattern, or sep by ";"
-        :return:
-  """
-  import glob, gc,os
-  from multiprocessing.pool import ThreadPool
-
-  def log(*s, **kw):
-      print(*s, flush=True, **kw)
-
-  #### File ############################################
-  import pyarrow as pa
-  hdfs  = pa.hdfs.connect()
-  flist = [t for t in hdfs.ls(dirin)]
-
-  def fun_async(x):
-      hdfs.download(x[0], x[1])
-
-
-  ######################################################
-  file_list = sorted(list(set(flist)))
-  n_file    = len(file_list)
-  if verbose: log(file_list)
-
-  #### Pool count
-  if   n_pool < 1  :  n_pool = 1
-  if   n_file <= 0 :  m_job  = 0
-  elif n_file <= 2 :
-    m_job  = n_file
-    n_pool = 1
-  else  :
-    m_job  = 1 + n_file // n_pool  if n_file >= 3 else 1
-  if verbose : log(n_file,  n_file // n_pool )
-
-  pool   = ThreadPool(processes=n_pool)
-
-  res_list=[]
-  for j in range(0, m_job ) :
-      if verbose : log("Pool", j, end=",")
-      job_list = []
-      for i in range(n_pool):
-         if n_pool*j + i >= n_file  : break
-         filei = file_list[n_pool*j + i]
-
-         xi    = (filei, dirout + "/" + filei.split("/")[-1])
-
-         job_list.append( pool.apply_async(fun_async, (xi, )))
-         if verbose : log(j, filei)
-
-      for i in range(n_pool):
-        if i >= len(job_list): break
-        res_list.append( job_list[ i].get() )
-
-
-  pool.close()
-  pool.join()
-  pool = None
-  if m_job>0 and verbose : log(n_file, j * n_file//n_pool )
-  return res_list
-
- 
-
-
-
-
-
 
 ############################################################################################################### 
 ############################################################################################################### 
-CODE_SUCCESS = 0
-CODE_SEMANTIC_ERROR = 22
-
 hive_header_template =  '''
         set  hive.vectorized.execution.enabled = true;  set hive.vectorized.execution.reduce.enabled = true;
         set  hive.execution.engine=tez; set  hive.cli.print.header=true;    
@@ -593,18 +667,8 @@ hive_header_template =  '''
         -- JAR SERDE
 
         
-'''.replace("    ", "")   ### Otherwise Hive queries failed
+    '''.replace("    ", "")   ### Otherwise Hive queries failed
 
-
-def query_clean(q):
-    q2    = ""
-    qlist = q.split("\n")
-    for x in qlist:
-        if    x.startswith("    ") : q2 = q2 + x[4:].strip() + "\n"
-        elif  x.startswith("   ") :  q2 = q2 + x[3:].strip() + "\n"
-        elif  x.startswith("  ") :   q2 = q2 + x[2:].strip() + "\n"
-        else : q2 = q2 + x + "\n"
-    return q2
 
 
 def hive_run(query, logdir="ztmp/loghive/", tag='v01', 
@@ -666,14 +730,22 @@ def hive_run(query, logdir="ztmp/loghive/", tag='v01',
 
 
 
-
-def hive_exec(query="", nohup:int=1, dry=False, end0=None):
+def hive_exec(query="", nohup:int=1, dry=False, end0=None, with_exception=False):
         """  
 
         """
+
+        if with_exception:
+            return_code, stdout, stderr = os_subprocess(['hive'] + args + ['-e', query_clean_quote(query)])
+            if return_code == 0 :
+                log('query %s is updated with message %s', query, stdout)
+            else:
+                raise Exception('Error for hive query :{} code: {}, stdout: {}, stderr: {}'.format(query, return_code, stdout, stderr))
+            return True
+
         hiveql = "./zhiveql_tmp.sql"
-        print(query)    
-        print(hiveql, flush=True) 
+        log(query)    
+        log(hiveql, flush=True) 
 
         with open(hiveql, mode='w') as f:
             f.write(query)      
@@ -682,31 +754,29 @@ def hive_exec(query="", nohup:int=1, dry=False, end0=None):
             f.write("\n\n\n\n###################################################################")
             f.write(query + "\n########################" )      
 
-        # return 0
-
         if nohup > 0:
            os.system( f" nohup 2>&1   hive -f {hiveql}    & " )
         else :
            os.system( f" hive -f {hiveql}      " )        
-        print('finish')   
+        log('finish')   
 
 
 
+def query_clean(q):
+    q2    = ""
+    qlist = q.split("\n")
+    for x in qlist:
+        if    x.startswith("    ") : q2 = q2 + x[4:].strip() + "\n"
+        elif  x.startswith("   ") :  q2 = q2 + x[3:].strip() + "\n"
+        elif  x.startswith("  ") :   q2 = q2 + x[2:].strip() + "\n"
+        else : q2 = q2 + x + "\n"
+    return q2
 
-def _quote_hive_query(query):
+
+
+def query_clean_quote(query):
     return '"{}"'.format(query)
 
-
-def hive_query_with_exception(query, args=[]):
-    return_code, stdout, stderr = os_subprocess(['hive'] + args + ['-e', _quote_hive_query(query)])
-    if return_code == CODE_SUCCESS:
-        log('query %s is updated with message %s', query, stdout)
-    else:
-        raise Exception('Error for hive query :{} code: {}, stdout: {}, stderr: {}'.format(query, return_code, stdout, stderr))
-
-
-def hive_query2(query, args=[]):
-    return os_subprocess(['hive'] + args + ['-e', _quote_hive_query(query)])
 
 
 def hive_update_partitions_table( hr, dt, location, table_name):
@@ -716,7 +786,6 @@ def hive_update_partitions_table( hr, dt, location, table_name):
     hive_query_with_exception(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
     hive_query_with_exception(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
     log(f'Updating latest partition location in {table_name} table completed successfully')
-
 
 
 
@@ -757,7 +826,7 @@ def hive_csv_tohive(folder, tablename="ztmp", tableref="nono2.table2"):
     """ Local CSV to Hive table
 
     """
-    print("loading to hive ", tableref)
+    log("loading to hive ", tableref)
     try:
         hiveql   = "ztmp/hive_upload.sql"
         csvtable = tablename # + "_csv"
@@ -767,12 +836,12 @@ def hive_csv_tohive(folder, tablename="ztmp", tableref="nono2.table2"):
             f.write( "CREATE TABLE {0} ( ip STRING) ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' WITH SERDEPROPERTIES ('separatorChar' = '\t') STORED AS TEXTFILE TBLPROPERTIES('skip.header.line.count' = '1');\n".format(csvtable))
             f.write( "LOAD DATA LOCAL INPATH '{}*.csv' OVERWRITE INTO TABLE {};\n".format( foldr, csvtable))
 
-        print(hiveql)
+        log(hiveql)
         os.system("hive -f " + hiveql)
-        print('finish')
+        log('finish')
 
     except Exception as e:
-        print(e)
+        log(e)
 
 
 
@@ -794,11 +863,11 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
     with open( file1, 'w') as f1:
         f1.write(sql2)
 
-    if verbose > 0 : print(sql2)
+    if verbose > 0 : log(sql2)
 
     cmd    = ["hive", '-f',  file1]
     result = subprocess.check_output(cmd)
-    if verbose >= 1 : print( str(result)[:100] , len(result))
+    if verbose >= 1 : log( str(result)[:100] , len(result))
     n = len(result)
 
     try:
@@ -824,21 +893,29 @@ def hive_sql_todf(sql, header_hive_sql:str='', verbose=1, save_dir=None, **kwarg
            os.makedirs(os.path.dirname(fname), exist_ok=True)
            df.to_parquet( fname + '/table.parquet' )
            open(fname +'/sql.txt', mode='w').write(sql2)
-           print('saved',  fname)
+           log('saved',  fname)
 
-        print('hive table', df.columns, df.shape)
+        log('hive table', df.columns, df.shape)
         return df
 
     except Exception as e:
-        print(e)
+        log(e)
+
+ 
 
 
 
+###############################################################################################################
+########## Hive parquet #######################################################################################
+def convert_pyarrow(dirin, dirout):
+    flist = reversed(glob.glob(dirin, 1000) )
+    for fi in flist :
+        log(fi)
+        df = pd.read_parquet(fi)
+        pd_to_file(df, dirout + fi.split("/")[-1] )
 
-def hdfs_list_dir(path,recursive=False):
-    subprocess.call(["hdfs", "dfs", "-ls","-R", path]) if recursive else subprocess.call(["hdfs", "dfs", "-ls",path])
 
-
+<<<<<<< HEAD
 def hdfs_size_dir(path):
     # return subprocess.call(["hdfs", "dfs", "-du", "-h", path])
     cmd_ls = f"hadoop fs -ls {path}"
@@ -877,131 +954,104 @@ def hdfs_size_dir(path):
 
     return fdict
     
+=======
+def parquet_to_hive_parquet(dirin=None, table=None, dirout=None):   ##  
+    """  Need Pyarrow 3.0 to make it work.
+            hive 1.2
+>>>>>>> bdb33eea51af663656f0a10e26d5eca7f66cc598
 
-def hive_update_partitions_table( hr, dt, location, table_name):
-    log('Updating latest partition location in {table_name} table'.format(table_name=table_name))
-    drop_partition_query = "ALTER TABLE {table_name} DROP IF EXISTS PARTITION (dt='{dt}', hr={hr})".format \
-            (table_name=table_name, dt=dt, hr=hr)
-    add_partition_query = "ALTER TABLE {table_name} ADD PARTITION (dt='{dt}', hr={hr}) location '{loc}'".format \
-            (table_name=table_name, dt=dt,  hr=hr, loc=location)
-    hive_query(drop_partition_query,args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    hive_query(add_partition_query, args=['--hiveconf', 'hive.mapred.mode=unstrict'])
-    logging.info('Updating latest partition location in {table_name} table completed successfully'.format(table_name=table_name))
-
-    
-
-
-if 'insert_pandas_into_hive' :
-    def convert_pyarrow(dirin, dirout):
-        flist = reversed(glob.glob(dirin, 1000) )
-        for fi in flist :
-            log(fi)
-            df = pd.read_parquet(fi)
-            pd_to_file(df, dirout + fi.split("/")[-1] )
-
-
-    def to_hive1(dirin=None, table=None, dirout=None):   ##  
-        """  Need Pyarrow 3.0 to make it work.
-             hive 1.2
-
-             CREATE EXTERNAL TABLE n=st (
-              siid   ,
+            CREATE EXTERNAL TABLE n=st (
+            siid   ,
             )
             STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;
 
 
-          hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
-
-          hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  nono3.map_siid_ranid_v15test  ;"
-
-          hadoop dfs  -rmr    /r/0/
-
-          hadoop dfs  -put   /aur/0/   /useca_pur/
+            hadoop dfs -put  /a/adigd_ranid_v15_140m_fast.parquet   /usload/
 
 
-        """
+            hive -e "LOAD DATA LOCAL INPATH   '/us40m_fast.parquet'  OVERWRITE INTO TABLE  n  ;"
 
-        dirin2 = dirin if ".parquet" in dirin else dirin + "/*"
-        log(dirin2, table)
+    """
 
-
-        ########################################################################################################
-        scheme = ""
-        df, dirouti, fi = pd_to_hive_parquet(dirin2, dirout=dirout, nfile=1, verbose=True)
-        scheme      = hive_schema(df)
-        # log(df, dirouti)
-        # dirouti = dir_cpa2 + "/ext/emb_map_siid_ranid_v15_145m/map_siid_ranid_145m.parquet/"
-        log(dirouti)
-
-        log('\n ################# Creating hive table')
-        ss= f"""  CREATE EXTERNAL TABLE {table} ( 
-                  {scheme} 
-                  ) 
-                  STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;        
-        """
-        log(ss)
-        to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
-        os_system('hive -f "ztmp_hive_sql.sql" ')
+    dirin2 = dirin if ".parquet" in dirin else dirin + "/*"
+    log(dirin2, table)
 
 
-        log('\n ################# Metadata to Hive ')
-        ss = f""" SET mapred.input.dir.recursive=true; SET hive.mapred.supports.subdirectories=true ;            
-                  LOAD DATA LOCAL INPATH   '{dirouti}'  OVERWRITE INTO TABLE  {table}   ;  describe   {table}  ;              
-        """
-        to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
-        os_system(  'hive -f "ztmp_hive_sql.sql" ')
+    ########################################################################################################
+    scheme = ""
+    df, dirouti, fi = pd_to_hive_parquet(dirin2, dirout=dirout, nfile=1, verbose=True)
+    scheme      = hive_schema(df)
+    log(dirouti)
+
+    log('\n ################# Creating hive table')
+    ss= f"""  CREATE EXTERNAL TABLE {table} ( 
+                {scheme} 
+                ) 
+                STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY")   ;        
+    """
+    log(ss)
+    to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
+    os_system('hive -f "ztmp_hive_sql.sql" ')
 
 
-    def pd_to_hive_parquet(dirin, dirout="/ztmp_hive_parquet/", nfile=1, verbose=False):
-        """  Hive parquet needs special headers  NEED PYARROW 3.0  for Hive compatibility
-             Bug in fastparquet, cannot save float, int.,
-        """
-        import fastparquet as fp
-        if isinstance(dirin, pd.DataFrame):
-            fp.write(dirout, dirin, fixed_text=None, compression='SNAPPY', file_scheme='hive')
-            return dirin.iloc[:10, :]
-
-        flist = glob_glob(dirin, 1000)  ### only 1 file is for Meta-Data
-        fi    = flist[-1]
-        df    = pd.read_parquet( fi  )
-        df    = df.iloc[:100, :]   ### Prevent RAM overflow
-        if verbose: log(df, df.dtypes)
-
-        # df = pd_schema_enforce_hive(df, int_default=0, dtype_dict = None)
-
-        # df['p'] = 0
-
-        df= df.rename(columns={ 'timestamp': 'timestamp1' })
-
-        for c in df.columns :
-            if c in ['shop_id', 'item_id', 'campaign_id', 'timekey'] :
-                df[c] = df[c].astype('int64')
-            else :
-                df[c] = df[c].astype('str')
+    log('\n ################# Metadata to Hive ')
+    ss = f""" SET mapred.input.dir.recursive=true; SET hive.mapred.supports.subdirectories=true ;            
+                LOAD DATA LOCAL INPATH   '{dirouti}'  OVERWRITE INTO TABLE  {table}   ;  describe   {table}  ;              
+    """
+    to_file(ss, 'ztmp_hive_sql.sql', mode='w' )
+    os_system(  'hive -f "ztmp_hive_sql.sql" ')
 
 
-        os.system( f" rm -rf  {dirout}  ")
-        os_makedirs(dirout)
-        dirouti = dirout + "/" + fi.split("/")[-1]
-        log('Exporting on disk', dirouti)
-        fp.write(dirouti, df.iloc[:100,:], fixed_text=None, compression='SNAPPY', file_scheme='hive')
+def parquet_to_hive_parquet2(dirin, dirout="/ztmp_hive_parquet/", nfile=1, verbose=False):
+    """  Hive parquet needs special headers  NEED PYARROW 3.0  for Hive compatibility
+            Bug in fastparquet, cannot save float, int.,
+    """
+    import fastparquet as fp
+    if isinstance(dirin, pd.DataFrame):
+        fp.write(dirout, dirin, fixed_text=None, compression='SNAPPY', file_scheme='hive')
+        return dirin.iloc[:10, :]
+
+    flist = glob.glob(dirin)  ### only 1 file is for Meta-Data
+    fi    = flist[-1]
+    df    = pd.read_parquet( fi  )
+    df    = df.iloc[:100, :]   ### Prevent RAM overflow
+    if verbose: log(df, df.dtypes)
+
+    # df = pd_schema_enforce_hive(df, int_default=0, dtype_dict = None)
+
+    # df['p'] = 0
+
+    df= df.rename(columns={ 'timestamp': 'timestamp1' })
+
+    for c in df.columns :
+        if c in ['shop_id', 'item_id', 'campaign_id', 'timekey'] :
+            df[c] = df[c].astype('int64')
+        else :
+            df[c] = df[c].astype('str')
 
 
-        ### Bug in Fastparquet with float, need to delete and replace by original files
-        os.remove( f"{dirouti}/part.0.parquet"  )
-
-        ### Replace by pyarrow 3.0
-        df.to_parquet( f"{dirouti}/part.0.parquet"  )
-
-        #### Need to KEEP ONE Parquet File, otherwise it creates issues
-        dirout2 = dirouti +  '/' + fi.split("/")[-1]
-        cmd = f"cp  {fi}    '{dirout2}' "
-        # os_system( cmd   )
-
-        return df.iloc[:10, :], dirouti, fi.split("/")[-1]
+    os.system( f" rm -rf  {dirout}  ")
+    os_makedirs(dirout)
+    dirouti = dirout + "/" + fi.split("/")[-1]
+    log('Exporting on disk', dirouti)
+    fp.write(dirouti, df.iloc[:100,:], fixed_text=None, compression='SNAPPY', file_scheme='hive')
 
 
-    def hive_schema(df):
+    ### Bug in Fastparquet with float, need to delete and replace by original files
+    os.remove( f"{dirouti}/part.0.parquet"  )
+
+    ### Replace by pyarrow 3.0
+    df.to_parquet( f"{dirouti}/part.0.parquet"  )
+
+    #### Need to KEEP ONE Parquet File, otherwise it creates issues
+    dirout2 = dirouti +  '/' + fi.split("/")[-1]
+    cmd = f"cp  {fi}    '{dirout2}' "
+    # os_system( cmd   )
+
+    return df.iloc[:10, :], dirouti, fi.split("/")[-1]
+
+
+def hive_schema(df):
         if isinstance(df, str):
             df = pd_read_parquet_schema(df)
 
@@ -1016,56 +1066,45 @@ if 'insert_pandas_into_hive' :
         return tt[:-2]
 
 
-    def pd_read_parquet_schema(uri: str) -> pd.DataFrame:
-        """Return a Pandas dataframe corresponding to the schema of a local URI of a parquet file.
-
-        The returned dataframe has the columns: column, pa_dtype
-        """
-        import pandas as pd, pyarrow.parquet
-        # Ref: https://stackoverflow.com/a/64288036/
-        schema = pyarrow.parquet.read_schema(uri, memory_map=True)
-        schema = pd.DataFrame(({"column": name, "pa_dtype": str(pa_dtype)} for name, pa_dtype in zip(schema.names, schema.types)))
-        schema = schema.reindex(columns=["column", "pa_dtype"], fill_value=pd.NA)  # Ensures columns in case the parquet file has an empty dataframe.
-        return schema
-
-
-    def hdfs_download_from_hive():  ### python runcopy.py  from_hive
-
-        ss= f"""   hadoop dfs -get  "hdfs:/rehouse/no/{table}/"   {dirout} """
-        os_system(ss)
-
-        rename()  ### add .parquet
-
-
-    def os_rename_parquet(dir0=None):   ## py rename
-         import glob
-         flist  = []
-
-         if dir0 is not None :
-            flist = flist + glob.glob( dir0 + "/*"  )
-
-         flist += sorted( list(set(glob.glob( dir0 + "/input/*/*" ))) )
-         flist += sorted( list(set(glob.glob( dir0 + "/input/*/*/*" ))) )
-
-         log(len(flist))
-         for fi in flist :
-            fend = fi.split("/")[-1]
-            if ".sh" in fend or ".py"  in fend or "COPY" in fend :
-                continue
-
-            if  '.parquet' in fend    : continue
-            if not os.path.isfile(fi) : continue
-
-            if '.' not in fend:
-                try :
-                  log(fi)
-                  os.rename(fi, fi + ".parquet")
-                except Exception as e :
-                  log(e)
 
 
 
-############################################################################################################### 
+
+
+###############################################################################################################
+###############################################################################################################
+def os_rename_parquet(dir0=None):   ## py rename
+        import glob
+        flist  = []
+
+        if dir0 is not None :
+        flist = flist + glob.glob( dir0 + "/*"  )
+
+        flist += sorted( list(set(glob.glob( dir0 + "/**/*" ))) )
+        flist += sorted( list(set(glob.glob( dir0 + "/*/*/*" ))) )
+
+        log(len(flist))
+        for fi in flist :
+        fend = fi.split("/")[-1]
+        if ".sh" in fend or ".py"  in fend or "COPY" in fend :
+            continue
+
+        if  '.parquet' in fend    : continue
+        if not os.path.isfile(fi) : continue
+
+        if '.' not in fend:
+            try :
+                log(fi)
+                os.rename(fi, fi + ".parquet")
+            except Exception as e :
+                log(e)
+
+
+def to_file(txt, dirout, mode='a'):
+    with open(dirout, mode=mode) as fp:
+        fp.write(txt)
+
+
 def os_makedirs(path:str):
   """function os_makedirs in HDFS or local
   """
@@ -1074,20 +1113,21 @@ def os_makedirs(path:str):
   else :
     os.system(f"hdfs dfs mkdir -p '{path}'")
 
-def os_system(cmd, doprint=False):
-    """ os.system  and retrurn stdout, stderr values
-    """
-    import subprocess
-    try :
-        p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
-        mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
-        if doprint:
-            l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
-            print(l)
 
-        return mout, merr
-    except Exception as e :
-        print( f"Error {cmd}, {e}")
+def os_system(cmd, doprint=False):
+  """ os.system  and retrurn stdout, stderr values
+  """
+  import subprocess
+  try :
+    p          = subprocess.run( cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, )
+    mout, merr = p.stdout.decode('utf-8'), p.stderr.decode('utf-8')
+    if doprint:
+      l = mout  if len(merr) < 1 else mout + "\n\nbash_error:\n" + merr
+      log(l)
+
+    return mout, merr
+  except Exception as e :
+    log( f"Error {cmd}, {e}")
 
 
 def date_format(datestr:str="", fmt="%Y%m%d", add_days=0, add_hours=0, timezone='Asia/Tokyo', fmt_input="%Y-%m-%d", 
@@ -1130,126 +1170,9 @@ def os_subprocess(args_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
     return proc.returncode, stdout, stderr
 
 
-def hdfs_help():
- print("""
-    cat: Copies source paths to stdout.
-    Usage: hdfs dfs -cat URI [URI ?]
 
-    Example:
-        hdfs dfs -cat hdfs://<path>/file1
-        hdfs dfs -cat file:///file2 /user/hadoop/file3
-
-    chgrp: Changes the group association of files. With -R, makes the change recursively by way of the directory structure. The user must be the file owner or the superuser.
-    Usage: hdfs dfs -chgrp [-R] GROUP URI [URI ?]
-
-    chmod: Changes the permissions of files. With -R, makes the change recursively by way of the directory structure. The user must be the file owner or the superuser
-    Usage: hdfs dfs -chmod [-R] <MODE[,MODE]? | OCTALMODE> URI [URI ?]
-    Example: hdfs dfs -chmod 777 test/data1.txt
-
-    chown: Changes the owner of files. With -R, makes the change recursively by way of the directory structure. The user must be the superuser.
-    Usage: hdfs dfs -chown [-R] [OWNER][:[GROUP]] URI [URI ]
-    Example: hdfs dfs -chown -R hduser2 /opt/hadoop/logs
-
-    copyFromLocal: Works similarly to the put command, except that the source is restricted to a local file reference.
-    Usage: hdfs dfs -copyFromLocal <localsrc> URI
-    Example: hdfs dfs -copyFromLocal input/docs/data2.txt hdfs://localhost/user/rosemary/data2.txt
-
-    copyToLocal: Works similarly to the get command, except that the destination is restricted to a local file reference.
-    Usage: hdfs dfs -copyToLocal [-ignorecrc] [-crc] URI <localdst>
-    Example: hdfs dfs -copyToLocal data2.txt data2.copy.txt
-
-    count: Counts the number of directories, files, and bytes under the paths that match the specified file pattern.
-    Usage: hdfs dfs -count [-q] <paths>
-    Example: hdfs dfs -count hdfs://nn1.example.com/file1 hdfs://nn2.example.com/file2
-
-    cp: Copies one or more files from a specified source to a specified destination. If you specify multiple sources, the specified destination must be a directory.
-    Usage: hdfs dfs -cp URI [URI ?] <dest>
-    Example: hdfs dfs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir
-
-    du: Displays the size of the specified file, or the sizes of files and directories that are contained in the specified directory. If you specify the -s option, displays an aggregate summary of file sizes rather than individual file sizes. If you specify the -h option, formats the file sizes in a �ghuman-readable�h way.
-    Usage: hdfs dfs -du [-s] [-h] URI [URI ?]
-    Example: hdfs dfs -du /user/hadoop/dir1 /user/hadoop/file1
-
-    dus: Displays a summary of file sizes; equivalent to hdfs dfs -du ?s.
-    Usage: hdfs dfs -dus <args>
-
-    expunge: Empties the trash. When you delete a file, it isn�ft removed immediately from HDFS, but is renamed to a file in the /trash directory. As long as the file remains there, you can undelete it if you change your mind, though only the latest copy of the deleted file can be restored.
-    Usage: hdfs dfs ?expunge
-
-    get: Copies files to the local file system. Files that fail a cyclic redundancy check (CRC) can still be copied if you specify the ?ignorecrc option. The CRC is a common technique for detecting data transmission errors. CRC checksum files have the .crc extension and are used to verify the data integrity of another file. These files are copied if you specify the -crc option.
-    Usage: hdfs dfs -get [-ignorecrc] [-crc] <src> <localdst>
-    Example: hdfs dfs -get /user/hadoop/file3 localfile
-
-    getmerge: Concatenates the files in src and writes the result to the specified local destination file. To add a newline character at the end of each file, specify the addnl option.
-    Usage: hdfs dfs -getmerge <src> <localdst> [addnl]
-    Example: hdfs dfs -getmerge /user/hadoop/mydir/ ~/result_file addnl
-
-    ls: Returns statistics for the specified files or directories.
-    Usage: hdfs dfs -ls <args>
-    Example: hdfs dfs -ls /user/hadoop/file1
-
-    lsr: Serves as the recursive version of ls; similar to the Unix command ls -R.
-    Usage: hdfs dfs -lsr <args>
-    Example: hdfs dfs -lsr /user/hadoop
-
-    mkdir: Creates directories on one or more specified paths. Its behavior is similar to the Unix mkdir -p command, which creates all directories that lead up to the specified directory if they don�ft exist already.
-    Usage: hdfs dfs -mkdir <paths>
-    Example: hdfs dfs -mkdir /user/hadoop/dir5/temp
-
-    moveFromLocal: Works similarly to the put command, except that the source is deleted after it is copied.
-    Usage: hdfs dfs -moveFromLocal <localsrc> <dest>
-    Example: hdfs dfs -moveFromLocal localfile1 localfile2 /user/hadoop/hadoopdir
-
-    mv: Moves one or more files from a specified source to a specified destination. If you specify multiple sources, the specified destination must be a directory. Moving files across file systems isn�ft permitted.
-    Usage: hdfs dfs -mv URI [URI ?] <dest>
-    Example: hdfs dfs -mv /user/hadoop/file1 /user/hadoop/file2
-
-    put: Copies files from the local file system to the destination file system. This command can also read input from stdin and write to the destination file system.
-    Usage: hdfs dfs -put <localsrc> ? <dest>
-    Example: hdfs dfs -put localfile1 localfile2 /user/hadoop/hadoopdir; hdfs dfs -put ? /user/hadoop/hadoopdir (reads input from stdin)
-
-
-    rm: Deletes one or more specified files. This command doesn�ft delete empty directories or files. To bypass the trash (if it�fs enabled) and delete the specified files immediately, specify the -skipTrash option.
-    Usage: hdfs dfs -rm [-skipTrash] URI [URI ?]
-    Example: hdfs dfs -rm hdfs://nn.example.com/file9
-    
-    rmr: Serves as the recursive version of ?rm.
-    Usage: hdfs dfs -rmr [-skipTrash] URI [URI ?]
-    Example: hdfs dfs -rmr /user/hadoop/dir
-
-    setrep: Changes the replication factor for a specified file or directory. With ?R, makes the change recursively by way of the directory structure.
-    Usage: hdfs dfs -setrep <rep> [-R] <path>
-
-    Example: hdfs dfs -setrep 3 -R /user/hadoop/dir1
-    stat: Displays information about the specified path.
-
-    Usage: hdfs dfs -stat URI [URI ?]
-    Example: hdfs dfs -stat /user/hadoop/dir1
-    tail: Displays the last kilobyte of a specified file to stdout. The syntax supports the Unix -f option, which enables the specified file to be monitored. As new lines are added to the file by another process, tail updates the display.
-
-    Usage: hdfs dfs -tail [-f] URI
-    Example: hdfs dfs -tail /user/hadoop/dir1
-
-    test: Returns attributes of the specified file or directory. Specifies ?e to determine whether the file or directory exists; -z to determine whether the file or directory is empty; and -d to determine whether the URI is a directory.
-    Usage: hdfs dfs -test -[ezd] URI
-    Example: hdfs dfs -test /user/hadoop/dir1
-
-    text: Outputs a specified source file in text format. Valid input file formats are zip and TextRecordInputStream.
-    Usage: hdfs dfs -text <src>
-    Example: hdfs dfs -text /user/hadoop/file8.zip  
-
-    touchz: Creates a new, empty file of size 0 in the specified path.
-    Usage: hdfs dfs -touchz <path>
-    Example: hdfs dfs -touchz /user/hadoop/file12   """)
-     
-
-
-
-
-
-
-
-
+###############################################################################################################
+###############################################################################################################
 def hivemall_getsqlheader(dir_hivemall_jar="/mypath/hivemall/hivemall-all-0.6.0.jar", dir_hivemall_conf="/mypath/define-all.hive "):
     hivemall_header_sql =  f"""
     -- Hive Mall extensions for SQL Hive
@@ -1264,8 +1187,7 @@ def hivemall_getsqlheader(dir_hivemall_jar="/mypath/hivemall/hivemall-all-0.6.0.
     return  hivemall_header_sql
 
 
-###############################################################################################################
-###############################################################################################################
+
 def hivemall_getdefinition(dirout="./define-all.hive"):
     ss ="""
     -----------------------------------------------------------------------------
@@ -2195,6 +2117,122 @@ def hivemall_getdefinition(dirout="./define-all.hive"):
     return ss
 
 
+
+
+###############################################################################################################
+###############################################################################################################
+def hdfs_help():
+ log("""
+    cat: Copies source paths to stdout.
+    Usage: hdfs dfs -cat URI [URI ?]
+
+    Example:
+        hdfs dfs -cat hdfs://<path>/file1
+        hdfs dfs -cat file:///file2 /user/hadoop/file3
+
+    chgrp: Changes the group association of files. With -R, makes the change recursively by way of the directory structure. The user must be the file owner or the superuser.
+    Usage: hdfs dfs -chgrp [-R] GROUP URI [URI ?]
+
+    chmod: Changes the permissions of files. With -R, makes the change recursively by way of the directory structure. The user must be the file owner or the superuser
+    Usage: hdfs dfs -chmod [-R] <MODE[,MODE]? | OCTALMODE> URI [URI ?]
+    Example: hdfs dfs -chmod 777 test/data1.txt
+
+    chown: Changes the owner of files. With -R, makes the change recursively by way of the directory structure. The user must be the superuser.
+    Usage: hdfs dfs -chown [-R] [OWNER][:[GROUP]] URI [URI ]
+    Example: hdfs dfs -chown -R hduser2 /opt/hadoop/logs
+
+    copyFromLocal: Works similarly to the put command, except that the source is restricted to a local file reference.
+    Usage: hdfs dfs -copyFromLocal <localsrc> URI
+    Example: hdfs dfs -copyFromLocal input/docs/data2.txt hdfs://localhost/user/rosemary/data2.txt
+
+    copyToLocal: Works similarly to the get command, except that the destination is restricted to a local file reference.
+    Usage: hdfs dfs -copyToLocal [-ignorecrc] [-crc] URI <localdst>
+    Example: hdfs dfs -copyToLocal data2.txt data2.copy.txt
+
+    count: Counts the number of directories, files, and bytes under the paths that match the specified file pattern.
+    Usage: hdfs dfs -count [-q] <paths>
+    Example: hdfs dfs -count hdfs://nn1.example.com/file1 hdfs://nn2.example.com/file2
+
+    cp: Copies one or more files from a specified source to a specified destination. If you specify multiple sources, the specified destination must be a directory.
+    Usage: hdfs dfs -cp URI [URI ?] <dest>
+    Example: hdfs dfs -cp /user/hadoop/file1 /user/hadoop/file2 /user/hadoop/dir
+
+    du: Displays the size of the specified file, or the sizes of files and directories that are contained in the specified directory. If you specify the -s option, displays an aggregate summary of file sizes rather than individual file sizes. If you specify the -h option, formats the file sizes in a �ghuman-readable�h way.
+    Usage: hdfs dfs -du [-s] [-h] URI [URI ?]
+    Example: hdfs dfs -du /user/hadoop/dir1 /user/hadoop/file1
+
+    dus: Displays a summary of file sizes; equivalent to hdfs dfs -du ?s.
+    Usage: hdfs dfs -dus <args>
+
+    expunge: Empties the trash. When you delete a file, it isn�ft removed immediately from HDFS, but is renamed to a file in the /trash directory. As long as the file remains there, you can undelete it if you change your mind, though only the latest copy of the deleted file can be restored.
+    Usage: hdfs dfs ?expunge
+
+    get: Copies files to the local file system. Files that fail a cyclic redundancy check (CRC) can still be copied if you specify the ?ignorecrc option. The CRC is a common technique for detecting data transmission errors. CRC checksum files have the .crc extension and are used to verify the data integrity of another file. These files are copied if you specify the -crc option.
+    Usage: hdfs dfs -get [-ignorecrc] [-crc] <src> <localdst>
+    Example: hdfs dfs -get /user/hadoop/file3 localfile
+
+    getmerge: Concatenates the files in src and writes the result to the specified local destination file. To add a newline character at the end of each file, specify the addnl option.
+    Usage: hdfs dfs -getmerge <src> <localdst> [addnl]
+    Example: hdfs dfs -getmerge /user/hadoop/mydir/ ~/result_file addnl
+
+    ls: Returns statistics for the specified files or directories.
+    Usage: hdfs dfs -ls <args>
+    Example: hdfs dfs -ls /user/hadoop/file1
+
+    lsr: Serves as the recursive version of ls; similar to the Unix command ls -R.
+    Usage: hdfs dfs -lsr <args>
+    Example: hdfs dfs -lsr /user/hadoop
+
+    mkdir: Creates directories on one or more specified paths. Its behavior is similar to the Unix mkdir -p command, which creates all directories that lead up to the specified directory if they don�ft exist already.
+    Usage: hdfs dfs -mkdir <paths>
+    Example: hdfs dfs -mkdir /user/hadoop/dir5/temp
+
+    moveFromLocal: Works similarly to the put command, except that the source is deleted after it is copied.
+    Usage: hdfs dfs -moveFromLocal <localsrc> <dest>
+    Example: hdfs dfs -moveFromLocal localfile1 localfile2 /user/hadoop/hadoopdir
+
+    mv: Moves one or more files from a specified source to a specified destination. If you specify multiple sources, the specified destination must be a directory. Moving files across file systems isn�ft permitted.
+    Usage: hdfs dfs -mv URI [URI ?] <dest>
+    Example: hdfs dfs -mv /user/hadoop/file1 /user/hadoop/file2
+
+    put: Copies files from the local file system to the destination file system. This command can also read input from stdin and write to the destination file system.
+    Usage: hdfs dfs -put <localsrc> ? <dest>
+    Example: hdfs dfs -put localfile1 localfile2 /user/hadoop/hadoopdir; hdfs dfs -put ? /user/hadoop/hadoopdir (reads input from stdin)
+
+
+    rm: Deletes one or more specified files. This command doesn�ft delete empty directories or files. To bypass the trash (if it�fs enabled) and delete the specified files immediately, specify the -skipTrash option.
+    Usage: hdfs dfs -rm [-skipTrash] URI [URI ?]
+    Example: hdfs dfs -rm hdfs://nn.example.com/file9
+    
+    rmr: Serves as the recursive version of ?rm.
+    Usage: hdfs dfs -rmr [-skipTrash] URI [URI ?]
+    Example: hdfs dfs -rmr /user/hadoop/dir
+
+    setrep: Changes the replication factor for a specified file or directory. With ?R, makes the change recursively by way of the directory structure.
+    Usage: hdfs dfs -setrep <rep> [-R] <path>
+
+    Example: hdfs dfs -setrep 3 -R /user/hadoop/dir1
+    stat: Displays information about the specified path.
+
+    Usage: hdfs dfs -stat URI [URI ?]
+    Example: hdfs dfs -stat /user/hadoop/dir1
+    tail: Displays the last kilobyte of a specified file to stdout. The syntax supports the Unix -f option, which enables the specified file to be monitored. As new lines are added to the file by another process, tail updates the display.
+
+    Usage: hdfs dfs -tail [-f] URI
+    Example: hdfs dfs -tail /user/hadoop/dir1
+
+    test: Returns attributes of the specified file or directory. Specifies ?e to determine whether the file or directory exists; -z to determine whether the file or directory is empty; and -d to determine whether the URI is a directory.
+    Usage: hdfs dfs -test -[ezd] URI
+    Example: hdfs dfs -test /user/hadoop/dir1
+
+    text: Outputs a specified source file in text format. Valid input file formats are zip and TextRecordInputStream.
+    Usage: hdfs dfs -text <src>
+    Example: hdfs dfs -text /user/hadoop/file8.zip  
+
+    touchz: Creates a new, empty file of size 0 in the specified path.
+    Usage: hdfs dfs -touchz <path>
+    Example: hdfs dfs -touchz /user/hadoop/file12   """)
+     
 
 
 
