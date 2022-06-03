@@ -210,7 +210,7 @@ def hdfs_size_dir(path):
             if v: tmp.append(v.strip())
             if len(tmp) < 8: continue
             k = tmp[-1].split("/")[-1]
-            last_modified = " ".join(tmp[5:-1])
+            last_modified = " ".join(tmp[5:7])
             format1=k.split(".")[-1] if "." in k else ""
             fdict[k] = {"last_modified":last_modified,"format":format1}
 
