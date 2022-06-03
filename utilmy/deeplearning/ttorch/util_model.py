@@ -320,6 +320,36 @@ def model_delete_layers(model, del_ids = []):
     
     return model
 
+class myMultiClassMultiHead(nn.Module):
+    def __init__(self, in_features=None, out_feature=None, inter_feat=None, dropout=0,class_label_dict=None):
+        super().__init__()
+
+        self.dropout = nn.Dropout(dropout)
+        self.relu = nn.ReLU()
+
+        # Layer 1
+        self.linear1        = nn.Linear(in_features=in_features, out_features=out_feature, bias=False)        
+        # Layer 2
+        self.linear2        = nn.Linear(in_features=out_feature, out_features=inter_feat, bias=False)
+        ########################################################################
+        self.head_task_dict = {}
+        for cls, lable in class_label_dict.items():
+            self.head_task_dict[cls] = nn.Linear(inter_feat, lable)
+
+
+    def forward(self, x):
+        x = self.relu(self.linear1(self.dropout(x)))
+        x = self.relu(self.linear2(self.dropout(x)))
+        out  = {}
+        for cls in class_label_dict.keys():
+            out[cls] = self.head_task_dict[cls](x)
+        return out
+    
+    def get_loss(self,y, ytrue):
+        c_entrpy = nn.CrossEntropyLoss()
+        loss = c_entrpy(y, ytrue)
+        return loss
+
 
 class MultilableHead(nn.Module):
     def __init__(self, config, class_label):
