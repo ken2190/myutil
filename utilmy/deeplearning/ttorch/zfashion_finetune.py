@@ -15,6 +15,105 @@ from torch.nn import functional as F
 #######################################################################################################
 #                                       NFNets Model                                                  #
 #######################################################################################################
+
+class myMultiClassMultiHead(nn.Module):
+    def __init__(self, config, class_label_dict):
+        super().__init__()
+        self.config       = config
+        self.in_features  = config['in_features']
+        self.inter_feat   = config['inter_feat']
+        self.class_label_dict  = class_label_dict
+        self.dropout_prob = config['dropout']
+        self.model_name   = config['model_name']
+
+        if self.model_name == 'efficientnet':
+            self.model = EfficientNet.from_pretrained('efficientnet-b3')
+            # self.out_feature_size = self.effnet._conv_head.out_channels
+        elif self.model_name == 'nfnets':
+            self.model = pretrained_nfnet(config['model_path'])
+            self.model = torch.nn.Sequential(*(list(self.model.children())[:-1] + [nn.AdaptiveMaxPool2d(1)]))
+        
+        self.dropout = nn.Dropout(self.dropout_prob)
+        self.relu = nn.ReLU()
+
+        # Layer 1
+        self.linear1        = nn.Linear(in_features=self.in_features, out_features=256, bias=False)        
+        # Layer 2
+        self.linear2        = nn.Linear(in_features=256, out_features=self.inter_feat, bias=False)
+
+        ########################################################################
+        self.head_task_dict = {}
+        for cls, lable in class_label_dict.items():
+            self.head_task_dict[cls] = nn.Linear(self.inter_feat, lable)
+        self.step_scheduler_after = "epoch"
+
+    def monitor_metrics(self, outputs, targets):
+        if targets is None:
+            return {}
+        accuracy = []
+        for k,v in outputs.items():
+            out  = outputs[k]
+            targ = targets[k]
+            # print(out)
+            out  = torch.argmax(out, dim=1).cpu().detach().numpy()
+            targ  = torch.argmax(targ, dim=1).cpu().detach().numpy()
+            #targ = targ.cpu().detach().numpy()
+            accuracy.append(metrics.accuracy_score(targ, out))
+        return {'accuracy': sum(accuracy)/len(accuracy)}
+
+    def forward(self, image,target_label_dict):
+        batch_size = image.shape[0]
+
+        if self.model_name == 'nfnets':
+            x = self.model(image).view(batch_size, -1)
+        elif self.model_name == 'efficientnet':
+            x = self.model.extract_features(image)
+            x = F.adaptive_avg_pool2d(x, 1).reshape(batch_size, -1)
+            
+        else:
+            x = image
+
+        x = self.relu(self.linear1(self.dropout(x)))
+        x = self.relu(self.linear2(self.dropout(x)))
+
+        targets = {}
+        if 'gender' in target_label_dict:
+            for cls,target in target_label_dict.items():
+                targets[cls] = target
+        else:
+            targets = None
+        out                   = {}
+        for cls in target_label_dict.keys():
+            out[cls] = self.head_task_dict[cls](x)
+
+        if targets is not None:
+            loss = []
+            for k,v in out.items():
+                loss.append(nn.CrossEntropyLoss()(out[k], targets[k]))
+            loss = sum(loss)
+            metrics = self.monitor_metrics(out, targets)
+            return out, loss, metrics
+        return out, None, None
+    
+    def extract_features(self, image):
+        batch_size = image.shape[0]
+
+        if self.model_name == 'nfnets':
+            x = self.model(image).view(batch_size, -1)
+        elif self.model_name == 'efficientnet':
+            x = self.model.extract_features(image)
+            x = F.adaptive_avg_pool2d(x, 1).reshape(batch_size, -1)
+            
+        else:
+            x = image
+
+        x = self.relu(self.linear1(self.dropout(x)))
+        x = self.relu(self.linear2(self.dropout(x)))
+
+        return x
+
+
+
 class FashionModel(nn.Module):
     def __init__(self, config, num_classes):
         super().__init__()
@@ -39,8 +138,7 @@ class FashionModel(nn.Module):
         self.relu = nn.ReLU()
 
         # Layer 1
-        self.linear1        = nn.Linear(in_features=self.in_features, out_features=256, bias=False)
-        
+        self.linear1        = nn.Linear(in_features=self.in_features, out_features=256, bias=False)        
         # Layer 2
         self.linear2        = nn.Linear(in_features=256, out_features=self.inter_feat, bias=False)
 
@@ -128,16 +226,6 @@ class FashionModel(nn.Module):
         x = self.relu(self.linear2(self.dropout(x)))
 
         return x
-
-
-
-
-
-
-
-
-
-
 
 
 
