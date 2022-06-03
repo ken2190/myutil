@@ -128,9 +128,11 @@ mapie  ### Uncertainty est.
 ########################################################
 #### utilmy.deeplearning
 #protobuf==3.16.0
-protobuf==3.17.3
+protobuf==3.19.4
+#protobuf>=3.9.2,<3.20
 faiss-cpu
-tensorflow-cpu==2.2.3
+#tensorflow-cpu==2.6.3
+tensorflow-cpu==2.7.3
 -f https://download.pytorch.org/whl/torch_stable.html 
 torch==1.10.0+cpu 
 # torch==1.7.1
