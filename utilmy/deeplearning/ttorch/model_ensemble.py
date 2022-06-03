@@ -912,8 +912,8 @@ class BaseModel(object):
                 kk = kk + 1 
                 # torch.testing.assert_close(param1.data, param2.data)
                 if(param2.requires_grad==True):
-                   raise Exception("Gradients are updated in models_nets {}".format(i) )
-
+                   #raise Exception("Gradients are updated in models_nets {}".format(i) )
+                   print(  "Gradients are updated in models_nets {}".format(i)  )
 
     def validate_dim(self,train_loader,val_loader):
         train = iter(train_loader)
