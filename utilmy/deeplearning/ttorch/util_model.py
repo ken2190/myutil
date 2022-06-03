@@ -321,6 +321,34 @@ def model_delete_layers(model, del_ids = []):
     return model
 
 
+class MultilableHead(nn.Module):
+    def __init__(self, config, class_label):
+        super().__init__()
+        self.config       = config
+        self.in_features  = config['in_features']
+        self.inter_feat   = config['inter_feat']
+        self.class_label  = class_label
+        self.dropout_prob = config['dropout']
+        self.dropout = nn.Dropout(self.dropout_prob)
+        self.relu = nn.ReLU()
+
+        # Layer 1
+        self.linear1        = nn.Linear(in_features=self.in_features, out_features=256, bias=False)        
+        # Layer 2
+        self.linear2        = nn.Linear(in_features=256, out_features=self.inter_feat, bias=False)
+        ########################################################################
+        self.linear3        = nn.Linear(self.inter_feat, class_label)
+        self.head_task      = nn.Linear(class_label, 1)
+        
+
+    def forward(self, x):
+        x = self.relu(self.linear1(self.dropout(x)))
+        x = self.relu(self.linear2(self.dropout(x)))
+        x = self.relu(self.linear3(self.dropout(x)))
+        out = self.head_task(x)
+        return out
+
+
 def model_add_layers(model, modules = []):
     '''Add layers/modules to torch.nn.modules.container.Sequential
     
