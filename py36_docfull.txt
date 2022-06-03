@@ -138,7 +138,7 @@ torch==1.10.0+cpu
 torchvision>=0.11.0+cpu
 sentence-transformers==2.1.0
 protobuf<=3.20.1
-transformers
+transformers<5.0.0
 
 ### visualize emb
 mpld3
