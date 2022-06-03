@@ -194,6 +194,16 @@ def test2():
     df2 = spark_df_sampleover(df=df, coltarget="city", major_label="LA", minor_label='LI', target_ratio=0.1 )
     log(df2.show())
 
+    spark_df_write(df=df, dirout= "ztest/",  npartitions=None, mode= "overwrite", format= "parquet",
+                   show=0, check=0)
+
+    df2  = spark_df_sample(df=df, fraction = 0.1, col_stratify = None, with_replace = True)
+    log(df2.show())
+
+    df2 = spark_df_stats_all(df=df,cols=df.columns, sample_fraction=-1,
+                       metric_list=['null', 'n5', 'n95' ], doprint=True)
+    log(df2)
+
 
 
 
