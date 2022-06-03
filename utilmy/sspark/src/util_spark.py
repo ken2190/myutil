@@ -708,43 +708,6 @@ def spark_df_sampleunder(df:sp_dataframe, coltarget:str='animal',
     return combined_df
 
 
-def spark_df_timeseries_split(df_m:sp_dataframe, splitRatio:float, sparksession:object)->sp_dataframe:
-    """.
-    Doc::
-
-            # Splitting data into train and test
-            # we maintain the time-order while splitting
-            # if split target_ratio = 0.7 then first 70% of data is train data
-            Args:
-                df_m:
-                splitRatio:
-                sparksession:
-
-            Returns: df_train, df_test
-
-    """
-    from pyspark.sql import types as T
-    newSchema  = T.StructType(df_m.schema.fields + \
-                [T.StructField("Row Number", T.LongType(), False)])
-    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
-    df_m2          = SparkSession.createDataFrame(new_rdd, newSchema)
-    total_rows     = df_m2.count()
-    splitFraction  =int(total_rows*splitRatio)
-    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
-                          .where(df_m2["Row Number"] <= splitFraction)
-    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
-    return df_train, df_test
-
-
-def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1)->sp_dataframe:
-    """ get most recent (ie date desc, rank=1) record for each userid
-    """
-    partition_by = colid
-    dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(col_orderby))))\
-    .where(F.col('rnk__')==rank)\
-    .drop('rnk__')
-    return dedupe_df
-
 
 def spark_df_stats_null(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1, doprint=True)->pd.DataFrame:
     """ get the percentage of value absent and most frequent and least frequent value  in the column
@@ -793,8 +756,6 @@ def spark_df_stats_freq(df:sp_dataframe, cols_cat:Union[list,str], sample_fracti
     return dfres
 
 
-
-
 def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
                        metric_list=['null', 'n5', 'n95' ], doprint=True)->pd.DataFrame:
     """ TODO: get stats 5%, 95% for each column
@@ -822,6 +783,43 @@ def spark_df_stats_all(df:sp_dataframe,cols:Union[list,str], sample_fraction=-1,
     return dfres
 
 
+
+def spark_df_split_timeseries(df_m:sp_dataframe, splitRatio:float, sparksession:object)->sp_dataframe:
+    """.
+    Doc::
+
+            # Splitting data into train and test
+            # we maintain the time-order while splitting
+            # if split target_ratio = 0.7 then first 70% of data is train data
+            Args:
+                df_m:
+                splitRatio:
+                sparksession:
+
+            Returns: df_train, df_test
+
+    """
+    from pyspark.sql import types as T
+    newSchema  = T.StructType(df_m.schema.fields + \
+                [T.StructField("Row Number", T.LongType(), False)])
+    new_rdd        = df_m.rdd.zipWithIndex().map(lambda x: list(x[0]) + [x[1]])
+    df_m2          = SparkSession.createDataFrame(new_rdd, newSchema)
+    total_rows     = df_m2.count()
+    splitFraction  =int(total_rows*splitRatio)
+    df_train       = df_m2.where(df_m2["Row Number"] >= 0)\
+                          .where(df_m2["Row Number"] <= splitFraction)
+    df_test        = df_m2.where(df_m2["Row Number"] > splitFraction)
+    return df_train, df_test
+
+
+def spark_df_filter_mostrecent(df:sp_dataframe, colid='userid', col_orderby='date', decreasing=1, rank=1)->sp_dataframe:
+    """ get most recent (ie date desc, rank=1) record for each userid
+    """
+    partition_by = colid
+    dedupe_df = df.withColumn('rnk__',F.row_number().over(Window.partitionBy(partition_by).orderBy(F.desc(col_orderby))))\
+    .where(F.col('rnk__')==rank)\
+    .drop('rnk__')
+    return dedupe_df
 
 
 
