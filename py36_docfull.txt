@@ -128,6 +128,7 @@ mapie  ### Uncertainty est.
 ########################################################
 #### utilmy.deeplearning
 #protobuf==3.16.0
+protobuf==3.17.0
 faiss-cpu
 tensorflow-cpu==2.2.3
 -f https://download.pytorch.org/whl/torch_stable.html 
@@ -137,7 +138,7 @@ torch==1.10.0+cpu
 #torchvision==0.8.2+cpu torchaudio==0.7.2 
 torchvision>=0.11.0+cpu
 sentence-transformers==2.1.0
-protobuf<=3.20.1
+#protobuf<=3.20.1
 transformers<5.0.0
 
 ### visualize emb
